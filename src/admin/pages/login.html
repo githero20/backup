@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--  dashboard css   -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+
+<!-- login section-->
+<section class="login-background login-section">
+    <h3 class="welcome-text d-none d-md-block">Welcome <br/>Back</h3>
+    <div class="row  pt-md-2">
+        <div class=" col-md-5 offset-md-6">
+        <!--  header component          -->
+            <header class="px-3 py-3 px-md-5 py-md-5 header-shadow mt-2 mb-5 bg-white">
+                <img src="../app-assets/images/svg/backupCashlogo.svg" width="200px" />
+            </header>
+
+            <form class="login-form px-2">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="form-header-purple mb-5">Please Log In</h5>
+                    </div>
+                    <div class="col-12">
+                        <div class="input-field">
+                            <input  id="email" type="text" class="validate">
+                            <label for="email" class="active">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="input-field ">
+                            <input  id="password" type="text" class="validate">
+                            <label for="password" class="active">Password</label>
+                            <a href="#">Forgot Password ?</a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="text-center text-md-right pr-sm-0   mb-2 pr-md-5">
+                            <label class="font-size-1-1 mb-3">New User ? <a class="blue-link " href="signup.html">Sign Up</a> </label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                            <label class="mb-4 mb-md-0">
+                                <input type="checkbox" class="filled-in login-check-box" checked="checked" />
+                                <span>Always Stay signed In</span>
+                            </label>
+                            <a href="index.html" class="btn btn-round blue-round-btn "   name="action">Sign in
+                               <img class="img-2x ml-2" src="../app-assets/images/svg/btn-arrow-right-icon.svg"/>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

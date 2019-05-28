@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
-import HorizonalNav from "../../Components/Dashboard/HorizontalNav/HorizonalNav";
+import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import transTotalSavingsIcon from '../../admin/app-assets/images/svg/transparent-total-saving-icon.svg';
-import totalBalanceIcon from '../../admin/app-assets/images/svg/total-balance-icon.svg';
-import settingsIcon from '../../admin/app-assets/images/svg/settings-icon-instant-save.svg';
-import uploadIcon from '../../admin/app-assets/images/svg/red-upload-icon.svg';
-import listIcon from '../../admin/app-assets/images/svg/list-icon.svg';
-import gridIcon from '../../admin/app-assets/images/svg/grid-icon.svg';
-import tableArrowLeft from '../../admin/app-assets/images/svg/table-arrow-left.svg';
-import sortIcon from '../../admin/app-assets/images/svg/sort-icon.svg';
-import greenDots from '../../admin/app-assets/images/svg/green-dot.svg';
-import redDots from '../../admin/app-assets/images/svg/red-table-dot.svg';
+import transTotalSavingsIcon from "../../admin/app-assets/images/svg/transparent-total-saving-icon.svg";
+import totalBalanceIcon from "../../admin/app-assets/images/svg/total-balance-icon.svg";
+import settingsIcon from "../../admin/app-assets/images/svg/settings-icon-instant-save.svg";
+import uploadIcon from "../../admin/app-assets/images/svg/red-upload-icon.svg";
+import listIcon from "../../admin/app-assets/images/svg/list-icon.svg";
+import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
+import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.svg";
+import sortIcon from "../../admin/app-assets/images/svg/sort-icon.svg";
+import greenDots from "../../admin/app-assets/images/svg/green-dot.svg";
+import redDots from "../../admin/app-assets/images/svg/red-table-dot.svg";
 
 class SteadySave extends Component {
     render() {
@@ -18,7 +18,7 @@ class SteadySave extends Component {
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizonalNav/>
+                    <HorizontalNav/>
                     <VerticalNav/>
                     <div className="app-content content">
                         <div className="content-wrapper">
@@ -48,15 +48,13 @@ class SteadySave extends Component {
 
                                         </h3>
                                         <div className="card pull-up blue-card saving-card">
-                                            <img className="floated-icon"
-                                                 src={transTotalSavingsIcon}/>
+                                            <img className="floated-icon" src={transTotalSavingsIcon}/>
                                             <div className="card-content">
                                                 <div className="card-body">
                                                     <h4 className="text-white blue-card-heading ">Total Balance</h4>
                                                     <div className="media d-flex pb-2 pb-md-5">
                                                         <div className="align-self-center">
-                                                            <img className="blue-card-icon"
-                                                                 src={totalBalanceIcon}/>
+                                                            <img className="blue-card-icon" src={totalBalanceIcon}  />
                                                         </div>
                                                         <div className="media-body text-left pt-1 ">
                                                             <h3 className="text-white clearfix"><strong
@@ -252,9 +250,7 @@ class SteadySave extends Component {
                                                             <td>
                                                                 <div className="d-flex">
                                                                     <div className="d-inline-block d-md-none">
-                                                                        <img
-                                                                            src={greenDots}
-                                                                            className="green-dot "/>
+                                                                        <img src={greenDots} className="green-dot "/>
                                                                     </div>
                                                                     <div className="d-inline-block">
                                                                         <div className="d-md-block">Credit</div>

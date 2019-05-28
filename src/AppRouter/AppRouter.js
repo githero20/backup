@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import DashboardRouter from "./DashboardRouter/DashboardRouter";
-import HomeRouter from "./HomeRouter/HomeRouter";
-import AuthRoute from "./AuthRoute/AuthRoute";
 import {Route} from "react-router";
 import Login from "../Containers/Login/Login";
 import SignUp from "../Containers/SignUp/SignUp";
@@ -25,13 +22,8 @@ class AppRouter extends Component {
     render() {
         return (
             <React.Fragment>
-                {/*<HomeRouter />*/}
-                {/*<DashboardRouter />*/}
-                {/*<AuthRoute />*/}
-                {/*home route*/}
                 <Router>
                     <Route exact path="/" component={Home} />
-
                     {/*dashboard Routes*/}
                     <Route path="/dashboard" component={DashboardIndex} />
                     <Route path="/instant-save" component={InstantSave} />

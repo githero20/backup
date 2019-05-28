@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import HorizonalNav from "../../Components/Dashboard/HorizontalNav/HorizonalNav";
+import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import addButton from '../../admin/app-assets/images/svg/plus-btn.svg';
-import menuIcon from '../../admin/app-assets/images/svg/three-dot-icon.svg';
-import visaImage from '../../admin/app-assets/images/svg/visa.svg';
-import masterCardImage from '../../admin/app-assets/images/svg/mastercard.svg';
+import addButton from "../../admin/app-assets/images/svg/plus-btn.svg";
+import menuIcon from "../../admin/app-assets/images/svg/three-dot-icon.svg";
+import visaImage from "../../admin/app-assets/images/svg/visa.svg";
+import masterCardImage from "../../admin/app-assets/images/svg/mastercard.svg";
 
 class BankCardSetting extends Component {
     render() {
@@ -12,7 +12,7 @@ class BankCardSetting extends Component {
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizonalNav/>
+                    <HorizontalNav/>
                     <VerticalNav/>
 
                     <div className="app-content content">

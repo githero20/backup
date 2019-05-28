@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import HorizonalNav from "../../Components/Dashboard/HorizontalNav/HorizonalNav";
+import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import listIcon from '../../admin/app-assets/images/svg/list-icon.svg';
-import gridIcon from '../../admin/app-assets/images/svg/grid-icon.svg';
-import tableArrowLeft from '../../admin/app-assets/images/svg/table-arrow-left.svg';
-import sortIcon from '../../admin/app-assets/images/svg/sort-icon.svg';
-import lockedSavingIcon from '../../admin/app-assets/images/svg/add-lock-saving.svg';
+import listIcon from "../../admin/app-assets/images/svg/list-icon.svg";
+import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
+import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.svg";
+import sortIcon from "../../admin/app-assets/images/svg/sort-icon.svg";
+import lockedSavingIcon from "../../admin/app-assets/images/svg/add-lock-saving.svg";
 
 
 class LockedSavings extends Component {
@@ -14,7 +14,7 @@ class LockedSavings extends Component {
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizonalNav/>
+                    <HorizontalNav/>
                     <VerticalNav/>
                     <div className="app-content content">
                         <div className="content-wrapper">
@@ -366,8 +366,7 @@ class LockedSavings extends Component {
                                                                 <p className="light-gray">100% Complete</p>
                                                                 <h3 className="mb-2">Summer Vacation</h3>
                                                                 <div className="d-flex">
-                                                                    <img className="box-icon"
-                                                                         src="../app-assets/images/svg/checked-icon.svg"/>
+                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/checked-icon.svg"/>*/}
                                                                     <div className="box-detail d-inline-block">
                                                                         <p className="light-gray">400,000</p>
                                                                         <p className="gray">560,000</p>
@@ -380,8 +379,7 @@ class LockedSavings extends Component {
                                                                 <p className="light-gray">40% Complete</p>
                                                                 <h3 className="mb-2">Summer Vacation</h3>
                                                                 <div className="d-flex">
-                                                                    <img className="box-icon"
-                                                                         src="../app-assets/images/svg/locked-icon.svg"/>
+                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/locked-icon.svg"/>*/}
                                                                     <div className="box-detail d-inline-block">
                                                                         <p className="light-gray">400,000</p>
                                                                         <p className="gray">560,000</p>
@@ -394,8 +392,7 @@ class LockedSavings extends Component {
                                                                 <p className="light-gray">100% Complete</p>
                                                                 <h3 className="mb-2">Summer Vacation</h3>
                                                                 <div className="d-flex">
-                                                                    <img className="box-icon"
-                                                                         src="../app-assets/images/svg/checked-icon.svg"/>
+                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/checked-icon.svg"/>*/}
                                                                     <div className="box-detail d-inline-block">
                                                                         <p className="light-gray">400,000</p>
                                                                         <p className="gray">560,000</p>
@@ -408,8 +405,7 @@ class LockedSavings extends Component {
                                                                 <p className="light-gray">40% Complete</p>
                                                                 <h3 className="mb-2">Summer Vacation</h3>
                                                                 <div className="d-flex">
-                                                                    <img className="box-icon"
-                                                                         src="../app-assets/images/svg/locked-icon.svg"/>
+                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/locked-icon.svg"/>*/}
                                                                     <div className="box-detail d-inline-block">
                                                                         <p className="light-gray">400,000</p>
                                                                         <p className="gray">560,000</p>

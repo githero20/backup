@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import HorizonalNav from "../../Components/Dashboard/HorizontalNav/HorizonalNav";
+import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 
 class KycSetting extends Component {
@@ -8,7 +8,7 @@ class KycSetting extends Component {
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizonalNav/>
+                    <HorizontalNav/>
                     <VerticalNav/>
                     <h2>Kyc Settings </h2>
                 </div>

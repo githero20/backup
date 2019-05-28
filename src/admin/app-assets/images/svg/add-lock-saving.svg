@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32.308" height="32.308" viewBox="0 0 32.308 32.308">
+<svg xmlns="http://www.w3.org/2000/svg" width="32.308" height="32.308" viewBox="0 0 32.308 32.308">
   <defs>
     <filter id="Ellipse_20" x="0" y="0" width="32.308" height="32.308" filterUnits="userSpaceOnUse">
       <feOffset dx="2" dy="3" input="SourceAlpha"/>

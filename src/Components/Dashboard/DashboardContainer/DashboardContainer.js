@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import RightArrow from "../../../admin/app-assets/images/svg/arrow-right.svg";
-import BlueRightArrow from "../../../admin/app-assets/images/svg/blue-arrow-right.svg";
 import TotalTransactionIcon from "../../../admin/app-assets/images/svg/transparent-total-saving-icon.svg";
 import HistoryArrow from "../../../admin/app-assets/images/svg/history-arrow-sm.svg";
 import BlueCardTransIcon from "../../../admin/app-assets/images/svg/bluetransicon.svg";

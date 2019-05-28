@@ -831,7 +831,7 @@ footer-logo {
     .header-background {
         padding: 1rem;
         /*height: 600px;*/
-        background-image: url("../../app-assets/images/svg/mobile-header-bg.svg");
+        /*background-image: url("../../app-assets/images/svg/mobile-header-bg.svg");*/
         background-repeat: no-repeat;
         background-size: 95%;
         background-position: 100% -20%;
@@ -1029,7 +1029,7 @@ footer-logo {
 
     .header-background {
         height: 600px;
-        background-image: url("../../app-assets/images/svg/mobile-header-bg.svg");
+        /*background-image: url("../../app-assets/images/svg/mobile-header-bg.svg");*/
         background-repeat: no-repeat;
         background-size: 95%;
         background-position: right;

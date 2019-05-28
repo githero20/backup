@@ -48,10 +48,10 @@ class Login extends Component {
                                                            defaultChecked={true}/>
                                                         <span>Always Stay signed In</span>
                                                 </label>
-                                                <button className="btn btn-round blue-round-btn "
+                                                <Link to={'/dashboard'} className="btn btn-round blue-round-btn "
                                                    name="action">Sign in
                                                     <img alt="" className="img-2x ml-2" src={signInIcon}/>
-                                                </button>
+                                                </Link>
                                             </div>
                                         </div>
 

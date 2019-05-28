@@ -1,21 +1,15 @@
 import React, {Component} from 'react';
-import '../../admin/app-assets/css/vendors.css';
-import '../../admin/app-assets/css/app.css';
-import '../../admin/app-assets/css/core/menu/menu-types/vertical-menu-modern.css';
-import '../../admin/app-assets/css/core/colors/palette-gradient.css';
-import '../../admin/app-assets/fonts/simple-line-icons/style.css';
-import '../../admin/assets/css/style.css';
 import VerticalNav from "./VerticalNav/VerticalNav";
-import HorizonalNav from "./HorizontalNav/HorizonalNav";
+import HorizontalNav from "./HorizontalNav/HorizontalNav";
 import MessageBox from "./DashboardContainer/MessageBox/MessageBox";
 import CentralVaultCard from "./CentralVaultCard/CentralVaultCard";
 import BackUpGoalCard from "./BackUpGoalCard/BackUpGoalCard";
 import LockedSavingsCard from "./LockedSavingCard/LockedSavingsCard";
 import BackUpStashCard from "./BackUpStashCard/BackUpStashCard";
-import TotalTransactionIcon from "../../admin/app-assets/images/svg/transparent-total-saving-icon.svg";
-import BlueCardTransIcon from "../../admin/app-assets/images/svg/bluetransicon.svg";
-import historyTransIcon from "../../admin/app-assets/images/svg/history-arrow.svg";
-import HistoryArrow from "../../admin/app-assets/images/svg/history-arrow-sm.svg";
+// import TotalTransactionIcon from "../../admin/app-assets/images/svg/transparent-total-saving-icon.svg";
+// import BlueCardTransIcon from "../../admin/app-assets/images/svg/bluetransicon.svg";
+// import historyTransIcon from "../../admin/app-assets/images/svg/history-arrow.svg";
+// import HistoryArrow from "../../admin/app-assets/images/svg/history-arrow-sm.svg";
 import TransactionTable from "./TransactionTable/TransactionTable";
 
 class Dashboard extends Component {
@@ -24,7 +18,7 @@ class Dashboard extends Component {
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                       data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizonalNav/>
+                    <HorizontalNav/>
                     <VerticalNav/>
                     <div className="app-content content">
                         <div className="content-wrapper">
@@ -49,14 +43,14 @@ class Dashboard extends Component {
                                         {/* total Savings */}
 
                                         <div className="card pull-up blue-card saving-card">
-                                            <img className="floated-icon"
+                                            <ReactSVG className="floated-icon"
                                                  src={TotalTransactionIcon}/>
                                             <div className="card-content">
                                                 <div className="card-body">
                                                     <h4 className="text-white blue-card-heading ">Total Savings</h4>
                                                     <div className="media d-flex pb-md-5 pb-2">
                                                         <div className="align-self-center">
-                                                            <img className="blue-card-icon"
+                                                            <ReactSVG className="blue-card-icon"
                                                                  src={BlueCardTransIcon}/>
                                                         </div>
                                                         <div className="media-body text-left pt-1 ">
@@ -77,7 +71,7 @@ class Dashboard extends Component {
                                                     <h4 className=" blue-card-heading mb-md-2">Total Savings</h4>
                                                     <div className="media d-flex">
                                                         <div className="align-self-center">
-                                                            <img className="blue-card-icon"
+                                                            <ReactSVG className="blue-card-icon"
                                                                  src={historyTransIcon}/>
                                                         </div>
                                                         <div className="media-body text-left pt-1 mb-md-2">
@@ -89,7 +83,7 @@ class Dashboard extends Component {
                                                     </div>
                                                     <div><a href="#"
                                                             className="btn btn-sm history-btn btn-outline-blue pull-right">Interest
-                                                        History <img className="btn-icon"
+                                                        History <ReactSVG className="btn-icon"
                                                                      src={HistoryArrow}/></a>
                                                     </div>
                                                 </div>

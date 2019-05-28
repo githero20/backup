@@ -25,7 +25,7 @@ class BackUpStashCard extends Component {
                                     <a href="backupstash.html" className="btn white-btn round  ml-1">See
                                         All <img
                                             className="btn-icon"
-                                            src={BlueRightArrow} alt={'backup stash '}/>
+                                            src={BlueRightArrow} alt={'backup stash'}/>
                                     </a>
                                 </div>
                             </div>

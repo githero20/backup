@@ -1,22 +1,22 @@
 import React, {Component} from 'react';
-import HorizonalNav from "../../Components/Dashboard/HorizontalNav/HorizonalNav";
+import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import totalSavingsIcon from '../../admin/app-assets/images/svg/transparent-total-saving-icon.svg';
-import totalBalanceIcon from '../../admin/app-assets/images/svg/total-balance-icon.svg';
-import whiteSaveMoreIcon from '../../admin/app-assets/images/svg/mb-save-more-white-icon.svg';
-import instantSaveIcon from '../../admin/app-assets/images/svg/mb-instant-save-icon.svg';
-import listIcon from '../../admin/app-assets/images/svg/list-icon.svg';
-import gridIcon from '../../admin/app-assets/images/svg/grid-icon.svg';
-import tableLeftArrow from '../../admin/app-assets/images/svg/table-arrow-left.svg';
-import sortIcon from '../../admin/app-assets/images/svg/sort-icon.svg';
-import greenDots from '../../admin/app-assets/images/svg/green-dot.svg';
+import totalSavingsIcon from "../../admin/app-assets/images/svg/transparent-total-saving-icon.svg";
+import totalBalanceIcon from "../../admin/app-assets/images/svg/total-balance-icon.svg";
+import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
+import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-icon.svg";
+import listIcon from "../../admin/app-assets/images/svg/list-icon.svg";
+import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
+import tableLeftArrow from "../../admin/app-assets/images/svg/table-arrow-left.svg";
+import sortIcon from "../../admin/app-assets/images/svg/sort-icon.svg";
+import greenDots from "../../admin/app-assets/images/svg/green-dot.svg";
 
 class InstantSave extends Component {
     render() {
         return (
             <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                  data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                <HorizonalNav/>
+                <HorizontalNav/>
                 <VerticalNav/>
                 <div className="app-content content">
                     <div className="content-wrapper">
@@ -257,34 +257,6 @@ class InstantSave extends Component {
                                                                                     <option value="3">Select option 3
                                                                                     </option>
                                                                                 </select>
-                                                                                <p className="selecionado_opcion" data-n-select="0">Seleciona una Opcion</p>
-                                                                                <span className="icon_select_mate" data-n-select="0">
-                                                                                    <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path>
-                                                                                        <path d="M0-.75h24v24H0z" fill="none"></path>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <div className="cont_list_select_mate">
-                                                                                    <ul className="cont_select_int">
-                                                                                        <li className="active"
-                                                                                            data-index="0"
-                                                                                            data-selec-index="0">Seleciona
-                                                                                            una Opcion
-                                                                                        </li>
-                                                                                        <li data-index="1"
-                                                                                            data-selec-index="0">Select
-                                                                                            option 1
-                                                                                        </li>
-                                                                                        <li data-index="2"
-                                                                                            data-selec-index="0">Select
-                                                                                            option 2
-                                                                                        </li>
-                                                                                        <li data-index="3"
-                                                                                            data-selec-index="0">Select
-                                                                                            option 3
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
                                                                             </div>
                                                                         </fieldset>
                                                                     </div>
@@ -351,8 +323,7 @@ class InstantSave extends Component {
                                                         <td>
                                                             <div className="d-flex">
                                                                 <div className="d-inline-block d-md-none">
-                                                                    <img
-                                                                        src="../app-assets/images/svg/red-table-dot.svg"
+                                                                    {/*<img src="../../admin/app-assets/images/svg/red-table-dot.svg"*/}
                                                                         className="red-dot "/>
                                                                 </div>
                                                                 <div className="d-inline-block">

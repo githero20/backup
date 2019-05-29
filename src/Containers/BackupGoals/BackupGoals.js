@@ -368,7 +368,7 @@ class BackupGoals extends Component {
                                                                 <p className="light-gray">100% Complete</p>
                                                                 <h3 className="mb-2">Summer Vacation</h3>
                                                                 <div className="d-flex">
-                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/checked-icon.svg"/>*/}
+                                                                    <img className="box-icon" src="../../admin/app-assets/images/svg/checked-icon.svg"/>
                                                                     <div className="box-detail d-inline-block">
                                                                         <p className="light-gray">400,000</p>
                                                                         <p className="gray">560,000</p>
@@ -381,7 +381,7 @@ class BackupGoals extends Component {
                                                                 <p className="light-gray">40% Complete</p>
                                                                 <h3 className="mb-2">Summer Vacation</h3>
                                                                 <div className="d-flex">
-                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/locked-icon.svg"/>*/}
+                                                                    <img className="box-icon" src="../../admin/app-assets/images/svg/locked-icon.svg"/>
                                                                     <div className="box-detail d-inline-block">
                                                                         <p className="light-gray">400,000</p>
                                                                         <p className="gray">560,000</p>
@@ -394,7 +394,7 @@ class BackupGoals extends Component {
                                                                 <p className="light-gray">100% Complete</p>
                                                                 <h3 className="mb-2">Summer Vacation</h3>
                                                                 <div className="d-flex">
-                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/checked-icon.svg"/>*/}
+                                                                    <img className="box-icon" src="../../admin/app-assets/images/svg/checked-icon.svg"/>
                                                                     <div className="box-detail d-inline-block">
                                                                         <p className="light-gray">400,000</p>
                                                                         <p className="gray">560,000</p>
@@ -407,7 +407,7 @@ class BackupGoals extends Component {
                                                                 <p className="light-gray">40% Complete</p>
                                                                 <h3 className="mb-2">Summer Vacation</h3>
                                                                 <div className="d-flex">
-                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/locked-icon.svg"/>*/}
+                                                                    <img className="box-icon" src="../../admin/app-assets/images/svg/locked-icon.svg"/>
                                                                     <div className="box-detail d-inline-block">
                                                                         <p className="light-gray">400,000</p>
                                                                         <p className="gray">560,000</p>

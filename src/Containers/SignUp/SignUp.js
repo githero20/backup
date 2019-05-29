@@ -48,16 +48,20 @@ class SignUp extends Component {
                                     <span>Your Sign Up is Secure</span>
                                 </div>
 
-                                <div className="row pt-md-2">
-                                        <div className="col-md-5 offset-md-6">
-                                                 {/*header component */}
-                                                <div className="px-3 py-3 px-md-5 py-md-5 header-shadow mt-2 mb-5 bg-white">
-                                                    <img src={backUpCashLogo} width="200px"/>
-                                                </div>
-
-                                               <SignUpForm  />
+                                <div className="container">
+                                    <div className="row pt-md-2">
+                                        <div className="col-md-6 offset-md-6">
+                                            {/*header component */}
+                                            <div className=" py-md-1 px-md-1 px-md-5 py-md-5 header-shadow mt-2 mb-md-5 bg-white">
+                                                <img src={backUpCashLogo} width="200px"/>
+                                            </div>
+                                            <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
+                                            <SignUpForm  />
                                         </div>
+                                    </div>
                                 </div>
+
+
                         </section>
             </React.Fragment>
         );

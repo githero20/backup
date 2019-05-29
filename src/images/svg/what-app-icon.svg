@@ -1,20 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="327.156" height="296.996" viewBox="0 0 327.156 296.996">
+<svg xmlns="http://www.w3.org/2000/svg" width="327.156" height="296.996" viewBox="0 0 327.156 296.996">
   <defs>
-    <filter id="Path_585" x="57.749" y="56.654" width="135.157" height="165.237" filterUnits="userSpaceOnUse">
+    <filter id="Path_585" x="57.749" y="56.654" width="135.157" height="165.237" >
       <feOffset dy="4" input="SourceAlpha"/>
       <feGaussianBlur stdDeviation="5" result="blur"/>
       <feFlood flood-opacity="0.102"/>
       <feComposite operator="in" in2="blur"/>
       <feComposite in="SourceGraphic"/>
     </filter>
-    <filter id="Rectangle_219" x="95.625" y="122.242" width="113.906" height="60.998" filterUnits="userSpaceOnUse">
+    <filter id="Rectangle_219" x="95.625" y="122.242" width="113.906" height="60.998" >
       <feOffset dy="5" input="SourceAlpha"/>
       <feGaussianBlur stdDeviation="5" result="blur-2"/>
       <feFlood flood-color="#367bff" flood-opacity="0.4"/>
       <feComposite operator="in" in2="blur-2"/>
       <feComposite in="SourceGraphic"/>
     </filter>
-    <filter id="Ellipse_121" x="187.784" y="121.242" width="43.01" height="43.01" filterUnits="userSpaceOnUse">
+    <filter id="Ellipse_121" x="187.784" y="121.242" width="43.01" height="43.01" >
       <feOffset dy="4" input="SourceAlpha"/>
       <feGaussianBlur stdDeviation="5" result="blur-3"/>
       <feFlood flood-color="#0a3560" flood-opacity="0.2"/>

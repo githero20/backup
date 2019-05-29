@@ -749,8 +749,8 @@ footer-logo {
         width: 200px;
         height: 200px;
     }
-    .login-form{
-        margin-top: 12rem;
+    .login-form {
+        margin-top: 2rem;
         margin-bottom: 10rem;
     }
     .login-section {
@@ -830,8 +830,8 @@ footer-logo {
 
     .header-background {
         padding: 1rem;
-        /*height: 600px;*/
-        /*background-image: url("../../app-assets/images/svg/mobile-header-bg.svg");*/
+        height: 600px;
+        background-image: url("../../app-assets/images/svg/mobile-header-bg.svg");
         background-repeat: no-repeat;
         background-size: 95%;
         background-position: 100% -20%;
@@ -1029,7 +1029,7 @@ footer-logo {
 
     .header-background {
         height: 600px;
-        /*background-image: url("../../app-assets/images/svg/mobile-header-bg.svg");*/
+        background-image: url("../../app-assets/images/svg/mobile-header-bg.svg");
         background-repeat: no-repeat;
         background-size: 95%;
         background-position: right;

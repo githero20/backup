@@ -4,14 +4,15 @@
   "private": true,
   "dependencies": {
     "antd": "^3.19.1",
+    "axios": "^0.18.0",
     "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
-    "simple-react-validator": "^1.0.7",
-    "yarn": "^1.16.0"
+    "react-toast-notifications": "^1.4.0",
+    "simple-react-validator": "^1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",

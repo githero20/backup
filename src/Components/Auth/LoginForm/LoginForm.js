@@ -76,16 +76,7 @@ class LoginForm extends Component {
     //submit Login form
     submitForm = () => {
 
-        const validated = this.validate();
-        if (validated){
-            this.setState({
-                error:false,
-                errorMessage:'',
-                RenderPasswordError:false,
-                loading:true
-            });
-            this.Login('http://backupcash.atp-sevas.com/sfsbapi/v1/auth/login');
-        }
+        this.Login('http://backupcash.atp-sevas.com/sfsbapi/v1/auth/login');
 
     };
 
@@ -135,14 +126,14 @@ class LoginForm extends Component {
 
     render() {
 
-        const { email, password} = this.state;
+        const { email} = this.state;
 
 
         if (this.state.redirect) {
 
             return (
                 <React.Fragment>
-                    <Redirect to={'/activate-account/token/'} push/>
+                    <Redirect to={'/activate-account'} push/>
                 </React.Fragment>
             );
         }

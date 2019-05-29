@@ -7,6 +7,134 @@ import EmailModal from "../../Components/Auth/EmailModal/EmailModal";
 
 class ActivateAccount extends Component {
 
+    state = {
+        key: "pk_test_a59d1204944c01bf05330ab59fb1abe607eb36a6",
+        email: "",
+        amount: 0 ,
+        submitted:false
+    };
+
+
+    //Retrieves user inputs
+    changeHandler = event => {
+
+        const name = event.target.name;
+        const value = event.target.value;
+
+        //copy states object
+        const data =  {...this.state.activationData};
+        data[name]=value;
+
+        //get select data
+
+        //manipulate object and set the state object
+
+        this.setState({
+            activationData: data
+        });
+    };
+
+
+
+    initiateTransaction = () => {
+
+        //get token from local storage
+        const user = localStorage.getItem('user');
+
+        //get
+
+
+    };
+
+
+    storeRef = (ref) => {
+        if(ref!==null){
+            localStorage.setItem('paystackRef',JSON.stringify(ref));
+            console.log(JSON.parse(localStorage.getItem('paystackRef')));
+        }
+
+    };
+
+
+
+    callback = (response) => {
+
+        console.log(response);
+        // // card charged successfully, get reference here
+        this.storeRef(response);
+
+        // redirect to dashboard
+        this.setState({
+            completed:true
+        });
+
+    };
+
+
+    close = () => {
+        console.log("Payment closed");
+        this.setState({
+            restart:true,
+        })
+
+    };
+
+
+    getReference = () => {
+        //you can put any unique reference implementation code here
+        let text = "";
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-.=";
+
+        for( let i=0; i < 15; i++ )
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+    };
+
+
+    //submit activation form
+    submitForm = () => {
+
+        if (this.validator.allValid()) {
+
+            //retreive user email
+            const email = this.retrieveUserEmail();
+
+
+            //call activation end with token
+            this.setState({
+                email,
+                submitted:true,
+            });
+
+
+        } else {
+
+            this.validator.showMessages();
+            // rerender to show messages for the first time
+            this.forceUpdate();
+
+        }
+    };
+
+
+    retrieveUserEmail = ()=>{
+
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        if(user!==null){
+            return user.email;
+        }
+
+    };
+
+
+
+
+    calculateAmount(amount){
+        return parseInt(amount)*100;
+    }
+
 
     render(){
         return (
@@ -39,9 +167,9 @@ class ActivateAccount extends Component {
                         <div className="col-md-5 offset-md-6">
                             {/*// <!--  header component          -->*/}
                             <div className="px-3 py-3 px-md-5 py-md-5 header-shadow mt-2 mb-5 bg-white">
-                                <img src={backUpCashLogo} width="200px"/>
+                                <img src={backUpCashLogo} width="200px" alt={'logo'} />
                             </div>
-                                <ActivationForm />
+                                <ActivationForm  />
                         </div>
                     </div>
                 </section>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-// import '../../admin/assets/css/hamburgers.min.css';
-// import '../../admin/assets/css/backup-cash-style.css';
+import '../../admin/assets/css/hamburgers.min.css';
+import '../../admin/assets/css/backup-cash-style.css';
 import backupCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
 import illustration1 from "../../admin/app-assets/images/svg/backupcash-illustration-1.svg";
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
@@ -37,10 +37,10 @@ class Home extends Component {
                     <header className="header header-background">
                         <div className="container">
                             <nav className="home-nav navbar navbar-expand-lg ">
-                                <a className="navbar-brand" >
+                                <a className="navbar-brand" href={'#'} >
                                     <img src={backupCashLogo} alt="logo" width="200px"/>
                                 </a>
-                                <a type="button" className="hamburger hamburger--slider navbar-toggler"
+                                <a type="button" href={'#'}  className="hamburger hamburger--slider navbar-toggler"
                                    data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                    aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="hamburger-box">
@@ -51,13 +51,13 @@ class Home extends Component {
                                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
                                         <li className="nav-item active">
-                                            <a className="nav-link" >Home <span className="sr-only">(current)</span></a>
+                                            <a className="nav-link" href={'#'} >Home <span className="sr-only">(current)</span></a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" >FAQs </a>
+                                            <a className="nav-link" href={'#'}  >FAQs </a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" >Testimonials </a>
+                                            <a className="nav-link" href={'#'} >Testimonials </a>
                                         </li>
                                     </ul>
                                     <ul className="cta-link">
@@ -440,13 +440,13 @@ class Home extends Component {
                                     <p className="footer-header">Company</p>
                                     <ul className="footer-list">
                                         <li>
-                                            <a >About Us</a>
+                                            <a href={'#'}  >About Us</a>
                                         </li>
                                         <li>
-                                            <a >Testimonials</a>
+                                            <a href={'#'}  >Testimonials</a>
                                         </li>
                                         <li>
-                                            <a >FAQs</a>
+                                            <a href={'#'}  >FAQs</a>
                                         </li>
                                     </ul>
                                 </div>

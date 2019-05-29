@@ -20,7 +20,7 @@ class EmailModal extends Component {
                             <p className="mb-5 gray-text">Kindly check your mail inbox for verification</p>
                             <div className="text-center">
                                 <a href="index.html" className="btn btn-round blue-round-btn">Open Inbox
-                                    <img className="img-2x ml-2" src={inboxImage}/>
+                                    <img className="img-2x ml-2" src={inboxImage} alt={'inbox image'}/>
                                 </a>
                             </div>
                         </div>

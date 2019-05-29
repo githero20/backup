@@ -39,7 +39,7 @@ class AppRouter extends Component {
                     {/*auth routes*/}
                     <Route path="/login" component={Login} />
                     <Route path="/sign-up" component={SignUp} />
-                    <Route path="/activate-account/token/" component={ActivateAccount} />
+                    <Route path="/activate-account" component={ActivateAccount} />
                 </Router>
 
             </React.Fragment>

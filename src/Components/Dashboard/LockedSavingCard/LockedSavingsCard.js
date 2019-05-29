@@ -29,7 +29,7 @@ class LockedSavingsCard extends Component {
                                     <a href="backupgoals.html"
                                        className="btn btn-sm btn-custom-blue round "><span
                                         className="ml-2 mr-1">Start </span><img
-                                        className="btn-icon"
+                                        className="btn-icon" alt={'button icon'}
                                         src={RightArrow}/>
                                     </a>
                                 </div>

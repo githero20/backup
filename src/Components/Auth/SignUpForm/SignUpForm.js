@@ -5,6 +5,7 @@ import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-
 import SimpleReactValidator from 'simple-react-validator';
 import Axios from "axios";
 import Alert from "../../Alert/Alert";
+import ButtonLoader from "../Buttonloader/ButtonLoader";
 
 class SignUpForm extends Component {
 
@@ -35,7 +36,8 @@ class SignUpForm extends Component {
             loading:false,
             redirect:false,
             error:false,
-            errorMessage:''
+            errorMessage:'',
+            hideError:false,
         }
 
     }
@@ -58,6 +60,18 @@ class SignUpForm extends Component {
     };
 
 
+
+    saveToLocalStorage=(user,token)=>{
+
+        const userData = window.localStorage.setItem('user',JSON.stringify(user));
+        const tokenData = window.localStorage.setItem('token',token);
+        console.log(userData,tokenData);
+
+    };
+
+
+
+
      signUp(url) {
 
             Axios.post(url,this.state,{
@@ -67,8 +81,18 @@ class SignUpForm extends Component {
                 }})
 
             .then( (response) => {
-
+                this.setState({
+                    loading:false
+                });
                 console.log(' data:', response);
+                //save token
+                const serverResponse = response.data;
+                const token = serverResponse.token;
+                const user = serverResponse.user;
+
+                console.log(serverResponse);
+                console.log(user,token);
+                this.saveToLocalStorage(user,token);
 
                 this.setState({
                     redirect:true,
@@ -79,11 +103,14 @@ class SignUpForm extends Component {
                 console.log(`request failed: ${JSON.stringify(error.response.data)}`);
                     this.setState({
                         error:true,
-                        errorMessage:JSON.stringify(error.response.data)
+                        errorMessage:JSON.stringify(error.response.data),
+                        loading:false
                     });
             });
 
     }
+
+
 
     updateError = (error)=>{
         this.setState({
@@ -136,6 +163,9 @@ class SignUpForm extends Component {
 
               if(PasswordValid){
                   //    make api call
+                  this.setState({
+                      loading:true
+                  });
 
                   this.signUp(`http://backupcash.atp-sevas.com/sfsbapi/v1/auth/register`);
 
@@ -160,6 +190,18 @@ class SignUpForm extends Component {
 
 
 
+    componentDidMount() {
+        console.log(localStorage.getItem('ResponseData'));
+    }
+
+    //hides error display
+    hideError = () => {
+        this.setState({
+            error:false
+        }) ;
+    };
+
+
     render() {
 
         const {name, email, referralCode, password, password_confirmation, phone} = this.state;
@@ -181,7 +223,7 @@ class SignUpForm extends Component {
                     <div className="row">
                         <div className="col-12">
                             <h5 className="form-header-purple mb-5">Create Free Account</h5>
-                            {this.state.error?<Alert message={this.state.errorMessage}/>:null}
+                            {this.state.error?<Alert message={this.state.errorMessage} hideError={this.hideError}/>:null}
                         </div>
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
@@ -212,7 +254,7 @@ class SignUpForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="password">Password</label>
                                 <input id="password" type="password" name={'password'} className={'form-control'}
-                                       onChange={this.changeHandler} onBlur={this.validate}/>
+                                       onChange={this.changeHandler} onBlur={this.validatePasswords}/>
                                 {
                                     this.state.RenderPasswordError ?
                                     <label className={'srv-validation-message'}>Password must have Uppercase, Lowercase, Number and Special Character</label>
@@ -225,7 +267,7 @@ class SignUpForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="password_confirmation">Confirm Password</label>
                                 <input id="password_confirmation" name={'password_confirmation'} type="password"
-                                       className="form-control" onChange={this.changeHandler}/>
+                                       className="form-control" onChange={this.changeHandler} onBlur={this.validatePasswords}/>
                                 {this.state.RenderValidationError ? <label className={'srv-validation-message'}>Password Doesn't match</label> : null}
                             </div>
                         </div>
@@ -239,7 +281,7 @@ class SignUpForm extends Component {
                                 </a>
                                 {
                                     this.state.showReferralInput ?
-                                        <div className="input-field" id="referal-input-container">
+                                        <div className="form-group" id="referal-input-container">
                                             <input id="referralCode" name={'referralCode'} onChange={this.changeHandler}
                                                    type="text" className="form-control"/>
                                             {this.validator.message('referralCode', referralCode, 'string')}
@@ -255,11 +297,12 @@ class SignUpForm extends Component {
                                 </label>
                             </div>
                         </div>
-                        <div className="col-md-6 text-center text-md-right offset-md-6">
-                            <div className="text-md-right">
+                        <div className="col-12 text-center text-md-right ">
+                            <div>
                                 <button type={'button'} onClick={this.submitForm}
-                                        className="btn btn-round blue-round-btn ">Sign up <img className="img-2x ml-2"
-                                                                                               src={btnArrowRight}/>
+                                        className=" btn btn-round blue-round-btn auth-btn">
+                                    {this.state.loading?<ButtonLoader/>:
+                                        <span>Sign Up<img alt="" className="img-2x ml-2" src={btnArrowRight}/></span>}
                                 </button>
                             </div>
                         </div>

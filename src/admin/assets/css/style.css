@@ -1537,6 +1537,11 @@ button:focus, input:focus {
     box-shadow: none;
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 .login-form .input-field input[type=text]:focus, .login-form .input-field input[type=email]:focus, .login-form .input-field input[type=password]:focus {
     border-bottom: 1px solid #88B6FF;
     box-shadow: none;
@@ -1852,6 +1857,12 @@ button:focus, input:focus {
         width: 48%;
         height:50px;
     }
+
+    #timeline-wrap {
+        display:none;
+
+    }
+
     .header-shadow {
         box-shadow: none;
     }

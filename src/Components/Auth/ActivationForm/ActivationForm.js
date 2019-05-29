@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import PaystackButton from 'react-paystack';
 
 
 class ActivationForm extends Component {
@@ -14,26 +15,19 @@ class ActivationForm extends Component {
         this.validator = new SimpleReactValidator();
 
         this.state = {
-            showReferralInput:false,
-            formControls: {
-
-                savingsName: {
-                    value: ''
-                },
-                amount: {
-                    value: ''
-                },
-                hour: {
-                    value: ''
-                },
-                currentDate: {
-                    value: ''
-                },
-                frequency: {
-                    value: ''
-                }
+            activationData: {
+                savingsName:'',
+                hour:'',
+                currentDate:'',
+                frequency: 'daily',
+                token:'',
+                key: "pk_test_a59d1204944c01bf05330ab59fb1abe607eb36a6",
+                email: "",
+                amount: 0 ,
             },
-            submitted: false
+            submitted: false,
+            restart:false,
+            completed:false,
         }
 
     }
@@ -47,48 +41,171 @@ class ActivationForm extends Component {
         const name = event.target.name;
         const value = event.target.value;
 
+        //copy states object
+        const data =  {...this.state.activationData};
+        data[name]=value;
+
+        //get select data
+
+        //manipulate object and set the state object
+
         this.setState({
-            formControls: {
-                ...this.state.formControls,
-                [name]: {
-                    ...this.state.formControls[name],
-                    value
-                }
-            }
+            activationData: data
         });
     };
 
-    //handleSelect input
-    handleSelectInput = event =>{
 
-        const selectedIndex = event.nativeEvent.target.selectedIndex;
-        const selectText = event.nativeEvent.target[selectedIndex].text
+
+    initiateTransaction = () => {
+
+        //get token from local storage
+        const user = localStorage.getItem('user');
+
+        //get
+
+
+    };
+
+
+    storeRef = (ref) => {
+        if(ref!==null){
+            localStorage.setItem('paystackRef',JSON.stringify(ref));
+            console.log(JSON.parse(localStorage.getItem('paystackRef')));
+        }
+
+    };
+
+    storeActivationData =()=>{
+        const data = JSON.stringify(this.state.activationData);
+        localStorage.setItem('activationData',data);
+    };
+
+
+    callback = (response) => {
+
+        console.log(response);
+        // // card charged successfully, get reference here
+        this.storeRef(response);
+        this.redirectToDashBoard();
+
+    };
+
+    redirectToDashBoard(){
+        // redirect to dashboard
+        this.setState({
+            completed:true
+        });
+
+
+    }
+
+    close = () => {
 
         this.setState({
-            formcontrols:{
-
-            }
+            restart:true,
         })
-    }
+
+    };
+
+    completeSubmission = () =>{
+        //
+        this.setState({
+            submitted:true,
+        })
+    };
 
     //submit activation form
     submitForm = () => {
-        console.log(this.state.formControls);
+
         if (this.validator.allValid()) {
 
-            alert('yes form submitted');
+            //retrieve user email
+            const email = this.retrieveUserEmail();
+
+            const data = {...this.state.activationData};
+
+            data.email = email;
+
+            //call activation end with token
+            this.setState({
+                activationData:data,
+            });
+
+            this.storeActivationData();
+
+            this.completeSubmission();
+
 
         } else {
+
             this.validator.showMessages();
             // rerender to show messages for the first time
             this.forceUpdate();
+
         }
     };
+
+
+    retrieveUserEmail = ()=>{
+
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        if(user!==null){
+            return user.email;
+        }
+
+    };
+
+
+    calculateAmount(amount){
+        return parseInt(amount)*100;
+    }
+
+
 
     //Validates inputs
 
     render() {
-        const {savingsName,currentDate,hour,amount,frequency} = this.state.formControls;
+        const {savingsName,currentDate,hour,amount,frequency,email,key} = this.state.activationData;
+        const {submitted,restart,completed} = this.state;
+        const {submitForm} = this.props;
+        if(submitted){
+            return (
+
+                <PaystackButton
+                    text="Make Payment"
+                    className="payButton btn btn-round blue-round-btn"
+                    callback={this.callback}
+                    close={this.close}
+                    disabled={true}
+                    embed={true}
+                    reference={this.getReference()}
+                    email={email}
+                    amount={this.calculateAmount(amount)}
+                    paystackkey={key}
+                    tag="button" />
+            );
+
+        }
+
+        if(restart){
+            return (
+                <React.Fragment>
+                    <Redirect to={'/sign-up'} push/>
+                </React.Fragment>
+            );
+        }
+
+        if(completed){
+
+            return (
+                <React.Fragment>
+                    <Redirect to={'/dashboard'} push/>
+                </React.Fragment>
+            );
+
+        }
+
         return (
             <React.Fragment>
                 <form className="login-form px-5 px-md-2">
@@ -98,24 +215,24 @@ class ActivationForm extends Component {
                             <p className="gray-text mb-5 mb-md-5">Start Saving from<strong> N500 </strong></p>
                         </div>
                         <div className="col-12 col-lg-12">
-                            <div className="input-field mb-lg-3">
-                                <input id="savingsName" name={'savingsName'} onChange={this.changeHandler} type="text" className="form-control"/>
-                                {this.validator.message('savingsName', savingsName.value, 'required|string')}
+                            <div className="form-group mb-lg-3">
                                 <label htmlFor="savingsName" className="active">Savings Name</label>
+                                <input id="savingsName" name={'savingsName'} onChange={this.changeHandler} type="text" className="form-control"/>
+                                {this.validator.message('savingsName', savingsName, 'required|string')}
                             </div>
                         </div>
                         <div className="col-12 col-lg-6">
-                            <div className="input-field mb-lg-3">
+                            <div className="form-group mb-lg-3">
                                 <label htmlFor="currentDate" className="active">Current Date</label>
                                 <input id="currentDate" name={'currentDate'} onChange={this.changeHandler} type="date" className="form-control"/>
-                                {this.validator.message('currentDate', currentDate.value, 'required|string')}
+                                {this.validator.message('currentDate', currentDate, 'required|string')}
                             </div>
                         </div>
                         <div className="col-12 col-lg-6">
-                            <div className="input-field mb-lg-3">
-                                <input id="amount" type="number" name={'amount'} onChange={this.changeHandler} className="form-control"/>
+                            <div className="form-group mb-lg-3">
                                 <label htmlFor="amount" className="active">Amount To Debit</label>
-                                {this.validator.message('amount', amount.value, 'required|numeric')}
+                                <input id="amount" type="number" name={'amount'} onChange={this.changeHandler} className="form-control"/>
+                                {this.validator.message('amount', amount, 'required|numeric')}
 
                             </div>
                         </div>
@@ -123,17 +240,17 @@ class ActivationForm extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="exampleFormControlSelect2">Frequency</label>
-                                <select className="form-control" onChange={this.changeHandler} name={'frequency'} id="frequency">
-                                    <option defaultValue={true} value={'daily'} >Daily</option>
+                                <select className="form-control" value={frequency} onChange={this.changeHandler} name={'frequency'} id="frequency">
+                                    <option  value={'daily'} >Daily</option>
                                 </select>
-                                {this.validator.message('frequency', frequency.value, 'required|string')}
+                                {this.validator.message('frequency', frequency, 'required|string')}
                             </div>
                         </div>
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
                                 <label htmlFor="exampleFormControlSelect2">Hour of the Day</label>
                                 <input id="currentDate" name={'hour'} onChange={this.changeHandler} type="time" className="form-control"/>
-                                {this.validator.message('hour', hour.value, 'required|string')}
+                                {this.validator.message('hour', hour, 'required|string')}
 
                             </div>
                         </div>
@@ -151,6 +268,7 @@ class ActivationForm extends Component {
                                 <button className="btn btn-round blue-round-btn"  type={'button'} onClick={this.submitForm} name="action">Activate
                                     <img className="img-2x ml-2" src={btnArrowRight} alt={'btn arrow right'}/>
                                 </button>
+
                             </div>
                         </div>
 

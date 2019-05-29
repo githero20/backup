@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
 import LoginForm from "../../Components/Auth/LoginForm/LoginForm";
 

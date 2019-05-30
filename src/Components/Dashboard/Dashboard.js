@@ -13,6 +13,13 @@ import HistoryArrow from "../../admin/app-assets/images/svg/history-arrow-sm.svg
 import TransactionTable from "./TransactionTable/TransactionTable";
 
 class Dashboard extends Component {
+
+
+    componentDidMount() {
+
+        console.log(localStorage.getItem('dashboardInfo'));
+    }
+
     render() {
         return (
             <React.Fragment>

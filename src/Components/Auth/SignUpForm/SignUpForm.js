@@ -6,6 +6,8 @@ import SimpleReactValidator from 'simple-react-validator';
 import Axios from "axios";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
+import {ActivateAccountLink, RegisterEndpoint} from "../../../RouteLinks/RouteLinks";
+import SecureLS from "secure-ls";
 
 class SignUpForm extends Component {
 
@@ -15,11 +17,12 @@ class SignUpForm extends Component {
 
         this.validator = new SimpleReactValidator({
             messages: {
-                email: 'Please Provide A valid Email.',
-                name: 'Please Provide A valid Email.',
-                phone: 'Please Provide A valid Phone Number.',
-                password: 'Password must have Uppercase, Lowercase, Number and Special Character',
+                email: 'Please Provide a valid Email.',
+                name: 'Please fill in your name.',
+                phone: 'Please Provide a valid Phone Number.',
+                password: 'Please provide a strong password',
             }
+
         });
 
         this.state = {
@@ -31,13 +34,12 @@ class SignUpForm extends Component {
             password_confirmation: '',
             referralCode: '',
             submitted: false,
-            RenderValidationError: false,
-            RenderPasswordError:false,
-            loading:false,
-            redirect:false,
-            error:false,
-            errorMessage:'',
-            hideError:false,
+            ConfirmPassError: false,
+            loading: false,
+            redirect: false,
+            error: false,
+            errorMessage: '',
+            hideError: false,
         }
 
     }
@@ -60,123 +62,114 @@ class SignUpForm extends Component {
     };
 
 
+    saveToLocalStorage = (user, token) => {
+        if (user !== null && token !== null) {
+            console.log('data to be saved: ' + user, token);
+            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('token', token);
 
-    saveToLocalStorage=(user,token)=>{
-
-        const userData = window.localStorage.setItem('user',JSON.stringify(user));
-        const tokenData = window.localStorage.setItem('token',token);
-        console.log(userData,tokenData);
-
+            this.setState({
+                redirect: true
+            })
+        }
     };
 
 
+    signUp = (url, func) => {
 
+        Axios.post(url, this.state, {
+            headers: {
+                "Content-Type": "Application/json",
+                "credentials": 'same-origin',
+            }
+        })
 
-     signUp(url) {
+            .then(func).catch((error) => {
 
-            Axios.post(url,this.state,{
-                headers: {
-                    "Content-Type": "Application/json",
-                    "credentials": 'same-origin',
-                }})
-
-            .then( (response) => {
-                this.setState({
-                    loading:false
-                });
-                console.log(' data:', response);
-                //save token
-                const serverResponse = response.data;
-                const token = serverResponse.token;
-                const user = serverResponse.user;
-
-                console.log(serverResponse);
-                console.log(user,token);
-                this.saveToLocalStorage(user,token);
-
-                this.setState({
-                    redirect:true,
-                })
-
-            }).catch( (error) => {
-
-                console.log(`request failed: ${JSON.stringify(error.response.data)}`);
-                    this.setState({
-                        error:true,
-                        errorMessage:JSON.stringify(error.response.data),
-                        loading:false
-                    });
+            console.log(`request failed: ${JSON.stringify(error.response.data)}`);
+            this.setState({
+                error: true,
+                errorMessage: JSON.stringify(error.response.data),
+                loading: false
             });
-
-    }
-
-
-
-    updateError = (error)=>{
-        this.setState({
-            error:true,
-            errorMessage:JSON.stringify(error.response.data.errors)
         });
 
     };
 
-        validatePasswords=()=>{
 
-            const PasswordRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})') ;
+    updateError = (error) => {
+        this.setState({
+            error: true,
+            errorMessage: JSON.stringify(error.response.data.errors)
+        });
 
-            const {password, password_confirmation} = this.state;
+    };
 
-            // perform all neccassary validations
 
-            if (password !== password_confirmation) {
-                this.setState({
-                    RenderValidationError: true,
-                })
+    validatePasswords = () => {
 
-            }else if(!PasswordRegex.exec(password)){
 
-                this.setState({
-                    RenderPasswordError: true,
-                })
+        const {password, password_confirmation} = this.state;
 
-            } else {
+        // perform all neccassary validations
 
-                this.setState({
-                    RenderPasswordError: false,
-                    RenderValidationError: false,
-                });
+        if (password !== password_confirmation) {
+            this.setState({
+                ConfirmPassError: true,
+            })
 
-                return true;
-            }
+        } else {
 
-        };
+            this.setState({
+                ConfirmPassError: false,
+            });
+
+            return true;
+        }
+
+    };
+
+    getSignUpInfo = (response) => {
+
+        console.log(' data:', response);
+        //save token
+        const serverResponse = response.data;
+        const token = serverResponse.token;
+        const user = serverResponse.user;
+        this.setState({
+            loading: false
+        });
+
+        this.saveToLocalStorage(user, token);
+
+
+    };
 
     //submit sign up form
     submitForm = () => {
 
+
         if (this.validator.allValid()) {
 
-                //validate confirm password
+            //validate confirm password
 
-                // perform all neccassary validation
-              const  PasswordValid = this.validatePasswords();
+            // perform all necessary validation
+            const PasswordValid = this.validatePasswords();
 
-              if(PasswordValid){
-                  //    make api call
-                  this.setState({
-                      loading:true
-                  });
+            if (PasswordValid) {
+                //    make api call
+                this.setState({
+                    loading: true
+                });
 
-                  this.signUp(`http://backupcash.atp-sevas.com/sfsbapi/v1/auth/register`);
+                this.signUp(RegisterEndpoint, this.getSignUpInfo);
 
-              }
+            }
 
 
         } else {
 
-            //validate confirm password
-
-            // perform all neccassary validations
+            //display All errors
 
             this.validatePasswords();
 
@@ -189,16 +182,11 @@ class SignUpForm extends Component {
     };
 
 
-
-    componentDidMount() {
-        console.log(localStorage.getItem('ResponseData'));
-    }
-
     //hides error display
     hideError = () => {
         this.setState({
-            error:false
-        }) ;
+            error: false
+        });
     };
 
 
@@ -211,7 +199,7 @@ class SignUpForm extends Component {
 
             return (
                 <React.Fragment>
-                    <Redirect to={'/activate-account'} push/>
+                    <Redirect to={ActivateAccountLink} push/>
                 </React.Fragment>
             );
         }
@@ -223,7 +211,8 @@ class SignUpForm extends Component {
                     <div className="row">
                         <div className="col-12">
                             <h5 className="form-header-purple mb-5">Create Free Account</h5>
-                            {this.state.error?<Alert message={this.state.errorMessage} hideError={this.hideError}/>:null}
+                            {this.state.error ?
+                                <Alert message={this.state.errorMessage} hideError={this.hideError}/> : null}
                         </div>
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
@@ -254,12 +243,8 @@ class SignUpForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="password">Password</label>
                                 <input id="password" type="password" name={'password'} className={'form-control'}
-                                       onChange={this.changeHandler} onBlur={this.validatePasswords}/>
-                                {
-                                    this.state.RenderPasswordError ?
-                                    <label className={'srv-validation-message'}>Password must have Uppercase, Lowercase, Number and Special Character</label>
-                                    : null
-                                }
+                                       onChange={this.changeHandler}/>
+                                {this.validator.message('password', password, 'required|string|min:8')}
 
                             </div>
                         </div>
@@ -267,8 +252,10 @@ class SignUpForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="password_confirmation">Confirm Password</label>
                                 <input id="password_confirmation" name={'password_confirmation'} type="password"
-                                       className="form-control" onChange={this.changeHandler} onBlur={this.validatePasswords}/>
-                                {this.state.RenderValidationError ? <label className={'srv-validation-message'}>Password Doesn't match</label> : null}
+                                       className="form-control" onChange={this.changeHandler}
+                                       onBlur={this.validatePasswords}/>
+                                {this.state.ConfirmPassError ?
+                                    <label className={'srv-validation-message'}>Password Doesn't match</label> : null}
                             </div>
                         </div>
 
@@ -277,7 +264,7 @@ class SignUpForm extends Component {
                                 <a className="blue-link" id="referral-btn" onClick={this.toggleReferralInput}>Got a
                                     referral code ? <img
                                         className="img-2x ml-1"
-                                        src={blueHeadArrow} />
+                                        src={blueHeadArrow}/>
                                 </a>
                                 {
                                     this.state.showReferralInput ?
@@ -297,11 +284,12 @@ class SignUpForm extends Component {
                                 </label>
                             </div>
                         </div>
+
                         <div className="col-12 text-center text-md-right ">
                             <div>
                                 <button type={'button'} onClick={this.submitForm}
                                         className=" btn btn-round blue-round-btn auth-btn">
-                                    {this.state.loading?<ButtonLoader/>:
+                                    {this.state.loading ? <ButtonLoader/> :
                                         <span>Sign Up<img alt="" className="img-2x ml-2" src={btnArrowRight}/></span>}
                                 </button>
                             </div>

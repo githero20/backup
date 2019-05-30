@@ -14,6 +14,14 @@ import Withdrawal from "../Containers/Withdrawal/Withdrawal";
 import ProfileSetting from "../Containers/ProfileSetting/ProfileSetting";
 import BankCardSetting from "../Containers/BankCardSetting/BankCardSetting";
 import ActivateAccount from "../Containers/ActivateAccount/ActivateAccount";
+import {
+    ActivateAccountLink, BackupGoalsLink, BankCardLink,
+    DashboardLink,
+    ForgotPasswordLink,
+    InstantSaveLink, LockedSavingsLink, LoginLink, ProfileSettingLink, SignUpLink,
+    SteadySaveLink, TransactionsLink, WithdrawalLink
+} from "../RouteLinks/RouteLinks";
+import ForgotPassword from "../Containers/ForgotPassword/ForgotPassword";
 
 
 class AppRouter extends Component {
@@ -25,21 +33,22 @@ class AppRouter extends Component {
                 <Router>
                     <Route exact path="/" component={Home} />
                     {/*dashboard Routes*/}
-                    <Route path="/dashboard" component={DashboardIndex} />
-                    <Route path="/instant-save" component={InstantSave} />
-                    <Route path="/steady-save" component={SteadySave} />
-                    <Route path="/locked-savings" component={LockedSavings} />
-                    <Route path="/backup-goals" component={BackupGoals} />
-                    <Route path="/transactions" component={Transactions} />
-                    <Route path="/locked-savings" component={LockedSavings} />
-                    <Route path="/withdrawal" component={Withdrawal} />
-                    <Route path="/profile-setting" component={ProfileSetting} />
-                    <Route path="/bank-card-setting" component={BankCardSetting} />
+                    <Route path={DashboardLink} component={DashboardIndex} />
+                    <Route path={InstantSaveLink} component={InstantSave} />
+                    <Route path={SteadySaveLink} component={SteadySave} />
+                    <Route path={LockedSavingsLink} component={LockedSavings} />
+                    <Route path={BackupGoalsLink} component={BackupGoals} />
+                    <Route path={TransactionsLink} component={Transactions} />
+                    <Route path={LockedSavingsLink} component={LockedSavings} />
+                    <Route path={WithdrawalLink} component={Withdrawal} />
+                    <Route path={ProfileSettingLink} component={ProfileSetting} />
+                    <Route path={BankCardLink} component={BankCardSetting} />
 
                     {/*auth routes*/}
-                    <Route path="/login" component={Login} />
-                    <Route path="/sign-up" component={SignUp} />
-                    <Route path="/activate-account" component={ActivateAccount} />
+                    <Route path={LoginLink} component={Login} />
+                    <Route path={SignUpLink} component={SignUp} />
+                    <Route path={ActivateAccountLink} component={ActivateAccount} />
+                    <Route path={ForgotPasswordLink} component={ForgotPassword} />
                 </Router>
 
             </React.Fragment>

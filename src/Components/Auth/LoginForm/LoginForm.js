@@ -5,6 +5,7 @@ import SimpleReactValidator from "simple-react-validator";
 import Axios from "axios";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
+import {ForgotPasswordLink, LoginEndpoint} from "../../../RouteLinks/RouteLinks";
 
 class LoginForm extends Component {
 
@@ -76,7 +77,7 @@ class LoginForm extends Component {
     //submit ForgotPassword form
     submitForm = () => {
 
-        this.Login('http://backupcash.atp-sevas.com/sfsbapi/v1/auth/login');
+        this.Login(LoginEndpoint);
 
     };
 
@@ -162,7 +163,7 @@ class LoginForm extends Component {
                                     <div className={'srv-validation-message'}>Password must have Uppercase, Lowercase, Number and Special Character</div>
                                     : null}
 
-                                <Link to={'/forgot-password'} href="#">Forgot Password ?</Link>
+                                <Link to={ForgotPasswordLink} >Forgot Password ?</Link>
                             </div>
                         </div>
                         <div className="col-12">

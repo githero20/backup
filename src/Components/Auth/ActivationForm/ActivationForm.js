@@ -2,10 +2,14 @@ import React, {Component} from 'react';
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
 import {Link, Redirect} from 'react-router-dom';
-import { DatePicker } from 'antd';
-
-// import PaystackButton from 'react-paystack';
-
+import Axios from "axios";
+import {
+    DashboardLink,
+    initiateSteadySaveEndpoint,
+    SignUpLink,
+    verifyTransactionEndpoint
+} from "../../../RouteLinks/RouteLinks";
+import {PayStackKey} from "../../../Info/Info";
 
 class ActivationForm extends Component {
 
@@ -18,14 +22,14 @@ class ActivationForm extends Component {
 
         this.state = {
             activationData: {
-                savingsName:'',
-                hour:'',
-                currentDate:'',
+                title:'',
+                hour_of_day:'12',
+                start_date:this.getTodaysDate(),
                 frequency: 'daily',
                 token:'',
-                key: "pk_test_a59d1204944c01bf05330ab59fb1abe607eb36a6",
+                source:'auto save',
                 email: "",
-                amount: 0 ,
+                contribution: 0,
             },
             submitted: false,
             restart:false,
@@ -33,6 +37,8 @@ class ActivationForm extends Component {
         }
 
     }
+
+
 
 
 
@@ -104,19 +110,98 @@ class ActivationForm extends Component {
             completed:true
         });
 
-
     }
 
+    initiateSave = (url) => {
+
+        //get token
+        const token = localStorage.getItem('token');
+        Axios.post(url, this.state.activationData, {
+            headers: {
+                "Content-Type": "Application/json",
+                "credentials": 'same-origin',
+                'Authorization':'Bearer '+token,
+            }
+
+        }).then((response) => {
+            console.log(response);
+            //save ref
+            localStorage.setItem('refDetail',JSON.stringify(response.data.data));
+
+            //start payment
+            const {contribution,email} = this.state.activationData;
+            console.log(response.data.reference);
+            this.payWithPaystack(email,contribution,PayStackKey,response.data.data.reference);
+
+        }).catch((error) => {
+
+            console.log(`request failed: ${JSON.stringify(error.response.data)}`);
+            this.setState({
+                error: true,
+                errorMessage: JSON.stringify(error.response.data),
+                loading: false
+            });
+        });
+
+    };
 
 
-     payWithPaystack = (email,amount,key) => {
-         console.log(email,amount,key);
+    saveRef = (ref)=>{
+        if(ref!==null){
+            localStorage.setItem('ref',ref);
+            return true
+        }
+        return false
+
+    };
+
+
+
+    saveDashboardInfo = (data) => {
+        localStorage.setItem('dashboardInfo',data);
+    };
+
+
+
+    verifyTransaction = (url,param,token) =>{
+        console.log(param);
+        Axios.post(url, param, {
+            headers: {
+                "Content-Type": "Application/json",
+                "credentials": 'same-origin',
+                'Authorization':'Bearer '+token,
+            }
+
+        }).then((response) => {
+
+            //save dashboard info
+            this.saveDashboardInfo(response.data);
+
+            //redirect user to dashboard
+            this.redirectToDashBoard();
+
+        }).catch((error) => {
+
+            console.log(`request failed: ${JSON.stringify(error.response.data)}`);
+            this.setState({
+                error: true,
+                errorMessage: JSON.stringify(error.response.data),
+                loading: false
+            });
+        });
+
+    };
+
+
+    payWithPaystack = (email,amount,key,ref) => {
+
+
         const handler = window.PaystackPop.setup({
             key: key,
             email: email,
-            amount: amount,
+            amount: this.calculateAmount(amount),
             currency: "NGN",
-            ref: ''+Math.floor((Math.random() * 1000000000) + 1),
+            ref: ref,
             metadata: {
                 custom_fields: [
                     {
@@ -126,8 +211,20 @@ class ActivationForm extends Component {
                     }
                 ]
             },
-            callback: function(response){
-                alert('success. transaction ref is ' + response.reference);
+
+            callback: (response)=>{
+
+                    let param = {
+                        type:'steady_save',
+                        ref:response.reference
+                    };
+
+                    console.log(response);
+
+                let token = localStorage.getItem('token');
+
+                    this.verifyTransaction(verifyTransactionEndpoint,param,token);
+
             },
 
             onClose: function(){
@@ -135,8 +232,12 @@ class ActivationForm extends Component {
 
             }
         });
+
+
         handler.openIframe();
+
     };
+
 
 
 
@@ -158,11 +259,7 @@ class ActivationForm extends Component {
                 activationData:data,
             },() => {
 
-                console.log(this.state.activationData);
-
-                const {amount,email,key} = this.state.activationData;
-
-                this.payWithPaystack(email,amount,key);
+                this.initiateSave(initiateSteadySaveEndpoint);
 
             });
 
@@ -178,7 +275,6 @@ class ActivationForm extends Component {
 
 
 
-
     retrieveUserEmail = ()=>{
 
         const user = JSON.parse(localStorage.getItem('user'));
@@ -190,6 +286,14 @@ class ActivationForm extends Component {
     };
 
 
+    getTodaysDate () {
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = today.getFullYear();
+
+       return   yyyy + '-' + mm + '-' + dd  ;
+    }
 
 
     calculateAmount(amount){
@@ -198,20 +302,19 @@ class ActivationForm extends Component {
 
 
 
-
-
     //Validates inputs
 
     render() {
-        const {savingsName,currentDate,hour,amount,frequency,email,key} = this.state.activationData;
-        const {submitted,restart,completed} = this.state;
+
+        const {title,start_date,hour_of_day,contribution,frequency} = this.state.activationData;
+        const {restart,completed} = this.state;
 
 
 
         if(restart){
             return (
                 <React.Fragment>
-                    <Redirect to={'/sign-up'} push/>
+                    <Redirect to={SignUpLink} push/>
                 </React.Fragment>
             );
         }
@@ -222,12 +325,11 @@ class ActivationForm extends Component {
 
             return (
                 <React.Fragment>
-                    <Redirect to={'/dashboard'} push/>
+                    <Redirect to={DashboardLink} push/>
                 </React.Fragment>
             );
 
         }
-
 
 
         return (
@@ -240,29 +342,23 @@ class ActivationForm extends Component {
                         </div>
                         <div className="col-12 col-lg-12">
                             <div className="form-group mb-lg-3">
-                                <label htmlFor="savingsName" className="active">Savings Name</label>
-                                <input id="savingsName" name={'savingsName'} onChange={this.changeHandler} type="text" className="form-control"/>
-                                {this.validator.message('savingsName', savingsName, 'required|string')}
+                                <label htmlFor="title" className="active">Savings Name</label>
+                                <input id="title" name={'title'} onChange={this.changeHandler} type="text" className="form-control"/>
+                                {this.validator.message('title', title, 'required|string')}
                             </div>
                         </div>
                         <div className="col-12 col-lg-6">
                             <div className="form-group mb-lg-3">
-                                <label htmlFor="currentDate" className="active">Current Date</label>
-                                <input id="currentDate" name={'currentDate'} onChange={this.changeHandler} type="date" className="form-control"/>
-                                {this.validator.message('currentDate', currentDate, 'required|string')}
-                            </div>
-                        </div>
-                        <div className="col-12 col-lg-6">
-                            <div className="form-group mb-lg-3">
-                                <label htmlFor="currentDate" className="active">Current Date</label>
-                                    <DatePicker style={{display:'block'}}/>
+                                <label htmlFor="start_date" className="active">Current Date</label>
+                                <input id="start_date" name={'start_date'} value={start_date}  onChange={this.changeHandler} type="date" className="form-control"/>
+                                {this.validator.message('start_date', start_date, 'required|string')}
                             </div>
                         </div>
                         <div className="col-12 col-lg-6">
                             <div className="form-group mb-lg-3">
                                 <label htmlFor="amount" className="active">Amount To Debit</label>
-                                <input id="amount" type="number" name={'amount'} onChange={this.changeHandler} className="form-control"/>
-                                {this.validator.message('amount', amount, 'required|numeric')}
+                                <input id="amount" type="number" name={'contribution'} onChange={this.changeHandler} className="form-control"/>
+                                {this.validator.message('contribution', contribution, 'required|numeric')}
 
                             </div>
                         </div>
@@ -279,8 +375,32 @@ class ActivationForm extends Component {
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
                                 <label htmlFor="exampleFormControlSelect2">Hour of the Day</label>
-                                <input id="currentDate" name={'hour'} onChange={this.changeHandler} type="time" className="form-control"/>
-                                {this.validator.message('hour', hour, 'required|string')}
+                                <select className="form-control" value={hour_of_day} onChange={this.changeHandler} name={'hour_of_day'} id="hour">
+                                    <option  value={'1'} >1:00am</option>
+                                    <option  value={'2'} >2:00am</option>
+                                    <option  value={'3'} >3:00am</option>
+                                    <option  value={'4'} >4:00am</option>
+                                    <option  value={'5'} >5:00am</option>
+                                    <option  value={'6'} >6:00am</option>
+                                    <option  value={'7'} >7:00am</option>
+                                    <option  value={'8'} >8:00am</option>
+                                    <option  value={'9'} >9:00am</option>
+                                    <option  value="12">12:00noon</option>
+                                    <option  value="13">1:00pm</option>
+                                    <option  value="14">2:00pm</option>
+                                    <option  value="15">3:00pm</option>
+                                    <option  value="16">4:00pm</option>
+                                    <option  value="17">5:00pm</option>
+                                    <option  value="18">6:00pm</option>
+                                    <option  value="19">7:00pm</option>
+                                    <option  value="20">8:00pm</option>
+                                    <option  value="21">9:00pm</option>
+                                    <option  value="22">10:00pm</option>
+                                    <option  value="23">11:00pm</option>
+                                    <option  value="24">12:00am</option>
+                                </select>
+
+                                {this.validator.message('hour_of_day', hour_of_day, 'required|numeric')}
 
                             </div>
                         </div>

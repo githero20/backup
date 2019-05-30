@@ -3,6 +3,7 @@ import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
 import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
 import ActivationForm from "../../Components/Auth/ActivationForm/ActivationForm";
 import EmailModal from "../../Components/Auth/EmailModal/EmailModal";
+import SecureLS from "../../Components/Auth/SignUpForm/SignUpForm";
 
 
 class ActivateAccount extends Component {
@@ -10,7 +11,7 @@ class ActivateAccount extends Component {
     state = {
         key: "pk_test_a59d1204944c01bf05330ab59fb1abe607eb36a6",
         email: "",
-        amount: 0 ,
+        contribution: 0 ,
         submitted:false
     };
 
@@ -134,6 +135,11 @@ class ActivateAccount extends Component {
         return parseInt(amount)*100;
     }
 
+
+    componentDidMount() {
+
+        console.log(localStorage.getItem('user'));
+    }
 
     render(){
 

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
 import {Link, Redirect} from 'react-router-dom';
+import { DatePicker } from 'antd';
+
 // import PaystackButton from 'react-paystack';
 
 
@@ -67,8 +69,6 @@ class ActivationForm extends Component {
     };
 
 
-
-
     storeRef = (ref) => {
 
         if(ref!==null){
@@ -77,7 +77,6 @@ class ActivationForm extends Component {
         }
 
     };
-
 
 
 
@@ -91,7 +90,6 @@ class ActivationForm extends Component {
 
     callback = (response) => {
 
-        console.log(response);
         // // card charged successfully, get reference here
         this.storeRef(response);
         this.redirectToDashBoard();
@@ -110,27 +108,6 @@ class ActivationForm extends Component {
     }
 
 
-    getReference = () => {
-
-        //you can put any unique reference implementation code here
-        let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-.=";
-
-        for( let i=0; i < 15; i++ )
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-        return text;
-    };
-
-
-
-    close = () => {
-
-        this.setState({
-            restart:true,
-        })
-
-    };
 
      payWithPaystack = (email,amount,key) => {
          console.log(email,amount,key);
@@ -273,6 +250,12 @@ class ActivationForm extends Component {
                                 <label htmlFor="currentDate" className="active">Current Date</label>
                                 <input id="currentDate" name={'currentDate'} onChange={this.changeHandler} type="date" className="form-control"/>
                                 {this.validator.message('currentDate', currentDate, 'required|string')}
+                            </div>
+                        </div>
+                        <div className="col-12 col-lg-6">
+                            <div className="form-group mb-lg-3">
+                                <label htmlFor="currentDate" className="active">Current Date</label>
+                                    <DatePicker style={{display:'block'}}/>
                             </div>
                         </div>
                         <div className="col-12 col-lg-6">

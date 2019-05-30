@@ -6,7 +6,7 @@ import Axios from "axios";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 
-class LoginForm extends Component {
+class ForgotPasswordForm extends Component {
 
 
 
@@ -143,7 +143,7 @@ class LoginForm extends Component {
                 <form className="login-form ">
                     <div className="row">
                         <div className="col-12">
-                            <h5 className="form-header-purple mb-5">Please Log In</h5>
+                            <h5 className="form-header-purple mb-5">Forgot Password</h5>
                             {this.state.error?<Alert message={this.state.errorMessage} hideError={this.hideError}/>:null}
                         </div>
                         <div className="col-12">
@@ -162,7 +162,7 @@ class LoginForm extends Component {
                                     <div className={'srv-validation-message'}>Password must have Uppercase, Lowercase, Number and Special Character</div>
                                     : null}
 
-                                <Link to={forgotPasswordLink} href="#">Forgot Password ?</Link>
+                                <a href="#">Forgot Password ?</a>
                             </div>
                         </div>
                         <div className="col-12">
@@ -193,4 +193,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default ForgotPasswordForm;

@@ -18,8 +18,8 @@ import ActivateAccount from "../Containers/ActivateAccount/ActivateAccount";
 
 class AppRouter extends Component {
 
-
     render() {
+
         return (
             <React.Fragment>
                 <Router>

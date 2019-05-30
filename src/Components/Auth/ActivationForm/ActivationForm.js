@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
 import {Link, Redirect} from 'react-router-dom';
-import PaystackButton from 'react-paystack';
+// import PaystackButton from 'react-paystack';
 
 
 class ActivationForm extends Component {
@@ -56,18 +56,21 @@ class ActivationForm extends Component {
 
 
 
+
+
     initiateTransaction = () => {
 
         //get token from local storage
         const user = localStorage.getItem('user');
 
-        //get
-
 
     };
 
 
+
+
     storeRef = (ref) => {
+
         if(ref!==null){
             localStorage.setItem('paystackRef',JSON.stringify(ref));
             console.log(JSON.parse(localStorage.getItem('paystackRef')));
@@ -75,10 +78,15 @@ class ActivationForm extends Component {
 
     };
 
+
+
+
     storeActivationData =()=>{
         const data = JSON.stringify(this.state.activationData);
         localStorage.setItem('activationData',data);
     };
+
+
 
 
     callback = (response) => {
@@ -90,6 +98,8 @@ class ActivationForm extends Component {
 
     };
 
+
+
     redirectToDashBoard(){
         // redirect to dashboard
         this.setState({
@@ -99,6 +109,21 @@ class ActivationForm extends Component {
 
     }
 
+
+    getReference = () => {
+
+        //you can put any unique reference implementation code here
+        let text = "";
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-.=";
+
+        for( let i=0; i < 15; i++ )
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+    };
+
+
+
     close = () => {
 
         this.setState({
@@ -107,12 +132,36 @@ class ActivationForm extends Component {
 
     };
 
-    completeSubmission = () =>{
-        //
-        this.setState({
-            submitted:true,
-        })
+     payWithPaystack = (email,amount,key) => {
+         console.log(email,amount,key);
+        const handler = window.PaystackPop.setup({
+            key: key,
+            email: email,
+            amount: amount,
+            currency: "NGN",
+            ref: ''+Math.floor((Math.random() * 1000000000) + 1),
+            metadata: {
+                custom_fields: [
+                    {
+                        display_name: "Mobile Number",
+                        variable_name: "mobile_number",
+                        value: "+2348012345678"
+                    }
+                ]
+            },
+            callback: function(response){
+                alert('success. transaction ref is ' + response.reference);
+            },
+
+            onClose: function(){
+
+
+            }
+        });
+        handler.openIframe();
     };
+
+
 
     //submit activation form
     submitForm = () => {
@@ -120,20 +169,25 @@ class ActivationForm extends Component {
         if (this.validator.allValid()) {
 
             //retrieve user email
-            const email = this.retrieveUserEmail();
+            const userEmail = this.retrieveUserEmail();
 
             const data = {...this.state.activationData};
 
-            data.email = email;
+            data.email = userEmail;
+
 
             //call activation end with token
             this.setState({
                 activationData:data,
+            },() => {
+
+                console.log(this.state.activationData);
+
+                const {amount,email,key} = this.state.activationData;
+
+                this.payWithPaystack(email,amount,key);
+
             });
-
-            this.storeActivationData();
-
-            this.completeSubmission();
 
 
         } else {
@@ -146,15 +200,19 @@ class ActivationForm extends Component {
     };
 
 
+
+
     retrieveUserEmail = ()=>{
 
         const user = JSON.parse(localStorage.getItem('user'));
-
+        console.log(user.email);
         if(user!==null){
             return user.email;
         }
 
     };
+
+
 
 
     calculateAmount(amount){
@@ -163,30 +221,15 @@ class ActivationForm extends Component {
 
 
 
+
+
     //Validates inputs
 
     render() {
         const {savingsName,currentDate,hour,amount,frequency,email,key} = this.state.activationData;
         const {submitted,restart,completed} = this.state;
-        const {submitForm} = this.props;
-        if(submitted){
-            return (
 
-                <PaystackButton
-                    text="Make Payment"
-                    className="payButton btn btn-round blue-round-btn"
-                    callback={this.callback}
-                    close={this.close}
-                    disabled={true}
-                    embed={true}
-                    reference={this.getReference()}
-                    email={email}
-                    amount={this.calculateAmount(amount)}
-                    paystackkey={key}
-                    tag="button" />
-            );
 
-        }
 
         if(restart){
             return (
@@ -195,6 +238,8 @@ class ActivationForm extends Component {
                 </React.Fragment>
             );
         }
+
+
 
         if(completed){
 
@@ -205,6 +250,8 @@ class ActivationForm extends Component {
             );
 
         }
+
+
 
         return (
             <React.Fragment>

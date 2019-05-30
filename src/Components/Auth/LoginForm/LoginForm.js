@@ -162,7 +162,7 @@ class LoginForm extends Component {
                                     <div className={'srv-validation-message'}>Password must have Uppercase, Lowercase, Number and Special Character</div>
                                     : null}
 
-                                <Link to={forgotPasswordLink} href="#">Forgot Password ?</Link>
+                                <Link to={'/forgot-password'} href="#">Forgot Password ?</Link>
                             </div>
                         </div>
                         <div className="col-12">

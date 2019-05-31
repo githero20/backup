@@ -108,7 +108,7 @@ class VerticalNav extends Component {
                             <li className={' nav-item ' + this.getNavLinkClass('/backup-goals')}>
                                 <NavLink to={'/backup-goals'} >
                                     <img src={BackUpGoalsIcon}/>
-                                    <span className="menu-title">Back up Goals</span>
+                                    <span className="menu-title">Backup Goals</span>
                                 </NavLink>
                             </li>
 

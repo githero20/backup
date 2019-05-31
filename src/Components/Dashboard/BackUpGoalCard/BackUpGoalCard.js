@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import RightArrow from "../../../admin/app-assets/images/svg/arrow-right.svg";
 import BlueRightArrow from "../../../admin/app-assets/images/svg/blue-arrow-right.svg";
+import {Link} from 'react-router-dom';
+import {BackupGoalsLink} from "../../../RouteLinks/RouteLinks";
+
 
 class BackUpGoalCard extends Component {
     render() {
@@ -28,20 +31,20 @@ class BackUpGoalCard extends Component {
                             <h4 className="card-title saving-balance-text">&#8358; 130,156</h4>
                             <div className="row">
                                 <div className="col-6">
-                                    <a href="backupgoals.html"
+                                    <button
                                        className="btn btn-sm btn-custom-blue round "><span
                                         className="ml-2 mr-1">Start </span>
                                         <img alt={''}
                                             className="btn-icon"
                                             src={RightArrow}/>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div className="col-6">
-                                    <a href="backupgoals.html" className="btn white-btn round  ml-1">See
+                                    <Link to={BackupGoalsLink}  className="btn white-btn round  ml-1">See
                                         All <img alt={''}
                                             className="btn-icon"
                                             src={BlueRightArrow}/>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

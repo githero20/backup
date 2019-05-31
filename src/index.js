@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "antd/dist/antd.css";
 import './admin/app-assets/css/vendors.css';
 import './admin/app-assets/css/app.css';
 import './admin/app-assets/css/core/menu/menu-types/vertical-menu-modern.css';

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import mobileTableStatIcon from "../../../admin/app-assets/images/svg/green-dot.svg";
+import Button from "react-bootstrap/Button";
 
 class TransactionTable extends Component {
     render() {
@@ -7,8 +8,9 @@ class TransactionTable extends Component {
             <React.Fragment>
                 <div id="recent-transaction" className="col-sm-12 col-md-8 col-lg-8 order-md-1">
                     <div className="card">
-                        <div className="card-header">
-                            <h4 className="card-title table-title">Recent Transaction</h4>
+                        <div className="card-header d-flex  justify-content-between">
+                            <h4 className="card-title table-title">Recent Transaction </h4>
+                            <Button variant="success" className={'btn-green'}>Export CSV</Button>
                         </div>
                         <div className="card-content mt-1 light-table-bg">
                             <div className="table-responsive">

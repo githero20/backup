@@ -334,14 +334,7 @@ class SteadySave extends Component {
                                     </div>
                                 </div>
 
-                                <div className="row">
-                                    <div className="col-12">
-                                        <div className="card box-shadow-0">
-                                            <div className="card-content">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>

@@ -24,16 +24,14 @@ class DashboardContainer extends Component {
 
                         <div className="content-body">
                             <div className="row">
-                                <CentralVaultCard/>
+                                <CentralVaultCard onHide={this.props.onHide} showModal={this.props.showModal}/>
                                 <BackUpGoalCard/>
                                 <LockedSavingsCard/>
                                 <BackUpStashCard/>
                             </div>
 
-
                             <div className="row">
                                 <div className="col-md-4 col-lg-4 col-12 order-md-8">
-
                                     {/* total Savings */}
 
                                     <div className="card pull-up blue-card saving-card">

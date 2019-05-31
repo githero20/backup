@@ -10,6 +10,7 @@ import {
     verifyTransactionEndpoint
 } from "../../../RouteLinks/RouteLinks";
 import {PayStackKey} from "../../../Info/Info";
+import ButtonLoader from "../Buttonloader/ButtonLoader";
 
 class ActivationForm extends Component {
 
@@ -29,11 +30,12 @@ class ActivationForm extends Component {
                 token:'',
                 source:'auto save',
                 email: "",
-                contribution: 0,
+                contribution: '',
             },
             submitted: false,
             restart:false,
             completed:false,
+            loading:false,
         }
 
     }
@@ -114,6 +116,9 @@ class ActivationForm extends Component {
 
     initiateSave = (url) => {
 
+        this.setState({
+            loading:true,
+        });
         //get token
         const token = localStorage.getItem('token');
         Axios.post(url, this.state.activationData, {
@@ -124,6 +129,9 @@ class ActivationForm extends Component {
             }
 
         }).then((response) => {
+            this.setState({
+                loading:false
+            });
             console.log(response);
             //save ref
             localStorage.setItem('refDetail',JSON.stringify(response.data.data));
@@ -356,7 +364,7 @@ class ActivationForm extends Component {
                         </div>
                         <div className="col-12 col-lg-6">
                             <div className="form-group mb-lg-3">
-                                <label htmlFor="amount" className="active">Amount To Debit</label>
+                                <label htmlFor="contribution" className="active">Amount To Debit</label>
                                 <input id="amount" type="number" name={'contribution'} onChange={this.changeHandler} className="form-control"/>
                                 {this.validator.message('contribution', contribution, 'required|numeric')}
 
@@ -413,10 +421,11 @@ class ActivationForm extends Component {
                                 </label>
                             </div>
                         </div>
-                        <div className="col-md-6 text-center text-md-right offset-md-6">
-                            <div className="text-md-right">
-                                <button className="btn btn-round blue-round-btn"  type={'button'} onClick={this.submitForm} name="action">Activate
-                                    <img className="img-2x ml-2" src={btnArrowRight} alt={'btn arrow right'}/>
+                        <div className="col-md-12 text-center text-md-right ">
+                            <div>
+                                <button className="btn btn-round blue-round-btn auth-btn"  type={'button'} onClick={this.submitForm}>
+                                   {this.state.loading?<ButtonLoader/>:
+                                        <span>Activate <img className="img-2x ml-2" src={btnArrowRight} alt={'btn arrow right'}/></span>}
                                 </button>
 
                             </div>

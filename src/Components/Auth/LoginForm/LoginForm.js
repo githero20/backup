@@ -6,6 +6,7 @@ import Axios from "axios";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {ForgotPasswordLink, LoginEndpoint} from "../../../RouteLinks/RouteLinks";
+import {post} from "../../../Helpers/Helper";
 
 class LoginForm extends Component {
 
@@ -40,30 +41,26 @@ class LoginForm extends Component {
         });
     };
 
+    processLogin = (response) => {
 
+    console.log(' data:', response);
 
-    Login(url) {
+    this.setState({loading:false});
 
-        Axios.post(url,this.state,{
+    };
+
+    Login(url,param,login,error) {
+
+        post(url,param,{
             headers: {
                 "Content-Type": "Application/json",
                 "credentials": 'same-origin',
-            }})
+            },})
 
-            .then( (response) => {
-
-                console.log(' data:', response);
-
-                this.setState({
-                    // redirect:true,
-                    loading:false
-                })
-
-            }).catch( (error) => {
+            .then( login).catch( (error) => {
 
             console.log(`request failed: ${JSON.stringify(error.response.data)}`);
             let message = JSON.stringify(error.response.data.message);
-            message = message.replace(/, click on resend"/g,'');
             this.setState({
                 error:true,
                 errorMessage:message,
@@ -77,7 +74,7 @@ class LoginForm extends Component {
     //submit ForgotPassword form
     submitForm = () => {
 
-        this.Login(LoginEndpoint);
+        this.Login(LoginEndpoint,this.state,this.processLogin());
 
     };
 
@@ -134,7 +131,7 @@ class LoginForm extends Component {
 
             return (
                 <React.Fragment>
-                    <Redirect to={'/activate-account'} push/>
+                    <Redirect to={'/activate-account'} push />
                 </React.Fragment>
             );
         }

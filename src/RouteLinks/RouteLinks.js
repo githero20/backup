@@ -25,3 +25,4 @@ export const LoginEndpoint  = 'http://backupcash.atp-sevas.com/sfsbapi/v1/auth/l
 export const RegisterEndpoint  = `http://backupcash.atp-sevas.com/sfsbapi/v1/auth/register`;
 export const initiateSteadySaveEndpoint  = `http://backupcash.atp-sevas.com/sfsbapi/v1/user/transaction/init/steady`;
 export const verifyTransactionEndpoint  = `http://backupcash.atp-sevas.com/sfsbapi/v1/user/transaction/verify`;
+export const passwordResetEndpoint  = `http://backupcash.atp-sevas.com/sfsbapi/v1/auth/password/email`;

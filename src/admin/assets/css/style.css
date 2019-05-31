@@ -542,7 +542,9 @@ html body .content.app-content {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
-
+.header-navbar{
+    font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 .header-navbar .navbar-header .navbar-brand .brand-logo {
     width: 100%;
 }
@@ -649,7 +651,7 @@ html body .content.app-content {
 }
 
 .blue-card-price {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -2127,7 +2129,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .card .card-body .saving-balance-text {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         font-weight: bold;
         margin-top: 3rem;
         color: #333335;
@@ -2173,4 +2175,11 @@ input[type=number]::-webkit-outer-spin-button {
         color: #191033;
     }
 
+}
+
+.steady-save-modal .modal-header{
+    border-bottom: none;
+}
+.steady-save-modal .modal-content{
+    border-radius: 12px;
 }

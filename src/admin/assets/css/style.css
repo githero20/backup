@@ -578,7 +578,7 @@ html body .content.app-content {
 }
 
 .card .card-body .saving-balance-text {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     margin-top: 3rem;
     color: #5F5B82;
@@ -651,13 +651,13 @@ html body .content.app-content {
 }
 
 .blue-card-price {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: bold;
     font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .blue-card .card-content {
-    padding: 0rem 2.5rem;
+    padding: 1rem 1rem;
 }
 
 .blue-card-icon {

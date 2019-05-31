@@ -11,6 +11,7 @@ class HorizontalNav extends Component {
     //state to display user menu when clicked
     state = {
         show:'',
+        userName:'',
     };
     //toggle profile menu
     toggleSubMenu=()=>{
@@ -18,7 +19,38 @@ class HorizontalNav extends Component {
         this.setState({show:toggle});
     };
 
+
+    retreiveUserInfo = () => {
+
+        if (localStorage.getItem('user')){
+
+           let userInfo =  JSON.parse(localStorage.getItem('user'));
+
+           this.setState({
+               userName:userInfo.name
+           })
+
+        }
+
+    };
+
+    //display user info on the menu
+    //check if user info is stored retrieve the info
+    // look for a way to securely store and retrieve data from local storage
+
+
+    componentDidMount() {
+
+        this.retreiveUserInfo();
+
+    }
+
+
+
     render() {
+
+        const {userName} = this.state;
+
         return (
             <React.Fragment>
 

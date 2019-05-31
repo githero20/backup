@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d6f8db3-e14b-4159-9d0b-a9ae603e5670" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Components/Dashboard/ActiveGoalsModal/ActiveGoalsModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Dashboard/ActiveGoalsModal/SteadySaveForm/ActiveGoalsForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalCard/BackUpGoalCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalCard/BackUpGoalCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/BackUpStashCard/BackUpStashCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/BackUpStashCard/BackUpStashCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/DashboardContainer/DashboardContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/DashboardContainer/DashboardContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/LockedSavingCard/LockedSavingsCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/LockedSavingCard/LockedSavingsCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/HorizontalNav/HorizontalNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/HorizontalNav/HorizontalNav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsBlueCard/TotalSavingsBlueCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsBlueCard/TotalSavingsBlueCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotalSavingsCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotalSavingsCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/admin/assets/css/backup-cash-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/assets/css/backup-cash-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/admin/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/backup-cash-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/backup-cash-style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,39 +36,9 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="548">
-              <caret line="58" column="35" lean-forward="true" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/DashboardContainer/DashboardContainer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="30" column="44" lean-forward="true" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/BackUpStashCard/BackUpStashCard.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="26" lean-forward="true" selection-start-column="26" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/CentralVaultCard/CentralVaultCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
+            <state relative-caret-position="-52">
               <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -93,7 +62,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalCard/BackUpGoalCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12">
+            <state relative-caret-position="-57">
               <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -102,11 +71,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/ActiveGoalsModal/SteadySaveForm/ActiveGoalsForm.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/VerticalNav/VerticalNav.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+            <state relative-caret-position="494">
+              <caret line="51" selection-start-line="51" selection-end-line="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/HorizontalNav/HorizontalNav.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="25" column="46" lean-forward="true" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Components/Auth/SignUpForm/SignUpForm.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="370">
+              <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -115,7 +105,7 @@
         <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/ActiveGoalsModal/ActiveGoalsModal.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
-              <caret line="22" column="32" lean-forward="true" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+              <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -124,22 +114,37 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/SteadySaveModal/SteadySaveModal.js">
+        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsBlueCard/TotalSavingsBlueCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
+            <state relative-caret-position="135">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/admin/assets/css/style.css">
+        <entry file="file://$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="718">
-              <caret line="2183" column="24" selection-start-line="2183" selection-start-column="24" selection-end-line="2183" selection-end-column="24" />
+            <state relative-caret-position="602">
+              <caret line="58" column="27" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotalSavingsCard.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="585">
+              <caret line="39" column="32" lean-forward="true" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -155,9 +160,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sav</find>
-      <find>alt</find>
-      <find>amount</find>
       <find>valid</find>
       <find>erro</find>
       <find>input</find>
@@ -177,14 +179,17 @@
       <find>verify</find>
       <find>initia</find>
       <find>initi</find>
-      <find>.blue-card-price</find>
-      <find>.card .card-body .saving-balance-text</find>
       <find>MODAL</find>
       <find>DASHBOAR</find>
       <find>.header-navbar</find>
       <find>header-navbar</find>
       <find>steady</find>
       <find>steady-save-modal</find>
+      <find>.btn-gradient-blue:hover</find>
+      <find>.blue-card-price</find>
+      <find>.card .card-body .saving-balance-text</find>
+      <find>.blue-card .card-content</find>
+      <find>local</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;/button</replace>
@@ -215,8 +220,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/admin/app-assets/images/datatables/resources/syntax/Syntax Highlighter license" />
-        <option value="$PROJECT_DIR$/src/Components/Auth/Toast/Toast.js" />
         <option value="$PROJECT_DIR$/src/Components/Alert/Alert.js" />
         <option value="$PROJECT_DIR$/src/Components/Auth/Buttonloader/ButtonLoader.js" />
         <option value="$PROJECT_DIR$/src/Containers/SignUp/SignUp.js" />
@@ -224,7 +227,6 @@
         <option value="$PROJECT_DIR$/src/images/svg/backupCashlogo.svg" />
         <option value="$PROJECT_DIR$/src/images/svg/what-app-icon.svg" />
         <option value="$PROJECT_DIR$/src/images/svg/whatsapp-bg.svg" />
-        <option value="$PROJECT_DIR$/src/admin/assets/css/backup-cash-style.css" />
         <option value="$PROJECT_DIR$/src/Containers/BackupGoals/BackupGoals.js" />
         <option value="$PROJECT_DIR$/src/Containers/Login/Login.js" />
         <option value="$PROJECT_DIR$/src/Components/Auth/EmailModal/EmailModal.js" />
@@ -243,14 +245,10 @@
         <option value="$PROJECT_DIR$/src/Info/Info.js" />
         <option value="$PROJECT_DIR$/src/Components/Auth/ActivationForm/ActivationForm.js" />
         <option value="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" />
-        <option value="$PROJECT_DIR$/src/Helpers/Helper.js" />
         <option value="$PROJECT_DIR$/src/Components/Auth/LoginForm/LoginForm.js" />
         <option value="$PROJECT_DIR$/src/Components/Auth/ForgotPasswordForm/ForgotPasswordForm.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
-        <option value="$PROJECT_DIR$/src/Components/Dashboard/VerticalNav/VerticalNav.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/TransactionTable/TransactionTable.js" />
-        <option value="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsBlueCard/TotalSavingsBlueCard.js" />
-        <option value="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotalSavingsCard.js" />
         <option value="$PROJECT_DIR$/src/Containers/SteadySave/SteadySave.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveForm/SteadySaveForm.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/Dashboard.js" />
@@ -258,14 +256,21 @@
         <option value="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveModal/SteadySaveForm/SteadySaveForm.js" />
         <option value="$PROJECT_DIR$/build/static/css/main.cdc7d3b9.chunk.css" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveModal/SteadySaveModal.js" />
-        <option value="$PROJECT_DIR$/src/admin/assets/css/style.css" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/ActiveGoalsModal/SteadySaveForm/ActiveGoals.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/ActiveGoalsModal/ActiveGoalsModal.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/BackUpStashCard/BackUpStashCard.js" />
-        <option value="$PROJECT_DIR$/src/Components/Dashboard/DashboardContainer/DashboardContainer.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalCard/BackUpGoalCard.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/LockedSavingCard/LockedSavingsCard.js" />
         <option value="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" />
+        <option value="$PROJECT_DIR$/src/Components/Dashboard/DashboardContainer/DashboardContainer.js" />
+        <option value="$PROJECT_DIR$/src/css/backup-cash-style.css" />
+        <option value="$PROJECT_DIR$/src/admin/assets/css/backup-cash-style.css" />
+        <option value="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotalSavingsCard.js" />
+        <option value="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsBlueCard/TotalSavingsBlueCard.js" />
+        <option value="$PROJECT_DIR$/src/admin/assets/css/style.css" />
+        <option value="$PROJECT_DIR$/src/Helpers/Helper.js" />
+        <option value="$PROJECT_DIR$/src/Components/Dashboard/VerticalNav/VerticalNav.js" />
+        <option value="$PROJECT_DIR$/src/Components/Dashboard/HorizontalNav/HorizontalNav.js" />
       </list>
     </option>
   </component>
@@ -294,43 +299,13 @@
               <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
               <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="ActiveGoalsModal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="ActiveGoalsModal" type="462c0819:PsiDirectoryNode" />
-              <item name="SteadySaveForm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Containers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="fonts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Helpers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -390,12 +365,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1558694646048</updated>
-      <workItem from="1558694647678" duration="216155000" />
+      <workItem from="1558694647678" duration="218630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216155000" />
+    <option name="totallyTimeSpent" value="218630000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -409,7 +384,7 @@
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Version Control" sideWeight="0.4993895" weight="0.78163266" />
-      <window_info anchor="bottom" id="Terminal" sideWeight="0.4981685" visible="true" weight="0.14795919" />
+      <window_info anchor="bottom" id="Terminal" sideWeight="0.4981685" visible="true" weight="0.091836736" />
       <window_info anchor="bottom" id="Event Log" sideWeight="0.50061053" side_tool="true" weight="0.78163266" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.7908163" />
@@ -582,16 +557,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Auth/SignUpForm/SignUpForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1388">
-          <caret line="94" column="11" lean-forward="true" selection-start-line="94" selection-start-column="11" selection-end-line="94" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Info/Info.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -616,13 +581,6 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Helpers/Helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
@@ -673,44 +631,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/VerticalNav/VerticalNav.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1">
-          <caret line="90" column="17" selection-start-line="90" selection-start-column="17" selection-end-line="90" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/RouteLinks/RouteLinks.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TransactionTable/TransactionTable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-274">
-          <caret line="14" column="52" lean-forward="true" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsBlueCard/TotalSavingsBlueCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotalSavingsCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -731,13 +655,6 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/HorizontalNav/HorizontalNav.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -813,23 +730,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/CentralVaultCard/CentralVaultCard.js">
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/DashboardContainer/DashboardContainer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="240">
+          <caret line="28" column="42" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalCard/BackUpGoalCard.js">
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TransactionTable/TransactionTable.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="30">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -837,6 +748,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="26" lean-forward="true" selection-start-column="26" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/CentralVaultCard/CentralVaultCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-52">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -850,17 +771,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/DashboardContainer/DashboardContainer.js">
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotalSavingsCard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="30" column="44" lean-forward="true" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
+        <state relative-caret-position="585">
+          <caret line="39" column="32" lean-forward="true" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsBlueCard/TotalSavingsBlueCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="58" column="35" lean-forward="true" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
+        <state relative-caret-position="602">
+          <caret line="58" column="27" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="27" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -870,7 +804,7 @@
     <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/ActiveGoalsModal/ActiveGoalsModal.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
-          <caret line="22" column="32" lean-forward="true" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -881,6 +815,47 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalCard/BackUpGoalCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-57">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Helpers/Helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/VerticalNav/VerticalNav.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Auth/SignUpForm/SignUpForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/HorizontalNav/HorizontalNav.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="25" column="46" lean-forward="true" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
         </state>
       </provider>
     </entry>

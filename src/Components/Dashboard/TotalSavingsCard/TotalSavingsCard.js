@@ -17,14 +17,14 @@ class TotalSavingsCard extends Component {
                                          src={historyTransIcon}/>
                                 </div>
                                 <div className="media-body text-left pt-1 mb-md-2">
-                                    <h3><strong
-                                        className="blue-card-price ml-1 mr-2">&#8358;
+                                    <h3 className={'ml-1 '}><strong
+                                        className="blue-card-price ">&#8358;
                                         1,934,890</strong>
                                     </h3>
                                 </div>
                             </div>
-                            <div className={'d-flex justify-content-end'}><a href="#"
-                                                                             className="btn btn-sm history-btn btn-outline-blue ">Interest
+                            <div className={'d-flex justify-content-end'}>
+                                <a href="#" className="btn btn-sm history-btn btn-outline-blue ">Interest
                                 History <img className="btn-icon"
                                              src={HistoryArrow}/></a>
                             </div>

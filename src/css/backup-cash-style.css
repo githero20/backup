@@ -171,7 +171,7 @@ height-100vh{
 .btn-gradient-blue:hover {
     text-decoration: none;
     color: white;
-    transform: translateY(-30px);
+    transform: translateY(-5px);
 }
 
 .cta-link {

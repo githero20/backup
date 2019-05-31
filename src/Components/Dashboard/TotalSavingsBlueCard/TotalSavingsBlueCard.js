@@ -20,8 +20,8 @@ class TotalSavingsBlueCard extends Component {
                                          src={BlueCardTransIcon}/>
                                 </div>
                                 <div className="media-body text-left pt-1 ">
-                                    <h3 className="text-white clearfix"><strong
-                                        className="blue-card-price ml-2 mr-2">&#8358;
+                                    <h3 className="text-white ml-1"><strong
+                                        className="blue-card-price ">&#8358;
                                         1,934,890</strong>
                                     </h3>
 

@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-import TotalTransactionIcon from "../../../admin/app-assets/images/svg/transparent-total-saving-icon.svg";
-import HistoryArrow from "../../../admin/app-assets/images/svg/history-arrow-sm.svg";
-import BlueCardTransIcon from "../../../admin/app-assets/images/svg/bluetransicon.svg";
-import historyTransIcon from "../../../admin/app-assets/images/svg/history-arrow.svg";
 import TransactionTable from "../TransactionTable/TransactionTable";
 import MessageBox from "./MessageBox/MessageBox";
 import CentralVaultCard from "../CentralVaultCard/CentralVaultCard";
@@ -11,24 +7,30 @@ import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";
 import LockedSavingsCard from "../LockedSavingCard/LockedSavingsCard";
 import TotalSavingsBlueCard from "../TotalSavingsBlueCard/TotalSavingsBlueCard";
 import TotalSavingsCard from "../TotalSavingsCard/TotalSavingsCard";
+import Alert from "react-bootstrap/Alert";
 
 class DashboardContainer extends Component {
+
+
     render() {
+        const {error,activateAccount} =this.props;
+
         return (
             <React.Fragment>
                 <div className="app-content content">
                     <div className="content-wrapper">
                         {/* notification component */}
-                        <MessageBox />
+
+                        <MessageBox error={error}  errorMessage={this.props.errorMessage} activateAccount={activateAccount} />
 
 
                         {/*Vault Card */}
 
                         <div className="content-body">
                             <div className="row">
-                                <CentralVaultCard onHide={this.props.onHide} showModal={this.props.showModal}/>
-                                <BackUpGoalCard onHide={this.props.onHide} showModal={this.props.showModal}/>
-                                <LockedSavingsCard onHide={this.props.onHide} showModal={this.props.showModal}/>
+                                <CentralVaultCard onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>
+                                <BackUpGoalCard onHide={this.props.hideAGModal} showModal={this.props.showAGModal}/>
+                                <LockedSavingsCard onHide={this.props.hideLSModal} showModal={this.props.showLSModal}/>
                                 <BackUpStashCard/>
                             </div>
 
@@ -41,9 +43,11 @@ class DashboardContainer extends Component {
 
                                 </div>
                             </div>
+
                                 {/*transaction table component */}
 
                             </div>
+
                         </div>
                     </div>
 

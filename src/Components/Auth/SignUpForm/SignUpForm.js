@@ -7,7 +7,7 @@ import Axios from "axios";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {ActivateAccountLink, RegisterEndpoint} from "../../../RouteLinks/RouteLinks";
-import SecureLS from "secure-ls";
+import {api} from "../../../ApiUtils/ApiUtils";
 
 class SignUpForm extends Component {
 
@@ -75,24 +75,26 @@ class SignUpForm extends Component {
     };
 
 
-    signUp = (url, func) => {
+    signUp = (url,param, func) => {
 
-        Axios.post(url, this.state, {
-            headers: {
-                "Content-Type": "Application/json",
-                "credentials": 'same-origin',
-            }
-        })
-
-            .then(func).catch((error) => {
-
-            console.log(`request failed: ${JSON.stringify(error.response.data)}`);
-            this.setState({
-                error: true,
-                errorMessage: JSON.stringify(error.response.data),
-                loading: false
-            });
-        });
+        api(url,param,false,true,func);
+        //
+        // Axios.post(url, param, {
+        //     headers: {
+        //         "Content-Type": "Application/json",
+        //         "credentials": 'same-origin',
+        //     }
+        // })
+        //
+        //     .then(func).catch((error) => {
+        //
+        //     console.log(`request failed: ${JSON.stringify(error.response.data)}`);
+        //     this.setState({
+        //         error: true,
+        //         errorMessage: JSON.stringify(error.response.data),
+        //         loading: false
+        //     });
+        // });
 
     };
 
@@ -129,21 +131,36 @@ class SignUpForm extends Component {
 
     };
 
-    getSignUpInfo = (response) => {
+    getSignUpInfo = (state,response) => {
 
-        console.log(' data:', response);
-        //save token
-        const serverResponse = response.data;
-        const token = serverResponse.token;
-        const user = serverResponse.user;
-        this.setState({
-            loading: false
-        });
 
-        this.saveToLocalStorage(user, token);
+
+            console.log(' data:', response);
+
+            //save token
+            const serverResponse = response.data;
+            const token = serverResponse.token;
+            const user = serverResponse.user;
+            this.setState({
+                loading: false
+            });
+            this.saveToLocalStorage(user, token);
+
+        if(!state){
+
+
+            console.log(`request failed: ${JSON.stringify(response)}`);
+            this.setState({
+                error: true,
+                errorMessage: JSON.stringify(response.data.message),
+                loading: false
+            });
+        }
 
 
     };
+
+
 
     //submit sign up form
     submitForm = () => {
@@ -162,7 +179,7 @@ class SignUpForm extends Component {
                     loading: true
                 });
 
-                this.signUp(RegisterEndpoint, this.getSignUpInfo);
+                this.signUp(RegisterEndpoint,this.state,this.getSignUpInfo);
 
             }
 

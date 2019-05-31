@@ -1,9 +1,8 @@
 import React from 'react';
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import ActiveGoalsForm from "./ActiveGoalForm/ActiveGoalsForm";
+import LockedSavingForm from "./LockedSavingForm/LockedSavingForm";
 
-class ActiveGoalsModal extends React.Component {
+class LockedSavingModal extends React.Component {
     render() {
         return (
             <Modal
@@ -15,16 +14,16 @@ class ActiveGoalsModal extends React.Component {
             >
                 <Modal.Header className={' px-md-3 py-md-3'} closeButton={this.props.onHide}>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        <h4>Start New Active Goal</h4>
+                        <h4>New Steady Savings Plan</h4>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
-                    <ActiveGoalsForm onHide={this.props.onHide} />
+                    <LockedSavingForm onHide={this.props.onHide} />
                 </Modal.Body>
             </Modal>
         );
     }
 }
 
-export default ActiveGoalsModal;
+export default LockedSavingModal;

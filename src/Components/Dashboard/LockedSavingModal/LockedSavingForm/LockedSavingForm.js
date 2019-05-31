@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 
 
-class ActiveGoalsForm extends Component {
+class LockedSavingForm extends Component {
     render() {
         return (
             <React.Fragment>
@@ -72,4 +71,4 @@ class ActiveGoalsForm extends Component {
     }
 }
 
-export default ActiveGoalsForm;
+export default LockedSavingForm;

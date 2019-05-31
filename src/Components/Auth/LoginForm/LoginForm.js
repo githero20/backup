@@ -5,8 +5,9 @@ import SimpleReactValidator from "simple-react-validator";
 import Axios from "axios";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
-import {ForgotPasswordLink, LoginEndpoint} from "../../../RouteLinks/RouteLinks";
+import {DashboardLink, ForgotPasswordLink, LoginEndpoint} from "../../../RouteLinks/RouteLinks";
 import {post} from "../../../Helpers/Helper";
+import {api} from "../../../ApiUtils/ApiUtils";
 
 class LoginForm extends Component {
 
@@ -41,32 +42,43 @@ class LoginForm extends Component {
         });
     };
 
-    processLogin = (response) => {
+    processLogin = (state,response) => {
 
     console.log(' data:', response);
 
     this.setState({loading:false});
 
-    };
-
-    Login(url,param,login,error) {
-
-        post(url,param,{
-            headers: {
-                "Content-Type": "Application/json",
-                "credentials": 'same-origin',
-            },})
-
-            .then( login).catch( (error) => {
-
-            console.log(`request failed: ${JSON.stringify(error.response.data)}`);
-            let message = JSON.stringify(error.response.data.message);
+        if (!state){
+            console.log(`request failed: ${JSON.stringify(response.data)}`);
+            let message = JSON.stringify(response.data.message);
             this.setState({
                 error:true,
                 errorMessage:message,
                 loading:false
             });
-        });
+
+        }else {
+
+            this.setState({
+                redirect:true
+            });
+        }
+    };
+
+    Login(url,param,login) {
+
+
+        api(url,param,false,true,login);
+        // post(url,param,{
+        //     headers: {
+        //         "Content-Type": "Application/json",
+        //         "credentials": 'same-origin',
+        //     },})
+        //
+        //     .then( login).catch( (error) => {
+        //
+        //
+        // });
 
     }
 
@@ -74,7 +86,7 @@ class LoginForm extends Component {
     //submit ForgotPassword form
     submitForm = () => {
 
-        this.Login(LoginEndpoint,this.state,this.processLogin());
+        this.Login(LoginEndpoint,this.state,this.processLogin);
 
     };
 
@@ -131,7 +143,7 @@ class LoginForm extends Component {
 
             return (
                 <React.Fragment>
-                    <Redirect to={'/activate-account'} push />
+                    <Redirect to={DashboardLink} push />
                 </React.Fragment>
             );
         }

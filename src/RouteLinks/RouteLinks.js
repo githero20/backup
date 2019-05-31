@@ -19,10 +19,13 @@ export const SignUpLink  = '/sign-up';
 
 
 ////////////////////////// Endpoints /////////////////////////////////////////////
+export const BASE_URL ='http://backupcash.atp-sevas.com/';
 
-
-export const LoginEndpoint  = 'http://backupcash.atp-sevas.com/sfsbapi/v1/auth/login';
-export const RegisterEndpoint  = `http://backupcash.atp-sevas.com/sfsbapi/v1/auth/register`;
-export const initiateSteadySaveEndpoint  = `http://backupcash.atp-sevas.com/sfsbapi/v1/user/transaction/init/steady`;
-export const verifyTransactionEndpoint  = `http://backupcash.atp-sevas.com/sfsbapi/v1/user/transaction/verify`;
-export const passwordResetEndpoint  = `http://backupcash.atp-sevas.com/sfsbapi/v1/auth/password/email`;
+export const LoginEndpoint  = 'sfsbapi/v1/auth/login';
+export const RegisterEndpoint  = `sfsbapi/v1/auth/register`;
+export const initiateSteadySaveEndpoint  = `sfsbapi/v1/user/transaction/init/steady`;
+export const verifyTransactionEndpoint  = `sfsbapi/v1/user/transaction/verify`;
+export const passwordResetEndpoint  = `sfsbapi/v1/auth/password/email`;
+export const getUserInfoEndpoint  = `sfsbapi/v1/user`;
+export const activateUserEndpoint  = `sfsbapi/v1/user/activate`;
+export const instantSaveEndpoint  = `/sfsbapi/v1/user/savings/instant`;

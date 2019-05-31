@@ -32,7 +32,7 @@ class CentralVaultCard extends Component {
                             <h4 className="card-title saving-balance-text">&#8358; 130,156</h4>
                             <div className="row">
                                 <div className="col-6">
-                                    <button onClick={this.props.showModal}
+                                    <button
                                        className="btn btn-sm btn-custom-blue round "><span
                                         className="ml-2 mr-1">Start </span>
                                         <img alt="" className="btn-icon" src={RightArrow}/>

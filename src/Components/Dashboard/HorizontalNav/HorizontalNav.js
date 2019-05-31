@@ -23,7 +23,7 @@ class HorizontalNav extends Component {
     retreiveUserInfo = () => {
 
         if (localStorage.getItem('user')){
-
+            console.log(JSON.parse(localStorage.getItem('user')));
            let userInfo =  JSON.parse(localStorage.getItem('user'));
 
            this.setState({
@@ -201,7 +201,7 @@ class HorizontalNav extends Component {
                                                 <i></i>
                                             </span>
                                             <span className="mr-1">
-                                                <span className="user-name text-bold-700">John Doe</span>
+                                                <span className="user-name text-bold-700">{userName}</span>
                                             </span>
                                         </a>
                                         <div className={'dropdown-menu menu-custom-dropdown dropdown-menu-right '+this.state.show}>

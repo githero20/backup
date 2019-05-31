@@ -10,9 +10,46 @@ import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
 import tableLeftArrow from "../../admin/app-assets/images/svg/table-arrow-left.svg";
 import sortIcon from "../../admin/app-assets/images/svg/sort-icon.svg";
 import greenDots from "../../admin/app-assets/images/svg/green-dot.svg";
+import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
+import InstantSavingModal from "../../Components/Dashboard/InstantSavingModal/InstantSavingModal";
+import DashboardContainer from "../../Components/Dashboard/DashboardContainer/DashboardContainer";
 
 class InstantSave extends Component {
+
+
+    state = {
+        showSavingModal:false
+    };
+
+    // modal to save more button
+
+
+    // to collect new instant save
+
+
+    //
+
+    hideModal = ()=>{
+          this.setState({
+              showSavingModal:false
+          }
+      );
+
+    }
+
+    showModal = () => {
+        this.setState({
+            showSavingModal:true
+        });
+
+    }
+
+
+
+
+
     render() {
+
         return (
             <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                  data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
@@ -20,19 +57,22 @@ class InstantSave extends Component {
                 <VerticalNav/>
                 <div className="app-content content">
                     <div className="content-wrapper">
-                        <div className="row mb-4">
-                            <div className="col-12">
-                                <div
-                                    className="bg-white shadow-sm dashboard-callout callout-border-right clearfix callout-round callout-transparent mt-1 px-2 py-2 py-1">
-                                    <strong>Congrats! </strong>
-                                    <span className="mr-3">you referred 5 persons from [ 1 -2-2019 to 5-2-2019 ] ,
-                        <span className="admin-purple d-block d-md-inline">Your referral points earned</span> </span>
-                                    <span className=" d-block d-md-inline">25 points</span>
-                                    <label className="pull-right"><span className="mr-2"> copy referral code</span>
-                                        <span className="code-btn">AEC45SF</span></label>
-                                </div>
-                            </div>
-                        </div>
+
+                        <MessageBox />
+
+                        {
+                            this.state.showSavingModal ?
+                            (
+                            <React.Fragment>
+                                <InstantSavingModal show={this.state.showSavingModal}  onHide={this.hideModal}/>
+                            </React.Fragment>
+
+                            ):null
+
+
+                        }
+
+
                         <div className="content-header row">
                         </div>
                         <div className="content-body">
@@ -68,8 +108,8 @@ class InstantSave extends Component {
 
                                     <div className="mb-quick-actions d-flex flex-md-column flex-wrap ">
                         <span className="mb-btn-wrapper">
-                            <button type="button" data-toggle="modal" data-target="#large"
-                                    className=" btn-blue-gradient-2 round">
+                            <button type="button" data-toggle="modal" data-target="#large" onClick={this.showModal}
+                                    className=" btn-blue-gradient-2 round" >
                                 <img src={whiteSaveMoreIcon}/>
                                 Save More
                             </button>

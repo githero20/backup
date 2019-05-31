@@ -38,7 +38,7 @@ class Transactions extends Component {
                                 </div>
 
                                 <div className="row">
-                                    <div id="recent-sales" className="col-12 col-md-8">
+                                    <div id="recent-sales" className="col-12 ">
                                         <div className="card">
                                             <div className="card-header">
                                                 <h4 className="card-title table-title">Recent Transactions</h4>

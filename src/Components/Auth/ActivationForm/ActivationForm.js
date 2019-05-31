@@ -11,6 +11,7 @@ import {
 } from "../../../RouteLinks/RouteLinks";
 import {PayStackKey} from "../../../Info/Info";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
+import {api} from "../../../ApiUtils/ApiUtils";
 
 class ActivationForm extends Component {
 
@@ -113,22 +114,9 @@ class ActivationForm extends Component {
         });
 
     }
+    handleSavings = (state,response) =>{
 
-    initiateSave = (url) => {
-
-        this.setState({
-            loading:true,
-        });
-        //get token
-        const token = localStorage.getItem('token');
-        Axios.post(url, this.state.activationData, {
-            headers: {
-                "Content-Type": "Application/json",
-                "credentials": 'same-origin',
-                'Authorization':'Bearer '+token,
-            }
-
-        }).then((response) => {
+        if(state){
             this.setState({
                 loading:false
             });
@@ -141,15 +129,55 @@ class ActivationForm extends Component {
             console.log(response.data.reference);
             this.payWithPaystack(email,contribution,PayStackKey,response.data.data.reference);
 
-        }).catch((error) => {
-
-            console.log(`request failed: ${JSON.stringify(error.response.data)}`);
+        }else{
+            console.log(`request failed: ${JSON.stringify(response.data)}`);
             this.setState({
                 error: true,
-                errorMessage: JSON.stringify(error.response.data),
+                errorMessage: JSON.stringify(response.data),
                 loading: false
             });
+        }
+
+    };
+
+    initiateSave = (url) => {
+
+        this.setState({
+            loading:true,
         });
+
+
+        api(url,this.state.activationData,true,true,this.handleSavings);
+
+        // Axios.post(url, this.state.activationData, {
+        //     headers: {
+        //         "Content-Type": "Application/json",
+        //         "credentials": 'same-origin',
+        //         'Authorization':'Bearer '+token,
+        //     }
+        //
+        // }).then((response) => {
+        //     this.setState({
+        //         loading:false
+        //     });
+        //     console.log(response);
+        //     //save ref
+        //     localStorage.setItem('refDetail',JSON.stringify(response.data.data));
+        //
+        //     //start payment
+        //     const {contribution,email} = this.state.activationData;
+        //     console.log(response.data.reference);
+        //     this.payWithPaystack(email,contribution,PayStackKey,response.data.data.reference);
+        //
+        // }).catch((error) => {
+        //
+        //     console.log(`request failed: ${JSON.stringify(error.response.data)}`);
+        //     this.setState({
+        //         error: true,
+        //         errorMessage: JSON.stringify(error.response.data),
+        //         loading: false
+        //     });
+        // });
 
     };
 
@@ -170,33 +198,53 @@ class ActivationForm extends Component {
     };
 
 
+    handleVerification = (state,res) => {
 
-    verifyTransaction = (url,param,token) =>{
-        console.log(param);
-        Axios.post(url, param, {
-            headers: {
-                "Content-Type": "Application/json",
-                "credentials": 'same-origin',
-                'Authorization':'Bearer '+token,
-            }
-
-        }).then((response) => {
+        if(state){
 
             //save dashboard info
-            this.saveDashboardInfo(response.data);
+            this.saveDashboardInfo(res.data);
 
             //redirect user to dashboard
             this.redirectToDashBoard();
+        }else {
 
-        }).catch((error) => {
-
-            console.log(`request failed: ${JSON.stringify(error.response.data)}`);
+            console.log(`request failed: ${JSON.stringify(res.data)}`);
             this.setState({
                 error: true,
-                errorMessage: JSON.stringify(error.response.data),
+                errorMessage: JSON.stringify(res.data),
                 loading: false
             });
-        });
+
+        }
+    };
+
+
+
+    verifyTransaction = (url,param,token) =>{
+
+        api(url,param,token,true,this.handleVerification);
+
+        // console.log(param);
+        // Axios.post(url, param, {
+        //     headers: {
+        //         "Content-Type": "Application/json",
+        //         "credentials": 'same-origin',
+        //         'Authorization':'Bearer '+token,
+        //     }
+        //
+        // }).then((response) => {
+        //
+        //
+        // }).catch((error) => {
+        //
+        //     console.log(`request failed: ${JSON.stringify(error.response.data)}`);
+        //     this.setState({
+        //         error: true,
+        //         errorMessage: JSON.stringify(error.response.data),
+        //         loading: false
+        //     });
+        // });
 
     };
 
@@ -210,6 +258,7 @@ class ActivationForm extends Component {
             amount: this.calculateAmount(amount),
             currency: "NGN",
             ref: ref,
+            channels:['card'],
             metadata: {
                 custom_fields: [
                     {

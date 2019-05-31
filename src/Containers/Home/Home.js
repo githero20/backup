@@ -30,6 +30,20 @@ import carouselRightArrow from "../../admin/app-assets/images/svg/right-arrow.sv
 
 
 class Home extends Component {
+
+    state = {
+        showMobileMenu:false,
+
+    };
+
+
+    showMobileMenu = () => {
+        this.setState({
+            showMobileMenu:true
+        })
+    };
+
+
     render() {
         return (
             <React.Fragment>
@@ -37,10 +51,10 @@ class Home extends Component {
                     <header className="header header-background">
                         <div className="container">
                             <nav className="home-nav navbar navbar-expand-lg ">
-                                <a className="navbar-brand" href={'#'} >
+                                <a  className="navbar-brand"  >
                                     <img src={backupCashLogo} alt="logo" width="200px"/>
                                 </a>
-                                <a type="button" href={'#'}  className="hamburger hamburger--slider navbar-toggler"
+                                <a type="button" onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
                                    data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                    aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="hamburger-box">
@@ -62,8 +76,7 @@ class Home extends Component {
                                     </ul>
                                     <ul className="cta-link">
                                         <li>
-                                            <Link to={'/login'} className="btn-rounded-blue btn-gradient-blue">Log
-                                                In</Link>
+                                            <Link to={'/login'} className="btn-rounded-blue btn-gradient-blue">Log In</Link>
                                         </li>
                                     </ul>
                                 </div>

@@ -5,6 +5,7 @@ import {WithdrawalLink} from "../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 
 class BackUpStashCard extends Component {
+
     render() {
         return (
             <React.Fragment>

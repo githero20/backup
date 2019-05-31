@@ -28,7 +28,7 @@ class LockedSavingsCard extends Component {
                             <h4 className="card-title saving-balance-text">&#8358; 130,156</h4>
                             <div className="row">
                                 <div className="col-6">
-                                    <button
+                                    <button onClick={this.props.showModal}
                                        className="btn btn-sm btn-custom-blue round "><span
                                         className="ml-2 mr-1">Start </span><img
                                         className="btn-icon" alt={'button icon'}

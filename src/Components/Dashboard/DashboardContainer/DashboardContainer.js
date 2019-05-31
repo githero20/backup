@@ -9,6 +9,8 @@ import CentralVaultCard from "../CentralVaultCard/CentralVaultCard";
 import BackUpGoalCard from "../BackUpGoalCard/BackUpGoalCard";
 import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";
 import LockedSavingsCard from "../LockedSavingCard/LockedSavingsCard";
+import TotalSavingsBlueCard from "../TotalSavingsBlueCard/TotalSavingsBlueCard";
+import TotalSavingsCard from "../TotalSavingsCard/TotalSavingsCard";
 
 class DashboardContainer extends Component {
     render() {
@@ -25,70 +27,26 @@ class DashboardContainer extends Component {
                         <div className="content-body">
                             <div className="row">
                                 <CentralVaultCard onHide={this.props.onHide} showModal={this.props.showModal}/>
-                                <BackUpGoalCard/>
-                                <LockedSavingsCard/>
+                                <BackUpGoalCard onHide={this.props.onHide} showModal={this.props.showModal}/>
+                                <LockedSavingsCard onHide={this.props.onHide} showModal={this.props.showModal}/>
                                 <BackUpStashCard/>
                             </div>
 
                             <div className="row">
+                                <TransactionTable/>
                                 <div className="col-md-4 col-lg-4 col-12 order-md-8">
                                     {/* total Savings */}
+                                    <TotalSavingsBlueCard/>
+                                    <TotalSavingsCard/>
 
-                                    <div className="card pull-up blue-card saving-card">
-                                        <img alt="" className="floated-icon"
-                                             src={TotalTransactionIcon}/>
-                                        <div className="card-content">
-                                            <div className="card-body">
-                                                <h4 className="text-white blue-card-heading ">Total Savings</h4>
-                                                <div className="media d-flex pb-md-5 pb-2">
-                                                    <div className="align-self-center">
-                                                        <img alt="" className="blue-card-icon"
-                                                             src={BlueCardTransIcon}/>
-                                                    </div>
-                                                    <div className="media-body text-left pt-1 ">
-                                                        <h3 className="text-white clearfix"><strong
-                                                            className="blue-card-price ml-2 mr-2">&#8358;
-                                                            1,934,890</strong>
-                                                        </h3>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="card white-card pull-up mt-3">
-                                        <div className="card-content">
-                                            <div className="card-body">
-                                                <h4 className=" blue-card-heading mb-md-2">Total Savings</h4>
-                                                <div className="media d-flex">
-                                                    <div className="align-self-center">
-                                                        <img alt="" className="blue-card-icon"
-                                                             src={historyTransIcon}/>
-                                                    </div>
-                                                    <div className="media-body text-left pt-1 mb-md-2">
-                                                        <h3><strong
-                                                            className="blue-card-price ml-1 mr-2">&#8358;
-                                                            1,934,890</strong>
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                                <div><a href="#"
-                                                        className="btn btn-sm history-btn btn-outline-blue pull-right">Interest
-                                                    History <img alt="" className="btn-icon"
-                                                                 src={HistoryArrow}/></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
+                            </div>
                                 {/*transaction table component */}
 
-                                <TransactionTable/>
                             </div>
                         </div>
                     </div>
-                </div>
+
             </React.Fragment>
         );
     }

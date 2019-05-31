@@ -37,12 +37,12 @@ class DashboardContainer extends Component {
                             <div className="row">
 
                                 {/*{ info.accounts.map((value, index) => {*/}
-                                {/*    return <CentralVaultCard key={index} onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>*/}
-                                {/*})}*/}
-                                {/*<CentralVaultCard onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>*/}
-                                {/*<BackUpGoalCard onHide={this.props.hideAGModal} showModal={this.props.showAGModal}/>*/}
-                                {/*<LockedSavingsCard onHide={this.props.hideLSModal} showModal={this.props.showLSModal}/>*/}
-                                {/*<BackUpStashCard/>*/}
+
+                               {/*<CentralVaultCard onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>*/}
+                                <CentralVaultCard onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>
+                                <BackUpGoalCard onHide={this.props.hideAGModal} showModal={this.props.showAGModal}/>
+                                <LockedSavingsCard onHide={this.props.hideLSModal} showModal={this.props.showLSModal}/>
+                                <BackUpStashCard/>
                             </div>
 
                             <div className="row">

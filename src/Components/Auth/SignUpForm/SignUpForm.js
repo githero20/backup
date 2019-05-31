@@ -133,10 +133,6 @@ class SignUpForm extends Component {
 
     getSignUpInfo = (state,response) => {
 
-
-
-            console.log(' data:', response);
-
             //save token
             const serverResponse = response.data;
             const token = serverResponse.token;

@@ -13,7 +13,14 @@ class DashboardContainer extends Component {
 
 
     render() {
-        const {error,activateAccount} =this.props;
+
+         let {error,activateAccount,info} = this.props;
+
+        // console.log(info.accounts.data);
+        //get the array
+
+
+
 
         return (
             <React.Fragment>
@@ -28,10 +35,14 @@ class DashboardContainer extends Component {
 
                         <div className="content-body">
                             <div className="row">
-                                <CentralVaultCard onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>
-                                <BackUpGoalCard onHide={this.props.hideAGModal} showModal={this.props.showAGModal}/>
-                                <LockedSavingsCard onHide={this.props.hideLSModal} showModal={this.props.showLSModal}/>
-                                <BackUpStashCard/>
+
+                                {/*{ info.accounts.map((value, index) => {*/}
+                                {/*    return <CentralVaultCard key={index} onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>*/}
+                                {/*})}*/}
+                                {/*<CentralVaultCard onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>*/}
+                                {/*<BackUpGoalCard onHide={this.props.hideAGModal} showModal={this.props.showAGModal}/>*/}
+                                {/*<LockedSavingsCard onHide={this.props.hideLSModal} showModal={this.props.showLSModal}/>*/}
+                                {/*<BackUpStashCard/>*/}
                             </div>
 
                             <div className="row">

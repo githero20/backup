@@ -8,6 +8,7 @@ import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {DashboardLink, ForgotPasswordLink, LoginEndpoint} from "../../../RouteLinks/RouteLinks";
 import {post} from "../../../Helpers/Helper";
 import {api} from "../../../ApiUtils/ApiUtils";
+import {USERTOKEN} from "../HOC/authcontroller";
 
 class LoginForm extends Component {
 
@@ -44,12 +45,10 @@ class LoginForm extends Component {
 
     processLogin = (state,response) => {
 
-    console.log(' data:', response);
 
     this.setState({loading:false});
 
         if (!state){
-            console.log(`request failed: ${JSON.stringify(response.data)}`);
             let message = JSON.stringify(response.data.message);
             this.setState({
                 error:true,
@@ -58,7 +57,7 @@ class LoginForm extends Component {
             });
 
         }else {
-
+            localStorage.setItem(USERTOKEN, response.data.token)
             this.setState({
                 redirect:true
             });

@@ -19,7 +19,7 @@ class SignUpForm extends Component {
             messages: {
                 email: 'Please Provide a valid Email.',
                 name: 'Please fill in your name.',
-                phone: 'Please Provide a valid Phone Number.',
+                phone: 'The phone number must match the required pattern (080********)',
                 password: 'Please provide a strong password',
             }
 

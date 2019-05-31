@@ -83,8 +83,7 @@ class InstantSave extends Component {
 
                                     </h3>
                                     <div className="card pull-up blue-card saving-card">
-                                        <img className="floated-icon"
-                                             src={totalSavingsIcon}/>
+                                        <img className="floated-icon" src={totalSavingsIcon}/>
                                             <div className="card-content">
                                                 <div className="card-body">
                                                     <h4 className="text-white blue-card-heading ">Total Balance</h4>

@@ -18,35 +18,42 @@ class InstantSavingForm extends Component {
     render() {
         return (
             <React.Fragment>
-                <Form >
+                <Form>
 
                     <Form.Row>
-                        <Form.Group controlId="formGridAddress1">
-                            <Form.Label>Plan Name</Form.Label>
-                            <Form.Control type="text"  />
-                        </Form.Group>
+                            <Col>
+                                <Form.Group controlId="formGridAddress1">
+                                    <Form.Label>Amount</Form.Label>
+                                    <Form.Control type="number"    />
+                                </Form.Group>
+                            </Col>
                     </Form.Row>
                     <Form.Row>
-                        <Form.Group controlId="exampleForm.ControlSelect2">
-                            <Form.Label>Example multiple select</Form.Label>
-                            <Form.Control as="select" multiple>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </Form.Control>
-                        </Form.Group>
+                        <Col>
+                            <Form.Group controlId="exampleForm.ControlSelect2">
+                                <Form.Label>Example multiple select</Form.Label>
+                                <Form.Control as="select">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </Form.Control>
+                            </Form.Group>
+                        </Col>
                     </Form.Row>
 
                     <Form.Row>
-                        <Form.Group as={Col} sm={6} controlId="formGridCity">
-                            <Form.Label>Contribution</Form.Label>
-                            <Form.Control type="number" />
-                            <Form.Text className="text-muted">
-                                Contribution range daily [ &#8358; 50 - &#8358; 25000]
-                            </Form.Text>
-                        </Form.Group>
+                        <Col>
+                            <Form.Group as={Col} sm={6} controlId="formGridCity">
+                                <Form.Label>Contribution</Form.Label>
+                                <Form.Control type="number" />
+                                <Form.Text className="text-muted">
+                                    Contribution range daily [ &#8358; 50 - &#8358; 25000]
+                                </Form.Text>
+                            </Form.Group>
+                        </Col>
+
 
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-between mt-2'}>

@@ -8,89 +8,92 @@ import {activateUserEndpoint, getUserInfoEndpoint} from "../../RouteLinks/RouteL
 import {api, apiGet, getLocalStorage, setLocalStorage} from "../../ApiUtils/ApiUtils";
 
 
-
 class DashboardIndex extends Component {
 
 
     state = {
-        showSteadySavingModal:false,
-        showActiveGoalModal:false,
-        showlockedSavingsModal:false,
-        error:false,
-        errorMessage:'',
-        activationSuccss:false,
+        showSteadySavingModal: false,
+        showActiveGoalModal: false,
+        showlockedSavingsModal: false,
+        error: false,
+        errorMessage: '',
+        activationSuccss: false,
+        userDashboardInfo:''
     };
 
     showSteadySaveModal = () => {
         this.setState({
-            showSteadySavingModal:true
+            showSteadySavingModal: true
         });
 
     };
     showActiveGoalModal = () => {
         this.setState({
-            showActiveGoalModal:true
+            showActiveGoalModal: true
         });
 
     };
 
-    closeActiveGoalModal =()=>{
+    closeActiveGoalModal = () => {
         this.setState({
-            showActiveGoalModal:false
+            showActiveGoalModal: false
         });
     };
 
     closeSteadySaveModal = () => {
-       this.setState({
-           showSteadySavingModal:false
-       });
+        this.setState({
+            showSteadySavingModal: false
+        });
     };
 
-    showLSModal =()=>{
-            this.setState({
-                showlockedSavingsModal:true
-            });
+    showLSModal = () => {
+        this.setState({
+            showlockedSavingsModal: true
+        });
     };
 
     closeLSModal = () => {
-       this.setState({
-           showlockedSavingsModal:false
-       });
+        this.setState({
+            showlockedSavingsModal: false
+        });
     };
-
 
 
     getUserInfo = (url) => {
         api(url)
 
 
-
     };
 
-    setupDashBoard(data){
+    setupDashBoard() {
 
-        console.log(data);
+        //get data from localStorage
+        let data = JSON.parse(getLocalStorage('userInfo'));
+       this.setState({
+           userDashboardInfo:data
+       })
+
 
     }
 
 
+    handleUserInfo = (state, response) => {
 
-    handleUserInfo =(state, response) =>{
+        if (state) {
 
-        if(state){
-
-            this.setupDashBoard(response);
             // display info to user to activate their email
 
             // console.log(JSON.stringify(response));
-            // setLocalStorage('userInfo')
+            setLocalStorage('userInfo',JSON.stringify(response.data));
 
             this.setState({
-                error:false,
+                error: false,
             });
 
-        }else {
+            //setup dashboard
 
+        } else {
+            //
             this.setState({
                 error:true,
                 errorMessage:response.data.message
@@ -99,46 +102,50 @@ class DashboardIndex extends Component {
 
     };
 
-    activateAccount = () =>{
+
+    activateAccount = () => {
+
         const url = activateUserEndpoint;
-        api(url,null,true,false,this.handleUserActivation)
+        api(url, null, true, false, this.handleUserActivation)
 
     };
 
 
-    handleUserActivation = (state,res) =>{
-        if(state){
+    handleUserActivation = (state, res) => {
+        if (state) {
             console.log(res);
             this.setState({
-                activationSuccess:true,
-                error:false,
+                activationSuccess: true,
+                error: false,
             })
         }
 
     };
 
 
-
     componentDidMount() {
 
+
+        this.setupDashBoard();
+
+
         //call endpoint to get user info
-        const url = getUserInfoEndpoint;
+        // const url = getUserInfoEndpoint;
 
         //get token
 
-        let token = getLocalStorage('token');
-
-        if(token!== null){
-            api(url,null,true,false,this.handleUserInfo);
-        }
+        // let token = getLocalStorage('token');
+        //
+        // if (token !== null) {
+        //
+        //     api(url, null, true, false, this.handleUserInfo);
+        //
+        // }
 
         // else user is not activated display modal that shows user is not activated
 
 
         //setup the dashboard
-
-
-
 
 
     }
@@ -149,11 +156,11 @@ class DashboardIndex extends Component {
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav />
+                    <HorizontalNav/>
                     <VerticalNav/>
 
-
                     <DashboardContainer
+                        info={this.state.userDashboardInfo}
                         error={this.state.error}
                         errorMessage={this.state.errorMessage}
                         activateAccount={this.activateAccount}
@@ -164,6 +171,7 @@ class DashboardIndex extends Component {
                         hideLSModal={this.closeLSModal}
                         showLSModal={this.showLSModal}
                     />
+
                     {/* steady save modal */}
                     <SteadySaveModal
 
@@ -182,4 +190,5 @@ class DashboardIndex extends Component {
         );
     }
 }
+
 export default DashboardIndex;

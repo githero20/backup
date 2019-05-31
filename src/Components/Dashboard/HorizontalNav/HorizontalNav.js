@@ -212,7 +212,7 @@ class HorizontalNav extends Component {
                                                 src={KycIcon}
                                                 className="img-2x mr-1"alt={''}  /> KYC</Link>
                                             <div className="dropdown-divider"></div>
-                                            <Link to={'/logout'} className="dropdown-item" href="../../index.html"><img
+                                            <Link className="dropdown-item" to={'/login'}><img
                                                 src={LogOutIcon}
                                                 className="img-2x mr-1" alt={''}  /> Log Out</Link>
                                         </div>

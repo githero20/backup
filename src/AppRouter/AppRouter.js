@@ -22,6 +22,7 @@ import {
     SteadySaveLink, TransactionsLink, WithdrawalLink
 } from "../RouteLinks/RouteLinks";
 import ForgotPassword from "../Containers/ForgotPassword/ForgotPassword";
+import AuthController from "../Components/Auth/HOC/authcontroller";
 
 
 class AppRouter extends Component {
@@ -33,7 +34,7 @@ class AppRouter extends Component {
                 <Router>
                     <Route exact path="/" component={Home} />
                     {/*dashboard Routes*/}
-                    <Route path={DashboardLink} component={DashboardIndex} />
+                    <Route path={DashboardLink} component={AuthController(DashboardIndex)} />
                     <Route path={InstantSaveLink} component={InstantSave} />
                     <Route path={SteadySaveLink} component={SteadySave} />
                     <Route path={LockedSavingsLink} component={LockedSavings} />

@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 import RightArrow from "../../../admin/app-assets/images/svg/arrow-right.svg";
 import BlueRightArrow from "../../../admin/app-assets/images/svg/blue-arrow-right.svg";
-import {BackupGoalsLink, LockedSavingsLink} from "../../../RouteLinks/RouteLinks";
+import {LockedSavingsLink} from "../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 
 class LockedSavingsCard extends Component {
+
+
     render() {
+
+        const {lockedSavingsAmount} = this.props;
+
         return (
             <React.Fragment>
                 <div className="col-lg-3 col-sm-6 col-md-6 col-12 no-sm-padding">
@@ -14,18 +19,18 @@ class LockedSavingsCard extends Component {
                         <div className="card-header">
                             <h4 className="card-title heading-elements-left">
                                 <div className="saved-text">Total Locked Savings</div>
-                                <div>120,000</div>
+                                <div>&#8358; {lockedSavingsAmount} </div>
                             </h4>
                             <span className="card-operator">+</span>
                             <div className="card-title heading-elements ">
                                 <h4>
                                     <div className="saved-text">Total Interest</div>
-                                    <div>10,156</div>
+                                    <div>&#8358; 0.00</div>
                                 </h4>
                             </div>
                         </div>
                         <div className="card-body text-center">
-                            <h4 className="card-title saving-balance-text">&#8358; 130,156</h4>
+                            <h4 className="card-title saving-balance-text">&#8358; {lockedSavingsAmount}</h4>
                             <div className="row">
                                 <div className="col-6">
                                     <button onClick={this.props.showModal}

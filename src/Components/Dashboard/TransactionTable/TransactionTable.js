@@ -1,9 +1,22 @@
 import React, {Component} from 'react';
 import mobileTableStatIcon from "../../../admin/app-assets/images/svg/green-dot.svg";
 import Button from "react-bootstrap/Button";
+import moment from "moment";
 
 class TransactionTable extends Component {
+
+
+
+
+
     render() {
+
+
+        const {transactions} = this.props;
+
+        console.log(transactions);
+
+
         return (
             <React.Fragment>
                 <div id="recent-transaction" className="col-sm-12 col-md-8 col-lg-8 order-md-1">
@@ -20,56 +33,73 @@ class TransactionTable extends Component {
                                     <tr>
                                         <th className="border-top-0 d-none d-md-block">Date</th>
                                         <th className="border-top-0">Description</th>
-                                        <th className="border-top-0">Balance</th>
                                         <th className="border-top-0">Amount</th>
                                         <th className="border-top-0 d-none d-md-block">Reference</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td className="text-truncate d-none d-md-block"><span
-                                            className="text-muted mr-1">3|5|2019 </span>
-                                            <span className="table-time">8:00am</span></td>
-                                        <td>
-                                            <img alt={''} src={mobileTableStatIcon}
-                                                 className="green-dot d-md-none"/>
-                                            <div className="d-inline-block">
-                                                <div className="d-md-block">Credit</div>
-                                                <div className="table-time d-block d-md-none ">8:00am
-                                                </div>
-                                            </div>
+                                    {/*show all transactions*/}
+                                    {
+                                        transactions !== undefined || transactions.length !== 0 ?
+                                            (
 
-                                        </td>
-                                        <td>
-                                            <label className="bg-light-green px-2 sm-pd">75000</label>
-                                        </td>
-                                        <td className="text-truncate ">
-                                            50,000
-                                        </td>
-                                        <td className="text-truncate d-none d-md-block">ABCD999</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-truncate d-none d-md-block"><span
-                                            className="text-muted mr-1">3|5|2019 </span>
-                                            <span className="table-time">8:00am</span></td>
-                                        <td>
-                                            <img  alt={''} src={mobileTableStatIcon}
-                                                 className="green-dot d-md-none"/>
-                                            <div className="d-inline-block">
-                                                <div className="d-md-block">Credit</div>
-                                                <div className="table-time d-block d-md-none ">8:00am
-                                                </div>
-                                            </div>
+                                                transactions.map((data,idx)=>{
+                                                        let date = moment(data.created_at).format('DD|MM|YYYY');
+                                                        let time = moment(data.created_at).format('hh:mm a');
+                                                   return (
+                                                       <tr key={data.id}>
+                                                           <td className="text-truncate d-none d-md-block"><span
+                                                               className="text-muted mr-1">{date} </span>
+                                                               <span className="table-time">{time}</span></td>
+                                                           <td>
+                                                               <img alt={''} src={mobileTableStatIcon}
+                                                                    className="green-dot d-md-none"/>
+                                                               <div className="d-inline-block">
+                                                                   <div className="d-md-block text-capitalize">{data.type}</div>
+                                                                   <div className="table-time d-block d-md-none ">{time}
+                                                                   </div>
+                                                               </div>
+                                                           </td>
 
-                                        </td>
-                                        <td>
-                                            <label className="bg-light-red px-2 sm-pd">75000</label>
-                                        </td>
-                                        <td className="text-truncate ">
-                                            50,000
-                                        </td>
-                                        <td className="text-truncate d-none d-md-block">ABCD999</td>
-                                    </tr>
+                                                           <td>
+                                                               <label className="bg-light-green px-2 sm-pd">&#8358; {data.amount}</label>
+                                                           </td>
+
+                                                           <td className="text-truncate d-none d-md-block text-uppercase" style={{maxWidth: '120px'}}>{data.reference}</td>
+                                                       </tr>
+
+                                                   )
+                                                }
+                                            )
+
+                                            )
+                                                :
+                                            null
+                                    }
+
+                                    {/* use for  Debit Transactions */}
+                                    {/*<tr>*/}
+                                    {/*    <td className="text-truncate d-none d-md-block"><span*/}
+                                    {/*        className="text-muted mr-1">3|5|2019 </span>*/}
+                                    {/*        <span className="table-time">8:00am</span></td>*/}
+                                    {/*    <td>*/}
+                                    {/*        <img  alt={''} src={mobileTableStatIcon}*/}
+                                    {/*             className="green-dot d-md-none"/>*/}
+                                    {/*        <div className="d-inline-block">*/}
+                                    {/*            <div className="d-md-block">Credit</div>*/}
+                                    {/*            <div className="table-time d-block d-md-none ">8:00am*/}
+                                    {/*            </div>*/}
+                                    {/*        </div>*/}
+
+                                    {/*    </td>*/}
+                                    {/*    <td>*/}
+                                    {/*        <label className="bg-light-red px-2 sm-pd">75000</label>*/}
+                                    {/*    </td>*/}
+                                    {/*    <td className="text-truncate ">*/}
+                                    {/*        50,000*/}
+                                    {/*    </td>*/}
+                                    {/*    <td className="text-truncate d-none d-md-block">ABCD999</td>*/}
+                                    {/*</tr>*/}
 
                                     </tbody>
                                 </table>

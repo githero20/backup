@@ -7,6 +7,9 @@ import {Link} from 'react-router-dom';
 class BackUpStashCard extends Component {
 
     render() {
+
+        const {stashAmount} = this.props;
+
         return (
             <React.Fragment>
                 <div className="col-lg-3 col-sm-12 col-md-6 col-12 no-sm-padding">
@@ -14,7 +17,7 @@ class BackUpStashCard extends Component {
                     <div className="card saving-card dashboard-card pull-up">
 
                         <div className="card-body text-center mt-md-2">
-                            <h4 className="card-title saving-balance-text">&#8358; 130,156</h4>
+                            <h4 className="card-title saving-balance-text">&#8358; {stashAmount}</h4>
                             <div className="row">
                                 <div className="col-6">
                                     <button

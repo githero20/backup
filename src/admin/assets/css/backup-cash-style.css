@@ -21,6 +21,7 @@
 }
 
 
+
 section {
     min-height: 400px;
     /*padding-top: 8rem;*/
@@ -1131,8 +1132,8 @@ footer-logo {
 
 }
 
-@media all and(min-width: 1200px) and (max-width: 1800px) {
+/******* helper  *********/
 
-
-
+.show{
+    display: block ;
 }

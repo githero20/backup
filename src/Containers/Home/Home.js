@@ -38,9 +38,16 @@ class Home extends Component {
 
 
     showMobileMenu = () => {
-        this.setState({
-            showMobileMenu:true
-        })
+        //add is-active on
+        let nav = document.querySelector('.navbar-toggler');
+        nav.classList.toggle('is-active');
+
+        //show toggle menu
+        let mobileMenu = document.querySelector('.navbar-collapse');
+        mobileMenu.classList.toggle('show');
+
+
+
     };
 
 
@@ -62,7 +69,7 @@ class Home extends Component {
                                     </span>
                                 </a>
 
-                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <div className="collapse navbar-collapse animated slideInLeft faster" id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
                                         <li className="nav-item active">
                                             <a className="nav-link" href={'#'} >Home <span className="sr-only">(current)</span></a>

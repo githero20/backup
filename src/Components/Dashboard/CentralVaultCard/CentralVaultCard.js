@@ -7,8 +7,18 @@ import {Link} from 'react-router-dom';
 class CentralVaultCard extends Component {
 
 
+
+    //set the default state for the central vault card
+
+
+    // if there is data to display render the data
+
+
+
+
     render() {
 
+        const {vaultAmount,totalSteadySave} = this.props;
 
         return (
             <React.Fragment>
@@ -18,21 +28,21 @@ class CentralVaultCard extends Component {
                         <div className="card-header">
                             <h4 className="card-title heading-elements-left">
                                 <div className="saved-text">Total Steady Savings</div>
-                                <div>120,000</div>
+                                <div>&#8358; {vaultAmount}</div>
                             </h4>
                             <span className="card-operator">+</span>
                             <div className="card-title heading-elements">
                                 <h4>
                                     <div className="saved-text">Total Interest</div>
-                                    <div>10,156</div>
+                                    <div>&#8358; {totalSteadySave}</div>
                                 </h4>
                             </div>
                         </div>
                         <div className="card-body text-center">
-                            <h4 className="card-title saving-balance-text">&#8358; 130,156</h4>
+                            <h4 className="card-title saving-balance-text">&#8358; {vaultAmount}</h4>
                             <div className="row">
                                 <div className="col-6">
-                                    <button
+                                    <button onClick={this.props.showModal}
                                        className="btn btn-sm btn-custom-blue round "><span
                                         className="ml-2 mr-1">Start </span>
                                         <img alt="" className="btn-icon" src={RightArrow}/>

@@ -4,6 +4,8 @@ import BlueCardTransIcon from "../../../admin/app-assets/images/svg/bluetransico
 
 class TotalSavingsBlueCard extends Component {
     render() {
+
+        const {totalSavings} = this.props;
         return (
             <React.Fragment>
                 {/* total Savings */}
@@ -21,8 +23,8 @@ class TotalSavingsBlueCard extends Component {
                                 </div>
                                 <div className="media-body text-left pt-1 ">
                                     <h3 className="text-white ml-1"><strong
-                                        className="blue-card-price ">&#8358;
-                                        1,934,890</strong>
+                                        className="blue-card-price ">&#8358;&nbsp;
+                                        {totalSavings}</strong>
                                     </h3>
 
                                 </div>

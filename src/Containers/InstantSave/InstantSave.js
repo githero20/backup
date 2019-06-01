@@ -12,7 +12,6 @@ import sortIcon from "../../admin/app-assets/images/svg/sort-icon.svg";
 import greenDots from "../../admin/app-assets/images/svg/green-dot.svg";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import InstantSavingModal from "../../Components/Dashboard/InstantSavingModal/InstantSavingModal";
-import DashboardContainer from "../../Components/Dashboard/DashboardContainer/DashboardContainer";
 
 class InstantSave extends Component {
 
@@ -35,14 +34,14 @@ class InstantSave extends Component {
           }
       );
 
-    }
+    };
 
     showModal = () => {
         this.setState({
             showSavingModal:true
         });
 
-    }
+    };
 
 
 

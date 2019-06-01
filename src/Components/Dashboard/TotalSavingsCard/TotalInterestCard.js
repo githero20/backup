@@ -2,15 +2,20 @@ import React, {Component} from 'react';
 import historyTransIcon from "../../../admin/app-assets/images/svg/history-arrow.svg";
 import HistoryArrow from "../../../admin/app-assets/images/svg/history-arrow-sm.svg";
 
-class TotalSavingsCard extends Component {
+class TotalInterestCard extends Component {
+
+
     render() {
+
+        const {totalInterest} = this.props;
+
         return (
             <React.Fragment>
 
                 <div className="card white-card pull-up mt-3">
                     <div className="card-content">
                         <div className="card-body">
-                            <h4 className=" blue-card-heading mb-md-2">Total Savings</h4>
+                            <h4 className=" blue-card-heading mb-md-2">Total Interest Gained</h4>
                             <div className="media d-flex">
                                 <div className="align-self-center">
                                     <img className="blue-card-icon"
@@ -19,7 +24,7 @@ class TotalSavingsCard extends Component {
                                 <div className="media-body text-left pt-1 mb-md-2">
                                     <h3 className={'ml-1 '}><strong
                                         className="blue-card-price ">&#8358;
-                                        1,934,890</strong>
+                                        {totalInterest}</strong>
                                     </h3>
                                 </div>
                             </div>
@@ -37,4 +42,4 @@ class TotalSavingsCard extends Component {
     }
 }
 
-export default TotalSavingsCard;
+export default TotalInterestCard;

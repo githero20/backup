@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import {BASE_URL} from "../../../RouteLinks/RouteLinks";
 
-export const USERTOKEN = "toker";
+export const USERTOKEN = "token";
 export const USERINFO = "us-info"
 
 const verifyTokenURL = BASE_URL+"sfsbapi/v1/user"
@@ -27,7 +27,7 @@ const AuthController = component => {
                 localStorage.removeItem(USERINFO);
             }
             else{
-                console.log("react")
+
                 axios.get(verifyTokenURL, {headers: {Authorization: `Bearer ${localStorage.getItem(USERTOKEN)}`}}).then(
                     res => {
                         localStorage.setItem("userInfo", JSON.stringify(res.data.data));
@@ -52,10 +52,10 @@ const AuthController = component => {
 
 
 
-
-        if (fetching) {
-            return <h3>loading</h3>;
-        }
+        //
+        // if (fetching) {
+        //     return <h3>loading</h3>;
+        // }
 
         return <RenderComponent {...props} />;
     };

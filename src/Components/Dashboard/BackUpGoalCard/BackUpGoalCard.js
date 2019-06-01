@@ -8,7 +8,19 @@ import {BackupGoalsLink} from "../../../RouteLinks/RouteLinks";
 class BackUpGoalCard extends Component {
 
 
+
+    // change to a function component
+
+
+    //set the default state for the central vault card
+
+
+    // if there is data to display render the data
+
+
     render() {
+
+        const {backupAmount,CompletedGoals,ActiveGoals} = this.props;
         return (
             <React.Fragment>
 
@@ -19,19 +31,19 @@ class BackUpGoalCard extends Component {
                             <div className="card-title heading-elements-left">
                                 <h4>
                                     <div className="saved-text">Active Goals</div>
-                                    <div className="active-goal-number goal-number text-center">9</div>
+                                    <div className="active-goal-number goal-number text-center">{ActiveGoals}</div>
                                 </h4>
                             </div>
                             <div className="card-title heading-elements">
                                 <h4>
                                     <div className="saved-text">Completed Goals</div>
-                                    <div className="completed-goal-number goal-number text-center">5
+                                    <div className="completed-goal-number goal-number text-center">{CompletedGoals}
                                     </div>
                                 </h4>
                             </div>
                         </div>
                         <div className="card-body text-center">
-                            <h4 className="card-title saving-balance-text">&#8358; 130,156</h4>
+                            <h4 className="card-title saving-balance-text">&#8358; {backupAmount}</h4>
                             <div className="row">
                                 <div className="col-6">
                                     <button onClick={this.props.showModal}

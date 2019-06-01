@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import {Link, Redirect} from "react-router-dom";
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from "simple-react-validator";
-import Axios from "axios";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {DashboardLink, ForgotPasswordLink, LoginEndpoint} from "../../../RouteLinks/RouteLinks";
-import {post} from "../../../Helpers/Helper";
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERTOKEN} from "../HOC/authcontroller";
 
@@ -49,7 +47,7 @@ class LoginForm extends Component {
     this.setState({loading:false});
 
         if (!state){
-            let message = JSON.stringify(response.data.message);
+            let message = JSON.stringify(response);
             this.setState({
                 error:true,
                 errorMessage:message,

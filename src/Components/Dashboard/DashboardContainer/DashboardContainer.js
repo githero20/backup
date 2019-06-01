@@ -6,23 +6,36 @@ import BackUpGoalCard from "../BackUpGoalCard/BackUpGoalCard";
 import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";
 import LockedSavingsCard from "../LockedSavingCard/LockedSavingsCard";
 import TotalSavingsBlueCard from "../TotalSavingsBlueCard/TotalSavingsBlueCard";
-import TotalSavingsCard from "../TotalSavingsCard/TotalSavingsCard";
-import Alert from "react-bootstrap/Alert";
+import TotalInterestCard from "../TotalSavingsCard/TotalInterestCard";
 
 class DashboardContainer extends Component {
 
 
-    render() {
-
-         let {error,activateAccount,info} = this.props;
-
-        // console.log(info.accounts.data);
-        //get the array
 
 
 
+
+        //validate there is data
+
+        // set the appropiate props
+
+        // send the the children components
+
+
+
+        render() {
+
+         let {error,activateAccount} = this.props;
+
+         //set appropriate data for vault cards
+
+            const  {
+                vaultAmount,backupAmount,lockedSavingsAmount,stashAmount,totalSteadySave,
+                transactions,totalInterest,ActiveGoals,CompletedGoals
+            } = this.props ;
 
         return (
+
             <React.Fragment>
                 <div className="app-content content">
                     <div className="content-wrapper">
@@ -30,28 +43,23 @@ class DashboardContainer extends Component {
 
                         <MessageBox error={error}  errorMessage={this.props.errorMessage} activateAccount={activateAccount} />
 
-
                         {/*Vault Card */}
 
                         <div className="content-body">
                             <div className="row">
-
-                                {/*{ info.accounts.map((value, index) => {*/}
-
                                {/*<CentralVaultCard onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>*/}
-                                <CentralVaultCard onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>
-                                <BackUpGoalCard onHide={this.props.hideAGModal} showModal={this.props.showAGModal}/>
-                                <LockedSavingsCard onHide={this.props.hideLSModal} showModal={this.props.showLSModal}/>
-                                <BackUpStashCard/>
+                                <CentralVaultCard vaultAmount={vaultAmount} totalSteadySave={totalSteadySave} onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>
+                                <BackUpGoalCard backupAmount={backupAmount} ActiveGoals={ActiveGoals} CompletedGoals={CompletedGoals} onHide={this.props.hideAGModal} showModal={this.props.showAGModal}/>
+                                <LockedSavingsCard lockedSavingsAmount={lockedSavingsAmount} onHide={this.props.hideLSModal} showModal={this.props.showLSModal}/>
+                                <BackUpStashCard stashAmount={stashAmount}/>
                             </div>
 
                             <div className="row">
-                                <TransactionTable/>
+                                <TransactionTable transactions={transactions}/>
                                 <div className="col-md-4 col-lg-4 col-12 order-md-8">
                                     {/* total Savings */}
-                                    <TotalSavingsBlueCard/>
-                                    <TotalSavingsCard/>
-
+                                    <TotalSavingsBlueCard totalSavings={vaultAmount}/>
+                                    <TotalInterestCard totalInterest={totalInterest}/>
                                 </div>
                             </div>
 

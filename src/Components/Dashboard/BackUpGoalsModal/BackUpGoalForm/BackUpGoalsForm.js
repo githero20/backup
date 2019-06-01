@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/Button";
 
 
-class ActiveGoalsForm extends Component {
+class BackUpGoalsForm extends Component {
 
 
     //handle reset click
@@ -79,4 +79,4 @@ class ActiveGoalsForm extends Component {
     }
 }
 
-export default ActiveGoalsForm;
+export default BackUpGoalsForm;

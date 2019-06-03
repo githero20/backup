@@ -148,8 +148,19 @@ class SignUpForm extends Component {
 
             if(response.data){
                 console.log(response.data.errors);
+
+
                 let errors = response.data.errors;
+
                 let errorData = Object.values(errors);
+
+                for (let key in errors) {
+                    if (errors.hasOwnProperty(key)) {
+                        toastManager.add(`${errors[key]}`, {
+                            appearance: 'error',
+                        });
+                    }
+                }
 
                 errorData.map((err,idx)=>{
                     return(

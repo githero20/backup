@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
 import {ToastProvider} from "react-toast-notifications";
 import {ActivationRequest, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
-import {activateUserEndpoint, DashboardLink, EmailActivationLink} from "../../RouteLinks/RouteLinks";
+import {activateUserEndpoint, DashboardLink, EmailActivationLink, resendActEndpoint} from "../../RouteLinks/RouteLinks";
 import ResendButton from "../../Components/Auth/ResendButton/ResendButton";
 import queryString from 'query-string'
 import {Redirect} from "react-router";
@@ -78,6 +78,8 @@ class EmailActivation extends Component {
             token:search.token
         });
 
+        return search;
+
 
     };
 
@@ -94,6 +96,14 @@ class EmailActivation extends Component {
 
 
     }
+
+
+    resendActivationLink = () => {
+
+        const param = {email:this.state.email};
+        request(resendActEndpoint,param,false,true,this.handleResendActLink)
+
+    };
 
 
     render() {

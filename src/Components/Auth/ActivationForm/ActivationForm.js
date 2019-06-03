@@ -25,7 +25,7 @@ class ActivationForm extends Component {
 
         this.state = {
             activationData: {
-                title:'',
+                title:'steady savings',
                 hour_of_day:'12',
                 start_date:this.getTodaysDate(),
                 frequency: 'daily',
@@ -152,35 +152,6 @@ class ActivationForm extends Component {
 
         api(url,this.state.activationData,true,true,this.handleSavings);
 
-        // Axios.post(url, this.state.activationData, {
-        //     headers: {
-        //         "Content-Type": "Application/json",
-        //         "credentials": 'same-origin',
-        //         'Authorization':'Bearer '+token,
-        //     }
-        //
-        // }).then((response) => {
-        //     this.setState({
-        //         loading:false
-        //     });
-        //     console.log(response);
-        //     //save ref
-        //     localStorage.setItem('refDetail',JSON.stringify(response.data.data));
-        //
-        //     //start payment
-        //     const {contribution,email} = this.state.activationData;
-        //     console.log(response.data.reference);
-        //     this.payWithPaystack(email,contribution,PayStackKey,response.data.data.reference);
-        //
-        // }).catch((error) => {
-        //
-        //     console.log(`request failed: ${JSON.stringify(error.response.data)}`);
-        //     this.setState({
-        //         error: true,
-        //         errorMessage: JSON.stringify(error.response.data),
-        //         loading: false
-        //     });
-        // });
 
     };
 
@@ -229,26 +200,6 @@ class ActivationForm extends Component {
 
         api(url,param,token,true,this.handleVerification);
 
-        // console.log(param);
-        // Axios.post(url, param, {
-        //     headers: {
-        //         "Content-Type": "Application/json",
-        //         "credentials": 'same-origin',
-        //         'Authorization':'Bearer '+token,
-        //     }
-        //
-        // }).then((response) => {
-        //
-        //
-        // }).catch((error) => {
-        //
-        //     console.log(`request failed: ${JSON.stringify(error.response.data)}`);
-        //     this.setState({
-        //         error: true,
-        //         errorMessage: JSON.stringify(error.response.data),
-        //         loading: false
-        //     });
-        // });
 
     };
 
@@ -395,7 +346,6 @@ class ActivationForm extends Component {
 
         }
 
-
         return (
             <React.Fragment>
                 <form className="login-form px-5 px-md-2">
@@ -405,20 +355,6 @@ class ActivationForm extends Component {
                             <p className="gray-text mb-5 mb-md-5">Start Saving from<strong> N500 </strong></p>
                         </div>
                         <div className="col-12 col-lg-12">
-                            <div className="form-group mb-lg-3">
-                                <label htmlFor="title" className="active">Savings Name</label>
-                                <input id="title" name={'title'} onChange={this.changeHandler} type="text" className="form-control"/>
-                                {this.validator.message('title', title, 'required|string')}
-                            </div>
-                        </div>
-                        <div className="col-12 col-lg-6">
-                            <div className="form-group mb-lg-3">
-                                <label htmlFor="start_date" className="active">Current Date</label>
-                                <input id="start_date" name={'start_date'} value={start_date}  onChange={this.changeHandler} type="date" className="form-control"/>
-                                {this.validator.message('start_date', start_date, 'required|string')}
-                            </div>
-                        </div>
-                        <div className="col-12 col-lg-6">
                             <div className="form-group mb-lg-3">
                                 <label htmlFor="contribution" className="active">Amount To Debit</label>
                                 <input id="amount" type="number" name={'contribution'} onChange={this.changeHandler} className="form-control"/>

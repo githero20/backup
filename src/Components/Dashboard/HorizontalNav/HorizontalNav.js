@@ -198,7 +198,7 @@ class HorizontalNav extends Component {
                                         <a className={'dropdown-toggle nav-link dropdown-user-link'} onClick={this.toggleSubMenu}
                                            data-toggle="dropdown">
                                             <span className="avatar avatar-online">
-                                                <img src={AvatarImage} alt="avatar" />
+                                                <img src={AvatarImage} alt="avatar" onClick={this.toggleSubMenu} />
                                                 <i></i>
                                             </span>
                                             <span className="mr-1">
@@ -209,7 +209,8 @@ class HorizontalNav extends Component {
                                             <Link to={'/profile-setting'} className="dropdown-item" href="profile.html">
                                                 <img src={ProfileIcon} className="img-2x mr-1" alt={''} /> Profile
                                             </Link>
-                                            <Link to={'/kyc-setting'} className="dropdown-item" href="kyc.html"><img
+                                            <Link to={'/kyc-setting'} className="dropdown-item" href="kyc.html">
+                                                <img
                                                 src={KycIcon}
                                                 className="img-2x mr-1"alt={''}  /> KYC</Link>
                                             <div className="dropdown-divider"></div>

@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import {withToastManager} from 'react-toast-notifications';
 import {request} from "../../../ApiUtils/ApiUtils";
 import {resendActEndpoint} from "../../../RouteLinks/RouteLinks";
-import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 import ModalLink from "./ModalLink/ModalLink";
 
 class ActivationModal extends React.Component {

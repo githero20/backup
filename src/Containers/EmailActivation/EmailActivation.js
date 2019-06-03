@@ -4,6 +4,8 @@ import {ToastProvider} from "react-toast-notifications";
 import {ActivationRequest, request} from "../../ApiUtils/ApiUtils";
 import {activateUserEndpoint, EmailActivationLink} from "../../RouteLinks/RouteLinks";
 import ResendButton from "../../Components/Auth/ResendButton/ResendButton";
+import queryString from 'query-string'
+
 
 class EmailActivation extends Component {
 
@@ -12,17 +14,20 @@ class EmailActivation extends Component {
         token:null,
         message:'',
         loading:false,
-        buttonMessage:'Click to Resend'
+        buttonMessage:'Click to Resend',
+        resend:false,
     };
-// - user is taken to the activation page
-// -page calls api
-// - if token is expired inform user and tell them to click a 	button to resend
-// - else if token is activated take user to dashboard
+
+
+    // - user is taken to the activation page
+    // -page calls api
+    // - if token is expired inform user and tell them to click a 	button to resend
+    // - else if token is activated take user to dashboard
 
     retreiveToken(){
 
-        const { token } = this.props.match.params ;
-
+        const values = queryString.parse(this.props.location.search)
+        const token = values.token;
         this.setState({
             token:token,
             redirect:false,
@@ -57,11 +62,12 @@ class EmailActivation extends Component {
                 message:response.data.message
             });
 
-            if(response.statusCode===401){
+            if(response.data.status_code === 401){
 
                 this.setState({
                     resend:true
                 });
+
                 console.log(response);
 
             }
@@ -73,7 +79,6 @@ class EmailActivation extends Component {
 
 
     componentDidMount() {
-
 
         // retreive token from url
         const token = this.retreiveToken();
@@ -103,7 +108,7 @@ class EmailActivation extends Component {
                                 </div>
                                 <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                 <ToastProvider>
-                                        <div className="col-12">
+                                        <div className="col-12 text-center">
                                             <h3 className="form-header-purple mb-5 text-center">{this.state.message}</h3>
 
                                             {this.state.resend?<ResendButton message={this.state.buttonMessage} loading={this.state.loading} />:null}

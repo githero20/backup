@@ -50,7 +50,6 @@ class ResetPasswordForm extends Component {
 
         if(state){
 
-            console.log(response);
 
             toastManager.add(`${response.data.success}`, {
                 appearance: 'success',
@@ -60,7 +59,6 @@ class ResetPasswordForm extends Component {
         }else{
 
             if(response){
-                console.log(response.data.errors);
                 if(response.data.errors){
                     response.data.errors.map((err,indx)=>{
                         return(

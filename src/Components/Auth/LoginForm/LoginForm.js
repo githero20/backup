@@ -61,6 +61,7 @@ class LoginForm extends Component {
         }else{
 
             if(response){
+
                 console.log(JSON.stringify(response));
                 toastManager.add(`${JSON.stringify(response.data.message)}`, {
                     appearance: 'error',

@@ -7,9 +7,9 @@ class ResetPassword extends Component {
 
     state ={
         token:'',
-    }
+    };
 
-    retreiveToken(){
+    retreiveToken =()=>{
 
         const token = this.props.match.params.token;
         console.log(token);
@@ -18,7 +18,7 @@ class ResetPassword extends Component {
         });
 
 
-    }
+    };
 
     componentDidMount() {
 

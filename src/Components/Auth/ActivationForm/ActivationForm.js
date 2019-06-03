@@ -115,6 +115,8 @@ class ActivationForm extends Component {
         });
 
     }
+
+
     handleSavings = (state,response) =>{
 
         if(state){

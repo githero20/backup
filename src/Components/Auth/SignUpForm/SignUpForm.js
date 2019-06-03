@@ -146,13 +146,22 @@ class SignUpForm extends Component {
                 loading: false
             });
 
-            response.data.errors.map((err,idx)=>{
-                return(
-                    toastManager.add(`${err}`, {
-                        appearance: 'error',
-                    })
-                )
-            });
+            if(response.data){
+                console.log(response.data.errors);
+                let errors = response.data.errors;
+                let errorData = Object.values(errors);
+
+                errorData.map((err,idx)=>{
+                    return(
+                        toastManager.add(`${err}`, {
+                            appearance: 'error',
+                            index:idx
+                        })
+                    )
+                });
+
+            }
+
             toastManager.add(`${JSON.stringify(response.data.message)}`, {
                 appearance: 'error',
             });

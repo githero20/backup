@@ -15,16 +15,28 @@ import ProfileSetting from "../Containers/ProfileSetting/ProfileSetting";
 import BankCardSetting from "../Containers/BankCardSetting/BankCardSetting";
 import ActivateAccount from "../Containers/ActivateAccount/ActivateAccount";
 import {
-    ActivateAccountLink, BackupGoalsLink, BankCardLink,
-    DashboardLink, EmailActivationLink,
+    ActivateAccountLink,
+    BackupGoalsLink,
+    BankCardLink,
+    DashboardLink,
+    EmailActivationLink,
     ForgotPasswordLink,
-    InstantSaveLink, LockedSavingsLink, LoginLink, ProfileSettingLink, ResetPasswordLink, SignUpLink,
-    SteadySaveLink, TransactionsLink, WithdrawalLink
+    InstantSaveLink,
+    LockedSavingsLink,
+    LoginLink,
+    ProfileSettingLink,
+    ResendActivationLink,
+    ResetPasswordLink,
+    SignUpLink,
+    SteadySaveLink,
+    TransactionsLink,
+    WithdrawalLink
 } from "../RouteLinks/RouteLinks";
 import ForgotPassword from "../Containers/ForgotPassword/ForgotPassword";
 import AuthController from "../Components/Auth/HOC/authcontroller";
 import ResetPassword from "../Containers/ResetPassword/ResetPassword";
 import EmailActivation from "../Containers/EmailActivation/EmailActivation";
+import ResendActivation from "../Containers/ResendActivation/ResendActivation";
 
 
 class AppRouter extends Component {
@@ -47,6 +59,7 @@ class AppRouter extends Component {
                     <Route path={ProfileSettingLink} component={AuthController(ProfileSetting)}/>
                     <Route path={BankCardLink} component={AuthController(BankCardSetting)}/>
                     <Route path={EmailActivationLink} component={EmailActivation}/>
+                    <Route path={ResendActivationLink} component={ResendActivation}/>
 
                     {/*auth routes*/}
                     <Route path={LoginLink} component={Login}/>

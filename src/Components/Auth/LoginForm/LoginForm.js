@@ -4,7 +4,7 @@ import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-ico
 import SimpleReactValidator from "simple-react-validator";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
-import {DashboardLink, ForgotPasswordLink, LoginEndpoint} from "../../../RouteLinks/RouteLinks";
+import {DashboardLink, ForgotPasswordLink, LoginEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteLinks";
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
@@ -17,7 +17,8 @@ class LoginForm extends Component {
         redirect:false,
         error:false,
         errorMessage:'',
-        loading:false
+        loading:false,
+        resendActErr:false,
     };
 
     constructor(props) {
@@ -49,6 +50,7 @@ class LoginForm extends Component {
         const { toastManager } = this.props;
 
         if(state){
+
             console.log(response);
 
             localStorage.setItem(USERTOKEN, response.data.token);
@@ -63,6 +65,15 @@ class LoginForm extends Component {
             if(response){
 
                 console.log(JSON.stringify(response));
+
+                if(response.data.message==='Account has not been activated, click on resend'){
+
+                    this.setState({
+                        resendActErr:true
+                    })
+
+
+                }
                 toastManager.add(`${JSON.stringify(response.data.message)}`, {
                     appearance: 'error',
                 });
@@ -144,6 +155,15 @@ class LoginForm extends Component {
             return (
                 <React.Fragment>
                     <Redirect to={DashboardLink} push />
+                </React.Fragment>
+            );
+        }
+
+        if (this.state.resendActErr) {
+
+            return (
+                <React.Fragment>
+                    <Redirect to={ResendActivationLink} push />
                 </React.Fragment>
             );
         }

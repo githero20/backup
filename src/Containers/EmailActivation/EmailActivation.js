@@ -2,10 +2,16 @@ import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
 import {ToastProvider} from "react-toast-notifications";
 import {ActivationRequest, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
-import {activateUserEndpoint, DashboardLink, EmailActivationLink, resendActEndpoint} from "../../RouteLinks/RouteLinks";
-import ResendButton from "../../Components/Auth/ResendButton/ResendButton";
+import {
+    activateUserEndpoint,
+    DashboardLink,
+    EmailActivationLink,
+    LoginLink,
+    resendActEndpoint
+} from "../../RouteLinks/RouteLinks";
 import queryString from 'query-string'
 import {Redirect} from "react-router";
+import {Link} from "react-router-dom";
 import {ACTIVATIONMESG, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
 
 
@@ -132,8 +138,7 @@ class EmailActivation extends Component {
                                 <ToastProvider>
                                         <div className="col-12 text-center">
                                             <h3 className="form-header-purple mb-5 text-center">{this.state.message}</h3>
-
-                                            {this.state.resend?<ResendButton message={this.state.buttonMessage} loading={this.state.loading} />:null}
+                                            <Link to={LoginLink}>Go to Login</Link>
                                         </div>
                                 </ToastProvider>
 

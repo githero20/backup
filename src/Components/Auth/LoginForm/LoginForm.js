@@ -7,7 +7,7 @@ import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {DashboardLink, ForgotPasswordLink, LoginEndpoint} from "../../../RouteLinks/RouteLinks";
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERTOKEN} from "../HOC/authcontroller";
-
+import {withToastManager} from 'react-toast-notifications';
 class LoginForm extends Component {
 
 
@@ -24,7 +24,6 @@ class LoginForm extends Component {
             redirect:false,
             error:false,
             errorMessage:'',
-            RenderPasswordError:false,
             loading:false
         }
 
@@ -41,29 +40,57 @@ class LoginForm extends Component {
         });
     };
 
+
     processLogin = (state,response) => {
 
 
     this.setState({loading:false});
 
-        if (!state){
-            let message = JSON.stringify(response);
-            this.setState({
-                error:true,
-                errorMessage:message,
-                loading:false
-            });
+        const { toastManager } = this.props;
 
-        }else {
-            localStorage.setItem(USERTOKEN, response.data.token)
+        if(state){
+            console.log(response);
+
+            localStorage.setItem(USERTOKEN, response.data.token);
+
             this.setState({
                 redirect:true
             });
+
+        }else{
+
+            if(response){
+                console.log(JSON.stringify(response));
+                toastManager.add(`${JSON.stringify(response)}`, {
+                    appearance: 'error',
+                });
+            }
+
         }
+
+        // if (!state){
+        //     let message = JSON.stringify(response);
+        //     this.setState({
+        //         error:true,
+        //         errorMessage:message,
+        //         loading:false
+        //     });
+        //
+        //
+        // }else {
+        //
+        //     localStorage.setItem(USERTOKEN, response.data.token);
+        //     this.setState({
+        //         redirect:true
+        //     });
+        // }
     };
 
     Login(url,param,login) {
 
+        this.setState({
+            loading:true
+        });
 
         api(url,param,false,true,login);
         // post(url,param,{
@@ -80,9 +107,9 @@ class LoginForm extends Component {
     }
 
 
-    //submit ForgotPassword form
-    submitForm = () => {
-
+    //submit ResetPassword form
+    submitForm = (e) => {
+        e.preventDefault();
         this.Login(LoginEndpoint,this.state,this.processLogin);
 
     };
@@ -147,7 +174,7 @@ class LoginForm extends Component {
 
         return (
             <React.Fragment>
-                <form className="login-form ">
+                <form className="login-form " onSubmit={this.submitForm}>
                     <div className="row">
                         <div className="col-12">
                             <h5 className="form-header-purple mb-5">Please Log In</h5>
@@ -165,9 +192,6 @@ class LoginForm extends Component {
                             <div className="input-field ">
                                 <input id="password" name={'password'} type="password"  onChange={this.changeHandler} className="validate"/>
                                 <label htmlFor="password" className="">Password</label>
-                                {this.state.RenderPasswordError ?
-                                    <div className={'srv-validation-message'}>Password must have Uppercase, Lowercase, Number and Special Character</div>
-                                    : null}
 
                                 <Link to={ForgotPasswordLink} >Forgot Password ?</Link>
                             </div>
@@ -186,7 +210,7 @@ class LoginForm extends Component {
                                            defaultChecked={true}/>
                                     <span>Always Stay signed In</span>
                                 </label>
-                                <button type={'button'} onClick={this.submitForm} className="btn btn-round blue-round-btn auth-btn "
+                                <button type={'submit'} className="btn btn-round blue-round-btn auth-btn "
                                       name="action">{this.state.loading?<ButtonLoader/>:
                                     <span>Sign in<img alt="" className="img-2x ml-2" src={signInIcon}/></span>}
                                 </button>
@@ -200,4 +224,6 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+const LoginWithToast = withToastManager(LoginForm);
+
+export default LoginWithToast;

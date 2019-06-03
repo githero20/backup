@@ -3,8 +3,10 @@
 
 
 export const ForgotPasswordLink  = '/forgot-password';
-export const ActivateAccountLink  = '/activate';
+export const ResetPasswordLink  = '/password/reset';
+export const ActivateAccountLink  = '/payment/activate';
 export const DashboardLink  = '/dashboard';
+export const EmailActivationLink  = '/activate/:token';
 export const InstantSaveLink  = '/instant-save';
 export const SteadySaveLink  = '/steady-save';
 export const LockedSavingsLink  = '/locked-savings';
@@ -28,6 +30,9 @@ export const verifyTransactionEndpoint  = `sfsbapi/v1/user/transaction/verify`;
 export const passwordResetEndpoint  = `sfsbapi/v1/auth/password/email`;
 export const getUserInfoEndpoint  = `sfsbapi/v1/user`;
 export const activateUserEndpoint  = `sfsbapi/v1/user/activate`;
+export const resendActEndpoint  = `sfsbapi/v1/auth/activate/resend`;
 export const instantSaveEndpoint  = `sfsbapi/v1/user/savings/instant`;
 export const lockedSavingEndpoint  = `sfsbapi/v1/user/savings/locked`;
 export const NewSteadySaveEndpoint  = `/sfsbapi/v1/user/savings/steady`;
+export const ResetPasswordEndpoint  = `/sfsbapi/v1/auth/password/reset`;
+

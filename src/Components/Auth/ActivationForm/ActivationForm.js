@@ -12,6 +12,7 @@ import {
 import {PayStackKey} from "../../../Info/Info";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {api} from "../../../ApiUtils/ApiUtils";
+import {DASHBOARDINFO, USERINFO, USERTOKEN} from "../HOC/authcontroller";
 
 class ActivationForm extends Component {
 
@@ -72,7 +73,7 @@ class ActivationForm extends Component {
     initiateTransaction = () => {
 
         //get token from local storage
-        const user = localStorage.getItem('user');
+        const user = localStorage.getItem(USERINFO);
 
 
     };
@@ -194,7 +195,7 @@ class ActivationForm extends Component {
 
 
     saveDashboardInfo = (data) => {
-        localStorage.setItem('dashboardInfo',data);
+        localStorage.setItem(DASHBOARDINFO,JSON.stringify(data));
     };
 
 
@@ -204,6 +205,8 @@ class ActivationForm extends Component {
 
             //save dashboard info
             this.saveDashboardInfo(res.data);
+
+            // do a login
 
             //redirect user to dashboard
             this.redirectToDashBoard();
@@ -278,7 +281,7 @@ class ActivationForm extends Component {
 
                     console.log(response);
 
-                let token = localStorage.getItem('token');
+                let token = localStorage.getItem(USERTOKEN);
 
                     this.verifyTransaction(verifyTransactionEndpoint,param,token);
 
@@ -334,10 +337,13 @@ class ActivationForm extends Component {
 
     retrieveUserEmail = ()=>{
 
-        const user = JSON.parse(localStorage.getItem('user'));
-        console.log(user.email);
-        if(user!==null){
-            return user.email;
+        if(localStorage.getItem(USERINFO)){
+            const user = JSON.parse(localStorage.getItem(USERINFO));
+            if(user!==null){
+                return user.email;
+            }
+        }else {
+            return null;
         }
 
     };

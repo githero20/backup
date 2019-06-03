@@ -11,4 +11,4 @@ const Toast = ({ content, toastManager }) => (
     </button>
 );
 
-export const ToastDemo = withToastManager(Toast);
+export const ToastNofication = withToastManager(Toast);

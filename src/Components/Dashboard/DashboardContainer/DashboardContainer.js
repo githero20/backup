@@ -11,28 +11,23 @@ import TotalInterestCard from "../TotalSavingsCard/TotalInterestCard";
 class DashboardContainer extends Component {
 
 
+    //validate there is data
+
+    // set the appropiate props
+
+    // send the the children components
 
 
+    render() {
 
+        let {error, activateAccount} = this.props;
 
-        //validate there is data
+        //set appropriate data for vault cards
 
-        // set the appropiate props
-
-        // send the the children components
-
-
-
-        render() {
-
-         let {error,activateAccount} = this.props;
-
-         //set appropriate data for vault cards
-
-            const  {
-                vaultAmount,backupAmount,lockedSavingsAmount,stashAmount,totalSteadySave,
-                transactions,totalInterest,ActiveGoals,CompletedGoals
-            } = this.props ;
+        const {
+            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
+            transactions, totalInterest, ActiveGoals, CompletedGoals
+        } = this.props;
 
         return (
 
@@ -41,34 +36,52 @@ class DashboardContainer extends Component {
                     <div className="content-wrapper">
                         {/* notification component */}
 
-                        <MessageBox error={error}  errorMessage={this.props.errorMessage} activateAccount={activateAccount} />
+                        <MessageBox error={error} errorMessage={this.props.errorMessage}
+                                    activateAccount={activateAccount}
+                        />
 
                         {/*Vault Card */}
 
                         <div className="content-body">
                             <div className="row">
-                               {/*<CentralVaultCard onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>*/}
-                                <CentralVaultCard vaultAmount={vaultAmount} totalSteadySave={totalSteadySave} onHide={this.props.hideSSModal} showModal={this.props.showSSModal}/>
-                                <BackUpGoalCard backupAmount={backupAmount} ActiveGoals={ActiveGoals} CompletedGoals={CompletedGoals} onHide={this.props.hideAGModal} showModal={this.props.showAGModal}/>
-                                <LockedSavingsCard lockedSavingsAmount={lockedSavingsAmount} onHide={this.props.hideLSModal} showModal={this.props.showLSModal}/>
+                                <CentralVaultCard
+                                    vaultAmount={vaultAmount}
+                                    totalSteadySave={totalSteadySave}
+                                    onHide={this.props.hideSSModal}
+                                    showModal={this.props.showSSModal}
+                                />
+
+                                <BackUpGoalCard
+                                    backupAmount={backupAmount}
+                                    ActiveGoals={ActiveGoals}
+                                    CompletedGoals={CompletedGoals}
+                                    onHide={this.props.hideAGModal}
+                                    showModal={this.props.showAGModal}
+                                />
+
+                                <LockedSavingsCard
+                                    lockedSavingsAmount={lockedSavingsAmount}
+                                    onHide={this.props.hideLSModal}
+                                    showModal={this.props.showLSModal}
+                                />
+
                                 <BackUpStashCard stashAmount={stashAmount}/>
+
                             </div>
 
                             <div className="row">
                                 <TransactionTable transactions={transactions}/>
                                 <div className="col-md-4 col-lg-4 col-12 order-md-8">
-                                    {/* total Savings */}
                                     <TotalSavingsBlueCard totalSavings={vaultAmount}/>
                                     <TotalInterestCard totalInterest={totalInterest}/>
                                 </div>
                             </div>
 
-                                {/*transaction table component */}
-
-                            </div>
 
                         </div>
+
                     </div>
+                </div>
 
             </React.Fragment>
         );

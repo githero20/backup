@@ -50,9 +50,9 @@ class CentralVaultCard extends Component {
                                 </div>
                                 <div className="col-6">
                                     <Link to={SteadySaveLink} className="btn white-btn round  ml-1">See
-                                        All <img alt=""
-                                            className="btn-icon"
-                                            src={BlueRightArrow}/></Link>
+                                        All
+                                        <img alt="" className="btn-icon" src={BlueRightArrow}/>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

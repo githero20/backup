@@ -53,9 +53,68 @@ export function request(url,params,token,method, callback) {
       if (method==='POST') {
           return axios.post(url, params, header).then(res => callback(true, res))
               .catch(err => callback(false, err.response))
+      }else if(method==='GET'){
+
+          return axios.get(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
+
       }
 
     return axios.get(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
+
+
+}
+
+export function ActivationRequest(url,token,callback) {
+
+
+    url=`${BASE_URL}${url}`;
+
+    let header = { headers: {
+            "Content-Type": "Application/json",
+            "credentials": 'same-origin',
+
+        }
+    };
+
+    if(token){
+        let token =  getLocalStorage('token');
+        console.log(token);
+        if(token  !== null){
+            header.headers['Authorization'] = 'Bearer '+token;
+        }
+
+    }
+
+    return axios.get(url, header).then(res => callback(true, res))
+        .catch(err => callback(false, err.response))
+}
+
+
+export function requestAPI(url,params,token,method, callback,errCallback) {
+
+    url=`${BASE_URL}${url}`;
+
+    let header = { headers: {
+            "Content-Type": "Application/json",
+            "credentials": 'same-origin',
+
+        }
+    };
+
+    if(token){
+       let token =  getLocalStorage('token');
+       console.log(token);
+       if(token  !== null){
+           header.headers['Authorization'] = 'Bearer '+token;
+       }
+
+    }
+      if (method==='POST') {
+          return axios.post(url, params, header).then(res => callback(true, res))
+              .catch(err => errCallback(false, err.response))
+      }
+
+    return axios.get(url, header).then(res => callback(true, res)).catch(err => errCallback(false, err.response));
 
 
 }

@@ -4,10 +4,18 @@ import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import DashboardContainer from "../../Components/Dashboard/DashboardContainer/DashboardContainer";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
-import {activateUserEndpoint, getUserInfoEndpoint, lockedSavingEndpoint} from "../../RouteLinks/RouteLinks";
+import {
+    activateUserEndpoint,
+    getUserInfoEndpoint,
+    lockedSavingEndpoint,
+    resendActEndpoint
+} from "../../RouteLinks/RouteLinks";
 import {api, apiGet, getLocalStorage, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
 import {formatNumber, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
+import {USERINFO, USERACTIVATED} from "../../Components/Auth/HOC/authcontroller";
+import ActivationModal from "../../Components/Dashboard/ActivationModal/ActivationModal";
+import {ToastProvider} from 'react-toast-notifications';
 
 
 class DashboardIndex extends Component {
@@ -19,6 +27,7 @@ class DashboardIndex extends Component {
         showlockedSavingsModal: false,
         error: false,
         errorMessage: '',
+        showActivationModal:false,
         activationSuccss: false,
         accountInfo: null,
         vaultAmount: '0.00',
@@ -31,6 +40,7 @@ class DashboardIndex extends Component {
         totalSteadySave:'0.00',
         ActiveGoals:0,
         CompletedGoals:0,
+        email:null
     };
 
     showSteadySaveModal = () => {
@@ -75,26 +85,73 @@ class DashboardIndex extends Component {
     };
 
 
-    setupDashBoard() {
+    setupDashBoard = () => {
 
         //get data from localStorage
-        let data = JSON.parse(getLocalStorage('userInfo'));
+        console.log('got in to setup');
+        if(getLocalStorage(USERINFO)){
+            console.log('there is user info');
+            console.log(getLocalStorage(USERINFO));
+            if(getLocalStorage(USERACTIVATED)){
+
+                let status = JSON.parse(getLocalStorage(USERACTIVATED));
+                if(status===false){
+                    let userInfo = JSON.parse(getLocalStorage(USERINFO));
+                    //show activation modal
+                    this.setUpActivation(true,userInfo.email);
+                }else if(status===true){
+                    console.log('got here to retrieve it ');
+                    let data = JSON.parse(getLocalStorage(USERINFO));
+
+                    console.log(data);
+                    if (data.accounts !== null || data.accounts !== undefined) {
+                        console.log(data);
+                        this.setState({
+                            accountInfo: data.accounts,
+                            userName:data.name,
+
+                        });
+                        this.analyseDashboardInfo(data);
+                    }
+
+                    //get locked savings
+                    this.getLockedSavings(lockedSavingEndpoint,this.handleLockedSavings);
+                }
+            }
 
 
-        if (data.accounts !== null || data.accounts !== undefined) {
-            console.log(data);
-            this.setState({
-                accountInfo: data.accounts,
-                userName:data.name,
-            });
-            this.analyseDashboardInfo(data);
+        }else{
+
+            //check if user is activated
+            if(getLocalStorage(USERACTIVATED)){
+
+                let status = JSON.parse(getLocalStorage(USERACTIVATED));
+                if(status===false){
+                    //show activation modal
+                    this.setUpActivation(true,null);
+                }else if(status===true){
+                    console.log('got here to retrieve it ');
+                    let data = JSON.parse(getLocalStorage(USERINFO));
+
+
+
+                }
+            }
+
+
         }
 
-        //get locked savings
-        this.getLockedSavings(lockedSavingEndpoint,this.handleLockedSavings);
 
-    }
+    };
 
+    setUpActivation = (status,userInfo) => {
+
+        this.setState({
+            showActivationModal:status,
+            email:userInfo
+        })
+
+    };
 
     getLockedSavings = (url,callback) => {
 
@@ -120,25 +177,33 @@ class DashboardIndex extends Component {
 
     analyseDashboardInfo = (data) => {
 
-        // loop through data and set appropriate states
-        let accounts = data.accounts.data;
 
-        console.log(data);
-        let transactions = data.transactions.data;
+        if(data.accounts){
+
+            // loop through data and set appropriate states
+            let accounts = data.accounts.data;
+
+            console.log(data);
+            let transactions = data.transactions.data;
 
 
-        this.setState({
-            transactions
-        });
+            this.setState({
+                transactions
+            });
 
-        accounts.map((content, idx) => {
-            if (content.account_type_id === STANDARD_ACCOUNT) {
-                this.setState({
-                    vaultAmount: formatNumber(content.balance)
-                })
-            }
+            accounts.map((content, idx) => {
+                if (content.account_type_id === STANDARD_ACCOUNT) {
+                    this.setState({
+                        vaultAmount: formatNumber(content.balance)
+                    })
+                }
 
-        });
+            });
+        }else{
+            console.log(data);
+            return null;
+        }
+
 
 
     };
@@ -150,7 +215,7 @@ class DashboardIndex extends Component {
             // display info to user to activate their email
 
             // console.log(JSON.stringify(response));
-            setLocalStorage('userInfo', JSON.stringify(response.data));
+            setLocalStorage(USERINFO, JSON.stringify(response.data));
 
             this.setState({
                 error: false,
@@ -188,11 +253,45 @@ class DashboardIndex extends Component {
 
     };
 
+    resendActivationLink = () => {
+
+            const param = {email:this.state.email};
+            request(resendActEndpoint,param,false,true,this.handleResendActLink)
+
+    };
+
+    handleResendActLink = (state,response) =>{
+
+        const { toastManager } = this.props;
+
+        if(state){
+
+            console.log(response);
+
+            toastManager.add(`${response.data.success}`, {
+                appearance: 'success',
+            });
+
+
+        }else{
+
+            if(response){
+                console.log(response);
+                toastManager.add(`${response.data.error}`, {
+                    appearance: 'error',
+                });
+            }
+
+        }
+
+    };
+
 
     componentDidMount() {
 
-        // check if user is activated
 
+        console.log('dfgjd');
+        // check if user is activated
 
         //if user account is activated
 
@@ -215,7 +314,9 @@ class DashboardIndex extends Component {
                     <HorizontalNav userName={userName} />
                     <VerticalNav/>
 
+
                     <DashboardContainer
+
                         vaultAmount={vaultAmount}
                         backupAmount={backupAmount}
                         lockedSavingsAmount={lockedSavingsAmount}
@@ -227,13 +328,14 @@ class DashboardIndex extends Component {
                         ActiveGoals={ActiveGoals}
                         error={this.state.error}
                         errorMessage={this.state.errorMessage}
-                        activateAccount={this.activateAccount}
+                        // activateAccount={this.activateAccount}
                         hideSSModal={this.closeSteadySaveModal}
                         showSSModal={this.showSteadySaveModal}
                         hideAGModal={this.closeActiveGoalModal}
                         showAGModal={this.showActiveGoalModal}
                         hideLSModal={this.closeLSModal}
                         showLSModal={this.showLSModal}
+
 
                     />
 
@@ -253,6 +355,13 @@ class DashboardIndex extends Component {
                         show={this.state.showActiveGoalModal}
                         onHide={this.closeActiveGoalModal}
                     />
+                    <ToastProvider>
+                        <ActivationModal
+                            show={this.state.showActivationModal}
+                            email={this.state.email}
+                        />
+                    </ToastProvider>
+
 
                 </div>
             </React.Fragment>

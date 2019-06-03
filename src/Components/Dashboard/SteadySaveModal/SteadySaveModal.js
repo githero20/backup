@@ -20,7 +20,7 @@ class SteadySaveModal extends React.Component {
                 </Modal.Header>
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
-                    <SteadySaveForm onHide={this.props.onHide} />
+                    <SteadySaveForm onHide={this.props.onHide}/>
                 </Modal.Body>
             </Modal>
         );

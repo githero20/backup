@@ -16,13 +16,15 @@ import BankCardSetting from "../Containers/BankCardSetting/BankCardSetting";
 import ActivateAccount from "../Containers/ActivateAccount/ActivateAccount";
 import {
     ActivateAccountLink, BackupGoalsLink, BankCardLink,
-    DashboardLink,
+    DashboardLink, EmailActivationLink,
     ForgotPasswordLink,
-    InstantSaveLink, LockedSavingsLink, LoginLink, ProfileSettingLink, SignUpLink,
+    InstantSaveLink, LockedSavingsLink, LoginLink, ProfileSettingLink, ResetPasswordLink, SignUpLink,
     SteadySaveLink, TransactionsLink, WithdrawalLink
 } from "../RouteLinks/RouteLinks";
 import ForgotPassword from "../Containers/ForgotPassword/ForgotPassword";
 import AuthController from "../Components/Auth/HOC/authcontroller";
+import ResetPassword from "../Containers/ResetPassword/ResetPassword";
+import EmailActivation from "../Containers/EmailActivation/EmailActivation";
 
 
 class AppRouter extends Component {
@@ -32,24 +34,26 @@ class AppRouter extends Component {
         return (
             <React.Fragment>
                 <Router>
-                    <Route exact path="/" component={Home} />
+                    <Route exact path="/" component={Home}/>
                     {/*dashboard Routes*/}
-                    <Route path={DashboardLink} component={AuthController(DashboardIndex)} />
-                    <Route path={InstantSaveLink} component={InstantSave} />
-                    <Route path={SteadySaveLink} component={SteadySave} />
-                    <Route path={LockedSavingsLink} component={LockedSavings} />
-                    <Route path={BackupGoalsLink} component={BackupGoals} />
-                    <Route path={TransactionsLink} component={Transactions} />
-                    <Route path={LockedSavingsLink} component={LockedSavings} />
-                    <Route path={WithdrawalLink} component={Withdrawal} />
-                    <Route path={ProfileSettingLink} component={ProfileSetting} />
-                    <Route path={BankCardLink} component={BankCardSetting} />
+                    <Route path={DashboardLink} component={AuthController(DashboardIndex)}/>
+                    <Route path={InstantSaveLink} component={AuthController(InstantSave)}/>
+                    <Route path={SteadySaveLink} component={AuthController(SteadySave)}/>
+                    <Route path={LockedSavingsLink} component={AuthController(LockedSavings)}/>
+                    <Route path={BackupGoalsLink} component={AuthController(BackupGoals)}/>
+                    <Route path={TransactionsLink} component={AuthController(Transactions)}/>
+                    <Route path={LockedSavingsLink} component={AuthController(LockedSavings)}/>
+                    <Route path={WithdrawalLink} component={AuthController(Withdrawal)}/>
+                    <Route path={ProfileSettingLink} component={AuthController(ProfileSetting)}/>
+                    <Route path={BankCardLink} component={AuthController(BankCardSetting)}/>
+                    <Route path={EmailActivationLink} component={EmailActivation}/>
 
                     {/*auth routes*/}
-                    <Route path={LoginLink} component={Login} />
-                    <Route path={SignUpLink} component={SignUp} />
-                    <Route path={ActivateAccountLink} component={ActivateAccount} />
-                    <Route path={ForgotPasswordLink} component={ForgotPassword} />
+                    <Route path={LoginLink} component={Login}/>
+                    <Route path={SignUpLink} component={SignUp}/>
+                    <Route path={ActivateAccountLink} component={ActivateAccount}/>
+                    <Route path={ForgotPasswordLink} component={ForgotPassword}/>
+                    <Route path={ResetPasswordLink} component={ResetPassword}/>
                 </Router>
 
             </React.Fragment>

@@ -3,6 +3,7 @@ import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
 import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
 import SignUpForm from "../../Components/Auth/SignUpForm/SignUpForm";
 import SimpleReactValidator from "simple-react-validator";
+import {ToastProvider} from "react-toast-notifications";
 
 
 class SignUp extends Component {
@@ -21,6 +22,7 @@ class SignUp extends Component {
 
 
     //Send date to the second stage to activation container
+
     render() {
         return (
             <React.Fragment>
@@ -56,7 +58,9 @@ class SignUp extends Component {
                                                 <img src={backUpCashLogo} width="200px"/>
                                             </div>
                                             <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
-                                            <SignUpForm  />
+                                            <ToastProvider>
+                                                <SignUpForm  />
+                                            </ToastProvider>
                                         </div>
                                     </div>
                                 </div>

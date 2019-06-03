@@ -14,9 +14,6 @@ class TransactionTable extends Component {
 
         const {transactions} = this.props;
 
-        console.log(transactions);
-
-
         return (
             <React.Fragment>
                 <div id="recent-transaction" className="col-sm-12 col-md-8 col-lg-8 order-md-1">

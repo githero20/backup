@@ -8,6 +8,8 @@ import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {ActivateAccountLink, RegisterEndpoint} from "../../../RouteLinks/RouteLinks";
 import {api} from "../../../ApiUtils/ApiUtils";
+import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
+import {withToastManager} from 'react-toast-notifications';
 
 class SignUpForm extends Component {
 
@@ -63,10 +65,12 @@ class SignUpForm extends Component {
 
 
     saveToLocalStorage = (user, token) => {
-        if (user !== null && token !== null) {
-            console.log('data to be saved: ' + user, token);
-            localStorage.setItem('user', JSON.stringify(user));
-            localStorage.setItem('token', token);
+
+        if ( user  && token ) {
+
+            localStorage. setItem(USERINFO, JSON.stringify(user));
+            console.log(token,user);
+            localStorage.setItem(USERTOKEN, token);
 
             this.setState({
                 redirect: true
@@ -78,23 +82,7 @@ class SignUpForm extends Component {
     signUp = (url,param, func) => {
 
         api(url,param,false,true,func);
-        //
-        // Axios.post(url, param, {
-        //     headers: {
-        //         "Content-Type": "Application/json",
-        //         "credentials": 'same-origin',
-        //     }
-        // })
-        //
-        //     .then(func).catch((error) => {
-        //
-        //     console.log(`request failed: ${JSON.stringify(error.response.data)}`);
-        //     this.setState({
-        //         error: true,
-        //         errorMessage: JSON.stringify(error.response.data),
-        //         loading: false
-        //     });
-        // });
+
 
     };
 
@@ -131,20 +119,22 @@ class SignUpForm extends Component {
 
     };
 
+
     getSignUpInfo = (state,response) => {
 
             //save token
             const serverResponse = response.data;
             const token = serverResponse.token;
             const user = serverResponse.user;
+
+            console.log(user,token);
+
             this.setState({
                 loading: false
             });
             this.saveToLocalStorage(user, token);
 
         if(!state){
-
-
             console.log(`request failed: ${JSON.stringify(response)}`);
             this.setState({
                 error: true,
@@ -315,4 +305,6 @@ class SignUpForm extends Component {
 }
 
 
-export default SignUpForm;
+const SignUpWithToaster = withToastManager(SignUpForm)
+
+export default SignUpWithToaster;

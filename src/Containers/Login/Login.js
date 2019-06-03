@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
 import LoginForm from "../../Components/Auth/LoginForm/LoginForm";
 import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
+import {ToastProvider} from 'react-toast-notifications';
 
 class Login extends Component {
-    render() {
 
+
+    render() {
         return (
             <React.Fragment>
                     <section className="login-background login-section">
@@ -23,7 +25,9 @@ class Login extends Component {
                                         <img alt="" src={backUpCashLogo} width="200px"/>
                                     </div>
                                     <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
-                                    <LoginForm />
+                                    <ToastProvider>
+                                        <LoginForm />
+                                    </ToastProvider>
 
                                 </div>
                             </div>

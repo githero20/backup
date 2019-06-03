@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
-import ForgotPasswordForm from "../../Components/Auth/ForgotPasswordForm/ForgotPasswordForm";
 import { ToastProvider } from 'react-toast-notifications';
+import ResetPasswordForm from "../../Components/Auth/ResetPasswordForm/ResetPasswordForm";
 
-class ForgotPassword extends Component {
+class ResetPassword extends Component {
 
     render() {
 
@@ -20,7 +20,7 @@ class ForgotPassword extends Component {
                                     </div>
                                     <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                     <ToastProvider>
-                                        <ForgotPasswordForm />
+                                        <ResetPasswordForm />
                                     </ToastProvider>
 
                                 </div>
@@ -33,4 +33,4 @@ class ForgotPassword extends Component {
     }
 
 }
-export default ForgotPassword;
+export default ResetPassword;

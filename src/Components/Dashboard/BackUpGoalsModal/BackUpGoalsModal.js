@@ -20,7 +20,7 @@ class BackUpGoalsModal extends React.Component {
                 </Modal.Header>
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
-                    <BackUpGoalsForm onHide={this.props.onHide} />
+                    <BackUpGoalsForm onHide={this.props.onHide}/>
                 </Modal.Body>
             </Modal>
         );

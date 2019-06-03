@@ -867,6 +867,7 @@ html body .content.app-content {
     padding-top: .7rem;
     padding-bottom: .7rem;
     transition: all .5s ease;
+    cursor: pointer;
 }
 
 .btn-custom-blue:hover {

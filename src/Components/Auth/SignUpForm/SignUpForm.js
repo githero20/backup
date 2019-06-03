@@ -3,8 +3,6 @@ import blueHeadArrow from "../../../admin/app-assets/images/svg/blue-head-arrow.
 import {Link, Redirect} from "react-router-dom";
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
-import Axios from "axios";
-import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {ActivateAccountLink, RegisterEndpoint} from "../../../RouteLinks/RouteLinks";
 import {api} from "../../../ApiUtils/ApiUtils";
@@ -61,6 +59,7 @@ class SignUpForm extends Component {
         this.setState({
             [name]: value
         });
+        this.validatePasswords();
     };
 
 
@@ -68,7 +67,7 @@ class SignUpForm extends Component {
 
         if ( user  && token ) {
 
-            localStorage. setItem(USERINFO, JSON.stringify(user));
+            localStorage.setItem(USERINFO, JSON.stringify(user));
             console.log(token,user);
             localStorage.setItem(USERTOKEN, token);
 
@@ -120,7 +119,11 @@ class SignUpForm extends Component {
     };
 
 
+
     getSignUpInfo = (state,response) => {
+
+        const {toastManager} = this.props;
+
 
             //save token
             const serverResponse = response.data;
@@ -135,13 +138,49 @@ class SignUpForm extends Component {
             this.saveToLocalStorage(user, token);
 
         if(!state){
+
             console.log(`request failed: ${JSON.stringify(response)}`);
             this.setState({
                 error: true,
                 errorMessage: JSON.stringify(response.data.message),
                 loading: false
             });
+
+            response.data.errors.map((err,idx)=>{
+                return(
+                    toastManager.add(`${err}`, {
+                        appearance: 'error',
+                    })
+                )
+            });
+            toastManager.add(`${JSON.stringify(response.data.message)}`, {
+                appearance: 'error',
+            });
         }
+
+
+
+        if(state){
+            console.log(response);
+
+            localStorage.setItem(USERTOKEN, response.data.token);
+
+            // redirect to dashboard
+            this.setState({
+                redirect:true
+            });
+
+        }else{
+
+            if(response){
+                console.log(JSON.stringify(response));
+                toastManager.add(`${JSON.stringify(response.data.message)}`, {
+                    appearance: 'error',
+                });
+            }
+
+        }
+
 
 
     };
@@ -214,8 +253,8 @@ class SignUpForm extends Component {
                     <div className="row">
                         <div className="col-12">
                             <h5 className="form-header-purple mb-5">Create Free Account</h5>
-                            {this.state.error ?
-                                <Alert message={this.state.errorMessage} hideError={this.hideError}/> : null}
+                            {/*{this.state.error ?*/}
+                            {/*    <Alert message={this.state.errorMessage} hideError={this.hideError}/> : null}*/}
                         </div>
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
@@ -305,6 +344,6 @@ class SignUpForm extends Component {
 }
 
 
-const SignUpWithToaster = withToastManager(SignUpForm)
+const SignUpWithToaster = withToastManager(SignUpForm);
 
 export default SignUpWithToaster;

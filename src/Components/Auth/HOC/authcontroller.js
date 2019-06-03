@@ -7,6 +7,7 @@ export const USERTOKEN = "token";
 export const USERINFO = "us-info";
 export const DASHBOARDINFO = "dashboard-info";
 export const USERACTIVATED = "activated";
+export const ACTIVATIONMESG = "activation-msg";
 
 const verifyTokenURL = BASE_URL+"sfsbapi/v1/user";
 
@@ -31,14 +32,12 @@ const AuthController = component => {
 
                 axios.get(verifyTokenURL, {headers: {Authorization: `Bearer ${localStorage.getItem(USERTOKEN)}`}}).then(
                     res => {
-                        console.log('request made'+res);
                         localStorage.setItem(USERINFO, JSON.stringify(res.data.data));
                         setLocalStorage(USERACTIVATED,true);
 
                         setFetching(false);
                     },
                     err => {
-                        console.log(JSON.stringify(err.response));
                         if(err.response.data.message === "Account has not been activated, click on resend"){
                             setLocalStorage(USERACTIVATED,false);
 

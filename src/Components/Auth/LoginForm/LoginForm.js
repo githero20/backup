@@ -11,6 +11,14 @@ import {withToastManager} from 'react-toast-notifications';
 class LoginForm extends Component {
 
 
+    state = {
+        email: '',
+        password: '',
+        redirect:false,
+        error:false,
+        errorMessage:'',
+        loading:false
+    };
 
     constructor(props) {
 
@@ -18,14 +26,6 @@ class LoginForm extends Component {
 
         this.validator = new SimpleReactValidator();
 
-        this.state = {
-            email: '',
-            password: '',
-            redirect:false,
-            error:false,
-            errorMessage:'',
-            loading:false
-        }
 
     }
 
@@ -53,6 +53,7 @@ class LoginForm extends Component {
 
             localStorage.setItem(USERTOKEN, response.data.token);
 
+            // redirect to dashboard
             this.setState({
                 redirect:true
             });
@@ -61,29 +62,13 @@ class LoginForm extends Component {
 
             if(response){
                 console.log(JSON.stringify(response));
-                toastManager.add(`${JSON.stringify(response)}`, {
+                toastManager.add(`${JSON.stringify(response.data.message)}`, {
                     appearance: 'error',
                 });
             }
 
         }
 
-        // if (!state){
-        //     let message = JSON.stringify(response);
-        //     this.setState({
-        //         error:true,
-        //         errorMessage:message,
-        //         loading:false
-        //     });
-        //
-        //
-        // }else {
-        //
-        //     localStorage.setItem(USERTOKEN, response.data.token);
-        //     this.setState({
-        //         redirect:true
-        //     });
-        // }
     };
 
     Login(url,param,login) {
@@ -93,16 +78,7 @@ class LoginForm extends Component {
         });
 
         api(url,param,false,true,login);
-        // post(url,param,{
-        //     headers: {
-        //         "Content-Type": "Application/json",
-        //         "credentials": 'same-origin',
-        //     },})
-        //
-        //     .then( login).catch( (error) => {
-        //
-        //
-        // });
+
 
     }
 
@@ -161,7 +137,6 @@ class LoginForm extends Component {
     render() {
 
         const { email} = this.state;
-
 
         if (this.state.redirect) {
 

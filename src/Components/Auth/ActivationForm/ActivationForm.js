@@ -141,6 +141,8 @@ class ActivationForm extends Component {
 
     };
 
+
+
     initiateSave = (url) => {
 
         this.setState({
@@ -191,7 +193,6 @@ class ActivationForm extends Component {
         return false
 
     };
-
 
 
     saveDashboardInfo = (data) => {

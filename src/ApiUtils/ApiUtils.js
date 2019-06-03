@@ -64,6 +64,7 @@ export function request(url,params,token,method, callback) {
 
 }
 
+
 export function ActivationRequest(url,token,callback) {
 
 
@@ -88,6 +89,7 @@ export function ActivationRequest(url,token,callback) {
     return axios.get(url, header).then(res => callback(true, res))
         .catch(err => callback(false, err.response))
 }
+
 
 
 export function requestAPI(url,params,token,method, callback,errCallback) {

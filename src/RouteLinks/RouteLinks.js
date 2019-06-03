@@ -3,7 +3,7 @@
 
 
 export const ForgotPasswordLink  = '/forgot-password';
-export const ResetPasswordLink  = '/password/reset';
+export const ResetPasswordLink  = '/password/reset/:token';
 export const ActivateAccountLink  = '/payment/activate';
 export const DashboardLink  = '/dashboard';
 export const EmailActivationLink  = '/activate';

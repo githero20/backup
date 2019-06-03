@@ -1,18 +1,21 @@
 import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
 import {ToastProvider} from "react-toast-notifications";
-import {ActivationRequest, request} from "../../ApiUtils/ApiUtils";
-import {activateUserEndpoint, EmailActivationLink} from "../../RouteLinks/RouteLinks";
+import {ActivationRequest, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
+import {activateUserEndpoint, DashboardLink, EmailActivationLink} from "../../RouteLinks/RouteLinks";
 import ResendButton from "../../Components/Auth/ResendButton/ResendButton";
 import queryString from 'query-string'
+import {Redirect} from "react-router";
+import {ACTIVATIONMESG, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
 
 
 class EmailActivation extends Component {
 
-    state= {
+    state = {
 
         token:null,
         message:'',
+        redirect:false,
         loading:false,
         buttonMessage:'Click to Resend',
         resend:false,
@@ -24,34 +27,23 @@ class EmailActivation extends Component {
     // - if token is expired inform user and tell them to click a 	button to resend
     // - else if token is activated take user to dashboard
 
-    retreiveToken(){
-
-        const values = queryString.parse(this.props.location.search)
-        const token = values.token;
-        this.setState({
-            token:token,
-            redirect:false,
-            resend:false
-        });
-
-        return token;
-
-    }
-
-    callActivationEndpoint(url,token){
 
 
-
-
-    };
 
     handleActivation = (state,response) => {
 
+
+        //success
         if(state){
 
-            console.log(response);
+            //save the token
+            setLocalStorage(USERTOKEN,this.state.token);
+            setLocalStorage(ACTIVATIONMESG,this.response.data.message);
+
+            //redirect to dashboard
             this.setState({
-                message:response.data.message
+                message:response.data.message,
+                redirect :true
             })
 
         }else {
@@ -83,9 +75,7 @@ class EmailActivation extends Component {
         // retreive token from url
         const token = this.retreiveToken();
 
-        this.callActivationEndpoint(activateUserEndpoint,token);
         // call activation endpoint
-
         ActivationRequest(activateUserEndpoint,token,this.handleActivation);
 
 
@@ -94,6 +84,15 @@ class EmailActivation extends Component {
 
 
     render() {
+
+        if(this.state.redirect){
+
+            return (
+                <React.Fragment>
+                    <Redirect to={DashboardLink}/>
+                </React.Fragment>
+            )
+        }
         return (
             <React.Fragment>
                 <section className="login-background login-section">

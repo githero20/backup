@@ -33,7 +33,6 @@ class ForgotPasswordForm extends Component {
     }
 
 
-
     //Retrieves user inputs
     changeHandler = event => {
         const name = event.target.name;
@@ -45,31 +44,21 @@ class ForgotPasswordForm extends Component {
 
 
 
-
-    // retreive email
+    // validate forgot password
 
     submitForm = () => {
 
 
         if (this.validator.allValid()) {
 
-            // perform all necessary validation
-            const PasswordValid = this.validatePasswords();
 
-            console.log(PasswordValid);
-
-
-            if (PasswordValid) {
                 //    make api call
                 this.setState({
                     loading: true
                 });
 
-                this.submitEmail(passwordResetEndpoint,this.state,this.submitEmailResponse);
 
-
-            }
-
+                request(passwordResetEndpoint,this.state,false,"POST",this.submitEmailResponse);
 
         } else {
 
@@ -84,14 +73,6 @@ class ForgotPasswordForm extends Component {
 
 
 
-    //send email to api
-
-    submitEmail = (url,param,func) =>{
-
-        request(url,param,false,"POST",func);
-
-
-    };
 
     //handle response
 
@@ -133,14 +114,13 @@ class ForgotPasswordForm extends Component {
     };
 
 
-
     //api send mail to user
 
 
     // user click link to reset password
 
 
-    //user input password and confimration pasword
+    //user input password and confirmation password
 
 
 
@@ -160,8 +140,6 @@ class ForgotPasswordForm extends Component {
                                 {/*provide breadcrumb to go back*/}
                                 <h5 className="form-header-purple mb-5">Forgot Password</h5>
                                 <p>Get a password reset email</p>
-                                {this.state.error?<Alert message={this.state.errorMessage} hideError={this.hideError}/>:null}
-                                {this.state.message !=='' ?<Alert message={this.state.message} hideError={this.hideError}/>:null}
                             </div>
                             <div className="col-12">
                                 <div className="input-field">

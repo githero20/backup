@@ -5,6 +5,7 @@ import SimpleReactValidator from "simple-react-validator";
 import {withToastManager} from 'react-toast-notifications';
 import {ResetPasswordEndpoint, passwordResetEndpoint} from "../../../RouteLinks/RouteLinks";
 import {request} from "../../../ApiUtils/ApiUtils";
+import queryString from "query-string";
 
 
 class ResetPasswordForm extends Component {
@@ -14,7 +15,8 @@ class ResetPasswordForm extends Component {
         token:'',
         password_confirmation:'',
         email:'',
-        ConfirmPassError:false
+        ConfirmPassError:false,
+        loading:false,
     };
 
 
@@ -42,6 +44,10 @@ class ResetPasswordForm extends Component {
 
         const { toastManager } = this.props;
 
+        this.setState({
+            loading:false
+        });
+
         if(state){
 
             console.log(response);
@@ -54,16 +60,32 @@ class ResetPasswordForm extends Component {
         }else{
 
             if(response){
-                console.log(response);
-                toastManager.add(`${response.data.error}`, {
-                    appearance: 'error',
-                });
+                console.log(response.data.errors);
+                if(response.data.errors){
+                    response.data.errors.map((err,indx)=>{
+                        return(
+                            toastManager.add(`${err}`, {
+                                appearance: 'error',
+                                index:indx,
+                            })
+                        )
+                    });
+                }else {
+                    toastManager.add(`${response.data.error}`, {
+                        appearance: 'error',
+                    })
+
+                }
+
+
+
             }
 
         }
 
 
     };
+
 
 
 
@@ -77,10 +99,14 @@ class ResetPasswordForm extends Component {
             if( this.validatePasswords()){
 
                 this.setState({
-                    loading:true
+                    loading:true,
+                    token:this.props.token
+                },()=>{
+                    request(ResetPasswordEndpoint,this.state,false,'POST',this.handleResetResponse)
                 });
 
-                request(ResetPasswordEndpoint,this.state,false,'POST',this.handleResetResponse);
+
+
 
             }
 

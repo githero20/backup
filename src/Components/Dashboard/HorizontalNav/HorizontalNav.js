@@ -4,13 +4,15 @@ import ProfileIcon from "../../../admin/app-assets/images/svg/profile-icon.svg";
 import LogOutIcon from "../../../admin/app-assets/images/svg/logout-cion.svg";
 import KycIcon from "../../../admin/app-assets/images/svg/kyc-icon.svg";
 import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
+import {LoginEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
 
 class HorizontalNav extends Component {
 
     //state to display user menu when clicked
     state = {
         show:'',
+        redirectLogin:false
     };
     //toggle profile menu
     toggleSubMenu=()=>{
@@ -23,6 +25,14 @@ class HorizontalNav extends Component {
     //check if user info is stored retrieve the info
     // look for a way to securely store and retrieve data from local storage
 
+    logout = () => {
+
+        localStorage.clear();
+        this.setState({
+            redirectLogin:true,
+        })
+    };
+
 
 
 
@@ -31,6 +41,17 @@ class HorizontalNav extends Component {
 
         const {userName} = this.props;
         console.log(userName);
+
+
+        if(this.state.redirectLogin){
+
+            return (
+                <React.Fragment>
+                    <Redirect to={LoginLink}/>
+                </React.Fragment>
+            );
+
+        }
         return (
             <React.Fragment>
 
@@ -192,9 +213,9 @@ class HorizontalNav extends Component {
                                                 src={KycIcon}
                                                 className="img-2x mr-1"alt={''}  /> KYC</Link>
                                             <div className="dropdown-divider"></div>
-                                            <Link className="dropdown-item" to={'/login'}><img
+                                            <a className="dropdown-item" onClick={this.logout} ><img
                                                 src={LogOutIcon}
-                                                className="img-2x mr-1" alt={''}  /> Log Out</Link>
+                                                className="img-2x mr-1" alt={''}  /> Log Out</a>
                                         </div>
                                     </li>
 

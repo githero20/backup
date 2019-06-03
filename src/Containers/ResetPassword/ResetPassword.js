@@ -5,6 +5,27 @@ import ResetPasswordForm from "../../Components/Auth/ResetPasswordForm/ResetPass
 
 class ResetPassword extends Component {
 
+    state ={
+        token:'',
+    }
+
+    retreiveToken(){
+
+        const token = this.props.match.params.token;
+        console.log(token);
+        this.setState({
+            token:token
+        });
+
+
+    }
+
+    componentDidMount() {
+
+        this.retreiveToken();
+
+    }
+
     render() {
 
         return (
@@ -20,7 +41,7 @@ class ResetPassword extends Component {
                                     </div>
                                     <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                     <ToastProvider>
-                                        <ResetPasswordForm />
+                                        <ResetPasswordForm token={this.state.token} />
                                     </ToastProvider>
 
                                 </div>

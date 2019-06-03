@@ -59,7 +59,7 @@ class SignUp extends Component {
                                             </div>
                                             <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                             <ToastProvider>
-                                                <SignUpForm  />
+                                                <SignUpForm />
                                             </ToastProvider>
                                         </div>
                                     </div>

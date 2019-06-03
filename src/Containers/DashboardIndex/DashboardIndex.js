@@ -16,6 +16,7 @@ import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUp
 import {USERINFO, USERACTIVATED} from "../../Components/Auth/HOC/authcontroller";
 import ActivationModal from "../../Components/Dashboard/ActivationModal/ActivationModal";
 import {ToastProvider} from 'react-toast-notifications';
+import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 
 
 class DashboardIndex extends Component {
@@ -40,7 +41,8 @@ class DashboardIndex extends Component {
         totalSteadySave:'0.00',
         ActiveGoals:0,
         CompletedGoals:0,
-        email:null
+        email:null,
+        showLoader:true,
     };
 
     showSteadySaveModal = () => {
@@ -85,25 +87,29 @@ class DashboardIndex extends Component {
     };
 
 
+
     setupDashBoard = () => {
 
+        console.log('setting up dashboard');
         //get data from localStorage
-        console.log('got in to setup');
         if(getLocalStorage(USERINFO)){
+            this.setState({
+                showLoader:false,
+            });
             console.log('there is user info');
-            console.log(getLocalStorage(USERINFO));
-            if(getLocalStorage(USERACTIVATED)){
+            console.log(JSON.parse(getLocalStorage(USERINFO)));
 
+            if(getLocalStorage(USERACTIVATED)){
                 let status = JSON.parse(getLocalStorage(USERACTIVATED));
                 if(status===false){
                     let userInfo = JSON.parse(getLocalStorage(USERINFO));
                     //show activation modal
                     this.setUpActivation(true,userInfo.email);
+
                 }else if(status===true){
                     console.log('got here to retrieve it ');
                     let data = JSON.parse(getLocalStorage(USERINFO));
 
-                    console.log(data);
                     if (data.accounts !== null || data.accounts !== undefined) {
                         console.log(data);
                         this.setState({
@@ -122,6 +128,7 @@ class DashboardIndex extends Component {
 
         }else{
 
+            console.log('didnt see usr info');
             //check if user is activated
             if(getLocalStorage(USERACTIVATED)){
 
@@ -132,7 +139,6 @@ class DashboardIndex extends Component {
                 }else if(status===true){
                     console.log('got here to retrieve it ');
                     let data = JSON.parse(getLocalStorage(USERINFO));
-
 
 
                 }
@@ -290,16 +296,22 @@ class DashboardIndex extends Component {
     componentDidMount() {
 
 
-        console.log('dfgjd');
         // check if user is activated
 
         //if user account is activated
 
         //setup dashboard
-        this.setupDashBoard();
+        console.log('dashboard mounted');
+        setTimeout(this.setupDashBoard,3000);
+
 
     }
 
+
+
+    componentWillMount() {
+
+    }
 
     render() {
         const {
@@ -313,8 +325,7 @@ class DashboardIndex extends Component {
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={userName} />
                     <VerticalNav/>
-
-
+                    {this.state.showLoader? <DashboardLoader /> :null}
                     <DashboardContainer
 
                         vaultAmount={vaultAmount}
@@ -335,7 +346,6 @@ class DashboardIndex extends Component {
                         showAGModal={this.showActiveGoalModal}
                         hideLSModal={this.closeLSModal}
                         showLSModal={this.showLSModal}
-
 
                     />
 

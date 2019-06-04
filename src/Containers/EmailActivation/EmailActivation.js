@@ -38,37 +38,45 @@ class EmailActivation extends Component {
 
     handleActivation = (state,response) => {
 
-
         //success
         if(state){
 
             //save the token
-            setLocalStorage(USERTOKEN,this.state.token);
-            setLocalStorage(ACTIVATIONMESG,this.response.data.message);
+            if(response){
+                setLocalStorage(USERTOKEN,this.state.token);
+                setLocalStorage(ACTIVATIONMESG,this.response.data.message);
 
-            //redirect to dashboard
-            this.setState({
-                message:response.data.message,
-                redirect :true
-            })
+                //redirect to dashboard
+                this.setState({
+                    message:response.data.message,
+                    redirect :true
+                })
+
+            }
+
 
         }else {
 
-            console.log(response);
-
-            this.setState({
-                message:response.data.message
-            });
-
-            if(response.data.status_code === 401){
-
-                this.setState({
-                    resend:true
-                });
+            if(response){
 
                 console.log(response);
 
+                this.setState({
+                    message:response.data.message
+                });
+
+                if(response.data.status_code === 401){
+
+                    this.setState({
+                        resend:true
+                    });
+
+                    console.log(response);
+
+                }
+
             }
+
         }
 
 
@@ -78,14 +86,10 @@ class EmailActivation extends Component {
     retreiveToken =()=>{
 
         const search = queryString.parse(this.props.location.search);
-
         console.log(search.token);
         this.setState({
             token:search.token
         });
-
-        return search;
-
 
     };
 
@@ -94,10 +98,10 @@ class EmailActivation extends Component {
     componentDidMount() {
 
         // retreive token from url
-        const token = this.retreiveToken();
+        this.retreiveToken();
 
         // call activation endpoint
-        ActivationRequest(activateUserEndpoint,token,this.handleActivation);
+        ActivationRequest(activateUserEndpoint,this.state,this.handleActivation);
 
 
 

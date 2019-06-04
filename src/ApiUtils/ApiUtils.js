@@ -9,7 +9,6 @@ export function api(url,params,token,method, callback) {
     let header = { headers: {
             "Content-Type": "Application/json",
             "credentials": 'same-origin',
-
         }
     };
 

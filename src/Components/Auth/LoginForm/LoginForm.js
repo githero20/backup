@@ -5,8 +5,8 @@ import SimpleReactValidator from "simple-react-validator";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {DashboardLink, ForgotPasswordLink, LoginEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteLinks";
-import {api} from "../../../ApiUtils/ApiUtils";
-import {USERTOKEN} from "../HOC/authcontroller";
+import {api, setLocalStorage} from "../../../ApiUtils/ApiUtils";
+import {ACTIVATONEMAIL, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 class LoginForm extends Component {
 
@@ -70,8 +70,9 @@ class LoginForm extends Component {
 
                     this.setState({
                         resendActErr:true
-                    })
+                    });
 
+                    setLocalStorage(ACTIVATONEMAIL,this.state.email);
 
                 }
                 toastManager.add(`${JSON.stringify(response.data.message)}`, {

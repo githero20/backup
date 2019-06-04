@@ -6,7 +6,7 @@ import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-ico
 const ResendButton = (props) => {
      return (
          <React.Fragment>
-             <button type={'button '} className="btn btn-round btn-custom-blue auth-btn "
+             <button type={'submit'} className="btn btn-round btn-custom-blue auth-btn "
                      name="action">{props.loading?<ButtonLoader/>:
                  <span>{props.message}<img alt="" className="img-2x ml-2" src={signInIcon}/></span>}
              </button>

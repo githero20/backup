@@ -8,6 +8,7 @@ export const USERINFO = "us-info";
 export const DASHBOARDINFO = "dashboard-info";
 export const USERACTIVATED = "activated";
 export const ACTIVATIONMESG = "activation-msg";
+export const ACTIVATONEMAIL = "activation-email";
 
 const verifyTokenURL = BASE_URL+"sfsbapi/v1/user";
 

@@ -104,7 +104,7 @@ class EmailActivation extends Component {
         const param = this.retreiveToken();
 
         // call activation endpoint
-        ActivationRequest(activateUserEndpoint,param,this.handleActivation);
+        ActivationRequest(activateUserEndpoint,param.token,this.handleActivation);
 
 
 

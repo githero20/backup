@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8d6f8db3-e14b-4159-9d0b-a9ae603e5670" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ApiUtils/ApiUtils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiUtils/ApiUtils.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Auth/ResendForm/ResendForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Auth/ResendForm/ResendForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js" afterDir="false" />
     </list>
@@ -88,8 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="106" column="17" selection-start-line="106" selection-start-column="17" selection-end-line="106" selection-end-column="17" />
+            <state relative-caret-position="522">
+              <caret line="106" column="18" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="18" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -136,8 +137,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ApiUtils/ApiUtils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="66" column="16" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="16" />
+            <state relative-caret-position="434">
+              <caret line="80" selection-start-line="80" selection-end-line="80" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -259,7 +260,6 @@
         <option value="$PROJECT_DIR$/src/Components/Auth/ActivationForm/ActivationForm.js" />
         <option value="$PROJECT_DIR$/src/Components/Auth/SignUpForm/SignUpForm.js" />
         <option value="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" />
-        <option value="$PROJECT_DIR$/src/ApiUtils/ApiUtils.js" />
         <option value="$PROJECT_DIR$/src/Components/Auth/HOC/authcontroller.js" />
         <option value="$PROJECT_DIR$/src/Components/Auth/LoginForm/LoginForm.js" />
         <option value="$PROJECT_DIR$/src/AppRouter/AppRouter.js" />
@@ -267,6 +267,7 @@
         <option value="$PROJECT_DIR$/src/Containers/ResendActivation/ResendActivation.js" />
         <option value="$PROJECT_DIR$/src/Components/Auth/ResendForm/ResendForm.js" />
         <option value="$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js" />
+        <option value="$PROJECT_DIR$/src/ApiUtils/ApiUtils.js" />
       </list>
     </option>
   </component>
@@ -379,16 +380,15 @@
       <option name="presentableId" value="Default" />
       <updated>1558694646048</updated>
       <workItem from="1558694647678" duration="252796000" />
-      <workItem from="1559335762459" duration="89296000" />
+      <workItem from="1559335762459" duration="89554000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="342092000" />
+    <option name="totallyTimeSpent" value="342350000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" weight="0.32967034" />
       <window_info id="npm" order="1" side_tool="true" weight="0.32967034" />
@@ -821,13 +821,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/RouteLinks/RouteLinks.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppRouter/AppRouter.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="519">
@@ -875,6 +868,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/RouteLinks/RouteLinks.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/ResendActivation/ResendActivation.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -887,8 +887,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="106" column="17" selection-start-line="106" selection-start-column="17" selection-end-line="106" selection-end-column="17" />
+        <state relative-caret-position="522">
+          <caret line="106" column="18" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="18" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -897,8 +897,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ApiUtils/ApiUtils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="66" column="16" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="16" />
+        <state relative-caret-position="434">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

@@ -77,11 +77,7 @@ export function ActivationRequest(url,token,callback) {
     };
 
     if(token){
-        let token =  getLocalStorage('token');
-        console.log(token);
-        if(token  !== null){
             header.headers['Authorization'] = 'Bearer '+token;
-        }
 
     }
 

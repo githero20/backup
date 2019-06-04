@@ -42,12 +42,15 @@ class ResendForm extends Component {
         if (state) {
 
             console.log(response);
-            toastManager.add(`${response.data.message}`, {
-                appearance: 'success',
-            });
-            setTimeout(()=>{ this.setState({
-                redirectLogin: true
-            })},3000);
+            if(response){
+
+                toastManager.add(`${response.data.message}`, {
+                    appearance: 'success',
+                });
+                setTimeout(()=>{ this.setState({
+                    redirectLogin: true
+                })},3000);
+            }
 
 
         } else {

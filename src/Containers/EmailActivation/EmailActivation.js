@@ -91,6 +91,9 @@ class EmailActivation extends Component {
             token:search.token
         });
 
+        return search;
+
+
     };
 
 
@@ -98,10 +101,10 @@ class EmailActivation extends Component {
     componentDidMount() {
 
         // retreive token from url
-        this.retreiveToken();
+        const param = this.retreiveToken();
 
         // call activation endpoint
-        ActivationRequest(activateUserEndpoint,this.state,this.handleActivation);
+        ActivationRequest(activateUserEndpoint,param,this.handleActivation);
 
 
 

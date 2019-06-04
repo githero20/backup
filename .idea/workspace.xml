@@ -3,14 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8d6f8db3-e14b-4159-9d0b-a9ae603e5670" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiUtils/ApiUtils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiUtils/ApiUtils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppRouter/AppRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppRouter/AppRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Auth/HOC/authcontroller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Auth/HOC/authcontroller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Auth/LoginForm/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Auth/LoginForm/LoginForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Auth/ResendButton/ResendButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Auth/ResendButton/ResendButton.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Auth/ResendForm/ResendForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Auth/ResendForm/ResendForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Containers/ResendActivation/ResendActivation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/ResendActivation/ResendActivation.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -91,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-604">
-              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+            <state relative-caret-position="446">
+              <caret line="106" column="17" selection-start-line="106" selection-start-column="17" selection-end-line="106" selection-end-column="17" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -118,8 +112,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/Auth/ResendForm/ResendForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="49" column="22" lean-forward="true" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
+            <state relative-caret-position="-234">
+              <caret line="53" selection-start-line="53" selection-end-line="53" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -139,11 +133,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ApiUtils/ApiUtils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+            <state relative-caret-position="133">
+              <caret line="66" column="16" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="16" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -385,22 +379,23 @@
       <option name="presentableId" value="Default" />
       <updated>1558694646048</updated>
       <workItem from="1558694647678" duration="252796000" />
-      <workItem from="1559335762459" duration="88586000" />
+      <workItem from="1559335762459" duration="89296000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="341382000" />
+    <option name="totallyTimeSpent" value="342092000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" weight="0.32967034" />
       <window_info id="npm" order="1" side_tool="true" weight="0.32967034" />
       <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.17704518" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.24969475" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.4981685" visible="true" weight="0.40816328" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.4981685" visible="true" weight="0.24387754" />
       <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50061053" side_tool="true" weight="0.78163266" />
       <window_info anchor="bottom" id="Version Control" order="3" sideWeight="0.4993895" weight="0.78156996" />
       <window_info anchor="bottom" id="Database Changes" order="4" />
@@ -816,16 +811,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ApiUtils/ApiUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Auth/HOC/authcontroller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -880,6 +865,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Auth/ResendForm/ResendForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-234">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/ResendActivation/ResendActivation.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -890,22 +885,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Auth/ResendForm/ResendForm.js">
+    <entry file="file://$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="49" column="22" lean-forward="true" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
+        <state relative-caret-position="446">
+          <caret line="106" column="17" selection-start-line="106" selection-start-column="17" selection-end-line="106" selection-end-column="17" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js">
+    <entry file="file://$PROJECT_DIR$/src/ApiUtils/ApiUtils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-604">
-          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+        <state relative-caret-position="133">
+          <caret line="66" column="16" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="16" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>

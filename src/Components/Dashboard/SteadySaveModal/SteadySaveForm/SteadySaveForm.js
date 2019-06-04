@@ -47,24 +47,24 @@ class SteadySaveForm extends Component {
     //validate form
     handleFrequencySelect(){
 
-        if(this.state.frequency === "daily"){
+        if(this.state.steadySaveInfo.frequency === "daily"){
             this.setState({
                 showMonth: false,
                 showDay: false,
                 showWeek: false,
                 showHour: true,
             })
-        }else if(this.state.frequency === "weekly"){
+        }else if(this.state.steadySaveInfo.frequency === "weekly"){
             this.setState({
                 showMonth: false,
                 showDay: true,
                 showWeek: false,
                 showHour: true,
             })
-        }else if(this.state.frequency === "monthly"){
+        }else if(this.state.steadySaveInfo.frequency === "monthly"){
             this.setState({
                 showMonth: true,
-                showDay: true,
+                showDay: false,
                 showWeek: false,
                 showHour: false,
             })
@@ -84,7 +84,7 @@ class SteadySaveForm extends Component {
         if (this.validator.allValid()) {
 
 
-            request(NewSteadySaveEndpoint, this.state.steadySaveInfo, true, 'POST', this.HandleSteadySave);
+            request(NewSteadySaveEndpoint, this.state.steadySaveInfo, true, 'POST', this.HandleBackUpGoal);
 
 
         } else {
@@ -102,7 +102,7 @@ class SteadySaveForm extends Component {
 
 
     //handle response
-    HandleSteadySave = (state, response) => {
+    HandleBackUpGoal = (state, response) => {
 
 
         const { toastManager } = this.props;
@@ -215,7 +215,11 @@ class SteadySaveForm extends Component {
                             {this.validator.message('contribution', contribution, 'required|numeric')}
 
                         </Form.Group>
-                        <Form.Group as={Col}>
+
+
+                    </Form.Row>
+                    <Form.Row>
+                        <Form.Group as={Col} sm={6}>
                             <Form.Label>Account to Debit</Form.Label>
                             <Form.Control as="select" defaultValue={'Select Account to Debit'} id={'account_to_debit'}
                                           name={'account_to_debit'}>
@@ -231,9 +235,6 @@ class SteadySaveForm extends Component {
 
                             </Form.Control>
                         </Form.Group>
-
-                    </Form.Row>
-                    <Form.Row>
 
                         <Form.Group as={Col}>
 

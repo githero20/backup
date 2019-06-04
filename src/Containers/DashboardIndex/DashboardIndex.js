@@ -21,7 +21,6 @@ import DashboardLoader from "../../Components/Dashboard/DashboardLoader/Dashboar
 
 class DashboardIndex extends Component {
 
-
     state = {
         showSteadySavingModal: false,
         showActiveGoalModal: false,
@@ -44,6 +43,7 @@ class DashboardIndex extends Component {
         email:null,
         showLoader:true,
     };
+
 
     showSteadySaveModal = () => {
         this.setState({
@@ -209,6 +209,7 @@ class DashboardIndex extends Component {
                 }
 
             });
+
         }else{
             console.log(data);
             return null;
@@ -262,6 +263,7 @@ class DashboardIndex extends Component {
         }
 
     };
+
 
     resendActivationLink = () => {
 

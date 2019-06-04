@@ -1,13 +1,14 @@
 import React from 'react';
 import Modal from "react-bootstrap/Modal";
 import InstantSavingForm from "./InstantSavingForm/InstantSavingForm";
+import {ToastProvider} from "react-toast-notifications";
 
 class InstantSavingModal extends React.Component {
     render() {
         return (
             <Modal
                 {...this.props}
-                size="lg"
+                size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 className={'steady-save-modal'}
@@ -19,7 +20,9 @@ class InstantSavingModal extends React.Component {
                 </Modal.Header>
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
-                    <InstantSavingForm onHide={this.props.onHide} />
+                    <ToastProvider>
+                        <InstantSavingForm  onHide={this.props.onHide} />
+                    </ToastProvider>
                 </Modal.Body>
             </Modal>
         );

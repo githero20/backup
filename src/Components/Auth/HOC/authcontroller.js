@@ -39,19 +39,23 @@ const AuthController = component => {
                         setFetching(false);
                     },
                     err => {
-                        if(err.response.data.message === "Account has not been activated, click on resend"){
-                            setLocalStorage(USERACTIVATED,false);
+                        if(err.response){
 
-                        }else{
+                            if(err.response.data.message === "Account has not been activated, click on resend"){
+                                setLocalStorage(USERACTIVATED,false);
 
-                            props.history.push(
-                                `/login`
-                            );
-                            localStorage.removeItem(USERTOKEN);
-                            localStorage.removeItem(USERINFO);
-                            return null;
+                            }else{
 
+                                props.history.push(
+                                    `/login`
+                                );
+                                localStorage.removeItem(USERTOKEN);
+                                localStorage.removeItem(USERINFO);
+                                return null;
+
+                            }
                         }
+
 
                     }
                 )

@@ -35,5 +35,8 @@ export const resendActEndpoint  = `sfsbapi/v1/auth/activate/resend`;
 export const instantSaveEndpoint  = `sfsbapi/v1/user/savings/instant`;
 export const lockedSavingEndpoint  = `sfsbapi/v1/user/savings/locked`;
 export const NewSteadySaveEndpoint  = `/sfsbapi/v1/user/savings/steady`;
+export const getSteadySaveEndpoint  = `/sfsbapi/v1/user/savings/steady`;
+export const getBackUpGoals  = `/sfsbapi/v1/user/goals`;
+export const createBackupGoals  = `/sfsbapi/v1/user/goals`;
 export const ResetPasswordEndpoint  = `/sfsbapi/v1/auth/password/reset`;
 

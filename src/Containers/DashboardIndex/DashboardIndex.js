@@ -128,6 +128,10 @@ class DashboardIndex extends Component {
 
         }else{
 
+            this.setState({
+                showLoader:false
+
+            });
             console.log('didnt see usr info');
             //check if user is activated
             if(getLocalStorage(USERACTIVATED)){

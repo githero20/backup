@@ -151,7 +151,7 @@ class InstantSave extends Component {
 
     componentDidMount() {
 
-        this.updateInstantSave();
+        this.setupInstantSave();
 
 
     }
@@ -161,12 +161,12 @@ class InstantSave extends Component {
         this.setState({
             showLoader:false
         })
-        console.log('got here');
+        console.log('got here'+JSON.parse(payload));
         //handle response
         if(status){
             this.setState({
-                transactions:payload.data.data.transaction.data
-            })
+                transactions:JSON.parse(payload.data.data.transaction.data)
+            });
             console.log('success',payload);
         }
 
@@ -179,12 +179,11 @@ class InstantSave extends Component {
         this.setState({
             showLoader:true
         });
+
         request(getUserInfoEndpoint,null,true,'GET',this.loadInstantSaveTable)
 
 
-
-
-    }
+    };
 
 
     render() {

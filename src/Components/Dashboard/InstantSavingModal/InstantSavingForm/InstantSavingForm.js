@@ -111,6 +111,7 @@ class InstantSavingForm extends Component {
             if(response.status===200){
                 toastManager.add(`${JSON.stringify('You have successfully created an Instant Save')}`, {
                     appearance: 'success',
+                    autoDismiss: true,
                 });
 
                 //hide modal
@@ -134,6 +135,7 @@ class InstantSavingForm extends Component {
                 console.log(JSON.stringify(response));
                 toastManager.add(`${JSON.stringify(response.data.message)}`, {
                     appearance: 'error',
+                    autoDismiss: true,
                 });
             }
 
@@ -221,7 +223,7 @@ class InstantSavingForm extends Component {
                         <div className="col ">
                             <Form.Group className={'mt-md-1 mb-md-3'}>
                                 <div className="slidecontainer">
-                                    <input type="range" min={500} step={20} max={9000000000000000}  value={amount} onChange={this.changeHandler} className="slider mt-1-md mb-3-md" name={'amount'} id="amountSlider"/>
+                                    <input type="range" min={500} step={5}   value={amount} onChange={this.changeHandler} className="slider mt-1-md mb-3-md" name={'amount'} id="amountSlider"/>
                                 </div>
                             </Form.Group>
                         </div>

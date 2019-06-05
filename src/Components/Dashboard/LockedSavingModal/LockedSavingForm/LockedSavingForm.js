@@ -22,7 +22,7 @@ class LockedSavingForm extends Component {
             form: {
                 title: "",
                 end_date: "",
-                amount: 0,
+                amount: null,
                 interest: 0.0,
                 days:0,
                 interestRate:0.0,

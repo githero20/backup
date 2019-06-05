@@ -6,124 +6,54 @@ import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
 import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.svg";
 import sortIcon from "../../admin/app-assets/images/svg/sort-icon.svg";
 import addSavingsIcon from "../../admin/app-assets/images/svg/add-lock-saving.svg";
-import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
-import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
-import {getBackUpGoals} from "../../RouteLinks/RouteLinks";
 import BackUpGoalsTable from "../../Components/Dashboard/BackUpGoalsTable/BackUpGoalsTable";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
+import {getBackUpSavings} from "../../actions/BackUpGoalsAction";
 
 class BackupGoals extends Component {
 
     //get all back up goals
+    constructor(props){
+        super(props);
+        this.state={
+            showBackUpModal: false,
+            accountInfo:null,
+            userName:null,
+            backupGoals: []
+        };
 
-    state={
-        showBackUpModal: false,
-        accountInfo:null,
-        userName:null,
-
-    };
-
-    handleBackUpGoals = (state, response) => {
-
-
-        if (state) {
-            console.log(response);
-        }
-
-
-    };
-
-    setupBackupGoals = () =>{
-
-
-        console.log('setting up backup Goals');
-
-        //make request for back up goals
-        request(getBackUpGoals, null, true, 'GET', this.handleBackUpGoals);
-
-
-
-        //get data from localStorage
-        if(getLocalStorage(USERINFO)){
-            this.setState({
-                showLoader:false,
-            });
-            console.log('there is user info');
-            console.log(JSON.parse(getLocalStorage(USERINFO)));
-
-            if(getLocalStorage(USERACTIVATED)){
-
-                let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if(status===false){
-                    let userInfo = JSON.parse(getLocalStorage(USERINFO));
-                    //show activation modal
-                    this.setUpActivation(true,userInfo.email);
-
-                }else if(status===true){
-                    console.log('got here to retrieve it ');
-                    let data = JSON.parse(getLocalStorage(USERINFO));
-
-                    if (data.accounts !== null || data.accounts !== undefined) {
-                        console.log(data);
-                        this.setState({
-                            accountInfo: data.accounts,
-                            userName:data.name,
-
-                        });
-
-
-
-
-                    }
-
-                }
-            }
-
-
-        }else{
-
-            this.setState({
-                showLoader:false
-
-            });
-            console.log('didnt see usr info');
-            //check if user is activated
-            if(getLocalStorage(USERACTIVATED)){
-
-                let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if(status===false){
-                    //show activation modal
-                    this.setUpActivation(true,null);
-                }else if(status===true){
-                    console.log('got here to retrieve it ');
-                    let data = JSON.parse(getLocalStorage(USERINFO));
-
-                }
-            }
-
-
-        }
-
-
-    };
-
+        // this.handleBackUpGoals = this.handleBackUpGoals.bind(this);
+    }
     showBackUpModal =()=>{
         this.setState({
             showBackUpModal:true,
         })
     };
-
-
-    hideModal =()=>{
+    hideModal = (status = false) =>{
         this.setState({
             showBackUpModal:false,
-        })
+        });
+
+        if(status){
+            this.fetchBackUpGoals();
+        }
     };
 
+
+    fetchBackUpGoals(){
+        getBackUpSavings((status, payload) => {
+            console.log("Getbackupgoals",status, payload);
+            if(status){
+                this.setState({backupGoals: payload})
+            }else{
+                console.error("An error occurred", payload);
+            }
+
+        });
+    }
     componentDidMount() {
-
-
-        this.setupBackupGoals();
+        this.fetchBackUpGoals();
+        // this.setupBackupGoals();
     }
 
 
@@ -131,17 +61,7 @@ class BackupGoals extends Component {
         return (
             <React.Fragment>
 
-                {
-                    this.state.showBackUpModal ?
-                        (
-                            <React.Fragment>
-                                <BackUpGoalsModal show={this.state.showBackUpModal} onHide={this.hideModal}/>
-                            </React.Fragment>
-
-                        ) : null
-
-
-                }
+                <BackUpGoalsModal show={this.state.showBackUpModal} onHide={this.hideModal}/>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={this.state.userName} />
@@ -211,109 +131,9 @@ class BackupGoals extends Component {
                                                         <button type="button" className="btn-green">Export CSV</button>
                                                     </div>
                                                 </div>
-                                                {/* modal */}
-                                                <div className="modal custom-modal fade text-left" id="large"
-                                                     tabIndex="-1" role="dialog" aria-labelledby="myModalLabel17"
-                                                     aria-hidden="true">
-                                                    <div className="modal-dialog modal-lg" role="document">
-                                                        <div className="modal-content curved-radius">
-                                                            <div className="modal-header">
-                                                                <h4 className="modal-title" id="myModalLabel17">New
-                                                                    Locked Saving</h4>
-                                                                <button type="button" className="close"
-                                                                        data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                            </div>
-                                                            <form className="lock-form">
-                                                                <div className="modal-body">
-                                                                    <div className="row">
-                                                                        <div className="col">
-                                                                            <fieldset
-                                                                                className="form-group floating-label-form-group">
-                                                                                <label htmlFor="name">Locked Savings
-                                                                                    name</label>
-                                                                                <input type="text"
-                                                                                       className="form-control"
-                                                                                       id="name"
-                                                                                       placeholder="Toyota Venza"/>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div className="row">
-                                                                        <div className="col">
-                                                                            <fieldset
-                                                                                className="form-group floating-label-form-group">
-                                                                                <label htmlFor="date">Maturity
-                                                                                    Date</label>
-                                                                                <input type="date"
-                                                                                       className="form-control mb-1"
-                                                                                       id="date"/>
-                                                                                <label>Date when funds should be
-                                                                                    returned to your
-                                                                                    BackupCash savings</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                        <div className="col">
-                                                                            <fieldset
-                                                                                className="form-group floating-label-form-group">
-                                                                                <label htmlFor="email">Capital
-                                                                                    Investment [ N ]</label>
-                                                                                <input type="text"
-                                                                                       className="form-control mb-1"
-                                                                                       id="capital" placeholder="0"/>
-                                                                                <label>Amount to be removed
-                                                                                    instantly from your
-                                                                                    BackupCash “ Central Vault ” and
-                                                                                    locked away</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <br/>
-                                                                    <div className="row">
-                                                                        <div className="col-md-6">
-                                                                            <fieldset
-                                                                                className="form-group floating-label-form-group ">
-                                                                                <label htmlFor="email">Upfront
-                                                                                    Interest [ N ]</label>
-                                                                                <div className="interest-fieldset">
-                                                                                    <input type="text"
-                                                                                           className="form-control mb-1"
-                                                                                           id="email"
-                                                                                           placeholder="0.01"/>
-                                                                                    <label
-                                                                                        className="label-interest">0.68%
-                                                                                        for
-                                                                                        19days</label>
-                                                                                </div>
-                                                                                <label>This upfront interest will be
-                                                                                    deposited in your
-                                                                                    BackupCash "Central Vault" and
-                                                                                    can be
-                                                                                    withdrawn immediately.</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div className="modal-footer text-center text-md-right">
-                                                                    <input type="reset"
-                                                                           className="btn btn-outline-secondary px-md-3 round btn-lg"
-                                                                           data-dismiss="modal" value="cancel"/>
-                                                                    <input type="submit"
-                                                                           className="btn btn-bg-shade-2 btn-lg white px-md-3 round"
-                                                                           value="lock Savings"/>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                {/* table component */}
 
-                                               <BackUpGoalsTable />
+                                               <BackUpGoalsTable backupGoals={this.state.backupGoals} />
                                             </div>
                                         </div>
                                     </div>

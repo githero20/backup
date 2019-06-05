@@ -8,11 +8,14 @@ export const GOOGLE_PLACE_API_KEY = "AIzaSyBMe9I7kVgdErGjrHStl34d3RLk5rfi0gw";
 
 export const _setState = (prop, val, el = this) => el.setState({[prop]: val});
 
-export const _handleFormChange = (name, event, el = this) => {
+export const _handleFormChange = (name, event, el = this, callback = null) => {
     let form = {...el.state.form};
     form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     el.setState({form});
     console.log(name, event.target.value, form);
+    if(callback != null){
+        callback();
+    }
 };
 
 export const _handleInputEnter = (event) => {

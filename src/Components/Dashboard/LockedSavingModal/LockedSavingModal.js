@@ -15,7 +15,7 @@ class LockedSavingModal extends React.Component {
             >
                 <Modal.Header className={' px-md-3 py-md-3'} closeButton={this.props.onHide}>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        <h4>New Steady Savings Plan</h4>
+                        <h4>New Locked Savings Plan</h4>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className={'pb-md-4 px-md-3'}>

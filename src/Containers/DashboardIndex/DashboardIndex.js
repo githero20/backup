@@ -308,7 +308,7 @@ class DashboardIndex extends Component {
 
         //setup dashboard
         console.log('dashboard mounted');
-        setTimeout(this.setupDashBoard,3000);
+        setTimeout(this.setupDashBoard,2000);
 
 
     }
@@ -332,6 +332,7 @@ class DashboardIndex extends Component {
                     <HorizontalNav userName={userName} />
                     <VerticalNav/>
                     {this.state.showLoader? <DashboardLoader /> :null}
+
                     <DashboardContainer
 
                         vaultAmount={vaultAmount}

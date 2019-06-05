@@ -119,7 +119,8 @@ html body .content .content-wrapper {
 }
 
 html body .content.app-content {
-    background: #F7FBFF;
+    background: #F7FBFF ;
+    min-height: 100vh;
 }
 
 /*error class*/

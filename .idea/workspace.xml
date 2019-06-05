@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d6f8db3-e14b-4159-9d0b-a9ae603e5670" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Components/Dashboard/BigTransactionTable/BigTransactionTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Containers/Transactions/Transactions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/Transactions/Transactions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/admin/assets/css/backup-cash-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/assets/css/backup-cash-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/admin/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/assets/css/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,11 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="474">
-              <caret line="373" column="34" selection-start-line="373" selection-start-column="34" selection-end-line="373" selection-end-column="34" />
+            <state relative-caret-position="-11">
+              <caret line="315" lean-forward="true" selection-start-line="315" selection-end-line="315" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -42,43 +48,37 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/HorizontalNav/HorizontalNav.js">
+        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/BigTransactionTable/BigTransactionTable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="42" column="22" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
+            <state relative-caret-position="225">
+              <caret line="23" column="73" lean-forward="true" selection-start-line="23" selection-start-column="73" selection-end-line="23" selection-end-column="73" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Containers/Transactions/Transactions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="346">
+              <caret line="42" column="19" lean-forward="true" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingModal.js">
+        <entry file="file://$PROJECT_DIR$/src/RouteLinks/RouteLinks.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="600">
+              <caret line="40" column="31" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsModal/BackUpGoalForm/BackUpGoalsForm.js">
+        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TransactionTable/TransactionTable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3525">
-              <caret line="243" selection-start-line="243" selection-end-line="243" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/SteadySaveModal/SteadySaveForm/SteadySaveForm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1905">
-              <caret line="135" column="27" selection-start-line="135" selection-start-column="27" selection-end-line="135" selection-end-column="27" />
+            <state relative-caret-position="345">
+              <caret line="23" column="74" selection-start-line="23" selection-start-column="74" selection-end-line="23" selection-end-column="74" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -87,10 +87,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Containers/BackupGoals/BackupGoals.js">
+        <entry file="file://$PROJECT_DIR$/src/Containers/Withdrawal/Withdrawal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="504">
+              <caret line="162" column="42" lean-forward="true" selection-start-line="154" selection-end-line="162" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -154,7 +154,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>btn-outlin</find>
       <find>paystack</find>
       <find>menu</find>
       <find>save mor</find>
@@ -184,6 +183,7 @@
       <find>.btn-green</find>
       <find>.btn-custom-blue</find>
       <find>table</find>
+      <find>html body .content.app-content</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;/button</replace>
@@ -214,9 +214,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotalSavingsCard.js" />
-        <option value="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotaIinterestCard.js" />
-        <option value="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotalinterestCard.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsBlueCard/TotalSavingsBlueCard.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/TotalSavingsCard/TotalInterestCard.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalCard/BackUpGoalCard.js" />
@@ -250,21 +247,24 @@
         <option value="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveModal/SteadySaveForm/SteadySaveForm.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/TableGrid/TableGrid.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/TransactionTable/TransactionTable.js" />
-        <option value="$PROJECT_DIR$/src/admin/assets/css/style.css" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveTransTable/SteadySaveTransTable.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingForm/InstantSavingForm.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveCard/SteadySaveCard.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/InstantSaveCard/InstantSaveCard.js" />
         <option value="$PROJECT_DIR$/src/Helpers/Helper.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsTable/BackUpGoalsTable.js" />
-        <option value="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" />
-        <option value="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" />
         <option value="$PROJECT_DIR$/src/Containers/InstantSave/InstantSave.js" />
         <option value="$PROJECT_DIR$/src/Containers/SteadySave/SteadySave.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsModal/BackUpGoalForm/BackUpGoalsForm.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingModal.js" />
         <option value="$PROJECT_DIR$/src/Containers/BackupGoals/BackupGoals.js" />
+        <option value="$PROJECT_DIR$/src/Components/Dashboard/BigTransactionTable/BigTransactionTable.js" />
+        <option value="$PROJECT_DIR$/src/admin/assets/css/backup-cash-style.css" />
+        <option value="$PROJECT_DIR$/src/admin/assets/css/style.css" />
+        <option value="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" />
+        <option value="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" />
+        <option value="$PROJECT_DIR$/src/Containers/Transactions/Transactions.js" />
       </list>
     </option>
   </component>
@@ -283,69 +283,6 @@
             <path>
               <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
               <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="BackUpGoalsModal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="SteadySaveModal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="SteadySaveModal" type="462c0819:PsiDirectoryNode" />
-              <item name="SteadySaveForm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Containers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Containers" type="462c0819:PsiDirectoryNode" />
-              <item name="ActivateAccount" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Containers" type="462c0819:PsiDirectoryNode" />
-              <item name="BackupGoals" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -369,18 +306,18 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Components/Auth" />
+      <recent name="$PROJECT_DIR$/src/images/svg" />
+      <recent name="$PROJECT_DIR$/src/AppRouter" />
+      <recent name="$PROJECT_DIR$/src/Components" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/Components/Dashboard" />
       <recent name="$PROJECT_DIR$/src/Containers" />
       <recent name="$PROJECT_DIR$/src/Components/Auth" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Components/Auth" />
-      <recent name="$PROJECT_DIR$/src/images/svg" />
-      <recent name="$PROJECT_DIR$/src/AppRouter" />
-      <recent name="$PROJECT_DIR$/src/Components" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -412,17 +349,18 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="371221000" />
+    <option name="totallyTimeSpent" value="373186000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" weight="0.32967034" />
       <window_info id="npm" order="1" side_tool="true" weight="0.32967034" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.17887668" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.17887668" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.24969475" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.4981685" visible="true" weight="0.18469387" />
+      <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.4981685" visible="true" weight="0.17755102" />
       <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50061053" side_tool="true" weight="0.78163266" />
       <window_info anchor="bottom" id="Version Control" order="3" sideWeight="0.4993895" weight="0.78156996" />
       <window_info anchor="bottom" id="Database Changes" order="4" />
@@ -507,24 +445,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/ActivationModal/LockedSavingForm/LockedSavingForm.js" />
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/ActivationModal/ModalLink/ModalLink.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ApiUtils/ActivationInstance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/react-toast-notifications/dist/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -784,16 +704,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TransactionTable/TransactionTable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ApiUtils/ApiUtils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="606">
@@ -842,23 +752,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RouteLinks/RouteLinks.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="30" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="373" column="34" selection-start-line="373" selection-start-column="34" selection-end-line="373" selection-end-column="34" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -946,6 +839,54 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Containers/Withdrawal/Withdrawal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="162" column="42" lean-forward="true" selection-start-line="154" selection-end-line="162" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/TransactionTable/TransactionTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="74" selection-start-line="23" selection-start-column="74" selection-end-line="23" selection-end-column="74" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RouteLinks/RouteLinks.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="31" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/BigTransactionTable/BigTransactionTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="23" column="73" lean-forward="true" selection-start-line="23" selection-start-column="73" selection-end-line="23" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11">
+          <caret line="315" lean-forward="true" selection-start-line="315" selection-end-line="315" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Containers/Transactions/Transactions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="42" column="19" lean-forward="true" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
         </state>
       </provider>
     </entry>

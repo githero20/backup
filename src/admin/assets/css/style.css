@@ -119,7 +119,21 @@ html body .content .content-wrapper {
 }
 
 html body .content.app-content {
-    background: #F7FBFF;
+    background: #F7FBFF ;
+    min-height: 100vh;
+}
+
+.modal-backdrop ~ .css-e110bw {
+    box-sizing: border-box;
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 8px;
+    pointer-events: auto;
+    position: fixed;
+    z-index: 99999999;
+    top: 10%;
+    right: 2%;
 }
 
 /*error class*/
@@ -2223,10 +2237,10 @@ input[type=number]::-webkit-outer-spin-button {
 
 }
 
-.steady-save-modal .modal-header{
+.steady-save-modal .modal-header,.instant-save-modal .modal-header{
     border-bottom: none;
 }
-.steady-save-modal .modal-content{
+.steady-save-modal .modal-content,.instant-save-modal .modal-content{
     border-radius: 12px;
 }
 

@@ -55,7 +55,6 @@ class AppRouter extends Component {
                     <Route path={LockedSavingsLink} component={AuthController(LockedSavings)}/>
                     <Route path={BackupGoalsLink} component={AuthController(BackupGoals)}/>
                     <Route path={TransactionsLink} component={AuthController(Transactions)}/>
-                    <Route path={LockedSavingsLink} component={AuthController(LockedSavings)}/>
                     <Route path={WithdrawalLink} component={AuthController(Withdrawal)}/>
                     <Route path={ProfileSettingLink} component={AuthController(ProfileSetting)}/>
                     <Route path={BankCardLink} component={AuthController(BankCardSetting)}/>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from "react-bootstrap/Modal";
 import LockedSavingForm from "./LockedSavingForm/LockedSavingForm";
+import {ToastProvider} from "react-toast-notifications";
 
 class LockedSavingModal extends React.Component {
     render() {
@@ -19,7 +20,11 @@ class LockedSavingModal extends React.Component {
                 </Modal.Header>
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
-                    <LockedSavingForm onHide={this.props.onHide} />
+                    <ToastProvider>
+                        <LockedSavingForm
+                            onHide={this.props.onHide}
+                        />
+                    </ToastProvider>
                 </Modal.Body>
             </Modal>
         );

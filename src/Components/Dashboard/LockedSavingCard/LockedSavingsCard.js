@@ -5,8 +5,6 @@ import {LockedSavingsLink} from "../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 
 class LockedSavingsCard extends Component {
-
-
     render() {
 
         const {lockedSavingsAmount} = this.props;

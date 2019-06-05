@@ -9,6 +9,7 @@ import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import signInIcon from "../../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
+import {handleLeastAmount} from "../../../../actions/instantSaveAction";
 
 
 class InstantSavingForm extends Component {
@@ -41,6 +42,15 @@ class InstantSavingForm extends Component {
                 }
             }
         });
+
+    }
+
+    handleAddNewCard = () => {
+
+
+
+
+
 
     }
 
@@ -80,8 +90,9 @@ class InstantSavingForm extends Component {
         if(state){
             console.log(response);
             setLocalStorage(USERINFO,response.data);
-            this.props.setupBackupGoals();
-
+            // this.props.setupBackupGoals();
+            //hide modal
+            this.props.onHide();
         }
 
     }
@@ -93,7 +104,7 @@ class InstantSavingForm extends Component {
 
         this.setState({
             loading:false,
-        })
+        });
         const { toastManager } = this.props;
 
         if(state){
@@ -102,8 +113,17 @@ class InstantSavingForm extends Component {
                     appearance: 'success',
                 });
 
-                //call get user info
-                request(getUserInfoEndpoint,null,true,'GET',this.updateInsantSave)
+                //hide modal
+                setTimeout(()=>{
+                    this.props.onHide();
+
+                    //updateInstantSaveTable
+                    this.props.updateInstantSave();
+
+                    },2000);
+
+
+
 
             }
 
@@ -128,8 +148,10 @@ class InstantSavingForm extends Component {
     changeHandler = event => {
 
         const name = event.target.name;
-        const value = event.target.value;
+        let value = event.target.value;
 
+        //handle least instant save amount
+        // value = handleLeastAmount(name,value);
         //copy states object
         const data = {...this.state.instantSaveInfo};
         data[name] = value;
@@ -210,9 +232,10 @@ class InstantSavingForm extends Component {
                         <Col className={'mt-md-1 mb-md-3'}>
                             <Form.Group>
                                 <Form.Label>Debit Card</Form.Label>
-                                <Form.Control as="select"   onChange={this.changeHandler} defaultValue={'payment_auth'} id={'payment_auth'}
+                                <Form.Control as="select"   onChange={this.changeHandler} defaultValue={payment_auth} id={'payment_auth'}
                                               name={'payment_auth'}>
                                     <option value={-1} >Select Card</option>
+                                    <option value={0} >Add New Card</option>
                                     {/* loop through and get the number of accounts user has */}
                                     {
                                         this.state.userCards.length > 0 ?
@@ -223,7 +246,7 @@ class InstantSavingForm extends Component {
                                                 );
 
                                             })
-                                            : <option value={-1} >Select Card</option>
+                                            : null
                                     }
 
                                 </Form.Control>

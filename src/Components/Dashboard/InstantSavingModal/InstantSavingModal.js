@@ -11,7 +11,7 @@ class InstantSavingModal extends React.Component {
                 size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
-                className={'steady-save-modal'}
+                className={'instant-save-modal steady-save-modal'}
             >
                 <Modal.Header className={' px-md-3 py-md-3'} closeButton={this.props.onHide}>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -21,7 +21,7 @@ class InstantSavingModal extends React.Component {
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
                     <ToastProvider>
-                        <InstantSavingForm  onHide={this.props.onHide} />
+                        <InstantSavingForm updateInstantSave={this.props.updateInstantSave} onHide={this.props.onHide} />
                     </ToastProvider>
                 </Modal.Body>
             </Modal>

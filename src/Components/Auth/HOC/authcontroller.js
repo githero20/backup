@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from 'axios'
 import {BASE_URL} from "../../../RouteLinks/RouteLinks";
 import {setLocalStorage} from "../../../ApiUtils/ApiUtils";
@@ -39,23 +39,28 @@ const AuthController = component => {
                         setFetching(false);
                     },
                     err => {
-                        if(err.response){
+                        try{
+                            if(err.response) {
+                                if(err.response.data.message === "Account has not been activated, click on resend"){
+                                    setLocalStorage(USERACTIVATED,false);
 
-                            if(err.response.data.message === "Account has not been activated, click on resend"){
-                                setLocalStorage(USERACTIVATED,false);
+                                }else{
 
-                            }else{
+                                    props.history.push(
+                                        `/login`
+                                    );
+                                    localStorage.removeItem(USERTOKEN);
+                                    localStorage.removeItem(USERINFO);
+                                    return null;
 
-                                props.history.push(
-                                    `/login`
-                                );
-                                localStorage.removeItem(USERTOKEN);
-                                localStorage.removeItem(USERINFO);
-                                return null;
-
+                                }
+                            } else{
+                                //TODO("Log to central Log")
+                                console.error("Unknowno Error", err);
                             }
+                        }catch (e) {
+                            console.log("Critical Error", e);
                         }
-
 
                     }
                 )

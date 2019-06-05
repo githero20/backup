@@ -101,11 +101,16 @@ class BackUpGoalsForm extends Component {
             this.forceUpdate();
         } else {
             createBackUpGoal(this.state.form, (status, payload) =>{
+                const {toastManager} = this.props;
+
                 console.log("Res", status, payload);
                 if(status){
+                    toastManager.add("Backup Goal Saved.", {
+                        appearance: "success"
+                    });
                     this.props.onHide(true);
+
                 }else{
-                    const {toastManager} = this.props;
                     toastManager.add(payload.message, {
                         appearance: "error"
                     });

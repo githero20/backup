@@ -9,29 +9,36 @@ import BankModal from "./Bank/BankModal";
 
 class BankCardSetting extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            showBankModal:false,
-            showCardModal:false,
-            banks:[],
-            cards:[]
-        }
+            showBankModal: false,
+            showCardModal: false,
+            banks: [],
+            cards: []
+        };
+
+        this.showBankModal = this.showBankModal.bind(this);
+        this.hideBankModal = this.hideBankModal.bind(this);
+        this.showCardModal = this.showCardModal.bind(this);
+        this.hideCardModal = this.hideCardModal.bind(this);
     }
 
 
-    showBankModal(){
-        this.setState({showBankModal:true});
-    }
-    showCardModal(){
-        this.setState({showCardModal:true});
+    showBankModal() {
+        console.log("here");
+        this.setState({showBankModal: true});
     }
 
-    hideBankModal(){
-        this.setState({showBankModal:false});
+    showCardModal() {
+        this.setState({showCardModal: true});
     }
 
-    hideCardModal(){
+    hideBankModal() {
+        this.setState({showBankModal: false});
+    }
+
+    hideCardModal() {
         this.setState({showCardModal: false})
     }
 
@@ -78,9 +85,9 @@ class BankCardSetting extends Component {
                                                         <h3 className=" clearfix light-gray setting-header">My
                                                             Banks <span className="pull-right right-btn-holder">
                                                                 <button
-                                                                type="button"
-                                                                className="btn-custom-round-blue plus-btn-shadow mr-1"
-                                                                onClick={this.showBankModal}
+                                                                    type="button"
+                                                                    className="btn-custom-round-blue plus-btn-shadow mr-1"
+                                                                    onClick={this.showBankModal}
                                                                 >
                                                                 <img className="img-2x" src={addButton}/>
                                                             </button>Add Bank</span>
@@ -144,7 +151,8 @@ class BankCardSetting extends Component {
                     </div>
                 </div>
             </React.Fragment>
-    );
+        );
     }
-    }
-    export default BankCardSetting;
+}
+
+export default BankCardSetting;

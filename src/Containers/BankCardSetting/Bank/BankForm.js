@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/Button";
-import {_calculateDateDifference, _handleFormChange} from "../../../../utils/index";
+import {_calculateDateDifference, _handleFormChange} from "../../../utils/index";
 import SimpleReactValidator from "simple-react-validator";
 import ButtonLoader from "../../../Components/Auth/Buttonloader/ButtonLoader";
 import {withToastManager} from 'react-toast-notifications';
@@ -57,17 +57,17 @@ class BankForm extends Component {
         }else{
             this.setState({loading:true});
             //send api
-            createLockedSavings(this.state.form, (status, payload) => {
-                this.setState({loading:false});
-                if(status){
-                    console.log("Success", payload);
-                    //TODO(Display Success from creating savings)
-                    this.props.onHide();
-                }else{
-                    //TODO(Display Error from creating savings)
-                    console.error("Display Error", payload);
-                }
-            });
+            // createLockedSavings(this.state.form, (status, payload) => {
+            //     this.setState({loading:false});
+            //     if(status){
+            //         console.log("Success", payload);
+            //         //TODO(Display Success from creating savings)
+            //         this.props.onHide();
+            //     }else{
+            //         //TODO(Display Error from creating savings)
+            //         console.error("Display Error", payload);
+            //     }
+            // });
         }
         console.log(this.state.form);
     };
@@ -79,7 +79,7 @@ class BankForm extends Component {
         const dateDifference = _calculateDateDifference(null, endDate);
 
         console.log("enddate", endDate, dateDifference);
-        getLockedInterestSavings({days: dateDifference}, this.handleLockedSavingsInterest);
+        // getLockedInterestSavings({days: dateDifference}, this.handleLockedSavingsInterest);
         this.setState({dateDifference: dateDifference});
         //update after
     };

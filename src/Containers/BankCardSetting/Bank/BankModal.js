@@ -29,4 +29,4 @@ class BankModal extends React.Component {
     }
 }
 
-export default WithdrawalModal;
+export default BankModal;

@@ -9,6 +9,7 @@ import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import signInIcon from "../../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
+import {handleLeastAmount} from "../../../../actions/instantSaveAction";
 
 
 class InstantSavingForm extends Component {
@@ -37,10 +38,19 @@ class InstantSavingForm extends Component {
             validators: {
                 payment_auth: {  // name the rule
                     message: 'Please Select a card',
-                    required:true
+                    required:'Please Select a card'
                 }
             }
         });
+
+    }
+
+    handleAddNewCard = () => {
+
+
+
+
+
 
     }
 
@@ -80,8 +90,9 @@ class InstantSavingForm extends Component {
         if(state){
             console.log(response);
             setLocalStorage(USERINFO,response.data);
-            this.props.setupBackupGoals();
-
+            // this.props.setupBackupGoals();
+            //hide modal
+            this.props.onHide();
         }
 
     }
@@ -93,17 +104,27 @@ class InstantSavingForm extends Component {
 
         this.setState({
             loading:false,
-        })
+        });
         const { toastManager } = this.props;
 
         if(state){
             if(response.status===200){
                 toastManager.add(`${JSON.stringify('You have successfully created an Instant Save')}`, {
                     appearance: 'success',
+                    autoDismiss: true,
                 });
 
-                //call get user info
-                request(getUserInfoEndpoint,null,true,'GET',this.updateInsantSave)
+                //hide modal
+                setTimeout(()=>{
+                    this.props.onHide();
+
+                    //updateInstantSaveTable
+                    this.props.updateInstantSave();
+
+                    },2000);
+
+
+
 
             }
 
@@ -114,6 +135,7 @@ class InstantSavingForm extends Component {
                 console.log(JSON.stringify(response));
                 toastManager.add(`${JSON.stringify(response.data.message)}`, {
                     appearance: 'error',
+                    autoDismiss: true,
                 });
             }
 
@@ -128,8 +150,10 @@ class InstantSavingForm extends Component {
     changeHandler = event => {
 
         const name = event.target.name;
-        const value = event.target.value;
+        let value = event.target.value;
 
+        //handle least instant save amount
+        // value = handleLeastAmount(name,value);
         //copy states object
         const data = {...this.state.instantSaveInfo};
         data[name] = value;
@@ -187,8 +211,8 @@ class InstantSavingForm extends Component {
                             <Col>
                                 <Form.Group className={'mt-md-1 mb-md-3'}>
                                     <Form.Label>Amount</Form.Label>
-                                    <Form.Control type="number" name={'amount'} step={5} id={'amount'} value={amount} onChange={this.changeHandler} />
-                                    {this.validator.message('amount', amount, 'required|numeric')}
+                                    <Form.Control type="number" name={'amount'} id={'amount'} value={amount} onChange={this.changeHandler} />
+                                    {this.validator.message('amount', amount, 'required|numeric|min:500')}
 
                                 </Form.Group>
                             </Col>
@@ -199,7 +223,7 @@ class InstantSavingForm extends Component {
                         <div className="col ">
                             <Form.Group className={'mt-md-1 mb-md-3'}>
                                 <div className="slidecontainer">
-                                    <input type="range" min="1" step={5} max="10000" value={amount} onChange={this.changeHandler} className="slider mt-1-md mb-3-md" name={'amount'} id="amountSlider"/>
+                                    <input type="range" min={500} step={5}   value={amount} onChange={this.changeHandler} className="slider mt-1-md mb-3-md" name={'amount'} id="amountSlider"/>
                                 </div>
                             </Form.Group>
                         </div>
@@ -210,9 +234,10 @@ class InstantSavingForm extends Component {
                         <Col className={'mt-md-1 mb-md-3'}>
                             <Form.Group>
                                 <Form.Label>Debit Card</Form.Label>
-                                <Form.Control as="select"   onChange={this.changeHandler} defaultValue={'payment_auth'} id={'payment_auth'}
+                                <Form.Control as="select"   onChange={this.changeHandler} defaultValue={payment_auth} id={'payment_auth'}
                                               name={'payment_auth'}>
                                     <option value={-1} >Select Card</option>
+                                    <option value={0} >Add New Card</option>
                                     {/* loop through and get the number of accounts user has */}
                                     {
                                         this.state.userCards.length > 0 ?
@@ -223,7 +248,7 @@ class InstantSavingForm extends Component {
                                                 );
 
                                             })
-                                            : <option value={-1} >Select Card</option>
+                                            : null
                                     }
 
                                 </Form.Control>

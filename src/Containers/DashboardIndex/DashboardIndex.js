@@ -299,7 +299,8 @@ class DashboardIndex extends Component {
 
         //setup dashboard
         console.log('dashboard mounted');
-        setTimeout(this.setupDashBoard, 1000);
+
+        setTimeout(this.setupDashBoard,2000);
 
 
     }
@@ -321,6 +322,7 @@ class DashboardIndex extends Component {
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={userName}/>
                     <VerticalNav/>
+
                     {this.state.showLoader ? <DashboardLoader/> : null}
                     <DashboardContainer
 

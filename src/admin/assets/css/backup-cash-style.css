@@ -12,6 +12,9 @@
     src: url("../../app-assets/fonts/app-fonts/Product Sans Regular.ttf");
 }
 
+#root {
+    background-color: #F7FBFF;
+}
 .homeBody {
     font-family: "Product Sans", "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif,

@@ -10,6 +10,7 @@ import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/Lock
 import {ToastProvider, withToastManager} from "react-toast-notifications";
 import {_getToken, _isDateAfter, _isDateAfterToday, _transformDate} from "../../utils";
 import {getLockedSavings} from "../../actions/LockedSavingsAction";
+import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 
 
 class LockedSavings extends Component {
@@ -49,6 +50,8 @@ class LockedSavings extends Component {
             showLockedSavingsModal: false
         });
     };
+
+
     render() {
         return (
             <React.Fragment>
@@ -65,21 +68,7 @@ class LockedSavings extends Component {
                     <div className="app-content content">
                         <div className="content-wrapper">
                             {/* TODO(This should be a component on its own)*/}
-                            <div className="row mb-4">
-                                <div className="col-12">
-                                    <div
-                                        className="bg-white shadow-sm dashboard-callout callout-border-right clearfix callout-round callout-transparent mt-1 px-2 py-2 py-1">
-                                        <strong>Congrats! </strong>
-                                        <span className="mr-3">you referred 5 persons from
-                        <span className="admin-purple d-block d-md-inline">[ 1 -2-2019 to 5-2-2019 ] ,</span>
-                        <span className="admin-purple d-block d-md-inline">Your referral points earned</span>
-                    </span>
-                                        <span className=" d-block d-md-inline">25 points</span>
-                                        <label className="pull-right"><span className="mr-2"> copy referral code</span>
-                                            <span className="code-btn">AEC45SF</span></label>
-                                    </div>
-                                </div>
-                            </div>
+                            <MessageBox />
 
                             <div className="content-body">
                                 <div className="row">
@@ -99,8 +88,8 @@ class LockedSavings extends Component {
                                                         <button
                                                             className=" right-btn-holder deep-blue-bg white "
                                                             data-toggle="modal" data-target="#large"
-                                                            onClick={this.showLSModal}
-                                                        >
+                                                            onClick={this.showLSModal}>
+
                                                             <img src={lockedSavingIcon}/>
 
                                                             New Locked Savings
@@ -110,10 +99,10 @@ class LockedSavings extends Component {
                                                         <li>1 &nbsp; Locked saving</li>
                                                     </ul>
                                                     <div className="table-button-container d-none d-md-inline-block">
-                                     <span
-                                         className="mr-md-1 table-grid-view-icon img-2x list-btn active d-block d-md-inline">
-                                         <img src={listIcon} className=" img-2x "/>
-                                     </span>
+                                                     <span
+                                                         className="mr-md-1 table-grid-view-icon img-2x list-btn active d-block d-md-inline">
+                                                         <img src={listIcon} className=" img-2x "/>
+                                                     </span>
                                                         <span
                                                             className="mr-md-1 table-grid-view-icon img-2x  grid-btn d-block d-md-inline">
                                                                 <img src={gridIcon} className=" img-2x "/>
@@ -277,6 +266,9 @@ class LockedSavings extends Component {
                                                             </tbody>
                                                         </table>
                                                     </div>
+
+                                                    {/*pagination */}
+
                                                     <nav aria-label="Page navigation">
                                                         <ul className=" custom-pagination pagination justify-content-center pagination-separate pagination-round pagination-flat pagination-lg mb-1">
                                                             <li className="page-item">

@@ -299,11 +299,8 @@ class DashboardIndex extends Component {
 
         //setup dashboard
         console.log('dashboard mounted');
-<<<<<<< HEAD
+
         setTimeout(this.setupDashBoard,2000);
-=======
-        setTimeout(this.setupDashBoard, 1000);
->>>>>>> 7eff88883d11457742c1eb3d4f388077117fcd63
 
 
     }

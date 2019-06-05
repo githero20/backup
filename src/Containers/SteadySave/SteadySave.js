@@ -298,7 +298,7 @@ class SteadySave extends Component {
                             </div>
                             <div className=" d-inline-block">
                                 <strong className="dark-brown font-size-1-16"><span>₦</span> {this.state.totalSteadySave}</strong>
-                                <p className="gray-text circular-std mb-p-size">Total Instant Save</p>
+                                <p className="gray-text circular-std mb-p-size">Total Steady Save</p>
                             </div>
                         </span>
                                         </div>

@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d6f8db3-e14b-4159-9d0b-a9ae603e5670" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsTable/BackUpGoalsTable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveCard/SteadySaveCard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveTransTable/SteadySaveTransTable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Dashboard/TableGrid/TableGrid.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Auth/HOC/authcontroller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Auth/HOC/authcontroller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsModal/BackUpGoalForm/BackUpGoalsForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsModal/BackUpGoalForm/BackUpGoalsForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/InstantSaveCard/InstantSaveCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/InstantSaveCard/InstantSaveCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveModal/SteadySaveForm/SteadySaveForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveModal/SteadySaveForm/SteadySaveForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/TransactionTable/TransactionTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/TransactionTable/TransactionTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Containers/BackupGoals/BackupGoals.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/BackupGoals/BackupGoals.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Containers/SteadySave/SteadySave.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/SteadySave/SteadySave.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Helpers/Helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helpers/Helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/admin/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingForm/InstantSavingForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingForm/InstantSavingForm.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Containers/InstantSave/InstantSave.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="178" selection-start-line="178" selection-end-line="178" />
+            <state relative-caret-position="582">
+              <caret line="175" lean-forward="true" selection-start-line="175" selection-end-line="175" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -96,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingForm/InstantSavingForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="105" column="48" selection-start-line="105" selection-start-column="48" selection-end-line="105" selection-end-column="48" />
+            <state relative-caret-position="478">
+              <caret line="201" column="66" lean-forward="true" selection-start-line="201" selection-start-column="66" selection-end-line="201" selection-end-column="66" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -119,7 +101,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>btn-outlin</find>
       <find>paystack</find>
       <find>menu</find>
       <find>save mor</find>
@@ -149,6 +130,7 @@
       <find>.btn-green</find>
       <find>.btn-custom-blue</find>
       <find>table</find>
+      <find>chang</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;/button</replace>
@@ -218,7 +200,6 @@
         <option value="$PROJECT_DIR$/src/admin/assets/css/style.css" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveTransTable/SteadySaveTransTable.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingModal.js" />
-        <option value="$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingForm/InstantSavingForm.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/SteadySaveCard/SteadySaveCard.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/InstantSaveCard/InstantSaveCard.js" />
         <option value="$PROJECT_DIR$/src/Helpers/Helper.js" />
@@ -230,6 +211,7 @@
         <option value="$PROJECT_DIR$/src/Containers/SteadySave/SteadySave.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsModal/BackUpGoalForm/BackUpGoalsForm.js" />
+        <option value="$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingForm/InstantSavingForm.js" />
       </list>
     </option>
   </component>
@@ -403,7 +385,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="369723000" />
+    <option name="totallyTimeSpent" value="370658000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -411,10 +393,10 @@
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" weight="0.32967034" />
       <window_info id="npm" order="1" side_tool="true" weight="0.32967034" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.14652015" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.14652015" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.24969475" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.4981685" visible="true" weight="0.5173469" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.4981685" visible="true" weight="0.22346939" />
       <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50061053" side_tool="true" weight="0.78163266" />
       <window_info anchor="bottom" id="Version Control" order="3" sideWeight="0.4993895" weight="0.78156996" />
       <window_info anchor="bottom" id="Database Changes" order="4" />
@@ -499,7 +481,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/ActivationModal/LockedSavingForm/LockedSavingForm.js" />
     <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/ActivationModal/ModalLink/ModalLink.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -873,16 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Containers/InstantSave/InstantSave.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="178" selection-start-line="178" selection-end-line="178" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/SteadySave/SteadySave.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="413">
@@ -913,16 +884,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingForm/InstantSavingForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="105" column="48" selection-start-line="105" selection-start-column="48" selection-end-line="105" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/BackupGoals/BackupGoals.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1526">
@@ -934,6 +895,33 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="496">
           <caret line="243" lean-forward="true" selection-start-line="243" selection-end-line="243" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/LockedSavingModal/LockedSavingForm/LockedSavingForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Containers/InstantSave/InstantSave.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="582">
+          <caret line="175" lean-forward="true" selection-start-line="175" selection-end-line="175" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/InstantSavingModal/InstantSavingForm/InstantSavingForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="201" column="66" lean-forward="true" selection-start-line="201" selection-start-column="66" selection-end-line="201" selection-end-column="66" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

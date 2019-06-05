@@ -2,13 +2,7 @@ import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
 import {ToastProvider} from "react-toast-notifications";
 import {ActivationRequest, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
-import {
-    activateUserEndpoint,
-    DashboardLink,
-    EmailActivationLink,
-    LoginLink,
-    resendActEndpoint
-} from "../../RouteLinks/RouteLinks";
+import {activateUserEndpoint, DashboardLink, LoginLink, resendActEndpoint} from "../../RouteLinks/RouteLinks";
 import queryString from 'query-string'
 import {Redirect} from "react-router";
 import {Link} from "react-router-dom";
@@ -40,7 +34,6 @@ class EmailActivation extends Component {
 
         //success
         if(state){
-
             //save the token
             if(response){
                 setLocalStorage(USERTOKEN,this.state.token);

@@ -65,10 +65,10 @@ class SignUpForm extends Component {
 
     saveToLocalStorage = (user, token) => {
 
-        if ( user  && token ) {
+        if (user && token) {
 
             localStorage.setItem(USERINFO, JSON.stringify(user));
-            console.log(token,user);
+            console.log(token, user);
             localStorage.setItem(USERTOKEN, token);
 
             this.setState({
@@ -78,11 +78,8 @@ class SignUpForm extends Component {
     };
 
 
-    signUp = (url,param, func) => {
-
-        api(url,param,false,true,func);
-
-
+    signUp = (url, param, func) => {
+        api(url, param, false, true, func);
     };
 
 
@@ -119,25 +116,22 @@ class SignUpForm extends Component {
     };
 
 
-
-    getSignUpInfo = (state,response) => {
+    getSignUpInfo = (state, response) => {
 
         const {toastManager} = this.props;
+        //save token
+        const serverResponse = response.data;
+        const token = serverResponse.token;
+        const user = serverResponse.user;
 
+        console.log(user, token);
 
-            //save token
-            const serverResponse = response.data;
-            const token = serverResponse.token;
-            const user = serverResponse.user;
+        this.setState({
+            loading: false
+        });
+        this.saveToLocalStorage(user, token);
 
-            console.log(user,token);
-
-            this.setState({
-                loading: false
-            });
-            this.saveToLocalStorage(user, token);
-
-        if(!state){
+        if (!state) {
 
             console.log(`request failed: ${JSON.stringify(response)}`);
             this.setState({
@@ -146,7 +140,7 @@ class SignUpForm extends Component {
                 loading: false
             });
 
-            if(response.data){
+            if(response && response.data){
                 console.log(response.data.errors);
 
 
@@ -154,13 +148,13 @@ class SignUpForm extends Component {
 
                 let errorData = Object.values(errors);
 
-                for (let key in errors) {
-                    if (errors.hasOwnProperty(key)) {
-                        toastManager.add(`${errors[key]}`, {
-                            appearance: 'error',
-                        });
-                    }
-                }
+                // for (let key in errors) {
+                //     if (errors.hasOwnProperty(key)) {
+                //         toastManager.add(`${errors[key]}`, {
+                //             appearance: 'error',
+                //         });
+                //     }
+                // }
 
                 errorData.map((err,idx)=>{
                     return(
@@ -171,46 +165,27 @@ class SignUpForm extends Component {
                     )
                 });
 
+            }else{
+                toastManager.add("No Internet Connection.", {
+                    appearance: 'error'
+                })
             }
-
-            toastManager.add(`${JSON.stringify(response.data.message)}`, {
-                appearance: 'error',
-            });
-        }
-
-
-
-        if(state){
+        }else{
             console.log(response);
 
             localStorage.setItem(USERTOKEN, response.data.token);
 
             // redirect to dashboard
             this.setState({
-                redirect:true
+                redirect: true
             });
-
-        }else{
-
-            if(response){
-                console.log(JSON.stringify(response));
-                toastManager.add(`${JSON.stringify(response.data.message)}`, {
-                    appearance: 'error',
-                });
-            }
-
         }
-
     };
-
 
 
     //submit sign up form
     submitForm = () => {
-
-
         if (this.validator.allValid()) {
-
             //validate confirm password
 
             // perform all necessary validation
@@ -222,7 +197,7 @@ class SignUpForm extends Component {
                     loading: true
                 });
 
-                this.signUp(RegisterEndpoint,this.state,this.getSignUpInfo);
+                this.signUp(RegisterEndpoint, this.state, this.getSignUpInfo);
 
             }
 

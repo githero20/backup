@@ -905,7 +905,7 @@ footer.footer-dark
 .main-menu .main-menu-content
 {
     position: relative; 
-
+    overflow-y: auto;
     height: 100%;
 }
 .main-menu ul
@@ -918,6 +918,7 @@ footer.footer-dark
 .main-menu ul.navigation-main
 {
     overflow-x: hidden;
+    overflow-y: auto;
 }
 .main-menu a
 {

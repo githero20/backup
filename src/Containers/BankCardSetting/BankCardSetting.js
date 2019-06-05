@@ -5,11 +5,40 @@ import addButton from "../../admin/app-assets/images/svg/plus-btn.svg";
 import menuIcon from "../../admin/app-assets/images/svg/three-dot-icon.svg";
 import visaImage from "../../admin/app-assets/images/svg/visa.svg";
 import masterCardImage from "../../admin/app-assets/images/svg/mastercard.svg";
+import BankModal from "./Bank/BankModal";
 
 class BankCardSetting extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            showBankModal:false,
+            showCardModal:false,
+            banks:[],
+            cards:[]
+        }
+    }
+
+
+    showBankModal(){
+        this.setState({showBankModal:true});
+    }
+    showCardModal(){
+        this.setState({showCardModal:true});
+    }
+
+    hideBankModal(){
+        this.setState({showBankModal:false});
+    }
+
+    hideCardModal(){
+        this.setState({showCardModal: false})
+    }
+
     render() {
         return (
             <React.Fragment>
+                <BankModal show={this.state.showBankModal} onHide={this.hideBankModal}/>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav/>
@@ -47,9 +76,12 @@ class BankCardSetting extends Component {
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
                                                         <h3 className=" clearfix light-gray setting-header">My
-                                                            Banks <span className="pull-right right-btn-holder"><button
+                                                            Banks <span className="pull-right right-btn-holder">
+                                                                <button
                                                                 type="button"
-                                                                className="btn-custom-round-blue plus-btn-shadow mr-1">
+                                                                className="btn-custom-round-blue plus-btn-shadow mr-1"
+                                                                onClick={this.showBankModal}
+                                                                >
                                                                 <img className="img-2x" src={addButton}/>
                                                             </button>Add Bank</span>
                                                         </h3>

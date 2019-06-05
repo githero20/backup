@@ -4,12 +4,11 @@ import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/Button";
 import {_calculateDateDifference, _handleFormChange} from "../../../../utils/index";
 import SimpleReactValidator from "simple-react-validator";
-import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
+import ButtonLoader from "../../../Components/Auth/Buttonloader/ButtonLoader";
 import {withToastManager} from 'react-toast-notifications';
 
-import {createLockedSavings, getLockedInterestSavings} from "../../../../actions/LockedSavingsAction";
 
-class WithdrawalForm extends Component {
+class BankForm extends Component {
 
     constructor(props) {
         super(props);
@@ -208,7 +207,7 @@ class WithdrawalForm extends Component {
 }
 
 
-const FormWithToast = withToastManager(WithdrawalForm);
+const FormWithToast = withToastManager(BankForm);
 
 // export default LoginWithToast;
 export default FormWithToast;

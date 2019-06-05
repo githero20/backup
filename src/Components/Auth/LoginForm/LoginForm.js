@@ -5,32 +5,25 @@ import SimpleReactValidator from "simple-react-validator";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {DashboardLink, ForgotPasswordLink, LoginEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteLinks";
-import {api, setLocalStorage} from "../../../ApiUtils/ApiUtils";
-import {ACTIVATONEMAIL, USERTOKEN} from "../HOC/authcontroller";
+import {api} from "../../../ApiUtils/ApiUtils";
+import {USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
+
 class LoginForm extends Component {
-
-
     state = {
         email: '',
         password: '',
-        redirect:false,
-        error:false,
-        errorMessage:'',
-        loading:false,
-        resendActErr:false,
+        redirect: false,
+        error: false,
+        errorMessage: '',
+        loading: false,
+        resendActErr: false
     };
 
     constructor(props) {
-
         super(props);
-
         this.validator = new SimpleReactValidator();
-
-
     }
-
-
 
     //Retrieves user inputs
     changeHandler = event => {
@@ -42,129 +35,118 @@ class LoginForm extends Component {
     };
 
 
-    processLogin = (state,response) => {
+    processLogin = (state, response) => {
 
 
-    this.setState({loading:false});
+        this.setState({loading: false});
 
-        const { toastManager } = this.props;
+        const {toastManager} = this.props;
 
-        if(state){
-
+        if (state) {
             console.log(response);
 
             localStorage.setItem(USERTOKEN, response.data.token);
 
             // redirect to dashboard
             this.setState({
-                redirect:true
+                redirect: true
             });
 
-        }else{
-
-            if(response){
-
+        } else {
+            if (response) {
                 console.log(JSON.stringify(response));
 
-                if(response.data.message==='Account has not been activated, click on resend'){
+                if (response.data.message === 'Account has not been activated, click on resend') {
 
                     this.setState({
-                        resendActErr:true
-                    });
+                        resendActErr: true
+                    })
 
-                    setLocalStorage(ACTIVATONEMAIL,this.state.email);
 
                 }
                 toastManager.add(`${JSON.stringify(response.data.message)}`, {
                     appearance: 'error',
                 });
+            } else {
+                toastManager.add("No Internet Connection", {
+                    appearance: 'error',
+                    autoDismiss: true
+                })
             }
-
         }
 
     };
 
-    Login(url,param,login) {
+    Login = (url, param, login)  =>{
 
         this.setState({
-            loading:true
+            loading: true
         });
 
-        api(url,param,false,true,login);
+        api(url, param, false, true, login);
 
 
-    }
+    };
 
 
     //submit ResetPassword form
     submitForm = (e) => {
         e.preventDefault();
-        this.Login(LoginEndpoint,this.state,this.processLogin);
-
+        this.Login(LoginEndpoint, this.state, this.processLogin);
     };
 
 
     //hides error display
     hideError = () => {
-      this.setState({
-          error:false
-      }) ;
+        this.setState({
+            error: false
+        });
     };
 
 
     validate = () => {
 
         if (this.validator.allValid()) {
-
-            const PasswordRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})') ;
-
-                //validate confirm password
-
-                const {password} = this.state;
-                // perform all neccassary validations
-
-                if(!PasswordRegex.exec(password)){
-
-                    this.setState({
-                        RenderPasswordError: true,
-                    })
-
-                } else {
-                    return true;
-                }
-
-
+            const PasswordRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
+            //validate confirm password
+            const {password} = this.state;
+            // perform all neccassary validations
+            if (!PasswordRegex.exec(password)) {
+                this.setState({
+                    RenderPasswordError: true,
+                })
+            } else {
+                return true;
+            }
         } else {
-
-                this.validator.showMessages();
-                // rerender to show messages for the first time
-                this.forceUpdate();
-
+            this.validator.showMessages();
+            // rerender to show messages for the first time
+            this.forceUpdate();
         }
 
     };
 
 
-
-
     render() {
 
-        const { email} = this.state;
+        const {email} = this.state;
 
         if (this.state.redirect) {
-
             return (
                 <React.Fragment>
-                    <Redirect to={DashboardLink} push />
+                    <Redirect to={DashboardLink} push/>
                 </React.Fragment>
             );
         }
 
         if (this.state.resendActErr) {
-
+            console.log(email);
             return (
                 <React.Fragment>
-                    <Redirect to={ResendActivationLink} push />
+                    <Redirect to={{
+                        pathname: `${ResendActivationLink}/${email}`,
+                        state:{email:email}
+                    }} push/>
                 </React.Fragment>
             );
         }
@@ -175,11 +157,13 @@ class LoginForm extends Component {
                     <div className="row">
                         <div className="col-12">
                             <h5 className="form-header-purple mb-5">Please Log In</h5>
-                            {this.state.error?<Alert message={this.state.errorMessage} hideError={this.hideError}/>:null}
+                            {this.state.error ?
+                                <Alert message={this.state.errorMessage} hideError={this.hideError}/> : null}
                         </div>
                         <div className="col-12">
                             <div className="input-field">
-                                <input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="validate"/>
+                                <input id="email" name={'email'} onChange={this.changeHandler} type="email"
+                                       className="validate"/>
                                 <label htmlFor="email" className="">Email</label>
                                 {this.validator.message('email', email, 'required|email')}
 
@@ -187,16 +171,18 @@ class LoginForm extends Component {
                         </div>
                         <div className="col-12">
                             <div className="input-field ">
-                                <input id="password" name={'password'} type="password"  onChange={this.changeHandler} className="validate"/>
+                                <input id="password" name={'password'} type="password" onChange={this.changeHandler}
+                                       className="validate"/>
                                 <label htmlFor="password" className="">Password</label>
 
-                                <Link to={ForgotPasswordLink} >Forgot Password ?</Link>
+                                <Link to={ForgotPasswordLink}>Forgot Password ?</Link>
                             </div>
                         </div>
                         <div className="col-12">
                             <div className=" text-right pr-sm-0  mt-md-1 mb-1 pr-1 pr-md-3">
                                 <label className="font-size-1-1 mb-md-1">New User ? <Link to={'/sign-up'}
-                                                                                       className="blue-link ">Sign Up</Link> </label>
+                                                                                          className="blue-link ">Sign
+                                    Up</Link> </label>
                             </div>
                         </div>
                         <div className="col-12">
@@ -208,7 +194,7 @@ class LoginForm extends Component {
                                     <span>Always Stay signed In</span>
                                 </label>
                                 <button type={'submit'} className="btn btn-round blue-round-btn auth-btn "
-                                      name="action">{this.state.loading?<ButtonLoader/>:
+                                        name="action">{this.state.loading ? <ButtonLoader/> :
                                     <span>Sign in<img alt="" className="img-2x ml-2" src={signInIcon}/></span>}
                                 </button>
                             </div>

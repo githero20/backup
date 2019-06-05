@@ -3,8 +3,31 @@
   <component name="ChangeListManager">
     <list default="true" id="8d6f8db3-e14b-4159-9d0b-a9ae603e5670" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/src/Components/Dashboard/BigTransactionTable/BigTransactionTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/actions/LockedSavingsAction.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/paystack.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/storage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/upload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/backupcash-app.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ApiUtils/ApiUtils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiUtils/ApiUtils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Auth/HOC/authcontroller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Auth/HOC/authcontroller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Auth/LoginForm/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Auth/LoginForm/LoginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Auth/SignUpForm/SignUpForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Auth/SignUpForm/SignUpForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/LockedSavingCard/LockedSavingsCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/LockedSavingCard/LockedSavingsCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/LockedSavingModal/LockedSavingForm/LockedSavingForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/LockedSavingModal/LockedSavingForm/LockedSavingForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard/LockedSavingModal/LockedSavingModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Dashboard/LockedSavingModal/LockedSavingModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/EmailActivation/EmailActivation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Containers/LockedSavings/LockedSavings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/LockedSavings/LockedSavings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Containers/ResendActivation/ResendActivation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/ResendActivation/ResendActivation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Containers/Transactions/Transactions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/Transactions/Transactions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/admin/assets/css/backup-cash-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/assets/css/backup-cash-style.css" afterDir="false" />
@@ -38,8 +61,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-11">
-              <caret line="315" lean-forward="true" selection-start-line="315" selection-end-line="315" />
+            <state relative-caret-position="-86">
+              <caret line="310" selection-start-line="310" selection-end-line="310" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -51,16 +74,25 @@
         <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/BigTransactionTable/BigTransactionTable.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
-              <caret line="23" column="73" lean-forward="true" selection-start-line="23" selection-start-column="73" selection-end-line="23" selection-end-column="73" />
+              <caret line="23" column="73" selection-start-line="23" selection-start-column="73" selection-end-line="23" selection-end-column="73" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Containers/Transactions/Transactions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="526">
+              <caret line="54" selection-start-line="54" selection-end-line="54" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Containers/Transactions/Transactions.js">
+        <entry file="file://$PROJECT_DIR$/src/admin/assets/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="42" column="19" lean-forward="true" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+            <state relative-caret-position="46">
+              <caret line="123" column="1" selection-start-line="123" selection-start-column="1" selection-end-line="123" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -90,19 +122,7 @@
         <entry file="file://$PROJECT_DIR$/src/Containers/Withdrawal/Withdrawal.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="504">
-              <caret line="162" column="42" lean-forward="true" selection-start-line="154" selection-end-line="162" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="7" column="14" lean-forward="true" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+              <caret line="162" column="42" selection-start-line="154" selection-end-line="162" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -261,10 +281,10 @@
         <option value="$PROJECT_DIR$/src/Containers/BackupGoals/BackupGoals.js" />
         <option value="$PROJECT_DIR$/src/Components/Dashboard/BigTransactionTable/BigTransactionTable.js" />
         <option value="$PROJECT_DIR$/src/admin/assets/css/backup-cash-style.css" />
-        <option value="$PROJECT_DIR$/src/admin/assets/css/style.css" />
         <option value="$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js" />
         <option value="$PROJECT_DIR$/src/RouteLinks/RouteLinks.js" />
         <option value="$PROJECT_DIR$/src/Containers/Transactions/Transactions.js" />
+        <option value="$PROJECT_DIR$/src/admin/assets/css/style.css" />
       </list>
     </option>
   </component>
@@ -277,17 +297,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="backupcash-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backupcash-app" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -349,20 +359,19 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="373186000" />
+    <option name="totallyTimeSpent" value="373481000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" weight="0.32967034" />
       <window_info id="npm" order="1" side_tool="true" weight="0.32967034" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.17887668" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.17887668" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.24969475" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.4981685" visible="true" weight="0.17755102" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.4981685" visible="true" weight="0.45714286" />
       <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50061053" side_tool="true" weight="0.78163266" />
-      <window_info anchor="bottom" id="Version Control" order="3" sideWeight="0.4993895" weight="0.78156996" />
+      <window_info anchor="bottom" id="Version Control" order="3" sideWeight="0.4993895" weight="0.78061223" />
       <window_info anchor="bottom" id="Database Changes" order="4" />
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="TypeScript" order="6" sideWeight="0.4993895" weight="0.32959184" />
@@ -591,13 +600,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="31">
           <caret line="3" column="90" lean-forward="true" selection-start-line="3" selection-start-column="90" selection-end-line="3" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/admin/assets/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="513" column="20" lean-forward="true" selection-start-line="513" selection-start-column="20" selection-end-line="513" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -845,7 +847,7 @@
     <entry file="file://$PROJECT_DIR$/src/Containers/Withdrawal/Withdrawal.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
-          <caret line="162" column="42" lean-forward="true" selection-start-line="154" selection-end-line="162" selection-end-column="42" />
+          <caret line="162" column="42" selection-start-line="154" selection-end-line="162" selection-end-column="42" />
         </state>
       </provider>
     </entry>
@@ -869,14 +871,14 @@
     <entry file="file://$PROJECT_DIR$/src/Components/Dashboard/BigTransactionTable/BigTransactionTable.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
-          <caret line="23" column="73" lean-forward="true" selection-start-line="23" selection-start-column="73" selection-end-line="23" selection-end-column="73" />
+          <caret line="23" column="73" selection-start-line="23" selection-start-column="73" selection-end-line="23" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/DashboardIndex/DashboardIndex.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-11">
-          <caret line="315" lean-forward="true" selection-start-line="315" selection-end-line="315" />
+        <state relative-caret-position="-86">
+          <caret line="310" selection-start-line="310" selection-end-line="310" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -885,8 +887,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/Transactions/Transactions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="42" column="19" lean-forward="true" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+        <state relative-caret-position="526">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/admin/assets/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="123" column="1" selection-start-line="123" selection-start-column="1" selection-end-line="123" selection-end-column="1" />
         </state>
       </provider>
     </entry>

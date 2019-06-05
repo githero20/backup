@@ -6,18 +6,65 @@ import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
 import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.svg";
 import sortIcon from "../../admin/app-assets/images/svg/sort-icon.svg";
 import lockedSavingIcon from "../../admin/app-assets/images/svg/add-lock-saving.svg";
+import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
+import {ToastProvider, withToastManager} from "react-toast-notifications";
+import {_getToken, _isDateAfter, _isDateAfterToday, _transformDate} from "../../utils";
+import {getLockedSavings} from "../../actions/LockedSavingsAction";
 
 
 class LockedSavings extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            showLockedSavingsModal: false,
+            lockedSavings:[]
+        };
+
+        console.log(_getToken());
+        this.showLSModal = this.showLSModal.bind(this);
+        this.closeLSModal = this.closeLSModal.bind(this);
+    }
+
+    componentWillMount() {
+        console.log("Mounted");
+        getLockedSavings((status, payload) => {
+            console.log("payload", status, payload);
+            if(status){
+                //TODO(work on making this merging this payload.data.to lockedSavings[])
+                this.setState({lockedSavings: payload.data});
+            }
+        })
+    }
+
+    showLSModal(){
+        this.setState({
+            showLockedSavingsModal: true
+        });
+    };
+
+
+    closeLSModal(){
+        this.setState({
+            showLockedSavingsModal: false
+        });
+    };
     render() {
         return (
             <React.Fragment>
+                <ToastProvider>
+                    <LockedSavingModal
+                        show={this.state.showLockedSavingsModal}
+                        onHide={this.closeLSModal}
+                    />
+                </ToastProvider>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav/>
                     <VerticalNav/>
                     <div className="app-content content">
                         <div className="content-wrapper">
+                            {/* TODO(This should be a component on its own)*/}
                             <div className="row mb-4">
                                 <div className="col-12">
                                     <div
@@ -49,8 +96,11 @@ class LockedSavings extends Component {
                                                 <div
                                                     className="table-header d-flex justify-content-between align-items-md-center px-md-2  mb-3">
                                                     <h4 className="table-title">
-                                                        <button className=" right-btn-holder deep-blue-bg white "
-                                                                data-toggle="modal" data-target="#large">
+                                                        <button
+                                                            className=" right-btn-holder deep-blue-bg white "
+                                                            data-toggle="modal" data-target="#large"
+                                                            onClick={this.showLSModal}
+                                                        >
                                                             <img src={lockedSavingIcon}/>
 
                                                             New Locked Savings
@@ -182,242 +232,51 @@ class LockedSavings extends Component {
                                                 <div className="box-grid-container  light-blue-bg px-md-3 py-md-3">
                                                     <div className="table-view table-responsive mb-5">
                                                         <table id="recent-orders"
-                                                               className="table table-hover table-xl mb-0 spaced-table">
+                                                               className="table table-hover table-xl mb-0 spaced-table text-center">
                                                             <thead>
                                                             <tr>
-                                                                <th className="border-top-0 d-none d-md-inline">#</th>
-                                                                <th className="border-top-0 d-none d-md-inline">Name</th>
-                                                                <th className="border-top-0 d-md-none">Description</th>
-                                                                <th className="border-top-0 d-none d-md-inline">Amount</th>
-                                                                <th className="border-top-0 ">Interest</th>
-                                                                <th className="border-top-0 ">Start Date</th>
-                                                                <th className="border-top-0 ">End Date</th>
-                                                                <th className="border-top-0 d-none d-md-inline">Status</th>
+                                                                <th>#</th>
+                                                                <th>Name</th>
+                                                                <th>Amount</th>
+                                                                <th>Interest</th>
+                                                                <th>Start Date</th>
+                                                                <th>End Date</th>
+                                                                <th>Status</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr>
-                                                                <td className="text-truncate d-none d-md-inline ">
-                                                                    <span
-                                                                        className="text-light-purple mr-1 ">001 </span>
-                                                                </td>
-                                                                <td className="text-truncate d-none d-md-inline">
-                                                                    Summer vacation
-                                                                </td>
-                                                                <td className="d-md-none">
-                                                                    <div>
-                                                                        Summer vacation
-                                                                    </div>
-                                                                    <strong className="black">
-                                                                        ₦<span>400,000</span>
-                                                                    </strong>
-                                                                </td>
-                                                                <td className="d-none d-md-inline">
-                                                                    400,000
-                                                                </td>
-                                                                <td>
-                                                                    <label>+40%</label>
-                                                                </td>
-                                                                <td className="text-truncate text-deep-purple">1st jan
-                                                                    2019
-                                                                </td>
-                                                                <td className="text-truncate">22nd Aug 2019</td>
-                                                                <td className="text-truncate d-none d-md-inline"><span
-                                                                    className="text-very-light-purple mr-1">Completed </span>
-                                                                </td>
+                                                            {
+                                                                this.state.lockedSavings.map(ls => {
+                                                                    console.log("Index", ls);
+                                                                    return (
+                                                                        <tr>
+                                                                            <td>
+                                                                                {ls.id}
+                                                                            </td>
+                                                                            <td>
+                                                                                {ls.title}
+                                                                            </td>
+                                                                            <td>
+                                                                                {ls.amount}
+                                                                            </td>
+                                                                            <td>
+                                                                                <label>+{parseFloat(ls.interest).toFixed(2)}%</label>
+                                                                            </td>
+                                                                            <td>
+                                                                                {_transformDate(ls.start_date)}
+                                                                            </td>
+                                                                            <td>{_transformDate(ls.end_date)}</td>
+                                                                            <td>{
+                                                                                _isDateAfterToday(ls.end_date) ? "Completed" : "Ongoing"
+                                                                            }</td>
 
-                                                            </tr>
-                                                            <tr>
-                                                                <td className="text-truncate d-none d-md-inline ">
-                                                                    <span
-                                                                        className="text-light-purple mr-1 ">001 </span>
-                                                                </td>
-                                                                <td className="text-truncate d-none d-md-inline">
-                                                                    Summer vacation
-                                                                </td>
-                                                                <td className="d-md-none">
-                                                                    <div>
-                                                                        Summer vacation
-                                                                    </div>
-                                                                    <strong className="black">
-                                                                        ₦<span>400,000</span>
-                                                                    </strong>
-                                                                </td>
-                                                                <td className="d-none d-md-inline">
-                                                                    400,000
-                                                                </td>
-                                                                <td>
-                                                                    <label>+40%</label>
-                                                                </td>
-                                                                <td className="text-truncate text-deep-purple">1st jan
-                                                                    2019
-                                                                </td>
-                                                                <td className="text-truncate">22nd Aug 2019</td>
-                                                                <td className="text-truncate d-none d-md-inline"><span
-                                                                    className="text-deep-purple mr-1">In Progress </span>
-                                                                </td>
-
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td className="text-truncate d-none d-md-inline ">
-                                                                    <span
-                                                                        className="text-light-purple mr-1 ">001 </span>
-                                                                </td>
-                                                                <td className="text-truncate d-none d-md-inline">
-                                                                    Summer vacation
-                                                                </td>
-                                                                <td className="d-md-none">
-                                                                    <div>
-                                                                        Summer vacation
-                                                                    </div>
-                                                                    <strong className="black">
-                                                                        ₦<span>400,000</span>
-                                                                    </strong>
-                                                                </td>
-                                                                <td className="d-none d-md-inline">
-                                                                    400,000
-                                                                </td>
-                                                                <td>
-                                                                    <label>+40%</label>
-                                                                </td>
-                                                                <td className="text-truncate text-deep-purple">1st jan
-                                                                    2019
-                                                                </td>
-                                                                <td className="text-truncate">22nd Aug 2019</td>
-                                                                <td className="text-truncate d-none d-md-inline"><span
-                                                                    className="text-deep-purple mr-1">In Progress </span>
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td className="text-truncate d-none d-md-inline ">
-                                                                    <span
-                                                                        className="text-light-purple mr-1 ">001 </span>
-                                                                </td>
-                                                                <td className="text-truncate d-none d-md-inline">
-                                                                    Summer vacation
-                                                                </td>
-                                                                <td className="d-md-none">
-                                                                    <div>
-                                                                        Summer vacation
-                                                                    </div>
-                                                                    <strong className="black">
-                                                                        ₦<span>400,000</span>
-                                                                    </strong>
-                                                                </td>
-                                                                <td className="d-none d-md-inline">
-                                                                    400,000
-                                                                </td>
-                                                                <td>
-                                                                    <label>+40%</label>
-                                                                </td>
-                                                                <td className="text-truncate text-deep-purple">1st jan
-                                                                    2019
-                                                                </td>
-                                                                <td className="text-truncate">22nd Aug 2019</td>
-                                                                <td className="text-truncate d-none d-md-inline"><span
-                                                                    className="text-deep-purple mr-1">In Progress </span>
-                                                                </td>
-
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td className="text-truncate d-none d-md-inline ">
-                                                                    <span
-                                                                        className="text-light-purple mr-1 ">001 </span>
-                                                                </td>
-                                                                <td className="text-truncate d-none d-md-inline">
-                                                                    Summer vacation
-                                                                </td>
-                                                                <td className="d-md-none">
-                                                                    <div>
-                                                                        Summer vacation
-                                                                    </div>
-                                                                    <strong className="black">
-                                                                        ₦<span>400,000</span>
-                                                                    </strong>
-                                                                </td>
-                                                                <td className="d-none d-md-inline">
-                                                                    400,000
-                                                                </td>
-                                                                <td>
-                                                                    <label>+40%</label>
-                                                                </td>
-                                                                <td className="text-truncate text-deep-purple">1st jan
-                                                                    2019
-                                                                </td>
-                                                                <td className="text-truncate">22nd Aug 2019</td>
-                                                                <td className="text-truncate d-none d-md-inline"><span
-                                                                    className="text-deep-purple mr-1">In Progress </span>
-                                                                </td>
-
-                                                            </tr>
-
+                                                                        </tr>
+                                                                    )
+                                                                })
+                                                            }
                                                             </tbody>
                                                         </table>
                                                     </div>
-
-                                                    <div className="grid-section box-grid-view">
-                                                        <div
-                                                            className="box-grid-view box-grid-content d-flex justify-content-between">
-                                                            <div
-                                                                className="custom-box box-shadow-1 bg-white px-3 py-1  mb-2">
-                                                                <p className="light-gray">100% Complete</p>
-                                                                <h3 className="mb-2">Summer Vacation</h3>
-                                                                <div className="d-flex">
-                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/checked-icon.svg"/>*/}
-                                                                    <div className="box-detail d-inline-block">
-                                                                        <p className="light-gray">400,000</p>
-                                                                        <p className="gray">560,000</p>
-                                                                        <p className="light-green">+40%</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="custom-box box-shadow-1 bg-white px-3 py-1  mb-2">
-                                                                <p className="light-gray">40% Complete</p>
-                                                                <h3 className="mb-2">Summer Vacation</h3>
-                                                                <div className="d-flex">
-                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/locked-icon.svg"/>*/}
-                                                                    <div className="box-detail d-inline-block">
-                                                                        <p className="light-gray">400,000</p>
-                                                                        <p className="gray">560,000</p>
-                                                                        <p className="light-green">+40%</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="custom-box box-shadow-1 bg-white px-3 py-1 mb-2">
-                                                                <p className="light-gray">100% Complete</p>
-                                                                <h3 className="mb-2">Summer Vacation</h3>
-                                                                <div className="d-flex">
-                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/checked-icon.svg"/>*/}
-                                                                    <div className="box-detail d-inline-block">
-                                                                        <p className="light-gray">400,000</p>
-                                                                        <p className="gray">560,000</p>
-                                                                        <p className="light-gray">+40%</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className="custom-box box-shadow-1 bg-white px-3 py-1  mb-2">
-                                                                <p className="light-gray">40% Complete</p>
-                                                                <h3 className="mb-2">Summer Vacation</h3>
-                                                                <div className="d-flex">
-                                                                    {/*<img className="box-icon" src="../../admin/app-assets/images/svg/locked-icon.svg"/>*/}
-                                                                    <div className="box-detail d-inline-block">
-                                                                        <p className="light-gray">400,000</p>
-                                                                        <p className="gray">560,000</p>
-                                                                        <p className="light-gray">+40%</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-
-
                                                     <nav aria-label="Page navigation">
                                                         <ul className=" custom-pagination pagination justify-content-center pagination-separate pagination-round pagination-flat pagination-lg mb-1">
                                                             <li className="page-item">
@@ -451,14 +310,6 @@ class LockedSavings extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="col-12">
-                                        <div className="card box-shadow-0">
-                                            <div className="card-content">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -468,4 +319,6 @@ class LockedSavings extends Component {
     }
 }
 
-export default LockedSavings;
+const WithToast = withToastManager(LockedSavings);
+
+export default WithToast;

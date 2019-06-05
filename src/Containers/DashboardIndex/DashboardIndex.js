@@ -4,16 +4,11 @@ import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import DashboardContainer from "../../Components/Dashboard/DashboardContainer/DashboardContainer";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
-import {
-    activateUserEndpoint,
-    getUserInfoEndpoint,
-    lockedSavingEndpoint,
-    resendActEndpoint
-} from "../../RouteLinks/RouteLinks";
-import {api, apiGet, getLocalStorage, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
+import {activateUserEndpoint, lockedSavingEndpoint, resendActEndpoint} from "../../RouteLinks/RouteLinks";
+import {api, getLocalStorage, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
 import {formatNumber, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
-import {USERINFO, USERACTIVATED} from "../../Components/Auth/HOC/authcontroller";
+import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import ActivationModal from "../../Components/Dashboard/ActivationModal/ActivationModal";
 import {ToastProvider} from 'react-toast-notifications';
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
@@ -27,7 +22,7 @@ class DashboardIndex extends Component {
         showlockedSavingsModal: false,
         error: false,
         errorMessage: '',
-        showActivationModal:false,
+        showActivationModal: false,
         activationSuccss: false,
         accountInfo: null,
         vaultAmount: '0.00',
@@ -35,13 +30,13 @@ class DashboardIndex extends Component {
         lockedSavingsAmount: '0.00',
         stashAmount: '0.00',
         transactions: [],
-        userName:'',
-        totalInterest:'0.00',
-        totalSteadySave:'0.00',
-        ActiveGoals:0,
-        CompletedGoals:0,
-        email:null,
-        showLoader:true,
+        userName: '',
+        totalInterest: '0.00',
+        totalSteadySave: '0.00',
+        ActiveGoals: 0,
+        CompletedGoals: 0,
+        email: null,
+        showLoader: true,
     };
 
 
@@ -50,6 +45,7 @@ class DashboardIndex extends Component {
             showSteadySavingModal: true
         });
 
+        console.log(this.props);
     };
 
 
@@ -87,26 +83,25 @@ class DashboardIndex extends Component {
     };
 
 
-
     setupDashBoard = () => {
 
         console.log('setting up dashboard');
         //get data from localStorage
-        if(getLocalStorage(USERINFO)){
+        if (getLocalStorage(USERINFO)) {
             this.setState({
-                showLoader:false,
+                showLoader: false,
             });
             console.log('there is user info');
             console.log(JSON.parse(getLocalStorage(USERINFO)));
 
-            if(getLocalStorage(USERACTIVATED)){
+            if (getLocalStorage(USERACTIVATED)) {
                 let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if(status===false){
+                if (status === false) {
                     let userInfo = JSON.parse(getLocalStorage(USERINFO));
                     //show activation modal
-                    this.setUpActivation(true,userInfo.email);
+                    this.setUpActivation(true, userInfo.email);
 
-                }else if(status===true){
+                } else if (status === true) {
                     console.log('got here to retrieve it ');
                     let data = JSON.parse(getLocalStorage(USERINFO));
 
@@ -114,19 +109,19 @@ class DashboardIndex extends Component {
                         console.log(data);
                         this.setState({
                             accountInfo: data.accounts,
-                            userName:data.name,
+                            userName: data.name,
 
                         });
                         this.analyseDashboardInfo(data);
                     }
 
                     //get locked savings
-                    this.getLockedSavings(lockedSavingEndpoint,this.handleLockedSavings);
+                    this.getLockedSavings(lockedSavingEndpoint, this.handleLockedSavings);
                 }
             }
 
 
-        }else{
+        } else {
 
             this.setState({
                 showLoader:false
@@ -134,13 +129,13 @@ class DashboardIndex extends Component {
             });
             console.log('didnt see usr info');
             //check if user is activated
-            if(getLocalStorage(USERACTIVATED)){
+            if (getLocalStorage(USERACTIVATED)) {
 
                 let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if(status===false){
+                if (status === false) {
                     //show activation modal
-                    this.setUpActivation(true,null);
-                }else if(status===true){
+                    this.setUpActivation(true, null);
+                } else if (status === true) {
                     console.log('got here to retrieve it ');
                     let data = JSON.parse(getLocalStorage(USERINFO));
 
@@ -154,29 +149,28 @@ class DashboardIndex extends Component {
 
     };
 
-    setUpActivation = (status,userInfo) => {
+    setUpActivation = (status, userInfo) => {
 
         this.setState({
-            showActivationModal:status,
-            email:userInfo
+            showActivationModal: status,
+            email: userInfo
         })
 
     };
 
-    getLockedSavings = (url,callback) => {
+    getLockedSavings = (url, callback) => {
 
-        request(url,null,true,null,callback);
+        request(url, null, true, null, callback);
 
     };
 
 
+    handleLockedSavings = (state, res) => {
 
-    handleLockedSavings = (state,res) => {
-
-        if(state){
+        if (state) {
             console.log(res);
 
-        }else {
+        } else {
 
             console.log(res);
         }
@@ -188,7 +182,7 @@ class DashboardIndex extends Component {
     analyseDashboardInfo = (data) => {
 
 
-        if(data.accounts){
+        if (data.accounts) {
 
             // loop through data and set appropriate states
             let accounts = data.accounts.data;
@@ -209,12 +203,10 @@ class DashboardIndex extends Component {
                 }
 
             });
-
-        }else{
+        } else {
             console.log(data);
             return null;
         }
-
 
 
     };
@@ -267,29 +259,28 @@ class DashboardIndex extends Component {
 
     resendActivationLink = () => {
 
-            const param = {email:this.state.email};
-            request(resendActEndpoint,param,false,true,this.handleResendActLink)
+        const param = {email: this.state.email};
+        request(resendActEndpoint, param, false, true, this.handleResendActLink)
 
     };
 
-    handleResendActLink = (state,response) =>{
+    handleResendActLink = (state, response) => {
 
-        const { toastManager } = this.props;
 
-        if(state){
+        if (state) {
 
             console.log(response);
 
-            toastManager.add(`${response.data.success}`, {
+            this.toastManager.add(`${response.data.success}`, {
                 appearance: 'success',
             });
 
 
-        }else{
+        } else {
 
-            if(response){
+            if (response) {
                 console.log(response);
-                toastManager.add(`${response.data.error}`, {
+                this.toastManager.add(`${response.data.error}`, {
                     appearance: 'error',
                 });
             }
@@ -308,11 +299,14 @@ class DashboardIndex extends Component {
 
         //setup dashboard
         console.log('dashboard mounted');
+<<<<<<< HEAD
         setTimeout(this.setupDashBoard,2000);
+=======
+        setTimeout(this.setupDashBoard, 1000);
+>>>>>>> 7eff88883d11457742c1eb3d4f388077117fcd63
 
 
     }
-
 
 
     componentWillMount() {
@@ -322,17 +316,17 @@ class DashboardIndex extends Component {
     render() {
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount,
-            transactions,userName,totalInterest,CompletedGoals,ActiveGoals,totalSteadySave
+            transactions, userName, totalInterest, CompletedGoals, ActiveGoals, totalSteadySave
         } = this.state;
 
         return (
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav userName={userName} />
+                    <HorizontalNav userName={userName}/>
                     <VerticalNav/>
-                    {this.state.showLoader? <DashboardLoader /> :null}
 
+                    {this.state.showLoader ? <DashboardLoader/> : null}
                     <DashboardContainer
 
                         vaultAmount={vaultAmount}
@@ -358,16 +352,16 @@ class DashboardIndex extends Component {
 
                     {/* steady save modal */}
                     <SteadySaveModal
-
                         show={this.state.showSteadySavingModal}
                         onHide={this.closeSteadySaveModal}
-
                     />
 
-                    <LockedSavingModal
-                        show={this.state.showlockedSavingsModal}
-                        onHide={this.closeLSModal}
-                    />
+                    <ToastProvider>
+                        <LockedSavingModal
+                            show={this.state.showlockedSavingsModal}
+                            onHide={this.closeLSModal}
+                        />
+                    </ToastProvider>
                     <BackUpGoalsModal
                         show={this.state.showActiveGoalModal}
                         onHide={this.closeActiveGoalModal}

@@ -1,23 +1,42 @@
 import React, {Component} from 'react';
 import mobileTableStatIcon from "../../../admin/app-assets/images/svg/green-dot.svg";
-import Button from "react-bootstrap/Button";
 import moment from "moment";
 import listIcon from "../../../admin/app-assets/images/svg/list-icon.svg";
 import gridIcon from "../../../admin/app-assets/images/svg/grid-icon.svg";
 import tableLeftArrow from "../../../admin/app-assets/images/svg/table-arrow-left.svg";
 import sortIcon from "../../../admin/app-assets/images/svg/sort-icon.svg";
 import { CSVLink, CSVDownload } from "react-csv";
-
+import Pagination from "../Pagination/Pagination";
 
 class TransactionTable extends Component {
 
+    state={
+        transactions: [],
+        currentTransactions: [],
+        currentPage: null,
+        totalPages: null
 
+    }
+
+
+
+    onPageChanged = data => {
+        const { transactions } = this.props;
+        const { currentPage, totalPages, pageLimit } = data;
+
+        const offset = (currentPage - 1) * pageLimit;
+        const currentTransactions = transactions.slice(offset, offset + pageLimit);
+
+        this.setState({ currentPage, currentTransactions, totalPages });
+    };
 
 
 
     render() {
 
         const {transactions} = this.props;
+
+
 
         return (
             <React.Fragment>
@@ -65,9 +84,10 @@ class TransactionTable extends Component {
                                                         let time = moment(data.created_at).format('hh:mm a');
                                                    return (
                                                        <tr key={data.id}>
-                                                           <td className="text-truncate d-none d-md-block"><span
-                                                               className="text-muted mr-1">{date} </span>
-                                                               <span className="table-time">{time}</span></td>
+                                                           <td className="text-truncate d-none d-md-block">
+                                                               <span className="text-muted mr-1">{date} </span>
+                                                               <span className="table-time">{time}</span>
+                                                           </td>
                                                            <td>
                                                                <img alt={''} src={mobileTableStatIcon}
                                                                     className="green-dot d-md-none"/>
@@ -93,6 +113,13 @@ class TransactionTable extends Component {
                                                 :
                                             null
                                     }
+
+                                    <Pagination
+                                        totalRecords={transactions}
+                                        pageLimit={18}
+                                        pageNeighbours={1}
+                                        onPageChanged={this.onPageChanged}
+                                    />
 
                                     {/* use for  Debit Transactions */}
                                     {/*<tr>*/}
@@ -123,35 +150,7 @@ class TransactionTable extends Component {
                             </div>
 
                             {/*pagination */}
-                            <nav aria-label="Page navigation">
-                                <ul className=" custom-pagination pagination justify-content-center pagination-separate pagination-round pagination-flat pagination-lg mb-1">
-                                    <li className="page-item">
-                                        <a className="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true"><span
-                                                className="d-none d-md-inline">«</span> Prev</span>
-                                            <span className="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li className="page-item"><a className="page-link" href="#">1</a>
-                                    </li>
-                                    <li className="page-item"><a className="page-link" href="#">2</a>
-                                    </li>
-                                    <li className="page-item active"><a className="page-link"
-                                                                        href="#">3</a>
-                                    </li>
-                                    <li className="page-item"><a className="page-link" href="#">4</a>
-                                    </li>
-                                    <li className="page-item"><a className="page-link" href="#">5</a>
-                                    </li>
-                                    <li className="page-item">
-                                        <a className="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">Next <span
-                                                className="d-none d-md-inline">»</span></span>
-                                            <span className="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+
                         </div>
                     </div>
                 </div>

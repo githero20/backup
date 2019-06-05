@@ -47,6 +47,14 @@ class InstantSave extends Component {
     };
 
 
+    handleAddNew = () => {
+
+
+    }
+
+
+
+
     analyseInstantSaveInfo = (data) => {
 
 
@@ -90,6 +98,8 @@ class InstantSave extends Component {
             return sum.amount;
         }
     }
+
+
 
     setupInstantSave = () => {
 
@@ -151,26 +161,37 @@ class InstantSave extends Component {
 
     componentDidMount() {
 
-        this.updateInstantSave();
+        this.setupInstantSave();
 
 
     }
+
+
 
     loadInstantSaveTable = (status,payload)=>{
         //hide loader
         this.setState({
             showLoader:false
         })
-        console.log('got here');
         //handle response
         if(status){
-            this.setState({
-                transactions:payload.data.data.transaction.data
-            })
-            console.log('success',payload);
+            if(payload){
+                console.log(JSON.parse(JSON.stringify(payload)));
+                this.setState({
+                    transactions:payload.data.data.transactions.data
+                })
+                console.log('success',payload);
+            }
+
         }
 
     };
+
+    componentWillMount() {
+
+        this.updateInstantSave();
+
+    }
 
     updateInstantSave = () => {
 

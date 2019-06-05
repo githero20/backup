@@ -5,6 +5,7 @@ export const STANDARD_ACCOUNT = 1;
 export const LOCKED_ACCOUNT = 2;
 export const INTEREST_ACCOUNT = 3;
 export const BACKUP_GOALS_ACCOUNT = 4;
+export const ADD_CARD = '0';
 
 export function animateCSS(element, animationName, callback) {
     const node = document.querySelector(element);

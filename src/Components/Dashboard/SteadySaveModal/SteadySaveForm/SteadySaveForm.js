@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/Button";
 import SimpleReactValidator from "simple-react-validator";
-import {NewSteadySaveEndpoint, RegisterEndpoint} from "../../../../RouteLinks/RouteLinks";
+import {NewSteadySaveEndpoint, RegisterEndpoint, verifyTransactionEndpoint} from "../../../../RouteLinks/RouteLinks";
 import {getLocalStorage, request} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
@@ -151,6 +151,7 @@ class SteadySaveForm extends Component {
     };
 
 
+
     componentDidMount() {
 
         //get pay auths
@@ -171,6 +172,19 @@ class SteadySaveForm extends Component {
         const {title, goal_amount, start_date,frequency, maturity_date, contribution, hour_of_day, day_of_the_week, day_of_the_month} = this.state.steadySaveInfo;
         return (
             <React.Fragment>
+                <div className='d-flex justify-content-end'>
+
+                    <button className='btn btn-sm btn-info ml-1'>
+                        Edit
+                    </button>
+                    <button className='btn btn-sm btn-warning ml-1'>
+                        Pause
+                    </button>
+                    <button className='btn btn-sm btn-danger ml-1'>
+                        Stop
+                    </button>
+                </div>
+
                 <Form onSubmit={this.submitForm}>
                     <Form.Row>
                         <Form.Group as={Col}>

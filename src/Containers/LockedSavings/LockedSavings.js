@@ -27,6 +27,7 @@ class LockedSavings extends Component {
         this.closeLSModal = this.closeLSModal.bind(this);
     }
 
+
     componentWillMount() {
         console.log("Mounted");
         getLockedSavings((status, payload) => {

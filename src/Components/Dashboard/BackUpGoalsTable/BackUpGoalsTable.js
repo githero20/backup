@@ -1,183 +1,66 @@
 import React, {Component} from 'react';
+import {_transformDate} from "../../../utils";
 
 class BackUpGoalsTable extends Component {
+
+    constructor(props){
+        super(props);
+        // console.log("table", this.props.backUpGoals);
+        // this.updateBackUpGoals = this.updateBackUpGoals.bind(this);
+    }
+
+
+
     render() {
         return (
             <React.Fragment>
                 <div className="box-grid-container  light-blue-bg px-md-3 py-md-3">
                     <div className="table-view table-responsive mb-5">
                         <table id="recent-orders"
-                               className="table table-hover table-xl mb-0 spaced-table">
+                               className="table table-hover table-xl mb-0 text-center">
                             <thead>
                             <tr>
-                                <th className="border-top-0 d-none d-md-inline">#</th>
-                                <th className="border-top-0 d-none d-md-inline">Name</th>
-                                <th className="border-top-0 d-md-none">Description</th>
-                                <th className="border-top-0 d-none d-md-inline">Amount</th>
-                                <th className="border-top-0 ">Interest</th>
-                                <th className="border-top-0 ">Start Date</th>
-                                <th className="border-top-0 ">End Date</th>
-                                <th className="border-top-0 d-none d-md-inline">Status</th>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Target Amount(NGN)</th>
+                                <th>Savings Amount(NGN)</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Frequency</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td className="text-truncate d-none d-md-inline ">
-                                                                    <span
-                                                                        className="text-light-purple mr-1 ">001 </span>
-                                </td>
-                                <td className="text-truncate d-none d-md-inline">
-                                    Summer vacation
-                                </td>
-                                <td className="d-md-none">
-                                    <div>
-                                        Summer vacation
-                                    </div>
-                                    <strong className="black">
-                                        ₦<span>400,000</span>
-                                    </strong>
-                                </td>
-                                <td className="d-none d-md-inline">
-                                    400,000
-                                </td>
-                                <td>
-                                    <label>+40%</label>
-                                </td>
-                                <td className="text-truncate text-deep-purple">1st jan
-                                    2019
-                                </td>
-                                <td className="text-truncate">22nd Aug 2019</td>
-                                <td className="text-truncate d-none d-md-inline"><span
-                                    className="text-very-light-purple mr-1">Completed </span>
-                                </td>
+                            {
+                                this.props.backupGoals.map(goal => {
+                                    return (
+                                        <tr key={goal.id}>
+                                            <td>
+                                                {goal.id}
+                                            </td>
+                                            <td>
+                                                {goal.title}
+                                            </td>
+                                            <td>
+                                                {goal.target_amount}
+                                            </td>
+                                            <td>
+                                                {goal.start_amount}
+                                            </td>
+                                            <td>
+                                                {_transformDate(goal.start_date)}
+                                            </td>
+                                            <td>
+                                                {_transformDate(goal.end_date)}
+                                            </td>
+                                            <td>
+                                                {goal.frequency}
+                                            </td>
 
-                            </tr>
-                            <tr>
-                                <td className="text-truncate d-none d-md-inline ">
-                                                                    <span
-                                                                        className="text-light-purple mr-1 ">001 </span>
-                                </td>
-                                <td className="text-truncate d-none d-md-inline">
-                                    Summer vacation
-                                </td>
-                                <td className="d-md-none">
-                                    <div>
-                                        Summer vacation
-                                    </div>
-                                    <strong className="black">
-                                        ₦<span>400,000</span>
-                                    </strong>
-                                </td>
-                                <td className="d-none d-md-inline">
-                                    400,000
-                                </td>
-                                <td>
-                                    <label>+40%</label>
-                                </td>
-                                <td className="text-truncate text-deep-purple">1st jan
-                                    2019
-                                </td>
-                                <td className="text-truncate">22nd Aug 2019</td>
-                                <td className="text-truncate d-none d-md-inline"><span
-                                    className="text-deep-purple mr-1">In Progress </span>
-                                </td>
+                                        </tr>
+                                    );
+                                })
+                            }
 
-                            </tr>
-
-                            <tr>
-                                <td className="text-truncate d-none d-md-inline ">
-                                                                    <span
-                                                                        className="text-light-purple mr-1 ">001 </span>
-                                </td>
-                                <td className="text-truncate d-none d-md-inline">
-                                    Summer vacation
-                                </td>
-                                <td className="d-md-none">
-                                    <div>
-                                        Summer vacation
-                                    </div>
-                                    <strong className="black">
-                                        ₦<span>400,000</span>
-                                    </strong>
-                                </td>
-                                <td className="d-none d-md-inline">
-                                    400,000
-                                </td>
-                                <td>
-                                    <label>+40%</label>
-                                </td>
-                                <td className="text-truncate text-deep-purple">1st jan
-                                    2019
-                                </td>
-                                <td className="text-truncate">22nd Aug 2019</td>
-                                <td className="text-truncate d-none d-md-inline"><span
-                                    className="text-deep-purple mr-1">In Progress </span>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td className="text-truncate d-none d-md-inline ">
-                                                                    <span
-                                                                        className="text-light-purple mr-1 ">001 </span>
-                                </td>
-                                <td className="text-truncate d-none d-md-inline">
-                                    Summer vacation
-                                </td>
-                                <td className="d-md-none">
-                                    <div>
-                                        Summer vacation
-                                    </div>
-                                    <strong className="black">
-                                        ₦<span>400,000</span>
-                                    </strong>
-                                </td>
-                                <td className="d-none d-md-inline">
-                                    400,000
-                                </td>
-                                <td>
-                                    <label>+40%</label>
-                                </td>
-                                <td className="text-truncate text-deep-purple">1st jan
-                                    2019
-                                </td>
-                                <td className="text-truncate">22nd Aug 2019</td>
-                                <td className="text-truncate d-none d-md-inline"><span
-                                    className="text-deep-purple mr-1">In Progress </span>
-                                </td>
-
-                            </tr>
-
-                            <tr>
-                                <td className="text-truncate d-none d-md-inline ">
-                                                                    <span
-                                                                        className="text-light-purple mr-1 ">001 </span>
-                                </td>
-                                <td className="text-truncate d-none d-md-inline">
-                                    Summer vacation
-                                </td>
-                                <td className="d-md-none">
-                                    <div>
-                                        Summer vacation
-                                    </div>
-                                    <strong className="black">
-                                        ₦<span>400,000</span>
-                                    </strong>
-                                </td>
-                                <td className="d-none d-md-inline">
-                                    400,000
-                                </td>
-                                <td>
-                                    <label>+40%</label>
-                                </td>
-                                <td className="text-truncate text-deep-purple">1st jan
-                                    2019
-                                </td>
-                                <td className="text-truncate">22nd Aug 2019</td>
-                                <td className="text-truncate d-none d-md-inline"><span
-                                    className="text-deep-purple mr-1">In Progress </span>
-                                </td>
-
-                            </tr>
                             </tbody>
                         </table>
                     </div>

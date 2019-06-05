@@ -9,7 +9,7 @@ import sortIcon from "../../../admin/app-assets/images/svg/sort-icon.svg";
 import { CSVLink, CSVDownload } from "react-csv";
 
 
-class TransactionTable extends Component {
+class SteadySaveTransTable extends Component {
 
 
 
@@ -48,10 +48,10 @@ class TransactionTable extends Component {
                                        className="table table-hover table-xl mb-0 spaced-table">
                                     <thead>
                                     <tr>
-                                        <th className="border-top-0 d-none d-md-block">Date</th>
-                                        <th className="border-top-0">Description</th>
+                                        <th className="border-top-0 d-none d-md-block"> Date</th>
+                                        <th className="border-top-0">frequency</th>
                                         <th className="border-top-0">Amount</th>
-                                        <th className="border-top-0 d-none d-md-block">Reference</th>
+                                        <th className="border-top-0 d-none d-md-block">Start Date</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -72,17 +72,17 @@ class TransactionTable extends Component {
                                                                <img alt={''} src={mobileTableStatIcon}
                                                                     className="green-dot d-md-none"/>
                                                                <div className="d-inline-block">
-                                                                   <div className="d-md-block text-capitalize">{data.type}</div>
+                                                                   <div className="d-md-block text-capitalize">{data.frequency}</div>
                                                                    <div className="table-time d-block d-md-none ">{time}
                                                                    </div>
                                                                </div>
                                                            </td>
 
                                                            <td>
-                                                               <label className="bg-light-green px-2 sm-pd">&#8358; {data.amount}</label>
+                                                               <label className="bg-light-green px-2 sm-pd">&#8358; {data.start_amount}</label>
                                                            </td>
 
-                                                           <td className="text-truncate d-none d-md-block text-uppercase" style={{maxWidth: '120px'}}>{data.reference}</td>
+                                                           <td className="text-truncate d-none d-md-block text-uppercase"> {moment(data.created_at).format('DD|MM|YYYY')}</td>
                                                        </tr>
 
                                                    )
@@ -160,4 +160,4 @@ class TransactionTable extends Component {
     }
 }
 
-export default TransactionTable;
+export default SteadySaveTransTable;

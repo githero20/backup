@@ -16,7 +16,6 @@ import DashboardLoader from "../../Components/Dashboard/DashboardLoader/Dashboar
 
 class DashboardIndex extends Component {
 
-
     state = {
         showSteadySavingModal: false,
         showActiveGoalModal: false,
@@ -39,6 +38,7 @@ class DashboardIndex extends Component {
         email: null,
         showLoader: true,
     };
+
 
     showSteadySaveModal = () => {
         this.setState({
@@ -123,6 +123,10 @@ class DashboardIndex extends Component {
 
         } else {
 
+            this.setState({
+                showLoader:false
+
+            });
             console.log('didnt see usr info');
             //check if user is activated
             if (getLocalStorage(USERACTIVATED)) {
@@ -251,6 +255,7 @@ class DashboardIndex extends Component {
         }
 
     };
+
 
     resendActivationLink = () => {
 

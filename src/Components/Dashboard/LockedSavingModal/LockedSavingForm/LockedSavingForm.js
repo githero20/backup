@@ -52,6 +52,7 @@ class LockedSavingForm extends Component {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
+            // this.props.toastManager("An Error Occured");
             // rerender to show messages for the first time
             this.forceUpdate();
         }else{

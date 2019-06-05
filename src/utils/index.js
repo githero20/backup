@@ -114,3 +114,12 @@ export const _calculateDateDifference = (from = null, to = null) => {
     console.log("from", from);
     return to.diff(from,"days");
 };
+
+
+export const _transformDate = (date, toFormat = "LL", fromFormat = "YYYY-MM-DD") => {
+    return moment(date,fromFormat).format(toFormat);
+};
+
+export const _isDateAfterToday = (date) => {
+    return moment().isAfter(moment(date));
+};

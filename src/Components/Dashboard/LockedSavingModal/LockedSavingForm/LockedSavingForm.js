@@ -13,16 +13,16 @@ class LockedSavingForm extends Component {
 
     constructor(props) {
         super(props);
-        //TODO
+        //TODO(get the user balance and set the max amount to that amount)
         console.log(props);
         console.log(this.props);
         this.state = {
             loading:false,
             dateDifference:0,
             form: {
-                title: "Cars",
-                end_date: "2019-12-31",
-                amount: 1000,
+                title: "",
+                end_date: "",
+                amount: 0,
                 interest: 0.0,
                 days:0,
                 interestRate:0.0,
@@ -90,8 +90,6 @@ class LockedSavingForm extends Component {
         let form = {...this.state.form};
         form.interestRate = ((form.interest/100) * e.target.value).toFixed(2);
         this.setState({form});
-        //TODO(Optimize this later: when the amount changes a new API is sent to calculate the  savings interest)
-        // getLockedInterestSavings({days: this.state.dateDifference}, this.handleLockedSavingsInterest);
     }
 
     handleLockedSavingsInterest(status, data){

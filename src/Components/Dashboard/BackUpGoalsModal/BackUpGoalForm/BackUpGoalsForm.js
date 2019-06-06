@@ -19,9 +19,9 @@ class BackUpGoalsForm extends Component {
         this.validator = new SimpleReactValidator();
         this.state = {
             form: {
-                start_date: "",
-                maturity_date: "",
-                title: "",
+                start_date: "2019-06-12",
+                maturity_date: "2019-12-12",
+                title: "Car Savings",
                 payment_auth: null,
                 frequency: 'daily',
                 hour_of_day: '12',
@@ -88,15 +88,17 @@ class BackUpGoalsForm extends Component {
 
                 // console.log("Res", status, payload);
                 if(status){
+                    console.log("here");
                     this.toastManager.add("Backup Goal Saved.", {
                         appearance: "success"
                     });
-                    this.props.onHide(true);
-
+                    setTimeout(()=> this.props.onHide(true), 2000);
                 }else{
                     // console.log(payload, "Message", this.toastManager);
-                    this.toastManager.add(payload || "An Error Occurred", {
-                        appearance: "error"
+                    this.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
+                        appearance: "error",
+                        autoDismiss: true,
+                        autoDismissTimeout: 5000
                     });
                 }
             });

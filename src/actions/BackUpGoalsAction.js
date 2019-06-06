@@ -24,6 +24,7 @@ export const createBackUpGoal = (params, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            callback(false, err.response.data.message);
+            console.log("Err",JSON.stringify(err));
+            callback(false, err.response.data.message || "AN Error Occurred");
         })
 };

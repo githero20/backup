@@ -239,7 +239,7 @@ class SteadySave extends Component {
                         <div className="content-wrapper">
                             <div className="row mb-4">
                                 <div className="col-12">
-                                    <MessageBox/>
+                                    {/*<MessageBox/>*/}
                                 </div>
                             </div>
 

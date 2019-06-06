@@ -7,6 +7,7 @@ import './admin/app-assets/css/core/menu/menu-types/vertical-menu-modern.css';
 import './admin/assets/css/style.css';
 import './admin/assets/css/hamburgers.min.css';
 import './admin/assets/css/backup-cash-style.css';
+import './admin/assets/css/responsiveness.css';
 import * as serviceWorker from './serviceWorker';
 import AppRouter from "./AppRouter/AppRouter";
 

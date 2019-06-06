@@ -1,17 +1,22 @@
 import React from 'react';
 import Modal from "react-bootstrap/Modal";
-import {ToastProvider} from "react-toast-notifications";
+import {ToastProvider, withToastManager} from "react-toast-notifications";
 import BankForm from "./BankForm";
 import {getListOfBanks} from "../../../actions/BankAction";
-import {withToastManager} from 'react-toast-notifications';
+import BankOtpForm from "./BankOtpForm";
+
 class BankModal extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
-            banks:[]
-        }
-
+            banks:[],
+            showOtpModal:false,
+            showBankForm:true,
+            bankotp_id:null
+        };
+        this.showOtp = this.showOtp.bind(this);
+        this.showForm = this.showForm.bind(this);
     }
     componentDidMount() {
         getListOfBanks((status, payload) =>{
@@ -27,26 +32,37 @@ class BankModal extends React.Component {
             }
         })
     }
+    showOtp(payload){
+        this.setState({showOtpModal:true, bankotp_id: payload, showBankForm: false});
+    }
+
+    showForm(){
+        this.setState({showOtpModal:false, showBankForm:true});
+    }
+
 
     render() {
         return (
             <Modal
                 {...this.props}
-                size="lg"
+                size="sm"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 className={'steady-save-modal'}
             >
-                <Modal.Header className={' px-md-3 py-md-3'} closeButton={this.props.onHide}>
+                <Modal.Header className={' px-md-3'} closeButton={this.props.onHide}>
                     <Modal.Title id="contained-modal-title-vcenter">
                         <h4>Add Bank</h4>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
-                    {/*<ToastProvider>*/}
-                        <BankForm onHide={this.props.onHide} banks={this.state.banks}/>
-                    {/*</ToastProvider>*/}
+                    <ToastProvider>
+                        {this.state.showBankForm
+                            ? <BankForm show={this.showBankForm} onHide={this.props.onHide} banks={this.state.banks} showOtp={this.showOtp} />
+                            : <BankOtpForm show={this.showOtpModal} bankotp_id={this.state.bankotp_id} onHide={this.props.onHide}/>
+                        }
+                    </ToastProvider>
                 </Modal.Body>
             </Modal>
         );
@@ -54,4 +70,4 @@ class BankModal extends React.Component {
 }
 
 const FormWithToast = withToastManager(BankModal);
-export default BankModal;
+export default FormWithToast;

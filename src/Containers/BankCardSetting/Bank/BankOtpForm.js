@@ -6,22 +6,20 @@ import {_handleFormChange} from "../../../utils/index";
 import SimpleReactValidator from "simple-react-validator";
 import ButtonLoader from "../../../Components/Auth/Buttonloader/ButtonLoader";
 import {withToastManager} from 'react-toast-notifications';
-import {saveBankAccount} from "../../../actions/BankAction";
+import {verifyOtp} from "../../../actions/BankAction";
 
 
-class BankForm extends Component {
+class BankOtpForm extends Component {
 
     constructor(props) {
         super(props);
         //TODO(get the user balance and set the max amount to that amount)
-        console.log(props);
+        console.log("init",props);
         this.state = {
             loading:false,
-            dateDifference:0,
             form: {
-                bank:"",
-                account_number:"2118393935",
-                bank_code:""
+                otp:"",
+                bankotp_id: this.props.bankotp_id
             }
         };
         this.validator = new SimpleReactValidator();
@@ -45,16 +43,16 @@ class BankForm extends Component {
             this.setState({loading:true});
             //send api
             const {form} = this.state;
-            const bank = this.props.banks.find(bank => bank.code == form.bank_code);
-            form.bank = `${bank.name}.${bank.code}`;
-            console.log("props", this.props);
-            saveBankAccount(form,(status, payload) => {
+            console.log(form);
+            verifyOtp(form,(status, payload) => {
                 this.setState({loading:false});
                 console.log(status, payload);
                 if(status){
-                    this.props.showOtp(payload);
+                    //TODO(toast success)
+                    this.props.onHide(true);
                 }else{
-                    //TODO(Show Error to user)
+
+                    //TODO(toast no success)
                 }
             });
         }
@@ -62,36 +60,24 @@ class BankForm extends Component {
 
     render() {
 
-        const banksSelect = this.props.banks.map((bank,index) => {
-           return(
-               <option key={index} value={bank.code}>{bank.name}</option>
-           );
-        });
         return (
             <React.Fragment>
                 <Form onSubmit={this.validateForm}>
                     <Form.Row>
-                        <Form.Group as={Col} controlId="formGridAddress1">
-                            <Form.Label>Bank Name: </Form.Label>
-                            <Form.Control as="select" value={this.state.form.bank_code} onChange={value => _handleFormChange("bank_code",value, this)}
-                                          name="bank_name">
-                                <option value={""}>Select Bank</option>
-                                {banksSelect}
-                            </Form.Control>
-                            {this.validator.message("bank",this.state.form.bank_code,"required")}
-                        </Form.Group>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="formGridCity">
+                                <Form.Text>An OTP has been sent to you email and phone number.</Form.Text>
+                                <Form.Label>Enter OTP: </Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    onChange={value => _handleFormChange("otp",value, this)}
+                                    value={this.state.form.account_number}
+                                />
+                                {this.validator.message("OTP",this.state.form.otp,"required")}
+                            </Form.Group>
+                        </Form.Row>
                     </Form.Row>
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formGridCity">
-                            <Form.Label>Account Number: </Form.Label>
-                            <Form.Control
-                                type="number"
-                                onChange={value => _handleFormChange("account_number",value, this)}
-                                value={this.state.form.account_number}
-                            />
-                            {this.validator.message("Account Number",this.state.form.account_number,"required")}
-                        </Form.Group>
-                    </Form.Row>
+
                     <Form.Row className={'d-flex justify-content-between mt-2'}>
                         <div>
                             <Button onClick={this.props.onHide}
@@ -100,7 +86,7 @@ class BankForm extends Component {
                         <div className={'d-flex justify-content-end'}>
 
                             <Button className={'round btn-gradient-blue '} type="submit">
-                                {this.state.loading ? <ButtonLoader/> : "Add Bank"}
+                                {this.state.loading ? <ButtonLoader/> : "Confirm OTP"}
                             </Button>
                         </div>
 
@@ -113,7 +99,7 @@ class BankForm extends Component {
 }
 
 
-const FormWithToast = withToastManager(BankForm);
+const FormWithToast = withToastManager(BankOtpForm);
 
 // export default LoginWithToast;
-export default BankForm;
+export default BankOtpForm;

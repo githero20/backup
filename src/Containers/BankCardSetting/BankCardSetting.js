@@ -6,7 +6,8 @@ import menuIcon from "../../admin/app-assets/images/svg/three-dot-icon.svg";
 import visaImage from "../../admin/app-assets/images/svg/visa.svg";
 import masterCardImage from "../../admin/app-assets/images/svg/mastercard.svg";
 import BankModal from "./Bank/BankModal";
-import {ToastProvider, withToastManager} from 'react-toast-notifications';
+import {getUserBanks} from "../../actions/BankAction";
+
 class BankCardSetting extends Component {
 
     constructor(props) {
@@ -22,20 +23,38 @@ class BankCardSetting extends Component {
         this.hideBankModal = this.hideBankModal.bind(this);
         this.showCardModal = this.showCardModal.bind(this);
         this.hideCardModal = this.hideCardModal.bind(this);
+        this.getUserBanks = this.getUserBanks.bind(this);
     }
 
+    getUserBanks(){
+        getUserBanks((status, payload) => {
+            console.log(status, payload);
+            if(status){
+                this.setState({banks:payload});
+            }else{
+                //TODO(Display an error)
+                // toastManager.add("Unable To ")
+            }
+        })
+    }
+    componentWillMount() {
+        this.getUserBanks();
+    }
 
     showBankModal() {
-        console.log("here");
         this.setState({showBankModal: true});
+
     }
 
     showCardModal() {
         this.setState({showCardModal: true});
     }
 
-    hideBankModal() {
+    hideBankModal(status = false) {
         this.setState({showBankModal: false});
+        if(status){
+            this.getUserBanks();
+        }
     }
 
     hideCardModal() {
@@ -43,7 +62,22 @@ class BankCardSetting extends Component {
     }
 
     render() {
+        const banksTemplate = this.state.banks.length == 0
+            ? <h4 className="card-text mt-5 text-center setting-header px-5 light-gray">You
+                currently do not have any banks accounts Added</h4>
+            :this.state.banks.map(bank => {
+                return (
+                    <div>
+                        <p>Bank Name:</p>
+                        <h3>{bank.bank}</h3>
+                        <p>Account Number:</p>
+                        <h3>{bank.bank_number}</h3>
+                    </div>
+                );
+            });
         return (
+
+
             <React.Fragment>
                 {/*<ToastProvider>*/}
                     <BankModal show={this.state.showBankModal} onHide={this.hideBankModal}/>
@@ -94,8 +128,50 @@ class BankCardSetting extends Component {
                                                                 <img className="img-2x" src={addButton}/>
                                                             </button>Add Bank</span>
                                                         </h3>
-                                                        <h4 className="card-text mt-5 text-center setting-header px-5 light-gray">You
-                                                            currently do not have any banks accounts Added</h4>
+
+
+                                                        <div className="table-responsive">
+                                                            <table
+                                                                   className="table table-hover text-center">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Bank Name</th>
+                                                                    <th>Account Number</th>
+                                                                    {/*<th>Action</th>*/}
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {
+                                                                    this.state.banks.map((bank, index) => {
+                                                                        console.log("Index", bank);
+                                                                        return (
+                                                                            <tr key={index}>
+                                                                                <td>
+                                                                                    {bank.bank}
+                                                                                </td>
+                                                                                <td>
+                                                                                    {bank.bank_number}
+                                                                                </td>
+                                                                                {/*<td>*/}
+                                                                                    {/*<button className={"btn btn-sm btn-danger"}>*/}
+                                                                                        {/*<i className={"glyphicons fa-trash"}/> delete*/}
+                                                                                    {/*</button>*/}
+                                                                                {/*</td>*/}
+
+                                                                            </tr>
+                                                                        )
+                                                                    })
+                                                                }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                        {/*{*/}
+                                                            {/*this.state.banks.length == 0*/}
+                                                            {/*?<h4 className="card-text mt-5 text-center setting-header px-5 light-gray">You*/}
+                                                                    {/*currently do not have any banks accounts Added</h4>*/}
+                                                                {/*: banksTemplate*/}
+                                                        {/*}*/}
                                                     </div>
                                                 </div>
                                             </div>

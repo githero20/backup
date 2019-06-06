@@ -96,15 +96,19 @@ class DashboardIndex extends Component {
 
             if (getLocalStorage(USERACTIVATED)) {
                 let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if (status === false) {
-                    let userInfo = JSON.parse(getLocalStorage(USERINFO));
-                    //show activation modal
-                    this.setUpActivation(true, userInfo.email);
+                // if (status === false) {
+                //     let userInfo = JSON.parse(getLocalStorage(USERINFO));
+                //     //show activation modal
+                //     // this.setUpActivation(true, userInfo.email);
+                // //TODO handle verification
+                // } else
+                //
+                console.log(status);
 
-                } else if (status === true) {
+                if (status === true || status === false ) {
                     console.log('got here to retrieve it ');
                     let data = JSON.parse(getLocalStorage(USERINFO));
-
+                    console.log(data);
                     if (data.accounts !== null || data.accounts !== undefined) {
                         console.log(data);
                         this.setState({

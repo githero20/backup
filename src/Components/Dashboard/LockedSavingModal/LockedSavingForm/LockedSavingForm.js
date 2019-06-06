@@ -17,15 +17,15 @@ class LockedSavingForm extends Component {
         console.log(props);
         console.log(this.props);
         this.state = {
-            loading:false,
-            dateDifference:0,
+            loading: false,
+            dateDifference: 0,
             form: {
                 title: "",
                 end_date: "",
                 amount: 0,
                 interest: 0.0,
-                days:0,
-                interestRate:0.0,
+                days: 0,
+                interestRate: 0.0,
                 accepted: false
             }
         };
@@ -48,23 +48,23 @@ class LockedSavingForm extends Component {
     //save
     //handle response
 
-    validateForm = (e) =>{
+    validateForm = (e) => {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             // this.props.toastManager("An Error Occured");
             // rerender to show messages for the first time
             this.forceUpdate();
-        }else{
-            this.setState({loading:true});
+        } else {
+            this.setState({loading: true});
             //send api
             createLockedSavings(this.state.form, (status, payload) => {
-                this.setState({loading:false});
-                if(status){
+                this.setState({loading: false});
+                if (status) {
                     console.log("Success", payload);
                     //TODO(Display Success from creating savings)
                     this.props.onHide();
-                }else{
+                } else {
                     //TODO(Display Error from creating savings)
                     console.error("Display Error", payload);
                 }
@@ -73,9 +73,9 @@ class LockedSavingForm extends Component {
         console.log(this.state.form);
     };
 
-    handleDateInput(e){
+    handleDateInput(e) {
         e.preventDefault();
-        _handleFormChange("end_date",e, this);
+        _handleFormChange("end_date", e, this);
         const endDate = e.target.value;
         const dateDifference = _calculateDateDifference(null, endDate);
 
@@ -86,6 +86,7 @@ class LockedSavingForm extends Component {
     };
 
     handleAmountInput(e) {
+
         // _handleFormChange("amount",e, this);
         let form = {...this.state.form};
         form.amount = e.target.value;
@@ -93,15 +94,15 @@ class LockedSavingForm extends Component {
         this.setState({form});
     }
 
-    handleLockedSavingsInterest(status, data){
-        if(status){
+    handleLockedSavingsInterest(status, data) {
+        if (status) {
             let form = {...this.state.form};
             form.interest = data;
-            form.interestRate = ((data/100) * form.amount).toFixed(2);
+            form.interestRate = ((data / 100) * form.amount).toFixed(2);
             form.days = this.state.dateDifference;
             this.setState({form});
             // console.log("payload", data.toFixed(2));
-        }else{
+        } else {
             const {toastManager} = this.props;
             console.log("Toast", toastManager);
             //TODO("Add a toast here);
@@ -117,30 +118,30 @@ class LockedSavingForm extends Component {
             <React.Fragment>
                 <Form onSubmit={this.validateForm}>
                     <Form.Row>
-                        <Form.Group controlId="formGridAddress1">
+                        <Form.Group as={Col} controlId="formGridAddress1">
                             <Form.Label>Locked Savings Name: </Form.Label>
                             <Form.Control type="text"
                                           name="title"
                                           placeholder="e.g Car Savings"
-                                          onChange={value => _handleFormChange("title",value, this)}
+                                          onChange={value => _handleFormChange("title", value, this)}
                                           value={this.state.form.title}
                             />
-                            {this.validator.message("locked savings name",this.state.form.title,"required")}
+                            {this.validator.message("locked savings name", this.state.form.title, "required")}
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridEmail">
-                        <Form.Label>Maturity Date</Form.Label>
-                        <Form.Control
-                            onChange={this.handleDateInput}
-                            type="date"
-                            format="YYYY-MM-DD"
-                            name="end_date"
-                            value={this.state.form.end_date}
-                        />
-                        <Form.Text className="text-muted">
-                            Enter the maturity date when funds should be returned to your BackupCash savings.
-                        </Form.Text>
-                        {this.validator.message("maturity date",this.state.form.end_date,"required")}
-                    </Form.Group>
+                            <Form.Label>Maturity Date</Form.Label>
+                            <Form.Control
+                                onChange={this.handleDateInput}
+                                type="date"
+                                format="YYYY-MM-DD"
+                                name="end_date"
+                                value={this.state.form.end_date}
+                            />
+                            <Form.Text className="text-muted">
+                                Enter the maturity date when funds should be returned to your BackupCash savings.
+                            </Form.Text>
+                            {this.validator.message("maturity date", this.state.form.end_date, "required")}
+                        </Form.Group>
 
                     </Form.Row>
 
@@ -153,9 +154,10 @@ class LockedSavingForm extends Component {
                                 value={this.state.form.amount}
 
                             />
-                            {this.validator.message("capital investment",this.state.form.amount,"required")}
+                            {this.validator.message("capital investment", this.state.form.amount, "required")}
                             <Form.Text className="text-muted">
-                                Enter the amount that will be instantly removed from your BackupCash "Central Vault" balance and locked away.
+                                Enter the amount that will be instantly removed from your BackupCash "Central Vault"
+                                balance and locked away.
                             </Form.Text>
                         </Form.Group>
                         <Form.Group as={Col} sm={6} controlId="formGridCity">
@@ -166,7 +168,8 @@ class LockedSavingForm extends Component {
                                 value={`${this.state.form.interestRate} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days`}
                             />
                             <Form.Text className="text-muted">
-                                This upfront interest will be deposited in your BackupCash "Central Vault" and can be withdrawn immediately.
+                                This upfront interest will be deposited in your BackupCash "Central Vault" and can be
+                                withdrawn immediately.
                             </Form.Text>
                         </Form.Group>
                     </Form.Row>
@@ -175,27 +178,30 @@ class LockedSavingForm extends Component {
                             <Form.Check
                                 type="checkbox"
                                 checked={this.state.form.accepted}
-                                onChange={value => _handleFormChange("accepted",value, this)}
+                                onChange={value => _handleFormChange("accepted", value, this)}
                                 label={<Form.Text>
-                                I hereby confirm and approve this transaction, and I authorize SFS BackupCash to LOCK ₦
-                                <span>{this.state.form.amount}</span> &nbsp; from my BackupCash savings immediately and return it in full on the date I set in the "Maturity Date"
-                                above. This transaction is IRREVERSIBLE.
-                                <br/>
-                                NB: Funds in "Locked Savings" cannot be accessed until maturity date. Locked Funds will be sent back to your BackupCash "Central Vault" on maturity date.
-                            </Form.Text>} />
-                            {this.validator.message("terms and condition",this.state.form.accepted,"accepted")}
+                                    I hereby confirm and approve this transaction, and I authorize SFS BackupCash to
+                                    LOCK ₦
+                                    <span>{this.state.form.amount}</span> &nbsp; from my BackupCash savings immediately
+                                    and return it in full on the date I set in the "Maturity Date"
+                                    above. This transaction is IRREVERSIBLE.
+                                    <br/>
+                                    NB: Funds in "Locked Savings" cannot be accessed until maturity date. Locked Funds
+                                    will be sent back to your BackupCash "Central Vault" on maturity date.
+                                </Form.Text>}/>
+                            {this.validator.message("terms and condition", this.state.form.accepted, "accepted")}
 
                         </Form.Group>
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-between mt-2'}>
                         <div>
-                            <Button onClick={this.props.onHide} className={'mr-1 round'}>Reset All</Button>
+                            <Button onClick={this.props.onHide} className={'mr-1 round reset-btn'}>Reset All</Button>
                         </div>
                         <div className={'d-flex justify-content-end'}>
                             <Button onClick={this.props.onHide}
-                                    className={'mr-1 round btn-gradient-blue'}>Close</Button>
+                                    className={'mr-1 round btn-outline-gray'}>Close</Button>
 
-                            <Button className={'round btn-gradient-blue '} type="submit">
+                            <Button className="round btn-custom-blue " type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Start Saving"}
                             </Button>
                         </div>

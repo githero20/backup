@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import TransactionTable from "../TransactionTable/TransactionTable";
-import MessageBox from "./MessageBox/MessageBox";
 import CentralVaultCard from "../CentralVaultCard/CentralVaultCard";
 import BackUpGoalCard from "../BackUpGoalCard/BackUpGoalCard";
 import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";
@@ -36,9 +35,7 @@ class DashboardContainer extends Component {
                     <div className="content-wrapper">
                         {/* notification component */}
 
-                        <MessageBox error={error} errorMessage={this.props.errorMessage}
-                                    activateAccount={activateAccount}
-                        />
+                        {/*<MessageBox error={error} errorMessage={this.props.errorMessage} activateAccount={activateAccount}/>*/}
 
                         {/*Vault Card */}
 
@@ -47,9 +44,10 @@ class DashboardContainer extends Component {
                                 <CentralVaultCard
                                     vaultAmount={vaultAmount}
                                     totalSteadySave={totalSteadySave}
-                                    onHide={this.props.hideSSModal}
-                                    showModal={this.props.showSSModal}
+
                                 />
+                                {/*    TODO  ADD STEADY SAVE  */}
+
 
                                 <BackUpGoalCard
                                     backupAmount={backupAmount}

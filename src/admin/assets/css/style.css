@@ -890,6 +890,14 @@ html body .content.app-content {
     transition: all .5s ease;
     cursor: pointer;
 }
+.btn-small-blue {
+    color: #fff !Important;
+    border-color: #2784F4 !Important;
+    background-color: #2784F4 !Important;
+    transition: all .5s ease;
+    cursor: pointer;
+}
+
 .modal-btn{
     width:150px;
 }

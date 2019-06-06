@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
-import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import BigTransactionTable from "../../Components/Dashboard/BigTransactionTable/BigTransactionTable";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getTransactionsApi} from "../../RouteLinks/RouteLinks";
@@ -12,8 +11,7 @@ class Transactions extends Component {
 
     state={
         transactions:[],
-        showLoader:true,
-    }
+    };
 
     //when the component mounts
 
@@ -38,15 +36,19 @@ class Transactions extends Component {
         if(state){
             if(res){
                 this.setState({
-                    showLoader:false,
                     transactions:res.data.data.data
                 });
                 console.log(res);
             }
 
+        }else{
+            if(res){
+
+                console.log(res);
+            }
         }
 
-    }
+    };
 
 
 

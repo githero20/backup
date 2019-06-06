@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import mobileTableStatIcon from "../../../admin/app-assets/images/svg/green-dot.svg";
-import Button from "react-bootstrap/Button";
 import moment from "moment";
 import listIcon from "../../../admin/app-assets/images/svg/list-icon.svg";
 import gridIcon from "../../../admin/app-assets/images/svg/grid-icon.svg";
 import tableLeftArrow from "../../../admin/app-assets/images/svg/table-arrow-left.svg";
 import sortIcon from "../../../admin/app-assets/images/svg/sort-icon.svg";
-import { CSVLink, CSVDownload } from "react-csv";
+import {CSVLink} from "react-csv";
 
 
 class SteadySaveTransTable extends Component {
@@ -91,8 +90,9 @@ class SteadySaveTransTable extends Component {
 
                                             )
                                                 :
-                                            null
+                                           null
                                     }
+
 
                                     {/* use for  Debit Transactions */}
                                     {/*<tr>*/}
@@ -120,6 +120,8 @@ class SteadySaveTransTable extends Component {
 
                                     </tbody>
                                 </table>
+                                {transactions.length===0?
+                                    <div className={'text-center'} > No Steady Saves Available</div>:null}
                             </div>
 
                             {/*pagination */}

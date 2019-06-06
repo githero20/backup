@@ -50,3 +50,5 @@ export const EditSteadySave = `sfsbapi/v1/user/savings/steady/edit`;
 export const PauseSteadySave = `sfsbapi/v1/user/savings/steady/pause`;
 export const ContinueSteadySave = `sfsbapi/v1/user/savings/steady/continue`;
 export const StopSteadySave = `sfsbapi/v1/user/savings/steady/stop`;
+export const GetWithdrawal = `sfsbapi/v1/user/withdrawals`;
+

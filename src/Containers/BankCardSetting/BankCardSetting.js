@@ -5,7 +5,6 @@ import addButton from "../../admin/app-assets/images/svg/plus-btn.svg";
 import menuIcon from "../../admin/app-assets/images/svg/three-dot-icon.svg";
 import visaImage from "../../admin/app-assets/images/svg/visa.svg";
 import masterCardImage from "../../admin/app-assets/images/svg/mastercard.svg";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import BankModal from "./Bank/BankModal";
 import {getUserBanks} from "../../actions/BankAction";
 
@@ -63,19 +62,6 @@ class BankCardSetting extends Component {
     }
 
     render() {
-        const banksTemplate = this.state.banks.length == 0
-            ? <h4 className="card-text mt-5 text-center setting-header px-5 light-gray">You
-                currently do not have any banks accounts Added</h4>
-            :this.state.banks.map(bank => {
-                return (
-                    <div>
-                        <p>Bank Name:</p>
-                        <h3>{bank.bank}</h3>
-                        <p>Account Number:</p>
-                        <h3>{bank.bank_number}</h3>
-                    </div>
-                );
-            });
         return (
 
 

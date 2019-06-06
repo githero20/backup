@@ -42,7 +42,7 @@ class SteadySave extends Component {
         showSavingModal: false,
         showLoader: true,
         settings: false,
-        steadySave:{contribution:10000,start_date:'2016-05-12',frequency:'daily',hour_of_day:12}
+        steadySave: {contribution: 10000, start_date: '2016-05-12', frequency: 'daily', hour_of_day: 12}
     };
 
 
@@ -202,19 +202,15 @@ class SteadySave extends Component {
 
 
     };
+
     componentDidMount() {
-
         this.setupSteadySave();
-
-
     }
-
 
     showNewSteadySaveModal = () => {
         this.setState({
             showSavingModal: true,
         })
-
     };
 
 
@@ -246,7 +242,8 @@ class SteadySave extends Component {
                                 this.state.showSavingModal ?
                                     (
                                         <React.Fragment>
-                                            <SteadySaveModal steadySave={this.state.steadySave} show={this.state.showSavingModal} onHide={this.hideModal}/>
+                                            <SteadySaveModal steadySave={this.state.steadySave}
+                                                             show={this.state.showSavingModal} onHide={this.hideModal}/>
                                         </React.Fragment>
 
                                     ) : null

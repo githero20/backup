@@ -50,7 +50,7 @@ class InstantSave extends Component {
     handleAddNew = () => {
 
 
-    }
+    };
 
 
 
@@ -171,7 +171,7 @@ class InstantSave extends Component {
         //hide loader
         this.setState({
             showLoader:false
-        })
+        });
 
         //handle response
         if(status){
@@ -179,7 +179,7 @@ class InstantSave extends Component {
                 console.log(JSON.parse(JSON.stringify(payload)));
                 this.setState({
                     transactions:payload.data.data.transactions.data
-                })
+                });
                 console.log('success',payload);
             }
 

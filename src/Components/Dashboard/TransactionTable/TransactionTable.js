@@ -5,7 +5,7 @@ import listIcon from "../../../admin/app-assets/images/svg/list-icon.svg";
 import gridIcon from "../../../admin/app-assets/images/svg/grid-icon.svg";
 import tableLeftArrow from "../../../admin/app-assets/images/svg/table-arrow-left.svg";
 import sortIcon from "../../../admin/app-assets/images/svg/sort-icon.svg";
-import { CSVLink, CSVDownload } from "react-csv";
+import {CSVLink} from "react-csv";
 import Pagination from "../Pagination/Pagination";
 
 class TransactionTable extends Component {
@@ -16,7 +16,7 @@ class TransactionTable extends Component {
         currentPage: null,
         totalPages: null
 
-    }
+    };
 
 
 

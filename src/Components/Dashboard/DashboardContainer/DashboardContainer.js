@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import TransactionTable from "../TransactionTable/TransactionTable";
-import MessageBox from "./MessageBox/MessageBox";
 import CentralVaultCard from "../CentralVaultCard/CentralVaultCard";
 import BackUpGoalCard from "../BackUpGoalCard/BackUpGoalCard";
 import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";

@@ -3,9 +3,8 @@ import ButtonLoader from "../Buttonloader/ButtonLoader";
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from "simple-react-validator";
 import {withToastManager} from 'react-toast-notifications';
-import {ResetPasswordEndpoint, passwordResetEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
+import {LoginLink, ResetPasswordEndpoint} from "../../../RouteLinks/RouteLinks";
 import {request} from "../../../ApiUtils/ApiUtils";
-import queryString from "query-string";
 import {Redirect} from "react-router";
 
 

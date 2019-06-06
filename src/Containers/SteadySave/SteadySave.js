@@ -6,55 +6,31 @@ import settingsIcon from "../../admin/app-assets/images/svg/settings-icon-instan
 import uploadIcon from "../../admin/app-assets/images/svg/red-upload-icon.svg";
 import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySaveCard";
-import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
+import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {formatNumber, getTotalSteadySave, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import {getSteadySaveEndpoint} from "../../RouteLinks/RouteLinks";
 import SteadySaveTransTable from "../../Components/Dashboard/SteadySaveTransTable/SteadySaveTransTable";
 
 class SteadySave extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            error: false,
+            errorMessage: '',
+            accountInfo: null,
+            transactions: [],
+            userName: '',
+            totalBalance: '0.00',
+            totalSteadySave: '0.00',
+            email: null,
+            showSavingModal: false,
+            showLoader: true,
+            settings: false,
+            steadySave: {id: null,contribution: 0, start_date: "N/A", frequency: "N/A", hour_of_day: 0, payment_auth:"N/A", raw:null}
+        };
 
-
-    //show new steady save
-
-
-    // validate form
-
-
-    //call api
-
-
-    //display steady save tables
-
-
-    //add settings
-
-
-    state = {
-        error: false,
-        errorMessage: '',
-        accountInfo: null,
-        transactions: [],
-        userName: '',
-        totalBalance: '0.00',
-        totalSteadySave: '0.00',
-        email: null,
-        showSavingModal: false,
-        showLoader: true,
-        settings: false,
-        steadySave:{contribution:10000,start_date:'2016-05-12',frequency:'daily',hour_of_day:12}
-    };
-
-
-    // modal to save more button
-
-
-    // to collect new instant save
-
-
-    //
-
+    }
     hideModal = () => {
         this.setState({
                 showSavingModal: false
@@ -74,15 +50,29 @@ class SteadySave extends Component {
 
         if (state) {
             if (res) {
-                this.setState({
-                    transactions: res.data.data
-                });
-                console.log(res.data.data);
+                console.log("Data",res.data.data);
                 const totalSteadySave = getTotalSteadySave(res.data.data);
                 console.log(totalSteadySave);
                 this.setState({
-                    totalSteadySave: formatNumber(totalSteadySave)
-                })
+                    transactions: res.data.data,
+                    totalSteadySave: formatNumber(totalSteadySave),
+                    // steadySave: res.data.data.length == 0 ? {} : res.data.data[0]
+                });
+                const temp = res.data.data;
+                if(temp && temp.length > 0){
+
+                    let steadySave = {
+                        id: temp[0].id,
+                        contribution: temp[0].start_amount,
+                        frequency: temp[0].frequency,
+                        start_date: temp[0].start_date,
+                        hour_of_day: temp[0].hour_of_day,
+                        payment_auth: temp[0].gw_authorization_code,
+                        raw: temp[0]
+                    };
+
+                    this.setState({steadySave});
+                }
 
             }
 
@@ -91,7 +81,7 @@ class SteadySave extends Component {
             console.log(res);
         }
 
-    }
+    };
 
     setupSteadySave = () => {
 
@@ -203,19 +193,15 @@ class SteadySave extends Component {
 
 
     };
+
     componentDidMount() {
-
         this.setupSteadySave();
-
-
     }
-
 
     showNewSteadySaveModal = () => {
         this.setState({
             showSavingModal: true,
         })
-
     };
 
 

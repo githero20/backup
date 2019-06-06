@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 
@@ -19,7 +19,7 @@ const range = (from, to, step = 1) => {
     }
 
     return range;
-}
+};
 
 class Pagination extends Component {
 
@@ -58,22 +58,22 @@ class Pagination extends Component {
         };
 
         this.setState({ currentPage }, () => onPageChanged(paginationData));
-    }
+    };
 
     handleClick = page => evt => {
         evt.preventDefault();
         this.gotoPage(page);
-    }
+    };
 
     handleMoveLeft = evt => {
         evt.preventDefault();
         this.gotoPage(this.state.currentPage - (this.pageNeighbours * 2) - 1);
-    }
+    };
 
     handleMoveRight = evt => {
         evt.preventDefault();
         this.gotoPage(this.state.currentPage + (this.pageNeighbours * 2) + 1);
-    }
+    };
 
 
     /**
@@ -145,7 +145,7 @@ class Pagination extends Component {
 
         return range(1, totalPages);
 
-    }
+    };
 
 
     render() {

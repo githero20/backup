@@ -5,12 +5,36 @@ import listIcon from "../../admin/app-assets/images/svg/list-icon.svg";
 import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
 import greenDot from "../../admin/app-assets/images/svg/green-dot.svg";
 import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.svg";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
+
+import WithdrawalModal from "./WithdrawalModal";
 
 class Withdrawal extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            showModal:false,
+            withdrawals:[]
+        };
+
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+    }
+
+    showModal(){
+        this.setState({showModal:true});
+    }
+
+    hideModal(status = false){
+        this.setState({showModal:false});
+        if(status){
+
+        }
+    }
     render() {
         return (
             <React.Fragment>
+                <WithdrawalModal show={this.state.showModal} onHide={this.hideModal}/>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav/>
@@ -23,8 +47,6 @@ class Withdrawal extends Component {
                                    {/*<MessageBox/>*/}
                                 </div>
                             </div>
-
-
                             <div className="content-body">
                                 <div className="row">
                                     <div className="col-lg-4 col-12">
@@ -38,10 +60,8 @@ class Withdrawal extends Component {
                                     <div id="recent-sales" className="col-12 col-md-12">
                                         <div className="card">
                                             <div className="card-content mt-1 px-md-5 px-1 py-1">
-                                                <div
-                                                    className="table-header d-flex flex-column flex-md-row justify-content-between mb-3">
-
-                                <span className="table-button-container mb-2 mb-md-0">
+                                                <div className="table-header d-flex flex-column flex-md-row justify-content-between mb-3">
+                                                    <span className="table-button-container mb-2 mb-md-0">
                                      <span className="mr-1 table-grid-view-icon img-2x active">
                                          <img src={listIcon} className=" img-2x "/>
                                      </span>
@@ -53,15 +73,10 @@ class Withdrawal extends Component {
                                              className="mr-1 img-1x"/> table view
                                     </span>
                                 </span>
-                                                    <button className="round white btn-withdraw flex-grow-0 ">withdraw
+                                                    <button className="round white btn-withdraw flex-grow-0 " onClick={this.showModal}>Withdraw
                                                     </button>
-
                                                 </div>
-
                                                 <div className="box-grid-container  light-blue-bg px-md-3 py-1 ">
-
-
-
                                                     <div className="table-responsive">
                                                         <table className="table table-hover table-xl mb-0 spaced-table">
                                                             <thead>
@@ -112,8 +127,6 @@ class Withdrawal extends Component {
                                                             </tbody>
                                                         </table>
                                                     </div>
-
-
                                                     <nav aria-label="Page navigation">
                                                         <ul className=" custom-pagination pagination justify-content-center pagination-separate pagination-round pagination-flat pagination-lg mb-1">
                                                             <li className="page-item">
@@ -165,4 +178,5 @@ class Withdrawal extends Component {
         );
     }
 }
+
 export default Withdrawal;

@@ -48,7 +48,7 @@ class InstantSavingForm extends Component {
 
 
 
-    }
+    };
 
 
     //submit steady save form
@@ -61,7 +61,7 @@ class InstantSavingForm extends Component {
         if (this.validator.allValid()) {
             this.setState({
                 loading:true,
-            })
+            });
 
             request(instantSaveEndpoint, this.state.instantSaveInfo, true, 'POST', this.HandleInstantSave);
 
@@ -174,7 +174,7 @@ class InstantSavingForm extends Component {
                 instantSaveInfo:data
             })
 
-    }
+    };
 
     addNewCard = () => {
 

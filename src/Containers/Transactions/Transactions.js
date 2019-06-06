@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
-import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import BigTransactionTable from "../../Components/Dashboard/BigTransactionTable/BigTransactionTable";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getTransactionsApi} from "../../RouteLinks/RouteLinks";
@@ -12,7 +11,7 @@ class Transactions extends Component {
 
     state={
         transactions:[],
-    }
+    };
 
     //when the component mounts
 
@@ -49,7 +48,7 @@ class Transactions extends Component {
             }
         }
 
-    }
+    };
 
 
 

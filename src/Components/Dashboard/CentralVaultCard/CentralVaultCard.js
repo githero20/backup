@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import RightArrow from "../../../admin/app-assets/images/svg/arrow-right.svg";
 import BlueRightArrow from "../../../admin/app-assets/images/svg/blue-arrow-right.svg";
 import {BackupGoalsLink, InstantSaveLink, SteadySaveLink} from "../../../RouteLinks/RouteLinks";
+
 import {Link} from 'react-router-dom';
 
 class CentralVaultCard extends Component {

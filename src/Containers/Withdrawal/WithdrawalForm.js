@@ -9,23 +9,23 @@ import {withToastManager} from 'react-toast-notifications';
 
 import {createLockedSavings, getLockedInterestSavings} from "../../../../actions/LockedSavingsAction";
 
-class LockedSavingForm extends Component {
+class WithdrawalForm extends Component {
 
     constructor(props) {
         super(props);
         //TODO(get the user balance and set the max amount to that amount)
-        const {toastManager} = this.props;
-        this.toastManager = toastManager;
+        console.log(props);
+        console.log(this.props);
         this.state = {
-            loading: false,
-            dateDifference: 0,
+            loading:false,
+            dateDifference:0,
             form: {
                 title: "",
                 end_date: "",
-                amount: 0,
+                amount: null,
                 interest: 0.0,
-                days: 0,
-                interestRate: 0.0,
+                days:0,
+                interestRate:0.0,
                 accepted: false
             }
         };
@@ -48,63 +48,62 @@ class LockedSavingForm extends Component {
     //save
     //handle response
 
-    validateForm = (e) => {
+    validateForm = (e) =>{
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             // this.props.toastManager("An Error Occured");
             // rerender to show messages for the first time
             this.forceUpdate();
-        } else {
-            this.setState({loading: true});
+        }else{
+            this.setState({loading:true});
             //send api
             createLockedSavings(this.state.form, (status, payload) => {
-                this.setState({loading: false});
-                if (status) {
-                    this.toastManager.add("Locked Savings Created", {
-                        appearance: 'success',
-                    });
+                this.setState({loading:false});
+                if(status){
+                    console.log("Success", payload);
+                    //TODO(Display Success from creating savings)
                     this.props.onHide();
-                } else {
-                    this.toastManager.add(payload || "An Error Occurred", {
-                        appearance: 'error',
-                    });
+                }else{
+                    //TODO(Display Error from creating savings)
+                    console.error("Display Error", payload);
                 }
             });
         }
         console.log(this.state.form);
     };
 
-    handleDateInput(e) {
+    handleDateInput(e){
         e.preventDefault();
-        _handleFormChange("end_date", e, this);
+        _handleFormChange("end_date",e, this);
         const endDate = e.target.value;
         const dateDifference = _calculateDateDifference(null, endDate);
 
-        // console.log("enddate", endDate, dateDifference);
+        console.log("enddate", endDate, dateDifference);
         getLockedInterestSavings({days: dateDifference}, this.handleLockedSavingsInterest);
         this.setState({dateDifference: dateDifference});
         //update after
     };
 
     handleAmountInput(e) {
+        _handleFormChange("amount",e, this);
         let form = {...this.state.form};
-        form.amount = e.target.value;
         form.interestRate = ((form.interest/100) * e.target.value).toFixed(2);
         this.setState({form});
     }
 
-    handleLockedSavingsInterest(status, data) {
-        if (status) {
+    handleLockedSavingsInterest(status, data){
+        if(status){
             let form = {...this.state.form};
             form.interest = data;
-            form.interestRate = ((data / 100) * form.amount).toFixed(2);
+            form.interestRate = ((data/100) * form.amount).toFixed(2);
             form.days = this.state.dateDifference;
             this.setState({form});
-        } else {
-            this.toastManager.add("Unable to get Locked Savings Interest", {
-                appearance: 'error',
-            });
+            // console.log("payload", data.toFixed(2));
+        }else{
+            const {toastManager} = this.props;
+            console.log("Toast", toastManager);
+            //TODO("Add a toast here);
         }
 
         // toastManager.add("Data");
@@ -117,15 +116,15 @@ class LockedSavingForm extends Component {
             <React.Fragment>
                 <Form onSubmit={this.validateForm}>
                     <Form.Row>
-                        <Form.Group as={Col} controlId="formGridAddress1">
+                        <Form.Group controlId="formGridAddress1">
                             <Form.Label>Locked Savings Name: </Form.Label>
                             <Form.Control type="text"
                                           name="title"
                                           placeholder="e.g Car Savings"
-                                          onChange={value => _handleFormChange("title", value, this)}
+                                          onChange={value => _handleFormChange("title",value, this)}
                                           value={this.state.form.title}
                             />
-                            {this.validator.message("locked savings name", this.state.form.title, "required")}
+                            {this.validator.message("locked savings name",this.state.form.title,"required")}
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridEmail">
                             <Form.Label>Maturity Date</Form.Label>
@@ -139,7 +138,7 @@ class LockedSavingForm extends Component {
                             <Form.Text className="text-muted">
                                 Enter the maturity date when funds should be returned to your BackupCash savings.
                             </Form.Text>
-                            {this.validator.message("maturity date", this.state.form.end_date, "required")}
+                            {this.validator.message("maturity date",this.state.form.end_date,"required")}
                         </Form.Group>
 
                     </Form.Row>
@@ -153,10 +152,9 @@ class LockedSavingForm extends Component {
                                 value={this.state.form.amount}
 
                             />
-                            {this.validator.message("capital investment", this.state.form.amount, "required")}
+                            {this.validator.message("capital investment",this.state.form.amount,"required")}
                             <Form.Text className="text-muted">
-                                Enter the amount that will be instantly removed from your BackupCash "Central Vault"
-                                balance and locked away.
+                                Enter the amount that will be instantly removed from your BackupCash "Central Vault" balance and locked away.
                             </Form.Text>
                         </Form.Group>
                         <Form.Group as={Col} sm={6} controlId="formGridCity">
@@ -167,8 +165,7 @@ class LockedSavingForm extends Component {
                                 value={`${this.state.form.interestRate} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days`}
                             />
                             <Form.Text className="text-muted">
-                                This upfront interest will be deposited in your BackupCash "Central Vault" and can be
-                                withdrawn immediately.
+                                This upfront interest will be deposited in your BackupCash "Central Vault" and can be withdrawn immediately.
                             </Form.Text>
                         </Form.Group>
                     </Form.Row>
@@ -177,27 +174,27 @@ class LockedSavingForm extends Component {
                             <Form.Check
                                 type="checkbox"
                                 checked={this.state.form.accepted}
-                                onChange={value => _handleFormChange("accepted", value, this)}
+                                onChange={value => _handleFormChange("accepted",value, this)}
                                 label={<Form.Text>
-                                    I hereby confirm and approve this transaction, and I authorize SFS BackupCash to
-                                    LOCK ₦
-                                    <span>{this.state.form.amount}</span> &nbsp; from my BackupCash savings immediately
-                                    and return it in full on the date I set in the "Maturity Date"
+                                    I hereby confirm and approve this transaction, and I authorize SFS BackupCash to LOCK ₦
+                                    <span>{this.state.form.amount}</span> &nbsp; from my BackupCash savings immediately and return it in full on the date I set in the "Maturity Date"
                                     above. This transaction is IRREVERSIBLE.
                                     <br/>
-                                    NB: Funds in "Locked Savings" cannot be accessed until maturity date. Locked Funds
-                                    will be sent back to your BackupCash "Central Vault" on maturity date.
-                                </Form.Text>}/>
-                            {this.validator.message("terms and condition", this.state.form.accepted, "accepted")}
+                                    NB: Funds in "Locked Savings" cannot be accessed until maturity date. Locked Funds will be sent back to your BackupCash "Central Vault" on maturity date.
+                                </Form.Text>} />
+                            {this.validator.message("terms and condition",this.state.form.accepted,"accepted")}
 
                         </Form.Group>
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-between mt-2'}>
                         <div>
-                            <Button onClick={this.props.onHide} className={'mr-1 round reset-btn'}>Reset All</Button>
+                            <Button onClick={this.props.onHide} className={'mr-1 round'}>Reset All</Button>
                         </div>
                         <div className={'d-flex justify-content-end'}>
-                            <Button className="round btn-custom-blue " type="submit">
+                            <Button onClick={this.props.onHide}
+                                    className={'mr-1 round btn-gradient-blue'}>Close</Button>
+
+                            <Button className={'round btn-gradient-blue '} type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Start Saving"}
                             </Button>
                         </div>
@@ -211,7 +208,7 @@ class LockedSavingForm extends Component {
 }
 
 
-const FormWithToast = withToastManager(LockedSavingForm);
+const FormWithToast = withToastManager(WithdrawalForm);
 
 // export default LoginWithToast;
 export default FormWithToast;

@@ -107,13 +107,24 @@ class SteadySave extends Component {
             console.log('there is user info');
             console.log(JSON.parse(getLocalStorage(USERINFO)));
             let userInfo = JSON.parse(getLocalStorage(USERINFO));
-            let data = JSON.parse(getLocalStorage(USERINFO));
+
 
                             console.log(data);
                             this.setState({
                                 userName: data.name,
                             });
+            console.log('got here to retrieve it ');
+            let data = JSON.parse(getLocalStorage(USERINFO));
 
+            if (data.accounts !== null || data.accounts !== undefined) {
+                console.log(data);
+                this.setState({
+                    accountInfo: data.accounts,
+                    userName: data.name,
+
+                });
+                this.analyseSteadySaveInfo(data);
+            }
         }
         //
         //     if (getLocalStorage(USERACTIVATED)) {

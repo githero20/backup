@@ -62,19 +62,6 @@ class BankCardSetting extends Component {
     }
 
     render() {
-        const banksTemplate = this.state.banks.length == 0
-            ? <h4 className="card-text mt-5 text-center setting-header px-5 light-gray">You
-                currently do not have any banks accounts Added</h4>
-            :this.state.banks.map(bank => {
-                return (
-                    <div>
-                        <p>Bank Name:</p>
-                        <h3>{bank.bank}</h3>
-                        <p>Account Number:</p>
-                        <h3>{bank.bank_number}</h3>
-                    </div>
-                );
-            });
         return (
 
 

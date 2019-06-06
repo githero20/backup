@@ -50,34 +50,48 @@ class BackupGoals extends Component {
             });
             console.log('there is user info');
             console.log(JSON.parse(getLocalStorage(USERINFO)));
+            let data = JSON.parse(getLocalStorage(USERINFO));
 
-            if(getLocalStorage(USERACTIVATED)){
+            if (data.accounts !== null || data.accounts !== undefined) {
+                console.log(data);
+                this.setState({
+                    accountInfo: data.accounts,
+                    userName:data.name,
 
-                let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if(status===false){
-                    let userInfo = JSON.parse(getLocalStorage(USERINFO));
-                    //show activation modal
-                    this.setUpActivation(true,userInfo.email);
-
-                }else if(status===true){
-                    console.log('got here to retrieve it ');
-                    let data = JSON.parse(getLocalStorage(USERINFO));
-
-                    if (data.accounts !== null || data.accounts !== undefined) {
-                        console.log(data);
-                        this.setState({
-                            accountInfo: data.accounts,
-                            userName:data.name,
-
-                        });
+                });
 
 
 
 
-                    }
-
-                }
             }
+
+            // if(getLocalStorage(USERACTIVATED)){
+            //
+            //     let status = JSON.parse(getLocalStorage(USERACTIVATED));
+            //     if(status===false){
+            //         let userInfo = JSON.parse(getLocalStorage(USERINFO));
+            //         //show activation modal
+            //         this.setUpActivation(true,userInfo.email);
+            //
+            //     }else if(status===true){
+            //         console.log('got here to retrieve it ');
+            //         let data = JSON.parse(getLocalStorage(USERINFO));
+            //
+            //         if (data.accounts !== null || data.accounts !== undefined) {
+            //             console.log(data);
+            //             this.setState({
+            //                 accountInfo: data.accounts,
+            //                 userName:data.name,
+            //
+            //             });
+            //
+            //
+            //
+            //
+            //         }
+            //
+            //     }
+            // }
 
 
         }else{
@@ -88,18 +102,18 @@ class BackupGoals extends Component {
             });
             console.log('didnt see usr info');
             //check if user is activated
-            if(getLocalStorage(USERACTIVATED)){
-
-                let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if(status===false){
-                    //show activation modal
-                    this.setUpActivation(true,null);
-                }else if(status===true){
-                    console.log('got here to retrieve it ');
-                    let data = JSON.parse(getLocalStorage(USERINFO));
-
-                }
-            }
+            // if(getLocalStorage(USERACTIVATED)){
+            //
+            //     let status = JSON.parse(getLocalStorage(USERACTIVATED));
+            //     if(status===false){
+            //         //show activation modal
+            //         this.setUpActivation(true,null);
+            //     }else if(status===true){
+            //         console.log('got here to retrieve it ');
+            //         let data = JSON.parse(getLocalStorage(USERINFO));
+            //
+            //     }
+            // }
 
 
         }

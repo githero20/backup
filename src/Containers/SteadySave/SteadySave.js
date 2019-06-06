@@ -4,10 +4,10 @@ import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 
 import settingsIcon from "../../admin/app-assets/images/svg/settings-icon-instant-save.svg";
 import uploadIcon from "../../admin/app-assets/images/svg/red-upload-icon.svg";
-
+import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySaveCard";
+import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {formatNumber, getTotalSteadySave} from "../../Helpers/Helper";
-import {request} from "../../ApiUtils/ApiUtils";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import {getSteadySaveEndpoint} from "../../RouteLinks/RouteLinks";
@@ -98,12 +98,23 @@ class SteadySave extends Component {
         request(getSteadySaveEndpoint, null, true, 'GET', this.handleSteadySave);
         console.log('setting up steady Save');
         // get data from localStorage
-        // if (getLocalStorage(USERINFO)) {
-        //     this.setState({
-        //         showLoader: false,
-        //     });
-        //     console.log('there is user info');
-        //     console.log(JSON.parse(getLocalStorage(USERINFO)));
+
+
+        if (getLocalStorage(USERINFO)) {
+            this.setState({
+                showLoader: false,
+            });
+            console.log('there is user info');
+            console.log(JSON.parse(getLocalStorage(USERINFO)));
+            let userInfo = JSON.parse(getLocalStorage(USERINFO));
+            let data = JSON.parse(getLocalStorage(USERINFO));
+
+                            console.log(data);
+                            this.setState({
+                                userName: data.name,
+                            });
+
+        }
         //
         //     if (getLocalStorage(USERACTIVATED)) {
         //

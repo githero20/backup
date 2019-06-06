@@ -7,7 +7,7 @@ import uploadIcon from "../../admin/app-assets/images/svg/red-upload-icon.svg";
 import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySaveCard";
 import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
-import {formatNumber, getTotalSteadySave} from "../../Helpers/Helper";
+import {formatNumber, getTotalSteadySave, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import {getSteadySaveEndpoint} from "../../RouteLinks/RouteLinks";
@@ -105,17 +105,14 @@ class SteadySave extends Component {
                 showLoader: false,
             });
             console.log('there is user info');
-            console.log(JSON.parse(getLocalStorage(USERINFO)));
-            let userInfo = JSON.parse(getLocalStorage(USERINFO));
 
 
-                            console.log(data);
-                            this.setState({
-                                userName: data.name,
-                            });
             console.log('got here to retrieve it ');
             let data = JSON.parse(getLocalStorage(USERINFO));
-
+            this.setState({
+                userName: data.name,
+            });
+            console.log(data);
             if (data.accounts !== null || data.accounts !== undefined) {
                 console.log(data);
                 this.setState({
@@ -175,6 +172,37 @@ class SteadySave extends Component {
 
     };
 
+    analyseSteadySaveInfo = (data) => {
+
+
+        if (data.accounts) {
+
+            // loop through data and set appropriate states
+            let accounts = data.accounts.data;
+
+            console.log(data);
+            let transactions = data.transactions.data;
+
+
+            this.setState({
+                transactions,
+            });
+
+            accounts.map((content, idx) => {
+                if (content.account_type_id === STANDARD_ACCOUNT) {
+                    this.setState({
+                        totalBalance: formatNumber(content.balance)
+                    })
+                }
+
+            });
+        } else {
+            console.log(data);
+            return null;
+        }
+
+
+    };
     componentDidMount() {
 
         this.setupSteadySave();

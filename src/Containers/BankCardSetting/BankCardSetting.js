@@ -6,7 +6,7 @@ import menuIcon from "../../admin/app-assets/images/svg/three-dot-icon.svg";
 import visaImage from "../../admin/app-assets/images/svg/visa.svg";
 import masterCardImage from "../../admin/app-assets/images/svg/mastercard.svg";
 import BankModal from "./Bank/BankModal";
-
+import {ToastProvider, withToastManager} from 'react-toast-notifications';
 class BankCardSetting extends Component {
 
     constructor(props) {
@@ -45,7 +45,9 @@ class BankCardSetting extends Component {
     render() {
         return (
             <React.Fragment>
-                <BankModal show={this.state.showBankModal} onHide={this.hideBankModal}/>
+                {/*<ToastProvider>*/}
+                    <BankModal show={this.state.showBankModal} onHide={this.hideBankModal}/>
+                {/*</ToastProvider>*/}
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav/>

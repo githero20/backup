@@ -100,8 +100,8 @@ class BankForm extends Component {
             this.setState({form});
             // console.log("payload", data.toFixed(2));
         }else{
-            const {toastManager} = this.props;
-            console.log("Toast", toastManager);
+            // const {toastManager} = this.props;
+            // console.log("Toast", toastManager);
             //TODO("Add a toast here);
         }
 
@@ -210,4 +210,4 @@ class BankForm extends Component {
 const FormWithToast = withToastManager(BankForm);
 
 // export default LoginWithToast;
-export default FormWithToast;
+export default BankForm;

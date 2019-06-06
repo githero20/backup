@@ -6,7 +6,7 @@ import avatar from "../../admin/app-assets/images/avatar@2x.png";
 import editIcon from "../../admin/app-assets/images/svg/edit-icon.svg";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import AvatarImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
-import ProfileForm from "../../Components/Dashboard/ProfileForm";
+import ProfileForm from "../../Components/Dashboard/ProfileForm/ProfileForm";
 
 
 class ProfileSetting extends Component {

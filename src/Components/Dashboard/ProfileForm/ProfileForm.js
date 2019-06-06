@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import AvatarImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
-import deleteIcon from "../../admin/app-assets/images/svg/delete-icon.svg";
-import editIcon from "../../admin/app-assets/images/svg/edit-icon.svg";
+import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
+import deleteIcon from "../../../admin/app-assets/images/svg/delete-icon.svg";
+import editIcon from "../../../admin/app-assets/images/svg/edit-icon.svg";
 
 
 function setupProfile(data) {

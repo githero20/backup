@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
-import backupCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
+import backupCashLogo from "../../admin/app-assets/images/Logo.png";
 import illustration1 from "../../admin/app-assets/images/svg/backupcash-illustration-1.svg";
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
 import securityIcon from "../../admin/app-assets/images/svg/security-icon.svg";

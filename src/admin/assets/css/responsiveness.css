@@ -5,8 +5,35 @@
 
 @media only screen and (max-width: 599px) {
 
+    /* mobile menu */
+    .header-navbar .navbar-header .navbar-brand {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        padding-top: 0.6rem;
+        transform: translate(0);
+    }
+    .header-navbar .navbar-header .menu-toggle {
+        position: relative;
+        top: 58%;
+    }
+    .menu-title{
+        color: white;
+    }
 
-
+    /*bank card */
+    .bank-card {
+        border-radius: 1rem;
+        min-height: 150px;
+        width: 90%;
+        margin: 1rem auto !important;
+        padding: .4rem .5rem;
+        box-shadow: 0.5rem 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
+        transition: all .5s ease;
+    }
+    .header-navbar .navbar-header .navbar-brand .brand-logo {
+        width: 44%;
+    }
 }
 
 
@@ -27,5 +54,16 @@
 @media only screen and (min-width: 900px) and (max-width: 1200px) {
 
 
+
+}
+
+@media only screen and (min-width: 1300px) {
+
+    .saved-text{
+        width:80%;
+    }
+    .active-text{
+        width: 100%;
+    }
 
 }

@@ -15,7 +15,7 @@ class VerticalNav extends Component {
 
     //state to show inner nav when click and display active nav
     state = {
-        open:'open',
+        open:'',
     };
 
     showActiveMenu = () => {
@@ -49,6 +49,13 @@ class VerticalNav extends Component {
         return this.props.location.pathname === path ? 'active' : '';
     };
 
+    showUserMenu = () =>{
+
+
+        //show toggle menu
+        let mobileMenu = document.querySelector('.mobile-user');
+        mobileMenu.classList.toggle('open');
+    }
 
 
     render() {
@@ -57,13 +64,13 @@ class VerticalNav extends Component {
                 <div className="main-menu menu-fixed menu-dark menu-accordion menu-shadow">
                     <div className="main-menu-content">
                         <ul className="navigation navigation-main" id="main-menu-navigation">
-                            <li className="nav-item has-sub d-md-none open">
-                                <button>
+                            <li className="nav-item has-sub mobile-user d-md-none " onClick={this.showUserMenu}>
+                                <a>
                                     <span className="avatar avatar-online">
                                         <img src={avatar} alt="avatar"/><i></i>
                                     </span>
                                     <span className="menu-title">Susan Stark</span>
-                                </button>
+                                </a>
                                 <ul className="menu-content">
                                     <li className="is-shown"><a className="menu-item" href="profile.html">Profile</a>
                                     </li>

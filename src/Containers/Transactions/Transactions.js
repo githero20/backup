@@ -74,7 +74,8 @@ class Transactions extends Component {
                             <div className="row mb-4">
                                 <div className="col-12">
 
-                                    <MessageBox/>
+                                    {/*messgae box*/}
+                                    {/*<MessageBox/>*/}
 
                                 </div>
                             </div>

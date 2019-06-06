@@ -69,7 +69,10 @@ class LockedSavings extends Component {
                     <div className="app-content content">
                         <div className="content-wrapper">
                             {/* TODO(This should be a component on its own)*/}
-                            <MessageBox />
+                            {/*<MessageBox />*/}
+                            <div className="row mb-4">
+                                <div className="col-12"></div>
+                            </div>
 
                             <div className="content-body">
                                 <div className="row">

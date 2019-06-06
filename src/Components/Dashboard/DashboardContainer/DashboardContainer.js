@@ -69,11 +69,12 @@ class DashboardContainer extends Component {
                             </div>
 
                             <div className="row">
-                                <TransactionTable transactions={transactions}/>
                                 <div className="col-md-4 col-lg-4 col-12 order-md-8">
                                     <TotalSavingsBlueCard totalSavings={vaultAmount}/>
                                     <TotalInterestCard totalInterest={totalInterest}/>
                                 </div>
+                                <TransactionTable transactions={transactions}/>
+
                             </div>
 
 

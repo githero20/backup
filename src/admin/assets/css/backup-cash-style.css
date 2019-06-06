@@ -12,9 +12,7 @@
     src: url("../../app-assets/fonts/app-fonts/Product Sans Regular.ttf");
 }
 
-#root {
-    background-color: #F7FBFF;
-}
+
 .homeBody {
     font-family: "Product Sans", "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif,
@@ -650,10 +648,10 @@ footer-logo {
     }
 
 
-    .btn {
-        padding: 1rem 2rem;
-        font-size: 1rem;
-    }
+    /*.btn {*/
+    /*    padding: 1rem 2rem;*/
+    /*    font-size: 1rem;*/
+    /*}*/
     .partner-img{
         margin-bottom: 3rem;
         width:50%;
@@ -698,7 +696,7 @@ footer-logo {
         outline: none;
     }
 
-    .navbar .navbar-collapse {
+    .home-nav .navbar-collapse {
         position: fixed;
         top: 0;
         left: 0;
@@ -919,7 +917,7 @@ footer-logo {
     }
 
     .navbar-brand img {
-        width: 100%;
+        width: 150px;
     }
 
     .footer-header,

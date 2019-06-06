@@ -218,7 +218,11 @@ class InstantSave extends Component {
                 <div className="app-content content ">
                     <div className="content-wrapper">
 
-                        <MessageBox/>
+                        {/* message baox*/}
+                        {/*<MessageBox/>*/}
+                        <div className="row mb-4">
+                            <div className="col-12"></div>
+                        </div>
 
                         {
                             this.state.showSavingModal ?

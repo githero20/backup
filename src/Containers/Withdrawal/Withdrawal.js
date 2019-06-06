@@ -5,6 +5,7 @@ import listIcon from "../../admin/app-assets/images/svg/list-icon.svg";
 import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
 import greenDot from "../../admin/app-assets/images/svg/green-dot.svg";
 import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.svg";
+import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 
 class Withdrawal extends Component {
     render() {
@@ -18,15 +19,8 @@ class Withdrawal extends Component {
                         <div className="content-wrapper">
                             <div className="row mb-4">
                                 <div className="col-12">
-                                    <div
-                                        className="bg-white shadow-sm dashboard-callout callout-border-right clearfix callout-round callout-transparent mt-1 px-2 py-2 py-1">
-                                        <strong>Congrats! </strong>
-                                        <span className="mr-3">you referred 5 persons from [ 1 -2-2019 to 5-2-2019 ] ,
-                        <span className="admin-purple d-block d-md-inline">Your referral points earned</span> </span>
-                                        <span className=" d-block d-md-inline">25 points</span>
-                                        <label className="pull-right"><span className="mr-2"> copy referral code</span>
-                                            <span className="code-btn">AEC45SF</span></label>
-                                    </div>
+                                   {/* message box */}
+                                   {/*<MessageBox/>*/}
                                 </div>
                             </div>
 

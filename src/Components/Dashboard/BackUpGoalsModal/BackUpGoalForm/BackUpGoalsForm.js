@@ -8,6 +8,7 @@ import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
 import {createBackUpGoal} from "../../../../actions/BackUpGoalsAction";
+import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 
 
 class BackUpGoalsForm extends Component {
@@ -33,6 +34,7 @@ class BackUpGoalsForm extends Component {
             showMonth: false,
             showDay: false,
             showHour: true,
+            loading:false,
 
         };
         this.reset = this.reset.bind(this);
@@ -109,9 +111,19 @@ class BackUpGoalsForm extends Component {
             // rerender to show messages for the first time
             this.forceUpdate();
         } else {
+
+            //show loader
+            this.setState({
+                loading:true,
+            });
+
             createBackUpGoal(this.state.form, (status, payload) =>{
                 const {toastManager} = this.props;
+                    //remove loader
 
+                    this.setState({
+                        loading:false,
+                    });
                 console.log("Res", status, payload);
                 if(status){
                     toastManager.add("Backup Goal Saved.", {
@@ -280,6 +292,7 @@ class BackUpGoalsForm extends Component {
                                 name={'title'}
                                 id={'title'}
                                 onChange={this.changeHandler}
+                                placeholder={'e.g School fees'}
                                 value={title}
                             />
                             {this.validator.message('title', title, 'required|string')}
@@ -375,9 +388,10 @@ class BackUpGoalsForm extends Component {
                             <Button onClick={this.reset} className={'mr-1 round reset-btn'}>Reset All</Button>
                         </div>
                         <div className={'d-flex justify-content-end'}>
-                            <Button onClick={this.props.onHide} className={'mr-1 round btn-outline-gray'}>Close</Button>
-                            <Button className={'round btn-custom-blue'} type="submit">
-                                Start Saving
+                            <Button className={'round btn-custom-blue modal-btn'} type="submit">
+                                {this.state.loading?<ButtonLoader/>:
+                                    <span>Start Saving</span>}
+
                             </Button>
                         </div>
 

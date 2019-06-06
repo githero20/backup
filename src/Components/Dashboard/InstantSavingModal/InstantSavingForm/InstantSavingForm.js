@@ -19,7 +19,7 @@ class InstantSavingForm extends Component {
 
     state = {
         instantSaveInfo: {
-            amount: 500,
+            amount: null,
             payment_auth: null,
             source:'quick',
         },
@@ -255,23 +255,12 @@ class InstantSavingForm extends Component {
                                 <Form.Group className={'mt-md-1 mb-md-3'}>
                                     <Form.Label>Amount</Form.Label>
 
-                                    <Form.Control type="number" name={'amount'} step={5} min={500} max={1000} id={'amount'} value={amount} onChange={this.changeHandler} />
+                                    <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'} value={amount} onChange={this.changeHandler} />
                                     {this.validator.message('amount', amount, 'required|numeric')}
 
                                 </Form.Group>
                             </Col>
                     </Form.Row>
-
-                    {/*slider */}
-                    <div className="row ">
-                        <div className="col ">
-                            <Form.Group className={'mt-md-1 mb-md-3'}>
-                                <div className="slidecontainer">
-                                    <input type="range" min={500} step={5}   value={amount} onChange={this.changeHandler} className="slider mt-1-md mb-3-md" name={'amount'} id="amountSlider"/>
-                                </div>
-                            </Form.Group>
-                        </div>
-                    </div>
 
 
                     <Form.Row >

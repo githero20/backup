@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Logo from "../../../admin/app-assets/images/svg/backupCashlogo.svg";
+import Logo from "../../../admin/app-assets/images/Logo.png";
 import ProfileIcon from "../../../admin/app-assets/images/svg/profile-icon.svg";
 import LogOutIcon from "../../../admin/app-assets/images/svg/logout-cion.svg";
 import KycIcon from "../../../admin/app-assets/images/svg/kyc-icon.svg";
@@ -12,7 +12,8 @@ class HorizontalNav extends Component {
     //state to display user menu when clicked
     state = {
         show:'',
-        redirectLogin:false
+        redirectLogin:false,
+        toggleMenu:false,
     };
     //toggle profile menu
     toggleSubMenu=()=>{
@@ -34,7 +35,16 @@ class HorizontalNav extends Component {
     };
 
 
+    showMobileMenu = () => {
 
+        //add is-active on
+        let nav = document.querySelector('.navbar-toggler');
+        nav.classList.toggle('is-active');
+
+        //show toggle menu
+        let mobileMenu = document.querySelector('.vertical-menu-modern');
+        mobileMenu.classList.toggle('menu-open');
+    }
 
 
     render() {
@@ -54,15 +64,22 @@ class HorizontalNav extends Component {
         }
         return (
             <React.Fragment>
-
                 <nav
                     className="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-dark navbar-white navbar-shadow">
                     <div className="navbar-wrapper">
                         <div className="navbar-header expanded">
                             <ul className="nav navbar-nav flex-row position-relative">
+
                                 <li className="nav-item mobile-menu d-md-none ml-auto order-4">
-                                    <button className="nav-link nav-menu-main menu-toggle hidden-xs" >
-                                        <i className="ft-menu font-large-1"></i></button>
+                                    {/*<button className="nav-link nav-menu-main menu-toggle hidden-xs" >*/}
+                                    {/*    <i className="ft-menu font-large-1"></i></button>*/}
+                                    <a type="button" onClick={this.showMobileMenu} className="hamburger hamburger--slider menu-toggle navbar-toggler"
+                                       data-toggle="collapse" data-aria-controls="navbarSupportedContent"
+                                       aria-expanded="false" aria-label="Toggle navigation">
+                                    <span className="hamburger-box">
+                                        <span className="hamburger-inner"></span>
+                                    </span>
+                                    </a>
                                 </li>
                                 <li className="nav-item mr-auto">
                                     <Link to={'/'} className="navbar-brand" href="index.html">
@@ -71,6 +88,7 @@ class HorizontalNav extends Component {
                                     </Link>
                                 </li>
                                 <li className="nav-item d-none  d-md-block nav-toggle">
+
                                 </li>
                                 <li className="nav-item d-none">
                                     <button className="nav-link open-navbar-container" data-toggle="collapse"

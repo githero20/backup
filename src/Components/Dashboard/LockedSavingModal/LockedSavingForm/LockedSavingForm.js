@@ -198,9 +198,6 @@ class LockedSavingForm extends Component {
                             <Button onClick={this.props.onHide} className={'mr-1 round reset-btn'}>Reset All</Button>
                         </div>
                         <div className={'d-flex justify-content-end'}>
-                            <Button onClick={this.props.onHide}
-                                    className={'mr-1 round btn-outline-gray'}>Close</Button>
-
                             <Button className="round btn-custom-blue " type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Start Saving"}
                             </Button>

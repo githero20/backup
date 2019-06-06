@@ -27,7 +27,7 @@ class SteadySave extends Component {
             showSavingModal: false,
             showLoader: true,
             settings: false,
-            steadySave: {id: null,contribution: 0, start_date: "N/A", frequency: "N/A", hour_of_day: 0, payment_auth:"N/A"}
+            steadySave: {id: null,contribution: 0, start_date: "N/A", frequency: "N/A", hour_of_day: 0, payment_auth:"N/A", raw:null}
         };
 
     }
@@ -67,7 +67,8 @@ class SteadySave extends Component {
                         frequency: temp[0].frequency,
                         start_date: temp[0].start_date,
                         hour_of_day: temp[0].hour_of_day,
-                        payment_auth: temp[0].gw_authorization_code
+                        payment_auth: temp[0].gw_authorization_code,
+                        raw: temp[0]
                     };
 
                     this.setState({steadySave});

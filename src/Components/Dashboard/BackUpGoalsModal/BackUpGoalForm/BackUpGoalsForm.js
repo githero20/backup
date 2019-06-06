@@ -19,8 +19,8 @@ class BackUpGoalsForm extends Component {
         this.validator = new SimpleReactValidator();
         this.state = {
             form: {
-                start_date: "2019-06-12",
-                maturity_date: "2019-12-12",
+                start_date: null,
+                maturity_date: null,
                 title: "Car Savings",
                 payment_auth: null,
                 frequency: 'daily',

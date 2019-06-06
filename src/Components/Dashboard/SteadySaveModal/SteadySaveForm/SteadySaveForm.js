@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
-import {ContinueSteadySave, EditSteadySave, PauseSteadySave, StopSteadySave,} from "../../../../RouteLinks/RouteLinks";
-import {getLocalStorage, request} from "../../../../ApiUtils/ApiUtils";
+import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 import {formatNumber, transformHour} from "../../../../Helpers/Helper";
+import {continueSteadySave, pauseSteadySave, stopSteadySave} from "../../../../actions/SteadySaveAction";
 
 
 class SteadySaveForm extends Component {
@@ -14,64 +14,13 @@ class SteadySaveForm extends Component {
     constructor(props){
         super(props);
         console.log("props",props);
+        this.toastManager = this.props.toastManager;
         this.state = {
             disableStartDate:false,
-            steadySaveInfo: {
-                title: 'steady savings',
-                hour_of_day: '12',
-                start_date: '2016-03-03',
-                frequency: 'daily',
-                token: '',
-                source: 'auto save',
-                email: "",
-                contribution: 100000,
-            },
-            showEditInput: false,
-        };
+            loading:false,
+        };        console.log("props",props);
 
-        // this.validator = new SimpleReactValidator();
     }
-    //validate form
-    //submit steady save form
-    // submitForm = (e) => {
-    //     e.preventDefault();
-    //     if (this.validator.allValid()) {
-    //         request(NewSteadySaveEndpoint, this.state.steadySaveInfo, true, 'POST', this.HandleBackUpGoal);
-    //     } else {
-    //         this.validator.showMessages();
-    //         // rerender to show messages for the first time
-    //         this.forceUpdate();
-    //     }
-    //
-    // };
-
-
-    //call api
-
-
-    //handle response
-    HandleBackUpGoal = (state, response) => {
-
-        const {toastManager} = this.props;
-
-        if (state) {
-            console.log(response);
-            toastManager.add(`${JSON.stringify(response.data.message)}`, {
-                appearance: 'success',
-            });
-
-        } else {
-
-            if (response) {
-                console.log(JSON.stringify(response));
-                toastManager.add(`${JSON.stringify(response.data.message)}`, {
-                    appearance: 'error',
-                });
-            }
-
-        }
-    };
-
 
     //Retrieves user inputs
     changeHandler = event => {
@@ -79,28 +28,12 @@ class SteadySaveForm extends Component {
         const name = event.target.name;
         const value = event.target.value;
 
-        //handle frequency selection
-        // this.handleFrequencySelect();
-
-
         //copy states object
         const data = {...this.state.steadySaveInfo};
         data[name] = value;
-        //get select data
-        //manipulate object and set the state object
-
         this.setState({
             steadySaveInfo: data
         });
-    };
-
-
-    editUIActions = () => {
-
-        this.setState({
-            showEditInput: true
-        })
-
     };
 
     handleEdit = (e) => {
@@ -108,56 +41,72 @@ class SteadySaveForm extends Component {
         this.props.onEdit(true);
     };
 
-    editSteadySave = () => {
-        const id = this.props.id;
-        //call api
-        request(`${EditSteadySave}${id}`, null, true, 'GET', this.handleResponse)
-    };
-
-    handleResponse = (status, res) => {
-        if (status) {
-            console.log(res);
-            this.setState({
-                showEditInput: false,
-            });
-        } else {
-
-            this.setState({
-                showEditInput: false,
-            });
-        }
-
-
-    };
-
-    handleContinue = () => {
-        const id = this.props.id;
-        //show modal to confirm
-
-        request(`${ContinueSteadySave}${id}`, null, true, 'GET', this.handleResponse)
-
-
+    handleContinue = (e) => {
+        e.preventDefault();
+        this.setState({loading:true});
+        continueSteadySave(this.props.steadySave.id,(status, payload) => {
+            this.setState({loading:false});
+            if(!status){
+                this.toastManager.add(payload,{
+                    appearance: "error",
+                    autoDismiss: true,
+                    autoDismissTimeout:5000
+                });
+            }else{
+                this.toastManager.add("Steady Saving Updated Successfully",{
+                    appearance: "success",
+                    autoDismiss: true,
+                    autoDismissTimeout:5000
+                });
+                setTimeout(this.props.onHide,3000);
+            }
+        });
     };
 
 
-    handlePause = () => {
-        const id = this.props.id;
-
-        // show modal to confirm
-        request(`${PauseSteadySave}${id}`, null, true, 'GET', this.handleResponse)
-
-
+    handlePause = (e) => {
+        e.preventDefault();
+        this.setState({loading:true});
+        pauseSteadySave(this.props.steadySave.id,(status, payload) => {
+            this.setState({loading:false});
+            if(!status){
+                this.toastManager.add(payload,{
+                    appearance: "error",
+                    autoDismiss: true,
+                    autoDismissTimeout:5000
+                });
+            }else{
+                this.toastManager.add("Steady Saving Paused Successfully",{
+                    appearance: "success",
+                    autoDismiss: true,
+                    autoDismissTimeout:5000
+                });
+                setTimeout(this.props.onHide,3000);
+            }
+        });
     };
 
 
-    handleStop = () => {
-        //show modal to confirm
-        const id = this.props.id;
-
-        //call
-        request(`${StopSteadySave}${id}`, null, true, 'GET', this.handleResponse)
-
-
+    handleStop = (e) => {
+        e.preventDefault();
+        this.setState({loading:true});
+        stopSteadySave(this.props.steadySave.id,(status, payload) => {
+            this.setState({loading:false});
+            if(!status){
+                this.toastManager.add(payload,{
+                    appearance: "error",
+                    autoDismiss: true,
+                    autoDismissTimeout:5000
+                });
+            }else{
+                this.toastManager.add("Steady Saving Stopped Successfully",{
+                    appearance: "success",
+                    autoDismiss: true,
+                    autoDismissTimeout:5000
+                });
+                setTimeout(this.props.onHide,3000);
+            }
+        });
     };
 
 
@@ -169,7 +118,7 @@ class SteadySaveForm extends Component {
         if (JSON.parse(getLocalStorage(USERINFO))) {
             this.setState({
                 userCards: userInfo.authorization.data
-            })
+            });
         }
     }
 
@@ -177,7 +126,6 @@ class SteadySaveForm extends Component {
 
         const {start_date, hour_of_day, contribution, frequency} = this.props.steadySave;
         const customDisable = !this.props.steadySave.id;
-        console.log(this.props.steadySave);
         return (
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
@@ -230,7 +178,7 @@ class SteadySaveForm extends Component {
                             <button className='btn btn-sm btn-warning ml-1' disabled={customDisable} onClick={this.handlePause}>
                                 Pause
                             </button>
-                            <button className='btn btn-sm btn-danger ml-1'  disabled={customDisable}onClick={this.handleStop}>
+                            <button className='btn btn-sm btn-danger ml-1'  disabled={customDisable} onClick={this.handleStop}>
                                 Stop
                             </button>
                         </div>

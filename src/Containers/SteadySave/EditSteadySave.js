@@ -115,7 +115,7 @@ class SteadySaveForm extends Component {
                         autoDismissTimeout:3000,
                         autoDismiss:true
                     });
-
+                    setTimeout(this.props.onHide,3000);
                     //set timeout
                 }
                 console.log("res", status, payload);
@@ -125,31 +125,6 @@ class SteadySaveForm extends Component {
         }
 
     };
-
-
-    //handle response
-    HandleBackUpGoal = (state, response) => {
-
-        const {toastManager} = this.props;
-
-        if (state) {
-            console.log(response);
-            toastManager.add(`${JSON.stringify(response.data.message)}`, {
-                appearance: 'success',
-            });
-
-        } else {
-
-            if (response) {
-                console.log(JSON.stringify(response));
-                toastManager.add(`${JSON.stringify(response.data.message)}`, {
-                    appearance: 'error',
-                });
-            }
-
-        }
-    };
-
 
     render() {
         const showHour = (
@@ -306,6 +281,7 @@ class SteadySaveForm extends Component {
                                     as="select"
                                     onChange={this.changeHandler}
                                     defaultValue={this.state.form.payment_auth}
+                                    value={this.state.form.payment_auth}
                                     name={'payment_auth'}
                                 >
                                     <option value={""} >Select Card</option>

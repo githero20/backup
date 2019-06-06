@@ -1,5 +1,13 @@
 import {_axios} from "../utils";
-import {BASE_URL, CreateLockedSavings, EditSteadySave, GetLockedSavings} from "../RouteLinks/RouteLinks";
+import {
+    BASE_URL,
+    ContinueSteadySave,
+    CreateLockedSavings,
+    EditSteadySave,
+    GetLockedSavings,
+    PauseSteadySave,
+    StopSteadySave
+} from "../RouteLinks/RouteLinks";
 
 
 export const updateSteadySave = (id,payload, callback) =>{
@@ -7,7 +15,7 @@ export const updateSteadySave = (id,payload, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.put(`${EditSteadySave}/${id}`,payload)
+    _axios.post(`${EditSteadySave}/${id}`,payload)
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -18,6 +26,77 @@ export const updateSteadySave = (id,payload, callback) =>{
             callback(false, err.response.data.message || "An Error Occurred");
         })
 };
+
+
+export const continueSteadySave = (id, callback) =>{
+    if(!id){
+        callback(false,"Invalid Steady Save Identifier");
+        return;
+    }
+    _axios.get(`${ContinueSteadySave}/${id}`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            try{
+                console.log("Err", JSON.stringify(err));
+                callback(false, err.response.data.message || "An Error Occurred");
+            }catch (e) {
+                //log both e and err
+                callback(false, " An Error Occurred");
+            }
+        })
+};
+
+export const pauseSteadySave = (id, callback) =>{
+    if(!id){
+        callback(false,"Invalid Steady Save Identifier");
+        return;
+    }
+    _axios.get(`${PauseSteadySave}/${id}`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            try{
+                console.log("Err", JSON.stringify(err));
+                callback(false, err.response.data.message || "An Error Occurred");
+            }catch (e) {
+                //log both e and err
+                callback(false, " An Error Occurred");
+            }
+        })
+};
+
+export const stopSteadySave = (id, callback) =>{
+    if(!id){
+        callback(false,"Invalid Steady Save Identifier");
+        return;
+    }
+    _axios.get(`${StopSteadySave}/${id}`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            try{
+                console.log("Err", JSON.stringify(err));
+                callback(false, err.response.data.message || "An Error Occurred");
+            }catch (e) {
+                //log both e and err
+                callback(false, " An Error Occurred");
+            }
+        })
+};
+
 
 export const createLockedSavings = (payload, callback) =>{
     console.log("body", payload);

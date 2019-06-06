@@ -4,6 +4,15 @@ import InstantSavingForm from "./InstantSavingForm/InstantSavingForm";
 import {ToastProvider} from "react-toast-notifications";
 
 class InstantSavingModal extends React.Component {
+
+
+    constructor(props){
+        super(props);
+
+    }
+
+
+
     render() {
         return (
             <Modal

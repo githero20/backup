@@ -120,6 +120,8 @@ class BigTransactionTable extends Component {
 
                                     </tbody>
                                 </table>
+                                {transactions.length===0?
+                                    <div className={'text-center'} > No Transactions Available</div>:null}
                             </div>
 
                             {/*pagination */}

@@ -12,7 +12,6 @@ class Transactions extends Component {
 
     state={
         transactions:[],
-        showLoader:true,
     }
 
     //when the component mounts
@@ -38,12 +37,16 @@ class Transactions extends Component {
         if(state){
             if(res){
                 this.setState({
-                    showLoader:false,
                     transactions:res.data.data.data
                 });
                 console.log(res);
             }
 
+        }else{
+            if(res){
+
+                console.log(res);
+            }
         }
 
     }

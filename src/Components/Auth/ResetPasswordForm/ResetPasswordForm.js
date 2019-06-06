@@ -3,9 +3,10 @@ import ButtonLoader from "../Buttonloader/ButtonLoader";
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from "simple-react-validator";
 import {withToastManager} from 'react-toast-notifications';
-import {ResetPasswordEndpoint, passwordResetEndpoint} from "../../../RouteLinks/RouteLinks";
+import {ResetPasswordEndpoint, passwordResetEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
 import {request} from "../../../ApiUtils/ApiUtils";
 import queryString from "query-string";
+import {Redirect} from "react-router";
 
 
 class ResetPasswordForm extends Component {
@@ -17,6 +18,8 @@ class ResetPasswordForm extends Component {
         email:'',
         ConfirmPassError:false,
         loading:false,
+        redirect:false,
+
     };
 
 
@@ -55,6 +58,7 @@ class ResetPasswordForm extends Component {
                 appearance: 'success',
             });
 
+            setTimeout(()=>{this.setState({redirect:true})},2500);
 
         }else{
 
@@ -153,6 +157,14 @@ class ResetPasswordForm extends Component {
     render() {
 
         const {password,email}=this.state;
+
+        if(this.state.redirect){
+
+
+            return (
+                <Redirect to={LoginLink} />
+            )
+        }
 
         return (
             <React.Fragment>

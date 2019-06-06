@@ -36,9 +36,7 @@ class DashboardContainer extends Component {
                     <div className="content-wrapper">
                         {/* notification component */}
 
-                        <MessageBox error={error} errorMessage={this.props.errorMessage}
-                                    activateAccount={activateAccount}
-                        />
+                        {/*<MessageBox error={error} errorMessage={this.props.errorMessage} activateAccount={activateAccount}/>*/}
 
                         {/*Vault Card */}
 
@@ -47,9 +45,10 @@ class DashboardContainer extends Component {
                                 <CentralVaultCard
                                     vaultAmount={vaultAmount}
                                     totalSteadySave={totalSteadySave}
-                                    onHide={this.props.hideSSModal}
-                                    showModal={this.props.showSSModal}
+
                                 />
+                                {/*    TODO  ADD STEADY SAVE  */}
+
 
                                 <BackUpGoalCard
                                     backupAmount={backupAmount}

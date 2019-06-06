@@ -91,8 +91,9 @@ class SteadySaveTransTable extends Component {
 
                                             )
                                                 :
-                                            null
+                                           null
                                     }
+
 
                                     {/* use for  Debit Transactions */}
                                     {/*<tr>*/}
@@ -120,6 +121,8 @@ class SteadySaveTransTable extends Component {
 
                                     </tbody>
                                 </table>
+                                {transactions.length===0?
+                                    <div className={'text-center'} > No Steady Saves Available</div>:null}
                             </div>
 
                             {/*pagination */}

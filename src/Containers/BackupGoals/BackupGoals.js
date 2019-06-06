@@ -13,6 +13,7 @@ import {getBackUpSavings} from "../../actions/BackUpGoalsAction";
 class BackupGoals extends Component {
 
     //get all back up goals
+
     constructor(props){
         super(props);
         this.state={
@@ -24,6 +25,7 @@ class BackupGoals extends Component {
 
         // this.handleBackUpGoals = this.handleBackUpGoals.bind(this);
     }
+
     showBackUpModal =()=>{
         this.setState({
             showBackUpModal:true,

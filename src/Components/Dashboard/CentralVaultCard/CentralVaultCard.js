@@ -40,20 +40,19 @@ class CentralVaultCard extends Component {
                         </div>
                         <div className="card-body text-center">
                             <h4 className="card-title saving-balance-text">&#8358; {vaultAmount}</h4>
-                            <div className="row">
-                                <div className="col-6">
-                                    <button onClick={this.props.showModal}
-                                       className="btn btn-sm btn-custom-blue round "><span
-                                        className="ml-2 mr-1">Start </span>
+                            <div className="d-flex justify-content-between">
+                                {/*<div className="col-6">*/}
+                                    <Link
+                                       className="btn btn-small-blue round "><span>Start </span>
                                         <img alt="" className="btn-icon" src={RightArrow}/>
-                                    </button>
-                                </div>
-                                <div className="col-6">
+                                    </Link>
+                                {/*</div>*/}
+                                {/*<div className="col-6">*/}
                                     <Link to={SteadySaveLink} className="btn white-btn round  ml-1">See
                                         All
                                         <img alt="" className="btn-icon" src={BlueRightArrow}/>
                                     </Link>
-                                </div>
+                                {/*</div>*/}
                             </div>
                         </div>
                     </div>

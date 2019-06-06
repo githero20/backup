@@ -21,8 +21,7 @@ class BackUpStashCard extends Component {
                             <div className="row">
                                 <div className="col-6">
                                     <button
-                                       className="btn btn-sm btn-custom-blue round "><span
-                                        className="ml-2 mr-1">Start </span><img
+                                       className="btn btn-sm btn-custom-blue round "><span>Start </span><img
                                         className="btn-icon"
                                         src={RightArrow}  alt="back up stash" />
                                     </button>

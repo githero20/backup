@@ -100,7 +100,6 @@ class InstantSave extends Component {
     }
 
 
-
     setupInstantSave = () => {
 
         console.log('setting up instant Save');

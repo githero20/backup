@@ -43,4 +43,8 @@ export const ResetPasswordEndpoint  = `/sfsbapi/v1/auth/password/reset`;
 export const GetLockedSavingsInterest  = `sfsbapi/v1/get-locked-saving-interest`;
 export const CreateLockedSavings = `sfsbapi/v1/user/savings/locked`;
 export const GetLockedSavings = `sfsbapi/v1/user/savings/locked`;
+export const EditSteadySave = `/sfsbapi/v1/user/savings/steady/edit/:id`;
+export const PauseSteadySave = `/sfsbapi/v1/user/savings/steady/pause/:id`;
+export const ContinueSteadySave = `/sfsbapi/v1/user/savings/steady/continue/:id`;
+export const StopSteadySave = `/sfsbapi/v1/user/savings/steady/stop/:id`;
 

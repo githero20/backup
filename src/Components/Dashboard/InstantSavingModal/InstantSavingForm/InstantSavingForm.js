@@ -3,18 +3,12 @@ import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/Button";
 import SimpleReactValidator from "simple-react-validator";
-import {getLocalStorage, request, setLocalStorage} from "../../../../ApiUtils/ApiUtils";
-import {
-    getUserInfoEndpoint,
-    instantSaveEndpoint,
-    lockedSavingEndpoint,
-    verifyTransactionEndpoint
-} from "../../../../RouteLinks/RouteLinks";
-import {USERACTIVATED, USERINFO, USERTOKEN} from "../../../Auth/HOC/authcontroller";
+import {getLocalStorage, request} from "../../../../ApiUtils/ApiUtils";
+import {instantSaveEndpoint} from "../../../../RouteLinks/RouteLinks";
+import {USERACTIVATED, USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import signInIcon from "../../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
-import {handleLeastAmount} from "../../../../actions/instantSaveAction";
+
 import {ADD_CARD} from "../../../../Helpers/Helper";
 
 
@@ -24,7 +18,6 @@ class InstantSavingForm extends Component {
 
 
     state = {
-
         instantSaveInfo: {
             amount: 500,
             payment_auth: null,
@@ -32,14 +25,11 @@ class InstantSavingForm extends Component {
         },
         loading:false,
         userCards: [],
-
     };
 
 
     constructor(props) {
-
         super(props);
-
         this.validator = new SimpleReactValidator({
             validators: {
                 payment_auth: {  // name the rule
@@ -303,7 +293,7 @@ class InstantSavingForm extends Component {
                                     }
 
                                 </Form.Control>
-                                {this.validator.message('payment_auth', payment_auth, 'required|numeric')}
+                                {this.validator.message('Debit Card', payment_auth, 'required|numeric')}
 
                             </Form.Group>
 

@@ -151,6 +151,38 @@ class TransactionTable extends Component {
 
                             {/*pagination */}
 
+                            <nav aria-label="Page navigation">
+                                <ul className=" custom-pagination pagination justify-content-center pagination-separate pagination-round pagination-flat pagination-lg mb-1">
+                                    <li className="page-item">
+                                        <a className="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true"><span className="d-none d-md-inline">«</span> Prev</span>
+                                            <span className="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    <li className="page-item">
+                                        <a className="page-link" href="#">1</a>
+                                    </li>
+                                    <li className="page-item">
+                                        <a className="page-link" href="#">2</a>
+                                    </li>
+                                    <li className="page-item active">
+                                        <a className="page-link" href="#">3</a>
+                                    </li>
+                                    <li className="page-item">
+                                        <a className="page-link" href="#">4</a>
+                                    </li>
+                                    <li className="page-item">
+                                        <a className="page-link" href="#">5</a>
+                                    </li>
+                                    <li className="page-item">
+                                        <a className="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">Next <span className="d-none d-md-inline">»</span>
+                                            </span>
+                                            <span className="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>

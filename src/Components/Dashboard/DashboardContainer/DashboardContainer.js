@@ -47,9 +47,10 @@ class DashboardContainer extends Component {
                                 <CentralVaultCard
                                     vaultAmount={vaultAmount}
                                     totalSteadySave={totalSteadySave}
-                                    onHide={this.props.hideSSModal}
-                                    showModal={this.props.showSSModal}
+
                                 />
+                                {/*    TODO  ADD STEADY SAVE  */}
+
 
                                 <BackUpGoalCard
                                     backupAmount={backupAmount}

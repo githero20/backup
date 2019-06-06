@@ -32,8 +32,7 @@ class LockedSavingsCard extends Component {
                             <div className="row">
                                 <div className="col-6">
                                     <button onClick={this.props.showModal}
-                                       className="btn btn-sm btn-custom-blue round "><span
-                                        className="ml-2 mr-1">Start </span><img
+                                       className="btn btn-sm btn-custom-blue round "><span>Start </span><img
                                         className="btn-icon" alt={'button icon'}
                                         src={RightArrow}/>
                                     </button>

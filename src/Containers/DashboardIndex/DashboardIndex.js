@@ -99,7 +99,7 @@ class DashboardIndex extends Component {
                 if (status === false) {
                     let userInfo = JSON.parse(getLocalStorage(USERINFO));
                     //show activation modal
-                    this.setUpActivation(true, userInfo.email);
+                    // this.setUpActivation(true, userInfo.email);
 
                 } else if (status === true) {
                     console.log('got here to retrieve it ');

@@ -1,4 +1,6 @@
 import moment from "../Components/Dashboard/TransactionTable/TransactionTable";
+import {switchCase} from "@babel/types";
+import React from "react";
 
 
 export const STANDARD_ACCOUNT = 1;
@@ -55,21 +57,80 @@ export function Paginator(items, page, per_page) {
     };
 }
 
-export function getTotal(transactions){
+export function getTotal(transactions) {
     console.log(transactions);
-    if(transactions){
-        const sum =  transactions.reduce((a,b) => ({amount: parseInt(a.amount ) + parseInt(b.amount ) }));
+    if (transactions) {
+        const sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
         return sum.amount;
     }
 }
-export function getTotalSteadySave(transactions){
-    if(transactions){
-        if(transactions.length>1){
-            let sum =  transactions.reduce((a,b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount) }));
+
+export function getTotalSteadySave(transactions) {
+    if (transactions) {
+        if (transactions.length > 1) {
+            let sum = transactions.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
             return sum.amount;
-        }else {
-            let sum =  transactions.reduce((a,b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount) }));
+        } else {
+            let sum = transactions.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
             return sum.start_amount;
         }
+    }
+}
+
+
+export function transformHour(hour) {
+    switch (hour) {
+
+        case 1 :
+            return '1:00am';
+        case 2:
+            return '2:00am';
+
+        case 3:
+            return '3:00am';
+        case 4:
+            return '4:00am';
+        case 5 :
+            return '5:00am';
+        case 6:
+            return '6:00am';
+        case 7:
+            return '7:00am';
+        case 8:
+            return '8:00am';
+        case 9:
+            return '9:00am';
+        case 10 :
+            return '10:00am';
+        case 11:
+            return '11:00am';
+        case 12:
+            return '12:00noon';
+        case 13:
+            return '1:00am';
+        case 14:
+            return '2:00am';
+        case 15:
+            return '3:00am';
+        case 16 :
+            return '4:00am';
+        case 17:
+            return '5:00am';
+        case 18:
+            return '6:00am';
+        case 19:
+            return '7:00am';
+        case 20:
+            return '8:00am';
+        case 21:
+            return '9:00am';
+        case 22:
+            return '10:00am';
+        case 23:
+            return '11:00am';
+        case 24:
+            return '12:00am';
+        default:
+            return 'none';
     }
 }

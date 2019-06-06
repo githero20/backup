@@ -10,9 +10,10 @@ import './admin/assets/css/backup-cash-style.css';
 import './admin/assets/css/responsiveness.css';
 import * as serviceWorker from './serviceWorker';
 import AppRouter from "./AppRouter/AppRouter";
+import {ToastProvider} from "react-toast-notifications";
 
 
-ReactDOM.render(<AppRouter/>, document.getElementById('root'));
+ReactDOM.render(<ToastProvider><AppRouter/></ToastProvider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

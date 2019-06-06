@@ -6,7 +6,7 @@ import SimpleReactValidator from "simple-react-validator";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
-import {_handleFormChange} from "../../../../utils";
+import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
 import {createBackUpGoal} from "../../../../actions/BackUpGoalsAction";
 
 
@@ -17,17 +17,18 @@ class BackUpGoalsForm extends Component {
         this.validator = new SimpleReactValidator();
         this.state = {
             form: {
-                start_date: "2019-06-05",
-                maturity_date: "2022-06-04",
-                title: "School Fees",
+                start_date: "",
+                maturity_date: "",
+                title: "",
                 payment_auth: null,
                 frequency: 'daily',
                 hour_of_day: '12',
-                contribution: 1000,
-                goal_amount: 356000,
+                contribution: 0,
+                goal_amount: 0,
                 day_of_week: '1',
                 day_of_month: '1',
             },
+            dateDifference:0,
             userCards: [],
             showMonth: false,
             showDay: false,
@@ -40,30 +41,38 @@ class BackUpGoalsForm extends Component {
     }
 
     //validate form
-    handleFrequencySelect(frequency){
-        console.log("Data", frequency);
+    handleFrequencySelect(form, frequency){
         if(frequency == "daily"){
-            console.log(1);
+            form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"days") * form.contribution) || 0;
             this.setState({
                 showMonth: false,
                 showDay: false,
                 showHour: true,
+                form
             });
-        }else if(frequency == "weekly"){
+            //calculate the difference between the start date and the maturity date
+        }
+        else if(frequency == "weekly"){
+            form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
             this.setState({
                 showMonth: false,
                 showDay: true,
                 showHour: true,
+                form
             });
         }else if(frequency == "monthly"){
+            form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
             this.setState({
                 showMonth: true,
                 showDay: false,
                 showHour: true,
+                form
             })
         }else{
             console.error("Error", frequency);
         }
+
+        console.log("Form", form);
     }
 
 
@@ -123,15 +132,15 @@ class BackUpGoalsForm extends Component {
 
     //Retrieves user inputs
     changeHandler(event){
-        _handleFormChange(
+       const form =  _handleFormChange(
             event.target.name,
             event,
             this
         );
 
-        console.log("megg", event.target.name, event.target.value);
+        // console.log("megg", event.target.name, event.target.value);
         if(event.target.name == "frequency")
-            this.handleFrequencySelect(event.target.value);
+            this.handleFrequencySelect(form, event.target.value);
     };
     reset(){
 
@@ -275,15 +284,17 @@ class BackUpGoalsForm extends Component {
                             />
                             {this.validator.message('title', title, 'required|string')}
                         </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Goal Amount</Form.Label>
+
+                        <Form.Group as={Col} sm={6}>
+                            <Form.Label>Contribution(NGN)</Form.Label>
                             <Form.Control
-                                type="number"
-                                name={'goal_amount'}
-                                id={'number'}
-                                value={goal_amount}
+                                type="number" id="contribution"
+                                value={contribution} step={'5'} name="contribution"
                                 onChange={this.changeHandler}/>
-                            {this.validator.message('goal_amount', goal_amount, 'required|numeric')}
+                            <Form.Text className="text-muted">
+                                Contribution range daily [ &#8358; 50 - &#8358; 25000]
+                            </Form.Text>
+                            {this.validator.message('contribution', contribution, 'required|numeric')}
 
                         </Form.Group>
                     </Form.Row>
@@ -332,15 +343,15 @@ class BackUpGoalsForm extends Component {
                             </Form.Control>
                             {this.validator.message('payment_auth', payment_auth, 'required|numeric')}
                         </Form.Group>
-                        <Form.Group as={Col} sm={6}>
-                            <Form.Label>Contribution</Form.Label>
-                            <Form.Control type="number" id="contribution" value={contribution} step={'5'} name="contribution"
-                                          onChange={this.changeHandler}/>
-                            <Form.Text className="text-muted">
-                                Contribution range daily [ &#8358; 50 - &#8358; 25000]
-                            </Form.Text>
-                            {this.validator.message('contribution', contribution, 'required|numeric')}
-
+                        <Form.Group as={Col}>
+                            <Form.Label>Goal Amount(NGN)</Form.Label>
+                            <Form.Control
+                                type="number"
+                                name={'goal_amount'}
+                                id={'number'}
+                                disabled={true}
+                                value={goal_amount}
+                                onChange={this.changeHandler}/>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>

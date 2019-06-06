@@ -22,7 +22,7 @@ class LockedSavingForm extends Component {
             form: {
                 title: "",
                 end_date: "",
-                amount: null,
+                amount: 0,
                 interest: 0.0,
                 days: 0,
                 interestRate: 0.0,
@@ -86,9 +86,11 @@ class LockedSavingForm extends Component {
     };
 
     handleAmountInput(e) {
-        _handleFormChange("amount", e, this);
+
+        // _handleFormChange("amount",e, this);
         let form = {...this.state.form};
-        form.interestRate = ((form.interest / 100) * e.target.value).toFixed(2);
+        form.amount = e.target.value;
+        form.interestRate = ((form.interest/100) * e.target.value).toFixed(2);
         this.setState({form});
     }
 

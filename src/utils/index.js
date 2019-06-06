@@ -16,6 +16,7 @@ export const _handleFormChange = (name, event, el = this, callback = null) => {
     if(callback != null){
         callback();
     }
+    return form;
 };
 
 export const _handleInputEnter = (event) => {
@@ -95,7 +96,7 @@ export const _limitText = (string, length = 25) => {
 };
 
 
-export const _calculateDateDifference = (from = null, to = null) => {
+export const _calculateDateDifference = (from = null, to = null, type = "days") => {
     // if (!from)
     //     from = moment().utc();
     // else
@@ -103,6 +104,7 @@ export const _calculateDateDifference = (from = null, to = null) => {
     // if (!to)
     //     to = moment().utc();
 
+    console.log("fromto", from, to);
     if(to == null)
         to = moment().utc();
     else
@@ -115,7 +117,7 @@ export const _calculateDateDifference = (from = null, to = null) => {
     else
         from = moment(from,"YYYY-MM-DD").startOf("day");
     console.log("from", from);
-    return to.diff(from,"days");
+    return to.diff(from,type);
 };
 
 

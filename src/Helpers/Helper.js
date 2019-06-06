@@ -23,7 +23,11 @@ export function animateCSS(element, animationName, callback) {
 }
 
 export function formatNumber(num) {
-    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    if(num)
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') || 0;
+    else
+        return "0";
+
 }
 
 export function formatDate(date) {

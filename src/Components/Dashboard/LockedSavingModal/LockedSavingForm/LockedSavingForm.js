@@ -86,8 +86,9 @@ class LockedSavingForm extends Component {
     };
 
     handleAmountInput(e) {
-        _handleFormChange("amount",e, this);
+        // _handleFormChange("amount",e, this);
         let form = {...this.state.form};
+        form.amount = e.target.value;
         form.interestRate = ((form.interest/100) * e.target.value).toFixed(2);
         this.setState({form});
     }

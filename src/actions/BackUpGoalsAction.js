@@ -11,7 +11,7 @@ export const getBackUpSavings = (callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            callback(false,err);
+            callback(false, err.response.data.message);
         })
 };
 
@@ -24,6 +24,6 @@ export const createBackUpGoal = (params, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            callback(false,err);
+            callback(false, err.response.data.message);
         })
 };

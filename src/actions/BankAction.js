@@ -10,7 +10,7 @@ export const getListOfBanks = (callback) =>{
             callback(res.data.status, res.data.data);
         })
         .catch(err => {
-            callback(false,err);
+            callback(false, err.response.data.message);
         })
 };
 
@@ -23,7 +23,7 @@ export const saveBankAccount = (payload, callback) =>{
         })
         .catch(err => {
             console.log("Err",err);
-            callback(false, err);
+            callback(false, err.response.data.message);
         })
 };
 
@@ -37,7 +37,7 @@ export const verifyOtp = (payload, callback) =>{
         })
         .catch(err => {
             console.log("Err",err);
-            callback(false, err);
+            callback(false, err.response.data.message);
         })
 };
 
@@ -49,6 +49,6 @@ export const getUserBanks = (callback) => {
         })
         .catch(err => {
             // console.log("Err",err);
-            callback(false, err);
+            callback(false, err.response.data.message);
         })
 };

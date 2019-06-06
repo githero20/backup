@@ -14,8 +14,8 @@ class LockedSavingForm extends Component {
     constructor(props) {
         super(props);
         //TODO(get the user balance and set the max amount to that amount)
-        console.log(props);
-        console.log(this.props);
+        const {toastManager} = this.props;
+        this.toastManager = toastManager;
         this.state = {
             loading: false,
             dateDifference: 0,
@@ -61,12 +61,14 @@ class LockedSavingForm extends Component {
             createLockedSavings(this.state.form, (status, payload) => {
                 this.setState({loading: false});
                 if (status) {
-                    console.log("Success", payload);
-                    //TODO(Display Success from creating savings)
+                    this.toastManager.add("Locked Savings Created", {
+                        appearance: 'success',
+                    });
                     this.props.onHide();
                 } else {
-                    //TODO(Display Error from creating savings)
-                    console.error("Display Error", payload);
+                    this.toastManager.add(payload || "An Error Occurred", {
+                        appearance: 'error',
+                    });
                 }
             });
         }
@@ -79,15 +81,13 @@ class LockedSavingForm extends Component {
         const endDate = e.target.value;
         const dateDifference = _calculateDateDifference(null, endDate);
 
-        console.log("enddate", endDate, dateDifference);
+        // console.log("enddate", endDate, dateDifference);
         getLockedInterestSavings({days: dateDifference}, this.handleLockedSavingsInterest);
         this.setState({dateDifference: dateDifference});
         //update after
     };
 
     handleAmountInput(e) {
-
-        // _handleFormChange("amount",e, this);
         let form = {...this.state.form};
         form.amount = e.target.value;
         form.interestRate = ((form.interest/100) * e.target.value).toFixed(2);
@@ -101,11 +101,10 @@ class LockedSavingForm extends Component {
             form.interestRate = ((data / 100) * form.amount).toFixed(2);
             form.days = this.state.dateDifference;
             this.setState({form});
-            // console.log("payload", data.toFixed(2));
         } else {
-            const {toastManager} = this.props;
-            console.log("Toast", toastManager);
-            //TODO("Add a toast here);
+            this.toastManager.add("Unable to get Locked Savings Interest", {
+                appearance: 'error',
+            });
         }
 
         // toastManager.add("Data");

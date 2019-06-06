@@ -14,6 +14,8 @@ class BackUpGoalsForm extends Component {
 
     constructor(props) {
         super(props);
+        const {toastManager} = this.props;
+        this.toastManager = toastManager;
         this.validator = new SimpleReactValidator();
         this.state = {
             form: {
@@ -41,8 +43,9 @@ class BackUpGoalsForm extends Component {
     }
 
     //validate form
-    handleFrequencySelect(form, frequency){
-        if(frequency == "daily"){
+    handleFrequencySelect(form){
+        // console.log(form);
+        if(form.frequency == "daily"){
             form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"days") * form.contribution) || 0;
             this.setState({
                 showMonth: false,
@@ -52,7 +55,7 @@ class BackUpGoalsForm extends Component {
             });
             //calculate the difference between the start date and the maturity date
         }
-        else if(frequency == "weekly"){
+        else if(form.frequency == "weekly"){
             form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
             this.setState({
                 showMonth: false,
@@ -60,7 +63,7 @@ class BackUpGoalsForm extends Component {
                 showHour: true,
                 form
             });
-        }else if(frequency == "monthly"){
+        }else if(form.frequency == "monthly"){
             form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
             this.setState({
                 showMonth: true,
@@ -68,39 +71,11 @@ class BackUpGoalsForm extends Component {
                 showHour: true,
                 form
             })
-        }else{
-            console.error("Error", frequency);
         }
 
-        console.log("Form", form);
+        // console.log("Form", form);
     }
 
-
-    //handle response
-    HandleBackUpGoal = (state, response) => {
-
-
-        const { toastManager } = this.props;
-
-        if(state){
-            console.log(response);
-            toastManager.add(`${JSON.stringify(response.data.message)}`, {
-                appearance: 'success',
-            });
-
-        }else{
-
-            if(response){
-                console.log(JSON.stringify(response));
-                toastManager.add(`${JSON.stringify(response.data.message)}`, {
-                    appearance: 'error',
-                });
-            }
-
-        }
-    };
-
-    //submit steady save form
     submitForm = (e) => {
         e.preventDefault();
         console.log("Minor Response",this.state.form);
@@ -110,22 +85,21 @@ class BackUpGoalsForm extends Component {
             this.forceUpdate();
         } else {
             createBackUpGoal(this.state.form, (status, payload) =>{
-                const {toastManager} = this.props;
 
-                console.log("Res", status, payload);
+                // console.log("Res", status, payload);
                 if(status){
-                    toastManager.add("Backup Goal Saved.", {
+                    this.toastManager.add("Backup Goal Saved.", {
                         appearance: "success"
                     });
                     this.props.onHide(true);
 
                 }else{
-                    toastManager.add(payload.message, {
+                    // console.log(payload, "Message", this.toastManager);
+                    this.toastManager.add(payload || "An Error Occurred", {
                         appearance: "error"
                     });
                 }
             });
-            // request(createBackupGoals, this.state.form, true, 'POST', this.HandleBackUpGoal);
         }
 
     };
@@ -139,8 +113,8 @@ class BackUpGoalsForm extends Component {
         );
 
         // console.log("megg", event.target.name, event.target.value);
-        if(event.target.name == "frequency")
-            this.handleFrequencySelect(form, event.target.value);
+        this.handleFrequencySelect(form);
+
     };
     reset(){
 
@@ -332,9 +306,10 @@ class BackUpGoalsForm extends Component {
                                     this.state.userCards.length > 0 ?
 
                                         this.state.userCards.map((data) => {
-                                            return (
-                                                <option value={data.id} key={data.id}>{data.card_type}</option>
-                                            );
+                                            if(data.channel == "card")
+                                                return (
+                                                    <option value={data.id} key={data.id}>{data.card_type}(**** **** **** {data.last4})</option>
+                                                );
 
                                         })
                                         : <option value={-1} >Select Card</option>

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
-import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
+import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
 import SignUpForm from "../../Components/Auth/SignUpForm/SignUpForm";
 import SimpleReactValidator from "simple-react-validator";
 import {ToastProvider} from "react-toast-notifications";
+import {Link} from "react-router-dom";
+import {HomeLink} from "../../RouteLinks/RouteLinks";
 
 
 class SignUp extends Component {
@@ -50,12 +52,12 @@ class SignUp extends Component {
                                     <span>Your Sign Up is Secure</span>
                                 </div>
 
-                                <div className="container">
+                                <div className="container px-2 px-md-0">
                                     <div className="row pt-md-2">
                                         <div className="col-md-6 offset-md-6">
                                             {/*header component */}
                                             <div className=" py-md-1 px-md-1 px-md-5 py-md-5 header-shadow mt-2 mb-md-5 bg-white">
-                                                <img src={backUpCashLogo} width="200px"/>
+                                                <Link to={HomeLink}><img alt="back up cash logo" src={backUpCashLogo} width="200px"/></Link>
                                             </div>
                                             <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                             <ToastProvider>

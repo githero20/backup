@@ -30,7 +30,9 @@ class InstantSavingModal extends React.Component {
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
                     <ToastProvider>
-                        <InstantSavingForm updateInstantSave={this.props.updateInstantSave} onHide={this.props.onHide} />
+                        <InstantSavingForm
+                            onHide={this.props.onHide}
+                        />
                     </ToastProvider>
                 </Modal.Body>
             </Modal>

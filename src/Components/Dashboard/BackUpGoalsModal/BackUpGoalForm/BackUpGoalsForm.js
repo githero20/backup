@@ -22,7 +22,7 @@ class BackUpGoalsForm extends Component {
             form: {
                 start_date: null,
                 maturity_date: null,
-                title: "Car Savings",
+                title: "",
                 payment_auth: null,
                 frequency: 'daily',
                 hour_of_day: '12',

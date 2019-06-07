@@ -20,8 +20,8 @@ import {
     BankCardLink,
     DashboardLink,
     EmailActivationLink,
-    ForgotPasswordLink,
-    InstantSaveLink,
+    ForgotPasswordLink, HomeLink,
+    InstantSaveLink, KycSettingLink,
     LockedSavingsLink,
     LoginLink,
     ProfileSettingLink,
@@ -38,6 +38,7 @@ import {ToastProvider} from "react-toast-notifications";
 import ResetPassword from "../Containers/ResetPassword/ResetPassword";
 import EmailActivation from "../Containers/EmailActivation/EmailActivation";
 import ResendActivation from "../Containers/ResendActivation/ResendActivation";
+import KycSetting from "../Containers/KycSetting/KycSetting";
 
 
 class AppRouter extends Component {
@@ -47,7 +48,7 @@ class AppRouter extends Component {
         return (
             <React.Fragment>
                 <Router>
-                    <Route exact path="/" component={Home}/>
+                    <Route exact path={HomeLink} component={Home}/>
                     {/*dashboard Routes*/}
                     <Route path={DashboardLink} component={AuthController(DashboardIndex)}/>
                     <Route path={InstantSaveLink} component={AuthController(InstantSave)}/>
@@ -67,6 +68,7 @@ class AppRouter extends Component {
                     <Route path={ActivateAccountLink} component={ActivateAccount}/>
                     <Route path={ForgotPasswordLink} component={ForgotPassword}/>
                     <Route path={ResetPasswordLink} component={ResetPassword}/>
+                    <Route path={KycSettingLink} component={KycSetting}/>
                 </Router>
 
             </React.Fragment>

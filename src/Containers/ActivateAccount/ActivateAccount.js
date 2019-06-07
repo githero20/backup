@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
-import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
+import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
 import ActivationForm from "../../Components/Auth/ActivationForm/ActivationForm";
 import EmailModal from "../../Components/Auth/EmailModal/EmailModal";
 import SecureLS from "../../Components/Auth/SignUpForm/SignUpForm";

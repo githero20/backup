@@ -10,7 +10,7 @@ import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {formatNumber, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
-import {getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
+import {getTransactionsApi, getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 
 class InstantSave extends Component {
@@ -29,15 +29,30 @@ class InstantSave extends Component {
         email: null,
         showSavingModal: false,
         showLoader: true,
+        newInstantSave: false
     };
 
+    constructor(props){
+        super(props);
 
-    hideModal = () => {
+        this.hideModal = this.hideModal.bind(this);
+    }
+
+
+
+
+    hideModal(){
         this.setState({
-                showSavingModal: false
-            }
-        );
+            showBackUpModal:false,
+        });
 
+        // if(status){
+        //     //get user instant saves
+        //     this.setupInstantSave();
+        //
+        //     //get instant save transactions
+        //     this.loadInstantSaves();
+        // }
     };
 
     showModal = () => {
@@ -47,44 +62,47 @@ class InstantSave extends Component {
     };
 
 
-    handleAddNew = () => {
+    analyseInstantSaveInfo = (status, data) => {
+
+        if (status) {
+
+            console.log(data.data.data);
+
+            if (data.data.data.accounts) {
+
+                console.log(data.data.data.accounts)
 
 
-    };
+                // loop through data and set appropriate states
+                let accounts = data.data.data.accounts.data;
+
+                //display total balance
+                accounts.map((content, idx) => {
+                    if (content.account_type_id === STANDARD_ACCOUNT) {
+                        console.log(content.balance);
+                        this.setState({
+                            totalBalance: formatNumber(content.balance)
+                        })
+                    }
+                });
+
+                console.log('dfjsd');
+                console.log(data.data.data.transactions.data);
+                //TODO loop through transactions and add up only credits
+                let transactions = data.data.data.transactions.data;
+                let totalInstantSave = this.getTotalInstantSave(transactions);
+                this.setState({
+                    transactions,
+                    totalInstantSave: formatNumber(totalInstantSave)
+                });
 
 
+            } else {
+                console.log(data);
+                return null;
+            }
 
 
-    analyseInstantSaveInfo = (data) => {
-
-
-        if (data.accounts) {
-
-            // loop through data and set appropriate states
-            let accounts = data.accounts.data;
-
-            console.log(data);
-            let transactions = data.transactions.data;
-
-            let totalInstantSave = this.getTotalInstantSave(transactions);
-
-            this.setState({
-                transactions,
-                totalInstantSave: formatNumber(totalInstantSave)
-            });
-
-
-            accounts.map((content, idx) => {
-                if (content.account_type_id === STANDARD_ACCOUNT) {
-                    this.setState({
-                        totalBalance: formatNumber(content.balance)
-                    })
-                }
-
-            });
-        } else {
-            console.log(data);
-            return null;
         }
 
 
@@ -103,84 +121,124 @@ class InstantSave extends Component {
     setupInstantSave = () => {
 
         console.log('setting up instant Save');
-        //get data from localStorage
-        if (getLocalStorage(USERINFO)) {
-            this.setState({
-                showLoader: false,
-            });
-            console.log('there is user info');
 
-            if (getLocalStorage(USERACTIVATED)) {
+        //TODO Add Table Loader
+        //call get user info
+        request(getUserInfoEndpoint, null, true, 'GET', this.analyseInstantSaveInfo)
 
-                let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if (status === true) {
-                    console.log('got here to retrieve it ');
-                    let data = JSON.parse(getLocalStorage(USERINFO));
-                    if (data.accounts !== null || data.accounts !== undefined) {
-                        console.log(data);
-                        this.setState({
-                            accountInfo: data.accounts,
-                            userName: data.name,
+        // //get data from localStorage
+        // if (getLocalStorage(USERINFO)) {
+        //     this.setState({
+        //         showLoader: false,
+        //     });
+        //     console.log('there is user info');
+        //
+        //     if (getLocalStorage(USERACTIVATED)) {
+        //
+        //         let status = JSON.parse(getLocalStorage(USERACTIVATED));
+        //         if (status === true) {
+        //             console.log('got here to retrieve it ');
+        //             let data = JSON.parse(getLocalStorage(USERINFO));
+        //             if (data.accounts !== null || data.accounts !== undefined) {
+        //                 console.log(data);
+        //                 this.setState({
+        //                     accountInfo: data.accounts,
+        //                     userName: data.name,
+        //
+        //                 });
+        //                 this.analyseInstantSaveInfo(data);
+        //             }
+        //
+        //         }
+        //     }
+        //
+        //
+        // } else {
+        //
+        //     this.setState({
+        //         showLoader: false
+        //
+        //     });
+        //     console.log('didnt see usr info');
+        //     //check if user is activated
+        //     if (getLocalStorage(USERACTIVATED)) {
+        //
+        //         let status = JSON.parse(getLocalStorage(USERACTIVATED));
+        //         if (status === false) {
+        //             //show activation modal
+        //             this.setUpActivation(true, null);
+        //         } else if (status === true) {
+        //             console.log('got here to retrieve it ');
+        //             let data = JSON.parse(getLocalStorage(USERINFO));
+        //
+        //         }
+        //     }
+        //
+        //
+        // }
 
-                        });
-                        this.analyseInstantSaveInfo(data);
-                    }
+    };
 
-                }
+    loadInstantSaves() {
+
+        //get transactions from api
+        console.log(this.state.transactions)
+        request(instantSaveTransEndpoint, null, true, 'GET', this.handleTransactions);
+
+
+    }
+
+
+    handleTransactions = (state, res) => {
+
+        //handle all instant save by the user
+        if (state) {
+            if (res) {
+                let transactions = res.data.data.transactions.data;
+                let totalInstantSave = this.getTotalInstantSave(transactions);
+                this.setState({
+                    transactions,
+                    totalInstantSave: formatNumber(totalInstantSave)
+                });
+                console.log(res);
             }
-
 
         } else {
-
-            this.setState({
-                showLoader: false
-
-            });
-            console.log('didnt see usr info');
-            //check if user is activated
-            if (getLocalStorage(USERACTIVATED)) {
-
-                let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if (status === false) {
-                    //show activation modal
-                    this.setUpActivation(true, null);
-                } else if (status === true) {
-                    console.log('got here to retrieve it ');
-                    let data = JSON.parse(getLocalStorage(USERINFO));
-
-                }
+            if (res) {
+                console.log(res);
             }
-
-
         }
-
 
     };
 
 
     componentDidMount() {
 
+
+        //get user instant saves
         this.setupInstantSave();
 
+
+        //get instant save transactions
+        this.loadInstantSaves();
 
     }
 
 
-
-    loadInstantSaveTable = (status,payload)=>{
+    loadInstantSaveTable = (status, payload) => {
         //hide loader
         this.setState({
-            showLoader:false
+            showLoader: false
         });
 
         //handle response
-        if(status){
-            if(payload){
+        if (status) {
+            if (payload) {
                 console.log(JSON.parse(JSON.stringify(payload)));
                 this.setState({
-                    transactions:payload.data.data.transactions.data
+                    transactions: payload.data.data.transactions.data
                 });
-                console.log('success',payload);
+                console.log('success', payload);
             }
 
         }
@@ -189,21 +247,23 @@ class InstantSave extends Component {
 
     componentWillMount() {
 
+        //get user instant saves
+        this.setupInstantSave();
+        //update tables
         this.updateInstantSave();
 
     }
 
     updateInstantSave = () => {
-
+        //TODO Add Table Loader
         //call get user info
+        request(getUserInfoEndpoint, null, true, 'GET', this.loadInstantSaveTable)
+    };
 
+    createInstantSave = () => {
         this.setState({
-            showLoader:true
-        });
-
-        request(getUserInfoEndpoint,null,true,'GET',this.loadInstantSaveTable)
-
-
+            newInstantSave: true
+        })
     };
 
 
@@ -223,17 +283,17 @@ class InstantSave extends Component {
                         <div className="row mb-4">
                             <div className="col-12"></div>
                         </div>
-
                         {
                             this.state.showSavingModal ?
                                 (
                                     <React.Fragment>
-                                        <InstantSavingModal show={this.state.showSavingModal} updateInstantSave={this.updateInstantSave} onHide={this.hideModal}/>
+                                        <InstantSavingModal
+                                            show={this.state.showSavingModal}
+                                            onHide={this.hideModal}
+                                        />
                                     </React.Fragment>
 
                                 ) : null
-
-
                         }
 
                         {this.state.showLoader ? <DashboardLoader/> : null}
@@ -272,12 +332,9 @@ class InstantSave extends Component {
                         </span>
                                     </div>
                                 </div>
-
-
                             </div>
 
                             <div className="row">
-
                                 {/*transaction table */}
                                 <TransactionTable transactions={this.state.transactions}/>
 

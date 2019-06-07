@@ -9,7 +9,7 @@ import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySave
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {formatNumber, getTotalSteadySave, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
-import {getSteadySaveEndpoint} from "../../RouteLinks/RouteLinks";
+import {getSteadySaveEndpoint, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
 import SteadySaveTransTable from "../../Components/Dashboard/SteadySaveTransTable/SteadySaveTransTable";
 
 class SteadySave extends Component {
@@ -88,114 +88,72 @@ class SteadySave extends Component {
         request(getSteadySaveEndpoint, null, true, 'GET', this.handleSteadySave);
         console.log('setting up steady Save');
         // get data from localStorage
+    };
+
+    //TODO make a request to get user data and pass to analyse
 
 
-        if (getLocalStorage(USERINFO)) {
-            this.setState({
-                showLoader: false,
-            });
-            console.log('there is user info');
+    GetBalance = () => {
+
+        console.log('setting up instant Save');
+
+        //TODO Add Table Loader
+        //call get user info
+        request(getUserInfoEndpoint, null, true, 'GET', this.analyseSteadySaveInfo)
 
 
-            console.log('got here to retrieve it ');
-            let data = JSON.parse(getLocalStorage(USERINFO));
-            this.setState({
-                userName: data.name,
-            });
-            console.log(data);
-            if (data.accounts !== null || data.accounts !== undefined) {
-                console.log(data);
-                this.setState({
-                    accountInfo: data.accounts,
-                    userName: data.name,
+    };
+    analyseSteadySaveInfo = (status, data) => {
 
+        if (status) {
+
+            console.log(data.data.data);
+
+            if (data.data.data.accounts) {
+
+                console.log(data.data.data.accounts)
+
+
+                // loop through data and set appropriate states
+                let accounts = data.data.data.accounts.data;
+
+                //display total balance
+                accounts.map((content, idx) => {
+                    if (content.account_type_id === STANDARD_ACCOUNT) {
+                        console.log(content.balance);
+                        this.setState({
+                            totalBalance: formatNumber(content.balance)
+                        })
+                    }
                 });
-                this.analyseSteadySaveInfo(data);
+
+                // console.log('dfjsd');
+                // console.log(data.data.data.transactions.data);
+                // //TODO loop through transactions and add up only credits
+                // let transactions = data.data.data.transactions.data;
+                // let totalInstantSave = this.getTotalInstantSave(transactions);
+                // this.setState({
+                //     transactions,
+                //     totalInstantSave: formatNumber(totalInstantSave)
+                // });
+
+
+            } else {
+                console.log(data);
+                return null;
             }
-        }
-        //
-        //     if (getLocalStorage(USERACTIVATED)) {
-        //
-        //         let status = JSON.parse(getLocalStorage(USERACTIVATED));
-        //         if (status === false) {
-        //             let userInfo = JSON.parse(getLocalStorage(USERINFO));
-        //             //show activation modal
-        //             this.setUpActivation(true, userInfo.email);
-        //
-        //         } else if (status === true) {
-        //             console.log('got here to retrieve it ');
-        //             let data = JSON.parse(getLocalStorage(USERINFO));
-        //
-        //                 console.log(data);
-        //                 this.setState({
-        //                     userName: data.name,
-        //                 });
-        //
-        //         }
-        //     }
-        //
-        //
-        // } else {
-        //
-        //     this.setState({
-        //         showLoader: false
-        //
-        //     });
-        //     console.log('didnt see usr info');
-        //     //check if user is activated
-        //     if (getLocalStorage(USERACTIVATED)) {
-        //
-        //         let status = JSON.parse(getLocalStorage(USERACTIVATED));
-        //         if (status === false) {
-        //             //show activation modal
-        //             this.setUpActivation(true, null);
-        //         } else if (status === true) {
-        //             console.log('got here to retrieve it ');
-        //             let data = JSON.parse(getLocalStorage(USERINFO));
-        //
-        //
-        //         }
-        //     }
-        //
-        // }
 
 
-    };
-
-    analyseSteadySaveInfo = (data) => {
-
-
-        if (data.accounts) {
-
-            // loop through data and set appropriate states
-            let accounts = data.accounts.data;
-
-            console.log(data);
-            let transactions = data.transactions.data;
-
-
-            this.setState({
-                transactions,
-            });
-
-            accounts.map((content, idx) => {
-                if (content.account_type_id === STANDARD_ACCOUNT) {
-                    this.setState({
-                        totalBalance: formatNumber(content.balance)
-                    })
-                }
-
-            });
-        } else {
-            console.log(data);
-            return null;
         }
 
 
     };
+
+
 
     componentDidMount() {
         this.setupSteadySave();
+        this.GetBalance();
     }
 
     showNewSteadySaveModal = () => {

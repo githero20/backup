@@ -18,7 +18,8 @@ class SteadySaveForm extends Component {
         this.state = {
             disableStartDate:false,
             loading:false,
-        };        console.log("props",props);
+        };
+        console.log("props",props);
 
     }
 
@@ -143,7 +144,7 @@ class SteadySaveForm extends Component {
                                         <React.Fragment>
                                             <Form.Control as="select" onChange={this.changeHandler}
                                                           defaultValue={frequency} id={'frequency'}
-                                                          name={'frequency'}>
+                                                          name={'frequency'} >
                                                 <option value={'daily'}>Daily</option>
                                                 <option value={'weekly'}>Weekly</option>
                                                 <option value={'monthly'}>Monthly</option>

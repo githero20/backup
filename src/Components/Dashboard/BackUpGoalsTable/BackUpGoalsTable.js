@@ -17,7 +17,7 @@ class BackUpGoalsTable extends Component {
                 <div className="box-grid-container  light-blue-bg px-md-3 py-md-3">
                     <div className="table-view table-responsive mb-5">
                         <table id="recent-orders"
-                               className="table table-hover table-xl mb-0 text-center">
+                               className="table table-hover table-xl spaced-table mb-0 text-center">
                             <thead>
                             <tr>
                                 <th>#</th>

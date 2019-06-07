@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import backUpCashLogo from "../../admin/app-assets/images/svg/backupCashlogo.svg";
+import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
 import LoginForm from "../../Components/Auth/LoginForm/LoginForm";
 import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
 import {ToastProvider} from 'react-toast-notifications';
-
+import {HomeLink} from "../../RouteLinks/RouteLinks";
+import {Link} from 'react-router-dom';
 class Login extends Component {
 
 
@@ -22,7 +23,7 @@ class Login extends Component {
                                 <div className=" col-md-6 offset-md-6">
                                     {/*   header component */}
                                     <div className=" py-md-1 px-md-1 px-md-5 py-md-5 header-shadow mt-2 mb-md-5 bg-white">
-                                        <img alt="" src={backUpCashLogo} width="200px"/>
+                                        <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>
                                     </div>
                                     <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                     <ToastProvider>

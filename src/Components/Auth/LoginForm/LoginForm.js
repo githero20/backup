@@ -187,16 +187,18 @@ class LoginForm extends Component {
                         </div>
                         <div className="col-12">
                             <div
-                                className="d-flex  flex-md-row justify-content-between align-items-center">
-                                <label className=" mb-md-0">
-                                    <input type="checkbox" className="filled-in login-check-box"
-                                           defaultChecked={true}/>
-                                    <span>Always Stay signed In</span>
-                                </label>
-                                <button type={'submit'} className="btn btn-round blue-round-btn auth-btn "
+                                className="d-flex  flex-column flex-md-row justify-content-between align-items-center">
+
+                                <button type={'submit'} className="btn btn-round blue-round-btn auth-btn order-md-12"
                                         name="action">{this.state.loading ? <ButtonLoader/> :
-                                    <span>Sign in<img alt="" className="img-2x ml-2" src={signInIcon}/></span>}
+                                    <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
                                 </button>
+                                <label className=" mt-3 mt-md-0 label-container d-flex align-items-center ">
+                                    <input type="checkbox" className="login-check-box order-md-1"
+                                           defaultChecked={true}/>
+                                    <span className='checkmark'></span>
+                                    <span className='fs-xs'>Always Stay signed In</span>
+                                </label>
                             </div>
                         </div>
                     </div>

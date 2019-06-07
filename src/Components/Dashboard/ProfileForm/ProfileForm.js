@@ -2,224 +2,322 @@ import React, {Component} from 'react';
 import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import deleteIcon from "../../../admin/app-assets/images/svg/delete-icon.svg";
 import editIcon from "../../../admin/app-assets/images/svg/edit-icon.svg";
+import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
+import {USERINFO} from "../../Auth/HOC/authcontroller";
+import UpdatePassword from "../UpdatePassword/UpdatePassword";
+import SimpleReactValidator from "simple-react-validator";
+import {ResetPasswordEndpoint} from "../../../RouteLinks/RouteLinks";
+import {ToastProvider} from 'react-toast-notifications';
 
-
-function setupProfile(data) {
-
-
-
-
-}
-
-
-function fetchUserinfo(Data){
-
-
-
-}
 
 class ProfileForm extends Component {
 
 
-    state={
+    state = {
+        password: '',
+        token: '',
+        password_confirmation: '',
+        ConfirmPassError: false,
+        loading: false,
+        userProfile: null
+
+    };
 
 
+    setupProfile = (data) => {
+        const profile = JSON.parse(data);
+        this.setState({
+            userProfile: profile,
+        })
 
     }
 
 
     componentDidMount() {
-
         // fetch User info
-
-
-
+        const data = getLocalStorage(USERINFO);
+        if (data) {
+            this.setupProfile(data);
+        }
     }
 
 
+    constructor(props) {
+
+        super(props);
+
+        this.validator = new SimpleReactValidator();
+
+    }
+
+    //Retrieves user inputs
+    changeHandler = event => {
+        const name = event.target.name;
+        const value = event.target.value;
+        this.setState({
+            [name]: value
+        });
+    };
+
+
+    handleResetResponse = (state, response) => {
+
+        const {toastManager} = this.props;
+
+        this.setState({
+            loading: false
+        });
+
+        if (state) {
+
+
+            toastManager.add(`${response.data.success}`, {
+                appearance: 'success',
+            });
+
+
+        } else {
+
+            if (response) {
+                if (response.data.errors) {
+                    response.data.errors.map((err, indx) => {
+                        return (
+                            toastManager.add(`${err}`, {
+                                appearance: 'error',
+                                index: indx,
+                            })
+                        )
+                    });
+                } else {
+                    toastManager.add(`${response.data.error}`, {
+                        appearance: 'error',
+                    })
+
+                }
+
+
+            }
+
+        }
+
+
+    };
+
+
+    submitForm = (e) => {
+
+        e.preventDefault();
+
+        if (this.validator.allValid()) {
+
+
+            if (this.validatePasswords()) {
+
+                this.setState({
+                    loading: true,
+                    token: this.props.token
+                }, () => {
+                    request(ResetPasswordEndpoint, this.state, false, 'POST', this.handleResetResponse)
+                });
+
+
+            }
+
+
+        } else {
+
+            // rerender to show messages for the first time
+            this.validator.showMessages();
+            // you can use the autoForceUpdate option to do this automatically`
+            this.forceUpdate();
+        }
+
+
+    };
+
+
+    validatePasswords = () => {
+
+
+        const {password, password_confirmation} = this.state;
+
+        // perform all neccassary validations
+
+        if (password !== password_confirmation) {
+
+            this.setState({
+                ConfirmPassError: true,
+            })
+
+        } else {
+
+            this.setState({
+                ConfirmPassError: false,
+            });
+
+            return true;
+        }
+
+    };
+
     render() {
+        const {userProfile} = this.state;
         return (
             <React.Fragment>
-                <form className="form lock-form px-md-1">
-                    <div className="form-body">
-                        <div className="row mb-2">
-                            <div className="col-md-4">
-                                <div className=" mb-1 d-inline d-md-block">
-                                    <img src={AvatarImage}
-                                         className="height-100 rounded-circle" alt=""/>
-                                </div>
-                                <div className="d-inline ml-1 ml-md-0 d-md-flex">
-                                    <button type="button"
-                                            className="btn-sm-outline mr-1"><img
-                                        className="img-2x"
-                                        src={deleteIcon}/>
-                                    </button>
-                                    <button type="button"
-                                            className="btn-sm-outline"><img
-                                        className="img-2x"
-                                        src={editIcon}/>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="col-md-8">
-                                <div className="row">
-                                    <div className="col-12">
-                                        <h4 className="my-2 mt-md-0 mb-md-2">General</h4>
-                                    </div>
-                                    <div className="col-6">
-                                        <div className="input-field ">
-                                            <input placeholder="Placeholder"
-                                                   id="first_name" type="text"
-                                                   className="validate" />
-                                            <label htmlFor="first_name"
-                                                   className="active">First
-                                                Name</label>
-                                        </div>
-                                    </div>
-                                    <div className="col-6">
-                                        <div className="input-field ">
-                                            <input placeholder="Placeholder"
-                                                   id="last_name" type="text"
-                                                   className="validate" />
-                                            <label htmlFor="last_name"
-                                                   className="active">Last
-                                                Name</label>
-                                        </div>
-                                    </div>
 
-                                    <div className="col-md-12">
-                                        <div
-                                            className="custom-form-group form-group">
-                                            <label htmlFor="email"
-                                                   className="active">Email</label>
-                                            <div className="input-group">
-                                                <input type="email" id="email"
-                                                       className="form-control"
-                                                       placeholder="Email"
-                                                       aria-describedby="button-addon2" />
-                                                <div
-                                                    className="input-group-append">
-                                                    <button
-                                                        className="btn light-gray-bg deep-gray-color"
-                                                        type="button">Change
-                                                        Email
+
+                {
+                    userProfile ?
+                        (
+                            <div>
+                                <form className="form lock-form px-md-1">
+                                    <div className="form-body">
+                                        <div className="row mb-2">
+                                            <div className="col-md-4">
+                                                <div className=" mb-1 d-inline d-md-block">
+                                                    <img src={AvatarImage}
+                                                         className="height-100 rounded-circle" alt=""/>
+                                                    {console.log(userProfile)}
+                                                </div>
+                                                <div className="d-inline ml-1 ml-md-0 d-md-flex">
+                                                    <button type="button"
+                                                            className="btn-sm-outline mr-1"><img
+                                                        className="img-2x"
+                                                        src={deleteIcon}/>
                                                     </button>
+                                                    <button type="button"
+                                                            className="btn-sm-outline"><img
+                                                        className="img-2x"
+                                                        src={editIcon}/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-8">
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <h4 className="my-2 mt-md-0 mb-md-2">General</h4>
+                                                    </div>
+                                                    <div className="col-12">
+                                                        <div className="form-group">
+                                                            <label htmlFor="name">Name</label>
+                                                            <input
+                                                                type="text"
+                                                                id="name"
+                                                                className="form-control mb-1"
+                                                                name="name"
+                                                                defaultValue={userProfile.name}
+                                                            />
+                                                            {/*{this.validator.message('name', name, 'required|string')}*/}
+
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div
+                                                            className="custom-form-group form-group">
+                                                            <label htmlFor="email"
+                                                                   className="active">Email</label>
+                                                            {/*<div>*/}
+                                                            {/*    <input type="email"*/}
+                                                            {/*           id="email"*/}
+                                                            {/*           name='email'*/}
+                                                            {/*           className="form-control"*/}
+                                                            {/*           placeholder="Email"*/}
+                                                            {/*           disabled={true}*/}
+                                                            {/*           defaultValue={userProfile.email}*/}
+                                                            {/*           aria-describedby="button-addon2"/>*/}
+                                                            {/*    <div*/}
+                                                            {/*        className="input-group-append">*/}
+                                                            {/*        <button*/}
+                                                            {/*            className="btn light-gray-bg deep-gray-color"*/}
+                                                            {/*            type="button">Change*/}
+                                                            {/*            Email*/}
+                                                            {/*        </button>*/}
+                                                            {/*    </div>*/}
+                                                            {/*</div>*/}
+                                                            <div>
+                                                                <input type="email"
+                                                                       id="email"
+                                                                       name='email'
+                                                                       className="form-control"
+                                                                       placeholder="Email"
+                                                                       disabled={true}
+                                                                       defaultValue={userProfile.email}
+                                                                       aria-describedby="button-addon2"
+                                                                />
+                                                            </div>
+                                                            {/*<div className="input-group">*/}
+                                                            {/*    <input type="email"*/}
+                                                            {/*           id="email"*/}
+                                                            {/*           name='email'*/}
+                                                            {/*           className="form-control"*/}
+                                                            {/*           placeholder="Email"*/}
+                                                            {/*           disabled={true}*/}
+                                                            {/*           defaultValue={userProfile.email}*/}
+                                                            {/*           aria-describedby="button-addon2"/>*/}
+                                                            {/*    <div*/}
+                                                            {/*        className="input-group-append">*/}
+                                                            {/*        <button*/}
+                                                            {/*            className="btn light-gray-bg deep-gray-color"*/}
+                                                            {/*            type="button">Change*/}
+                                                            {/*            Email*/}
+                                                            {/*        </button>*/}
+                                                            {/*    </div>*/}
+                                                            {/*</div>*/}
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="phoneNumber">Phone
+                                                        Number</label>
+                                                    <input
+                                                        type="number"
+                                                        id="phoneNumber"
+                                                        className="form-control mb-1"
+                                                        name="phoneNumber"
+                                                        defaultValue={userProfile.phone}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group form-group-outline">
+                                                    <label htmlFor="email" className="active">Referral
+                                                        Code</label>
+                                                    <div className="input-group">
+                                                        <input type="email" id="referral_code"
+                                                               className="form-control"
+                                                               defaultValue={userProfile.referral_code}
+                                                               aria-describedby="button-addon2"
+                                                        />
+
+                                                        <div className="input-group-append">
+                                                            <button
+                                                                className="btn light-gray-bg deep-gray-color"
+                                                                type="button">Copy
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <UpdatePassword/>
                                     </div>
+                                </form>
+                            </div>
+                        )
+                        : null
 
 
-                                </div>
+                }
 
-                            </div>
-
-                        </div>
-                        <div className="row">
-                            <div className="col-md-4">
-                                <div className="form-group">
-                                    <label htmlFor="accountToDebit">Country</label>
-                                    <select id="accountToDebit" name="interested"
-                                            className="form-control">
-                                        <option value="none" defaultValue={true}
-                                                disabled="">Country
-                                        </option>
-                                        <option value="Master Card">Master Card
-                                        </option>
-                                        <option value="Visa Card">Visa Card</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="form-group">
-                                    <label htmlFor="phoneNumber">Phone
-                                        Number</label>
-                                    <input type="number" id="phoneNumber"
-                                           className="form-control mb-1"
-                                           name="phoneNumber"/>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="form-group form-group-outline">
-                                    <label htmlFor="email" className="active">Referral
-                                        Code</label>
-                                    <div className="input-group">
-                                        <input type="email" id="referralCode"
-                                               className="form-control"
-                                               placeholder="ODFVEV"
-                                               aria-describedby="button-addon2" />
-                                        <div className="input-group-append">
-                                            <button
-                                                className="btn light-gray-bg deep-gray-color"
-                                                type="button">Copy
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className='col-12'>
-                                <div className='mb-2 mt-3'>
-
-                                    <h4>Update Password</h4>
-                                    <hr/>
-                                </div>
-
-                            </div>
-                            <div className="col-md-6 d-none d-md-block">
-                                <div className="form-group">
-                                    <label htmlFor="startDate">New Password</label>
-                                    <input type="password" id="newPassword"
-                                           className="form-control"
-                                           name="newPassword"/>
-                                </div>
-                            </div>
-                            <div className="col-md-6 d-none d-md-block">
-                                <div className="form-group">
-                                    <label htmlFor="startDate">Confirm
-                                        Password</label>
-                                    <input type="password" id="confirmPassword"
-                                           className="form-control"
-                                           name="confirmPassword"/>
-                                </div>
-                            </div>
-                            <div className="col-md-4 d-block d-md-none">
-                                <div className="form-group">
-                                    <label htmlFor="password">Password</label>
-                                    <input type="password" id="password"
-                                           className="form-control"
-                                           name="confirmPassword"/>
-                                </div>
-                            </div>
-
-                            <div className="col-md-4 d-block d-md-none">
-                                <div className="form-group">
-                                    <button type="button"
-                                            className="label-btn">Change Password
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div
-                        className="form-actions d-flex justify-content-between align-items-center ">
-                        <button type="button"
-                                className="btn reset-btn mr-1 d-none d-md-block">
-                            reset
-                        </button>
-                        <button type="button"
-                                className="btn btn-outline-gray px-2 round mr-1 d-block d-md-none">
-                            Cancel
-                        </button>
-                        <button type="submit" className="btn-withdraw round ">
-                            Update Profile
-                        </button>
-                    </div>
-                </form>
 
             </React.Fragment>
         );

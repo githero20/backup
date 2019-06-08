@@ -10,7 +10,7 @@ import {CSVLink} from "react-csv";
 import {Col, Form, Row} from 'react-bootstrap';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-
+import DataTable from 'react-data-table-component';
 
 class TransactionTable extends Component {
 
@@ -79,13 +79,20 @@ class TransactionTable extends Component {
                         </div>
 
 
-                        <ReactTable
-                            data={transactions}
+                        {/*<ReactTable*/}
+                        {/*    data={transactions}*/}
+                        {/*    columns={columns}*/}
+                        {/*    sortable={true}*/}
+                        {/*    resizable={true}*/}
+                        {/*    filterable={true}*/}
+                        {/*    loading={false}*/}
+                        {/*/>*/}
+
+
+                        <DataTable
+                            title="Recent Transactions"
                             columns={columns}
-                            sortable={true}
-                            resizable={true}
-                            filterable={true}
-                            loading={false}
+                            data={transactions}
                         />
 
                         <div className="card-content mt-1 light-table-bg">

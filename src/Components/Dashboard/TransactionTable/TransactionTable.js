@@ -6,7 +6,6 @@ import gridIcon from "../../../admin/app-assets/images/svg/grid-icon.svg";
 import tableLeftArrow from "../../../admin/app-assets/images/svg/table-arrow-left.svg";
 import sortIcon from "../../../admin/app-assets/images/svg/sort-icon.svg";
 import {CSVLink} from "react-csv";
-import Pagination from "../Pagination/Pagination";
 
 class TransactionTable extends Component {
 
@@ -29,14 +28,9 @@ class TransactionTable extends Component {
         this.setState({ currentPage, currentTransactions, totalPages });
     };
 
-
-
     render() {
 
         const {transactions} = this.props;
-
-
-
         return (
             <React.Fragment>
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">

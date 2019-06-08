@@ -8,9 +8,12 @@ import sortIcon from "../../../admin/app-assets/images/svg/order-interface-symbo
 import filterIcon from "../../../admin/app-assets/images/svg/filter-filled-tool-symbol.svg";
 import {CSVLink} from "react-csv";
 import {Col, Form, Row} from 'react-bootstrap';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
+
 class TransactionTable extends Component {
 
-    state={
+    state = {
         currentTransactions: [],
         currentPage: null,
         totalPages: null
@@ -18,24 +21,41 @@ class TransactionTable extends Component {
     };
 
 
-
     onPageChanged = data => {
-        const { transactions } = this.props;
-        const { currentPage, totalPages, pageLimit } = data;
+        const {transactions} = this.props;
+        const {currentPage, totalPages, pageLimit} = data;
 
         const offset = (currentPage - 1) * pageLimit;
         const currentTransactions = transactions.slice(offset, offset + pageLimit);
 
-        this.setState({ currentPage, currentTransactions, totalPages });
+        this.setState({currentPage, currentTransactions, totalPages});
     };
-
 
 
     render() {
 
         const {transactions} = this.props;
 
-
+        const columns = [
+            {
+            Header: 'Date',
+            accessor: 'created_at' // String-based value accessors!
+        }, {
+            Header: 'Description',
+            accessor: 'type',
+            // Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+        }, {
+                Header: 'Amount',
+                accessor: 'amount',
+            // id: 'friendName', // Required because our accessor is not a string
+            // Header: 'Friend Name',
+            // accessor: d => d.friend.name // Custom value accessors!
+        }, {
+                Header: 'Reference',
+                accessor: 'reference',
+            // // Header: props => <span>Friend Age</span>, // Custom header components!
+            // accessor: 'friend.age'
+        }];
 
         return (
             <React.Fragment>
@@ -57,24 +77,29 @@ class TransactionTable extends Component {
                                                     </span>
                                 </div>
                                 <div className="table-sort-display d-block d-md-inline"><span
-                                    data-toggle="modal" data-target="#sort"><img className=" img-2x " src={sortIcon}/></span>sort
+                                    data-toggle="modal" data-target="#sort"><img className=" img-2x "
+                                                                                 src={sortIcon}/></span>sort
                                 </div>
 
                                 <div className="table-sort-display d-block d-md-inline"><span
                                     data-toggle="modal" data-target="#sort"><img className=" img-2x " src={filterIcon}/></span>Filter
                                 </div>
-                                <CSVLink variant="success" data={transactions} target="_blank" className={'btn-green'}>Export CSV</CSVLink>
+                                <CSVLink variant="success" data={transactions} target="_blank" className={'btn-green'}>Export
+                                    CSV</CSVLink>
                                 {/* TODO add search field */}
                                 {/*<div className='search-field'>*/}
                                 {/*    <input type='text' className='form-control' />*/}
                                 {/*</div>*/}
                             </div>
                             <div className="search-field">
-                                <Form.Control size="lg" type="text" placeholder="Search" />
+                                <Form.Control size="lg" type="text" placeholder="Search"/>
                             </div>
 
                         </div>
-
+                        <ReactTable
+                            data={transactions}
+                            columns={columns}
+                        />
                         <div className="card-content mt-1 light-table-bg">
                             <div className="table-responsive">
                                 <table id="recent-orders"
@@ -93,42 +118,47 @@ class TransactionTable extends Component {
                                         transactions.length !== 0 ?
                                             (
 
-                                                transactions.map((data,idx)=>{
+                                                transactions.map((data, idx) => {
                                                         let date = moment(data.created_at).format('LL');
                                                         let time = moment(data.created_at).format('hh:mm a');
-                                                   return (
-                                                       <tr key={data.id}>
-                                                           <td className="text-truncate d-none d-md-block">
-                                                               <span className="text-muted mr-1">{date} </span>
-                                                               <span className="table-time">{time}</span>
-                                                           </td>
-                                                           <td>
-                                                               <img alt={''} src={mobileTableStatIcon}
-                                                                    className="green-dot d-md-none"/>
-                                                               <div className="d-inline-block">
-                                                                   <div className="d-md-block text-capitalize">{data.type}</div>
-                                                                   <div className="table-time d-block d-md-none ">{time}
-                                                                   </div>
-                                                               </div>
-                                                           </td>
-                                                           {data.type==='credit'?
-                                                               <td>
-                                                                   <label className="bg-light-green px-2 sm-pd">&#8358;{parseFloat(data.amount).toFixed(2)}</label>
-                                                               </td>
-                                                           :
-                                                               <td>
-                                                                   <label className="bg-light-red px-2 sm-pd">&#8358; {parseFloat(data.amount).toFixed(2)}</label>
-                                                               </td>
-                                                           }
-                                                           <td className="text-truncate d-none d-md-block text-uppercase" style={{maxWidth: '120px'}}>{data.reference}</td>
-                                                       </tr>
+                                                        return (
+                                                            <tr key={data.id}>
+                                                                <td className="text-truncate d-none d-md-block">
+                                                                    <span className="text-muted mr-1">{date} </span>
+                                                                    <span className="table-time">{time}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <img alt={''} src={mobileTableStatIcon}
+                                                                         className="green-dot d-md-none"/>
+                                                                    <div className="d-inline-block">
+                                                                        <div
+                                                                            className="d-md-block text-capitalize">{data.type}</div>
+                                                                        <div
+                                                                            className="table-time d-block d-md-none ">{time}
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                {data.type === 'credit' ?
+                                                                    <td>
+                                                                        <label
+                                                                            className="bg-light-green px-2 sm-pd">&#8358;{parseFloat(data.amount).toFixed(2)}</label>
+                                                                    </td>
+                                                                    :
+                                                                    <td>
+                                                                        <label
+                                                                            className="bg-light-red px-2 sm-pd">&#8358; {parseFloat(data.amount).toFixed(2)}</label>
+                                                                    </td>
+                                                                }
+                                                                <td className="text-truncate d-none d-md-block text-uppercase"
+                                                                    style={{maxWidth: '120px'}}>{data.reference}</td>
+                                                            </tr>
 
-                                                   )
-                                                }
-                                            )
+                                                        )
+                                                    }
+                                                )
 
                                             )
-                                                :
+                                            :
                                             null
                                     }
                                     {/* pagination component */}

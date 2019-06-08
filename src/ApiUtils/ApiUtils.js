@@ -56,6 +56,10 @@ export function request(url, params, token, method, callback) {
             .catch(err => callback(false, err.response))
     } else if (method === 'GET') {
         return axios.get(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
+    } else if (method === 'PATCH') {
+        return axios.patch(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
+    }else if (method === 'PUT') {
+        return axios.patch(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
     }
 
     return axios.get(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));

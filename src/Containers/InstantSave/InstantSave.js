@@ -3,22 +3,17 @@ import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNa
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
 import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-icon.svg";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import InstantSavingModal from "../../Components/Dashboard/InstantSavingModal/InstantSavingModal";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
-import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
-import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
+import {request} from "../../ApiUtils/ApiUtils";
 import {formatNumber, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
-import {getTransactionsApi, getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
+import {getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 
 class InstantSave extends Component {
 
     state = {
-        showSteadySavingModal: false,
-        showActiveGoalModal: false,
-        showlockedSavingsModal: false,
         error: false,
         errorMessage: '',
         accountInfo: null,
@@ -41,18 +36,18 @@ class InstantSave extends Component {
 
 
 
-    hideModal(){
+    hideModal(status=false){
         this.setState({
-            showBackUpModal:false,
+            showSavingModal:false,
         });
 
-        // if(status){
-        //     //get user instant saves
-        //     this.setupInstantSave();
-        //
-        //     //get instant save transactions
-        //     this.loadInstantSaves();
-        // }
+        if(status){
+            //get user instant saves
+            this.setupInstantSave();
+
+            //get instant save transactions
+            this.loadInstantSaves();
+        }
     };
 
     showModal = () => {
@@ -70,7 +65,7 @@ class InstantSave extends Component {
 
             if (data.data.data.accounts) {
 
-                console.log(data.data.data.accounts)
+                console.log(data.data.data.accounts);
 
 
                 // loop through data and set appropriate states
@@ -182,7 +177,7 @@ class InstantSave extends Component {
     loadInstantSaves() {
 
         //get transactions from api
-        console.log(this.state.transactions)
+        console.log(this.state.transactions);
         request(instantSaveTransEndpoint, null, true, 'GET', this.handleTransactions);
 
 

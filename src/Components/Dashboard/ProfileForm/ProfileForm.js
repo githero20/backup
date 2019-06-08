@@ -7,7 +7,6 @@ import {USERINFO} from "../../Auth/HOC/authcontroller";
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import SimpleReactValidator from "simple-react-validator";
 import {ResetPasswordEndpoint} from "../../../RouteLinks/RouteLinks";
-import {ToastProvider} from 'react-toast-notifications';
 
 
 class ProfileForm extends Component {
@@ -30,7 +29,7 @@ class ProfileForm extends Component {
             userProfile: profile,
         })
 
-    }
+    };
 
 
     componentDidMount() {
@@ -165,10 +164,6 @@ class ProfileForm extends Component {
         return (
             <React.Fragment>
 
-
-                {
-                    userProfile ?
-                        (
                             <div>
                                 <form className="form lock-form px-md-1">
                                     <div className="form-body">
@@ -177,7 +172,6 @@ class ProfileForm extends Component {
                                                 <div className=" mb-1 d-inline d-md-block">
                                                     <img src={AvatarImage}
                                                          className="height-100 rounded-circle" alt=""/>
-                                                    {console.log(userProfile)}
                                                 </div>
                                                 <div className="d-inline ml-1 ml-md-0 d-md-flex">
                                                     <button type="button"
@@ -205,7 +199,7 @@ class ProfileForm extends Component {
                                                                 id="name"
                                                                 className="form-control mb-1"
                                                                 name="name"
-                                                                defaultValue={userProfile.name}
+                                                                defaultValue={userProfile?userProfile.name:null}
                                                             />
                                                             {/*{this.validator.message('name', name, 'required|string')}*/}
 
@@ -241,7 +235,7 @@ class ProfileForm extends Component {
                                                                        className="form-control"
                                                                        placeholder="Email"
                                                                        disabled={true}
-                                                                       defaultValue={userProfile.email}
+                                                                       defaultValue={userProfile? userProfile.email:null}
                                                                        aria-describedby="button-addon2"
                                                                 />
                                                             </div>
@@ -281,7 +275,7 @@ class ProfileForm extends Component {
                                                         id="phoneNumber"
                                                         className="form-control mb-1"
                                                         name="phoneNumber"
-                                                        defaultValue={userProfile.phone}
+                                                        defaultValue={userProfile?userProfile.phone:null}
                                                     />
                                                 </div>
                                             </div>
@@ -292,7 +286,7 @@ class ProfileForm extends Component {
                                                     <div className="input-group">
                                                         <input type="email" id="referral_code"
                                                                className="form-control"
-                                                               defaultValue={userProfile.referral_code}
+                                                               defaultValue={userProfile?userProfile.referral_code:null}
                                                                aria-describedby="button-addon2"
                                                         />
 
@@ -307,18 +301,10 @@ class ProfileForm extends Component {
                                                 </div>
                                             </div>
                                         </div>
-
                                         <UpdatePassword/>
                                     </div>
                                 </form>
                             </div>
-                        )
-                        : null
-
-
-                }
-
-
             </React.Fragment>
         );
     }

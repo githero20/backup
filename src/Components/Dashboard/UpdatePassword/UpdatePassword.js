@@ -4,10 +4,7 @@ import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
 import {ResetPasswordEndpoint} from "../../../RouteLinks/RouteLinks";
 import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
-import {ToastProvider} from 'react-toast-notifications';
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
-import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
-
 
 
 function validatePasswords (password, password_confirmation){
@@ -37,7 +34,7 @@ class UpdatePassword extends Component {
         password_confirmation:null,
         loading:false,
         passErr:false
-    }
+    };
 
 
     // get and validate password
@@ -112,7 +109,7 @@ class UpdatePassword extends Component {
 
         }
 
-    }
+    };
 
 
 
@@ -168,7 +165,7 @@ class UpdatePassword extends Component {
                 passErr:true,
             })
         }
-    }
+    };
 
 
 
@@ -178,12 +175,15 @@ class UpdatePassword extends Component {
         const token = getLocalStorage(USERTOKEN);
         const data = JSON.parse(getLocalStorage(USERINFO));
 
-        this.setState({
-            token,
-            email:data.email
-        },()=>{
-            console.log(this.state);
-        })
+        if(data){
+            this.setState({
+                token,
+                email:data.email
+            },()=>{
+                console.log(this.state);
+            })
+        }
+
     }
 
     //validate on every instance

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import RightArrow from "../../../admin/app-assets/images/svg/arrow-right.svg";
 import BlueRightArrow from "../../../admin/app-assets/images/svg/blue-arrow-right.svg";
 import {Link} from 'react-router-dom';
-import {BackupGoalsLink, SteadySaveLink} from "../../../RouteLinks/RouteLinks";
+import {BackupGoalsLink} from "../../../RouteLinks/RouteLinks";
 
 
 class BackUpGoalCard extends Component {
@@ -51,8 +51,7 @@ class BackUpGoalCard extends Component {
                                          className="btn-icon"
                                          src={RightArrow}/>
                                 </button>
-                                <Link to={BackupGoalsLink}  className="btn white-btn round  mr-1 mr-md-0">See
-                                    All <img alt={''}
+                                <Link to={BackupGoalsLink}  className="btn white-btn round  mr-1 mr-md-0">View Goals <img alt={''}
                                              className="btn-icon"
                                              src={BlueRightArrow}/>
                                 </Link>

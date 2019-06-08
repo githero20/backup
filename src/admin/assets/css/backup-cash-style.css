@@ -75,13 +75,14 @@ height-100vh{
 }
 
 .section-details-header {
-    color: #0A3560 ;
+    color: #0A3560;
     font-size: 2rem;
+    font-weight: bold;
 }
 
 .section-details-paragraph {
     color: #9B9B9B ;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     line-height: 2.3rem;
 }
 
@@ -223,7 +224,7 @@ height-100vh{
 .yellow-svg {
     position: absolute;
     bottom: 19%;
-    width: 70%;
+    width: 84rem;
     left: 50%;
     transform: translateX(-50%);
     margin: 0 auto;
@@ -434,6 +435,7 @@ height-100vh{
 .nav-link {
     color: #8A8A8A;
     font-size: 1.2rem;
+    letter-spacing: .5px;
     margin-right: 3.5rem;
     transition: .5s ease-in-out;
 }
@@ -548,6 +550,11 @@ height-100vh{
 
 .header .btn,.cta .btn ,.whatsapp .btn{
     padding: 1rem 2rem;
+    font-size: 1.3rem;
+}
+
+.header .btn{
+    padding: 1.3rem 2rem;
     font-size: 1.3rem;
 }
 
@@ -817,9 +824,6 @@ footer-logo {
         width: 100px;
         height: 100px;
         margin: 0px auto;
-    }
-    .navbar-nav .nav-link {
-        margin: 0rem 0rem 1rem 0rem;
     }
     .header-sub-title{
         font-size: 1rem;
@@ -1101,7 +1105,7 @@ footer-logo {
     .yellow-svg {
         position: absolute;
         bottom: 34%;
-        width: 80%;
+        width: 84rem;
         left: 50%;
         transform: translateX(-50%);
         margin: 0 auto;

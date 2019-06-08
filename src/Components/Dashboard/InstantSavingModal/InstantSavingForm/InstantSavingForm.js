@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
-import Button from "react-bootstrap/Button";
 import SimpleReactValidator from "simple-react-validator";
 import {getLocalStorage, request} from "../../../../ApiUtils/ApiUtils";
 import {instantSaveEndpoint} from "../../../../RouteLinks/RouteLinks";
@@ -92,13 +91,12 @@ class InstantSavingForm extends Component {
                 //hide modal
                 setTimeout(() => {
 
-                    console.log("here");
-                    this.props.onHide();
+                    this.props.onHide(true);
                     //updateInstantSaveTable
                     // this.props.instantSave();
                     // this.props.updateInstantSave();
 
-                }, 2000);
+                }, 1000);
             }
         } else {
             if (response) {

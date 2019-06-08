@@ -95,7 +95,9 @@ class BankCardSetting extends Component {
                     appearance:"success",
                     autoDismiss:true,
                     autoDismissTimeout:3000
-                })
+                });
+
+                this.getUserCards();
             }else{
                 this.props.toastManager.add("Unable to add card at this moment",{
                     appearance:"error",
@@ -120,20 +122,21 @@ class BankCardSetting extends Component {
                 cardType = visaImage;
             return (
                 <div key={index} className={"bank-card " + grad +  " mb-2 mb-md-0  mr-2"}>
-                   <div className="d-flex justify-content-end">
-                       <img
-                       src={menuIcon}
-                       className=" big-dots"/>
-                   </div>
-                   <p className="mb-md-3 mt-2 ml-1 ml-md-0 mt-md-0">**** **** **** {card.last4}</p>
-                   <div className="ml-1 ml-md-0 sm-font"><span
-                       className="mr-5 mb-1 sm-font"></span><span>{card.exp_month}/{card.exp_year}</span>
-                   </div>
-                   <div>
-                       <img className="card-img-icon"
+                    <div className="d-flex justify-content-end">
+                        <img
+                            src={menuIcon}
+                            className=" big-dots"/>
+                    </div>
+                    <p className="mb-md-3 mt-2 ml-1 ml-md-0 mt-md-0">**** **** **** {card.last4}</p>
+                    <div className="ml-1 ml-md-0 sm-font"><span
+                        className="mr-5 mb-1 sm-font"></span><span>{card.exp_month}/{card.exp_year}</span>
+                    </div>
+                    <div>
+                        <img className="card-img-icon"
                              src={cardType}/>
-                   </div>
-               </div>
+                    </div>
+                </div>
+
            );
         });
         return (

@@ -2,9 +2,12 @@ import React from "react";
 import axios from 'axios';
 import {local} from './storage';
 import moment from "moment";
-import {BASE_URL} from "../RouteLinks/RouteLinks";
+import {BASE_URL, verifyTransactionEndpoint} from "../RouteLinks/RouteLinks";
+import {USERTOKEN} from "../Components/Auth/HOC/authcontroller";
 
 export const GOOGLE_PLACE_API_KEY = "AIzaSyBMe9I7kVgdErGjrHStl34d3RLk5rfi0gw";
+
+export const PAYSTACK_PUBLIC_KEY = "pk_test_a59d1204944c01bf05330ab59fb1abe607eb36a6";
 
 export const _setState = (prop, val, el = this) => el.setState({[prop]: val});
 
@@ -48,6 +51,11 @@ export const _isAnEmpytyObject = (obj) => {
 
 export const _getToken = () => {
     return local.get('token');
+};
+
+export const _setUser = (user) =>{
+    console.log("User before saving", user);
+    return local.setObject("user",user);
 };
 
 export const _getUser = () => {
@@ -127,4 +135,37 @@ export const _transformDate = (date, toFormat = "LL", fromFormat = "YYYY-MM-DD")
 
 export const _isDateAfterToday = (date) => {
     return moment().isAfter(moment(date));
+};
+
+
+export const _payWithPaystack = (ref, amount, callback) => {
+    const user = _getUser();
+    const handler = window.PaystackPop.setup({
+        key: PAYSTACK_PUBLIC_KEY,
+        email: user.email,
+        amount: parseFloat(amount) * 100,
+        currency: "NGN",
+        ref: ref,
+        channels:['card'],
+        metadata: {
+            custom_fields: [
+                {
+                    display_name: user.name,
+                    variable_name: "mobile_number",
+                    value: user.phone || "+2348012345678"
+                }
+            ]
+        },
+
+        callback: (response) => {
+            callback(response);
+        },
+
+        onClose: function(){
+            console.log("Paystack Closed");
+            window.location.reload();
+        }
+    });
+    handler.openIframe();
+
 };

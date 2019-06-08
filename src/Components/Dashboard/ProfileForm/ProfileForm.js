@@ -6,7 +6,7 @@ import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../Auth/HOC/authcontroller";
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import SimpleReactValidator from "simple-react-validator";
-import {UpdatePasswordEndpoint} from "../../../RouteLinks/RouteLinks";
+
 
 
 class ProfileForm extends Component {
@@ -29,7 +29,7 @@ class ProfileForm extends Component {
             userProfile: profile,
         })
 
-    }
+    };
 
 
     componentDidMount() {

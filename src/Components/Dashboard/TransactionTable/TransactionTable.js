@@ -11,6 +11,7 @@ import {Col, Form, Row} from 'react-bootstrap';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
+
 class TransactionTable extends Component {
 
     state = {

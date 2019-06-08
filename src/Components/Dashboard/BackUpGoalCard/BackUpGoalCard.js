@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import RightArrow from "../../../admin/app-assets/images/svg/arrow-right.svg";
 import BlueRightArrow from "../../../admin/app-assets/images/svg/blue-arrow-right.svg";
 import {Link} from 'react-router-dom';
-import {BackupGoalsLink, SteadySaveLink} from "../../../RouteLinks/RouteLinks";
+import {BackupGoalsLink} from "../../../RouteLinks/RouteLinks";
 
 
 class BackUpGoalCard extends Component {

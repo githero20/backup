@@ -7,7 +7,6 @@ import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 
 
-
 function validatePasswords (password, password_confirmation){
 
 
@@ -35,7 +34,7 @@ class UpdatePassword extends Component {
         password_confirmation:null,
         loading:false,
         passErr:false
-    }
+    };
 
     // get and validate password
 
@@ -100,7 +99,7 @@ class UpdatePassword extends Component {
 
         }
 
-    }
+    };
 
 
 
@@ -152,7 +151,7 @@ class UpdatePassword extends Component {
                 passErr:true,
             })
         }
-    }
+    };
 
 
 

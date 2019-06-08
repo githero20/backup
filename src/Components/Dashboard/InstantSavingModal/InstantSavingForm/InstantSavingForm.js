@@ -261,13 +261,11 @@ class InstantSavingForm extends Component {
                     </Form.Row>
 
 
-                    <Form.Row className={'d-flex justify-content-center justify-md-content-end mt-2'}>
-                        <div className={'d-flex justify-content-end'}>
+                    <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
                             <button className={'round btn-custom-blue modal-btn'} type="submit">
                                 {this.state.loading ? <ButtonLoader/> :
                                     <span>Start Saving</span>}
                             </button>
-                        </div>
                     </Form.Row>
                 </Form>
             </React.Fragment>

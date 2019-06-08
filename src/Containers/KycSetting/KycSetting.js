@@ -232,10 +232,8 @@ class KycSetting extends Component {
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <div className="card-content collapse" >
+                                                        <div className="card-content " >
                                                             <div className="card-body px-5">
-
-
                                                                 <form className="form lock-form">
                                                                     <div className="form-body">
                                                                         <div className="row">

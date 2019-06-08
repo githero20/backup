@@ -7,6 +7,7 @@ import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.s
 import {withToastManager} from "react-toast-notifications";
 import {getWithdrawalList} from "../../actions/WithdrawalAction";
 import WithdrawalList from "./WithdrawalList";
+import WithdrawalForm from "./withdrawalForm";
 
 class Withdrawal extends Component {
 
@@ -109,6 +110,17 @@ class Withdrawal extends Component {
                                                 }
                                             </div>
                                         </div>
+
+
+
+
+
+                                    </div>
+                                </div>
+                                <div className={'row'}>
+                                    <div className="col-lg-8">
+                                        {/* withdrawal form component */}
+                                        <WithdrawalForm/>
                                     </div>
                                 </div>
                             </div>

@@ -10,7 +10,7 @@ import WithdrawalIcon from "../../../admin/app-assets/images/svg/withdrawals.svg
 import SettingsIcon from "../../../admin/app-assets/images/svg/settings.svg";
 import {Link, NavLink, Redirect, withRouter} from 'react-router-dom';
 import {
-    BackupGoalsLink,
+    BackupGoalsLink, BackupStashLink,
     BankCardLink, DashboardLink,
     HomeLink, InstantSaveLink,
     KycSettingLink, LockedSavingsLink,
@@ -164,6 +164,12 @@ class VerticalNav extends Component {
                                 <NavLink to={TransactionsLink} >
                                     <img src={transactionIcon}/>
                                     <span className="menu-title">Transactions</span>
+                                </NavLink>
+                            </li>
+                            <li className={' nav-item ' + this.getNavLinkClass(BackupStashLink)}>
+                                <NavLink to={BackupStashLink} >
+                                    <img src={WithdrawalIcon}/>
+                                    <span className="menu-title">Backup Stash</span>
                                 </NavLink>
                             </li>
                             <li className={' nav-item ' + this.getNavLinkClass(WithdrawalLink)}>

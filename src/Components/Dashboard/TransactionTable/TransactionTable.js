@@ -39,7 +39,7 @@ class TransactionTable extends Component {
 
         return (
             <React.Fragment>
-                <div id="recent-transaction" className="col-sm-12 col-md-8 col-lg-8 order-md-1">
+                <div id="recent-transaction" className=" col-lg-12 order-md-1">
                     <div className="card">
                         <div className="card-header d-flex  justify-content-between">
                             <h4 className="card-title table-title">Recent Transaction </h4>
@@ -59,6 +59,10 @@ class TransactionTable extends Component {
                                 data-toggle="modal" data-target="#sort"><img className=" img-2x " src={sortIcon}/></span>sort
                             </div>
                             <CSVLink variant="success" data={transactions} target="_blank" className={'btn-green'}>Export CSV</CSVLink>
+                            {/* TODO add search field */}
+                            {/*<div className='search-field'>*/}
+                            {/*    <input type='text' className='form-control' />*/}
+                            {/*</div>*/}
                         </div>
                         <div className="card-content mt-1 light-table-bg">
                             <div className="table-responsive">

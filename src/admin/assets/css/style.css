@@ -298,212 +298,6 @@ html body .content.app-content {
         transform-origin: 0 0;
     }
 
-    .select-wrapper input.select-dropdown:disabled {
-        color: rgba(0, 0, 0, 0.42);
-        cursor: default;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    .datepicker-modal {
-        max-width: 325px;
-        min-width: 300px;
-        max-height: none;
-    }
-
-    .datepicker-container.modal-content {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        padding: 0;
-    }
-
-    .datepicker-controls {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: justify;
-        -webkit-justify-content: space-between;
-        -ms-flex-pack: justify;
-        justify-content: space-between;
-        width: 280px;
-        margin: 0 auto;
-    }
-
-    .datepicker-controls .selects-container {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .datepicker-controls .select-wrapper input {
-        border-bottom: none;
-        text-align: center;
-        margin: 0;
-    }
-
-    .datepicker-controls .select-wrapper input:focus {
-        border-bottom: none;
-    }
-
-    .datepicker-controls .select-wrapper .caret {
-        display: none;
-    }
-
-    .datepicker-controls .select-year input {
-        width: 50px;
-    }
-
-    .datepicker-controls .select-month input {
-        width: 70px;
-    }
-
-    .month-prev, .month-next {
-        margin-top: 4px;
-        cursor: pointer;
-        background-color: transparent;
-        border: none;
-    }
-
-    .datepicker-date-display {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1 auto;
-        -ms-flex: 1 auto;
-        flex: 1 auto;
-        background-color: #26a69a;
-        color: #fff;
-        padding: 20px 22px;
-        font-weight: 500;
-    }
-
-    .datepicker-date-display .year-text {
-        display: block;
-        font-size: 1.5rem;
-        line-height: 25px;
-        color: rgba(255, 255, 255, 0.7);
-    }
-
-    .datepicker-date-display .date-text {
-        display: block;
-        font-size: 2.8rem;
-        line-height: 47px;
-        font-weight: 500;
-    }
-
-    .datepicker-calendar-container {
-        -webkit-box-flex: 2.5;
-        -webkit-flex: 2.5 auto;
-        -ms-flex: 2.5 auto;
-        flex: 2.5 auto;
-    }
-
-    .datepicker-table {
-        width: 280px;
-        font-size: 1rem;
-        margin: 0 auto;
-    }
-
-    .datepicker-table thead {
-        border-bottom: none;
-    }
-
-    .datepicker-table th {
-        padding: 10px 5px;
-        text-align: center;
-    }
-
-    .datepicker-table tr {
-        border: none;
-    }
-
-    .datepicker-table abbr {
-        text-decoration: none;
-        color: #999;
-    }
-
-    .datepicker-table td {
-        border-radius: 50%;
-        padding: 0;
-    }
-
-    .datepicker-day-button {
-        background-color: transparent;
-        border: none;
-        line-height: 38px;
-        display: block;
-        width: 100%;
-        border-radius: 50%;
-        padding: 0 5px;
-        cursor: pointer;
-        color: inherit;
-    }
-
-    .datepicker-day-button:focus {
-        background-color: rgba(43, 161, 150, 0.25);
-    }
-
-    .datepicker-footer {
-        width: 280px;
-        margin: 0 auto;
-        padding-bottom: 5px;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: justify;
-        -webkit-justify-content: space-between;
-        -ms-flex-pack: justify;
-        justify-content: space-between;
-    }
-
-    .datepicker-cancel, .datepicker-clear, .datepicker-done {
-        color: #26a69a;
-        padding: 0 1rem;
-    }
-
-    .datepicker-clear {
-        color: #F44336;
-    }
-
-    @media only screen and (min-width: 601px) {
-        .datepicker-modal {
-            max-width: 625px;
-        }
-
-        .datepicker-container.modal-content {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
-            -webkit-flex-direction: row;
-            -ms-flex-direction: row;
-            flex-direction: row;
-        }
-
-        .datepicker-date-display {
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 1 270px;
-            -ms-flex: 0 1 270px;
-            flex: 0 1 270px;
-        }
-
-        .datepicker-controls, .datepicker-table, .datepicker-footer {
-            width: 320px;
-        }
-
-        .datepicker-day-button {
-            line-height: 44px;
-        }
-    }
-
 }
 
 .btn-green{
@@ -567,11 +361,11 @@ html body .content.app-content {
     "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+
 .btn-blue-gradient-2 img {
     position: absolute;
-    top: 15%;
-    left: 5%;
-    width: 27%;
+    top: 1rem;
+    left: 1rem;
 }
 
 .form-group select {
@@ -1670,15 +1464,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 }
 
-.filled-in {
-    background-color: #232323;
-    color: #232323;
-}
-
-input[type="checkbox"].filled-in.login-check-box:checked + span:not(.lever):after {
-    border: 2px solid #232323;
-    background-color: #232323;
-}
 
 /* The container */
 .label-container {
@@ -1737,14 +1522,12 @@ input[type="checkbox"].filled-in.login-check-box:checked + span:not(.lever):afte
 
 /* Style the checkmark/indicator */
 .label-container .checkmark:after {
-    left: 9px;
-    top: 5px;
+    left: 10px;
+    top: 6px;
     width: 5px;
     height: 10px;
     border: solid white;
     border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
 
@@ -2410,9 +2193,6 @@ input[type="checkbox"].filled-in.login-check-box:checked + span:not(.lever):afte
     height: 1em;
     margin-top: -0.5em;
     -webkit-animation: spinner 1500ms infinite linear;
-    -moz-animation: spinner 1500ms infinite linear;
-    -ms-animation: spinner 1500ms infinite linear;
-    -o-animation: spinner 1500ms infinite linear;
     animation: spinner 1500ms infinite linear;
     border-radius: 0.5em;
     -webkit-box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
@@ -2421,54 +2201,6 @@ input[type="checkbox"].filled-in.login-check-box:checked + span:not(.lever):afte
 
 /* Animation */
 
-@-webkit-keyframes spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-@-moz-keyframes spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-@-o-keyframes spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
 @keyframes spinner {
     0% {
         -webkit-transform: rotate(0deg);

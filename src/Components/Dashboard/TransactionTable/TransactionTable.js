@@ -79,21 +79,21 @@ class TransactionTable extends Component {
                         </div>
 
 
-                        {/*<ReactTable*/}
-                        {/*    data={transactions}*/}
-                        {/*    columns={columns}*/}
-                        {/*    sortable={true}*/}
-                        {/*    resizable={true}*/}
-                        {/*    filterable={true}*/}
-                        {/*    loading={false}*/}
-                        {/*/>*/}
-
-
-                        <DataTable
-                            title="Recent Transactions"
-                            columns={columns}
+                        <ReactTable
                             data={transactions}
+                            columns={columns}
+                            sortable={true}
+                            resizable={true}
+                            filterable={true}
+                            loading={false}
                         />
+
+
+                        {/*<DataTable*/}
+                        {/*    title="Recent Transactions"*/}
+                        {/*    columns={columns}*/}
+                        {/*    data={transactions}*/}
+                        {/*/>*/}
 
                         <div className="card-content mt-1 light-table-bg">
                             <div className="table-responsive">

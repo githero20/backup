@@ -412,7 +412,7 @@ class ActivationForm extends Component {
             <div className="col-12 col-lg-6">
                 <div className="form-group">
                 <label htmlFor="exampleFormControlSelect2">Day of the Month</label>
-                    <select value={day_of_month} className='form-control' onChange={this.changeHandler}  id="day_of_month" name={'day_of_month'}>
+                    <select defaultValue={day_of_month}  className='form-control' onChange={this.changeHandler}  id="day_of_month" name={'day_of_month'}>
                     <option value={'1'}>1</option>
                     <option value={'2'}>2</option>
                     <option value={'3'}>3</option>
@@ -454,7 +454,7 @@ class ActivationForm extends Component {
             <div className="col-12 col-lg-6">
                 <div className="form-group">
                     <label htmlFor="exampleFormControlSelect2">Day of the Week</label>
-                    <select value={day_of_week} className='form-control' onChange={this.changeHandler} id="day_of_the_week" name="day_of_the_week">
+                    <select defaultValue={day_of_week}  className='form-control' onChange={this.changeHandler} id="day_of_the_week" name="day_of_the_week">
                     <option value={'1'}>Mon</option>
                     <option value={'2'}>Tue</option>
                     <option value={'3'}>Wed</option>
@@ -498,12 +498,12 @@ class ActivationForm extends Component {
                     <div className="row">
                         <div className="col-12">
                             <h5 className="form-header-purple mb-md-1">Start Saving Now</h5>
-                            <p className="gray-text mb-5 mb-md-5">Settings here can be changed when you are logged in. e.g<strong> &#8358; 500 </strong></p>
+                            <p className="gray-text mb-5 mb-md-5">Settings here can be changed when you are logged in.</p>
                         </div>
                         <div className="col-12 col-lg-12">
                             <div className="form-group mb-lg-3">
                                 <label htmlFor="contribution" className="active">Amount To Debit</label>
-                                <input id="amount" type="number" name={'contribution'} onChange={this.changeHandler} className="form-control"/>
+                                <input id="amount" type="number" placeholder={`e.g 500 (NGN)`} name={'contribution'} onChange={this.changeHandler} className="form-control"/>
                                 {this.validator.message('contribution', contribution, 'required|numeric')}
 
                             </div>

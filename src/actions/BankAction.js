@@ -1,5 +1,5 @@
 import {_axios} from "../utils";
-import {BASE_URL, GetUserBanks, SaveBankAccount, VerifyBankOTP} from "../RouteLinks/RouteLinks";
+import {BASE_URL, GetUserBanks, ResendBankOTP, SaveBankAccount, VerifyBankOTP} from "../RouteLinks/RouteLinks";
 
 // sk_test_a8b0897d183d6393821b6cad177f7a9cf0d28cf3
 
@@ -35,7 +35,7 @@ export const resolveBankName = (accountNumber, bankCode,callback) =>{
         })
 };
 
-export const saveBankAccount = (payload, callback) =>{
+export const sendBankOTP = (payload, callback) =>{
     console.log("body", payload);
     _axios.post(`${BASE_URL}/${SaveBankAccount}`,payload)
         .then(res => {
@@ -48,6 +48,20 @@ export const saveBankAccount = (payload, callback) =>{
         })
 };
 
+export const resendBankOTP = (payload, callback) =>{
+    console.log("body", payload);
+    _axios.post(`${BASE_URL}/${ResendBankOTP}`,payload)
+        .then(res => {
+            console.log("Res",res);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            // console.log("Err",JSON.stringify(err),err.response.data.data, err.response.data.message);
+            callback(false, err.response.data.data || err.response.data.message);
+        })
+};
+
+
 
 export const verifyOtp = (payload, callback) =>{
     console.log("body", payload);
@@ -58,7 +72,7 @@ export const verifyOtp = (payload, callback) =>{
         })
         .catch(err => {
             console.log("Err",err);
-            callback(false, err.response.data.message);
+            callback(false, err.response.data.data || err.response.data.message);
         })
 };
 

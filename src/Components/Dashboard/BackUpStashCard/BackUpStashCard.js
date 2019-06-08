@@ -17,7 +17,7 @@ class BackUpStashCard extends Component {
                     <div className="card saving-card dashboard-card pull-up">
 
                         <div className="card-body text-center mt-md-2">
-                            <h4 className="card-title saving-balance-text my-2">&#8358; {stashAmount}</h4>
+                            <h4 className="card-title saving-balance-text mb-1 mt-5">&#8358; {stashAmount}</h4>
                             <div className="d-flex justify-content-center">
 
                                 <Link to={WithdrawalLink} className="btn white-btn round  ml-1 mr-1 mr-md-0">See

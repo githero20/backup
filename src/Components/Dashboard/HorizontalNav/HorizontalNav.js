@@ -5,7 +5,7 @@ import LogOutIcon from "../../../admin/app-assets/images/svg/logout-cion.svg";
 import KycIcon from "../../../admin/app-assets/images/svg/kyc-icon.svg";
 import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import {Link, Redirect} from "react-router-dom";
-import {LoginEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
+import {DashboardLink, LoginEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
 
 class HorizontalNav extends Component {
 
@@ -82,7 +82,7 @@ class HorizontalNav extends Component {
                                     </a>
                                 </li>
                                 <li className="nav-item mr-auto">
-                                    <Link to={'/'} className="navbar-brand" href="index.html">
+                                    <Link to={DashboardLink} className="navbar-brand" >
                                         <img className="brand-logo" alt="Backup Cash"
                                              src={Logo}/>
                                     </Link>

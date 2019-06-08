@@ -325,7 +325,7 @@ class SignUpForm extends Component {
                                 <button type={'button'} onClick={this.submitForm}
                                         className=" btn btn-round blue-round-btn auth-btn">
                                     {this.state.loading ? <ButtonLoader/> :
-                                        <span>Sign Up<img alt="" className="img-2x ml-2" src={btnArrowRight}/></span>}
+                                        <span>Sign Up<img alt="" className="img-2x ml-1" src={btnArrowRight}/></span>}
                                 </button>
                             </div>
                         </div>

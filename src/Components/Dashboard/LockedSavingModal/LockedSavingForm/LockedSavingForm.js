@@ -192,10 +192,8 @@ class LockedSavingForm extends Component {
 
                         </Form.Group>
                     </Form.Row>
-                    <Form.Row className={'d-flex justify-content-between mt-2'}>
-                        <div>
-                            <Button onClick={this.props.onHide} className={'mr-1 round reset-btn'}>Reset All</Button>
-                        </div>
+                    <Form.Row className="d-flex justify-content-center justify-content-md-end  mt-2">
+
                         <div className={'d-flex justify-content-end'}>
                             <Button className="round btn-custom-blue " type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Start Saving"}

@@ -11,7 +11,6 @@ import Pagination from "../Pagination/Pagination";
 class TransactionTable extends Component {
 
     state={
-        transactions: [],
         currentTransactions: [],
         currentPage: null,
         totalPages: null
@@ -76,7 +75,7 @@ class TransactionTable extends Component {
                                     <tbody>
                                     {/*show all transactions*/}
                                     {
-                                        transactions !== undefined || transactions.length !== 0 ?
+                                        transactions.length !== 0 ?
                                             (
 
                                                 transactions.map((data,idx)=>{
@@ -97,11 +96,15 @@ class TransactionTable extends Component {
                                                                    </div>
                                                                </div>
                                                            </td>
-
-                                                           <td>
-                                                               <label className="bg-light-green px-2 sm-pd">&#8358; {parseFloat(data.amount).toFixed(2)}</label>
-                                                           </td>
-
+                                                           {data.type==='credit'?
+                                                               <td>
+                                                                   <label className="bg-light-green px-2 sm-pd">&#8358;{parseFloat(data.amount).toFixed(2)}</label>
+                                                               </td>
+                                                           :
+                                                               <td>
+                                                                   <label className="bg-light-red px-2 sm-pd">&#8358; {parseFloat(data.amount).toFixed(2)}</label>
+                                                               </td>
+                                                           }
                                                            <td className="text-truncate d-none d-md-block text-uppercase" style={{maxWidth: '120px'}}>{data.reference}</td>
                                                        </tr>
 
@@ -113,13 +116,13 @@ class TransactionTable extends Component {
                                                 :
                                             null
                                     }
-
-                                    <Pagination
-                                        totalRecords={transactions}
-                                        pageLimit={18}
-                                        pageNeighbours={1}
-                                        onPageChanged={this.onPageChanged}
-                                    />
+                                    {/* pagination component */}
+                                    {/*<Pagination*/}
+                                    {/*    totalRecords={transactions}*/}
+                                    {/*    pageLimit={18}*/}
+                                    {/*    pageNeighbours={1}*/}
+                                    {/*    onPageChanged={this.onPageChanged}*/}
+                                    {/*/>*/}
 
                                     {/* use for  Debit Transactions */}
                                     {/*<tr>*/}

@@ -27,13 +27,13 @@ import sfsImage from "../../admin/app-assets/images/svg/sfs.svg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
 import carouselRightArrow from "../../admin/app-assets/images/svg/right-arrow.svg";
+import {HomeLink, LoginLink} from "../../RouteLinks/RouteLinks";
 
 
 class Home extends Component {
 
     state = {
         showMobileMenu:false,
-
     };
 
 
@@ -45,9 +45,6 @@ class Home extends Component {
         //show toggle menu
         let mobileMenu = document.querySelector('.navbar-collapse');
         mobileMenu.classList.toggle('show');
-
-
-
     };
 
 
@@ -61,18 +58,17 @@ class Home extends Component {
                                 <a  className="navbar-brand"  >
                                     <img src={backupCashLogo} alt="logo" width="200px"/>
                                 </a>
-                                <a type="button" onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
+                                <a  onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
                                    data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                    aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="hamburger-box">
                                         <span className="hamburger-inner"></span>
                                     </span>
                                 </a>
-
                                 <div className="collapse navbar-collapse animated slideInLeft faster" id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
                                         <li className="nav-item active">
-                                            <a className="nav-link" href={'#'} >Home <span className="sr-only">(current)</span></a>
+                                            <a className="nav-link" href={HomeLink} >Home <span className="sr-only">(current)</span></a>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link" href={'#'}  >FAQs </a>
@@ -83,7 +79,7 @@ class Home extends Component {
                                     </ul>
                                     <ul className="cta-link">
                                         <li>
-                                            <Link to={'/login'} className="btn-rounded-blue btn-gradient-blue">Log In</Link>
+                                            <Link to={LoginLink} className="btn-rounded-blue btn-gradient-blue">Log In</Link>
                                         </li>
                                     </ul>
                                 </div>

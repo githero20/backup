@@ -152,10 +152,10 @@ class ForgotPasswordForm extends Component {
 
                             <div className="col-12">
                                 <div
-                                    className="d-flex  flex-md-row justify-content-end align-items-center">
+                                    className="d-flex flex-column flex-md-row justify-content-end align-items-center">
                                     <button type={'button'} onClick={this.submitForm} className="btn btn-round blue-round-btn auth-btn "
                                             name="action">{this.state.loading?<ButtonLoader/>:
-                                        <span>Send Email<img alt="" className="img-2x ml-2" src={signInIcon}/></span>}
+                                        <span>Send Email<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
                                     </button>
                                 </div>
                             </div>

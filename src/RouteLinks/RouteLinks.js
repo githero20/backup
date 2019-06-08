@@ -18,6 +18,8 @@ export const BankCardLink  = '/bank-card-setting';
 export const LoginLink  = '/login';
 export const SignUpLink  = '/sign-up';
 export const ResendActivationLink  = '/resend/email';
+export const HomeLink  = '/';
+export const KycSettingLink  = '/kyc-setting';
 
 
 
@@ -33,6 +35,7 @@ export const getUserInfoEndpoint  = `sfsbapi/v1/user`;
 export const activateUserEndpoint  = `sfsbapi/v1/user/activate`;
 export const resendActEndpoint  = `sfsbapi/v1/auth/activate/resend`;
 export const instantSaveEndpoint  = `sfsbapi/v1/user/savings/instant`;
+export const instantSaveTransEndpoint  = `/sfsbapi/v1/user/transaction/instant`;
 export const lockedSavingEndpoint  = `sfsbapi/v1/user/savings/locked`;
 export const NewSteadySaveEndpoint  = `/sfsbapi/v1/user/savings/steady`;
 export const getSteadySaveEndpoint  = `/sfsbapi/v1/user/savings/steady`;

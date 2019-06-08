@@ -15,15 +15,13 @@ import {ADD_CARD} from "../../../../Helpers/Helper";
 class InstantSavingForm extends Component {
 
 
-
-
     state = {
         instantSaveInfo: {
             amount: null,
             payment_auth: null,
-            source:'quick',
+            source: 'quick',
         },
-        loading:false,
+        loading: false,
         userCards: [],
     };
 
@@ -34,7 +32,7 @@ class InstantSavingForm extends Component {
             validators: {
                 payment_auth: {  // name the rule
                     message: 'Please Select a card',
-                    required:'Please Select a card'
+                    required: 'Please Select a card'
                 }
             }
         });
@@ -42,10 +40,6 @@ class InstantSavingForm extends Component {
     }
 
     handleAddNewCard = () => {
-
-
-
-
 
 
     };
@@ -60,7 +54,7 @@ class InstantSavingForm extends Component {
 
         if (this.validator.allValid()) {
             this.setState({
-                loading:true,
+                loading: true,
             });
 
             request(instantSaveEndpoint, this.state.instantSaveInfo, true, 'POST', this.HandleInstantSave);
@@ -75,7 +69,6 @@ class InstantSavingForm extends Component {
         }
 
 
-
     };
 
 
@@ -83,35 +76,32 @@ class InstantSavingForm extends Component {
     HandleInstantSave = (state, response) => {
 
         this.setState({
-            loading:false,
+            loading: false,
         });
-        const { toastManager } = this.props;
+        const {toastManager} = this.props;
 
-        if(state){
-            if(response.status===200){
+        if (state) {
+            if (response.status === 200) {
                 toastManager.add(`${JSON.stringify('You have successfully created an Instant Save')}`, {
                     appearance: 'success',
                     autoDismiss: true,
+                    autoDismissTimeout: 3000,
                 });
+                // this.props.onHide();
 
                 //hide modal
-                setTimeout(()=>{
+                setTimeout(() => {
+
+                    console.log("here");
                     this.props.onHide();
-
                     //updateInstantSaveTable
-                    this.props.updateInstantSave();
+                    // this.props.instantSave();
+                    // this.props.updateInstantSave();
 
-                    },2000);
-
-
-
-
+                }, 2000);
             }
-
-
-        }else{
-
-            if(response){
+        } else {
+            if (response) {
                 console.log(JSON.stringify(response));
                 toastManager.add(`${JSON.stringify(response.data.message)}`, {
                     appearance: 'error',
@@ -123,7 +113,6 @@ class InstantSavingForm extends Component {
 
 
     };
-
 
 
     //Retrieves user inputs
@@ -144,13 +133,10 @@ class InstantSavingForm extends Component {
         this.setState({
             instantSaveInfo: data
         });
-
-
     };
 
 
     componentDidMount() {
-
         //get pay auths
         const userInfo = JSON.parse(getLocalStorage(USERINFO));
 
@@ -158,38 +144,30 @@ class InstantSavingForm extends Component {
             this.setState({
                 userCards: userInfo.authorization.data
             })
-
         }
-
-
     }
+
 
     resetFormFields = () => {
 
         let data = this.state.instantSaveInfo;
-            data.amount=0;
-            data.payment_auth=-1;
+        data.amount = 0;
+        data.payment_auth = -1;
 
-            this.setState({
-                instantSaveInfo:data
-            })
-
+        this.setState({
+            instantSaveInfo: data
+        })
     };
 
     addNewCard = () => {
-
-        if(getLocalStorage(USERINFO)){
-
+        if (getLocalStorage(USERINFO)) {
             console.log(getLocalStorage(USERINFO));
             if (getLocalStorage(USERACTIVATED)) {
                 let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                 if (status === true) {
+                if (status === true) {
                     console.log('got here to retrieve it ');
                     let data = JSON.parse(getLocalStorage(USERINFO));
-
                     console.log(data);
-
-
                 }
             }
         }
@@ -238,78 +216,59 @@ class InstantSavingForm extends Component {
     };
 
 
-
-
     render() {
         const {payment_auth, amount} = this.state.instantSaveInfo;
-            if(this.state.instantSaveInfo.payment_auth===ADD_CARD){
+        if (this.state.instantSaveInfo.payment_auth === ADD_CARD) {
 
-                this.addNewCard();
-            }
+            this.addNewCard();
+        }
         return (
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
-
                     <Form.Row>
-                            <Col>
-                                <Form.Group className={'mt-md-1 mb-md-3'}>
-                                    <Form.Label>Amount</Form.Label>
-
-                                    <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'} value={amount} onChange={this.changeHandler} />
-                                    {this.validator.message('amount', amount, 'required|numeric')}
-
-                                </Form.Group>
-                            </Col>
+                        <Col>
+                            <Form.Group className={'mt-md-1 mb-md-3'}>
+                                <Form.Label>Amount</Form.Label>
+                                <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}
+                                              defaultValue={amount} onChange={this.changeHandler}/>
+                                {this.validator.message('amount', amount, 'required|numeric')}
+                            </Form.Group>
+                        </Col>
                     </Form.Row>
-
-
-                    <Form.Row >
+                    <Form.Row>
                         <Col className={'mt-md-1 mb-md-3'}>
                             <Form.Group>
                                 <Form.Label>Debit Card</Form.Label>
-                                <Form.Control as="select"   onChange={this.changeHandler} defaultValue={payment_auth} id={'payment_auth'}
+                                <Form.Control as="select" onChange={this.changeHandler} defaultValue={payment_auth}
+                                              id={'payment_auth'}
                                               name={'payment_auth'}>
-                                    <option value={-1} >Select Card</option>
-                                    <option value={0} >Add New Card</option>
+                                    <option value={-1}>Select Card</option>
+                                    <option value={0}>Add New Card</option>
                                     {/* loop through and get the number of accounts user has */}
                                     {
                                         this.state.userCards.length > 0 ?
-
                                             this.state.userCards.map((data, index) => {
                                                 return (
                                                     <option value={data.id} key={data.id}>{data.card_type}</option>
                                                 );
-
                                             })
                                             : null
                                     }
-
                                 </Form.Control>
                                 {this.validator.message('Debit Card', payment_auth, 'required|numeric')}
-
                             </Form.Group>
-
-
                         </Col>
                     </Form.Row>
 
 
-
-                    <Form.Row className={'d-flex justify-content-between mt-2'}>
-                        <div>
-                            <Button onClick={this.resetFormFields} className={'mr-1 round reset-btn'}>Reset All</Button>
-                        </div>
+                    <Form.Row className={'d-flex justify-content-center justify-md-content-end mt-2'}>
                         <div className={'d-flex justify-content-end'}>
-                            <Button onClick={this.props.onHide} className={'mr-1 round btn-outline-gray'}>Close</Button>
-                            <Button  className={'round btn-custom-blue modal-btn'} type="submit">
-                                {this.state.loading?<ButtonLoader/>:
+                            <button className={'round btn-custom-blue modal-btn'} type="submit">
+                                {this.state.loading ? <ButtonLoader/> :
                                     <span>Start Saving</span>}
-
-                            </Button>
+                            </button>
                         </div>
-
                     </Form.Row>
-
                 </Form>
             </React.Fragment>
         );

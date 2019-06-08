@@ -98,6 +98,10 @@ button .loadingSpinner {
     width: 40%;
     height:50px;
 }
+.btn-withdraw{
+    min-width: 150px;
+    height:40px;
+}
 
 
 .alert-warning{
@@ -136,13 +140,33 @@ html body .content.app-content {
     right: 2%;
 }
 
+.css-e110bw {
+    box-sizing: border-box;
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 8px;
+    pointer-events: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999999;
+}
+
+
+.bg-gray{
+    background-color: #f9f9f9;
+}
 /*error class*/
 .srv-validation-message{
     color: #8b0000;
 }
 /*!*materialize css*!*/
 
-
+.line{
+    border-bottom: 2px solid #676767;
+    margin-bottom: 3rem;
+}
 @media screen, projection {
 
     .dropdown-trigger {
@@ -787,7 +811,8 @@ html body .content.app-content {
 }
 
 .bg-light-green {
-    background-color: #E8F9D7;
+     background-color: #E8F9D7;
+    color: green;
 }
 
 .bg-light-red {
@@ -822,6 +847,7 @@ html body .content.app-content {
     color: #777777;
     border-color: white;
     box-shadow: none;
+    font-size: .9rem;
     padding: .7rem;
     transition: all .3s ease-in;
     cursor: pointer;
@@ -883,7 +909,7 @@ html body .content.app-content {
 
 .btn-custom-blue {
     color: #fff !Important;
-    border-color: #2784F4 !Important;
+    border:none !important;
     background-color: #2784F4 !Important;
     padding-top: .7rem;
     padding-bottom: .7rem;
@@ -893,7 +919,7 @@ html body .content.app-content {
 
 .btn-small-blue {
     color: #fff !Important;
-    border-color: #2784F4 !Important;
+    border:none;
     background-color: #2784F4 !Important;
     transition: all .5s ease;
     padding: .5rem .5rem;
@@ -903,6 +929,7 @@ html body .content.app-content {
 
 .modal-btn{
     width:150px;
+    height:40px;
 }
 
 .btn-custom-blue:hover {
@@ -1648,9 +1675,77 @@ input[type=number]::-webkit-outer-spin-button {
     color: #232323;
 }
 
-[type="checkbox"].filled-in.login-check-box:checked + span:not(.lever):after {
+input[type="checkbox"].filled-in.login-check-box:checked + span:not(.lever):after {
     border: 2px solid #232323;
     background-color: #232323;
+}
+
+/* The container */
+.label-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.label-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.label-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.label-container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.label-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.label-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .login-check-box ~ span {
@@ -1774,6 +1869,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .secure-section img {
     width: 3rem;
+    filter: hue-rotate(300deg) saturate(2);
 }
 
 .timeline-icon.one {
@@ -1854,10 +1950,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .goal-number {
-
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
     border-radius: 50%;
     vertical-align: middle;
     margin: .4rem auto;
@@ -1919,9 +2014,11 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: .9rem;
         letter-spacing: 0.002rem;
     }
-    .auth-btn{
+    .auth-btn {
         width: 48%;
-        height:50px;
+        text-align: center;
+        padding: 0rem;
+        height: 50px;
     }
 
     #timeline-wrap {
@@ -1935,10 +2032,15 @@ input[type=number]::-webkit-outer-spin-button {
         align-items: center;
         position: absolute;
         bottom: 1%;
-        left: 8%;
+        left: 50%;
+        transform: translateX(-50%);
         vertical-align: middle;
         font-size: 1.3rem;
         font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .secure-section span{
+        font-size: 1rem;
+        flex-shrink: 0;
     }
 
     .header-shadow {

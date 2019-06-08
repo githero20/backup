@@ -162,6 +162,8 @@ class DashboardIndex extends Component {
 
     };
 
+
+
     getLockedSavings = (url, callback) => {
 
         request(url, null, true, null, callback);
@@ -262,7 +264,6 @@ class DashboardIndex extends Component {
 
 
     resendActivationLink = () => {
-
         const param = {email: this.state.email};
         request(resendActEndpoint, param, false, true, this.handleResendActLink)
 
@@ -325,7 +326,7 @@ class DashboardIndex extends Component {
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={userName}/>
-                    <VerticalNav/>
+                    <VerticalNav userName={userName} />
 
                     {this.state.showLoader ? <DashboardLoader/> : null}
                     <DashboardContainer

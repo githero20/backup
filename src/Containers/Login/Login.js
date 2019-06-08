@@ -12,7 +12,7 @@ class Login extends Component {
         return (
             <React.Fragment>
                     <section className="login-background login-section">
-                        <h3 className="welcome-text d-none d-md-block">Welcome <br/>Back</h3>
+                        <h3 className="welcome-text d-none d-lg-block">Welcome <br/>Back</h3>
 
                         <div className="secure-section">
                             <img src={secureIcon} /> &nbsp;
@@ -20,7 +20,7 @@ class Login extends Component {
                         </div>
                         <div className="container">
                             <div className="row  pt-md-2">
-                                <div className=" col-md-6 offset-md-6">
+                                <div className=" col-lg-6 offset-lg-6">
                                     {/*   header component */}
                                     <div className=" py-md-1 px-md-1 px-md-5 py-md-5 header-shadow mt-2 mb-md-5 bg-white">
                                         <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>

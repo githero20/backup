@@ -20,6 +20,7 @@ export const SignUpLink  = '/sign-up';
 export const ResendActivationLink  = '/resend/email';
 export const HomeLink  = '/';
 export const KycSettingLink  = '/kyc-setting';
+export const BackupStashLink  = '/backup-stash';
 
 
 

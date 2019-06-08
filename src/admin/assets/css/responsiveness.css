@@ -39,14 +39,57 @@
 
 @media only screen and (min-width: 600px) and (max-width: 899px) {
 
+    .blue-round-btn{
+        padding:0px;
+    }
 
+    .login-background {
+        background-image: none;
+    }
+
+    .secure-section {
+        position: absolute;
+        bottom: 2%;
+        left: 5%;
+        vertical-align: middle;
+        font-size: 1.3rem;
+        font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
 
 }
 
 @media only screen and (min-width: 900px) and (max-width: 1200px) {
 
+    .secure-section {
+        position: absolute;
+        bottom: 2%;
+        left: 3%;
+        vertical-align: middle;
+        font-size: 1.3rem;
+        font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .welcome-text {
+        color: #103366;
+        font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        letter-spacing: 0px;
+        font-size: 2.5rem;
+        position: absolute;
+        top: 7%;
+        left: 8%;
+    }
 
+    .login-background {
+        background-image: none;
+    }
 
+    .secure-section {
+        position: absolute;
+        bottom: 2%;
+        left: 8%;
+        vertical-align: middle;
+        font-size: 1.3rem;
+        font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
 
 }
 

@@ -97,9 +97,9 @@ class BankForm extends Component {
     render() {
 
         const banksSelect = this.props.banks.map((bank,index) => {
-           return(
-               <option key={index} value={bank.code}>{bank.name}</option>
-           );
+            return(
+                <option key={index} value={bank.code}>{bank.name}</option>
+            );
         });
         return (
             <React.Fragment>

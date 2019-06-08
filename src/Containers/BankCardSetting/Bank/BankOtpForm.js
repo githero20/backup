@@ -13,8 +13,6 @@ class BankOtpForm extends Component {
 
     constructor(props) {
         super(props);
-        //TODO(get the user balance and set the max amount to that amount)
-        console.log("init",props);
         this.state = {
             loading:false,
             form: {
@@ -27,32 +25,30 @@ class BankOtpForm extends Component {
         this.validateForm = this.validateForm.bind(this);
     }
 
-    //Create Form
-    //validate form
-    //save
-    //handle response
-
     validateForm(e){
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
-            // this.props.toastManager("An Error Occured");
-            // rerender to show messages for the first time
             this.forceUpdate();
         }else{
             this.setState({loading:true});
             //send api
             const {form} = this.state;
-            console.log(form);
             verifyOtp(form,(status, payload) => {
                 this.setState({loading:false});
-                console.log(status, payload);
                 if(status){
-                    //TODO(toast success)
-                    this.props.onHide(true);
+                    this.props.toastManager.add("Bank Account Successfully Added",{
+                        appearance:"success",
+                        autoDismiss:true,
+                        autoDismissTimeout:3000
+                    });
+                    setTimeout(() => this.props.onHide(true), 3000);
                 }else{
-
-                    //TODO(toast no success)
+                    this.props.toastManager.add(JSON.stringify(payload),{
+                        appearance:"error",
+                        autoDismiss:true,
+                        autoDismissTimeout:3000
+                    });
                 }
             });
         }
@@ -102,4 +98,4 @@ class BankOtpForm extends Component {
 const FormWithToast = withToastManager(BankOtpForm);
 
 // export default LoginWithToast;
-export default BankOtpForm;
+export default FormWithToast;

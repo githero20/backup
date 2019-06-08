@@ -1,9 +1,30 @@
 import {_axios} from "../utils";
 import {BASE_URL, GetUserBanks, SaveBankAccount, VerifyBankOTP} from "../RouteLinks/RouteLinks";
 
+// sk_test_a8b0897d183d6393821b6cad177f7a9cf0d28cf3
 
 export const getListOfBanks = (callback) =>{
     _axios.get(`https://api.paystack.co/bank`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status, res.data.data);
+        })
+        .catch(err => {
+            callback(false, err.response.data.message);
+        })
+};
+
+export const resolveBankName = (accountNumber, bankCode,callback) =>{
+    _axios.get(`https://api.paystack.co/bank/resolve`,{
+        headers: {
+            "Authorization" : `Bearer sk_test_a8b0897d183d6393821b6cad177f7a9cf0d28cf3`
+        },
+        params:{
+            account_number: accountNumber,
+            bank_code: bankCode
+        }
+    })
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -22,8 +43,8 @@ export const saveBankAccount = (payload, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err",err);
-            callback(false, err.response.data.message);
+            // console.log("Err",JSON.stringify(err),err.response.data.data, err.response.data.message);
+            callback(false, err.response.data.data || err.response.data.message);
         })
 };
 

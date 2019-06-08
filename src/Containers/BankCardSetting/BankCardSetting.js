@@ -7,6 +7,9 @@ import visaImage from "../../admin/app-assets/images/svg/visa.svg";
 import masterCardImage from "../../admin/app-assets/images/svg/mastercard.svg";
 import BankModal from "./Bank/BankModal";
 import {getUserBanks} from "../../actions/BankAction";
+import CardModal from "./Card/CardModal";
+import {getUserCards, verifyTransaction} from "../../actions/CardAction";
+import {withToastManager} from "react-toast-notifications";
 
 class BankCardSetting extends Component {
 
@@ -24,6 +27,8 @@ class BankCardSetting extends Component {
         this.showCardModal = this.showCardModal.bind(this);
         this.hideCardModal = this.hideCardModal.bind(this);
         this.getUserBanks = this.getUserBanks.bind(this);
+        this.resolvePaystackResponse = this.resolvePaystackResponse.bind(this);
+        this.getUserCards = this.getUserCards.bind(this);
     }
 
     getUserBanks(){
@@ -32,13 +37,31 @@ class BankCardSetting extends Component {
             if(status){
                 this.setState({banks:payload});
             }else{
-                //TODO(Display an error)
-                // toastManager.add("Unable To ")
+                this.props.toastManager.add("Unable to fetch Bank Accounts",{
+                    appearance: 'error',
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                })
+            }
+        })
+    }
+    getUserCards(){
+        getUserCards((status, payload) => {
+            console.log("Cards",status, payload);
+            if(status){
+                this.setState({cards:payload});
+            }else{
+                this.props.toastManager.add("Unable to fetch Cards",{
+                    appearance: 'error',
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                })
             }
         })
     }
     componentWillMount() {
         this.getUserBanks();
+        this.getUserCards();
     }
 
     showBankModal() {
@@ -60,13 +83,66 @@ class BankCardSetting extends Component {
         this.setState({showCardModal: false})
     }
 
+    resolvePaystackResponse(response){
+        console.log("Paystack Response", response);
+        verifyTransaction({
+            ref: response.reference,
+            type: "instant"
+        },(status, payload) =>{
+            console.log("status", status, payload);
+            if(status){
+                this.props.toastManager.add("Card Added Successfully",{
+                    appearance:"success",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                })
+            }else{
+                this.props.toastManager.add("Unable to add card at this moment",{
+                    appearance:"error",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                })
+            }
+        })
+
+    }
+
     render() {
+        const randomGradient = ["gray-gradient","blue-gradient"];
+        const cards = this.state.cards.map((card,index) => {
+            const grad = randomGradient[Math.floor(Math.random() * randomGradient.length)];
+            console.log("grad",Math.floor(Math.random() * randomGradient.length), grad);
+            let cardType = masterCardImage;
+            //TODO(get verve image)
+            if(card.brand == "visa")
+                cardType = visaImage;
+            else if(card.brand == "verve")
+                cardType = visaImage;
+            return (
+                <div key={index} className={"bank-card " + grad +  " mb-2 mb-md-0  mr-2"}>
+                   <div className="d-flex justify-content-end">
+                       <img
+                       src={menuIcon}
+                       className=" big-dots"/>
+                   </div>
+                   <p className="mb-md-3 mt-2 ml-1 ml-md-0 mt-md-0">**** **** **** {card.last4}</p>
+                   <div className="ml-1 ml-md-0 sm-font"><span
+                       className="mr-5 mb-1 sm-font"></span><span>{card.exp_month}/{card.exp_year}</span>
+                   </div>
+                   <div>
+                       <img className="card-img-icon"
+                             src={cardType}/>
+                   </div>
+               </div>
+           );
+        });
         return (
 
 
             <React.Fragment>
                 {/*<ToastProvider>*/}
                     <BankModal show={this.state.showBankModal} onHide={this.hideBankModal}/>
+                    <CardModal show={this.state.showCardModal} onHide={this.hideCardModal} onResolve={this.resolvePaystackResponse}/>
                 {/*</ToastProvider>*/}
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
@@ -98,11 +174,13 @@ class BankCardSetting extends Component {
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
                                                         <h3 className=" d-flex justify-content-between align-items-center light-gray setting-header">
-                                                            <h3>My Banks</h3> <span
-                                                            className="pull-right right-btn-holder"><button
-                                                            type="button"
-                                                            onClick={this.showBankModal}
-                                                            className="btn-custom-round-blue plus-btn-shadow mr-1">
+                                                            <h3>My Banks</h3>
+                                                            <span
+                                                                 className="pull-right right-btn-holder"
+                                                                 onClick={this.showBankModal}>
+                                                            <button
+                                                                type="button"
+                                                                className="btn-custom-round-blue plus-btn-shadow mr-1">
                                                                 <img className="img-2x" src={addButton}/>
                                                             </button>Add Bank</span>
                                                         </h3>
@@ -121,7 +199,6 @@ class BankCardSetting extends Component {
                                                                 <tbody>
                                                                 {
                                                                     this.state.banks.map((bank, index) => {
-                                                                        console.log("Index", bank);
                                                                         return (
                                                                             <tr key={index}>
                                                                                 <td>
@@ -160,42 +237,18 @@ class BankCardSetting extends Component {
                                                     <div className="card-body account-card">
                                                         <h3 className=" d-flex justify-content-between align-items-center light-gray setting-header">
                                                             <h3>Debit/Credit</h3>
-                                                            <span className="pull-right right-btn-holder">
+                                                            <span className="pull-right right-btn-holder"
+                                                                  onClick={this.showCardModal}>
                                                                 <button
                                                                     type="button"
-                                                                    className="btn-custom-round-blue plus-btn-shadow mr-1"><img
+                                                                    className="btn-custom-round-blue plus-btn-shadow mr-1">
+                                                                    <img
                                                                     className="img-2x "
                                                                     src={addButton}/>
                                                             </button>Add Card</span>
                                                         </h3>
                                                         <div className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">
-                                                            <div className="bank-card gray-gradient mb-2 mb-md-0  mr-2">
-                                                                <div className="d-flex justify-content-end"><img
-                                                                    src={menuIcon}
-                                                                    className=" big-dots"/>
-                                                                </div>
-                                                                <p className="mb-md-3 mt-2 ml-1 ml-md-0 mt-md-0">4567 1345 1238 345</p>
-                                                                <div className="ml-1 ml-md-0 sm-font"><span
-                                                                    className="mr-5 mb-1 sm-font">3456</span><span>09/22</span>
-                                                                </div>
-                                                                <div><img className="card-img-icon"
-                                                                          src={visaImage}/>
-                                                                </div>
-                                                            </div>
-                                                            <div className="bank-card blue-gradient mb-2 mb-md-0 ">
-                                                                <div className="d-flex justify-content-end"><img
-                                                                    src={menuIcon}
-                                                                    className=" big-dots"/>
-                                                                </div>
-                                                                <p className="mb-md-3  mt-2 ml-1 ml-md-0">4567 1345 1238 345</p>
-                                                                <div className="ml-1 ml-md-0 sm-font"><span
-                                                                    className="mr-5 mb-1 ">3456</span><span>09/22</span>
-                                                                </div>
-                                                                <div><img className="card-img-icon"
-                                                                          src={masterCardImage}/>
-                                                                </div>
-                                                            </div>
-
+                                                            {cards}
                                                         </div>
 
                                                     </div>
@@ -213,4 +266,6 @@ class BankCardSetting extends Component {
     }
 }
 
-export default BankCardSetting;
+
+
+export default withToastManager(BankCardSetting);

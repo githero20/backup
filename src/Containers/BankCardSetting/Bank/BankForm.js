@@ -17,10 +17,9 @@ class BankForm extends Component {
         console.log(props);
         this.state = {
             loading:false,
-            dateDifference:0,
             form: {
                 bank:"",
-                account_number:"2118393935",
+                account_number:"1234575785",
                 bank_code:""
             }
         };

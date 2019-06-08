@@ -43,7 +43,6 @@ class BankCardSetting extends Component {
 
     showBankModal() {
         this.setState({showBankModal: true});
-
     }
 
     showCardModal() {

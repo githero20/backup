@@ -80,7 +80,7 @@ class TransactionTable extends Component {
                                             (
 
                                                 transactions.map((data,idx)=>{
-                                                        let date = moment(data.created_at).format('DD|MM|YYYY');
+                                                        let date = moment(data.created_at).format('LL');
                                                         let time = moment(data.created_at).format('hh:mm a');
                                                    return (
                                                        <tr key={data.id}>
@@ -99,7 +99,7 @@ class TransactionTable extends Component {
                                                            </td>
 
                                                            <td>
-                                                               <label className="bg-light-green px-2 sm-pd">&#8358; {data.amount}</label>
+                                                               <label className="bg-light-green px-2 sm-pd">&#8358; {parseFloat(data.amount).toFixed(2)}</label>
                                                            </td>
 
                                                            <td className="text-truncate d-none d-md-block text-uppercase" style={{maxWidth: '120px'}}>{data.reference}</td>

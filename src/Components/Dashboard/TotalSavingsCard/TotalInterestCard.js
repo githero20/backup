@@ -12,7 +12,7 @@ class TotalInterestCard extends Component {
         return (
             <React.Fragment>
 
-                <div className="card white-card pull-up mt-3">
+                <div className="card white-card pull-up ">
                     <div className="card-content">
                         <div className="card-body">
                             <h4 className=" blue-card-heading mb-md-2">Total Interest Gained</h4>

@@ -16,9 +16,6 @@ import DashboardLoader from "../../Components/Dashboard/DashboardLoader/Dashboar
 class InstantSave extends Component {
 
     state = {
-        showSteadySavingModal: false,
-        showActiveGoalModal: false,
-        showlockedSavingsModal: false,
         error: false,
         errorMessage: '',
         accountInfo: null,
@@ -41,18 +38,18 @@ class InstantSave extends Component {
 
 
 
-    hideModal(){
+    hideModal(status=false){
         this.setState({
-            showBackUpModal:false,
+            showSavingModal:false,
         });
 
-        // if(status){
-        //     //get user instant saves
-        //     this.setupInstantSave();
-        //
-        //     //get instant save transactions
-        //     this.loadInstantSaves();
-        // }
+        if(status){
+            //get user instant saves
+            this.setupInstantSave();
+
+            //get instant save transactions
+            this.loadInstantSaves();
+        }
     };
 
     showModal = () => {

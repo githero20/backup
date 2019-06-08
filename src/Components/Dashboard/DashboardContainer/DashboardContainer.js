@@ -66,12 +66,19 @@ class DashboardContainer extends Component {
                                 <BackUpStashCard stashAmount={stashAmount}/>
 
                             </div>
+                            <div className="row">
+                                <div className="col-md-6  col-12 ">
+                                    <TotalSavingsBlueCard totalSavings={vaultAmount}/>
+
+                                </div>
+                                <div className="col-md-6  col-12 ">
+                                    <TotalInterestCard totalInterest={totalInterest}/>
+
+                                </div>
+
+                            </div>
 
                             <div className="row">
-                                <div className="col-md-4 col-lg-4 col-12 order-md-8">
-                                    <TotalSavingsBlueCard totalSavings={vaultAmount}/>
-                                    <TotalInterestCard totalInterest={totalInterest}/>
-                                </div>
                                 <TransactionTable transactions={transactions}/>
 
                             </div>

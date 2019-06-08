@@ -51,8 +51,7 @@ class BackUpGoalCard extends Component {
                                          className="btn-icon"
                                          src={RightArrow}/>
                                 </button>
-                                <Link to={BackupGoalsLink}  className="btn white-btn round  mr-1 mr-md-0">See
-                                    All <img alt={''}
+                                <Link to={BackupGoalsLink}  className="btn white-btn round  mr-1 mr-md-0">View Goals <img alt={''}
                                              className="btn-icon"
                                              src={BlueRightArrow}/>
                                 </Link>

@@ -178,12 +178,15 @@ class UpdatePassword extends Component {
         const token = getLocalStorage(USERTOKEN);
         const data = JSON.parse(getLocalStorage(USERINFO));
 
-        this.setState({
-            token,
-            email:data.email
-        },()=>{
-            console.log(this.state);
-        })
+        if(data){
+            this.setState({
+                token,
+                email:data.email
+            },()=>{
+                console.log(this.state);
+            })
+        }
+
     }
 
     //validate on every instance

@@ -4,10 +4,10 @@ import moment from "moment";
 import listIcon from "../../../admin/app-assets/images/svg/list-icon.svg";
 import gridIcon from "../../../admin/app-assets/images/svg/grid-icon.svg";
 import tableLeftArrow from "../../../admin/app-assets/images/svg/table-arrow-left.svg";
-import sortIcon from "../../../admin/app-assets/images/svg/sort-icon.svg";
+import sortIcon from "../../../admin/app-assets/images/svg/order-interface-symbol-with-down-arrow.svg";
+import filterIcon from "../../../admin/app-assets/images/svg/filter-filled-tool-symbol.svg";
 import {CSVLink} from "react-csv";
-import Pagination from "../Pagination/Pagination";
-
+import {Col, Form, Row} from 'react-bootstrap';
 class TransactionTable extends Component {
 
     state={
@@ -41,29 +41,40 @@ class TransactionTable extends Component {
             <React.Fragment>
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">
                     <div className="card">
-                        <div className="card-header d-flex  justify-content-between">
-                            <h4 className="card-title table-title">Recent Transaction </h4>
-                            <div className="table-button-container d-none d-md-inline-block">
+                        <div className="card-header  ">
+                            <div className="d-flex justify-content-between">
+                                <h4 className="card-title table-title">Recent Transaction </h4>
+                                <div className="table-button-container d-none d-md-inline-block">
                                                  <span
                                                      className="mr-md-1 table-grid-view-icon img-2x list-btn active d-block d-md-inline">
                                                      <img src={listIcon} className=" img-2x "/>
                                                  </span>
-                                <span className="mr-md-1 table-grid-view-icon img-2x  grid-btn d-block d-md-inline">
+                                    <span className="mr-md-1 table-grid-view-icon img-2x  grid-btn d-block d-md-inline">
                                                         <img src={gridIcon} className=" img-2x "/>
                                                     </span>
-                                <span className="table-view-display d-block d-md-inline">
+                                    <span className="table-view-display d-block d-md-inline">
                                                         <img src={tableLeftArrow} className="mr-1 img-1x"/> grid view
                                                     </span>
+                                </div>
+                                <div className="table-sort-display d-block d-md-inline"><span
+                                    data-toggle="modal" data-target="#sort"><img className=" img-2x " src={sortIcon}/></span>sort
+                                </div>
+
+                                <div className="table-sort-display d-block d-md-inline"><span
+                                    data-toggle="modal" data-target="#sort"><img className=" img-2x " src={filterIcon}/></span>Filter
+                                </div>
+                                <CSVLink variant="success" data={transactions} target="_blank" className={'btn-green'}>Export CSV</CSVLink>
+                                {/* TODO add search field */}
+                                {/*<div className='search-field'>*/}
+                                {/*    <input type='text' className='form-control' />*/}
+                                {/*</div>*/}
                             </div>
-                            <div className="table-sort-display d-block d-md-inline"><span
-                                data-toggle="modal" data-target="#sort"><img className=" img-2x " src={sortIcon}/></span>sort
+                            <div className="search-field">
+                                <Form.Control size="lg" type="text" placeholder="Search" />
                             </div>
-                            <CSVLink variant="success" data={transactions} target="_blank" className={'btn-green'}>Export CSV</CSVLink>
-                            {/* TODO add search field */}
-                            {/*<div className='search-field'>*/}
-                            {/*    <input type='text' className='form-control' />*/}
-                            {/*</div>*/}
+
                         </div>
+
                         <div className="card-content mt-1 light-table-bg">
                             <div className="table-responsive">
                                 <table id="recent-orders"

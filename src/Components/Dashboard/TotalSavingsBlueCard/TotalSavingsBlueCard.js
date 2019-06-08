@@ -16,7 +16,7 @@ class TotalSavingsBlueCard extends Component {
                     <div className="card-content">
                         <div className="card-body">
                             <h4 className="text-white blue-card-heading ">Total Savings</h4>
-                            <div className="media d-flex pb-md-5 pb-2">
+                            <div className="media d-flex pb-md-4 pb-2">
                                 <div className="align-self-center">
                                     <img className="blue-card-icon"
                                          src={BlueCardTransIcon}/>

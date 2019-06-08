@@ -8,6 +8,9 @@ import {withToastManager} from "react-toast-notifications";
 import {getWithdrawalList} from "../../actions/WithdrawalAction";
 import WithdrawalList from "./WithdrawalList";
 import WithdrawalForm from "./withdrawalForm";
+import ChooseWithdrawal from "./chooseWithdrawal";
+import WithdrawalDateForm from "./WithdrawalDateForm";
+import Banner from "./Banner";
 
 class Withdrawal extends Component {
 
@@ -82,6 +85,10 @@ class Withdrawal extends Component {
 
                                 </div>
 
+                                {/*banner component */}
+                                <Banner/>
+
+
                                 <div className="row">
                                     <div id="recent-sales" className="col-12 col-md-12">
                                         <div className="card">
@@ -111,16 +118,20 @@ class Withdrawal extends Component {
                                             </div>
                                         </div>
 
-
-
-
-
                                     </div>
                                 </div>
                                 <div className={'row'}>
                                     <div className="col-lg-8">
                                         {/* withdrawal form component */}
                                         <WithdrawalForm/>
+
+                                        {/*choose withdrawal */}
+                                        <ChooseWithdrawal/>
+
+                                        {/*withdrawal date component*/}
+                                        <WithdrawalDateForm/>
+
+
                                     </div>
                                 </div>
                             </div>

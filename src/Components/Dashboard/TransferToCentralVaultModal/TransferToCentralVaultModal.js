@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Modal from "react-bootstrap/Modal";
 import {ToastProvider} from "react-toast-notifications";
 import Form from "react-bootstrap/Form";
@@ -7,7 +7,7 @@ import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 import totalBalanceIcon from "../../../admin/app-assets/images/svg/total-balance-icon.svg";
 
 
-class TransferLockedSavingsModal extends React.Component {
+export default class TransferToCentralVaultModal extends Component {
 
 
     constructor(props) {
@@ -27,7 +27,7 @@ class TransferLockedSavingsModal extends React.Component {
             >
                 <Modal.Header className={' px-md-3 py-md-3'} closeButton={this.props.onHide}>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        <h4>Transfer to Locked Saving</h4>
+                        <h4>Transfer to Central Vault</h4>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className={'pb-md-4 px-md-3'}>
@@ -61,9 +61,7 @@ class TransferLockedSavingsModal extends React.Component {
                             </div>
                             <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
                                 <button className={'round btn-custom-blue modal-btn'} type="submit">
-                                    {/*{this.state.loading ? <ButtonLoader/> :*/}
-                                        {/*<span>Start Saving</span>}*/}
-                                    <span>Transfer to Locked Savings</span>
+                                    <span>Transfer to Central Vault</span>
                                 </button>
                             </Form.Row>
                         </div>
@@ -73,5 +71,3 @@ class TransferLockedSavingsModal extends React.Component {
         );
     }
 }
-
-export default TransferLockedSavingsModal;

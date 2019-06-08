@@ -6,53 +6,71 @@ import {_handleFormChange} from "../../../utils/index";
 import SimpleReactValidator from "simple-react-validator";
 import ButtonLoader from "../../../Components/Auth/Buttonloader/ButtonLoader";
 import {withToastManager} from 'react-toast-notifications';
-import {verifyOtp} from "../../../actions/BankAction";
+import {resendBankOTP, verifyOtp} from "../../../actions/BankAction";
 
 
 class BankOtpForm extends Component {
 
     constructor(props) {
         super(props);
-        //TODO(get the user balance and set the max amount to that amount)
-        console.log("init",props);
         this.state = {
             loading:false,
+            resendLoading: false,
             form: {
                 otp:"",
                 bankotp_id: this.props.bankotp_id
             }
         };
         this.validator = new SimpleReactValidator();
-
         this.validateForm = this.validateForm.bind(this);
+        this.resendOtp = this.resendOtp.bind(this);
     }
 
-    //Create Form
-    //validate form
-    //save
-    //handle response
-
+    resendOtp(e){
+        e.preventDefault();
+        this.setState({resendLoading:true});
+        resendBankOTP({bankotp_id: this.state.form.bankotp_id},(status,payload) => {
+            this.setState({resendLoading:false});
+            console.log(status, payload);
+            if(status){
+                this.props.toastManager.add("OTP has been resent to your email",{
+                    appearance:"success",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                });
+            }else{
+                this.props.toastManager.add(JSON.stringify(payload),{
+                    appearance:"error",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                });
+            }
+        })
+    }
     validateForm(e){
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
-            // this.props.toastManager("An Error Occured");
-            // rerender to show messages for the first time
             this.forceUpdate();
         }else{
             this.setState({loading:true});
             //send api
             const {form} = this.state;
-            console.log(form);
             verifyOtp(form,(status, payload) => {
                 this.setState({loading:false});
-                console.log(status, payload);
                 if(status){
-                    //TODO(toast success)
-                    this.props.onHide(true);
+                    this.props.toastManager.add("Bank Account Successfully Added",{
+                        appearance:"success",
+                        autoDismiss:true,
+                        autoDismissTimeout:3000
+                    });
+                    setTimeout(() => this.props.onHide(true), 3000);
                 }else{
-
-                    //TODO(toast no success)
+                    this.props.toastManager.add(JSON.stringify(payload),{
+                        appearance:"error",
+                        autoDismiss:true,
+                        autoDismissTimeout:3000
+                    });
                 }
             });
         }
@@ -80,8 +98,9 @@ class BankOtpForm extends Component {
 
                     <Form.Row className={'d-flex justify-content-between mt-2'}>
                         <div>
-                            <Button onClick={this.props.onHide}
-                                    className={'mr-1 round btn-gradient-blue'}>Close</Button>
+                            <Button className={'round btn-gradient-blue '} onClick={this.resendOtp} type="button">
+                                {this.state.resendLoading ? <ButtonLoader/> : "Resend OTP"}
+                            </Button>
                         </div>
                         <div className={'d-flex justify-content-end'}>
 
@@ -102,4 +121,4 @@ class BankOtpForm extends Component {
 const FormWithToast = withToastManager(BankOtpForm);
 
 // export default LoginWithToast;
-export default BankOtpForm;
+export default FormWithToast;

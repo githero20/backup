@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
+import {Link} from "react-router-dom";
 import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
 import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-icon.svg";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
@@ -10,17 +11,23 @@ import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {formatNumber, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
-import {getTransactionsApi, getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
+import {
+    getTransactionsApi,
+    getUserInfoEndpoint,
+    instantSaveTransEndpoint,
+    WithdrawalLink
+} from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import TransferLockedSavingsModal
     from "../../Components/Dashboard/TransferLockedSavingsModal/TransferLockedSavingsModal";
+import TransferToCentralVaultModal
+    from "../../Components/Dashboard/TransferToCentralVaultModal/TransferToCentralVaultModal";
 
 class BackupStash extends Component {
 
     state = {
-        showSteadySavingModal: false,
-        showActiveGoalModal: false,
-        showlockedSavingsModal: false,
+        showTransferLockedSavings: false,
+        showTransToCentralVault: false,
         error: false,
         errorMessage: '',
         accountInfo: null,
@@ -36,28 +43,31 @@ class BackupStash extends Component {
 
     constructor(props) {
         super(props);
-
-        this.hideModal = this.hideModal.bind(this);
     }
 
 
-    hideModal() {
+    hideTransLockedSavingModal = () => {
         this.setState({
-            showBackUpModal: false,
+            showTransferLockedSavings: false
         });
-
-        // if(status){
-        //     //get user instant saves
-        //     this.setupInstantSave();
-        //
-        //     //get instant save transactions
-        //     this.loadInstantSaves();
-        // }
     };
 
-    showModal = () => {
+    showTransLockedSavingModal = () => {
+        console.log('Transfer to Locked Saving Modal');
         this.setState({
-            showSavingModal: true
+            showTransferLockedSavings: true
+        });
+    };
+
+    hideTransToCentralVaultModal = () => {
+        this.setState({
+            showTransToCentralVault: false
+        });
+    };
+    showTransToCentralVaultModal = () => {
+        console.log('Transfer to Central Vault Modal');
+        this.setState({
+            showTransToCentralVault: true
         });
     };
 
@@ -86,7 +96,6 @@ class BackupStash extends Component {
                     }
                 });
 
-                console.log('dfjsd');
                 console.log(data.data.data.transactions.data);
                 //TODO loop through transactions and add up only credits
                 let transactions = data.data.data.transactions.data;
@@ -234,12 +243,25 @@ class BackupStash extends Component {
                             <div className="col-12"></div>
                         </div>
                         {
-                            this.state.showSavingModal ?
+                            this.state.showTransferLockedSavings ?
                                 (
                                     <React.Fragment>
                                         <TransferLockedSavingsModal
-                                            show={this.state.showSavingModal}
-                                            onHide={this.hideModal}
+                                            show={this.state.showTransferLockedSavings}
+                                            onHide={this.hideTransLockedSavingModal}
+                                        />
+                                    </React.Fragment>
+
+                                ) : null
+                        }
+
+                        {
+                            this.state.showTransToCentralVault ?
+                                (
+                                    <React.Fragment>
+                                        <TransferToCentralVaultModal
+                                            show={this.state.showTransToCentralVault}
+                                            onHide={this.hideTransToCentralVaultModal}
                                         />
                                     </React.Fragment>
 
@@ -263,28 +285,28 @@ class BackupStash extends Component {
 
                                     <div className="mb-quick-actions d-flex flex-md-column flex-wrap ">
                                         <span className="mb-btn-wrapper">
-                                            <button type="button" data-toggle="modal" data-target="#large" onClick={this.showModal}
+                                            <button type="button" data-toggle="modal" data-target="#large" onClick={this.showTransLockedSavingModal}
                                                     className=" btn-blue-gradient-2 round">
-                                                <img src={whiteSaveMoreIcon}/>
+                                                <img src={whiteSaveMoreIcon} alt={'Transfer to Saving Modal'}/>
                                                 Transfer to Locked Savings
                                             </button>
 
                                         </span>
                                         <span className="mb-btn-wrapper">
-                                            <button type="button" data-toggle="modal" data-target="#large" onClick={this.showModal}
+                                            <button type="button" data-toggle="modal" data-target="#large" onClick={this.showTransToCentralVaultModal}
                                                     className=" btn-blue-gradient-2 round">
-                                                <img src={whiteSaveMoreIcon}/>
+                                                <img src={whiteSaveMoreIcon} alt={'Transfer to Central Vault'}/>
                                                 Transfer to Central Vault
                                             </button>
 
                                         </span>
                                         <span className="mb-btn-wrapper">
-                                            <button type="button" data-toggle="modal" data-target="#large" onClick={this.showModal}
-                                                    className=" btn-blue-gradient-2 round">
-                                                <img src={whiteSaveMoreIcon}/>
+                                            <Link to={WithdrawalLink}>
+                                            <button type="button" className=" btn-blue-gradient-2 round">
+                                                <img src={whiteSaveMoreIcon} alt="Withdraw Link"/>
                                                 Withdraw
                                             </button>
-
+                                        </Link>
                                         </span>
 
                                     </div>

@@ -47,6 +47,7 @@ export const GetLockedSavingsInterest  = `sfsbapi/v1/get-locked-saving-interest`
 export const CreateLockedSavings = `sfsbapi/v1/user/savings/locked`;
 export const GetLockedSavings = `sfsbapi/v1/user/savings/locked`;
 export const SaveBankAccount = `sfsbapi/v1/user/banks/sendotp`;
+export const ResendBankOTP = `/sfsbapi/v1/user/banks/resendotp`;
 export const VerifyBankOTP = `sfsbapi/v1/user/banks/verifyotp`;
 export const GetUserBanks = `sfsbapi/v1/user/banks`;
 export const GetBackUpGoals = `sfsbapi/v1/user/goals`;

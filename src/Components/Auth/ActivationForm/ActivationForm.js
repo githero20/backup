@@ -13,6 +13,9 @@ import {PayStackKey} from "../../../Info/Info";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {api} from "../../../ApiUtils/ApiUtils";
 import {DASHBOARDINFO, USERINFO, USERTOKEN} from "../HOC/authcontroller";
+import {_handleFormChange} from "../../../utils";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
 
 class ActivationForm extends Component {
 
@@ -27,6 +30,8 @@ class ActivationForm extends Component {
             activationData: {
                 title:'steady savings',
                 hour_of_day:'12',
+                day_of_month: '1',
+                day_of_week: '1',
                 start_date:this.getTodaysDate(),
                 frequency: 'daily',
                 token:'',
@@ -34,6 +39,9 @@ class ActivationForm extends Component {
                 email: "",
                 contribution: '',
             },
+            showMonth: false,
+            showDay: false,
+            showHour: true,
             submitted: false,
             restart:false,
             completed:false,
@@ -45,19 +53,22 @@ class ActivationForm extends Component {
 
 
 
-
-
     //Retrieves user inputs
     changeHandler = event => {
 
         const name = event.target.name;
         const value = event.target.value;
-
+        const form =  _handleFormChange(
+            event.target.name,
+            event,
+            this
+        );
         //copy states object
         const data =  {...this.state.activationData};
         data[name]=value;
 
         //get select data
+        this.handleFrequencySelect(form);
 
         //manipulate object and set the state object
 
@@ -302,8 +313,46 @@ class ActivationForm extends Component {
 
     };
 
+    handleFrequencySelect(form){
+        if(form.frequency === "daily"){
+            const data = {...this.state.activationData};
 
-    getTodaysDate () {
+            data.frequency = 'daily';
+            this.setState({
+                showMonth: false,
+                showDay: false,
+                showHour: true,
+                activationData: data
+            });
+        }
+        else if(form.frequency === "weekly"){
+            // form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
+            const data = {...this.state.activationData};
+
+            data.frequency = 'weekly';
+            this.setState({
+                showMonth: false,
+                showDay: true,
+                showHour: true,
+                activationData: data
+            });
+        }else if(form.frequency === "monthly"){
+            // form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
+            const data = {...this.state.activationData};
+
+            data.frequency = 'monthly';
+            this.setState({
+                showMonth: true,
+                showDay: false,
+                showHour: true,
+                activationData: data
+            })
+        }
+
+        // console.log("Form", form);
+    }
+
+     getTodaysDate () {
         let today = new Date();
         let dd = String(today.getDate()).padStart(2, '0');
         let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -322,9 +371,104 @@ class ActivationForm extends Component {
     //Validates inputs
 
     render() {
-
-        const {title,start_date,hour_of_day,contribution,frequency} = this.state.activationData;
+        const {title,start_date,hour_of_day,day_of_month,day_of_week,contribution,frequency} = this.state.activationData;
         const {restart,completed} = this.state;
+
+        const showHour = (
+            <div className="col-12 col-lg-6">
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlSelect2">Hour of the Day</label>
+                    <select className="form-control" value={hour_of_day} onChange={this.changeHandler} name={'hour_of_day'} id="hour">
+                        <option  value={'1'} >1:00am</option>
+                        <option  value={'2'} >2:00am</option>
+                        <option  value={'3'} >3:00am</option>
+                        <option  value={'4'} >4:00am</option>
+                        <option  value={'5'} >5:00am</option>
+                        <option  value={'6'} >6:00am</option>
+                        <option  value={'7'} >7:00am</option>
+                        <option  value={'8'} >8:00am</option>
+                        <option  value={'9'} >9:00am</option>
+                        <option  value="12">12:00noon</option>
+                        <option  value="13">1:00pm</option>
+                        <option  value="14">2:00pm</option>
+                        <option  value="15">3:00pm</option>
+                        <option  value="16">4:00pm</option>
+                        <option  value="17">5:00pm</option>
+                        <option  value="18">6:00pm</option>
+                        <option  value="19">7:00pm</option>
+                        <option  value="20">8:00pm</option>
+                        <option  value="21">9:00pm</option>
+                        <option  value="22">10:00pm</option>
+                        <option  value="23">11:00pm</option>
+                        <option  value="24">12:00am</option>
+                    </select>
+
+                    {this.validator.message('hour_of_day', hour_of_day, 'required|numeric')}
+
+                </div>
+            </div>
+        );
+        const showMonth = (
+            <div className="col-12 col-lg-6">
+                <div className="form-group">
+                <label htmlFor="exampleFormControlSelect2">Day of the Month</label>
+                    <select value={day_of_month} className='form-control' onChange={this.changeHandler}  id="day_of_month" name={'day_of_month'}>
+                    <option value={'1'}>1</option>
+                    <option value={'2'}>2</option>
+                    <option value={'3'}>3</option>
+                    <option value={'4'}>4</option>
+                    <option value={'5'}>5</option>
+                    <option value={'6'}>6</option>
+                    <option value={'7'}>7</option>
+                    <option value={'8'}>8</option>
+                    <option value={'9'}>9</option>
+                    <option value={'10'}>10</option>
+                    <option value={'11'}>11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    </select>
+                    {this.validator.message('day_of_month', day_of_month, 'required|numeric')}
+                 </div>
+            </div>
+        );
+
+        const showDay = (
+            <div className="col-12 col-lg-6">
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlSelect2">Day of the Week</label>
+                    <select value={day_of_week} className='form-control' onChange={this.changeHandler} id="day_of_the_week" name="day_of_the_week">
+                    <option value={'1'}>Mon</option>
+                    <option value={'2'}>Tue</option>
+                    <option value={'3'}>Wed</option>
+                    <option value={'4'}>Thur</option>
+                    <option value={'5'}>Fri</option>
+                    <option value={'6'}>Sat</option>
+                    <option value={'7'}>Sun</option>
+                    </select>
+                {this.validator.message('day_of_week', day_of_week, 'required|numeric')}
+                </div>
+            </div>
+        );
+
+
 
 
 
@@ -353,8 +497,8 @@ class ActivationForm extends Component {
                 <form className="login-form px-5 px-md-2">
                     <div className="row">
                         <div className="col-12">
-                            <h5 className="form-header-purple mb-md-3">Start Saving Now</h5>
-                            <p className="gray-text mb-5 mb-md-5">Start Saving from<strong> N500 </strong></p>
+                            <h5 className="form-header-purple mb-md-1">Start Saving Now</h5>
+                            <p className="gray-text mb-5 mb-md-5">Settings here can be changed when you are logged in. e.g<strong> &#8358; 500 </strong></p>
                         </div>
                         <div className="col-12 col-lg-12">
                             <div className="form-group mb-lg-3">
@@ -370,42 +514,17 @@ class ActivationForm extends Component {
                                 <label htmlFor="exampleFormControlSelect2">Frequency</label>
                                 <select className="form-control" value={frequency} onChange={this.changeHandler} name={'frequency'} id="frequency">
                                     <option  value={'daily'} >Daily</option>
+                                    <option value={'weekly'}>Weekly</option>
+                                    <option value={'monthly'}>Monthly</option>
                                 </select>
+
                                 {this.validator.message('frequency', frequency, 'required|string')}
                             </div>
                         </div>
-                        <div className="col-12 col-lg-6">
-                            <div className="form-group">
-                                <label htmlFor="exampleFormControlSelect2">Hour of the Day</label>
-                                <select className="form-control" value={hour_of_day} onChange={this.changeHandler} name={'hour_of_day'} id="hour">
-                                    <option  value={'1'} >1:00am</option>
-                                    <option  value={'2'} >2:00am</option>
-                                    <option  value={'3'} >3:00am</option>
-                                    <option  value={'4'} >4:00am</option>
-                                    <option  value={'5'} >5:00am</option>
-                                    <option  value={'6'} >6:00am</option>
-                                    <option  value={'7'} >7:00am</option>
-                                    <option  value={'8'} >8:00am</option>
-                                    <option  value={'9'} >9:00am</option>
-                                    <option  value="12">12:00noon</option>
-                                    <option  value="13">1:00pm</option>
-                                    <option  value="14">2:00pm</option>
-                                    <option  value="15">3:00pm</option>
-                                    <option  value="16">4:00pm</option>
-                                    <option  value="17">5:00pm</option>
-                                    <option  value="18">6:00pm</option>
-                                    <option  value="19">7:00pm</option>
-                                    <option  value="20">8:00pm</option>
-                                    <option  value="21">9:00pm</option>
-                                    <option  value="22">10:00pm</option>
-                                    <option  value="23">11:00pm</option>
-                                    <option  value="24">12:00am</option>
-                                </select>
 
-                                {this.validator.message('hour_of_day', hour_of_day, 'required|numeric')}
-
-                            </div>
-                        </div>
+                        {this.state.showHour ? showHour :null}
+                        {this.state.showDay ? showDay: null}
+                        {this.state.showMonth ? showMonth: null}
 
                         <div className="col-12 text-center text-md-right mb-3 mb-md-0">
                             <div className="text-md-right mb-2 pr-md-2">

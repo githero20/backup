@@ -2229,3 +2229,12 @@ input[type=number]::-webkit-outer-spin-button {
 .link-btn{
     line-height: 1.5rem;
 }
+
+.banner{
+    background: #2784F4;
+    color: white;
+    padding:3rem;
+    position: absolute;
+    right:5rem;
+    top:10em;
+}

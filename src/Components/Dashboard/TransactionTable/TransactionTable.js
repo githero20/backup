@@ -8,8 +8,10 @@ import sortIcon from "../../../admin/app-assets/images/svg/order-interface-symbo
 import filterIcon from "../../../admin/app-assets/images/svg/filter-filled-tool-symbol.svg";
 import {CSVLink} from "react-csv";
 import {Col, Form, Row} from 'react-bootstrap';
+
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+
 
 class TransactionTable extends Component {
 
@@ -30,7 +32,6 @@ class TransactionTable extends Component {
 
         this.setState({currentPage, currentTransactions, totalPages});
     };
-
 
     render() {
 

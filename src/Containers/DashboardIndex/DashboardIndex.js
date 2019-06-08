@@ -6,7 +6,13 @@ import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySa
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
 import {activateUserEndpoint, lockedSavingEndpoint, resendActEndpoint} from "../../RouteLinks/RouteLinks";
 import {api, getLocalStorage, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
-import {formatNumber, STANDARD_ACCOUNT} from "../../Helpers/Helper";
+import {
+    BACKUP_GOALS_ACCOUNT,
+    formatNumber,
+    INTEREST_ACCOUNT,
+    LOCKED_ACCOUNT,
+    STANDARD_ACCOUNT
+} from "../../Helpers/Helper";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
 import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import ActivationModal from "../../Components/Dashboard/ActivationModal/ActivationModal";
@@ -204,7 +210,20 @@ class DashboardIndex extends Component {
             accounts.map((content, idx) => {
                 if (content.account_type_id === STANDARD_ACCOUNT) {
                     this.setState({
-                        vaultAmount: formatNumber(content.balance)
+                        vaultAmount: formatNumber(parseFloat(content.balance).toFixed(2))
+                    })
+                }else if(content.account_type_id === BACKUP_GOALS_ACCOUNT){
+                    this.setState({
+                        backupAmount:formatNumber(parseFloat(content.balance).toFixed(2))
+                    })
+                }else if(content.account_type_id === LOCKED_ACCOUNT){
+                    this.setState({
+                        lockedSavingsAmount: formatNumber(parseFloat(content.balance).toFixed(2))
+                    })
+                }else if (content.account_type_id === INTEREST_ACCOUNT){
+                    this.setState({
+                        stashAmount: formatNumber(parseFloat(content.balance).toFixed(2)),
+                        totalInterest:formatNumber(parseFloat(content.balance).toFixed(2))
                     })
                 }
 

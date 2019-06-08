@@ -63,12 +63,17 @@ class InstantSave extends Component {
 
         if (status) {
 
-            console.log(data.data.data);
 
+            //set name
+            if(data){
+                this.setState({
+                    userName:data.data.data.name
+                });
+            }
+
+
+            //set proper account
             if (data.data.data.accounts) {
-
-                console.log(data.data.data.accounts)
-
 
                 // loop through data and set appropriate states
                 let accounts = data.data.data.accounts.data;
@@ -83,8 +88,8 @@ class InstantSave extends Component {
                     }
                 });
 
-                console.log('dfjsd');
-                console.log(data.data.data.transactions.data);
+
+
                 //TODO loop through transactions and add up only credits
                 let transactions = data.data.data.transactions.data;
                 let totalInstantSave = this.getTotalInstantSave(transactions);
@@ -95,7 +100,6 @@ class InstantSave extends Component {
 
 
             } else {
-                console.log(data);
                 return null;
             }
 
@@ -266,6 +270,40 @@ class InstantSave extends Component {
 
     render() {
 
+        const columns = [
+            {
+                Header: 'Date',
+                accessor: 'created_at' // String-based value accessors!
+            }, {
+                Header: 'Description',
+                accessor: 'type',
+                Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+            }, {
+                Header: 'Amount',
+                accessor: 'amount',
+                // id: 'friendName', // Required because our accessor is not a string
+                // Header: 'Friend Name',
+                // accessor: d => d.friend.name // Custom value accessors!
+                Cell: props =>  <label>&#8358;{parseFloat(props.value).toFixed(2)}</label>
+            }, {
+                Header: 'Reference',
+                accessor: 'reference',
+                // // Header: props => <span>Friend Age</span>, // Custom header components!
+                // accessor: 'friend.age'
+            }, {
+                Header: 'Status',
+                accessor: 'status',
+                // // Header: props => <span>Friend Age</span>, // Custom header components!
+                // accessor: 'friend.age'
+                Cell: props =>  <label className="bg-light-green px-2 sm-pd">{props.value}</label>
+            },
+            {
+                Header: 'Reference',
+                accessor: 'reference',
+                // // Header: props => <span>Friend Age</span>, // Custom header components!
+                // accessor: 'friend.age'
+            }];
+
         return (
             <div
                 className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done instant-save"
@@ -333,7 +371,7 @@ class InstantSave extends Component {
 
                             <div className="row">
                                 {/*transaction table */}
-                                <TransactionTable transactions={this.state.transactions}/>
+                                <TransactionTable transactions={this.state.transactions} columns={columns}/>
 
                             </div>
 

@@ -8,10 +8,8 @@ import sortIcon from "../../../admin/app-assets/images/svg/order-interface-symbo
 import filterIcon from "../../../admin/app-assets/images/svg/filter-filled-tool-symbol.svg";
 import {CSVLink} from "react-csv";
 import {Col, Form, Row} from 'react-bootstrap';
-
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-
 
 class TransactionTable extends Component {
 
@@ -35,31 +33,12 @@ class TransactionTable extends Component {
 
     render() {
 
-        const {transactions} = this.props;
-
-        const columns = [
-            {
-            Header: 'Date',
-            accessor: 'created_at' // String-based value accessors!
-        }, {
-            Header: 'Description',
-            accessor: 'type',
-            // Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-        }, {
-                Header: 'Amount',
-                accessor: 'amount',
-            // id: 'friendName', // Required because our accessor is not a string
-            // Header: 'Friend Name',
-            // accessor: d => d.friend.name // Custom value accessors!
-        }, {
-                Header: 'Reference',
-                accessor: 'reference',
-            // // Header: props => <span>Friend Age</span>, // Custom header components!
-            // accessor: 'friend.age'
-        }];
+        const {transactions,columns} = this.props;
 
         return (
             <React.Fragment>
+
+
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">
                     <div className="card">
                         <div className="card-header  ">
@@ -97,10 +76,17 @@ class TransactionTable extends Component {
                             </div>
 
                         </div>
+
+
                         <ReactTable
                             data={transactions}
                             columns={columns}
+                            sortable={true}
+                            resizable={true}
+                            filterable={true}
+                            loading={false}
                         />
+
                         <div className="card-content mt-1 light-table-bg">
                             <div className="table-responsive">
                                 <table id="recent-orders"

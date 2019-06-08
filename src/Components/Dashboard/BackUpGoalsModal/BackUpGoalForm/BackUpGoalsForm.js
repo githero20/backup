@@ -360,18 +360,13 @@ class BackUpGoalsForm extends Component {
                         {this.state.showDay ? showDay: null}
                         {this.state.showMonth ? showMonth: null}
                     </Form.Row>
-                    <Form.Row className={'d-flex justify-content-between mt-2'}>
-                        <div>
-                            <Button onClick={this.reset} className={'mr-1 round reset-btn'}>Reset All</Button>
-                        </div>
-                        <div className={'d-flex justify-content-end'}>
+                    <Form.Row className={'d-flex justify-content-end mt-2'}>
+
                             <Button className={'round btn-custom-blue modal-btn'} type="submit">
                                 {this.state.loading?<ButtonLoader/>:
                                     <span>Start Saving</span>}
 
                             </Button>
-                        </div>
-
                     </Form.Row>
 
                 </Form>

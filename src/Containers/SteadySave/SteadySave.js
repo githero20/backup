@@ -55,7 +55,7 @@ class SteadySave extends Component {
                 console.log(totalSteadySave);
                 this.setState({
                     transactions: res.data.data,
-                    totalSteadySave: formatNumber(totalSteadySave),
+                    totalSteadySave: formatNumber(parseFloat(totalSteadySave).toFixed(2)),
                     // steadySave: res.data.data.length == 0 ? {} : res.data.data[0]
                 });
                 const temp = res.data.data;
@@ -107,8 +107,14 @@ class SteadySave extends Component {
 
         if (status) {
 
-            console.log(data.data.data);
+            //set name
+            if(data){
+                this.setState({
+                    userName:data.data.data.name
+                });
+            }
 
+            //set account
             if (data.data.data.accounts) {
 
                 console.log(data.data.data.accounts)
@@ -122,7 +128,7 @@ class SteadySave extends Component {
                     if (content.account_type_id === STANDARD_ACCOUNT) {
                         console.log(content.balance);
                         this.setState({
-                            totalBalance: formatNumber(content.balance)
+                            totalBalance: formatNumber(parseFloat(content.balance).toFixed(2))
                         })
                     }
                 });

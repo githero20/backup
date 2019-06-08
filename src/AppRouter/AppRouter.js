@@ -34,7 +34,6 @@ import {
 } from "../RouteLinks/RouteLinks";
 import ForgotPassword from "../Containers/ForgotPassword/ForgotPassword";
 import AuthController from "../Components/Auth/HOC/authcontroller";
-import {ToastProvider} from "react-toast-notifications";
 import ResetPassword from "../Containers/ResetPassword/ResetPassword";
 import EmailActivation from "../Containers/EmailActivation/EmailActivation";
 import ResendActivation from "../Containers/ResendActivation/ResendActivation";

@@ -92,13 +92,12 @@ class InstantSavingForm extends Component {
                 //hide modal
                 setTimeout(() => {
 
-                    console.log("here");
-                    this.props.onHide();
+                    this.props.onHide(true);
                     //updateInstantSaveTable
                     // this.props.instantSave();
                     // this.props.updateInstantSave();
 
-                }, 2000);
+                }, 1000);
             }
         } else {
             if (response) {

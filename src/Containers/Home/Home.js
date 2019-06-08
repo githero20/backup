@@ -26,7 +26,7 @@ import accentureImage from "../../images/svg/accenture.svg";
 import sfsImage from "../../admin/app-assets/images/svg/sfs.svg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import carouselRightArrow from "../../admin/app-assets/images/svg/right-arrow.svg";
+import carouselRightArrow from "../../images/svg/righ-arrow.svg";
 import {HomeLink, LoginLink} from "../../RouteLinks/RouteLinks";
 
 
@@ -85,13 +85,12 @@ class Home extends Component {
                                 </div>
                             </nav>
                             {/*row and two columns */}
-                            <div className="row">
+                            <div className="row pt-lg-3">
                                 <div className="col-lg-6 mt-md-5 text-center text-lg-left">
-                                    <div className="header-words-container">
-                                        <h1 className="header-title mt-5 mb-5 mt-md-0 mt-lg-5 mb-sm-3 px-2 px-sm-0">Protecting
-                                            your
-                                            interest is our business.</h1>
-                                        <p className="header-sub-title mb-0 mb-sm-2">
+                                    <div className="header-words-container pt-lg-5 pr-lg-3">
+                                        <h1 className="header-title mt-5 mb-5 mt-md-0 mt-lg-5 mb-sm-3 px-2 px-sm-0">
+                                            Protecting your interest is our business.</h1>
+                                        <p className="header-sub-title mb-0 ">
                                             Save as little as <strong>₦500 </strong></p>
                                         <p className="header-sub-title mb-5">
                                             Earn up to <strong>₦13% </strong> interest on Savings. </p>
@@ -118,14 +117,14 @@ class Home extends Component {
                                         </div>
                                         <h2 className="section-details-header text-center text-md-left">Watch Your Money
                                             Grow</h2>
-                                        <p className="section-details-paragraph mb-4 text-center text-md-left ">
+                                        <p className="section-details-paragraph mb-1 text-center text-md-left ">
                                             Backup cash is a secure and innovative savings
                                             platform that allows you automate your savings
-                                            and earn interests on your deposits. </p>
+                                            and earn interest on your deposits. </p>
                                         <p className="section-details-paragraph text-center text-md-left">
                                             Our platform is designed to help users cultivate a
                                             focused financial attitude by saving little amounts
-                                            of money periodicallytowards a specific financial
+                                            of money periodically towards a specific financial
                                             goal and limiting withdrawals until a set date. </p>
                                     </div>
                                 </div>
@@ -156,11 +155,11 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
-                    <section className=" yellow-gradient">
+                    <section className="start-now yellow-gradient">
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
-                                    <div className="section-header pb-md-0 pt-md-5">
+                                    <div className="section-header pb-md-0 ">
                                         <img className="mb-5 mb-md-3 yellow-icon-2" src={yellowIcon} alt=""/>
                                         <p>It’s Easy To Start With Backup Cash</p>
                                     </div>
@@ -170,14 +169,14 @@ class Home extends Component {
                         <div className=" pb-5 pb-md-0 height-100vh ">
                             <img className="yellow-svg" src={yellowBg} alt=''/>
                             <div className="container ">
-                                <div className="row pt-md-5 pt-md-3">
+                                <div className="row ">
                                     <div className="col-md-4">
 
                                         <div className="card-container text-center mb-xs-5">
                                             <div className="pt-5 mb-5  mb-md-3 pt-md-3">
                                                 <button className="rounded-btn btn-dark-blue">1</button>
                                             </div>
-                                            <p className="card-text mb-5">Create a account or login,
+                                            <p className="card-text mb-5">Create an account or login,
                                                 in less than two minutes </p>
                                             <div className="card mb-5" data-aos="fade-up">
                                                 <img className="card-1-img" src={cardIll1}
@@ -349,12 +348,12 @@ class Home extends Component {
                                         </div>
                                         <a className="carousel-control-prev carousel-btn" href="#carouselExampleControls"
                                            role="button" data-slide="prev">
-                                            <img src={carouselLeftArrow} width="60%" alt={''} />
+                                            <img  src={carouselLeftArrow} width="60%" alt={''} />
                                             <span className="sr-only">Previous</span>
                                         </a>
-                                        <a className="carousel-btn pl-2 pr-2 carousel-control-next"
+                                        <a className="carousel-btn carousel-control-next"
                                            href="#carouselExampleControls" role="button" data-slide="next">
-                                            <img src={carouselRightArrow} width="60%"  alt={''} />
+                                            <img  src={carouselRightArrow} width="60%"  alt={''} />
                                             <span className="sr-only">Next</span>
                                         </a>
                                     </div>

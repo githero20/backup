@@ -73,7 +73,7 @@ class HorizontalNav extends Component {
                                 <li className="nav-item mobile-menu d-md-none ml-auto order-4">
                                     {/*<button className="nav-link nav-menu-main menu-toggle hidden-xs" >*/}
                                     {/*    <i className="ft-menu font-large-1"></i></button>*/}
-                                    <a type="button" onClick={this.showMobileMenu} className="hamburger hamburger--slider menu-toggle navbar-toggler"
+                                    <a onClick={this.showMobileMenu} className="hamburger hamburger--slider menu-toggle navbar-toggler"
                                        data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                        aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="hamburger-box">

@@ -130,21 +130,8 @@ class WithdrawalForm extends Component {
                                                 <div className="col-lg-12">
                                                     <h5>Withdrawal Form</h5>
                                                 </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-group">
-                                                        <label htmlFor="name">Amount</label>
-                                                        <input
-                                                            type="number"
-                                                            id="name"
-                                                            className="form-control mb-1"
-                                                            name="amount"
-                                                            defaultValue={''}
-                                                        />
 
-                                                    </div>
-                                                </div>
-
-                                                <div className="col-lg-6">
+                                                <div className="col-lg-12">
                                                     <div className="form-group">
                                                         <label htmlFor="annualincome">Select Bank</label>
                                                         <select id="annualincome"
@@ -171,6 +158,46 @@ class WithdrawalForm extends Component {
                                                     </div>
                                                 </div>
 
+
+                                                <div className="col-md-12">
+                                                    <div className="form-group">
+                                                        <label htmlFor="name">How much do you want to withdraw today?</label>
+                                                        <input
+                                                            type="number"
+                                                            id="name"
+                                                            className="form-control mb-1"
+                                                            name="amount"
+                                                            defaultValue={''}
+                                                        />
+
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-lg-12">
+                                                    <div className="form-group">
+                                                        <label>Where do you want to withdraw from?</label>
+                                                        <select name="source" value={this.state.form.source} defaultValue={this.state.form.source}
+                                                                className="form-control">
+                                                            <option value="central_vault">Central Vault
+                                                            </option>
+                                                            <option value="backup_stash">Backup Stash
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-lg-12" hidden={true}>
+                                                    <div className="form-group">
+                                                        <label>Where do you want to charge your Penalty Fee?</label>
+                                                        <select name="source" value={this.state.form.penalty_from} defaultValue={this.state.form.penalty_from}
+                                                                className="form-control">
+                                                            <option value="central_vault">Amount to be withdrawn from
+                                                            </option>
+                                                            <option value="backup_stash">Backup Stash
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -184,6 +211,23 @@ class WithdrawalForm extends Component {
                             </div>
                         </div>
 
+                    </Fragment>
+                </div>
+                <div className="col-lg-4">
+                    <Fragment>
+                        <div className='banner round '>
+                            <p>Your next free withdrawal Date is </p>
+                            <strong>June !st 2020 </strong>
+                            <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
+                            <ul>
+                                <li>Every 01 January</li>
+                                <li>Every 01 January</li>
+                                <li>Every 01 January</li>
+                                <li>Every 01 January</li>
+                            </ul>
+
+                            <button className='btn btn-custom-blue btn-block'>Change Settings</button>
+                        </div>
                     </Fragment>
                 </div>
             </div>

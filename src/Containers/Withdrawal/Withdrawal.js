@@ -15,7 +15,7 @@ class Withdrawal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showWithdrawalForm: false,
+            showWithdrawalForm: true,
             withdrawals: [],
             banks:[]
         };

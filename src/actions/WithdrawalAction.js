@@ -2,7 +2,7 @@ import {_axios} from "../utils";
 import {
     CreateWithdrawalSettings,
     GetWithdrawal,
-    GetwithdrawalPenalty,
+    GetWithdrawalPenalty,
     GetWithdrawalSettings,
 } from "../RouteLinks/RouteLinks";
 
@@ -22,7 +22,7 @@ export const getWithdrawalList = (callback) =>{
 
 
 export const getWithdrawalPenalty = (callback) => {
-        _axios.get(`${GetwithdrawalPenalty}`)
+        _axios.get(`${GetWithdrawalPenalty}`)
         .then(res => {
             console.log(res);
             console.log(res.data.data);

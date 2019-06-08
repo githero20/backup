@@ -572,6 +572,7 @@ html body .content.app-content {
 
 .spaced-table.table.table-xl td label {
     margin-bottom: 0;
+    width:100%;
 }
 
 .spaced-table tbody tr {

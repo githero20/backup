@@ -1,5 +1,10 @@
 import {_axios} from "../utils";
-import {GetWithdrawal,} from "../RouteLinks/RouteLinks";
+import {
+    CreateWithdrawalSettings,
+    GetWithdrawal,
+    GetwithdrawalPenalty,
+    GetWithdrawalSettings,
+} from "../RouteLinks/RouteLinks";
 
 
 export const getWithdrawalList = (callback) =>{
@@ -12,6 +17,65 @@ export const getWithdrawalList = (callback) =>{
         .catch(err => {
             console.log("Err", JSON.stringify(err));
             callback(false, err.response.data.message || "An Error Occurred");
+        })
+};
+
+
+export const getWithdrawalPenalty = (callback) => {
+        _axios.get(`${GetwithdrawalPenalty}`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            try{
+                console.log("Err", JSON.stringify(err));
+                callback(false, err.response.data.message || "An Error Occurred");
+            }catch (e) {
+                //log both e and err
+                callback(false, " An Error Occurred");
+            }
+        })
+};
+
+
+export const createWithdrawalSettings = (payload, callback) => {
+    _axios.post(`${CreateWithdrawalSettings}`, payload)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            try{
+                console.log("Err", JSON.stringify(err));
+                callback(false, err.response.data.message || "An Error Occurred");
+            }catch (e) {
+                //log both e and err
+                callback(false, " An Error Occurred");
+            }
+        })
+};
+
+export const getWithdrawalSettings = (callback) => {
+    _axios.get(`${GetWithdrawalSettings}`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            try{
+                console.log("Err", JSON.stringify(err));
+                callback(false, err.response.data.message || "An Error Occurred");
+            }catch (e) {
+                //log both e and err
+                callback(false, " An Error Occurred");
+            }
         })
 };
 

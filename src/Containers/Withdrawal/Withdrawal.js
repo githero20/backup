@@ -4,47 +4,64 @@ import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import listIcon from "../../admin/app-assets/images/svg/list-icon.svg";
 import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
 import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.svg";
-import {withToastManager} from "react-toast-notifications";
+import {ToastProvider, withToastManager} from "react-toast-notifications";
 import {getWithdrawalList} from "../../actions/WithdrawalAction";
 import WithdrawalList from "./WithdrawalList";
-import WithdrawalForm from "./withdrawalForm";
+import WithdrawalForm from "./WithdrawalForm";
+import {getUserBanks} from "../../actions/BankAction";
 
 class Withdrawal extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            showWithdrawalList: true,
-            withdrawals: []
+            showWithdrawalForm: false,
+            withdrawals: [],
+            banks:[]
         };
 
-        this.showList = this.showList.bind(this);
+        this.showForm = this.showForm.bind(this);
+        this.hideForm = this.hideForm.bind(this);
+        this.getUserBanks = this.getUserBanks.bind(this);
+    }
+
+    getUserBanks(){
+        getUserBanks((status, payload) => {
+            console.log(status, payload);
+            if(status){
+                if(payload && payload.length > 0){
+                    this.setState({banks:payload});
+                }
+            }else{
+                this.props.toastManager.add("Unable to fetch Bank Accounts",{
+                    appearance: 'error',
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                })
+            }
+        })
     }
 
     componentWillMount() {
         this.getWithdrawalList();
+        this.getUserBanks();
     }
 
     componentDidMount() {
         console.log("Props", this.props);
-        this.props.toastManager.add("Completed", {
-            appearance: "success",
-            autoDismiss: true,
-            autoDismissTimeout: 5000
-        });
     }
 
     getWithdrawalList() {
         getWithdrawalList((status, payload) => {
             console.log(status, payload);
             if (status) {
-                this.props.toastManager.add("Withdrawals", {
-                    appearance: "success",
-                    autoDismiss: true
-                });
+                // this.props.toastManager.add("Withdrawals", {
+                //     appearance: "success",
+                //     autoDismiss: true
+                // });
                 this.setState({withdrawals: payload.data});
             } else {
-                this.props.toastManager.add(payload, {
+                this.props.toastManager.add("Unable to get withdrawals at this moment", {
                     appearance: "error",
                     autoDismiss: true
                 })
@@ -52,9 +69,17 @@ class Withdrawal extends Component {
         })
     }
 
-    showList(status = true, fetchWithdrawals = false) {
-        this.setState({showWithdrawalList: status});
-        if (fetchWithdrawals)
+    showForm() {
+        if(this.state.banks.length > 0){
+            this.setState({showWithdrawalForm: true});
+        }else{
+            this.props.history.push("/bank-card-setting");
+        }
+    }
+
+    hideForm(status){
+        this.setState({showWithdrawalForm: false});
+        if (status)
             this.getWithdrawalList();
     }
 
@@ -100,27 +125,18 @@ class Withdrawal extends Component {
                                                         </span>
                                                     </span>
                                                     <button className="round white btn-withdraw flex-grow-0 "
-                                                            onClick={this.showList}>Withdraw
+                                                            onClick={this.showForm}>Withdraw
                                                     </button>
                                                 </div>
-                                                {
-                                                    this.state.showWithdrawalList
-                                                    ? <WithdrawalList show={this.state.showWithdrawalList} onHide={this.showList} withdrawals={this.state.withdrawals}/>
-                                                    : null
-                                                }
+                                                <ToastProvider>
+                                                    {
+                                                        !this.state.showWithdrawalForm
+                                                            ? <WithdrawalList showForm={this.showForm} withdrawals={this.state.withdrawals}/>
+                                                            : <WithdrawalForm hideForm={this.hideForm}/>
+                                                    }
+                                                </ToastProvider>
                                             </div>
                                         </div>
-
-
-
-
-
-                                    </div>
-                                </div>
-                                <div className={'row'}>
-                                    <div className="col-lg-8">
-                                        {/* withdrawal form component */}
-                                        <WithdrawalForm/>
                                     </div>
                                 </div>
                             </div>

@@ -5,7 +5,7 @@ import LogOutIcon from "../../../admin/app-assets/images/svg/logout-cion.svg";
 import KycIcon from "../../../admin/app-assets/images/svg/kyc-icon.svg";
 import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import {Link, Redirect} from "react-router-dom";
-import {DashboardLink, LoginEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
+import {DashboardLink, LoginLink} from "../../../RouteLinks/RouteLinks";
 
 class HorizontalNav extends Component {
 
@@ -44,7 +44,7 @@ class HorizontalNav extends Component {
         //show toggle menu
         let mobileMenu = document.querySelector('.vertical-menu-modern');
         mobileMenu.classList.toggle('menu-open');
-    }
+    };
 
 
     render() {

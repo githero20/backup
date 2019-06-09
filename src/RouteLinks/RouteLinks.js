@@ -57,4 +57,7 @@ export const ContinueSteadySave = `sfsbapi/v1/user/savings/steady/continue`;
 export const StopSteadySave = `sfsbapi/v1/user/savings/steady/stop`;
 export const GetWithdrawal = `sfsbapi/v1/user/withdrawals`;
 export const UpdatePasswordEndpoint = `/sfsbapi/v1/user/update/password`;
+export const InitiateTransactionEndpoint  = `sfsbapi/v1/user/transaction/init`;
+export const GetUsersCards  = `/sfsbapi/v1/user/cards`;
+
 

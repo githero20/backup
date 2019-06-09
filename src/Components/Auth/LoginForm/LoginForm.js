@@ -8,6 +8,8 @@ import {DashboardLink, ForgotPasswordLink, LoginEndpoint, ResendActivationLink} 
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
+import {getUserData} from "../../../actions/UserAction";
+import {_setUser} from "../../../utils";
 
 class LoginForm extends Component {
     state = {
@@ -47,6 +49,13 @@ class LoginForm extends Component {
 
             localStorage.setItem(USERTOKEN, response.data.token);
 
+            //Temporary get user details
+            getUserData((status, payload) => {
+                console.log("status", status,payload);
+                if(status){
+                    _setUser(payload);
+                }
+            });
             // redirect to dashboard
             this.setState({
                 redirect: true
@@ -56,6 +65,7 @@ class LoginForm extends Component {
             if (response) {
                 console.log(JSON.stringify(response));
 
+                //TODO(This check is not good. look out for a flag or something. )
                 if (response.data.message === 'Account has not been activated, click on resend') {
 
                     this.setState({
@@ -195,7 +205,7 @@ class LoginForm extends Component {
                                 </button>
                                 <label className=" mt-3 mt-md-0 label-container d-flex align-items-center ">
                                     <input type="checkbox" className="login-check-box order-md-1"
-                                           defaultChecked={true}/>
+                                           defaultChecked={false}/>
                                     <span className='checkmark'></span>
                                     <span className='fs-xs'>Always stay signed In</span>
                                 </label>

@@ -3,15 +3,20 @@ import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNa
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
 import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-icon.svg";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import InstantSavingModal from "../../Components/Dashboard/InstantSavingModal/InstantSavingModal";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
-import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
-import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
-import {formatNumber, STANDARD_ACCOUNT} from "../../Helpers/Helper";
+import {request} from "../../ApiUtils/ApiUtils";
+import {
+    amountFormatter,
+    dateFormatter,
+    descriptionFormatter,
+    formatNumber,
+    STANDARD_ACCOUNT, statusFormatter
+} from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
-import {getTransactionsApi, getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
+import {getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
+import moment from "moment";
 
 class InstantSave extends Component {
 
@@ -91,10 +96,13 @@ class InstantSave extends Component {
 
 
                 //TODO loop through transactions and add up only credits
+
                 let transactions = data.data.data.transactions.data;
+
                 let totalInstantSave = this.getTotalInstantSave(transactions);
+                console.log(transactions);
                 this.setState({
-                    transactions,
+                    transactions:transactions,
                     totalInstantSave: formatNumber(totalInstantSave)
                 });
 
@@ -113,6 +121,9 @@ class InstantSave extends Component {
     getTotalInstantSave(transactions) {
         console.log(transactions);
         if (transactions) {
+            //filter credits
+            transactions = transactions.filter((content)=>(content.type==='credit'));
+            //get sum of credits
             const sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
             return sum.amount;
         }
@@ -122,68 +133,16 @@ class InstantSave extends Component {
     setupInstantSave = () => {
 
         console.log('setting up instant Save');
-
-        //TODO Add Table Loader
         //call get user info
         request(getUserInfoEndpoint, null, true, 'GET', this.analyseInstantSaveInfo)
 
-        // //get data from localStorage
-        // if (getLocalStorage(USERINFO)) {
-        //     this.setState({
-        //         showLoader: false,
-        //     });
-        //     console.log('there is user info');
-        //
-        //     if (getLocalStorage(USERACTIVATED)) {
-        //
-        //         let status = JSON.parse(getLocalStorage(USERACTIVATED));
-        //         if (status === true) {
-        //             console.log('got here to retrieve it ');
-        //             let data = JSON.parse(getLocalStorage(USERINFO));
-        //             if (data.accounts !== null || data.accounts !== undefined) {
-        //                 console.log(data);
-        //                 this.setState({
-        //                     accountInfo: data.accounts,
-        //                     userName: data.name,
-        //
-        //                 });
-        //                 this.analyseInstantSaveInfo(data);
-        //             }
-        //
-        //         }
-        //     }
-        //
-        //
-        // } else {
-        //
-        //     this.setState({
-        //         showLoader: false
-        //
-        //     });
-        //     console.log('didnt see usr info');
-        //     //check if user is activated
-        //     if (getLocalStorage(USERACTIVATED)) {
-        //
-        //         let status = JSON.parse(getLocalStorage(USERACTIVATED));
-        //         if (status === false) {
-        //             //show activation modal
-        //             this.setUpActivation(true, null);
-        //         } else if (status === true) {
-        //             console.log('got here to retrieve it ');
-        //             let data = JSON.parse(getLocalStorage(USERINFO));
-        //
-        //         }
-        //     }
-        //
-        //
-        // }
 
     };
 
     loadInstantSaves() {
 
         //get transactions from api
-        console.log(this.state.transactions)
+        console.log(this.state.transactions);
         request(instantSaveTransEndpoint, null, true, 'GET', this.handleTransactions);
 
 
@@ -250,6 +209,8 @@ class InstantSave extends Component {
 
         //get user instant saves
         this.setupInstantSave();
+
+
         //update tables
         this.updateInstantSave();
 
@@ -270,38 +231,43 @@ class InstantSave extends Component {
 
     render() {
 
+
+
+        //table  setup
+
+
         const columns = [
             {
-                Header: 'Date',
-                accessor: 'created_at' // String-based value accessors!
-            }, {
-                Header: 'Description',
-                accessor: 'type',
-                Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-            }, {
-                Header: 'Amount',
-                accessor: 'amount',
-                // id: 'friendName', // Required because our accessor is not a string
-                // Header: 'Friend Name',
-                // accessor: d => d.friend.name // Custom value accessors!
-                Cell: props =>  <label>&#8358;{parseFloat(props.value).toFixed(2)}</label>
-            }, {
-                Header: 'Reference',
-                accessor: 'reference',
-                // // Header: props => <span>Friend Age</span>, // Custom header components!
-                // accessor: 'friend.age'
-            }, {
-                Header: 'Status',
-                accessor: 'status',
-                // // Header: props => <span>Friend Age</span>, // Custom header components!
-                // accessor: 'friend.age'
-                Cell: props =>  <label className="bg-light-green px-2 sm-pd">{props.value}</label>
+                text: 'Date',
+                dataField: 'created_at' ,
+                formatter:dateFormatter,
+                sort:true
             },
             {
-                Header: 'Reference',
-                accessor: 'reference',
-                // // Header: props => <span>Friend Age</span>, // Custom header components!
-                // accessor: 'friend.age'
+                text: 'Description',
+                dataField: 'type',
+                formatter:descriptionFormatter,
+                sort:true
+
+            },
+            {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter:amountFormatter,
+                sort:true
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter:statusFormatter,
+                sort:true
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort:true
+
             }];
 
         return (
@@ -371,7 +337,12 @@ class InstantSave extends Component {
 
                             <div className="row">
                                 {/*transaction table */}
-                                <TransactionTable transactions={this.state.transactions} columns={columns}/>
+
+                                {
+                                    this.state.transactions.length !== 0 ? <TransactionTable transactions={this.state.transactions} columns={columns}/>:null
+
+
+                                }
 
                             </div>
 

@@ -16,12 +16,15 @@ import BankCardSetting from "../Containers/BankCardSetting/BankCardSetting";
 import ActivateAccount from "../Containers/ActivateAccount/ActivateAccount";
 import {
     ActivateAccountLink,
-    BackupGoalsLink, BackupStashLink,
+    BackupGoalsLink,
+    BackupStashLink,
     BankCardLink,
     DashboardLink,
     EmailActivationLink,
-    ForgotPasswordLink, HomeLink,
-    InstantSaveLink, KycSettingLink,
+    ForgotPasswordLink,
+    HomeLink,
+    InstantSaveLink,
+    KycSettingLink,
     LockedSavingsLink,
     LoginLink,
     ProfileSettingLink,
@@ -39,7 +42,7 @@ import EmailActivation from "../Containers/EmailActivation/EmailActivation";
 import ResendActivation from "../Containers/ResendActivation/ResendActivation";
 import KycSetting from "../Containers/KycSetting/KycSetting";
 import BackupStash from "../Containers/BackupStash/BackupStash";
-
+import {ToastProvider} from "react-toast-notifications";
 
 class AppRouter extends Component {
 
@@ -47,8 +50,11 @@ class AppRouter extends Component {
 
         return (
             <React.Fragment>
-                <Router>
-                    <Route exact path={HomeLink} component={Home}/>
+                <ToastProvider>
+                    <Router>
+                        <Route exact path={HomeLink} component={Home}/>
+                        {/*dashboard Routes*/}
+
                     {/*dashboard Routes*/}
                     <Route path={DashboardLink} component={AuthController(DashboardIndex)}/>
                     <Route path={InstantSaveLink} component={AuthController(InstantSave)}/>
@@ -62,16 +68,16 @@ class AppRouter extends Component {
                     <Route path={EmailActivationLink} component={EmailActivation}/>
                     <Route path={ResendActivationLink} component={ResendActivation}/>
 
-                    {/*auth routes*/}
-                    <Route path={LoginLink} component={Login}/>
-                    <Route path={SignUpLink} component={SignUp}/>
-                    <Route path={ActivateAccountLink} component={ActivateAccount}/>
-                    <Route path={ForgotPasswordLink} component={ForgotPassword}/>
-                    <Route path={ResetPasswordLink} component={ResetPassword}/>
-                    <Route path={KycSettingLink} component={KycSetting}/>
-                    <Route path={BackupStashLink} component={BackupStash}/>
-                </Router>
-
+                        {/*auth routes*/}
+                        <Route path={LoginLink} component={Login}/>
+                        <Route path={SignUpLink} component={SignUp}/>
+                        <Route path={ActivateAccountLink} component={ActivateAccount}/>
+                        <Route path={ForgotPasswordLink} component={ForgotPassword}/>
+                        <Route path={ResetPasswordLink} component={ResetPassword}/>
+                        <Route path={KycSettingLink} component={KycSetting}/>
+                        <Route path={BackupStashLink} component={BackupStash}/>
+                    </Router>
+                </ToastProvider>
             </React.Fragment>
         );
     }

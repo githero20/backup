@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import RightArrow from "../../../admin/app-assets/images/svg/arrow-right.svg";
 import BlueRightArrow from "../../../admin/app-assets/images/svg/blue-arrow-right.svg";
 import {Link} from 'react-router-dom';
-import {BackupGoalsLink, SteadySaveLink} from "../../../RouteLinks/RouteLinks";
+import {BackupGoalsLink} from "../../../RouteLinks/RouteLinks";
 
 
 class BackUpGoalCard extends Component {
@@ -43,7 +43,7 @@ class BackUpGoalCard extends Component {
                             </div>
                         </div>
                         <div className="card-body text-center">
-                            <h4 className="card-title saving-balance-text mb-1">&#8358; {backupAmount}</h4>
+                            <h4 className="card-title saving-balance-text mb-1 ">&#8358; {backupAmount}</h4>
                             <div className="d-flex justify-content-between">
                                 <button onClick={this.props.showModal}
                                         className="btn btn-small-blue round "><span>New Goal </span>

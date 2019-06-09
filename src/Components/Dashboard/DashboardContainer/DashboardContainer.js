@@ -6,6 +6,11 @@ import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";
 import LockedSavingsCard from "../LockedSavingCard/LockedSavingsCard";
 import TotalSavingsBlueCard from "../TotalSavingsBlueCard/TotalSavingsBlueCard";
 import TotalInterestCard from "../TotalSavingsCard/TotalInterestCard";
+import moment from "moment";
+import ToolkitProvider from "react-bootstrap-table2-toolkit";
+import {amountFormatter, dateFormatter, descriptionFormatter, statusFormatter} from "../../../Helpers/Helper";
+
+
 
 class DashboardContainer extends Component {
 
@@ -15,6 +20,8 @@ class DashboardContainer extends Component {
     // set the appropiate props
 
     // send the the children components
+
+
 
 
     render() {
@@ -28,38 +35,38 @@ class DashboardContainer extends Component {
             transactions, totalInterest, ActiveGoals, CompletedGoals
         } = this.props;
 
-        const columns = [
+  const columns = [
             {
-                Header: 'Date',
-                accessor: 'created_at' // String-based value accessors!
-            }, {
-                Header: 'Description',
-                accessor: 'type',
-                Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-            }, {
-                Header: 'Amount',
-                accessor: 'amount',
-                // id: 'friendName', // Required because our accessor is not a string
-                // Header: 'Friend Name',
-                // accessor: d => d.friend.name // Custom value accessors!
-                Cell: props =>  <label>&#8358;{parseFloat(props.value).toFixed(2)}</label>
-            }, {
-                Header: 'Reference',
-                accessor: 'reference',
-                // // Header: props => <span>Friend Age</span>, // Custom header components!
-                // accessor: 'friend.age'
-            }, {
-                Header: 'Status',
-                accessor: 'status',
-                // // Header: props => <span>Friend Age</span>, // Custom header components!
-                // accessor: 'friend.age'
-                Cell: props =>  <label className="bg-light-green px-2 sm-pd">{props.value}</label>
+                text: 'Date',
+                dataField: 'created_at' ,
+                formatter:dateFormatter,
+                sort:true
             },
             {
-                Header: 'Reference',
-                accessor: 'reference',
-                // // Header: props => <span>Friend Age</span>, // Custom header components!
-                // accessor: 'friend.age'
+                text: 'Description',
+                dataField: 'type',
+                formatter:descriptionFormatter,
+                sort:true
+
+            },
+            {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter:amountFormatter,
+                sort:true
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter:statusFormatter,
+                sort:true
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort:true
+
             }];
 
 

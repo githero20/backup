@@ -11,6 +11,7 @@ import cardIll1 from "../../admin/app-assets/images/svg/card-ill-1.svg";
 import cardIll2 from "../../admin/app-assets/images/svg/card-ill-3.svg";
 import cardIll3 from "../../admin/app-assets/images/svg/card-ill-2.svg";
 import arrowRight from "../../images/svg/righ-arrow.svg";
+import carouselRightArrow from "../../images/svg/righ-arrow.svg";
 import featureImage1 from "../../admin/app-assets/images/svg/feature-image-1.svg";
 import featureImage2 from "../../admin/app-assets/images/svg/feature-img-2.svg";
 import featureImage3 from "../../admin/app-assets/images/svg/feature-img-3.svg";
@@ -26,7 +27,6 @@ import accentureImage from "../../images/svg/accenture.svg";
 import sfsImage from "../../admin/app-assets/images/svg/sfs.svg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import carouselRightArrow from "../../images/svg/righ-arrow.svg";
 import {HomeLink, LoginLink} from "../../RouteLinks/RouteLinks";
 
 

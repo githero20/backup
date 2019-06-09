@@ -127,10 +127,38 @@ class TransactionTable extends Component {
                             {
                                 props => (
                                     <div>
-                                        <div className={'d-flex justify-content-between'}>
+                                        <div className={'d-flex justify-content-between align-content-center mb-2 mx-1'}>
                                             <SearchBar { ...props.searchProps } />
+                                            <div className="table-sort-display d-block d-md-inline"><span
+                                                data-toggle="modal" data-target="#sort"><img className=" img-2x "
+                                                                                             src={sortIcon}/></span>Sort
+                                            </div>
+
+                                            <div className="table-sort-display d-block d-md-inline"><span
+                                                data-toggle="modal" data-target="#sort"><img className=" img-2x " src={filterIcon}/></span>Filter
+                                            </div>
                                             <ExportCSVButton className={'btn-green'}  { ...props.csvProps }>Export CSV!!</ExportCSVButton>
                                         </div>
+
+                                        <div className={'sort-modal'}>
+
+                                            {/*TODO pick the number of columns user van sort with */}
+                                            <select>
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+
+
+                                        {/* TODO enter */}
+                                        <div className={'filter-modal'}>
+                                            <select>
+                                                <option value="">1</option>
+                                                <option value="">2</option>
+                                                <option value="">3</option>
+                                            </select>
+                                        </div>
+
+
                                         <BootstrapTable
                                             { ...props.baseProps }
                                             pagination={ paginationFactory() }

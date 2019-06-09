@@ -383,6 +383,7 @@ class DashboardIndex extends Component {
                     <HorizontalNav userName={userName}/>
                     <VerticalNav userName={userName}/>
 
+
                     {this.state.showLoader ? <DashboardLoader/> : null}
                     <DashboardContainer
 

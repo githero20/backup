@@ -4,7 +4,12 @@ import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import DashboardContainer from "../../Components/Dashboard/DashboardContainer/DashboardContainer";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
-import {activateUserEndpoint, lockedSavingEndpoint, resendActEndpoint} from "../../RouteLinks/RouteLinks";
+import {
+    activateUserEndpoint,
+    getUserInfoEndpoint,
+    lockedSavingEndpoint,
+    resendActEndpoint
+} from "../../RouteLinks/RouteLinks";
 import {api, getLocalStorage, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
 import {
     BACKUP_GOALS_ACCOUNT,
@@ -91,70 +96,67 @@ class DashboardIndex extends Component {
 
     setupDashBoard = () => {
 
+
+        //make request
+        request(getUserInfoEndpoint, null, true, 'GET', this.analyseDashboardInfo)
+
+        //make request
+        //show loader
+        //get the response
+        //hide loader
+        //analyse info
+
+
         console.log('setting up dashboard');
         //get data from localStorage
-        if (getLocalStorage(USERINFO)) {
-            this.setState({
-                showLoader: false,
-            });
-            console.log('there is user info');
-            console.log(JSON.parse(getLocalStorage(USERINFO)));
+        // if (getLocalStorage(USERINFO)) {
+        //     this.setState({
+        //         showLoader: false,
+        // //     });
+        //     console.log('there is user info');
+        //     console.log(JSON.parse(getLocalStorage(USERINFO)));
+        //
+        // if (getLocalStorage(USERACTIVATED)) {
+        //     let status = JSON.parse(getLocalStorage(USERACTIVATED));
+        //     // if (status === false) {
+        //     //     let userInfo = JSON.parse(getLocalStorage(USERINFO));
+        //     //     //show activation modal
+        //     //     // this.setUpActivation(true, userInfo.email);
+        //     // //TODO handle verification
+        //     // } else
+        //     //
+        //     console.log(status);
+        //
+        //     if (status === true || status === false ) {
 
-            if (getLocalStorage(USERACTIVATED)) {
-                let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                // if (status === false) {
-                //     let userInfo = JSON.parse(getLocalStorage(USERINFO));
-                //     //show activation modal
-                //     // this.setUpActivation(true, userInfo.email);
-                // //TODO handle verification
-                // } else
-                //
-                console.log(status);
+        //     }
+        // }
 
-                if (status === true || status === false ) {
-                    console.log('got here to retrieve it ');
-                    let data = JSON.parse(getLocalStorage(USERINFO));
-                    console.log(data);
-                    if (data.accounts !== null || data.accounts !== undefined) {
-                        console.log(data);
-                        this.setState({
-                            accountInfo: data.accounts,
-                            userName: data.name,
-
-                        });
-                        this.analyseDashboardInfo(data);
-                    }
-
-                    //get locked savings
-                    this.getLockedSavings(lockedSavingEndpoint, this.handleLockedSavings);
-                }
-            }
-
-
-        } else {
-
-            this.setState({
-                showLoader:false
-
-            });
-            console.log('didnt see usr info');
-            //check if user is activated
-            if (getLocalStorage(USERACTIVATED)) {
-
-                let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if (status === false) {
-                    //show activation modal
-                    this.setUpActivation(true, null);
-                } else if (status === true) {
-                    console.log('got here to retrieve it ');
-                    let data = JSON.parse(getLocalStorage(USERINFO));
-
-
-                }
-            }
-
-
-        }
+        //
+        // } else {
+        //
+        //     this.setState({
+        //         showLoader:false
+        //
+        //     });
+        //     console.log('didnt see usr info');
+        //     //check if user is activated
+        //     if (getLocalStorage(USERACTIVATED)) {
+        //
+        //         let status = JSON.parse(getLocalStorage(USERACTIVATED));
+        //         if (status === false) {
+        //             //show activation modal
+        //             this.setUpActivation(true, null);
+        //         } else if (status === true) {
+        //             console.log('got here to retrieve it ');
+        //             let data = JSON.parse(getLocalStorage(USERINFO));
+        //
+        //
+        //         }
+        //     }
+        //
+        //
+        // }
 
 
     };
@@ -167,7 +169,6 @@ class DashboardIndex extends Component {
         })
 
     };
-
 
 
     getLockedSavings = (url, callback) => {
@@ -191,46 +192,81 @@ class DashboardIndex extends Component {
     };
 
 
-    analyseDashboardInfo = (data) => {
+    analyseDashboardInfo = (status, res) => {
+
+        //
+        // console.log('got here to retrieve it ');
+        // let data = JSON.parse(getLocalStorage(USERINFO));
+        // console.log(data);
+        // if (data.accounts !== null || data.accounts !== undefined) {
+        //     console.log(data);
+        //     this.setState({
+        //         accountInfo: data.accounts,
+        //         userName: data.name,
+        //
+        //     });
+        //     this.analyseDashboardInfo(status, data);
+        // }
 
 
-        if (data.accounts) {
+        //get locked savings
+        this.getLockedSavings(lockedSavingEndpoint, this.handleLockedSavings);
 
-            // loop through data and set appropriate states
-            let accounts = data.accounts.data;
-
-            console.log(data);
-            let transactions = data.transactions.data;
+        if (status) {
 
 
-            this.setState({
-                transactions
-            });
+            if (res) {
+                this.setState({
+                    accountInfo: res.data.data.accounts,
+                    userName: res.data.data.name,
+                    showLoader:false
+                });
 
-            accounts.map((content, idx) => {
-                if (content.account_type_id === STANDARD_ACCOUNT) {
+
+                if (res.data.data.accounts) {
+
+                    // loop through data and set appropriate states
+                    let accounts = res.data.data.accounts.data;
+
+                    let transactions = res.data.data.transactions.data;
+
+
                     this.setState({
-                        vaultAmount: formatNumber(parseFloat(content.balance).toFixed(2))
-                    })
-                }else if(content.account_type_id === BACKUP_GOALS_ACCOUNT){
-                    this.setState({
-                        backupAmount:formatNumber(parseFloat(content.balance).toFixed(2))
-                    })
-                }else if(content.account_type_id === LOCKED_ACCOUNT){
-                    this.setState({
-                        lockedSavingsAmount: formatNumber(parseFloat(content.balance).toFixed(2))
-                    })
-                }else if (content.account_type_id === INTEREST_ACCOUNT){
-                    this.setState({
-                        stashAmount: formatNumber(parseFloat(content.balance).toFixed(2)),
-                        totalInterest:formatNumber(parseFloat(content.balance).toFixed(2))
-                    })
+                        transactions
+                    });
+
+                    accounts.map((content, idx) => {
+                        if (content.account_type_id === STANDARD_ACCOUNT) {
+                            this.setState({
+                                vaultAmount: formatNumber(parseFloat(content.balance).toFixed(2))
+                            })
+                        } else if (content.account_type_id === BACKUP_GOALS_ACCOUNT) {
+                            this.setState({
+                                backupAmount: formatNumber(parseFloat(content.balance).toFixed(2))
+                            })
+                        } else if (content.account_type_id === LOCKED_ACCOUNT) {
+                            this.setState({
+                                lockedSavingsAmount: formatNumber(parseFloat(content.balance).toFixed(2))
+                            })
+                        } else if (content.account_type_id === INTEREST_ACCOUNT) {
+                            this.setState({
+                                stashAmount: formatNumber(parseFloat(content.balance).toFixed(2)),
+                                totalInterest: formatNumber(parseFloat(content.balance).toFixed(2))
+                            })
+                        }
+
+                    });
+
+
                 }
 
-            });
-        } else {
-            console.log(data);
-            return null;
+
+            } else {
+                console.log(res);
+                return null;
+            }
+
+
         }
 
 
@@ -324,7 +360,7 @@ class DashboardIndex extends Component {
         //setup dashboard
         console.log('dashboard mounted');
 
-        setTimeout(this.setupDashBoard,2000);
+        this.setupDashBoard();
 
 
     }
@@ -345,7 +381,7 @@ class DashboardIndex extends Component {
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={userName}/>
-                    <VerticalNav userName={userName} />
+                    <VerticalNav userName={userName}/>
 
                     {this.state.showLoader ? <DashboardLoader/> : null}
                     <DashboardContainer

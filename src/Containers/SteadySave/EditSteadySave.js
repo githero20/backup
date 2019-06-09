@@ -132,7 +132,7 @@ class SteadySaveForm extends Component {
         const showHour = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Hour of the day</Form.Label>
-                <Form.Control as="select" value={this.state.form.hour_of_day} onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
+                <Form.Control as="select" defaultValue={this.state.form.hour_of_day} onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
                     <option value={'1'}>1:00 am</option>
                     <option value={'2'}>2:00 am</option>
                     <option value={'3'}>3:00 am</option>
@@ -164,7 +164,7 @@ class SteadySaveForm extends Component {
         const showMonth = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Day of the Month</Form.Label>
-                <Form.Control as="select" value={this.state.form.day_of_month} onChange={this.changeHandler}
+                <Form.Control as="select" defaultValue={this.state.form.day_of_month} onChange={this.changeHandler}
                               id="day_of_month" name={'day_of_month'}>
                     <option value={'1'}>1</option>
                     <option value={'2'}>2</option>
@@ -206,7 +206,7 @@ class SteadySaveForm extends Component {
         const showDay = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Day of the Week</Form.Label>
-                <Form.Control as="select" value={this.state.form.day_of_week} onChange={this.changeHandler}
+                <Form.Control as="select" defaultValue={this.state.form.day_of_week} onChange={this.changeHandler}
                               id="day_of_the_week" name="day_of_the_week">
                     <option value={'1'}>Mon</option>
                     <option value={'2'}>Tue</option>
@@ -243,7 +243,6 @@ class SteadySaveForm extends Component {
                                     as="select"
                                     onChange={this.changeHandler}
                                     defaultValue={this.state.form.payment_auth}
-                                    value={this.state.form.payment_auth}
                                     name={'payment_auth'}>
                                     <option value={""} >Select Card</option>
                                     {

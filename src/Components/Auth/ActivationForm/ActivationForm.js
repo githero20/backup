@@ -503,7 +503,7 @@ class ActivationForm extends Component {
                         <div className="col-12 col-lg-12">
                             <div className="form-group mb-lg-3">
                                 <label htmlFor="contribution" className="active">Amount To Debit</label>
-                                <input id="amount" type="number" placeholder={`e.g 500 (NGN)`} name={'contribution'} onChange={this.changeHandler} className="form-control"/>
+                                <input id="amount" type="number" placeholder={`e.g 500`} name={'contribution'} onChange={this.changeHandler} className="form-control"/>
                                 {this.validator.message('contribution', contribution, 'required|numeric')}
 
                             </div>

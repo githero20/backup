@@ -42,38 +42,70 @@ class BackUpGoalsForm extends Component {
         this.reset = this.reset.bind(this);
         this.changeHandler = this.changeHandler.bind(this);
         this.handleFrequencySelect = this.handleFrequencySelect.bind(this);
+        this.handleGoalAmount = this.handleGoalAmount.bind(this);
     }
 
     //validate form
-    handleFrequencySelect(form){
+    handleFrequencySelect(form, inverse = false){
         // console.log(form);
-        if(form.frequency == "daily"){
-            form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"days") * form.contribution) || 0;
-            this.setState({
-                showMonth: false,
-                showDay: false,
-                showHour: true,
-                form
-            });
-            //calculate the difference between the start date and the maturity date
+        if(inverse){
+            if(form.frequency == "daily"){
+                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date,"days")) || 0;
+                this.setState({
+                    showMonth: false,
+                    showDay: false,
+                    showHour: true,
+                    form
+                });
+                //calculate the difference between the start date and the maturity date
+            }
+            else if(form.frequency == "weekly"){
+                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date,"weeks")) || 0;
+                this.setState({
+                    showMonth: false,
+                    showDay: true,
+                    showHour: true,
+                    form
+                });
+            }else if(form.frequency == "monthly"){
+                form.contribution = (form.goal_amount /_calculateDateDifference(form.start_date, form.maturity_date,"months")) || 0;
+                this.setState({
+                    showMonth: true,
+                    showDay: false,
+                    showHour: true,
+                    form
+                })
+            }
+        }else{
+            if(form.frequency == "daily"){
+                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"days") * form.contribution) || 0;
+                this.setState({
+                    showMonth: false,
+                    showDay: false,
+                    showHour: true,
+                    form
+                });
+                //calculate the difference between the start date and the maturity date
+            }
+            else if(form.frequency == "weekly"){
+                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
+                this.setState({
+                    showMonth: false,
+                    showDay: true,
+                    showHour: true,
+                    form
+                });
+            }else if(form.frequency == "monthly"){
+                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
+                this.setState({
+                    showMonth: true,
+                    showDay: false,
+                    showHour: true,
+                    form
+                })
+            }
         }
-        else if(form.frequency == "weekly"){
-            form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
-            this.setState({
-                showMonth: false,
-                showDay: true,
-                showHour: true,
-                form
-            });
-        }else if(form.frequency == "monthly"){
-            form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
-            this.setState({
-                showMonth: true,
-                showDay: false,
-                showHour: true,
-                form
-            })
-        }
+
 
         // console.log("Form", form);
     }
@@ -117,8 +149,11 @@ class BackUpGoalsForm extends Component {
 
     };
 
+    handleGoalAmount(e){
+        this.changeHandler(e, true)
+    }
     //Retrieves user inputs
-    changeHandler(event){
+    changeHandler(event, inverse = false){
        const form =  _handleFormChange(
             event.target.name,
             event,
@@ -126,7 +161,7 @@ class BackUpGoalsForm extends Component {
         );
 
         // console.log("megg", event.target.name, event.target.value);
-        this.handleFrequencySelect(form);
+        this.handleFrequencySelect(form,inverse);
 
     };
     reset(){
@@ -332,9 +367,8 @@ class BackUpGoalsForm extends Component {
                                 type="number"
                                 name={'goal_amount'}
                                 id={'number'}
-                                disabled={true}
                                 value={goal_amount}
-                                onChange={this.changeHandler}/>
+                                onChange={this.handleGoalAmount}/>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>

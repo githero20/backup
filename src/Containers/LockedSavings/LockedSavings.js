@@ -35,6 +35,7 @@ class LockedSavings extends Component {
             if(status){
                 //TODO(work on making this merging this payload.data.to lockedSavings[])
                 this.setState({lockedSavings: payload.data});
+
             }
         })
     }
@@ -104,7 +105,7 @@ class LockedSavings extends Component {
                                                         </button>
                                                     </h4>
                                                     <ul className=" mb-0 locked-saving-display d-none d-md-inline-block">
-                                                        <li>1 &nbsp; Locked saving</li>
+                                                        <li>{this.state.lockedSavings.length} &nbsp; Locked saving</li>
                                                     </ul>
                                                     <div className="table-button-container d-none d-md-inline-block">
                                                      <span

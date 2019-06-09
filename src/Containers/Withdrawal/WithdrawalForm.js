@@ -134,9 +134,9 @@ class WithdrawalForm extends Component {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <button className={'btn btn-withdraw round mb-2 '}>See withdrawal Days</button>
+                                                        <button type={'button'} className={'btn btn-withdraw round mb-2 '}>See withdrawal Days</button>
                                                         <p className={'text-gray'}>Next free withdrawal day</p>
-                                                        <h4 className={'text-black'}>22n october 2019</h4>
+                                                        <h4 className={'text-black'}>22nd october 2019</h4>
                                                     </div>
                                                 </div>
                                             </div>

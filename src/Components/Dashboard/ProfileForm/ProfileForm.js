@@ -23,22 +23,22 @@ class ProfileForm extends Component {
     };
 
 
-    setupProfile = (data) => {
-        const profile = JSON.parse(data);
-        this.setState({
-            userProfile: profile,
-        })
+    // setupProfile = (data) => {
+    //     const profile = JSON.parse(data);
+    //     this.setState({
+    //         userProfile: profile,
+    //     })
+    //
+    // };
+    //
 
-    };
-
-
-    componentDidMount() {
-        // fetch User info
-        const data = getLocalStorage(USERINFO);
-        if (data) {
-            this.setupProfile(data);
-        }
-    }
+    // componentDidMount() {
+    //     // fetch User info
+    //     const data = getLocalStorage(USERINFO);
+    //     if (data) {
+    //         this.setupProfile(data);
+    //     }
+    // }
 
 
     constructor(props) {
@@ -89,7 +89,7 @@ class ProfileForm extends Component {
 
 
     render() {
-        const {userProfile} = this.state;
+        const {userProfile} = this.props;
         return (
             <React.Fragment>
 
@@ -126,6 +126,7 @@ class ProfileForm extends Component {
                                                             <input
                                                                 type="text"
                                                                 id="name"
+                                                                disabled
                                                                 className="form-control mb-1"
                                                                 name="name"
                                                                 defaultValue={userProfile?userProfile.name:null}
@@ -163,7 +164,7 @@ class ProfileForm extends Component {
                                                                        name='email'
                                                                        className="form-control"
                                                                        placeholder="Email"
-                                                                       disabled={true}
+                                                                       disabled
                                                                        defaultValue={userProfile? userProfile.email:null}
                                                                        aria-describedby="button-addon2"
                                                                 />
@@ -202,6 +203,7 @@ class ProfileForm extends Component {
                                                     <input
                                                         type="number"
                                                         id="phoneNumber"
+                                                        disabled
                                                         className="form-control mb-1"
                                                         name="phoneNumber"
                                                         defaultValue={userProfile?userProfile.phone:null}

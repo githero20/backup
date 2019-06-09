@@ -382,8 +382,6 @@ class DashboardIndex extends Component {
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={userName}/>
                     <VerticalNav userName={userName}/>
-
-
                     {this.state.showLoader ? <DashboardLoader/> : null}
                     <DashboardContainer
 

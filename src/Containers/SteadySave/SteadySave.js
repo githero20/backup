@@ -49,14 +49,11 @@ class SteadySave extends Component {
 
     }
 
-    hideModal = (status=false) => {
+    hideModal = ( status=false) => {
         this.setState({
                 showSavingModal: false
             }
         );
-        if(status){
-            this.setupSteadySave();
-        }
     };
 
     showModal = () => {
@@ -114,14 +111,12 @@ class SteadySave extends Component {
         // get data from localStorage
     };
 
-    //TODO make a request to get user data and pass to analyse
 
 
     GetBalance = () => {
 
         console.log('setting up instant Save');
 
-        //TODO Add Table Loader
         //call get user info
         request(getUserInfoEndpoint, null, true, 'GET', this.analyseSteadySaveInfo)
 
@@ -197,6 +192,10 @@ class SteadySave extends Component {
         const {transactions, userName} = this.state;
 
 
+        //update the button to show status in progress if is paused is 0 or paused if its 1
+
+
+
         //table header and columns
         const columns = [
             {
@@ -250,7 +249,7 @@ class SteadySave extends Component {
                                 this.state.showSavingModal ?
                                     (
                                         <React.Fragment>
-                                            <SteadySaveModal steadySave={this.state.steadySave} totalSteadySave={this.state.totalSteadySave}
+                                            <SteadySaveModal setupSteadySave={this.setupSteadySave} steadySave={this.state.steadySave} totalSteadySave={this.state.totalSteadySave}
                                                              show={this.state.showSavingModal} onHide={this.hideModal}/>
                                         </React.Fragment>
 

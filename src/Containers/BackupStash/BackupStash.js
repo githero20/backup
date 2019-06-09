@@ -9,7 +9,7 @@ import InstantSavingModal from "../../Components/Dashboard/InstantSavingModal/In
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
-import {formatNumber, STANDARD_ACCOUNT} from "../../Helpers/Helper";
+import {formatNumber, INTEREST_ACCOUNT, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
 import {
     getTransactionsApi,
@@ -33,7 +33,7 @@ class BackupStash extends Component {
         accountInfo: null,
         transactions: [],
         userName: '',
-        totalBalance: '0.00',
+        totalStash: '0.00',
         totalInstantSave: '0.00',
         email: null,
         showSavingModal: false,
@@ -72,26 +72,37 @@ class BackupStash extends Component {
     };
 
 
-    analyseInstantSaveInfo = (status, data) => {
+    analyseStashInfo = (status, data) => {
 
+
+        //stop loader
+        this.setState({
+            showLoader:false
+        });
+
+        //handle response
         if (status) {
 
             console.log(data.data.data);
+            if(data){
+               const userName = data.data.data.name;
+                this.setState({
+                    userName,
+                });
+            }
 
             if (data.data.data.accounts) {
 
                 console.log(data.data.data.accounts)
-
-
                 // loop through data and set appropriate states
                 let accounts = data.data.data.accounts.data;
 
                 //display total balance
                 accounts.map((content, idx) => {
-                    if (content.account_type_id === STANDARD_ACCOUNT) {
+                    if (content.account_type_id === INTEREST_ACCOUNT) {
                         console.log(content.balance);
                         this.setState({
-                            totalBalance: formatNumber(content.balance)
+                            totalStash: formatNumber(content.balance)
                         })
                     }
                 });
@@ -127,59 +138,27 @@ class BackupStash extends Component {
     }
 
 
-    setupInstantSave = () => {
+    setupStash = () => {
 
         console.log('setting up instant Save');
 
         //TODO Add Table Loader
+        this.setState({
+            showLoader:true,
+        })
         //call get user info
-        request(getUserInfoEndpoint, null, true, 'GET', this.analyseInstantSaveInfo)
+        request(getUserInfoEndpoint, null, true, 'GET', this.analyseStashInfo)
 
 
     };
 
-    loadInstantSaves() {
-
-        //get transactions from api
-        console.log(this.state.transactions)
-        request(instantSaveTransEndpoint, null, true, 'GET', this.handleTransactions);
-
-
-    }
-
-
-    handleTransactions = (state, res) => {
-
-        //handle all instant save by the user
-        if (state) {
-            if (res) {
-                let transactions = res.data.data.transactions.data;
-                let totalInstantSave = this.getTotalInstantSave(transactions);
-                this.setState({
-                    transactions,
-                    totalInstantSave: formatNumber(totalInstantSave)
-                });
-                console.log(res);
-            }
-
-        } else {
-            if (res) {
-                console.log(res);
-            }
-        }
-
-    };
 
 
     componentDidMount() {
 
 
         //get user instant saves
-        this.setupInstantSave();
-
-
-        //get instant save transactions
-        this.loadInstantSaves();
+        this.setupStash();
 
     }
 
@@ -207,23 +186,11 @@ class BackupStash extends Component {
     componentWillMount() {
 
         //get user instant saves
-        this.setupInstantSave();
-        //update tables
-        this.updateInstantSave();
+        this.setupStash();
+
 
     }
 
-    updateInstantSave = () => {
-        //TODO Add Table Loader
-        //call get user info
-        request(getUserInfoEndpoint, null, true, 'GET', this.loadInstantSaveTable)
-    };
-
-    createInstantSave = () => {
-        this.setState({
-            newInstantSave: true
-        })
-    };
 
 
     render() {
@@ -233,7 +200,7 @@ class BackupStash extends Component {
                 className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done instant-save"
                 data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                 <HorizontalNav userName={this.state.userName}/>
-                <VerticalNav/>
+                <VerticalNav userName={this.state.userName} />
                 <div className="app-content content ">
                     <div className="content-wrapper">
 
@@ -274,11 +241,11 @@ class BackupStash extends Component {
                         <div className="content-body">
                             <div className="row">
                                 <div className="col-lg-4 col-12">
-                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">Instant Save <span
+                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">Backup Stash <span
                                         className="dot">.</span> Summary
 
                                     </h3>
-                                    <InstantSaveCard balance={this.state.totalBalance}/>
+                                    <InstantSaveCard balance={this.state.totalStash}/>
                                 </div>
                                 <div className="col-lg-4 col-12">
                                     <h3 className="gray-header-text fs-mb-1 mb-2">Quick Actions</h3>
@@ -315,7 +282,7 @@ class BackupStash extends Component {
 
                             <div className="row">
                                 {/*transaction table */}
-                                <TransactionTable transactions={this.state.transactions}/>
+                                {/*<TransactionTable transactions={this.state.transactions}/>*/}
 
                             </div>
 

@@ -127,7 +127,7 @@ class TransactionTable extends Component {
                             {
                                 props => (
                                     <div>
-                                        <div className={'d-flex justify-content-between align-content-center mb-2 mx-1'}>
+                                        <div className={'d-flex justify-content-between align-content-center mb-1 mx-1'}>
                                             <SearchBar { ...props.searchProps } />
                                             <div className="table-sort-display d-block d-md-inline"><span
                                                 data-toggle="modal" data-target="#sort"><img className=" img-2x "

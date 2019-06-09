@@ -111,7 +111,7 @@ class BackupGoals extends Component {
                                                         </button>
                                                     </h4>
                                                     <ul className=" mb-0 locked-saving-display d-none d-md-inline-block">
-                                                        <li>1 &nbsp; Locked saving</li>
+                                                        <li>{this.state.backupGoals.length} &nbsp; Locked saving</li>
                                                     </ul>
                                                     <div className="table-button-container d-none d-md-inline-block">
                                                      <span

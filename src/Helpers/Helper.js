@@ -162,10 +162,10 @@ export function moneyFormatter (cell) {
 
 export function steadyStatusFormatter (cell,row) {
 
-        if(row.is_pause){
+        if(parseInt(row.is_pause)){
             return <button className={'btn btn-warning'}>Paused</button>
-        }else if (row.stop){
-            return <button className={'btn btn-danger'}>Stopped</button>
+        }else {
+            return <button className={'btn btn-success'}>Ongoing</button>
         }
 }
 

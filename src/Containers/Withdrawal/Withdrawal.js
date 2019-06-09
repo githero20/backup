@@ -8,8 +8,6 @@ import {ToastProvider, withToastManager} from "react-toast-notifications";
 import {getWithdrawalList} from "../../actions/WithdrawalAction";
 import WithdrawalList from "./WithdrawalList";
 import WithdrawalForm from "./withdrawalForm";
-import ChooseWithdrawal from "./chooseWithdrawal";
-import WithdrawalDateForm from "./WithdrawalDateForm";
 import Banner from "./Banner";
 import {getUserBanks} from "../../actions/BankAction";
 

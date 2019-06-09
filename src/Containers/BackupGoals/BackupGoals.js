@@ -9,7 +9,7 @@ import addSavingsIcon from "../../admin/app-assets/images/svg/add-lock-saving.sv
 import BackUpGoalsTable from "../../Components/Dashboard/BackUpGoalsTable/BackUpGoalsTable";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
 import {getBackUpSavings} from "../../actions/BackUpGoalsAction";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
+import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 
 class BackupGoals extends Component {
 
@@ -22,7 +22,8 @@ class BackupGoals extends Component {
             accountInfo:null,
             userName:null,
             backupGoals: [],
-            loading:false
+            loading:false,
+            showLoader:false
         };
 
         // this.handleBackUpGoals = this.handleBackUpGoals.bind(this);
@@ -45,7 +46,13 @@ class BackupGoals extends Component {
 
 
     fetchBackUpGoals(){
+        this.setState({
+            showloader:true,
+        });
         getBackUpSavings((status, payload) => {
+            this.setState({
+                showLoader:false
+            });
             console.log("Getbackupgoals",status, payload);
             if(status){
                 this.setState({backupGoals: payload})
@@ -64,7 +71,7 @@ class BackupGoals extends Component {
     render() {
         return (
             <React.Fragment>
-
+                {this.state.showLoader?<DashboardLoader/>:null}
                 <BackUpGoalsModal show={this.state.showBackUpModal} onHide={this.hideModal}/>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">

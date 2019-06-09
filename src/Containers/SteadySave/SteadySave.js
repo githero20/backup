@@ -19,6 +19,7 @@ import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySa
 import {getSteadySaveEndpoint, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
 import SteadySaveTransTable from "../../Components/Dashboard/SteadySaveTransTable/SteadySaveTransTable";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
+import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 
 class SteadySave extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class SteadySave extends Component {
             totalSteadySave: '0.00',
             email: null,
             showSavingModal: false,
-            showLoader: true,
+            showLoader: false,
             settings: false,
             steadySave: {
                 id: null,
@@ -66,7 +67,9 @@ class SteadySave extends Component {
 
 
     handleSteadySave = (state, res) => {
-
+        this.setState({
+            showLoader:false
+        });
         if (state) {
             if (res) {
                 console.log("Data", res.data.data);
@@ -103,7 +106,9 @@ class SteadySave extends Component {
     };
 
     setupSteadySave = () => {
-
+        this.setState({
+            showLoader:true
+        });
         request(getSteadySaveEndpoint, null, true, 'GET', this.handleSteadySave);
         console.log('setting up steady Save');
         // get data from localStorage
@@ -223,6 +228,7 @@ class SteadySave extends Component {
         return (
 
             <React.Fragment>
+                {this.state.showLoader?<DashboardLoader/>:null}
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={userName}/>

@@ -155,7 +155,9 @@ class SteadySaveForm extends Component {
                     <option value="23">11:00 pm</option>
                     <option value="24">12:00 am</option>
                 </Form.Control>
-                {this.validator.message('hour_of_day', this.state.form.hour_of_day, 'required|numeric')}
+
+                {/*{this.validator.message('hour_of_day', this.state.form.hour_of_day, 'required|numeric')}*/}
+
             </Form.Group>
         );
         const showMonth = (
@@ -195,7 +197,7 @@ class SteadySaveForm extends Component {
                     <option value="30">30</option>
                     <option value="31">31</option>
                 </Form.Control>
-                {this.validator.message('day_of_month', this.state.form.day_of_month, 'required|numeric')}
+                {/*{this.validator.message('day_of_month', this.state.form.day_of_month, 'required|numeric')}*/}
 
             </Form.Group>
         );
@@ -213,7 +215,7 @@ class SteadySaveForm extends Component {
                     <option value={'6'}>Sat</option>
                     <option value={'7'}>Sun</option>
                 </Form.Control>
-                {this.validator.message('day_of_week', this.state.form.day_of_week, 'required|numeric')}
+                {/*{this.validator.message('day_of_week', this.state.form.day_of_week, 'required|numeric')}*/}
 
             </Form.Group>
         );

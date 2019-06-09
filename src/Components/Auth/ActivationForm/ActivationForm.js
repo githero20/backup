@@ -498,7 +498,7 @@ class ActivationForm extends Component {
                     <div className="row">
                         <div className="col-12">
                             <h5 className="form-header-purple mb-md-1">Start Saving Now</h5>
-                            <p className="gray-text mb-5 mb-md-5">Settings here can be changed when you are logged in. e.g<strong> &#8358; 500 </strong></p>
+                            <p className="gray-text mb-5 mb-md-5">Settings here can be changed when you are logged in</p>
                         </div>
                         <div className="col-12 col-lg-12">
                             <div className="form-group mb-lg-3">

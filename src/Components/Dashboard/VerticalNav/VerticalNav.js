@@ -135,7 +135,7 @@ class VerticalNav extends Component {
                             <li className={' nav-item ' + this.getNavLinkClass(SteadySaveLink)}>
                                 <NavLink to={SteadySaveLink}><img src={SteadySaveIcon}/><span
                                     className="menu-title"
-                                    data-i18n="">Steady Saves</span></NavLink>
+                                    data-i18n="">Steady Save</span></NavLink>
                             </li>
 
                             <li className=" navigation-header d-none d-md-inline">

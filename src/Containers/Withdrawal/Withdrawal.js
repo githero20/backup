@@ -8,8 +8,6 @@ import {ToastProvider, withToastManager} from "react-toast-notifications";
 import {getWithdrawalList} from "../../actions/WithdrawalAction";
 import WithdrawalList from "./WithdrawalList";
 import WithdrawalForm from "./WithdrawalForm";
-
-import Banner from "./Banner";
 import {getUserBanks} from "../../actions/BankAction";
 
 class Withdrawal extends Component {
@@ -17,7 +15,7 @@ class Withdrawal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showWithdrawalForm: true,
+            showWithdrawalForm: false,
             withdrawals: [],
             banks:[]
         };
@@ -103,10 +101,6 @@ class Withdrawal extends Component {
 
                                 </div>
 
-                                {/*banner component */}
-                                <Banner/>
-
-
                                 <div className="row">
                                     <div id="recent-sales" className="col-12 col-md-12">
                                         <div className="card">
@@ -124,9 +118,17 @@ class Withdrawal extends Component {
                                                                  className="mr-1 img-1x"/> table view
                                                         </span>
                                                     </span>
-                                                    <button className="round white btn-withdraw flex-grow-0 "
-                                                            onClick={this.showForm}>Withdraw
-                                                    </button>
+                                                    {
+                                                        !this.state.showWithdrawalForm
+                                                        ?
+                                                            <button className="round white btn-withdraw flex-grow-0 "
+                                                                    onClick={this.showForm}>Withdraw
+                                                            </button>
+                                                            :
+                                                            <button className="round white btn-withdraw flex-grow-0 "
+                                                                    onClick={this.hideForm}>Go Back
+                                                            </button>
+                                                    }
                                                 </div>
                                                 <ToastProvider>
                                                     {

@@ -3,7 +3,10 @@ import totalBalanceIcon from "../../admin/app-assets/images/svg/total-balance-ic
 import {createWithdrawalSettings, getWithdrawalPenalty, getWithdrawalSettings} from "../../actions/WithdrawalAction";
 import {withToastManager} from "react-toast-notifications";
 import {getUserBanks} from "../../actions/BankAction";
-
+import moment from "moment";
+import WithdrawalSettingsModal from "./Settings/WithdrawalSettingsModal";
+import SimpleReactValidator from "simple-react-validator";
+import {_handleFormChange} from "../../utils";
 class WithdrawalForm extends Component {
 
     constructor(props){
@@ -17,37 +20,30 @@ class WithdrawalForm extends Component {
                 withdraw_amount:"",
                 bank_account:"",
                 source:"central_vault"
-            }
+            },
+            showWithdrawalSetting:false
         };
 
+        this.validator = new SimpleReactValidator();
 
         this.getWithdrawalSettings = this.getWithdrawalSettings.bind(this);
         this.getWithdrawalPenalty = this.getWithdrawalPenalty.bind(this);
-        this.createWithdrawalSettings = this.createWithdrawalSettings.bind(this);
         this.getUserBanks = this.getUserBanks.bind(this);
+        this.showWithdrawalSettings = this.showWithdrawalSettings.bind(this);
+        this.hideWithdrawalSettings = this.hideWithdrawalSettings.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
+
+    componentWillMount() {
+        this.getWithdrawalSettings();
+        this.getUserBanks();
+    }
+
     //get withdrawal settings
-    //create withdrawal settings
     //get penalty when its central vault
     //get user banks
-
-    createWithdrawalSettings(e){
-        createWithdrawalSettings({
-
-        }, (status, payload) => {
-            if(status){
-                //TODO("Something here)
-            }else{
-                this.props.toastManager.add("Unable to create withdrawal settings",{
-                    appearance: "error",
-                    autoDismissTimeout: 5000,
-                    autoDismiss:true
-                });
-            }
-        })
-    }
-    getWithdrawalSettings(e){
-        e.preventDefault();
+    getWithdrawalSettings(){
+        // e.preventDefault();
         getWithdrawalSettings((status, payload) => {
             if(status){
                 this.setState({withdrawalSettings:payload});
@@ -74,10 +70,10 @@ class WithdrawalForm extends Component {
             }
         });
     }
-    getUserBanks(e){
-        e.preventDefault();
+    getUserBanks(){
         getUserBanks((status, payload) => {
             if(status){
+                console.log("here", status, payload);
                 this.setState({userBanks:payload});
             }else{
                 this.props.toastManager.add("Unable to get bank accounts",{
@@ -88,9 +84,27 @@ class WithdrawalForm extends Component {
             }
         });
     }
+
+    handleChange(e){
+        this.setState({resolved:false});
+        _handleFormChange(e.target.name,e, this)
+    }
+    showWithdrawalSettings(){
+        this.setState({showWithdrawalSetting: true})
+    }
+    hideWithdrawalSettings(){
+        console.log("here");
+        this.setState({showWithdrawalSetting: false})
+    }
+
+    getNextWithdrawalDate(){
+        // 22n october 2019
+    }
+
     render() {
         return (
             <div className={'row'}>
+                <WithdrawalSettingsModal show={this.state.showWithdrawalSetting} onHide={this.hideWithdrawalSettings}/>
                 <div className="col-lg-8">
                     {/* withdrawal form component */}
                     <Fragment>
@@ -134,28 +148,25 @@ class WithdrawalForm extends Component {
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
                                                         <label htmlFor="annualincome">Select Bank</label>
-                                                        <select id="annualincome"
-                                                                name="interested"
+                                                        <select name="bank_account"
+                                                                value={this.state.form.bank_account}
                                                                 className="form-control">
-                                                            <option value="none"
-                                                                    disabled="">Less
-                                                                than ₦ 15,000
+                                                            <option value="">
+                                                                Select bank
                                                             </option>
-                                                            <option value="design">design
-                                                            </option>
-                                                            <option
-                                                                value="development">development
-                                                            </option>
-                                                            <option
-                                                                value="illustration">illustration
-                                                            </option>
-                                                            <option
-                                                                value="branding">branding
-                                                            </option>
-                                                            <option value="video">video
-                                                            </option>
+                                                            {
+                                                                this.state.userBanks.map((bank, index) =>{
+                                                                    console.log("bank",bank);
+                                                                    return  (
+                                                                        <option key={index} value={bank.gw_customer_code}>
+                                                                            {bank.bank}({bank.bank_number})
+                                                                        </option>
+                                                                    );
+                                                                })
+                                                            }
                                                         </select>
                                                     </div>
+                                                    {this.validator.message('bank_account', this.state.form.bank_account, 'required')}
                                                 </div>
 
 
@@ -164,20 +175,19 @@ class WithdrawalForm extends Component {
                                                         <label htmlFor="name">How much do you want to withdraw today?</label>
                                                         <input
                                                             type="number"
-                                                            id="name"
                                                             className="form-control mb-1"
-                                                            name="amount"
-                                                            defaultValue={''}
+                                                            name="withdraw_amount"
+                                                            value={this.state.form.withdraw_amount}
                                                         />
 
                                                     </div>
+                                                    {this.validator.message('withdraw_amount', this.state.form.withdraw_amount, 'required|numeric')}
                                                 </div>
 
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
                                                         <label>Where do you want to withdraw from?</label>
-                                                        <select name="source" value={this.state.form.source} defaultValue={this.state.form.source}
-                                                                className="form-control">
+                                                        <select name="source" value={this.state.form.source}                                                                className="form-control">
                                                             <option value="central_vault">Central Vault
                                                             </option>
                                                             <option value="backup_stash">Backup Stash
@@ -189,7 +199,7 @@ class WithdrawalForm extends Component {
                                                 <div className="col-lg-12" hidden={true}>
                                                     <div className="form-group">
                                                         <label>Where do you want to charge your Penalty Fee?</label>
-                                                        <select name="source" value={this.state.form.penalty_from} defaultValue={this.state.form.penalty_from}
+                                                        <select name="source" value={this.state.form.penalty_from}
                                                                 className="form-control">
                                                             <option value="central_vault">Amount to be withdrawn from
                                                             </option>
@@ -220,13 +230,19 @@ class WithdrawalForm extends Component {
                             <strong>June !st 2020 </strong>
                             <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
                             <ul>
-                                <li>Every 01 January</li>
-                                <li>Every 01 January</li>
-                                <li>Every 01 January</li>
-                                <li>Every 01 January</li>
+                                {
+                                    this.state.withdrawalSettings.map((settings, index) =>{
+                                        const split = settings.withdrawal_date.split("/");
+                                        const month =  (moment(split[0], "MM").format("MMMM"));
+                                        const day =  (moment(split[1], "DD").format("Do"));
+                                        return (
+                                            <li key={index}>Every {day} of {month}</li>
+                                        );
+                                    })
+                                }
                             </ul>
 
-                            <button className='btn btn-custom-blue btn-block'>Change Settings</button>
+                            <button className='btn btn-custom-blue btn-block' onClick={this.showWithdrawalSettings}>Change Settings</button>
                         </div>
                     </Fragment>
                 </div>

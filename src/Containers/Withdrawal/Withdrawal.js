@@ -7,9 +7,8 @@ import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.s
 import {ToastProvider, withToastManager} from "react-toast-notifications";
 import {getWithdrawalList} from "../../actions/WithdrawalAction";
 import WithdrawalList from "./WithdrawalList";
-import WithdrawalForm from "./withdrawalForm";
-import ChooseWithdrawal from "./chooseWithdrawal";
-import WithdrawalDateForm from "./WithdrawalDateForm";
+import WithdrawalForm from "./WithdrawalForm";
+
 import Banner from "./Banner";
 import {getUserBanks} from "../../actions/BankAction";
 
@@ -30,7 +29,6 @@ class Withdrawal extends Component {
 
     getUserBanks(){
         getUserBanks((status, payload) => {
-            console.log(status, payload);
             if(status){
                 if(payload && payload.length > 0){
                     this.setState({banks:payload});
@@ -50,13 +48,8 @@ class Withdrawal extends Component {
         this.getUserBanks();
     }
 
-    componentDidMount() {
-        console.log("Props", this.props);
-    }
-
     getWithdrawalList() {
         getWithdrawalList((status, payload) => {
-            console.log(status, payload);
             if (status) {
                 // this.props.toastManager.add("Withdrawals", {
                 //     appearance: "success",

@@ -54,21 +54,20 @@ class AppRouter extends Component {
                     <Router>
                         <Route exact path={HomeLink} component={Home}/>
                         {/*dashboard Routes*/}
-
-                    {/*dashboard Routes*/}
-                    <Route path={DashboardLink} component={AuthController(DashboardIndex)}/>
-                    <Route path={InstantSaveLink} component={AuthController(InstantSave)}/>
-                    <Route path={SteadySaveLink} component={AuthController(SteadySave)}/>
-                    <Route path={LockedSavingsLink} component={AuthController(LockedSavings)}/>
-                    <Route path={BackupGoalsLink} component={AuthController(BackupGoals)}/>
-                    <Route path={TransactionsLink} component={AuthController(Transactions)}/>
-                    <Route path={WithdrawalLink} component={AuthController(Withdrawal)}/>
-                    <Route path={ProfileSettingLink} component={AuthController(ProfileSetting)}/>
-                    <Route path={BankCardLink} component={AuthController(BankCardSetting)}/>
-                    <Route path={KycSettingLink} component={AuthController(KycSetting)}/>
-                    <Route path={BackupStashLink} component={AuthController(BackupStash)}/>
-                    <Route path={EmailActivationLink} component={EmailActivation}/>
-                    <Route path={ResendActivationLink} component={ResendActivation}/>
+                        {/*dashboard Routes*/}
+                        <Route path={DashboardLink} component={AuthController(DashboardIndex)}/>
+                        <Route path={InstantSaveLink} component={AuthController(InstantSave)}/>
+                        <Route path={SteadySaveLink} component={AuthController(SteadySave)}/>
+                        <Route path={LockedSavingsLink} component={AuthController(LockedSavings)}/>
+                        <Route path={BackupGoalsLink} component={AuthController(BackupGoals)}/>
+                        <Route path={TransactionsLink} component={AuthController(Transactions)}/>
+                        <Route path={WithdrawalLink} component={AuthController(Withdrawal)}/>
+                        <Route path={ProfileSettingLink} component={AuthController(ProfileSetting)}/>
+                        <Route path={BankCardLink} component={AuthController(BankCardSetting)}/>
+                        <Route path={KycSettingLink} component={AuthController(KycSetting)}/>
+                        <Route path={BackupStashLink} component={AuthController(BackupStash)}/>
+                        <Route path={EmailActivationLink} component={EmailActivation}/>
+                        <Route path={ResendActivationLink} component={ResendActivation}/>
 
                         {/*auth routes*/}
                         <Route path={LoginLink} component={Login}/>

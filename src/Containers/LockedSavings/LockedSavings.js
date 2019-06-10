@@ -15,6 +15,7 @@ import {
 } from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
+import {getUserData} from "../../actions/UserAction";
 
 
 class LockedSavings extends Component {
@@ -32,9 +33,16 @@ class LockedSavings extends Component {
         this.closeLSModal = this.closeLSModal.bind(this);
     }
 
-
+    //get user info
     componentWillMount() {
         console.log("Mounted");
+
+        this.setState({
+            showLoader:true,
+        });
+
+        getUserData(this.handleUserInfo);
+
         getLockedSavings((status, payload) => {
             console.log("payload", status, payload);
             if(status){
@@ -43,6 +51,22 @@ class LockedSavings extends Component {
 
             }
         })
+    }
+
+    handleUserInfo = (status,res)=>{
+        this.setState({
+            showLoader:false,
+        });
+
+        if(status){
+
+            this.setState({
+                userName:res.name
+            })
+
+        }
+
+
     }
 
     showLSModal(){
@@ -57,7 +81,6 @@ class LockedSavings extends Component {
             showLockedSavingsModal: false
         });
     };
-
 
 
 
@@ -114,8 +137,8 @@ class LockedSavings extends Component {
                 </ToastProvider>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav />
-                    <VerticalNav/>
+                    <HorizontalNav userName={this.state.userName} />
+                    <VerticalNav  userName={this.state.userName} />
                     <div className="app-content content">
                         <div className="content-wrapper">
                             {this.state.showLoader?<DashboardLoader/>:null}

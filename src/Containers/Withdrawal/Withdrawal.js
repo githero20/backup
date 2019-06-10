@@ -8,6 +8,8 @@ import {ToastProvider, withToastManager} from "react-toast-notifications";
 import {getWithdrawalList} from "../../actions/WithdrawalAction";
 import WithdrawalList from "./WithdrawalList";
 import WithdrawalForm from "./WithdrawalForm";
+import {getUserData} from "../../actions/UserAction";
+import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 
 class Withdrawal extends Component {
 
@@ -16,6 +18,8 @@ class Withdrawal extends Component {
         this.state = {
             showWithdrawalForm: false,
             withdrawals: [],
+            userName:null,
+            showLoader:false
         };
 
         this.showForm = this.showForm.bind(this);
@@ -25,8 +29,36 @@ class Withdrawal extends Component {
 
 
     componentWillMount() {
+
+
+        this.setState({
+            showLoader:true,
+        });
+
+        getUserData(this.handleUserInfo);
+
         this.getWithdrawalList();
+
     }
+
+
+
+    handleUserInfo = (status,res)=>{
+        this.setState({
+            showLoader:false,
+        });
+
+        if(status){
+
+            this.setState({
+                userName:res.name
+            })
+
+        }
+
+
+    }
+
 
     getWithdrawalList() {
         getWithdrawalList((status, payload) => {
@@ -50,15 +82,20 @@ class Withdrawal extends Component {
             this.getWithdrawalList();
     }
 
+
+
+
+
     render() {
         return (
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav/>
-                    <VerticalNav/>
+                    <HorizontalNav userName={this.state.userName} />
+                    <VerticalNav userName={this.state.userName} />
                     <div className="app-content content">
                         <div className="content-wrapper">
+                            {this.state.showLoader?<DashboardLoader/>:null}
                             <div className="row mb-4">
                                 <div className="col-12">
                                    {/* message box */}

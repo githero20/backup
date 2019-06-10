@@ -65,15 +65,6 @@ class LoginForm extends Component {
             if (response) {
                 console.log(JSON.stringify(response));
 
-                //TODO(This check is not good. look out for a flag or something. )
-                if (response.data.message === 'Account has not been activated, click on resend') {
-
-                    this.setState({
-                        resendActErr: true
-                    })
-
-
-                }
                 toastManager.add(`${JSON.stringify(response.data.message)}`, {
                     appearance: 'error',
                 });

@@ -10,6 +10,9 @@ import {getUserBanks} from "../../actions/BankAction";
 import CardModal from "./Card/CardModal";
 import {getUserCards, verifyTransaction} from "../../actions/CardAction";
 import {withToastManager} from "react-toast-notifications";
+import {getUserData} from "../../actions/UserAction";
+import {getLockedSavings} from "../../actions/LockedSavingsAction";
+import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 
 class BankCardSetting extends Component {
 
@@ -19,7 +22,9 @@ class BankCardSetting extends Component {
             showBankModal: false,
             showCardModal: false,
             banks: [],
-            cards: []
+            cards: [],
+            userName:null,
+            showLoader:false,
         };
 
         this.showBankModal = this.showBankModal.bind(this);
@@ -60,8 +65,32 @@ class BankCardSetting extends Component {
         })
     }
     componentWillMount() {
+
+        this.setState({
+            showLoader:true,
+        });
+
+        getUserData(this.handleUserInfo);
+
         this.getUserBanks();
         this.getUserCards();
+    }
+
+
+    handleUserInfo = (status,res)=>{
+        this.setState({
+            showLoader:false,
+        });
+
+        if(status){
+
+            this.setState({
+                userName:res.name
+            })
+
+        }
+
+
     }
 
     showBankModal() {
@@ -109,6 +138,8 @@ class BankCardSetting extends Component {
 
     }
 
+
+
     render() {
         const randomGradient = ["gray-gradient","blue-gradient"];
         const cards = this.state.cards.map((card,index) => {
@@ -149,12 +180,12 @@ class BankCardSetting extends Component {
                 {/*</ToastProvider>*/}
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav/>
-                    <VerticalNav/>
+                    <HorizontalNav userName={this.state.userName} />
+                    <VerticalNav userName={this.state.userName} />
 
                     <div className="app-content content">
                         <div className="content-wrapper">
-
+                            {this.state.showLoader?<DashboardLoader/>:null}
                             <div className="row mb-4">
                                 <div className="col-12">
                                     {/*message box*/}

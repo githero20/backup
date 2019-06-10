@@ -8,12 +8,14 @@ import {getTransactionsApi} from "../../RouteLinks/RouteLinks";
 import {request} from "../../ApiUtils/ApiUtils";
 import {amountFormatter, dateFormatter, descriptionFormatter, statusFormatter} from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
+import {getUserData} from "../../actions/UserAction";
 
 class Transactions extends Component {
 
     state={
         transactions:[],
-        showloader: false
+        showloader: false,
+        userName:null
     };
 
     //when the component mounts
@@ -63,7 +65,31 @@ class Transactions extends Component {
 
     componentDidMount() {
 
+
+        this.setState({
+            showLoader:true,
+        });
+
+        getUserData(this.handleUserInfo);
+
         this.loadTransactions();
+    }
+
+
+    handleUserInfo = (status,res)=>{
+        this.setState({
+            showLoader:false,
+        });
+
+        if(status){
+
+            this.setState({
+                userName:res.name
+            })
+
+        }
+
+
     }
 
 
@@ -109,8 +135,8 @@ class Transactions extends Component {
 
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav/>
-                    <VerticalNav/>
+                    <HorizontalNav userName={this.state.userName}/>
+                    <VerticalNav userName={this.state.userName} />
                     <div className="app-content content">
                         <div className="content-wrapper">
                             <div className="row mb-4">

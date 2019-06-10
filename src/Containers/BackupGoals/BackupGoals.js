@@ -17,6 +17,7 @@ import {
     descriptionFormatter,
     lockedStatusFormatter
 } from "../../Helpers/Helper";
+import {getUserData} from "../../actions/UserAction";
 
 class BackupGoals extends Component {
 
@@ -70,10 +71,30 @@ class BackupGoals extends Component {
         });
     }
     componentDidMount() {
+        this.setState({
+            showLoader:true,
+        });
+        getUserData(this.handleUserInfo);
+
         this.fetchBackUpGoals();
         // this.setupBackupGoals();
     }
 
+    handleUserInfo = (status,res)=>{
+        this.setState({
+            showLoader:false,
+        });
+
+        if(status){
+
+            this.setState({
+                userName:res.name
+            })
+
+        }
+
+
+    }
 
     render() {
 
@@ -130,7 +151,7 @@ class BackupGoals extends Component {
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={this.state.userName} />
-                    <VerticalNav/>
+                    <VerticalNav userName={this.state.userName} />
                     <div className="app-content content">
                         <div className="content-wrapper">
                             <div className="row mb-4">

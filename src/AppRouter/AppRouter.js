@@ -75,7 +75,6 @@ class AppRouter extends Component {
                         <Route path={ActivateAccountLink} component={ActivateAccount}/>
                         <Route path={ForgotPasswordLink} component={ForgotPassword}/>
                         <Route path={ResetPasswordLink} component={ResetPassword}/>
-
                     </Router>
                 </ToastProvider>
             </React.Fragment>

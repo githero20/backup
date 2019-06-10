@@ -61,7 +61,35 @@ export function request(url, params, token, method, callback) {
     }else if (method === 'PUT') {
         return axios.patch(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
     }
+}
+    export function multipartrequest(url, params, token, method, callback) {
 
+        url = `${BASE_URL}${url}`;
+    
+        let header = {
+            headers: {
+                "Content-Type": "multipart/form-data" ,
+            }
+        };
+        if (token) {
+            let token = getLocalStorage('token');
+            console.log(token);
+            if (token !== null) {
+                header.headers['Authorization'] = 'Bearer ' + token;
+            }
+    
+        }
+        if (method === 'POST') {
+            return axios.post(url, params, header).then(res => callback(true, res))
+                .catch(err => callback(false, err.response))
+        } else if (method === 'GET') {
+            return axios.get(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
+        } else if (method === 'PATCH') {
+            return axios.patch(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
+        }else if (method === 'PUT') {
+            return axios.patch(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
+        }
+    
     return axios.get(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
 
 

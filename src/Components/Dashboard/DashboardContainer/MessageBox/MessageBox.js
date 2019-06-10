@@ -24,7 +24,7 @@ class MessageBox extends Component {
                                         (
                                             <p>
                                                 {errorMessage} Kindly check your email to activate your account or click the &nbsp;
-                                                <button onClick={activateAccount} className={'btn-danger px-2 round'}>link</button> to resend activation email
+                                                <button onClick={activateAccount} className={'btn btn-danger px-2 round'}>link</button> to resend activation email
                                             </p>
                                         )
                                         :null

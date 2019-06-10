@@ -20,6 +20,7 @@ class Withdrawal extends Component {
 
         this.showForm = this.showForm.bind(this);
         this.hideForm = this.hideForm.bind(this);
+        this.getWithdrawalList = this.getWithdrawalList.bind(this);
     }
 
 

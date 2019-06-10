@@ -15,6 +15,7 @@ export const getWithdrawalList = (callback) =>{
         })
         .catch(err => {
             console.log("Err", JSON.stringify(err));
+            console.log("Err", err);
             callback(false, err.response.data.message || "An Error Occurred");
         })
 };

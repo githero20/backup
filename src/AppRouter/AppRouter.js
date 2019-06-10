@@ -37,13 +37,12 @@ import {
 } from "../RouteLinks/RouteLinks";
 import ForgotPassword from "../Containers/ForgotPassword/ForgotPassword";
 import AuthController from "../Components/Auth/HOC/authcontroller";
-import {ToastProvider} from "react-toast-notifications";
 import ResetPassword from "../Containers/ResetPassword/ResetPassword";
 import EmailActivation from "../Containers/EmailActivation/EmailActivation";
 import ResendActivation from "../Containers/ResendActivation/ResendActivation";
 import KycSetting from "../Containers/KycSetting/KycSetting";
 import BackupStash from "../Containers/BackupStash/BackupStash";
-
+import {ToastProvider} from "react-toast-notifications";
 
 class AppRouter extends Component {
 
@@ -55,19 +54,7 @@ class AppRouter extends Component {
                     <Router>
                         <Route exact path={HomeLink} component={Home}/>
                         {/*dashboard Routes*/}
-                        {/*<Route path={DashboardLink} component={AuthController(DashboardIndex)}/>*/}
-                        {/*<Route path={InstantSaveLink} component={AuthController(InstantSave)}/>*/}
-                        {/*<Route path={SteadySaveLink} component={AuthController(SteadySave)}/>*/}
-                        {/*<Route path={LockedSavingsLink} component={AuthController(LockedSavings)}/>*/}
-                        {/*<Route path={BackupGoalsLink} component={AuthController(BackupGoals)}/>*/}
-                        {/*<Route path={TransactionsLink} component={AuthController(Transactions)}/>*/}
-                        {/*<Route path={WithdrawalLink} component={AuthController(Withdrawal)}/>*/}
-                        {/*<Route path={ProfileSettingLink} component={AuthController(ProfileSetting)}/>*/}
-                        {/*<Route path={BankCardLink} component={AuthController(BankCardSetting)}/>*/}
-                        {/*<Route path={EmailActivationLink} component={EmailActivation}/>*/}
-                        {/*<Route path={ResendActivationLink} component={ResendActivation}/>*/}
-                {/*<Router>*/}
-                    {/*<Route exact path={HomeLink} component={Home}/>*/}
+
                     {/*dashboard Routes*/}
                     <Route path={DashboardLink} component={AuthController(DashboardIndex)}/>
                     <Route path={InstantSaveLink} component={AuthController(InstantSave)}/>
@@ -80,16 +67,6 @@ class AppRouter extends Component {
                     <Route path={BankCardLink} component={AuthController(BankCardSetting)}/>
                     <Route path={EmailActivationLink} component={EmailActivation}/>
                     <Route path={ResendActivationLink} component={ResendActivation}/>
-
-                    {/*auth routes*/}
-                    <Route path={LoginLink} component={Login}/>
-                    <Route path={SignUpLink} component={SignUp}/>
-                    <Route path={ActivateAccountLink} component={ActivateAccount}/>
-                    <Route path={ForgotPasswordLink} component={ForgotPassword}/>
-                    <Route path={ResetPasswordLink} component={ResetPassword}/>
-                    <Route path={KycSettingLink} component={KycSetting}/>
-                    <Route path={BackupStashLink} component={BackupStash}/>
-                {/*</Router>*/}
 
                         {/*auth routes*/}
                         <Route path={LoginLink} component={Login}/>

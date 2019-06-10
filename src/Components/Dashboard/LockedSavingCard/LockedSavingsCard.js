@@ -17,18 +17,18 @@ class LockedSavingsCard extends Component {
                         <div className="card-header d-flex justify-content-between ">
                             <h4 className="card-title ">
                                 <div className="saved-text">Total Locked Savings</div>
-                                <div>&#8358; {lockedSavingsAmount} </div>
+                                <div className={'card-amount'}>&#8358; {lockedSavingsAmount} </div>
                             </h4>
                             <span className="card-operator">+</span>
                             <div className="card-title  ">
                                 <h4>
                                     <div className="saved-text">Total Interest</div>
-                                    <div>&#8358; 0.00</div>
+                                    <div className={'card-amount'}>&#8358; 0.00</div>
                                 </h4>
                             </div>
                         </div>
                         <div className="card-body text-center">
-                            <h4 className="card-title saving-balance-text mb-1">&#8358; {lockedSavingsAmount}</h4>
+                            <h4 className="card-title saving-balance-text mb-1 ">&#8358; {lockedSavingsAmount}</h4>
                             <div className="d-flex justify-content-between">
 
                                 <button onClick={this.props.showModal}

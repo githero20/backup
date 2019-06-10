@@ -56,8 +56,17 @@ export const PauseSteadySave = `sfsbapi/v1/user/savings/steady/pause`;
 export const ContinueSteadySave = `sfsbapi/v1/user/savings/steady/continue`;
 export const StopSteadySave = `sfsbapi/v1/user/savings/steady/stop`;
 export const GetWithdrawal = `sfsbapi/v1/user/withdrawals`;
+export const UpdatePasswordEndpoint = `/sfsbapi/v1/user/update/password`;
 export const InitiateTransactionEndpoint  = `sfsbapi/v1/user/transaction/init`;
 export const GetUsersCards  = `/sfsbapi/v1/user/cards`;
+<<<<<<< HEAD
 export const GetUserKYC =`/sfsbapi/v1/user/profile/kyc`;
+=======
+export const GetWithdrawalPenalty = `sfsbapi/v1/user/withdrawals/penalty`;
+export const CreateWithdrawalSettings = `sfsbapi/v1/user/withdrawals/settings`;
+export const GetWithdrawalSettings = `sfsbapi/v1/user/withdrawals/settings`;
+export const MakeWithdrawal = `sfsbapi/v1/user/withdrawals`;
+
+>>>>>>> ec9c8b00a5a625cb0ea0fc5c9504658825ba3e9b
 
 

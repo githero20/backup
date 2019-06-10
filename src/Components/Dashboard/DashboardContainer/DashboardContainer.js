@@ -6,6 +6,11 @@ import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";
 import LockedSavingsCard from "../LockedSavingCard/LockedSavingsCard";
 import TotalSavingsBlueCard from "../TotalSavingsBlueCard/TotalSavingsBlueCard";
 import TotalInterestCard from "../TotalSavingsCard/TotalInterestCard";
+import moment from "moment";
+import ToolkitProvider from "react-bootstrap-table2-toolkit";
+import {amountFormatter, dateFormatter, descriptionFormatter, statusFormatter} from "../../../Helpers/Helper";
+
+
 
 class DashboardContainer extends Component {
 
@@ -15,6 +20,8 @@ class DashboardContainer extends Component {
     // set the appropiate props
 
     // send the the children components
+
+
 
 
     render() {
@@ -27,6 +34,41 @@ class DashboardContainer extends Component {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
             transactions, totalInterest, ActiveGoals, CompletedGoals
         } = this.props;
+
+  const columns = [
+            {
+                text: 'Date',
+                dataField: 'created_at' ,
+                formatter:dateFormatter,
+                sort:true
+            },
+            {
+                text: 'Description',
+                dataField: 'type',
+                formatter:descriptionFormatter,
+                sort:true
+
+            },
+            {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter:amountFormatter,
+                sort:true
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter:statusFormatter,
+                sort:true
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort:true
+
+            }];
+
 
         return (
 
@@ -79,7 +121,7 @@ class DashboardContainer extends Component {
                             </div>
 
                             <div className="row">
-                                <TransactionTable transactions={transactions}/>
+                                <TransactionTable transactions={transactions} columns={columns} />
 
                             </div>
 

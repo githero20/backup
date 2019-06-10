@@ -212,7 +212,7 @@ class ResetPasswordForm extends Component {
                                 {/* submit button */}
                                 <button type="submit"  className="btn btn-round blue-round-btn auth-btn "
                                         name="action">{this.state.loading?<ButtonLoader/>:
-                                    <span>Send Email<img alt="" className="img-2x ml-2" src={signInIcon}/></span>}
+                                    <span>Submit<img alt="" className="img-2x ml-2" src={signInIcon}/></span>}
                                 </button>
                             </div>
                         </div>

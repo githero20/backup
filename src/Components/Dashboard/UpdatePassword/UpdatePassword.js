@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SimpleReactValidator from "simple-react-validator";
 import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
-import {ResetPasswordEndpoint} from "../../../RouteLinks/RouteLinks";
+import {UpdatePasswordEndpoint} from "../../../RouteLinks/RouteLinks";
 import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
@@ -36,7 +36,6 @@ class UpdatePassword extends Component {
         passErr:false
     };
 
-
     // get and validate password
 
 
@@ -70,8 +69,8 @@ class UpdatePassword extends Component {
 
         if (state) {
 
-
-            toastManager.add(`${response.data.success}`, {
+            console.log(response.data.message);
+            toastManager.add(`${response.data.message}`, {
                 appearance: 'success',
                 autoDismiss:true,
                 autoDismissTimeout:3000,
@@ -85,16 +84,7 @@ class UpdatePassword extends Component {
             console.log("error"+JSON.stringify(response));
             if (response) {
                 if (response.data.errors) {
-                    response.data.errors.map((err, indx) => {
-                        return (
-                            toastManager.add(`${err}`, {
-                                appearance: 'error',
-                                autoDismiss:true,
-                                index: indx,
-                                autoDismissTimeout:3000,
-                            })
-                        )
-                    });
+                    console.log(response.data.errors);
                 } else {
                     toastManager.add(`${response.data.error}`, {
                         appearance: 'error',
@@ -128,7 +118,7 @@ class UpdatePassword extends Component {
                 this.setState({
                     loading:true,
                 },()=>{
-                    request(ResetPasswordEndpoint,this.state,false,'POST',this.handleUpdateResponse)
+                    request(UpdatePasswordEndpoint,this.state,true,'POST',this.handleUpdateResponse)
                 });
 
             }else{
@@ -136,11 +126,7 @@ class UpdatePassword extends Component {
                 this.setState({
                     passErr:true
                 })
-
-
             }
-
-
 
         } else {
 
@@ -186,15 +172,10 @@ class UpdatePassword extends Component {
 
     }
 
-    //validate on every instance
-    //then also on submit
-    //call api
-    //handle response
-
 
 
     render() {
-        const {password,password_confirmation} = this.state;
+        const {password} = this.state;
         return (
             <React.Fragment>
                 <div>
@@ -205,7 +186,7 @@ class UpdatePassword extends Component {
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group">
-                                    <label htmlFor="phoneNumber">New Password</label>
+                                    <label htmlFor="password">New Password</label>
                                     <input
                                         type="password"
                                         id="password"
@@ -219,7 +200,7 @@ class UpdatePassword extends Component {
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group">
-                                    <label htmlFor="phoneNumber">New Password</label>
+                                    <label htmlFor="password_confirmation">Confirm Password</label>
                                     <input
                                         type="password"
                                         id="password_confirmation"

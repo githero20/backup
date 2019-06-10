@@ -78,7 +78,7 @@ class SteadySaveTransTable extends Component {
                                                            </td>
 
                                                            <td>
-                                                               <label className="bg-light-green px-2 sm-pd">&#8358; {data.start_amount}</label>
+                                                               <label className="bg-light-green px-2 sm-pd">&#8358; {parseFloat(data.start_amount).toFixed(2)}</label>
                                                            </td>
 
                                                            <td className="text-truncate d-none d-md-block text-uppercase"> {moment(data.created_at).format('DD|MM|YYYY')}</td>

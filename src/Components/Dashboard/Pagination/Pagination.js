@@ -25,6 +25,7 @@ class Pagination extends Component {
 
     constructor(props) {
         super(props);
+
         const { totalRecords = null, pageLimit = 30, pageNeighbours = 0 } = props;
 
         this.pageLimit = typeof pageLimit === 'number' ? pageLimit : 20;
@@ -119,7 +120,7 @@ class Pagination extends Component {
             switch (true) {
                 // handle: (1) < {5 6} [7] {8 9} (10)
                 case (hasLeftSpill && !hasRightSpill): {
-                    const extraPages = range(startPage - spillOffset, startPage - 1);
+                    const  extraPages = range(startPage - spillOffset, startPage - 1);
                     pages = [LEFT_PAGE, ...extraPages, ...pages];
                     break;
                 }

@@ -6,10 +6,17 @@ import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-i
 import InstantSavingModal from "../../Components/Dashboard/InstantSavingModal/InstantSavingModal";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {request} from "../../ApiUtils/ApiUtils";
-import {formatNumber, STANDARD_ACCOUNT} from "../../Helpers/Helper";
+import {
+    amountFormatter,
+    dateFormatter,
+    descriptionFormatter,
+    formatNumber,
+    STANDARD_ACCOUNT, statusFormatter
+} from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
 import {getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
+import moment from "moment";
 
 class InstantSave extends Component {
 
@@ -61,12 +68,17 @@ class InstantSave extends Component {
 
         if (status) {
 
-            console.log(data.data.data);
 
+            //set name
+            if(data){
+                this.setState({
+                    userName:data.data.data.name
+                });
+            }
+
+
+            //set proper account
             if (data.data.data.accounts) {
-
-                console.log(data.data.data.accounts);
-
 
                 // loop through data and set appropriate states
                 let accounts = data.data.data.accounts.data;
@@ -81,19 +93,21 @@ class InstantSave extends Component {
                     }
                 });
 
-                console.log('dfjsd');
-                console.log(data.data.data.transactions.data);
+
+
                 //TODO loop through transactions and add up only credits
+
                 let transactions = data.data.data.transactions.data;
+
                 let totalInstantSave = this.getTotalInstantSave(transactions);
+                console.log(transactions);
                 this.setState({
-                    transactions,
+                    transactions:transactions,
                     totalInstantSave: formatNumber(totalInstantSave)
                 });
 
 
             } else {
-                console.log(data);
                 return null;
             }
 
@@ -107,6 +121,9 @@ class InstantSave extends Component {
     getTotalInstantSave(transactions) {
         console.log(transactions);
         if (transactions) {
+            //filter credits
+            transactions = transactions.filter((content)=>(content.type==='credit'));
+            //get sum of credits
             const sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
             return sum.amount;
         }
@@ -116,61 +133,9 @@ class InstantSave extends Component {
     setupInstantSave = () => {
 
         console.log('setting up instant Save');
-
-        //TODO Add Table Loader
         //call get user info
         request(getUserInfoEndpoint, null, true, 'GET', this.analyseInstantSaveInfo)
 
-        // //get data from localStorage
-        // if (getLocalStorage(USERINFO)) {
-        //     this.setState({
-        //         showLoader: false,
-        //     });
-        //     console.log('there is user info');
-        //
-        //     if (getLocalStorage(USERACTIVATED)) {
-        //
-        //         let status = JSON.parse(getLocalStorage(USERACTIVATED));
-        //         if (status === true) {
-        //             console.log('got here to retrieve it ');
-        //             let data = JSON.parse(getLocalStorage(USERINFO));
-        //             if (data.accounts !== null || data.accounts !== undefined) {
-        //                 console.log(data);
-        //                 this.setState({
-        //                     accountInfo: data.accounts,
-        //                     userName: data.name,
-        //
-        //                 });
-        //                 this.analyseInstantSaveInfo(data);
-        //             }
-        //
-        //         }
-        //     }
-        //
-        //
-        // } else {
-        //
-        //     this.setState({
-        //         showLoader: false
-        //
-        //     });
-        //     console.log('didnt see usr info');
-        //     //check if user is activated
-        //     if (getLocalStorage(USERACTIVATED)) {
-        //
-        //         let status = JSON.parse(getLocalStorage(USERACTIVATED));
-        //         if (status === false) {
-        //             //show activation modal
-        //             this.setUpActivation(true, null);
-        //         } else if (status === true) {
-        //             console.log('got here to retrieve it ');
-        //             let data = JSON.parse(getLocalStorage(USERINFO));
-        //
-        //         }
-        //     }
-        //
-        //
-        // }
 
     };
 
@@ -244,6 +209,8 @@ class InstantSave extends Component {
 
         //get user instant saves
         this.setupInstantSave();
+
+
         //update tables
         this.updateInstantSave();
 
@@ -263,6 +230,45 @@ class InstantSave extends Component {
 
 
     render() {
+
+
+
+        //table  setup
+
+
+        const columns = [
+            {
+                text: 'Date',
+                dataField: 'created_at' ,
+                formatter:dateFormatter,
+                sort:true
+            },
+            {
+                text: 'Description',
+                dataField: 'type',
+                formatter:descriptionFormatter,
+                sort:true
+
+            },
+            {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter:amountFormatter,
+                sort:true
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter:statusFormatter,
+                sort:true
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort:true
+
+            }];
 
         return (
             <div
@@ -331,7 +337,12 @@ class InstantSave extends Component {
 
                             <div className="row">
                                 {/*transaction table */}
-                                <TransactionTable transactions={this.state.transactions}/>
+
+                                {
+                                    this.state.transactions.length !== 0 ? <TransactionTable transactions={this.state.transactions} columns={columns}/>:null
+
+
+                                }
 
                             </div>
 

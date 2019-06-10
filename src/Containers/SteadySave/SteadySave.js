@@ -7,13 +7,21 @@ import uploadIcon from "../../admin/app-assets/images/svg/red-upload-icon.svg";
 import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySaveCard";
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
-import {formatNumber, getTotalSteadySave, STANDARD_ACCOUNT} from "../../Helpers/Helper";
+import {
+    amountFormatter,
+    dateFormatter,
+    descriptionFormatter,
+    formatNumber,
+    getTotalSteadySave, moneyFormatter,
+    STANDARD_ACCOUNT, statusFormatter, steadyStatusFormatter
+} from "../../Helpers/Helper";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import {getSteadySaveEndpoint, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
 import SteadySaveTransTable from "../../Components/Dashboard/SteadySaveTransTable/SteadySaveTransTable";
+import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 
 class SteadySave extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             error: false,
@@ -27,16 +35,27 @@ class SteadySave extends Component {
             showSavingModal: false,
             showLoader: true,
             settings: false,
-            steadySave: {id: null,contribution: 0, start_date: "N/A", frequency: "N/A", hour_of_day: 0, payment_auth:"N/A", raw:null}
+            steadySave: {
+                id: null,
+                contribution: 0,
+                start_date: "N/A",
+                frequency: "N/A",
+                hour_of_day: 0,
+                payment_auth: "N/A",
+                raw: null
+            }
         };
 
     }
-    hideModal = () => {
+
+    hideModal = (status=false) => {
         this.setState({
                 showSavingModal: false
             }
         );
-
+        if(status){
+            this.setupSteadySave();
+        }
     };
 
     showModal = () => {
@@ -50,16 +69,16 @@ class SteadySave extends Component {
 
         if (state) {
             if (res) {
-                console.log("Data",res.data.data);
+                console.log("Data", res.data.data);
                 const totalSteadySave = getTotalSteadySave(res.data.data);
                 console.log(totalSteadySave);
                 this.setState({
                     transactions: res.data.data,
-                    totalSteadySave: formatNumber(totalSteadySave),
+                    totalSteadySave: formatNumber(parseFloat(totalSteadySave).toFixed(2)),
                     // steadySave: res.data.data.length == 0 ? {} : res.data.data[0]
                 });
                 const temp = res.data.data;
-                if(temp && temp.length > 0){
+                if (temp && temp.length > 0) {
 
                     let steadySave = {
                         id: temp[0].id,
@@ -107,8 +126,14 @@ class SteadySave extends Component {
 
         if (status) {
 
-            console.log(data.data.data);
+            //set name
+            if (data) {
+                this.setState({
+                    userName: data.data.data.name
+                });
+            }
 
+            //set account
             if (data.data.data.accounts) {
 
                 console.log(data.data.data.accounts)
@@ -122,7 +147,7 @@ class SteadySave extends Component {
                     if (content.account_type_id === STANDARD_ACCOUNT) {
                         console.log(content.balance);
                         this.setState({
-                            totalBalance: formatNumber(content.balance)
+                            totalBalance: formatNumber(parseFloat(content.balance).toFixed(2))
                         })
                     }
                 });
@@ -150,7 +175,6 @@ class SteadySave extends Component {
     };
 
 
-
     componentDidMount() {
         this.setupSteadySave();
         this.GetBalance();
@@ -168,7 +192,36 @@ class SteadySave extends Component {
         const {transactions, userName} = this.state;
 
 
+        //table header and columns
+        const columns = [
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true
+            },
+            {
+                text: 'Frequency',
+                dataField: 'frequency',
+                sort: true
+
+            },
+            {
+                text: 'Start Amount',
+                dataField: 'start_amount',
+                formatter:moneyFormatter,
+                sort: true
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter: steadyStatusFormatter,
+                sort: true
+            }];
+
+
         return (
+
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
@@ -191,7 +244,8 @@ class SteadySave extends Component {
                                 this.state.showSavingModal ?
                                     (
                                         <React.Fragment>
-                                            <SteadySaveModal steadySave={this.state.steadySave} show={this.state.showSavingModal} onHide={this.hideModal}/>
+                                            <SteadySaveModal steadySave={this.state.steadySave} totalSteadySave={this.state.totalSteadySave}
+                                                             show={this.state.showSavingModal} onHide={this.hideModal}/>
                                         </React.Fragment>
 
                                     ) : null
@@ -268,7 +322,9 @@ class SteadySave extends Component {
                                 </div>
 
                                 <div className="row">
-                                    <SteadySaveTransTable transactions={transactions}/>
+
+                                    <TransactionTable transactions={transactions} columns={columns}/>
+                                    {/*<SteadySaveTransTable transactions={transactions}/>*/}
 
                                     {/*pagination */}
                                     {/*<nav aria-label="Page navigation">*/}

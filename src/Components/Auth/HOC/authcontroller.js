@@ -52,11 +52,10 @@ const AuthController = component => {
                                     localStorage.removeItem(USERTOKEN);
                                     localStorage.removeItem(USERINFO);
                                     return null;
-
                                 }
                             } else{
                                 //TODO("Log to central Log")
-                                console.error("Unknowno Error", err);
+                                console.error("Unknown Error", err);
                             }
                         }catch (e) {
                             console.log("Critical Error", e);

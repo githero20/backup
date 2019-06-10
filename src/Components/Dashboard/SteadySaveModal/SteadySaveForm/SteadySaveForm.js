@@ -59,7 +59,7 @@ class SteadySaveForm extends Component {
                     autoDismiss: true,
                     autoDismissTimeout:5000
                 });
-                setTimeout(this.props.onHide,3000);
+                setTimeout(this.props.onHide(true),3000);
             }
         });
     };
@@ -82,7 +82,7 @@ class SteadySaveForm extends Component {
                     autoDismiss: true,
                     autoDismissTimeout:5000
                 });
-                setTimeout(this.props.onHide,3000);
+                setTimeout(this.props.onHide(true),3000);
             }
         });
     };
@@ -105,7 +105,7 @@ class SteadySaveForm extends Component {
                     autoDismiss: true,
                     autoDismissTimeout:5000
                 });
-                setTimeout(this.props.onHide,3000);
+                setTimeout(this.props.onHide(true),3000);
             }
         });
     };
@@ -131,10 +131,15 @@ class SteadySaveForm extends Component {
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
                     <Form.Row>
+                        <Form.Group as={Col} sm={12}>
+                            <div className={'text-muted secondary-text'}>Total Steady Save Balance</div>
+                            <h2>&#8358;{formatNumber(this.props.totalSteadySave) || 0}</h2>
+                        </Form.Group>
                         <Form.Group as={Col}>
                             <div className={'text-muted secondary-text'}>Contribution</div>
                             <h2>&#8358;{formatNumber(contribution) || 0}</h2>
                         </Form.Group>
+
 
                         <Form.Group as={Col}>
                             <div className={'text-muted secondary-text'}>frequency</div>

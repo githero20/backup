@@ -207,7 +207,7 @@ class LoginForm extends Component {
                                     <input type="checkbox" className="login-check-box order-md-1"
                                            defaultChecked={false}/>
                                     <span className='checkmark'></span>
-                                    <span className='fs-xs'>Always Stay signed In</span>
+                                    <span className='fs-xs'>Always stay signed In</span>
                                 </label>
                             </div>
                         </div>

@@ -42,13 +42,13 @@ class CentralVaultCard extends Component {
                         <div className="card-header d-flex justify-content-between ">
                             <h4 className="card-title ">
                                 <div className="saved-text">Total Steady  Savings</div>
-                                <div>&#8358; {vaultAmount}</div>
+                                <div className={'card-amount'}>&#8358; {vaultAmount}</div>
                             </h4>
                             <span className="card-operator">+</span>
                             <div className="card-title ">
                                 <h4>
                                     <div className="saved-text ">Total Interest</div>
-                                    <div>&#8358; {totalSteadySave}</div>
+                                    <div className={'card-amount'}>&#8358; {totalSteadySave}</div>
                                 </h4>
                             </div>
                         </div>

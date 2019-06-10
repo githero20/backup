@@ -42,7 +42,7 @@ class SteadySaveModal extends React.Component {
                     <ToastProvider>
                         {
                             this.state.showMainModal
-                                ? <SteadySaveForm show={this.state.showMainModal} onEdit={this.showEditModal} steadySave={this.props.steadySave} onHide={this.props.onHide}/>
+                                ? <SteadySaveForm show={this.state.showMainModal} onEdit={this.showEditModal} steadySave={this.props.steadySave} totalSteadySave={this.props.totalSteadySave} onHide={this.props.onHide}/>
                                 :<EditSteadySave show={this.state.showEditModal} onSave={this.showMainModal} steadySave={this.props.steadySave} onHide={this.props.onHide}/>
                         }
                     </ToastProvider>

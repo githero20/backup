@@ -6,7 +6,7 @@ import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../Auth/HOC/authcontroller";
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import SimpleReactValidator from "simple-react-validator";
-import {ResetPasswordEndpoint} from "../../../RouteLinks/RouteLinks";
+
 
 
 class ProfileForm extends Component {
@@ -59,80 +59,6 @@ class ProfileForm extends Component {
     };
 
 
-    handleResetResponse = (state, response) => {
-
-        const {toastManager} = this.props;
-
-        this.setState({
-            loading: false
-        });
-
-        if (state) {
-
-
-            toastManager.add(`${response.data.success}`, {
-                appearance: 'success',
-            });
-
-
-        } else {
-
-            if (response) {
-                if (response.data.errors) {
-                    response.data.errors.map((err, indx) => {
-                        return (
-                            toastManager.add(`${err}`, {
-                                appearance: 'error',
-                                index: indx,
-                            })
-                        )
-                    });
-                } else {
-                    toastManager.add(`${response.data.error}`, {
-                        appearance: 'error',
-                    })
-
-                }
-
-
-            }
-
-        }
-
-
-    };
-
-
-    submitForm = (e) => {
-
-        e.preventDefault();
-
-        if (this.validator.allValid()) {
-
-
-            if (this.validatePasswords()) {
-
-                this.setState({
-                    loading: true,
-                    token: this.props.token
-                }, () => {
-                    request(ResetPasswordEndpoint, this.state, false, 'POST', this.handleResetResponse)
-                });
-
-
-            }
-
-
-        } else {
-
-            // rerender to show messages for the first time
-            this.validator.showMessages();
-            // you can use the autoForceUpdate option to do this automatically`
-            this.forceUpdate();
-        }
-
-
-    };
 
 
     validatePasswords = () => {
@@ -158,6 +84,9 @@ class ProfileForm extends Component {
         }
 
     };
+
+
+
 
     render() {
         const {userProfile} = this.state;

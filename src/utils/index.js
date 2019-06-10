@@ -112,6 +112,8 @@ export const _calculateDateDifference = (from = null, to = null, type = "days") 
     // if (!to)
     //     to = moment().utc();
 
+
+    //dddd, MMMM Do YYYY
     console.log("fromto", from, to);
     if(to == null)
         to = moment().utc();

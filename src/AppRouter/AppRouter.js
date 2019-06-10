@@ -65,6 +65,8 @@ class AppRouter extends Component {
                     <Route path={WithdrawalLink} component={AuthController(Withdrawal)}/>
                     <Route path={ProfileSettingLink} component={AuthController(ProfileSetting)}/>
                     <Route path={BankCardLink} component={AuthController(BankCardSetting)}/>
+                    <Route path={KycSettingLink} component={AuthController(KycSetting)}/>
+                    <Route path={BackupStashLink} component={AuthController(BackupStash)}/>
                     <Route path={EmailActivationLink} component={EmailActivation}/>
                     <Route path={ResendActivationLink} component={ResendActivation}/>
 
@@ -74,8 +76,7 @@ class AppRouter extends Component {
                         <Route path={ActivateAccountLink} component={ActivateAccount}/>
                         <Route path={ForgotPasswordLink} component={ForgotPassword}/>
                         <Route path={ResetPasswordLink} component={ResetPassword}/>
-                        <Route path={KycSettingLink} component={KycSetting}/>
-                        <Route path={BackupStashLink} component={BackupStash}/>
+
                     </Router>
                 </ToastProvider>
             </React.Fragment>

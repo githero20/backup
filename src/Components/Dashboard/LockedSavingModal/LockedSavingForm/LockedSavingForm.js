@@ -117,7 +117,7 @@ class LockedSavingForm extends Component {
             <React.Fragment>
                 <Form onSubmit={this.validateForm}>
                     <Form.Row>
-                        <Form.Group as={Col} controlId="formGridAddress1">
+                        <Form.Group as={Col} sm={6} controlId="formGridAddress1">
                             <Form.Label>Locked Savings Name: </Form.Label>
                             <Form.Control type="text"
                                           name="title"
@@ -127,7 +127,7 @@ class LockedSavingForm extends Component {
                             />
                             {this.validator.message("locked savings name", this.state.form.title, "required")}
                         </Form.Group>
-                        <Form.Group as={Col} controlId="formGridEmail">
+                        <Form.Group as={Col} sm={6}  controlId="formGridEmail">
                             <Form.Label>Maturity Date</Form.Label>
                             <Form.Control
                                 onChange={this.handleDateInput}
@@ -167,8 +167,7 @@ class LockedSavingForm extends Component {
                                 value={`${this.state.form.interestRate} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days`}
                             />
                             <Form.Text className="text-muted">
-                                This upfront interest will be deposited in your BackupCash "Central Vault" and can be
-                                withdrawn immediately.
+                                This upfront interest will be deposited in your Backup Cash "Backup Stash" and can be withdrawn immediately
                             </Form.Text>
                         </Form.Group>
                     </Form.Row>
@@ -185,17 +184,17 @@ class LockedSavingForm extends Component {
                                     and return it in full on the date I set in the "Maturity Date"
                                     above. This transaction is IRREVERSIBLE.
                                     <br/>
-                                    NB: Funds in "Locked Savings" cannot be accessed until maturity date. Locked Funds
-                                    will be sent back to your BackupCash "Central Vault" on maturity date.
+                                    NB: Funds in "Locked Savings" cannot be accessed until maturity date.
+                                    Locked Funds will be sent back to your BackupCash "Backup Stash" on maturity date.
                                 </Form.Text>}/>
                             {this.validator.message("terms and condition", this.state.form.accepted, "accepted")}
 
                         </Form.Group>
                     </Form.Row>
-                    <Form.Row className="d-flex justify-content-center justify-content-md-end  mt-2">
+                    <Form.Row className="d-flex justify-content-center justify-content-md-end  my-2">
 
                         <div className={'d-flex justify-content-end'}>
-                            <Button className="round btn-custom-blue " type="submit">
+                            <Button className="round btn-custom-blue modal-btn " type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Start Saving"}
                             </Button>
                         </div>

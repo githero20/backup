@@ -8,7 +8,6 @@ import {withToastManager} from 'react-toast-notifications';
 import {_calculateDateDifference, _handleFormChange} from "../../utils";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {updateSteadySave} from "../../actions/SteadySaveAction";
-import Button from "react-bootstrap/Button";
 
 
 class SteadySaveForm extends Component {
@@ -156,8 +155,8 @@ class SteadySaveForm extends Component {
                     <option value="23">11:00 pm</option>
                     <option value="24">12:00 am</option>
                 </Form.Control>
-                {/*{this.validator.message('hour_of_day', this.state.form.hour_of_day, 'required|numeric')}*/}
 
+                {/*{this.validator.message('hour_of_day', this.state.form.hour_of_day, 'required|numeric')}*/}
 
             </Form.Group>
         );

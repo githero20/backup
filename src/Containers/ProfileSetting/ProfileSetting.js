@@ -7,18 +7,50 @@ import editIcon from "../../admin/app-assets/images/svg/edit-icon.svg";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import AvatarImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import ProfileForm from "../../Components/Dashboard/ProfileForm/ProfileForm";
+import {getLocalStorage} from "../../ApiUtils/ApiUtils";
+import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 
 
 class ProfileSetting extends Component {
 
 
+
+    state = {
+        userProfile: null
+    };
+
+
+    setupProfile = (data) => {
+        const profile = JSON.parse(data);
+        console.log(profile);
+        this.setState({
+            userProfile: profile,
+        })
+
+    };
+
+
+    componentDidMount() {
+        // fetch User info
+        const data = getLocalStorage(USERINFO);
+        console.log(data);
+        if (data) {
+            this.setupProfile(data);
+        }
+    }
+
+
     render() {
+
+        console.log(this.state.userProfile);
+
         return (
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav/>
-                    <VerticalNav/>
+                    {this.state.userProfile? <HorizontalNav userName={this.state.userProfile.name} /> : <HorizontalNav /> }
+                    {this.state.userProfile? <VerticalNav userName={this.state.userProfile.name}  /> : <VerticalNav /> }
+
                     <div className="app-content content">
                         <div className="content-wrapper">
                             <div className="row mb-4">
@@ -42,7 +74,9 @@ class ProfileSetting extends Component {
                                                     <h4 className="card-title">Profile Settings</h4>
                                                 </div>
                                                 <div className="card-body px-md-3 py-md-3">
-                                                   <ProfileForm />
+                                                   <ProfileForm
+                                                       // userProfile={this.state.userProfile}
+                                                   />
                                                 </div>
                                             </div>
                                         </div>

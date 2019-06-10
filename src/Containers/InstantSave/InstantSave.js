@@ -337,12 +337,7 @@ class InstantSave extends Component {
 
                             <div className="row">
                                 {/*transaction table */}
-
-                                {
-                                    this.state.transactions.length !== 0 ? <TransactionTable transactions={this.state.transactions} columns={columns}/>:null
-
-
-                                }
+                                  <TransactionTable transactions={this.state.transactions} columns={columns}/>
 
                             </div>
 

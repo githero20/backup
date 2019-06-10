@@ -114,10 +114,11 @@ class BackUpGoalsForm extends Component {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
+            console.log('error');
             // rerender to show messages for the first time
             this.forceUpdate();
         } else {
-
+            console.log('worked');
             //show loader
             this.setState({
                 loading:true,
@@ -203,7 +204,7 @@ class BackUpGoalsForm extends Component {
         const showHour = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Hour of the day</Form.Label>
-                <Form.Control as="select" value={this.state.form.hour_of_day} onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
+                <Form.Control as="select" defaulValue={this.state.form.hour_of_day} onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
                     <option value={'1'}>1:00 am</option>
                     <option value={'2'}>2:00 am</option>
                     <option value={'3'}>3:00 am</option>
@@ -233,8 +234,8 @@ class BackUpGoalsForm extends Component {
         const showMonth = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Month</Form.Label>
-                <Form.Control as="select" value={this.state.form.day_of_month} onChange={this.changeHandler}
-                              id="day_of_the_month" name={'day_of_the_month'}>
+                <Form.Control as="select" defaultValue={this.state.form.day_of_month} onChange={this.changeHandler}
+                              id="day_of_month" name={'day_of_month'}>
                     <option value={'1'}>1</option>
                     <option value={'2'}>2</option>
                     <option value={'3'}>3</option>
@@ -273,8 +274,8 @@ class BackUpGoalsForm extends Component {
         const showDay = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Week</Form.Label>
-                <Form.Control as="select" value={this.state.form.day_of_week} onChange={this.changeHandler}
-                              id="day_of_the_week" name="day_of_the_week">
+                <Form.Control as="select" defaultValue={this.state.form.day_of_week} onChange={this.changeHandler}
+                              id="day_of_week" name="day_of_week">
                     <option value={'1'}>Mon</option>
                     <option value={'2'}>Tue</option>
                     <option value={'3'}>Wed</option>
@@ -297,7 +298,7 @@ class BackUpGoalsForm extends Component {
                                 id={'title'}
                                 onChange={this.changeHandler}
                                 placeholder={'e.g School fees'}
-                                value={title}
+                                defaultValue={title}
                             />
                             {this.validator.message('title', title, 'required|string')}
                         </Form.Group>
@@ -341,7 +342,7 @@ class BackUpGoalsForm extends Component {
                     <Form.Row>
                         <Form.Group as={Col} sm={6}>
                             <Form.Label>Account to Debit</Form.Label>
-                            <Form.Control as="select"   onChange={this.changeHandler} defaultValue={'payment_auth'} id={'payment_auth'}
+                            <Form.Control as="select"   onChange={this.changeHandler} defaultValue={'payment_auth'} Value={payment_auth} id={'payment_auth'}
                                           name={'payment_auth'}>
                                 <option value={-1} >Select Card</option>
                                 {/* loop through and get the number of accounts user has */}
@@ -375,7 +376,7 @@ class BackUpGoalsForm extends Component {
                         <Form.Group as={Col}>
                             <Form.Label>Frequency </Form.Label>
                             {/*select Box */}
-                            <Form.Control as="select" id="frequency" value={frequency} onChange={this.changeHandler} name={'frequency'}>
+                            <Form.Control as="select" id="frequency" defaultValue={frequency} onChange={this.changeHandler} name={'frequency'}>
                                 <option value={'daily'}>Daily</option>
                                 <option value={'weekly'}>Weekly</option>
                                 <option value={'monthly'}>Monthly</option>
@@ -391,7 +392,7 @@ class BackUpGoalsForm extends Component {
 
                             <Button className={'round btn-custom-blue modal-btn'} type="submit">
                                 {this.state.loading?<ButtonLoader/>:
-                                    <span>Start Saving</span>}
+                                    <span>Start </span>}
 
                             </Button>
                     </Form.Row>

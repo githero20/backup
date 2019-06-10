@@ -59,7 +59,8 @@ class SteadySaveForm extends Component {
                     autoDismiss: true,
                     autoDismissTimeout:5000
                 });
-                setTimeout(this.props.onHide(true),3000);
+                setTimeout(this.props.onHide,3000);
+                this.props.setupSteadySave();
             }
         });
     };
@@ -82,7 +83,8 @@ class SteadySaveForm extends Component {
                     autoDismiss: true,
                     autoDismissTimeout:5000
                 });
-                setTimeout(this.props.onHide(true),3000);
+                setTimeout(this.props.onHide,3000);
+                this.props.setupSteadySave();
             }
         });
     };
@@ -105,7 +107,8 @@ class SteadySaveForm extends Component {
                     autoDismiss: true,
                     autoDismissTimeout:5000
                 });
-                setTimeout(this.props.onHide(true),3000);
+                setTimeout(this.props.onHide,3000);
+                this.props.setupSteadySave();
             }
         });
     };

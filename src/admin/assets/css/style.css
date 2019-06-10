@@ -1074,7 +1074,9 @@ html body .content.app-content {
     right:30%;
 }
 
-
+.border-top-red{
+    border-top-color: red;
+}
 .table-button-container .active, .table-sort-display span {
     width: 30px;
     height: 30px;

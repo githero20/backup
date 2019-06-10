@@ -10,6 +10,7 @@ import moment from "moment";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import {amountFormatter, dateFormatter, descriptionFormatter, statusFormatter} from "../../../Helpers/Helper";
 import { textFilter } from 'react-bootstrap-table2-filter';
+import MessageBox from "./MessageBox/MessageBox";
 
 
 class DashboardContainer extends Component {
@@ -81,15 +82,23 @@ class DashboardContainer extends Component {
 
             }];
 
+        const {isActive} = this.props;
+
+
 
         return (
+
 
             <React.Fragment>
                 <div className="app-content content">
                     <div className="content-wrapper">
                         {/* notification component */}
 
-                        {/*<MessageBox error={error} errorMessage={this.props.errorMessage} activateAccount={activateAccount}/>*/}
+                        {
+                            !isActive?
+                            <MessageBox error={error} errorMessage={this.props.errorMessage} activateAccount={activateAccount}/>
+                            :null
+                        }
 
                         {/*Vault Card */}
 

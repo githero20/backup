@@ -86,7 +86,6 @@ class BackupGoals extends Component {
             {
                 text: 'Name',
                 dataField: 'title',
-                formatter:descriptionFormatter,
                 sort:true,
 
             },
@@ -120,7 +119,6 @@ class BackupGoals extends Component {
             {
                 text: 'Frequency',
                 dataField: 'frequency',
-                formatter:lockedStatusFormatter,
                 sort:true,
 
             }];

@@ -29,8 +29,6 @@ class MessageBox extends Component {
                                                     </span>
                                                 )
                                                     :errorMessage}
-
-
                                         </p>
                                     )
                                     :

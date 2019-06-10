@@ -13,6 +13,7 @@ class Transactions extends Component {
 
     state={
         transactions:[],
+        showloader: false
     };
 
     //when the component mounts
@@ -22,6 +23,9 @@ class Transactions extends Component {
     loadTransactions(){
 
         //get transactions from api
+        this.setState({
+            showLoader:true
+        })
 
         request(getTransactionsApi,null,true,'GET',this.handleTransactions);
 
@@ -34,7 +38,9 @@ class Transactions extends Component {
     // display all transactions when its loaded
 
     handleTransactions = (state,res) => {
-
+        this.setState({
+            showLoader:false
+        })
         if(state){
             if(res){
                 this.setState({

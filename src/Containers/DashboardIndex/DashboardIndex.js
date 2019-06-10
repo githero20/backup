@@ -48,6 +48,7 @@ class DashboardIndex extends Component {
         CompletedGoals: 0,
         email: null,
         showLoader: true,
+        isActive:false
     };
 
 
@@ -97,6 +98,8 @@ class DashboardIndex extends Component {
     setupDashBoard = () => {
 
 
+
+
         //make request
         request(getUserInfoEndpoint, null, true, 'GET', this.analyseDashboardInfo)
 
@@ -108,14 +111,29 @@ class DashboardIndex extends Component {
 
 
         console.log('setting up dashboard');
+
+
+    };
+
+    checkActiveUser = (status) => {
+
+
         //get data from localStorage
-        // if (getLocalStorage(USERINFO)) {
-        //     this.setState({
-        //         showLoader: false,
-        // //     });
-        //     console.log('there is user info');
-        //     console.log(JSON.parse(getLocalStorage(USERINFO)));
-        //
+
+        //check the active status
+
+        //display the notification if user is not active
+        if (parseInt(status)) {
+            // console.log(JSON.parse(getLocalStorage(USERINFO)));
+
+                // const data = JSON.parse(getLocalStorage(USERINFO));
+
+                // if(parseInt(data.active)){
+
+                    console.log('user is activated')
+                // }else{
+                //     console.log('user is not activated');
+                // }
         // if (getLocalStorage(USERACTIVATED)) {
         //     let status = JSON.parse(getLocalStorage(USERACTIVATED));
         //     // if (status === false) {
@@ -128,38 +146,43 @@ class DashboardIndex extends Component {
         //     console.log(status);
         //
         //     if (status === true || status === false ) {
-
+        //
         //     }
         // }
 
-        //
-        // } else {
-        //
-        //     this.setState({
-        //         showLoader:false
-        //
-        //     });
-        //     console.log('didnt see usr info');
-        //     //check if user is activated
-        //     if (getLocalStorage(USERACTIVATED)) {
-        //
-        //         let status = JSON.parse(getLocalStorage(USERACTIVATED));
-        //         if (status === false) {
-        //             //show activation modal
-        //             this.setUpActivation(true, null);
-        //         } else if (status === true) {
-        //             console.log('got here to retrieve it ');
-        //             let data = JSON.parse(getLocalStorage(USERINFO));
-        //
-        //
-        //         }
-        //     }
-        //
-        //
-        // }
+
+        } else {
+
+            this.setState({
+                error:true,
+                errorMessage:'Your Account is not Activated'
+            })
+            console.log('user is not active');
+
+            //
+            // this.setState({
+            //     showLoader:false
+            //
+            // });
+            // console.log('didnt see usr info');
+            // //check if user is activated
+            // if (getLocalStorage(USERACTIVATED)) {
+            //
+            //     let status = JSON.parse(getLocalStorage(USERACTIVATED));
+            //     if (status === false) {
+            //         //show activation modal
+            //         this.setUpActivation(true, null);
+            //     } else if (status === true) {
+            //         console.log('got here to retrieve it ');
+            //         let data = JSON.parse(getLocalStorage(USERINFO));
+            //
+            //
+            //     }
+            // }
 
 
-    };
+        }
+    }
 
     setUpActivation = (status, userInfo) => {
 
@@ -221,6 +244,13 @@ class DashboardIndex extends Component {
                     userName: res.data.data.name,
                     showLoader:false
                 });
+
+                if(res.data.data.active){
+
+                    //check for activated user
+                    this.checkActiveUser(res.data.data.active);
+
+                }
 
 
                 if (res.data.data.accounts) {
@@ -326,7 +356,6 @@ class DashboardIndex extends Component {
 
     handleResendActLink = (state, response) => {
 
-
         if (state) {
 
             console.log(response);
@@ -351,7 +380,6 @@ class DashboardIndex extends Component {
 
 
     componentDidMount() {
-
 
         // check if user is activated
 
@@ -384,7 +412,7 @@ class DashboardIndex extends Component {
                     <VerticalNav userName={userName}/>
                     {this.state.showLoader ? <DashboardLoader/> : null}
                     <DashboardContainer
-
+                        isActive={this.state.isActive}
                         vaultAmount={vaultAmount}
                         backupAmount={backupAmount}
                         lockedSavingsAmount={lockedSavingsAmount}

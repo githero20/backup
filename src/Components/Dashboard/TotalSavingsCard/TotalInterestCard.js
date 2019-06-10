@@ -23,7 +23,7 @@ class TotalInterestCard extends Component {
                                 </div>
                                 <div className="media-body text-left pt-1 mb-md-2">
                                     <h3 className={'ml-1 '}><strong
-                                        className="blue-card-price ">&#8358;
+                                        className="blue-card-price ">&#8358;&nbsp;
                                         {totalInterest}</strong>
                                     </h3>
                                 </div>

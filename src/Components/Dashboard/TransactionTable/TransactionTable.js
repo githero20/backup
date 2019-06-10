@@ -154,7 +154,7 @@ class TransactionTable extends Component {
                                 props => (
                                     <div>
                                         <div
-                                            className={'d-flex justify-content-between align-content-center mb-1 mx-1'}>
+                                            className={'d-flex justify-content-between align-items-center mb-1 mx-1'}>
                                             <SearchBar {...props.searchProps} placeholder="Filter" />
                                             <div onClick={this.toggleSort} className="table-sort-display d-block d-md-inline"><span><img className=" img-2x "
                                                                                              src={sortIcon}/></span>Sort

@@ -178,6 +178,10 @@ export function interestFormatter(cell){
 
 }
 export function lockedStatusFormatter(cell){
-    return (_isDateAfterToday(cell) ? "Completed" : "Ongoing")
+    return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> : <button className={'btn btn-warning'}>Ongoing</button>)
+
+}
+export function frequencyFormatter(cell){
+    return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> : <button className={'btn btn-warning'}>Ongoing</button>)
 
 }

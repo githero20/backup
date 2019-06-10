@@ -109,6 +109,7 @@ class SteadySaveForm extends Component {
                 });
                 setTimeout(this.props.onHide,3000);
                 this.props.setupSteadySave();
+                console.log('updated');
             }
         });
     };

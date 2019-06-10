@@ -116,7 +116,9 @@ class SteadySaveForm extends Component {
                         autoDismissTimeout:3000,
                         autoDismiss:true
                     });
+                    console.log(payload);
                     setTimeout(this.props.onHide,3000);
+                    this.props.setupSteadySave();
                     //set timeout
                 }
                 console.log("res", status, payload);

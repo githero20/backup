@@ -8,6 +8,15 @@ import WithdrawalSettingsModal from "./Settings/WithdrawalSettingsModal";
 import SimpleReactValidator from "simple-react-validator";
 import {_handleFormChange} from "../../utils";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
+import {request} from "../../ApiUtils/ApiUtils";
+import {getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
+import {
+    BACKUP_GOALS_ACCOUNT,
+    formatNumber,
+    INTEREST_ACCOUNT,
+    LOCKED_ACCOUNT,
+    STANDARD_ACCOUNT
+} from "../../Helpers/Helper";
 
 class WithdrawalForm extends Component {
 
@@ -20,6 +29,7 @@ class WithdrawalForm extends Component {
             userBanks:[],
             hasPenalty:true,
             nextDate:"",
+            userBalance:0.00,
             penaltyFreeDay:false,
             form:{
                 penalty_from:"central_vault",
@@ -45,11 +55,65 @@ class WithdrawalForm extends Component {
     componentWillMount() {
         this.getWithdrawalSettings();
         this.getUserBanks();
+
     }
+
+
+    componentDidMount() {
+
+        //get user info
+
+        console.log('got here');
+        this.getBalance();
+    }
+
+    getBalance = () => {
+
+        console.log('ran request');
+        request(getUserInfoEndpoint,null,true,'GET',this.saveBalance);
+
+    };
+
+    saveBalance (state,res){
+
+        if(state){
+
+            if (res.data.data.accounts) {
+
+                console.log(res.data.data.accounts);
+
+                // loop through data and set appropriate states
+                let accounts = res.data.data.accounts.data;
+
+                let balance ;
+                //get th balance
+                accounts.map((content, idx) => {
+                    if (content.account_type_id === STANDARD_ACCOUNT) {
+                        balance = content.balance;
+                    }
+                });
+
+                this.setState({
+                    userBalance:balance
+                },()=>{
+                    console.log('set the state');
+                });
+
+            }
+
+
+        }
+
+
+    }
+
+
+
     getWithdrawalSettings(){
         // e.preventDefault();
         getWithdrawalSettings((status, payload) => {
             if(status){
+                console.log('withdrawal form:'+JSON.parse(payload));
                 this.setState({withdrawalSettings:payload});
                 this.getNextWithdrawalDate(payload);
             }else{
@@ -61,11 +125,14 @@ class WithdrawalForm extends Component {
             }
         });
     }
+
+
     getWithdrawalPenalty(){
         // e.preventDefault();
         getWithdrawalPenalty((status, payload) => {
             if(status){
                 this.setState({penalty:payload});
+                console.log('penalty:'+JSON.parse(payload));
             }else{
                 this.props.toastManager.add("unable to get withdrawal penalty",{
                     appearance: "error",
@@ -92,6 +159,8 @@ class WithdrawalForm extends Component {
             }
         });
     }
+
+
 
 
     showWithdrawalSettings(){
@@ -163,6 +232,8 @@ class WithdrawalForm extends Component {
         }
     }
     render() {
+
+        console.log(this.state.userBalance);
         return (
             <div className={'row'}>
                 <WithdrawalSettingsModal show={this.state.showWithdrawalSetting} onHide={this.hideWithdrawalSettings}/>
@@ -187,7 +258,7 @@ class WithdrawalForm extends Component {
                                                         <div className="media-body text-left pt-1 ">
                                                             <h3 className=" ">
                                                                 <strong className="blue-card-price ml-2 mr-2">
-                                                                    <strong>₦</strong> 500,000
+                                                                    <strong>₦</strong> {formatNumber(parseFloat(this.state.userBalance).toFixed(2))  }
                                                                 </strong>
                                                             </h3>
                                                         </div>

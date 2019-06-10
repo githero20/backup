@@ -11,7 +11,9 @@ export const getListOfBanks = (callback) =>{
             callback(res.data.status, res.data.data);
         })
         .catch(err => {
-            callback(false, err.response.data.message);
+            if(err.response){
+                callback(false, err.response.data.message|| err.response.data.data);
+            }
         })
 };
 
@@ -31,7 +33,9 @@ export const resolveBankName = (accountNumber, bankCode,callback) =>{
             callback(res.data.status, res.data.data);
         })
         .catch(err => {
-            callback(false, err.response.data.message);
+            if(err.response){
+                callback(false, err.response.data.message|| err.response.data.data);
+            }
         })
 };
 
@@ -44,7 +48,9 @@ export const sendBankOTP = (payload, callback) =>{
         })
         .catch(err => {
             // console.log("Err",JSON.stringify(err),err.response.data.data, err.response.data.message);
-            callback(false, err.response.data.data || err.response.data.message);
+            if(err.response){
+                callback(false, err.response.data.message|| err.response.data.data);
+            }
         })
 };
 
@@ -57,7 +63,9 @@ export const resendBankOTP = (payload, callback) =>{
         })
         .catch(err => {
             // console.log("Err",JSON.stringify(err),err.response.data.data, err.response.data.message);
-            callback(false, err.response.data.data || err.response.data.message);
+            if(err.response){
+                callback(false, err.response.data.message|| err.response.data.data);
+            }
         })
 };
 
@@ -72,7 +80,9 @@ export const verifyOtp = (payload, callback) =>{
         })
         .catch(err => {
             console.log("Err",err);
-            callback(false, err.response.data.data || err.response.data.message);
+            if(err.response){
+                callback(false, err.response.data.message|| err.response.data.data);
+            }
         })
 };
 
@@ -84,6 +94,8 @@ export const getUserBanks = (callback) => {
         })
         .catch(err => {
             // console.log("Err",err);
-            callback(false, err.response.data.message);
+            if(err.response){
+                callback(false, err.response.data.message|| err.response.data.data);
+            }
         })
 };

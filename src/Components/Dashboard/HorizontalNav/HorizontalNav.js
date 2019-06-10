@@ -5,7 +5,8 @@ import LogOutIcon from "../../../admin/app-assets/images/svg/logout-cion.svg";
 import KycIcon from "../../../admin/app-assets/images/svg/kyc-icon.svg";
 import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import {Link, Redirect} from "react-router-dom";
-import {DashboardLink, LoginLink} from "../../../RouteLinks/RouteLinks";
+import {DashboardLink, getUserInfoEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
+import {request} from "../../../ApiUtils/ApiUtils";
 
 class HorizontalNav extends Component {
 
@@ -14,6 +15,7 @@ class HorizontalNav extends Component {
         show:'',
         redirectLogin:false,
         toggleMenu:false,
+        userName:null
     };
     //toggle profile menu
     toggleSubMenu=()=>{
@@ -46,10 +48,50 @@ class HorizontalNav extends Component {
         mobileMenu.classList.toggle('menu-open');
     };
 
+    //get user info
+    //
+    // GetUser = () => {
+    //
+    //
+    //
+    //
+    //     //make request
+    //     request(getUserInfoEndpoint, null, true, 'GET', this.setupNav)
+    //
+    //     //make request
+    //     //show loader
+    //     //get the response
+    //     //hide loader
+    //     //analyse info
+    //
+    //
+    //     console.log('setting up dashboard');
+    //
+    //
+    // };
+
+    // setupNav = (status,res) => {
+    //
+    //     if(status){
+    //
+    //         this.setState({
+    //             userName: res.data.data.name,
+    //         });
+    //     }
+    //
+    // }
+
+
+    // componentDidMount() {
+    //     this.GetUser();
+    // }
+
+    // display name
 
     render() {
 
         const {userName} = this.props;
+        // const {userName} = this.state;
         console.log(userName);
 
 

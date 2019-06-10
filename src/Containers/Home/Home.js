@@ -93,7 +93,7 @@ class Home extends Component {
                                         <p className="header-sub-title mb-0 ">
                                             Save as little as <strong>₦500 </strong></p>
                                         <p className="header-sub-title mb-5">
-                                            Earn up to <strong>₦13% </strong> interest on Savings. </p>
+                                            Earn up to <strong>13% </strong> interest on Savings. </p>
                                         <Link to={'/sign-up'}
                                            className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow"> Create
                                             free account</Link>

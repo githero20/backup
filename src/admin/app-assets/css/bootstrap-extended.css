@@ -1344,10 +1344,6 @@ select.form-control
     height: 5rem;
     padding: 0rem .85rem;
 
-    -webkit-transition: 300ms ease all;
-       -moz-transition: 300ms ease all;
-         -o-transition: 300ms ease all;
-            transition: 300ms ease all;
 }
 .header-navbar .navbar-header .navbar-brand
 {

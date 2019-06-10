@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import {_isDateAfterToday} from "../utils";
 
 
 export const STANDARD_ACCOUNT = 1;
@@ -171,4 +172,12 @@ export function steadyStatusFormatter (cell,row) {
 
 export function statusFormatter(cell){
     return  <label className={cell==='success'?'bg-light-green px-2 sm-pd':'bg-light-red px-2 sm-pd'}>{cell}</label>
+}
+export function interestFormatter(cell){
+    return <label>+{parseFloat(cell).toFixed(2)}%</label>
+
+}
+export function lockedStatusFormatter(cell){
+    return (_isDateAfterToday(cell) ? "Completed" : "Ongoing")
+
 }

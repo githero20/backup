@@ -12,12 +12,12 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import DataTable from 'react-data-table-component';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, {Search, CSVExport} from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory, { selectFilter } from 'react-bootstrap-table2-filter'
+import filterFactory, {selectFilter} from 'react-bootstrap-table2-filter'
 
-const { SearchBar, ClearSearchButton } = Search;
-const { ExportCSVButton } = CSVExport;
+const {SearchBar, ClearSearchButton} = Search;
+const {ExportCSVButton} = CSVExport;
 
 
 class TransactionTable extends Component {
@@ -25,7 +25,9 @@ class TransactionTable extends Component {
     state = {
         currentTransactions: [],
         currentPage: null,
-        totalPages: null
+        totalPages: null,
+        sort:false,
+        filter:false
 
     };
 
@@ -43,8 +45,7 @@ class TransactionTable extends Component {
 
     // sort function
 
-    sort =()=> {
-
+    sort = () => {
 
 
     }
@@ -53,22 +54,59 @@ class TransactionTable extends Component {
     //do search function
 
 
-    search =()=> {
-
-
+    search = () => {
 
 
     }
 
+    changeSort = () =>{
+        this.setState({
+            sort:!this.state.sort
+        })
+    };
+
+    changeFilter = () =>{
+        this.setState({
+            filter:!this.state.filter
+        })
+    };
+
+
+    toggleSort=()=>{
+
+
+       this.changeSort();
+
+
+
+
+    };
+
+    toggleFilter=()=>{
+
+        this.changeFilter();
+
+    }
+
+
+    runSort = (e) => {
+        const field = e.target.value;
+        const sortDirection = 'ASC';
+    }
+    // on select perform actions either sort or filter based on column selected
+
+
+    // change locked savings table
+
+    // change back up goals table
+
 
     render() {
 
-        const {transactions,columns} = this.props;
+        const {transactions, columns} = this.props;
 
         return (
             <React.Fragment>
-
-
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">
                     <div className="card">
                         <div className="card-header  ">
@@ -106,6 +144,69 @@ class TransactionTable extends Component {
                             {/*</div>*/}
 
                         </div>
+                        <ToolkitProvider
+                            keyField="id"
+                            data={transactions}
+                            columns={columns}
+                            search
+                        >
+                            {
+                                props => (
+                                    <div>
+                                        <div
+                                            className={'d-flex justify-content-between align-content-center mb-1 mx-1'}>
+                                            <SearchBar {...props.searchProps} placeholder="Filter" />
+                                            <div onClick={this.toggleSort} className="table-sort-display d-block d-md-inline"><span><img className=" img-2x "
+                                                                                             src={sortIcon}/></span>Sort
+                                            </div>
+
+                                            {/*<div onClick={this.toggleFilter} className="table-sort-display d-block d-md-inline"><span*/}
+                                            {/*    data-toggle="modal" data-target="#sort"><img className=" img-2x "*/}
+                                            {/*                                                 src={filterIcon}/></span>Filter*/}
+                                            {/*</div>*/}
+                                            <ExportCSVButton className={'btn-green'}  {...props.csvProps}>Export
+                                                CSV!!</ExportCSVButton>
+                                        </div>
+
+
+                                        {this.state.sort?
+
+                                            <div className='sort-box round shadow-sm'>
+                                                <p>Sort Table </p>
+                                                <div className={'mb-1'}>
+                                                    <select onChange={this.runSort} name={'sort-column'}>
+                                                        {columns.map((content)=>(<option value={content.dataField}>{content.text}</option>))}
+                                                    </select>
+                                                </div>
+                                                <button className='btn btn-block btn-custom-blue'>Sort</button>
+
+                                            </div>:null
+
+                                        }
+
+                                        {this.state.filter?
+
+
+                                            <div className='filter-box round shadow-sm'>
+                                                <p>Filter Table </p>
+                                                <input type={'text'}  id={'filter-param'} name={'filter-param'}/>
+                                                <button className={'btn btn-custom-blue'} onClick={this.props.runFilter}>Filter</button>
+                                            </div>
+                                            :null
+
+                                        }
+
+                                        <BootstrapTable
+                                            {...props.baseProps}
+                                            pagination={paginationFactory()}
+                                            filter={filterFactory()}
+                                        />
+                                    </div>
+
+                                )
+                            }
+                        </ToolkitProvider>
+
 
 
                         {/*<ReactTable*/}
@@ -118,57 +219,7 @@ class TransactionTable extends Component {
                         {/*/>*/}
 
 
-                        <ToolkitProvider
-                            keyField="id"
-                            data={transactions }
-                            columns={ columns }
-                            search
-                        >
-                            {
-                                props => (
-                                    <div>
-                                        <div className={'d-flex justify-content-between align-content-center mb-1 mx-1'}>
-                                            <SearchBar { ...props.searchProps } />
-                                            <div className="table-sort-display d-block d-md-inline"><span
-                                                data-toggle="modal" data-target="#sort"><img className=" img-2x "
-                                                                                             src={sortIcon}/></span>Sort
-                                            </div>
 
-                                            <div className="table-sort-display d-block d-md-inline"><span
-                                                data-toggle="modal" data-target="#sort"><img className=" img-2x " src={filterIcon}/></span>Filter
-                                            </div>
-                                            <ExportCSVButton className={'btn-green'}  { ...props.csvProps }>Export CSV!!</ExportCSVButton>
-                                        </div>
-
-                                        <div className={'sort-modal'}>
-
-                                            {/*TODO pick the number of columns user van sort with */}
-                                            <select>
-                                                <option value=""></option>
-                                            </select>
-                                        </div>
-
-
-                                        {/* TODO enter */}
-                                        <div className={'filter-modal'}>
-                                            <select>
-                                                <option value="">1</option>
-                                                <option value="">2</option>
-                                                <option value="">3</option>
-                                            </select>
-                                        </div>
-
-
-                                        <BootstrapTable
-                                            { ...props.baseProps }
-                                            pagination={ paginationFactory() }
-                                            filter={ filterFactory() }
-                                        />
-                                    </div>
-
-                                )
-                            }
-                        </ToolkitProvider>
 
                         <div className="card-content mt-1 light-table-bg">
 
@@ -179,7 +230,6 @@ class TransactionTable extends Component {
                             {/*    pagination*/}
                             {/*    responsive*/}
                             {/*/>*/}
-
 
 
                             {/*<div className="table-responsive">*/}
@@ -278,7 +328,7 @@ class TransactionTable extends Component {
                             {/*    </table>*/}
                             {/*</div>*/}
 
-                        {/*    /!*pagination *!/*/}
+                            {/*    /!*pagination *!/*/}
 
                             {/*<nav aria-label="Page navigation">*/}
                             {/*    <ul className=" custom-pagination pagination justify-content-center pagination-separate pagination-round pagination-flat pagination-lg mb-1">*/}
@@ -312,8 +362,8 @@ class TransactionTable extends Component {
                             {/*        </li>*/}
                             {/*    </ul>*/}
                             {/*</nav>*/}
-                        {/*</div>*/}
-                    </div>
+                            {/*</div>*/}
+                        </div>
                     </div>
                 </div>
             </React.Fragment>

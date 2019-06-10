@@ -44,15 +44,12 @@ class WithdrawalSettingsForm extends Component {
             this.setState({loading:true});
             //send api
             const {form} = this.state;
-            // console.log([...form]);
             const param = {
                 label: ["First Quarter", "Second Quarter", "Third Quarter","Fourth Quarter"],
                 withdrawal_date: [form.first_quarter, form.second_quarter, form.third_quarter, form.fourth_quarter]
             };
 
-            console.log(param);
             createWithdrawalSettings(param,(status, payload) =>{
-                console.log(status, payload);
                 this.setState({loading:false});
                 if(status){
                     this.props.toastManager.add("Settings Updated",{

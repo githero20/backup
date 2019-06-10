@@ -62,6 +62,7 @@ export const GetUsersCards  = `/sfsbapi/v1/user/cards`;
 export const GetWithdrawalPenalty = `sfsbapi/v1/user/withdrawals/penalty`;
 export const CreateWithdrawalSettings = `sfsbapi/v1/user/withdrawals/settings`;
 export const GetWithdrawalSettings = `sfsbapi/v1/user/withdrawals/settings`;
+export const MakeWithdrawal = `sfsbapi/v1/user/withdrawals`;
 
 
 

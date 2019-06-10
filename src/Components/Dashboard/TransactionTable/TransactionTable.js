@@ -156,9 +156,9 @@ class TransactionTable extends Component {
                                         <div
                                             className={'d-flex justify-content-between align-items-center mb-1 mx-1'}>
                                             <SearchBar {...props.searchProps} placeholder="Filter" />
-                                            <div onClick={this.toggleSort} className="table-sort-display d-block d-md-inline"><span><img className=" img-2x "
-                                                                                             src={sortIcon}/></span>Sort
-                                            </div>
+                                            {/*<div onClick={this.toggleSort} className="table-sort-display d-block d-md-inline">*/}
+                                            {/*    <span><img className=" img-2x " src={sortIcon}/></span>Sort*/}
+                                            {/*</div>*/}
 
                                             {/*<div onClick={this.toggleFilter} className="table-sort-display d-block d-md-inline"><span*/}
                                             {/*    data-toggle="modal" data-target="#sort"><img className=" img-2x "*/}

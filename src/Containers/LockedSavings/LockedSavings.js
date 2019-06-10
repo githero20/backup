@@ -83,7 +83,7 @@ class LockedSavings extends Component {
 
             },
             {
-                text: 'Status',
+                text: 'Interest',
                 dataField: 'interest',
                 formatter:interestFormatter,
                 sort:true,
@@ -102,13 +102,7 @@ class LockedSavings extends Component {
                 sort:true,
 
             },
-            {
-                text: 'Status',
-                dataField: 'end_date',
-                formatter:lockedStatusFormatter,
-                sort:true,
-
-            }];
+           ];
 
         return (
             <React.Fragment>

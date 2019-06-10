@@ -9,7 +9,14 @@ import addSavingsIcon from "../../admin/app-assets/images/svg/add-lock-saving.sv
 import BackUpGoalsTable from "../../Components/Dashboard/BackUpGoalsTable/BackUpGoalsTable";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
 import {getBackUpSavings} from "../../actions/BackUpGoalsAction";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
+import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
+import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
+import {
+    moneyFormatter,
+    dateFormatter,
+    descriptionFormatter,
+    lockedStatusFormatter
+} from "../../Helpers/Helper";
 
 class BackupGoals extends Component {
 
@@ -22,7 +29,8 @@ class BackupGoals extends Component {
             accountInfo:null,
             userName:null,
             backupGoals: [],
-            loading:false
+            loading:false,
+            showLoader:false
         };
 
         // this.handleBackUpGoals = this.handleBackUpGoals.bind(this);
@@ -45,7 +53,13 @@ class BackupGoals extends Component {
 
 
     fetchBackUpGoals(){
+        this.setState({
+            showloader:true,
+        });
         getBackUpSavings((status, payload) => {
+            this.setState({
+                showLoader:false
+            });
             console.log("Getbackupgoals",status, payload);
             if(status){
                 this.setState({backupGoals: payload})
@@ -62,9 +76,58 @@ class BackupGoals extends Component {
 
 
     render() {
+
+        const columns = [
+            {
+                text: '#',
+                dataField: 'id' ,
+                sort:true,
+            },
+            {
+                text: 'Name',
+                dataField: 'title',
+                formatter:descriptionFormatter,
+                sort:true,
+
+            },
+            {
+                text: 'Target Amount',
+                dataField: 'target_amount',
+                formatter:moneyFormatter,
+                sort:true,
+
+            },
+            {
+                text: 'Start Amount',
+                dataField: 'start_amount',
+                formatter:moneyFormatter,
+                sort:true,
+            },
+            {
+                text: 'Start Date',
+                dataField: 'start_date',
+                formatter:dateFormatter,
+                sort:true,
+
+            },
+            {
+                text: 'End Date',
+                dataField: 'end_date',
+                formatter:dateFormatter,
+                sort:true,
+
+            },
+            {
+                text: 'Frequency',
+                dataField: 'frequency',
+                formatter:lockedStatusFormatter,
+                sort:true,
+
+            }];
+
         return (
             <React.Fragment>
-
+                {this.state.showLoader?<DashboardLoader/>:null}
                 <BackUpGoalsModal show={this.state.showBackUpModal} onHide={this.hideModal}/>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
@@ -104,33 +167,35 @@ class BackupGoals extends Component {
                                                         </button>
                                                     </h4>
                                                     <ul className=" mb-0 locked-saving-display d-none d-md-inline-block">
-                                                        <li>1 &nbsp; Locked saving</li>
+                                                        <li>{this.state.backupGoals.length} &nbsp; Locked saving</li>
                                                     </ul>
-                                                    <div className="table-button-container d-none d-md-inline-block">
-                                                     <span
-                                                         className="mr-md-1 table-grid-view-icon img-2x list-btn active d-block d-md-inline">
-                                                         <img src={listIcon} className=" img-2x "/>
-                                                     </span>
-                                                                        <span
-                                                                            className="mr-md-1 table-grid-view-icon img-2x  grid-btn d-block d-md-inline">
-                                                        <img src={gridIcon} className=" img-2x "/>
-                                                    </span>
-                                                                        <span className="table-view-display d-block d-md-inline">
-                                                        <img src={tableArrowLeft}
-                                                             className="mr-1 img-1x"/> grid view
-                                                    </span>
-                                                    </div>
-                                                    <div className="table-sort-display d-block d-md-inline"><span>
-                                                        <img className=" img-2x " src={sortIcon}/>
-                                                        </span>sort
-                                                    </div>
-                                                    <div className="table-sort-display d-none d-md-inline">
-                                                        <button type="button" className="btn-green">Export CSV</button>
-                                                    </div>
+                                                    {/*<div className="table-button-container d-none d-md-inline-block">*/}
+                                                    {/*     <span*/}
+                                                    {/*         className="mr-md-1 table-grid-view-icon img-2x list-btn active d-block d-md-inline">*/}
+                                                    {/*         <img src={listIcon} className=" img-2x "/>*/}
+                                                    {/*     </span>*/}
+                                                    {/*                        <span*/}
+                                                    {/*                            className="mr-md-1 table-grid-view-icon img-2x  grid-btn d-block d-md-inline">*/}
+                                                    {/*        <img src={gridIcon} className=" img-2x "/>*/}
+                                                    {/*    </span>*/}
+                                                    {/*                        <span className="table-view-display d-block d-md-inline">*/}
+                                                    {/*        <img src={tableArrowLeft}*/}
+                                                    {/*             className="mr-1 img-1x"/> grid view*/}
+                                                    {/*    </span>*/}
+                                                    {/*</div>*/}
+                                                    {/*<div className="table-sort-display d-block d-md-inline"><span>*/}
+                                                    {/*    <img className=" img-2x " src={sortIcon}/>*/}
+                                                    {/*    </span>sort*/}
+                                                    {/*</div>*/}
+                                                    {/*<div className="table-sort-display d-none d-md-inline">*/}
+                                                    {/*    <button type="button" className="btn-green">Export CSV</button>*/}
+                                                    {/*</div>*/}
                                                 </div>
                                                {/* table component */}
 
-                                               <BackUpGoalsTable backupGoals={this.state.backupGoals} />
+                                               {/*<BackUpGoalsTable backupGoals={this.state.backupGoals} />*/}
+
+                                               <TransactionTable transactions={this.state.backupGoals} columns={columns} />
                                             </div>
                                         </div>
                                     </div>

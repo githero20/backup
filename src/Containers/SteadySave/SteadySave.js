@@ -19,6 +19,7 @@ import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySa
 import {getSteadySaveEndpoint, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
 import SteadySaveTransTable from "../../Components/Dashboard/SteadySaveTransTable/SteadySaveTransTable";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
+import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 
 class SteadySave extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class SteadySave extends Component {
             totalSteadySave: '0.00',
             email: null,
             showSavingModal: false,
-            showLoader: true,
+            showLoader: false,
             settings: false,
             steadySave: {
                 id: null,
@@ -48,14 +49,11 @@ class SteadySave extends Component {
 
     }
 
-    hideModal = (status=false) => {
+    hideModal = ( status=false) => {
         this.setState({
                 showSavingModal: false
             }
         );
-        if(status){
-            this.setupSteadySave();
-        }
     };
 
     showModal = () => {
@@ -66,7 +64,9 @@ class SteadySave extends Component {
 
 
     handleSteadySave = (state, res) => {
-
+        this.setState({
+            showLoader:false
+        });
         if (state) {
             if (res) {
                 console.log("Data", res.data.data);
@@ -103,20 +103,20 @@ class SteadySave extends Component {
     };
 
     setupSteadySave = () => {
-
+        this.setState({
+            showLoader:true
+        });
         request(getSteadySaveEndpoint, null, true, 'GET', this.handleSteadySave);
         console.log('setting up steady Save');
         // get data from localStorage
     };
 
-    //TODO make a request to get user data and pass to analyse
 
 
     GetBalance = () => {
 
         console.log('setting up instant Save');
 
-        //TODO Add Table Loader
         //call get user info
         request(getUserInfoEndpoint, null, true, 'GET', this.analyseSteadySaveInfo)
 
@@ -192,6 +192,10 @@ class SteadySave extends Component {
         const {transactions, userName} = this.state;
 
 
+        //update the button to show status in progress if is paused is 0 or paused if its 1
+
+
+
         //table header and columns
         const columns = [
             {
@@ -223,6 +227,7 @@ class SteadySave extends Component {
         return (
 
             <React.Fragment>
+                {this.state.showLoader?<DashboardLoader/>:null}
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={userName}/>
@@ -244,7 +249,7 @@ class SteadySave extends Component {
                                 this.state.showSavingModal ?
                                     (
                                         <React.Fragment>
-                                            <SteadySaveModal steadySave={this.state.steadySave} totalSteadySave={this.state.totalSteadySave}
+                                            <SteadySaveModal setupSteadySave={this.setupSteadySave} steadySave={this.state.steadySave} totalSteadySave={this.state.totalSteadySave}
                                                              show={this.state.showSavingModal} onHide={this.hideModal}/>
                                         </React.Fragment>
 

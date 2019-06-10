@@ -6,6 +6,8 @@ import BigTransactionTable from "../../Components/Dashboard/BigTransactionTable/
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getTransactionsApi} from "../../RouteLinks/RouteLinks";
 import {request} from "../../ApiUtils/ApiUtils";
+import {amountFormatter, dateFormatter, descriptionFormatter, statusFormatter} from "../../Helpers/Helper";
+import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 
 class Transactions extends Component {
 
@@ -60,6 +62,41 @@ class Transactions extends Component {
 
 
     render() {
+
+        const columns = [
+            {
+                text: 'Date',
+                dataField: 'created_at' ,
+                formatter:dateFormatter,
+                sort:true,
+            },
+            {
+                text: 'Description',
+                dataField: 'type',
+                formatter:descriptionFormatter,
+                sort:true,
+
+            },
+            {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter:amountFormatter,
+                sort:true,
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter:statusFormatter,
+                sort:true,
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort:true,
+
+            }];
+
         return (
             <React.Fragment>
                 {this.state.showLoader? <DashboardLoader /> :null}
@@ -92,7 +129,9 @@ class Transactions extends Component {
 
                                 <div className="row">
 
-                                    <BigTransactionTable transactions={this.state.transactions} />
+                                    {/*<BigTransactionTable transactions={this.state.transactions} /> */}
+
+                                    <TransactionTable transactions={this.state.transactions} columns={columns} />
 
                                 </div>
 

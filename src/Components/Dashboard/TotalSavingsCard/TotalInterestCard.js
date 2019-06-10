@@ -29,7 +29,7 @@ class TotalInterestCard extends Component {
                                 </div>
                             </div>
                             <div className={'d-flex justify-content-end'}>
-                                <a href="#" className="btn btn-sm history-btn btn-outline-blue ">Interest
+                                <a href="#" className="btn btn-sm history-btn ">Interest
                                 History <img className="btn-icon"
                                              src={HistoryArrow}/></a>
                             </div>

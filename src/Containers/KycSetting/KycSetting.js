@@ -8,37 +8,47 @@ import Button from "react-bootstrap/Button";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
 import {_handleFormChange} from "../../utils/index";
-import {getUserKyc,storeUserKyc} from "../../actions/KycAction"
+import {request,multipartrequest} from "../../ApiUtils/ApiUtils";
+import {GetUserKYC} from "../../RouteLinks/RouteLinks";
+import {withToastManager,ToastProvider} from "react-toast-notifications";
+
+let formData = new FormData();
 
 class KycSetting extends Component {
+    
     constructor(props) {
         super(props);
+    
         this.state = {
-            kyc: [],
             loading:false,
-            resolved:false,
             form: {
                 maiden_name:"",
                 password:"",
                 address:"",
-                relationship_status:"",
-                employment_status:"",
-                end_year_amount:"",
-                edit:"",
-                identification_type:"",
-                // identification_type_picture_url:"",
+                relationship_status:"single",
+                employment_status:"student",
+                end_year_amount:"less_than50000",
+                id:"",
+                date_of_birth: this.getTodayDate(),
+                identification_type:"InternationalPassport",
                 identification_type_number:"",
-                issue_date:"",
-                expiry_date:"",
-                edit :0
+                issue_date:this.getTodayDate(),
+                expiry_date:this.getTodayDate(),
+                edit :0,
+                gender: "male"
             }
         };
         this.validator = new SimpleReactValidator();
 
        this.validateForm = this.validateForm.bind(this);
        this.handleChange = this.handleChange.bind(this);
-
-       
+       this.handleKyc = this.handleKyc.bind(this);
+       this.handleStoreKyc =  this.handleStoreKyc.bind(this);
+    }
+    getTodayDate(){
+        var today = new Date();
+        var date = today.getFullYear()+'-0'+(today.getMonth()+1)+'-'+today.getDate(); 
+        return date;   
     }
     validateForm(e){
         e.preventDefault();
@@ -56,44 +66,83 @@ class KycSetting extends Component {
     
     }
     handleChange(e){
-        this.setState({resolved:false});
         _handleFormChange(e.target.name,e, this)
     }
+    
+    handleFileChange(e){
+        console.log("files");
+        console.log(e);
+        const file = e.target.files[0];
+        formData.append("identification_type_picture_url", file)
+           
+}
 
     componentWillMount() {
-        this.getUserKych();
+        this.getUserKyc();
+    }
+    toastMessage(message,status){
+        const { toastManager } = this.props;
+        toastManager.add(message, {
+            appearance: status,
+            autoDismiss: true,
+            pauseOnHover: false,
+          })
     }
 
     storeUserKyc(){
         const {form} = this.state;
-        storeUserKyc(form,(status,result)=>{
-            console.log(status);
-            console.log(result);
-        });
+        for (var k in form){
+            if (form.hasOwnProperty(k)) {
+            formData.append(k,form[k])
+            }
+        }
+        multipartrequest(GetUserKYC,formData,true,'POST',this.handleStoreKyc)
+    }
+    getUserKyc(){
+        request(GetUserKYC, null, true, 'GET', this.handleKyc);
+    }
+    handleKyc(status,result){
+    
+        if(status){
+            try{
+                if(result.data.edit == "1"){
+                    let {form} = this.state;
+                    form = result.data.data;
+                    form.edit = result.data.edit;
+                    this.setState({form});
+                
+                }
+            }catch(e){
+                console.log("err",e);
+            }
+            
+        }
+        else{
+        console.log(status);
+        console.log(result);
+        }
 
     }
-    getUserKych(){
-        getUserKyc((status,result) => {
-            console.log("get user kyc")
-            console.log(status);
-            console.log(result);
-            if(status){
-                console.log(result.edit)
-                if(result.edit == 1){
-                    this.form.maiden_name= result.data.maiden_name;
-                    
-                }
+    handleStoreKyc(status,result){
+        console.log(status);
+        console.log(result);
+        if(status){
+            this.toastMessage("Kyc Updated","success")
+        }else{
+            if(result.data.status == "failed"){
+                //password mismatch
+                this.toastMessage(result.data.message,"error");
             }
-            else{
-
-            }
-        });
-
+        }
+        this.setState({loading:false});
+        
     }
 
     render() {
         return (
+        
             <React.Fragment>
+        <ToastProvider>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav/>
@@ -114,6 +163,7 @@ class KycSetting extends Component {
                                         <h3 className="gray-header-text mb-2 ">KYC Settings
 
                                         </h3>
+                                         <Form className="form lock-form" onSubmit={this.validateForm} encType="multipart/form-data">
                                         <section id="basic-form-layouts">
                                             <div className="row match-height">
                                                 <div className="col-md-6">
@@ -136,15 +186,15 @@ class KycSetting extends Component {
                                                             <div className="card-body px-5">
                                                             
        
-                                                                <Form className="form lock-form" onSubmit={this.validateForm}>
+                                                               
                                                                     <div className="form-body">
                                                                         <div className="row">
                                                                             <div className="col-md-6">
                                                                                 <div className="form-group">
-                                                                                          <Form.Group controlId="exampleForm.ControlSelect1">
+                                                                                          <Form.Group controlId="kycForm.gender">
                                                                                                 <Form.Label>Gender</Form.Label>
                                                                                                 <Form.Control as="select" name="gender"  value={this.state.form.gender} onChange={this.handleChange} className="form-control">
-                                                                                                <option value ="male">Male</option>
+                                                                                                <option value ="male" >Male</option>
                                                                                                 <option value="female">Female</option>
                                                     
                                                                                             </Form.Control>
@@ -153,9 +203,9 @@ class KycSetting extends Component {
                                                                             </div>
                                                                             <div className="col-md-6">
                                                                                 <div className="form-group">
-                                                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                                                <Form.Group controlId="kycForm.relationship">
                                                                                                 <Form.Label>Relationship</Form.Label>
-                                                                                                <Form.Control as="select" name="relationship" className="form-control">
+                                                                                                <Form.Control as="select" name="relationship_status" onChange={this.handleChange} value={this.state.form.relationship_status} className="form-control">
                                                                                                 <option value="single">Single</option>
                                                                                                 <option value ="married">Married</option>
                                                                                                 <option value="divorced">Divorce</option>
@@ -167,25 +217,12 @@ class KycSetting extends Component {
                                                                             </div>
                                                                         </div>
                                                                         <div className="row">
+                                                                           
                                                                             <div className="col-md-12">
                                                                                 <div className="form-group">
-                                                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                                                <Form.Group controlId="kycForm.employment_status">
                                                                                                 <Form.Label>Employment Status</Form.Label>
-                                                                                                <Form.Control as="select" name="employment_status" className="form-control">
-                                                                                                <option value="student">Student</option>
-                                                                                                <option value ="employed">Employed</option>
-                                                                                                <option value="unemployed">UnEmployed</option>
-                                                                                                <option value="self-employed/entrepreneur">Self-Employed/Entrepreneur</option>
-                                                    
-                                                                                            </Form.Control>
-                                                                                            </Form.Group>
-                                                                                                                                                                            </div>
-                                                                            </div>
-                                                                            <div className="col-md-12">
-                                                                                <div className="form-group">
-                                                                                <Form.Group controlId="exampleForm.ControlSelect1">
-                                                                                                <Form.Label>Employment Status</Form.Label>
-                                                                                                <Form.Control as="select" name="employment_status" className="form-control">
+                                                                                                <Form.Control as="select" name="employment_status" onChange={this.handleChange} value={this.state.form.employment_status} className="form-control">
                                                                                                 <option value="student">Student</option>
                                                                                                 <option value ="employed">Employed</option>
                                                                                                 <option value="unemployed">UnEmployed</option>
@@ -198,9 +235,9 @@ class KycSetting extends Component {
 
                                                                             <div className="col-md-12">
                                                                                 <div className="form-group">
-                                                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                                                <Form.Group controlId="kycForm.end_year_amount">
                                                                                                 <Form.Label>Annual Income</Form.Label>
-                                                                                                <Form.Control as="select" name="end_year_amount" className="form-control">
+                                                                                                <Form.Control as="select" name="end_year_amount" onChange={this.handleChange} value={this.state.form.end_year_amount} className="form-control">
                                                                                                 <option value="less_than50000">Less than N50,000</option>
                                                                                                 <option value="51000-150000">N51,000 - N150,000</option>
                                                                                                 <option value="151000-250000">N151,000 - N250,000</option>
@@ -228,7 +265,7 @@ class KycSetting extends Component {
                                                                                                 type="text"
                                                                                                 onChange={this.handleChange}
                                                                                                 value={this.state.form.maiden_name}
-                                                                                                placeholder ="maiden name"
+                                                                                        
                                                                                             />
                                                                                         </Form.Group>
                                                                                         {/* <Form.Text>Mother maiden name.</Form.Text> */}
@@ -244,8 +281,12 @@ class KycSetting extends Component {
                                                                                         Birth</label>
                                                                                     <input type="date" id="dateofbirth"
                                                                                            className="form-control"
-                                                                                           placeholder="Company Name"
-                                                                                           name="company"/>
+                                                                                           placeholder="" 
+                                                                                           value={this.state.form.date_of_birth}
+                                                                                           onChange={this.handleChange}
+                                                                                           name="date_of_birth"
+                                                                                           required
+                                                                                        />
                                                                                 </div>
 
                                                                             </div>
@@ -253,8 +294,9 @@ class KycSetting extends Component {
                                                                                 <div className="form-group">
                                                                                 <Form.Group controlId="kycForm.address">
                                                                                         <Form.Label>Address</Form.Label>
-                                                                                        <Form.Control as="textarea" rows="3" />
+                                                                                        <Form.Control name="address" as="textarea" value={this.state.form.address} rows="3" onChange={this.handleChange}/>
                                                                                         </Form.Group>
+                                                                                        {this.validator.message("address",this.state.form.address,"required")}
                                                                               </div>
                                                                             </div>
 
@@ -266,16 +308,7 @@ class KycSetting extends Component {
                                                                     </div>
 
                         
-                                                                    <Form.Row className={'d-flex justify-content-between mt-2'}>
-                    
-                                                                    <div className={'d-flex justify-content-end'}>
-                                                                        <Button className={'round btn-gradient-blue '} type="submit">
-                                                                            {this.state.loading ? <ButtonLoader/>  : "Update KYC"}
-                                                                        </Button>
-                                                                    </div>
-
-                                                                </Form.Row>
-                                                                </Form>
+                                                               
                                                             </div>
                                                         </div>
                                                     </div>
@@ -301,66 +334,59 @@ class KycSetting extends Component {
                                                                 <form className="form lock-form">
                                                                     <div className="form-body">
                                                                         <div className="row">
+                                                                    
                                                                             <div className="col-md-12">
                                                                                 <div className="form-group">
-                                                                                    <label htmlFor="identification">Identification
-                                                                                        Type - ID Type</label>
-                                                                                    <select id="identification"
-                                                                                            name="interested"
-                                                                                            className="form-control">
-                                                                                        <option value="none" selected=""
-                                                                                                disabled="">Driver's
-                                                                                            License
-                                                                                        </option>
-                                                                                        <option value="design">design
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="development">development
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="illustration">illustration
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="branding">branding
-                                                                                        </option>
-                                                                                        <option value="video">video
-                                                                                        </option>
-                                                                                    </select>
+                                                                                <Form.Group controlId="kycForm.identification_type">
+                                                                                                <Form.Label>Identification
+                                                                                        Type - ID Type</Form.Label>
+                
+                                                                                                <Form.Control as="select" name="identification_type"  onChange={this.handleChange} className="form-control">
+                                                                                                <option value="InternationalPassport">International Passport</option>
+                                                                                                <option value="Driver'sLicence">Driver's Licence</option>
+                                                                                                <option value="NationalIdCard">National Id Card</option>
+                                                                                                <option value="PermanentVotersCard">Permanent Voters Card</option>
+                                                                                            </Form.Control>
+                                                                                            </Form.Group>
+                                                                        
                                                                                 </div>
                                                                             </div>
+                                                                           
                                                                             <div className="col-md-12">
                                                                                 <div className="form-group">
-                                                                                    <label htmlFor="userinput2">Identification
-                                                                                        Number</label>
-                                                                                    <input type="text" id="userinput2"
-                                                                                           className="form-control "
-                                                                                           placeholder="Company"
-                                                                                           name="company"/>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="col-md-12">
-                                                                                <div className="form-group">
-                                                                                    <label htmlFor="userinput2">Identification
-                                                                                        Number</label>
-                                                                                    <input type="text" id="userinput2"
-                                                                                           className="form-control "
-                                                                                           placeholder="Company"
-                                                                                           name="company"/>
+                                                                                <Form.Group controlId="kycForm.password">
+                                                                                    <Form.Label>Identification
+                                                                                        Number</Form.Label>
+                                                                                    <Form.Control name = "identification_type_number" type="number" onChange={this.handleChange} value={this.state.form.identification_type_number} placeholder="e.g 1234456765" />
+                                                                                </Form.Group>
+                                                                                {this.validator.message("identification_type_number",this.state.form.identification_type_number,"required")}
+                                                                                    
                                                                                 </div>
                                                                             </div>
                                                                             <div className=" col-md-12">
+                                                                            
 
                                                                                 <div className="form-group">
-                                                                                    <div className="custom-file">
+                                                                                <Form.Group controlId="kycForm.password">
+                                                                                    <Form.Label>Identification
+                                                                                        File</Form.Label>
+        
+                                                                                </Form.Group>
+                                                                                    <input type ="file"
+                                                                                                onChange={this.handleFileChange} name = "identification_type_picture_url" required/>
+                                                                                    {/* <div className="custom-file1"> 
                                                                                         <input type="file"
-                                                                                               className="custom-file-input"
-                                                                                               id="inputGroupFile01"/>
+                                                    
+                                                                                                onChange={this.handleFileChange}
+                                                                                                 className="custom-file-input"
+                                                                                               name = "identification_type_picture_url"
+                                                                                               id="inputGroupFile01" required/> 
                                                                                             <label
                                                                                                 className="custom-file-label"
-                                                                                                htmlFor="inputGroupFile01">Browse</label>
-                                                                                    </div>
+                                                                                                htmlFor="inputGroupFile01">Browse</label> 
+                                                                                   </div> */}
                                                                                 </div>
-
+                                                                            
                                                                             </div>
                                                                         </div>
                                                                         <div className="row">
@@ -371,8 +397,10 @@ class KycSetting extends Component {
                                                                                         Date</label>
                                                                                     <input type="date" id="issuedate"
                                                                                            className="form-control"
-                                                                                           placeholder="Company Name"
-                                                                                           name="company"/>
+                                                                                           placeholder=""
+                                                                                           value={this.state.form.issue_date}
+                                                                                           onChange={this.handleChange}
+                                                                                           name="issue_date" required/>
                                                                                 </div>
 
                                                                             </div>
@@ -382,9 +410,11 @@ class KycSetting extends Component {
                                                                                     <label htmlFor="expirydate">Id
                                                                                         Expiry Date</label>
                                                                                     <input type="date" id="expirydate"
+                                                                                        value={this.state.form.expiry_date}
+                                                                                        onChange={this.handleChange}
                                                                                            className="form-control"
-                                                                                           placeholder="Company Name"
-                                                                                           name="company"/>
+                                                                                           placeholder=""
+                                                                                           name="expiry_date" required/>
                                                                                 </div>
 
                                                                             </div>
@@ -394,12 +424,13 @@ class KycSetting extends Component {
                                                                             <div className="col-md-6">
 
                                                                                 <div className="form-group">
-                                                                                    <label>Please Re-Enter
-                                                                                        Password</label>
-                                                                                    <input className="form-control "
-                                                                                           id="userinput7"
-                                                                                           type="password"
-                                                                                           placeholder="password"/>
+                                                                                <Form.Group controlId="kycForm.password">
+                                                                                    <Form.Label>Please Re-Enter
+                                                                                        Password</Form.Label>
+                                                                                    <Form.Control name = "password" value={this.state.form.password} onChange={this.handleChange} type="password" placeholder="******" />
+                                                                                </Form.Group>
+                                                                                {this.validator.message("password",this.state.form.password,"required")}
+                                                                                
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -407,11 +438,18 @@ class KycSetting extends Component {
 
                                                                     </div>
 
-                                                                    <div className="form-actions right">
-                                                                        <button type="button"
-                                                                                className="btn  btn-bg-shade-2 round px-3 py-1 ">
-                                                                            Save
-                                                                        </button>
+                                                                    <div className="form-actions left">
+
+                                                                    <Form.Row className={'d-flex justify-content-end mt-2'}>
+                    
+                                                                       
+                                                                            <Button className={'blue-round-btn auth-btn'} type="submit">
+                                                                                {this.state.loading ? <ButtonLoader/>  : "Update KYC"}
+                                                                            </Button>
+                                                                        
+
+                                                                    </Form.Row>
+                                                                        
                                                                     </div>
                                                                 </form>
 
@@ -421,6 +459,7 @@ class KycSetting extends Component {
                                                 </div>
                                             </div>
                                         </section>
+                                         </Form>
                                     </div>
 
 
@@ -430,8 +469,10 @@ class KycSetting extends Component {
                         </div>
                     </div>
                 </div>
+                </ToastProvider>
             </React.Fragment>
         );
     }
 }
-export default KycSetting;
+
+export default withToastManager(KycSetting);

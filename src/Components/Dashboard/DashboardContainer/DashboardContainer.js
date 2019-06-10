@@ -9,7 +9,7 @@ import TotalInterestCard from "../TotalSavingsCard/TotalInterestCard";
 import moment from "moment";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import {amountFormatter, dateFormatter, descriptionFormatter, statusFormatter} from "../../../Helpers/Helper";
-
+import { textFilter } from 'react-bootstrap-table2-filter';
 
 
 class DashboardContainer extends Component {
@@ -22,6 +22,17 @@ class DashboardContainer extends Component {
     // send the the children components
 
 
+    runFilter = ()=>{
+
+        //take the value of select
+        const filterValue = document.getElementById('filter-param').value;
+
+        //setup table for filter
+
+        // use value to filter table
+
+    }
+
 
 
     render() {
@@ -29,6 +40,7 @@ class DashboardContainer extends Component {
         let {error, activateAccount} = this.props;
 
         //set appropriate data for vault cards
+        let typeFilter;
 
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
@@ -40,32 +52,32 @@ class DashboardContainer extends Component {
                 text: 'Date',
                 dataField: 'created_at' ,
                 formatter:dateFormatter,
-                sort:true
+                sort:true,
             },
             {
                 text: 'Description',
                 dataField: 'type',
                 formatter:descriptionFormatter,
-                sort:true
+                sort:true,
 
             },
             {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter:amountFormatter,
-                sort:true
+                sort:true,
 
             },
             {
                 text: 'Status',
                 dataField: 'status',
                 formatter:statusFormatter,
-                sort:true
+                sort:true,
             },
             {
                 text: 'Reference',
                 dataField: 'reference',
-                sort:true
+                sort:true,
 
             }];
 
@@ -121,7 +133,7 @@ class DashboardContainer extends Component {
                             </div>
 
                             <div className="row">
-                                <TransactionTable transactions={transactions} columns={columns} />
+                                <TransactionTable runFilter={this.runFilter} transactions={transactions} columns={columns} />
 
                             </div>
 

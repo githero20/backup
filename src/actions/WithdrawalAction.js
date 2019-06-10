@@ -3,7 +3,8 @@ import {
     CreateWithdrawalSettings,
     GetWithdrawal,
     GetWithdrawalPenalty,
-    GetWithdrawalSettings, MakeWithdrawal,
+    GetWithdrawalSettings,
+    MakeWithdrawal,
 } from "../RouteLinks/RouteLinks";
 
 
@@ -14,6 +15,7 @@ export const getWithdrawalList = (callback) =>{
         })
         .catch(err => {
             console.log("Err", JSON.stringify(err));
+            console.log("Err", err);
             callback(false, err.response.data.message || "An Error Occurred");
         })
 };
@@ -56,7 +58,7 @@ export const createWithdrawalSettings = (payload, callback) => {
 export const getWithdrawalSettings = (callback) => {
     _axios.get(`${GetWithdrawalSettings}`)
         .then(res => {
-            callback(res.data.status == "success", res.data.data);
+            callback(res.data.status == "success", res.data);
         })
         .catch(err => {
             try{

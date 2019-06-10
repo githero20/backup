@@ -31,6 +31,7 @@ class WithdrawalForm extends Component {
             nextDate:"",
             userBalance:0.00,
             penaltyFreeDay:false,
+            settingsOwner:"you",
             form:{
                 penalty_from:"central_vault",
                 withdraw_amount:"500",
@@ -74,32 +75,29 @@ class WithdrawalForm extends Component {
 
     };
 
-    saveBalance (state,res){
+    saveBalance =(state,res)=>{
 
         if(state){
 
-            if (res.data.data.accounts) {
+                if (res.data.data.accounts) {
 
-                console.log(res.data.data.accounts);
+                    console.log(res.data.data.accounts);
 
-                // loop through data and set appropriate states
-                let accounts = res.data.data.accounts.data;
+                    // loop through data and set appropriate states
+                    let accounts = res.data.data.accounts.data;
 
-                let balance ;
-                //get th balance
-                accounts.map((content, idx) => {
-                    if (content.account_type_id === STANDARD_ACCOUNT) {
-                        balance = content.balance;
-                    }
-                });
+                    //get th balance
+                    accounts.map((content, idx) => {
+                        if (content.account_type_id === STANDARD_ACCOUNT) {
+                            this.setState({
+                                userBalance:content.balance
+                            });
+                        }
+                    });
 
-                this.setState({
-                    userBalance:balance
-                },()=>{
-                    console.log('set the state');
-                });
 
-            }
+
+                }
 
 
         }
@@ -113,9 +111,10 @@ class WithdrawalForm extends Component {
         // e.preventDefault();
         getWithdrawalSettings((status, payload) => {
             if(status){
-                console.log('withdrawal form:'+JSON.parse(payload));
-                this.setState({withdrawalSettings:payload});
-                this.getNextWithdrawalDate(payload);
+
+                console.log("Withdr", status, payload);
+                this.setState({withdrawalSettings:payload.data, settingsOwner: payload.owner});
+                this.getNextWithdrawalDate(payload.data);
             }else{
                 this.props.toastManager.add("unable to get withdrawal settings",{
                     appearance: "error",
@@ -220,7 +219,7 @@ class WithdrawalForm extends Component {
                         autoDismiss: true,
                         autoDismissTimeout: 5000
                     });
-                    this.props.updateWithdrawal();
+                    this.props.updateWithdrawalList();
                 }else{
                     this.props.toastManager.add(payload,{
                         appearance: "error",
@@ -383,7 +382,10 @@ class WithdrawalForm extends Component {
                                 }
                             </ul>
 
-                            <button className='btn btn-custom-blue btn-block' onClick={this.showWithdrawalSettings}>Change Settings</button>
+                            {
+                                this.state.settingsOwner == "you" ? "" :
+                                    <button className='btn btn-custom-blue btn-block' onClick={this.showWithdrawalSettings}>Change Settings</button>
+                            }
                         </div>
                     </Fragment>
                 </div>

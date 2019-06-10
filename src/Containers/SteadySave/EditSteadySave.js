@@ -100,7 +100,7 @@ class SteadySaveForm extends Component {
             this.validator.showMessages();
             this.forceUpdate();
         } else {
-            console.log("here");
+            console.log("here", this.state.form);
             this.setState({loading:true});
             updateSteadySave(this.props.steadySave.id, this.state.form,(status, payload) => {
                 this.setState({loading:false});

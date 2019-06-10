@@ -1,11 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import totalBalanceIcon from "../../admin/app-assets/images/svg/total-balance-icon.svg";
-import {
-    createWithdrawalSettings,
-    getWithdrawalPenalty,
-    getWithdrawalSettings,
-    makeWithdrawal
-} from "../../actions/WithdrawalAction";
+import {getWithdrawalPenalty, getWithdrawalSettings, makeWithdrawal} from "../../actions/WithdrawalAction";
 import {withToastManager} from "react-toast-notifications";
 import {getUserBanks} from "../../actions/BankAction";
 import moment from "moment";
@@ -13,6 +8,7 @@ import WithdrawalSettingsModal from "./Settings/WithdrawalSettingsModal";
 import SimpleReactValidator from "simple-react-validator";
 import {_handleFormChange} from "../../utils";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
+
 class WithdrawalForm extends Component {
 
     constructor(props){
@@ -25,6 +21,7 @@ class WithdrawalForm extends Component {
             hasPenalty:true,
             nextDate:"",
             penaltyFreeDay:false,
+            settingsOwner:"you",
             form:{
                 penalty_from:"central_vault",
                 withdraw_amount:"500",
@@ -54,8 +51,9 @@ class WithdrawalForm extends Component {
         // e.preventDefault();
         getWithdrawalSettings((status, payload) => {
             if(status){
-                this.setState({withdrawalSettings:payload});
-                this.getNextWithdrawalDate(payload);
+                console.log("Withdr", status, payload);
+                this.setState({withdrawalSettings:payload.data, settingsOwner: payload.owner});
+                this.getNextWithdrawalDate(payload.data);
             }else{
                 this.props.toastManager.add("unable to get withdrawal settings",{
                     appearance: "error",
@@ -82,7 +80,11 @@ class WithdrawalForm extends Component {
     getUserBanks(){
         getUserBanks((status, payload) => {
             if(status){
-                this.setState({userBanks:payload});
+                if(payload && payload.length > 0){
+                    this.setState({userBanks:payload});
+                }else{
+                    this.props.history.push("/bank-card-setting");
+                }
             }else{
                 this.props.toastManager.add("Unable to get bank accounts",{
                     appearance: "error",
@@ -151,6 +153,7 @@ class WithdrawalForm extends Component {
                         autoDismiss: true,
                         autoDismissTimeout: 5000
                     });
+                    this.props.updateWithdrawalList();
                 }else{
                     this.props.toastManager.add(payload,{
                         appearance: "error",
@@ -311,7 +314,10 @@ class WithdrawalForm extends Component {
                                 }
                             </ul>
 
-                            <button className='btn btn-custom-blue btn-block' onClick={this.showWithdrawalSettings}>Change Settings</button>
+                            {
+                                this.state.settingsOwner == "you" ? "" :
+                                    <button className='btn btn-custom-blue btn-block' onClick={this.showWithdrawalSettings}>Change Settings</button>
+                            }
                         </div>
                     </Fragment>
                 </div>

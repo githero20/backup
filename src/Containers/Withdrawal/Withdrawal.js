@@ -8,7 +8,6 @@ import {ToastProvider, withToastManager} from "react-toast-notifications";
 import {getWithdrawalList} from "../../actions/WithdrawalAction";
 import WithdrawalList from "./WithdrawalList";
 import WithdrawalForm from "./WithdrawalForm";
-import {getUserBanks} from "../../actions/BankAction";
 
 class Withdrawal extends Component {
 
@@ -17,42 +16,21 @@ class Withdrawal extends Component {
         this.state = {
             showWithdrawalForm: false,
             withdrawals: [],
-            banks:[]
         };
 
         this.showForm = this.showForm.bind(this);
         this.hideForm = this.hideForm.bind(this);
-        this.getUserBanks = this.getUserBanks.bind(this);
+        this.getWithdrawalList = this.getWithdrawalList.bind(this);
     }
 
-    getUserBanks(){
-        getUserBanks((status, payload) => {
-            if(status){
-                if(payload && payload.length > 0){
-                    this.setState({banks:payload});
-                }
-            }else{
-                this.props.toastManager.add("Unable to fetch Bank Accounts",{
-                    appearance: 'error',
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
-                })
-            }
-        })
-    }
 
     componentWillMount() {
         this.getWithdrawalList();
-        this.getUserBanks();
     }
 
     getWithdrawalList() {
         getWithdrawalList((status, payload) => {
             if (status) {
-                // this.props.toastManager.add("Withdrawals", {
-                //     appearance: "success",
-                //     autoDismiss: true
-                // });
                 this.setState({withdrawals: payload.data});
             } else {
                 this.props.toastManager.add("Unable to get withdrawals at this moment", {
@@ -62,13 +40,8 @@ class Withdrawal extends Component {
             }
         })
     }
-
     showForm() {
-        if(this.state.banks.length > 0){
-            this.setState({showWithdrawalForm: true});
-        }else{
-            this.props.history.push("/bank-card-setting");
-        }
+        this.setState({showWithdrawalForm: true});
     }
 
     hideForm(status){
@@ -134,7 +107,7 @@ class Withdrawal extends Component {
                                                     {
                                                         !this.state.showWithdrawalForm
                                                             ? <WithdrawalList showForm={this.showForm} withdrawals={this.state.withdrawals}/>
-                                                            : <WithdrawalForm hideForm={this.hideForm}/>
+                                                            : <WithdrawalForm hideForm={this.hideForm} updateWithdrawalList={this.getWithdrawalList}/>
                                                     }
                                                 </ToastProvider>
                                             </div>

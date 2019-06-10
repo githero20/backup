@@ -5,6 +5,8 @@ import SimpleReactValidator from "simple-react-validator";
 import {withToastManager} from 'react-toast-notifications';
 import ButtonLoader from "../../../Components/Auth/Buttonloader/ButtonLoader";
 import {createWithdrawalSettings} from "../../../actions/WithdrawalAction";
+import moment from "moment";
+
 class WithdrawalSettingsForm extends Component {
 
     constructor(props) {
@@ -46,8 +48,10 @@ class WithdrawalSettingsForm extends Component {
             const {form} = this.state;
             const param = {
                 label: ["First Quarter", "Second Quarter", "Third Quarter","Fourth Quarter"],
-                withdrawal_date: [form.first_quarter, form.second_quarter, form.third_quarter, form.fourth_quarter]
+                withdrawal_date: [moment(form.first_quarter).format("M/DD"), moment(form.second_quarter).format("M/DD"), moment(form.third_quarter).format("M/DD"), moment(form.fourth_quarter).format("M/DD")]
             };
+
+            console.log("Log", param);
 
             createWithdrawalSettings(param,(status, payload) =>{
                 this.setState({loading:false});

@@ -2,8 +2,95 @@ import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
+import Form from "react-bootstrap/Form";
+import Col from 'react-bootstrap/Col';
+import Button from "react-bootstrap/Button";
+import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
+import SimpleReactValidator from "simple-react-validator";
+import {_handleFormChange} from "../../utils/index";
+import {getUserKyc,storeUserKyc} from "../../actions/KycAction"
 
 class KycSetting extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            kyc: [],
+            loading:false,
+            resolved:false,
+            form: {
+                maiden_name:"",
+                password:"",
+                address:"",
+                relationship_status:"",
+                employment_status:"",
+                end_year_amount:"",
+                edit:"",
+                identification_type:"",
+                // identification_type_picture_url:"",
+                identification_type_number:"",
+                issue_date:"",
+                expiry_date:"",
+                edit :0
+            }
+        };
+        this.validator = new SimpleReactValidator();
+
+       this.validateForm = this.validateForm.bind(this);
+       this.handleChange = this.handleChange.bind(this);
+
+       
+    }
+    validateForm(e){
+        e.preventDefault();
+    
+        if (!this.validator.allValid()) {
+            this.validator.showMessages();
+            // this.props.toastManager("An Error Occured");
+            // rerender to show messages for the first time
+            this.forceUpdate();
+        }else{
+            this.setState({loading:true});
+            this.storeUserKyc();
+            
+        }
+    
+    }
+    handleChange(e){
+        this.setState({resolved:false});
+        _handleFormChange(e.target.name,e, this)
+    }
+
+    componentWillMount() {
+        this.getUserKych();
+    }
+
+    storeUserKyc(){
+        const {form} = this.state;
+        storeUserKyc(form,(status,result)=>{
+            console.log(status);
+            console.log(result);
+        });
+
+    }
+    getUserKych(){
+        getUserKyc((status,result) => {
+            console.log("get user kyc")
+            console.log(status);
+            console.log(result);
+            if(status){
+                console.log(result.edit)
+                if(result.edit == 1){
+                    this.form.maiden_name= result.data.maiden_name;
+                    
+                }
+            }
+            else{
+
+            }
+        });
+
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -24,7 +111,7 @@ class KycSetting extends Component {
                             <div className="content-body">
                                 <div className="row">
                                     <div className="col-lg-12 col-12">
-                                        <h3 className="gray-header-text mb-2 ">New Savings Plan
+                                        <h3 className="gray-header-text mb-2 ">KYC Settings
 
                                         </h3>
                                         <section id="basic-form-layouts">
@@ -47,131 +134,107 @@ class KycSetting extends Component {
                                                         </div>
                                                         <div className="card-content collapse show" >
                                                             <div className="card-body px-5">
-
-                                                                <form className="form lock-form">
+                                                            
+       
+                                                                <Form className="form lock-form" onSubmit={this.validateForm}>
                                                                     <div className="form-body">
                                                                         <div className="row">
                                                                             <div className="col-md-6">
                                                                                 <div className="form-group">
-                                                                                    <label
-                                                                                        htmlFor="gender">Gender</label>
-                                                                                    <select id="gender"
-                                                                                            name="interested"
-                                                                                            className="form-control">
-                                                                                        <option value="none" selected=""
-                                                                                                disabled="">Male
-                                                                                        </option>
-                                                                                        <option value="design">design
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="development">development
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="illustration">illustration
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="branding">branding
-                                                                                        </option>
-                                                                                        <option value="video">video
-                                                                                        </option>
-                                                                                    </select>
+                                                                                          <Form.Group controlId="exampleForm.ControlSelect1">
+                                                                                                <Form.Label>Gender</Form.Label>
+                                                                                                <Form.Control as="select" name="gender"  value={this.state.form.gender} onChange={this.handleChange} className="form-control">
+                                                                                                <option value ="male">Male</option>
+                                                                                                <option value="female">Female</option>
+                                                    
+                                                                                            </Form.Control>
+                                                                                            </Form.Group>
                                                                                 </div>
                                                                             </div>
                                                                             <div className="col-md-6">
                                                                                 <div className="form-group">
-                                                                                    <label
-                                                                                        htmlFor="relationship">Relationship</label>
-                                                                                    <select id="relationship"
-                                                                                            name="interested"
-                                                                                            className="form-control">
-                                                                                        <option value="none" selected=""
-                                                                                                disabled="">
-                                                                                            Single
-                                                                                        </option>
-                                                                                        <option value="design">design
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="development">development
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="illustration">illustration
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="branding">branding
-                                                                                        </option>
-                                                                                        <option value="video">video
-                                                                                        </option>
-                                                                                    </select>
+                                                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                                                                <Form.Label>Relationship</Form.Label>
+                                                                                                <Form.Control as="select" name="relationship" className="form-control">
+                                                                                                <option value="single">Single</option>
+                                                                                                <option value ="married">Married</option>
+                                                                                                <option value="divorced">Divorce</option>
+                                                    
+                                                                                            </Form.Control>
+                                                                                            </Form.Group>
+                                                        
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div className="row">
                                                                             <div className="col-md-12">
                                                                                 <div className="form-group">
-                                                                                    <label htmlFor="employment">Employment
-                                                                                        Status</label>
-                                                                                    <select id="employment"
-                                                                                            name="interested"
-                                                                                            className="form-control">
-                                                                                        <option value="none" selected=""
-                                                                                                disabled="">Self
-                                                                                            Employed
-                                                                                        </option>
-                                                                                        <option value="design">design
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="development">development
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="illustration">illustration
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="branding">branding
-                                                                                        </option>
-                                                                                        <option value="video">video
-                                                                                        </option>
-                                                                                    </select>
-                                                                                </div>
+                                                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                                                                <Form.Label>Employment Status</Form.Label>
+                                                                                                <Form.Control as="select" name="employment_status" className="form-control">
+                                                                                                <option value="student">Student</option>
+                                                                                                <option value ="employed">Employed</option>
+                                                                                                <option value="unemployed">UnEmployed</option>
+                                                                                                <option value="self-employed/entrepreneur">Self-Employed/Entrepreneur</option>
+                                                    
+                                                                                            </Form.Control>
+                                                                                            </Form.Group>
+                                                                                                                                                                            </div>
+                                                                            </div>
+                                                                            <div className="col-md-12">
+                                                                                <div className="form-group">
+                                                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                                                                <Form.Label>Employment Status</Form.Label>
+                                                                                                <Form.Control as="select" name="employment_status" className="form-control">
+                                                                                                <option value="student">Student</option>
+                                                                                                <option value ="employed">Employed</option>
+                                                                                                <option value="unemployed">UnEmployed</option>
+                                                                                                <option value="self-employed/entrepreneur">Self-Employed/Entrepreneur</option>
+                                                    
+                                                                                            </Form.Control>
+                                                                                            </Form.Group>
+                                                                                                                                                                            </div>
                                                                             </div>
 
                                                                             <div className="col-md-12">
                                                                                 <div className="form-group">
-                                                                                    <label htmlFor="annualincome">Annual
-                                                                                        Income</label>
-                                                                                    <select id="annualincome"
-                                                                                            name="interested"
-                                                                                            className="form-control">
-                                                                                        <option value="none" selected=""
-                                                                                                disabled="">Less
-                                                                                            than ₦ 15,000
-                                                                                        </option>
-                                                                                        <option value="design">design
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="development">development
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="illustration">illustration
-                                                                                        </option>
-                                                                                        <option
-                                                                                            value="branding">branding
-                                                                                        </option>
-                                                                                        <option value="video">video
-                                                                                        </option>
-                                                                                    </select>
+                                                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                                                                <Form.Label>Annual Income</Form.Label>
+                                                                                                <Form.Control as="select" name="end_year_amount" className="form-control">
+                                                                                                <option value="less_than50000">Less than N50,000</option>
+                                                                                                <option value="51000-150000">N51,000 - N150,000</option>
+                                                                                                <option value="151000-250000">N151,000 - N250,000</option>
+                                                                                                <option value="251000-500000">N251,000 - N500,000</option>
+                                                                                                <option value="501000-1Million">N501,000 - N1 Million</option>
+                                                                                                <option value="1Million-5Million">N1 Million - N5 Million</option>
+                                                                                                <option value="5Million-10Million">N5 Million - N10 Million</option>
+                                                                                                <option value="Above10Million">Above N10 Million</option>
+                                                                                            </Form.Control>
+                                                                                            </Form.Group>
+                                                                                    
                                                                                 </div>
                                                                             </div>
 
                                                                             <div className="col-md-6">
 
                                                                                 <div className="form-group">
-                                                                                    <label htmlFor="companyName">Mothers
-                                                                                        maiden Name</label>
-                                                                                    <input type="text" id="companyName"
-                                                                                           className="form-control"
-                                                                                           placeholder="Company Name"
-                                                                                           name="company"/>
-                                                                                </div>
+                                                                                    
+                                                                                        <Form.Row>
+                                                                                        <Form.Group as={Col} controlId="kycForm.maiden_name">
+                                                                                            <Form.Label>Mothers
+                                                                                        maiden Name: </Form.Label>
+                                                                                            <Form.Control
+                                                                                                name="maiden_name"
+                                                                                                type="text"
+                                                                                                onChange={this.handleChange}
+                                                                                                value={this.state.form.maiden_name}
+                                                                                                placeholder ="maiden name"
+                                                                                            />
+                                                                                        </Form.Group>
+                                                                                        {/* <Form.Text>Mother maiden name.</Form.Text> */}
+                                                                                         {this.validator.message("maiden_name",this.state.form.maiden_name,"required")}
+                                                                                    </Form.Row>
+                                                                                     </div>
 
                                                                             </div>
                                                                             <div className="col-md-6">
@@ -186,18 +249,15 @@ class KycSetting extends Component {
                                                                                 </div>
 
                                                                             </div>
-
                                                                             <div className="col-md-12">
-
                                                                                 <div className="form-group">
-                                                                                    <label
-                                                                                        htmlFor="address">Address</label>
-                                                                                    <textarea id="address" rows="5"
-                                                                                              className="form-control"
-                                                                                              name="comment"/>
-                                                                                </div>
-
+                                                                                <Form.Group controlId="kycForm.address">
+                                                                                        <Form.Label>Address</Form.Label>
+                                                                                        <Form.Control as="textarea" rows="3" />
+                                                                                        </Form.Group>
+                                                                              </div>
                                                                             </div>
+
 
 
                                                                         </div>
@@ -205,13 +265,17 @@ class KycSetting extends Component {
 
                                                                     </div>
 
-                                                                    <div className="form-actions clearfix">
-                                                                        <button type="button"
-                                                                                className="btn  btn-bg-shade-2 px-3 py-1 round pull-right">Update
-                                                                            KYC
-                                                                        </button>
+                        
+                                                                    <Form.Row className={'d-flex justify-content-between mt-2'}>
+                    
+                                                                    <div className={'d-flex justify-content-end'}>
+                                                                        <Button className={'round btn-gradient-blue '} type="submit">
+                                                                            {this.state.loading ? <ButtonLoader/>  : "Update KYC"}
+                                                                        </Button>
                                                                     </div>
-                                                                </form>
+
+                                                                </Form.Row>
+                                                                </Form>
                                                             </div>
                                                         </div>
                                                     </div>

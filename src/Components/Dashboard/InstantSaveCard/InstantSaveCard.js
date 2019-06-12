@@ -12,7 +12,7 @@ const InstantSaveCard =(props)=> {
                     <div className="card-content">
                         <div className="card-body">
                             <h4 className="text-white blue-card-heading ">Total Balance</h4>
-                            <div className="media d-flex pb-2 pb-md-5">
+                            <div className="media d-flex pb-2 ">
                                 <div className="align-self-center">
                                     <img className="blue-card-icon"
                                          src={totalBalanceIcon}/>

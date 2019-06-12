@@ -4451,10 +4451,19 @@ input:-webkit-autofill {
 
 .ad-container{
     padding:3rem 0rem 0rem 0rem;
+    background-position: top center;
+}
+
+.ad-container-modal .modal-content{
+    background-image: url("../../app-assets/images/svg/ad-background.svg");
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 5rem;
 }
 .ad-container .ad-placeholder{
-    width:8rem;
-    height: 8rem;
+    width:10rem;
+    height:10rem;
     background-color: white;
     text-align: center;
     border-radius:.8rem;
@@ -4470,6 +4479,17 @@ input:-webkit-autofill {
     padding:1rem 0rem;
     margin-bottom: 3rem;
 }
+.ad-container .ad-img{
+    padding:1rem 0rem;
+   margin: 3px auto;
+}
 .table-card{
     overflow: auto;
+}
+.descriptive-info{
+    color: white;
+    border-radius:2rem;
+}
+.mt-7px{
+    margin-top:7px;
 }

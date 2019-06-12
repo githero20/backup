@@ -20,6 +20,7 @@ import {getSteadySaveEndpoint, getUserInfoEndpoint} from "../../RouteLinks/Route
 import SteadySaveTransTable from "../../Components/Dashboard/SteadySaveTransTable/SteadySaveTransTable";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
+import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
 
 class SteadySave extends Component {
     constructor(props) {
@@ -265,6 +266,13 @@ class SteadySave extends Component {
 
                                 <div className="row">
 
+                                    <div className="col-lg-4 col-12 order-lg-8">
+                                        <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
+                                            <p>Start saving your money here whenever you want!
+                                                We want you to be disciplined, so we’ll charge you 5% if you choose
+                                                to withdraw outside of your set withdrawal days.</p>
+                                        </div>
+                                    </div>
 
                                     <SteadySaveCard totalBalance={this.state.totalBalance}
                                                     newSteadySave={this.showNewSteadySaveModal}/>
@@ -301,31 +309,27 @@ class SteadySave extends Component {
                                     {/*</div>*/}
 
 
-                                    <div className="col-lg-4 col-12">
+                                    <div className="col-lg-3 col-12 order-lg-5">
                                         <h3 className="gray-header-text fs-mb-1 mb-2">Quick Actions</h3>
-
-                                        <div className="mb-quick-actions d-flex flex-md-column flex-wrap ">
-                        <span className="mb-btn-wrapper">
-                            <button type="button" onClick={this.showModal} className=" btn-blue-gradient-2 round">
-                                <img src={settingsIcon}/>
-                                Edit Savings Plan
-                            </button>
-
-                        </span>
+                                        <div className="mb-quick-actions d-flex flex-column flex-wrap ">
+                                            <span className="mb-btn-wrapper">
+                                                <button type="button" onClick={this.showModal} className=" btn-blue-gradient-2 round">
+                                                    <img src={whiteSaveMoreIcon}/>
+                                                    Edit Savings Plan
+                                                </button>
+                                            </span>
                                             <span className="mb-details-container ">
-                            <div className="d-inline-block q-detail-img">
-                                <img src={uploadIcon}/>
-                            </div>
-                            <div className=" d-inline-block">
-                                <strong
-                                    className="dark-brown font-size-1-16"><span>₦</span> {this.state.totalSteadySave}</strong>
-                                <p className="gray-text circular-std mb-p-size">Total Steady Save</p>
-                            </div>
-                        </span>
+                                                <div className="d-inline-block q-detail-img">
+                                                    <img src={uploadIcon}/>
+                                                </div>
+                                                <div className=" d-inline-block">
+                                                    <strong
+                                                        className="dark-brown font-size-1-16"><span>₦</span> {this.state.totalSteadySave}</strong>
+                                                    <p className="gray-text circular-std mb-p-size">Total Steady Save</p>
+                                                </div>
+                                            </span>
                                         </div>
                                     </div>
-
-
                                 </div>
 
                                 <div className="row">

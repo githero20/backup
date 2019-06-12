@@ -21,7 +21,7 @@ import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
 import pinIcon from "../../admin/app-assets/images/svg/pin-icon.svg";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
 import CommentImage from "../../admin/app-assets/images/call-to-act-bg.png";
-import tm30 from "../../admin/app-assets/images/svg/tm30.svg";
+import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import horizonImage from "../../admin/app-assets/images/svg/horizon.svg";
 import accentureImage from "../../images/svg/accenture.svg";
 import sfsImage from "../../images/sfs.jpg";
@@ -90,14 +90,14 @@ class Home extends Component {
                                 </div>
                             </nav>
                             {/*row and two columns */}
-                            <div className="row pt-lg-3">
-                                <div className="col-lg-6 mt-md-5 mt-lg-1 text-center text-lg-left">
+                            <div className="row pt-lg-1">
+                                <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
                                     <div className="header-words-container pt-lg-5 pr-lg-3">
-                                        <h1 className="header-title mt-5 mt-lg-1 mb-5 mt-md-0 mb-sm-3 px-2 px-sm-0 ">
+                                        <h1 className="header-title mt-5 mt-lg-1 mb-2 mt-md-0  px-2 px-sm-0 ">
                                             Protecting your interest is our business.</h1>
                                         <p className="header-sub-title mb-0 ">
                                             Save as little as <strong>₦500 </strong></p>
-                                        <p className="header-sub-title mb-5">
+                                        <p className="header-sub-title mb-2">
                                             Earn up to <strong>13% </strong> interest on Savings. </p>
                                         <Link to={'/sign-up'}
                                               className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow"> Create
@@ -122,11 +122,11 @@ class Home extends Component {
                                         </div>
                                         <h2 className="section-details-header text-center text-md-left">Watch Your Money
                                             Grow</h2>
-                                        <p className="section-details-paragraph mb-1 text-center text-md-left ">
+                                        <p className="section-details-paragraph mb-1 text-justify ">
                                             Backup cash is a secure and innovative savings
                                             platform that allows you automate your savings
                                             and earn interest on your deposits. </p>
-                                        <p className="section-details-paragraph text-center text-md-left">
+                                        <p className="section-details-paragraph  text-justify ">
                                             Our platform is designed to help users cultivate a
                                             focused financial attitude by saving little amounts
                                             of money periodically towards a specific financial
@@ -182,7 +182,7 @@ class Home extends Component {
                                             <div className="pt-5 mb-5  mb-md-3 pt-md-3">
                                                 <button className="rounded-btn btn-dark-blue">1</button>
                                             </div>
-                                            <p className="card-text mb-5">Create an account or login,
+                                            <p className="card-text mb-5">Create an account or login
                                                 in less than two minutes </p>
                                             <div className="card mb-5" data-aos="fade-up">
                                                 <img className="card-1-img" src={cardIll1}
@@ -253,7 +253,7 @@ class Home extends Component {
                                             <h5>Stay focused, Earn more</h5>
                                             <p>Earn high interest upfront when you
                                                 choose the option of saving for a
-                                                specified period</p>
+                                                specified period.</p>
                                         </div>
                                     </div>
                                     <div className="section-transparent-card mb-5">
@@ -264,7 +264,7 @@ class Home extends Component {
                                             <h5>Steady savings your way</h5>
                                             <p>Automate exactly how you
                                                 want to save whether its daily,
-                                                weekly or monthly</p>
+                                                weekly or monthly.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -276,7 +276,7 @@ class Home extends Component {
                                         <div className="section-transparent-card-right text-center text-md-left">
                                             <h5>Flexible funding options</h5>
                                             <p>Start making deposits with
-                                                your atm card or direct debit</p>
+                                                your atm card or direct debit.</p>
                                         </div>
                                     </div>
                                     <div className="section-transparent-card mb-5">
@@ -287,7 +287,7 @@ class Home extends Component {
                                             <h5>Trusted partner</h5>
                                             <p>Our partner, SFS capital has 30+
                                                 years of fund management
-                                                experience</p>
+                                                experience.</p>
                                         </div>
                                     </div>
                                 </div>

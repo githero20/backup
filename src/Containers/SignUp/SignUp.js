@@ -54,7 +54,7 @@ class SignUp extends Component {
                                     <div className="row pt-md-2">
                                         <div className="col-md-6 offset-md-6">
                                             {/*header component */}
-                                            <div className=" py-md-1 px-md-1 px-md-5 py-md-5 header-shadow mt-2 mb-md-5 bg-white">
+                                            <div className=" py-md-1 px-md-1 px-lg-3 py-lg-3 header-shadow mt-2 mb-md-5 bg-white">
                                                 <Link to={HomeLink}><img alt="back up cash logo" src={backUpCashLogo} width="200px"/></Link>
                                             </div>
                                             <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>

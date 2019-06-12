@@ -517,7 +517,6 @@ class DashboardIndex extends Component {
                         showAGModal={this.showActiveGoalModal}
                         hideLSModal={this.closeLSModal}
                         showLSModal={this.showLSModal}
-
                     />
 
                     {/* steady save modal */}

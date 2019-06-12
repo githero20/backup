@@ -11,7 +11,9 @@
         padding-top: 0.6rem;
         transform: translate(0);
     }
-
+    .mb-btn-wrapper{
+        width: 100%;
+    }
     .header-navbar .navbar-header .menu-toggle {
         position: relative;
         top: 58%;
@@ -21,7 +23,9 @@
         color: white;
     }
 
-
+    .btn-custom-blue{
+        width:60%;
+    }
     /*whatsapp section*/
     .whatsapp .btn-whatsapp{
 
@@ -84,19 +88,54 @@
         width: 2rem;
     }
 
+    html body .content.app-content{
+        margin-left: 24%;
+    }
 }
 
 @media only screen and (min-width: 900px) and (max-width: 1200px) {
-
-    .secure-section {
-        position: absolute;
-        bottom: 2%;
-        left: 3%;
-        vertical-align: middle;
-        font-size: 1.3rem;
-        font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    html body .content.app-content{
+        margin-left: 20%;
     }
+    /*.mb-btn-wrapper button {*/
+    /*    padding: 1rem 2rem 1rem 3rem;*/
+    /*    font-size: .7rem;*/
+    /*    margin-bottom: 1rem;*/
+    /*    border-radius: 5rem;*/
+    /*    transform: translate(0);*/
+    /*    cursor: pointer;*/
+    /*    transition: all .5s ease;*/
+    /*}*/
 
+    /*.mb-details-container p{*/
+    /*    font-size: .8rem;*/
+    /*}*/
+    /*.blue-card .card-body{*/
+    /*    padding:0rem;*/
+    /*}*/
+    /*.blue-card-heading {*/
+    /*    font-size: 1rem;*/
+    /*    margin-bottom: 2rem;*/
+    /*}*/
+    /*.blue-card-icon {*/
+    /*    width: 2.5rem;*/
+    /*}*/
+    /*.blue-card-price {*/
+    /*    font-size: 1.1rem;*/
+    /*}*/
+    /*.secure-section {*/
+    /*    position: absolute;*/
+    /*    bottom: 2%;*/
+    /*    left: 3%;*/
+    /*    vertical-align: middle;*/
+    /*    font-size: 1.3rem;*/
+    /*    font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+    /*}*/
+    /*.btn-blue-gradient-2 img {*/
+    /*    position: absolute;*/
+    /*    top: .5rem;*/
+    /*    left: .5rem;*/
+    /*}*/
     .welcome-text {
         color: #103366;
         font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;

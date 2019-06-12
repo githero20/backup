@@ -154,8 +154,8 @@ class TransactionTable extends Component {
                                 props => (
                                     <div>
                                         <div
-                                            className={'d-flex justify-content-between flex-md-row flex-column align-items-center mb-1 mx-1'}>
-                                            <SearchBar {...props.searchProps} placeholder="Filter" />
+                                            className={'d-flex justify-content-between flex-md-row align-items-center mb-1 mx-1'}>
+                                            <SearchBar {...props.searchProps} placeholder="Search to filter" className={'flex-shrink-1'} />
                                             {/*<div onClick={this.toggleSort} className="table-sort-display d-block d-md-inline">*/}
                                             {/*    <span><img className=" img-2x " src={sortIcon}/></span>Sort*/}
                                             {/*</div>*/}
@@ -164,7 +164,7 @@ class TransactionTable extends Component {
                                             {/*    data-toggle="modal" data-target="#sort"><img className=" img-2x "*/}
                                             {/*                                                 src={filterIcon}/></span>Filter*/}
                                             {/*</div>*/}
-                                            <ExportCSVButton className={'btn-green'}  {...props.csvProps}>Export
+                                            <ExportCSVButton className="btn-green flex-shrink-1"  {...props.csvProps}>Export
                                                 CSV</ExportCSVButton>
                                         </div>
 

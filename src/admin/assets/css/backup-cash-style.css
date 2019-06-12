@@ -210,7 +210,7 @@ height-100vh{
 .header-title {
     margin-top: 5rem !important;
     font-family: Gilroy bold;
-    font-size: 3rem;
+    font-size: 4rem;
     color: #103366;
 }
 
@@ -1204,6 +1204,9 @@ footer-logo {
         line-height: 1.7rem;
     }
 
+}
+.descriptive-info{
+    background-color: #2497FF;
 }
 
 .sfs-image{

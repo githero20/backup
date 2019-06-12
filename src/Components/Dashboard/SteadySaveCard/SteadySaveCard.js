@@ -7,7 +7,7 @@ const SteadySaveCard = (props) => {
 
         return (
             <React.Fragment>
-                <div className="col-lg-4 col-12">
+                <div className="col-lg-4 col-12 order-lg-1">
                     <h3 className="gray-header-text fs-mb-1 mb-2 ">Steady Save <span
                         className="dot">.</span> Summary
 

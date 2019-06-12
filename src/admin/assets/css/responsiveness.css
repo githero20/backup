@@ -22,9 +22,31 @@
     .menu-title {
         color: white;
     }
-
+    .ad-container .ad-placeholder {
+        width: 12rem;
+        padding: 10px;
+        font-size: .8rem;
+        min-height: 23rem;
+        background-color: white;
+        text-align: center;
+        border-radius: .8rem;
+        margin-bottom: 2rem;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
+        cursor: pointer;
+        transition: all .5s ease-in-out;
+    }
+    .ad-container .ad-desc-placeholder{
+        margin-bottom: 0;
+    }
     .btn-custom-blue{
         width:60%;
+    }
+
+    .ad-container-modal .modal-content{
+        padding-top:2rem;
+        background-color: white;
+        background-image: none;
+        border-radius: 1rem;
     }
     /*whatsapp section*/
     .whatsapp .btn-whatsapp{
@@ -61,6 +83,10 @@
         border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;
         border-radius: 50%;
         animation: spinner infinite 1s;
+    }
+
+    .mb-details-container, .mb-btn-wrapper {
+        width: 100%;
     }
 }
 

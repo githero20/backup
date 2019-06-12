@@ -7,16 +7,20 @@ import InstantSaveIcon from "../../../admin/app-assets/images/svg/instant-save.s
 import SSIcon from "../../../admin/app-assets/images/svg/steady-save.svg";
 import LSIcon from "../../../admin/app-assets/images/svg/locked-save.svg";
 import BGIcon from "../../../admin/app-assets/images/svg/backup-goal.svg";
+import markSelected from "../../../admin/app-assets/images/svg/mark-selected.svg";
 
 class StartNowModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showEditModal: false,
             startLink: InstantSaveLink,
             Desc: 'Start saving your money here whenever you want! \n' +
                 'We want you to be disciplined, so we’ll charge you 5% if you choose\n' +
                 ' to withdraw outside of your set withdrawal days.',
+            showBackupGoal:false,
+            showSteadySave:false,
+            showLockedSave:false,
+            showInstantSave:true,
         };
 
     }
@@ -25,6 +29,10 @@ class StartNowModal extends React.Component {
     instantHandler = () => {
         this.setState({
             startLink: InstantSaveLink,
+            showBackupGoal:false,
+            showSteadySave:false,
+            showLockedSave:false,
+            showInstantSave:true,
             Desc: 'Start saving your money here whenever you want! \n' +
                 'We want you to be disciplined, so we’ll charge you 5% if you choose\n' +
                 ' to withdraw outside of your set withdrawal days.'
@@ -35,6 +43,10 @@ class StartNowModal extends React.Component {
     lockedHandler = () => {
         this.setState({
             startLink: LockedSavingsLink,
+            showBackupGoal:false,
+            showSteadySave:false,
+            showLockedSave:true,
+            showInstantSave:false,
             Desc: 'Earn your interest upfront, but you need to lock your money with \n' +
                 'us for a period set by you. You can withdraw at the \n' +
                 'end of the period you have set.'
@@ -46,9 +58,14 @@ class StartNowModal extends React.Component {
     backupHandler = () => {
         this.setState({
             startLink: BackupGoalsLink,
+            showBackupGoal:true,
+            showSteadySave:false,
+            showLockedSave:false,
+            showInstantSave:false,
             Desc: 'Want to save towards a new phone, car or rent? \n' +
                 'Setup a savings goal and be on your way to greatness.'
         });
+
         localStorage.setItem(SHOWAD, 'dont_show');
     }
 
@@ -57,6 +74,10 @@ class StartNowModal extends React.Component {
 
         this.setState({
             startLink: SteadySaveLink,
+            showBackupGoal:false,
+            showSteadySave:true,
+            showLockedSave:false,
+            showInstantSave:false,
             Desc: 'Start saving your money here automatically, daily, weekly or monthly\n' +
                 'We want you to be disciplined, so we’ll charge you 5% if you choose\n' +
                 ' to withdraw outside of your set withdrawal days.'
@@ -92,26 +113,48 @@ class StartNowModal extends React.Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className={'pb-md-4 px-md-3'}>
-                    <div
-                        className='ad-container d-flex flex-column pt-3 pt-lg-5 mt-lg-3 flex-md-row justify-content-between'>
-                        <div onClick={this.instantHandler} className={'ad-placeholder ad-active'}><img
-                            alt={'instant-save'} className={'ad-img'} src={InstantSaveIcon}/><p>Instant Save</p></div>
-                        <div onClick={this.steadyHandler} className={'ad-placeholder'}><img className={'ad-img'}
-                                                                                            alt={'steady-save'}
-                                                                                            src={SSIcon}/><p>Steady
-                            Save</p></div>
-                        <div onClick={this.backupHandler} className={'ad-placeholder'}><img className={'ad-img'}
-                                                                                            alt={'backup-goals'}
-                                                                                            src={BGIcon}/><p>Backup
-                            Goals</p></div>
-                        <div onClick={this.lockedHandler} className={'ad-placeholder'}><img className={'ad-img'}
-                                                                                            alt={'locked-savings'}
-                                                                                            src={LSIcon}/><p>Locked
-                            Savings</p></div>
+                    <div className='ad-container d-flex flex-column pt-1 pt-md-3 pt-lg-5 mt-lg-3 align-items-center flex-md-row justify-content-between'>
+                        <div onClick={this.instantHandler} onMouseEnter={this.instantHandler}
+                             onMouseLeave={this.instantHandler} className={'ad-placeholder ad-active'}>
+                            <img alt={'instant-save'} className={'ad-img'} src={InstantSaveIcon}/>
+                            <p>Instant Save<img className={this.state.showInstantSave?'active':null} src={markSelected} /></p>
+                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
+                            <div className="ad-links d-flex justify-content-center d-block d-md-none justify-content-md-end">
+                                <StartNowButton link={this.state.startLink}/>
+                            </div>
+                        </div>
+                        <div onClick={this.steadyHandler} onMouseEnter={this.steadyHandler}
+                             onMouseLeave={this.steadyHandler} className={'ad-placeholder'}>
+                            <img className={'ad-img'} alt={'steady-save'} src={SSIcon}/>
+                            <p>Steady Save<img  className={this.state.showSteadySave?'active':null} src={markSelected}/></p>
+                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
+                            <div className="ad-links d-flex justify-content-center d-block d-md-none justify-content-md-end">
+                                <StartNowButton link={this.state.startLink}/>
+                            </div>
+                        </div>
+                        <div onClick={this.lockedHandler} onMouseLeave={this.lockedHandler}
+                             onMouseEnter={this.lockedHandler} className={'ad-placeholder'}>
+                            <img className={'ad-img'} alt={'locked-savings'} src={LSIcon}/>
+                            <p>Locked Savings<img className={this.state.showLockedSave?'active':null} src={markSelected} /></p>
+                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
+                            <div className="ad-links d-flex justify-content-center d-block d-md-none justify-content-md-end">
+                                <StartNowButton link={this.state.startLink}/>
+                            </div>
+                        </div>
+                        <div onClick={this.backupHandler} onMouseEnter={this.backupHandler}
+                             onMouseLeave={this.backupHandler} className={'ad-placeholder'}>
+                            <img className={'ad-img'} alt={'backup-goals'} src={BGIcon}/>
+                            <p>Backup Goals<img className={this.state.showBackupGoal?'active':null} src={markSelected} /></p>
+                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
+                            <div className="ad-links d-flex justify-content-center d-block d-md-none justify-content-md-end">
+                                <StartNowButton   link={this.state.startLink}/>
+                            </div>
+                        </div>
+
                     </div>
-                    <div className={'ad-desc-placeholder text-center px-3 px-lg-5 py-lg-5 py-3'}>{this.state.Desc}</div>
-                    <div className="ad-links d-flex justify-content-center justify-content-md-end">
-                        <StartNowButton link={this.state.startLink}/>
+                    <div className={'ad-desc-placeholder d-none d-md-block text-center px-lg-5 py-lg-1 py-3'}>{this.state.Desc}</div>
+                    <div className="ad-links d-md-flex d-none justify-content-center justify-content-md-end">
+                        <StartNowButton  link={this.state.startLink}/>
                     </div>
                 </Modal.Body>
             </Modal>

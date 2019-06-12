@@ -198,7 +198,6 @@ class LockedSavingForm extends Component {
                                 {this.state.loading ? <ButtonLoader/> : "Start Saving"}
                             </Button>
                         </div>
-
                     </Form.Row>
 
                 </Form>

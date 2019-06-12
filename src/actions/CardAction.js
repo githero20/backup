@@ -15,7 +15,9 @@ export const initTransaction = (payload, callback) =>{
         })
         .catch(err => {
             console.log("Err",err);
-            callback(false, err.response.data.data || err.response.data.message);
+            if(err.response){
+                callback(false, err.response.data.message|| err.response.data.data);
+            }
         })
 };
 
@@ -29,7 +31,9 @@ export const verifyTransaction = (payload, callback) =>{
         .catch(err => {
             console.log("Err",JSON.stringify(err));
             console.log("Err",err);
-            callback(false, err.response.data.message);
+            if(err.response){
+                callback(false, err.response.data.message|| err.response.data.data);
+            }
         })
 };
 
@@ -41,6 +45,8 @@ export const getUserCards = (callback) => {
         })
         .catch(err => {
             // console.log("Err",err);
-            callback(false, err.response.data.message);
+            if(err.response){
+                callback(false, err.response.data.message|| err.response.data.data);
+            }
         })
 };

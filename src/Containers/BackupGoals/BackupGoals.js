@@ -18,6 +18,7 @@ import {
     lockedStatusFormatter
 } from "../../Helpers/Helper";
 import {getUserData} from "../../actions/UserAction";
+import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 
 class BackupGoals extends Component {
 
@@ -33,7 +34,6 @@ class BackupGoals extends Component {
             loading:false,
             showLoader:false
         };
-
         // this.handleBackUpGoals = this.handleBackUpGoals.bind(this);
     }
 
@@ -70,6 +70,9 @@ class BackupGoals extends Component {
 
         });
     }
+
+
+
     componentDidMount() {
         this.setState({
             showLoader:true,
@@ -93,8 +96,10 @@ class BackupGoals extends Component {
 
         }
 
-
     }
+
+
+
 
     render() {
 
@@ -154,25 +159,28 @@ class BackupGoals extends Component {
                     <VerticalNav userName={this.state.userName} />
                     <div className="app-content content">
                         <div className="content-wrapper">
-                            <div className="row mb-4">
-                                <div className="col-12">
-                                  {/*  message box */}
-                                  {/*<MessageBox/>*/}
-                                </div>
-                            </div>
-                            <div className="content-header row">
-                            </div>
-                            <div className="content-body">
+                            {/*<div className="row mb-4">*/}
+                            {/*    <div className="col-12">*/}
+                            {/*      /!*  message box *!/*/}
 
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            {/*<div className="content-header row">*/}
+
+                            {/*</div>*/}
+                            <div className="content-body">
+                                {/*<MessageBox/>*/}
                                 <div className="row">
+                                    <div className="col-12 ">
+                                        <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
+                                            <p>Want to save towards a new phone, car or rent Setup a savings goal and be on your way to greatness.</p>
+                                        </div>
+                                    </div>
                                     <div className="col-lg-4 col-12">
-                                        <h3 className="gray-header-text mb-2 ">Back Up Goals
+                                        <h3 className="gray-header-text mb-2 ">Backup Goals
                                         </h3>
                                     </div>
-
                                 </div>
-
-
                                 <div className="row">
                                     <div id="Back-up-goals" className="col-12 col-md-12">
                                         <div className="card">

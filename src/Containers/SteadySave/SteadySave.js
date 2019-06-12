@@ -268,9 +268,7 @@ class SteadySave extends Component {
 
                                     <div className="col-lg-4 col-12 order-lg-8">
                                         <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
-                                            <p>Start saving your money here whenever you want!
-                                                We want you to be disciplined, so we’ll charge you 5% if you choose
-                                                to withdraw outside of your set withdrawal days.</p>
+                                            <p>Start saving your money here automatically, daily, weekly or monthly We want you to be disciplined, so we’ll charge you 5% if you choose to withdraw outside of your set withdrawal days.</p>
                                         </div>
                                     </div>
 

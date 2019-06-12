@@ -336,7 +336,7 @@ class InstantSave extends Component {
 
                             <div className="row">
                                 {/*transaction table */}
-                                <TransactionTable transactions={this.state.transactions} columns={columns}/>
+                                <TransactionTable transactions={this.state.transactions.reverse()} columns={columns}/>
 
                             </div>
 

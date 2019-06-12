@@ -96,6 +96,9 @@ class InstantSavingForm extends Component {
         })
 
     }
+
+
+
     //submit steady save form
     submitForm = (e) => {
         e.preventDefault();
@@ -112,15 +115,12 @@ class InstantSavingForm extends Component {
                 request(instantSaveEndpoint, this.state.instantSaveInfo, true, 'POST', this.HandleInstantSave);
             }
 
-
         } else {
 
             this.validator.showMessages();
             // rerender to show messages for the first time
             this.forceUpdate();
-
         }
-
 
     };
 

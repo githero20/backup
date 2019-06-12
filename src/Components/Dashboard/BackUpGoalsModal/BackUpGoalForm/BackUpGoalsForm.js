@@ -6,9 +6,10 @@ import SimpleReactValidator from "simple-react-validator";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
-import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
+import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../../../utils";
 import {createBackUpGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
+import {initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 
 
 class BackUpGoalsForm extends Component {
@@ -124,31 +125,100 @@ class BackUpGoalsForm extends Component {
                 loading:true,
             });
 
-            createBackUpGoal(this.state.form, (status, payload) =>{
+            if (parseInt(this.state.form.payment_auth) === 0) {
+                //initiate paystack
+                console.log('got here to initiate paystack');
+                this.initiatePayStack();
+            }else {
+
+                createBackUpGoal(this.state.form, (status, payload) =>{
                     //remove loader
 
                     this.setState({
                         loading:false,
                     });
-                console.log("Res", status, payload);
-                if(status){
-                    console.log("here");
-                    this.toastManager.add("Backup Goal Saved.", {
-                        appearance: "success"
-                    });
-                    setTimeout(()=> this.props.onHide(true), 2000);
-                }else{
-                    // console.log(payload, "Message", this.toastManager);
-                    this.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
-                        appearance: "error",
-                        autoDismiss: true,
-                        autoDismissTimeout: 5000
-                    });
-                }
-            });
+                    console.log("Res", status, payload);
+                    if(status){
+                        console.log("here");
+                        this.props.toastManager.add("Backup Goal Saved.", {
+                            appearance: "success"
+                        });
+                        setTimeout(()=> this.props.onHide(true), 2000);
+                    }else{
+                        // console.log(payload, "Message", this.toastManager);
+                        this.props.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
+                            appearance: "error",
+                            autoDismiss: true,
+                            autoDismissTimeout: 5000
+                        });
+                    }
+                });
+
+            }
+
         }
 
     };
+
+
+
+    initiatePayStack = () => {
+
+        //send api
+        initTransaction({
+            amount: parseFloat(this.state.form.contribution),
+            source: 'quick',
+        }, (status, payload) => {
+            console.log("status", status, payload);
+            this.setState({loading: false});
+            if (status) {
+                const user = _getUser();
+                console.log(user);
+                _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
+            } else {
+                this.props.toastManager.add(payload, {
+                    appearance: "error",
+                    autoDismiss: true,
+                    autoDismissTimeout: 3000
+                })
+            }
+
+            this.props.onHide();
+        });
+
+    }
+
+
+    resolvePaystackResponse=(response)=>{
+        this.setState({
+            loading: false,
+        });
+        console.log("Paystack Response", response);
+        verifyTransaction({
+            ref: response.reference,
+            type: "instant"
+        },(status, payload) =>{
+            console.log("status", status, payload);
+            if(status){
+                this.props.toastManager.add("Card Added Successfully",{
+                    appearance:"success",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                });
+
+                this.getUserCards();
+            }else{
+                this.props.toastManager.add("Unable to add card at this moment",{
+                    appearance:"error",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                })
+            }
+        })
+
+    }
+
+
 
     handleGoalAmount(e){
         this.changeHandler(e, true)
@@ -345,6 +415,7 @@ class BackUpGoalsForm extends Component {
                             <Form.Control as="select"   onChange={this.changeHandler} defaultValue={'payment_auth'} Value={payment_auth} id={'payment_auth'}
                                           name={'payment_auth'}>
                                 <option value={-1} >Select Card</option>
+                                <option value={0} >Add Card</option>
                                 {/* loop through and get the number of accounts user has */}
                                 {
                                     this.state.userCards.length > 0 ?

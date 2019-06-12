@@ -143,12 +143,17 @@ class LockedSavings extends Component {
                         <div className="content-wrapper">
                             {this.state.showLoader?<DashboardLoader/>:null}
                             {/*<MessageBox />*/}
-                            <div className="row mb-4">
-                                <div className="col-12"></div>
-                            </div>
+                            {/*<div className="row mb-4">*/}
+                            {/*    <div className="col-12"></div>*/}
+                            {/*</div>*/}
 
                             <div className="content-body">
                                 <div className="row">
+                                    <div className="col-12 ">
+                                        <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
+                                            <p>Earn your interest upfront, but you need to lock your money with us for a period set by you. You can withdraw at the end of the period you have set.</p>
+                                        </div>
+                                    </div>
                                     <div className="col-lg-4 col-12">
                                         <h3 className="gray-header-text mb-2 ">Locked Savings</h3>
                                     </div>

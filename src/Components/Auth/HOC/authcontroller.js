@@ -4,7 +4,7 @@ import {BASE_URL} from "../../../RouteLinks/RouteLinks";
 import {setLocalStorage} from "../../../ApiUtils/ApiUtils";
 
 export const USERTOKEN = "token";
-export const USERINFO = "us-info";
+export const USERINFO = "user";
 export const DASHBOARDINFO = "dashboard-info";
 export const USERACTIVATED = "activated";
 export const ACTIVATIONMESG = "activation-msg";

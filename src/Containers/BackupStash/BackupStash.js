@@ -249,6 +249,13 @@ class BackupStash extends Component {
                         </div>
                         <div className="content-body">
                             <div className="row">
+                                <div className="col-lg-4 col-12 order-lg-8">
+                                    <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
+                                        <p>Collection pot for interest paid from all other products.
+                                            Zero penalty fees on withdrawals and no interest to be accrued on the amount
+                                            here. You can transfer funds to central vault or locked savings</p>
+                                    </div>
+                                </div>
                                 <div className="col-lg-4 col-12">
                                     <h3 className="gray-header-text fs-mb-1 mb-2 ">Backup Stash <span
                                         className="dot">.</span> Summary

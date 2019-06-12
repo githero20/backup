@@ -4470,10 +4470,27 @@ input:-webkit-autofill {
     margin-bottom: 2rem;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
     cursor: pointer;
+    transition:all .5s ease-in-out;
 }
+
+.ad-container .ad-placeholder:hover{
+   transform: scale(1.2);
+    box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+
 .ad-placeholder p {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1rem;
+}
+.ad-placeholder p img {
+    display: none;
+    margin-left: 5px;
+}
+.ad-placeholder p img.active {
+    display: inline-block;
+    margin-left: 5px;
 }
 .ad-container .ad-desc-placeholder{
     padding:1rem 0rem;

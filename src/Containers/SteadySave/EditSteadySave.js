@@ -5,9 +5,10 @@ import SimpleReactValidator from "simple-react-validator";
 import {getLocalStorage} from "../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {_calculateDateDifference, _handleFormChange} from "../../utils";
+import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../utils";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {updateSteadySave} from "../../actions/SteadySaveAction";
+import {initTransaction, verifyTransaction} from "../../actions/CardAction";
 
 
 class SteadySaveForm extends Component {
@@ -87,8 +88,68 @@ class SteadySaveForm extends Component {
                 showHour: true,
             })
         }
-
         // console.log("Form", form);
+    }
+
+
+
+
+    initiatePayStack = () => {
+
+        //send api
+        console.log(this.state.form);
+        initTransaction({
+            amount: parseFloat(this.state.form.contribution),
+            source: 'quick',
+        }, (status, payload) => {
+            console.log("status", status, payload);
+            this.setState({loading: false});
+            if (status) {
+                const user = _getUser();
+                console.log(user);
+                _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
+            } else {
+                console.log(payload);
+                this.props.toastManager.add(payload, {
+                    appearance: "error",
+                    autoDismiss: true,
+                    autoDismissTimeout: 3000
+                })
+            }
+
+            this.props.onHide();
+        });
+
+    }
+
+
+    resolvePaystackResponse=(response)=>{
+        this.setState({
+            loading: false,
+        });
+        console.log("Paystack Response", response);
+        verifyTransaction({
+            ref: response.reference,
+            type: "instant"
+        },(status, payload) =>{
+            console.log("status", status, payload);
+            if(status){
+                this.props.toastManager.add("Card Added Successfully",{
+                    appearance:"success",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                });
+
+                this.getUserCards();
+            }else{
+                this.props.toastManager.add("Unable to add card at this moment",{
+                    appearance:"error",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                })
+            }
+        })
+
     }
 
 
@@ -102,29 +163,43 @@ class SteadySaveForm extends Component {
         } else {
             console.log("here", this.state.form);
             this.setState({loading:true});
-            updateSteadySave(this.props.steadySave.id, this.state.form,(status, payload) => {
-                this.setState({loading:false});
-                if(!status){
-                    this.toastManager.add(JSON.stringify(payload),{
-                        appearance: "error",
-                        autoDismissTimeout:5000,
-                        autoDismiss:true
-                    });
-                }else{
-                    this.toastManager.add("Steady save updated successfully",{
-                        appearance: "success",
-                        autoDismissTimeout:3000,
-                        autoDismiss:true
-                    });
-                    console.log(payload);
-                    setTimeout(this.props.onHide,3000);
-                    this.props.setupSteadySave();
-                    //set timeout
-                }
-                console.log("res", status, payload);
-            })
-            // const id = this.props.id;
-            // request(`${EditSteadySave}${id}`, null, true, 'GET', this.handleResponse)
+
+
+            //if add bank is selected
+            if (parseInt(this.state.form.payment_auth) === 0) {
+                //initiate paystack
+                console.log('got here to initiate paystack');
+                this.initiatePayStack();
+
+            }else{
+
+                updateSteadySave(this.props.steadySave.id, this.state.form,(status, payload) => {
+                    this.setState({loading:false});
+                    if(!status){
+                        this.toastManager.add(JSON.stringify(payload),{
+                            appearance: "error",
+                            autoDismissTimeout:5000,
+                            autoDismiss:true
+                        });
+                    }else{
+                        this.toastManager.add("Steady save updated successfully",{
+                            appearance: "success",
+                            autoDismissTimeout:3000,
+                            autoDismiss:true
+                        });
+                        console.log(payload);
+                        setTimeout(this.props.onHide,3000);
+                        this.props.setupSteadySave();
+                        //set timeout
+                    }
+                    console.log("res", status, payload);
+                })
+                // const id = this.props.id;
+                // request(`${EditSteadySave}${id}`, null, true, 'GET', this.handleResponse)
+
+            }
+
+
         }
 
     };
@@ -245,7 +320,8 @@ class SteadySaveForm extends Component {
                                     onChange={this.changeHandler}
                                     defaultValue={this.state.form.payment_auth}
                                     name={'payment_auth'}>
-                                    <option value={""} >Select Card</option>
+                                    <option value={-1} >Select Card</option>
+                                    <option value={0} >Add Card</option>
                                     {
                                         this.state.userCards.map((data) => {
                                             if (data.channel == "card")

@@ -45,7 +45,7 @@ class DashboardContainer extends Component {
 
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
-            transactions, totalInterest, ActiveGoals, CompletedGoals
+            transactions, totalInterest, ActiveGoals, CompletedGoals,vaultInterest
         } = this.props;
 
   const columns = [
@@ -74,6 +74,12 @@ class DashboardContainer extends Component {
                 dataField: 'status',
                 formatter:statusFormatter,
                 sort:true,
+                sortCaret: (order, column) => {
+                    if (!order) return (<span>&nbsp;&nbsp;</span>);
+                    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-up'></i></span>);
+                    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-down' ></i></span>);
+                    return null;
+                }
             },
             {
                 text: 'Reference',
@@ -107,7 +113,7 @@ class DashboardContainer extends Component {
                                 <CentralVaultCard
                                     vaultAmount={vaultAmount}
                                     totalSteadySave={totalSteadySave}
-
+                                    vaultInterest={vaultInterest}
                                 />
                                 {/*    TODO  ADD STEADY SAVE  */}
 
@@ -129,20 +135,20 @@ class DashboardContainer extends Component {
                                 <BackUpStashCard stashAmount={stashAmount}/>
 
                             </div>
+                            {/*<div className="row">*/}
+                            {/*    <div className="col-md-6  col-12 ">*/}
+                            {/*        <TotalSavingsBlueCard totalSavings={vaultAmount}/>*/}
+
+                            {/*    </div>*/}
+                            {/*    <div className="col-md-6  col-12 ">*/}
+                            {/*        <TotalInterestCard totalInterest={totalInterest}/>*/}
+
+                            {/*    </div>*/}
+
+                            {/*</div>*/}
+
                             <div className="row">
-                                <div className="col-md-6  col-12 ">
-                                    <TotalSavingsBlueCard totalSavings={vaultAmount}/>
-
-                                </div>
-                                <div className="col-md-6  col-12 ">
-                                    <TotalInterestCard totalInterest={totalInterest}/>
-
-                                </div>
-
-                            </div>
-
-                            <div className="row">
-                                <TransactionTable runFilter={this.runFilter} transactions={transactions} columns={columns} />
+                                <TransactionTable runFilter={this.runFilter} transactions={transactions.reverse()} columns={columns} />
 
                             </div>
 

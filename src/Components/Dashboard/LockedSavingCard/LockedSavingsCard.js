@@ -19,7 +19,6 @@ class LockedSavingsCard extends Component {
                                 <div className="saved-text">Total Locked Savings</div>
                                 <div className={'card-amount'}>&#8358; {lockedSavingsAmount} </div>
                             </h4>
-                            <span className="card-operator">+</span>
                             <div className="card-title  ">
                                 <h4>
                                     <div className="saved-text">Total Interest</div>

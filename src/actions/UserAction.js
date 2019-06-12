@@ -11,7 +11,6 @@ export const getUserData =  callback =>{
         })
         .catch(err => {
             console.log("Err",JSON.stringify(err));
-            if(callback)
-                callback(false, err.response.data.data || err.response.data.message);
+            if(err.response) {callback(false, err.response.data.data || err.response.data.message);}
         })
 };

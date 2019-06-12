@@ -45,10 +45,10 @@
         margin: auto;
         background-color: transparent;
         top: 50%;
-        left: 50%;
+        left: 29%;
         transform: translate(-50%, -50%);
         border: 1rem solid;
-        border-color: rgba(48, 110, 255, 0.75) transparent transparent transparent;
+        border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;
         border-radius: 50%;
         animation: spinner infinite 1s;
     }

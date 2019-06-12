@@ -11,7 +11,7 @@ export const getLockedInterestSavings = (payload, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            callback(false, err.response.data.message);
+            if (err.response) callback(false, err.response.data.message);
         })
 };
 
@@ -27,7 +27,7 @@ export const createLockedSavings = (payload, callback) =>{
             // console.log("Err",err.data);
             // console.log("Err",JSON.stringify(err));
             // console.log("Err",err.response.data.message);
-            callback(false, err.response.data.message);
+            if (err.response) callback(false, err.response.data.message);
         })
 };
 
@@ -75,6 +75,7 @@ export const getLockedSavings = (callback) =>{
         })
         .catch(err => {
             console.log("Err",err);
-            callback(false, err.response.data.message);
+            if (err.response) callback(false, err.response.data.message);
+
         })
 };

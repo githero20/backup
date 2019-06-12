@@ -11,15 +11,15 @@ import {continueSteadySave, pauseSteadySave, stopSteadySave} from "../../../../a
 class SteadySaveForm extends Component {
 
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        console.log("props",props);
+        console.log("props", props);
         this.toastManager = this.props.toastManager;
         this.state = {
-            disableStartDate:false,
-            loading:false,
+            disableStartDate: false,
+            loading: false,
         };
-        console.log("props",props);
+        console.log("props", props);
 
     }
 
@@ -44,22 +44,22 @@ class SteadySaveForm extends Component {
 
     handleContinue = (e) => {
         e.preventDefault();
-        this.setState({loading:true});
-        continueSteadySave(this.props.steadySave.id,(status, payload) => {
-            this.setState({loading:false});
-            if(!status){
-                this.toastManager.add(payload,{
+        this.setState({loading: true});
+        continueSteadySave(this.props.steadySave.id, (status, payload) => {
+            this.setState({loading: false});
+            if (!status) {
+                this.toastManager.add(payload, {
                     appearance: "error",
                     autoDismiss: true,
-                    autoDismissTimeout:5000
+                    autoDismissTimeout: 5000
                 });
-            }else{
-                this.toastManager.add("Steady Saving Updated Successfully",{
+            } else {
+                this.toastManager.add("Steady Saving Updated Successfully", {
                     appearance: "success",
                     autoDismiss: true,
-                    autoDismissTimeout:5000
+                    autoDismissTimeout: 5000
                 });
-                setTimeout(this.props.onHide,3000);
+                setTimeout(this.props.onHide, 3000);
                 this.props.setupSteadySave();
             }
         });
@@ -68,22 +68,22 @@ class SteadySaveForm extends Component {
 
     handlePause = (e) => {
         e.preventDefault();
-        this.setState({loading:true});
-        pauseSteadySave(this.props.steadySave.id,(status, payload) => {
-            this.setState({loading:false});
-            if(!status){
-                this.toastManager.add(payload,{
+        this.setState({loading: true});
+        pauseSteadySave(this.props.steadySave.id, (status, payload) => {
+            this.setState({loading: false});
+            if (!status) {
+                this.toastManager.add(payload, {
                     appearance: "error",
                     autoDismiss: true,
-                    autoDismissTimeout:5000
+                    autoDismissTimeout: 5000
                 });
-            }else{
-                this.toastManager.add("Steady Saving Paused Successfully",{
+            } else {
+                this.toastManager.add("Steady Saving Paused Successfully", {
                     appearance: "success",
                     autoDismiss: true,
-                    autoDismissTimeout:5000
+                    autoDismissTimeout: 5000
                 });
-                setTimeout(this.props.onHide,3000);
+                setTimeout(this.props.onHide, 3000);
                 this.props.setupSteadySave();
             }
         });
@@ -92,22 +92,22 @@ class SteadySaveForm extends Component {
 
     handleStop = (e) => {
         e.preventDefault();
-        this.setState({loading:true});
-        stopSteadySave(this.props.steadySave.id,(status, payload) => {
-            this.setState({loading:false});
-            if(!status){
-                this.toastManager.add(payload,{
+        this.setState({loading: true});
+        stopSteadySave(this.props.steadySave.id, (status, payload) => {
+            this.setState({loading: false});
+            if (!status) {
+                this.toastManager.add(payload, {
                     appearance: "error",
                     autoDismiss: true,
-                    autoDismissTimeout:5000
+                    autoDismissTimeout: 5000
                 });
-            }else{
-                this.toastManager.add("Steady Saving Stopped Successfully",{
+            } else {
+                this.toastManager.add("Steady Saving Stopped Successfully", {
                     appearance: "success",
                     autoDismiss: true,
-                    autoDismissTimeout:5000
+                    autoDismissTimeout: 5000
                 });
-                setTimeout(this.props.onHide,3000);
+                setTimeout(this.props.onHide, 3000);
                 this.props.setupSteadySave();
                 console.log('updated');
             }
@@ -131,6 +131,7 @@ class SteadySaveForm extends Component {
 
         const {start_date, hour_of_day, contribution, frequency} = this.props.steadySave;
         const customDisable = !this.props.steadySave.id;
+        console.log(contribution);
         return (
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
@@ -141,19 +142,19 @@ class SteadySaveForm extends Component {
                         </Form.Group>
                         <Form.Group as={Col}>
                             <div className={'text-muted secondary-text'}>Contribution</div>
-                            <h2>&#8358;{formatNumber(contribution) || 0}</h2>
+                            <h2>&#8358;{formatNumber(parseFloat(contribution).toFixed(2) )|| 0}</h2>
                         </Form.Group>
 
 
                         <Form.Group as={Col}>
-                            <div className={'text-muted secondary-text'}>frequency</div>
+                            <div className={'text-muted secondary-text'}>Frequency</div>
                             {
                                 this.state.showEditInput ?
                                     (
                                         <React.Fragment>
                                             <Form.Control as="select" onChange={this.changeHandler}
                                                           defaultValue={frequency} id={'frequency'}
-                                                          name={'frequency'} >
+                                                          name={'frequency'}>
                                                 <option value={'daily'}>Daily</option>
                                                 <option value={'weekly'}>Weekly</option>
                                                 <option value={'monthly'}>Monthly</option>
@@ -161,7 +162,7 @@ class SteadySaveForm extends Component {
                                             {this.validator.message('frequency', frequency, 'required|string')}
                                         </React.Fragment>
                                     ) :
-                                    <h2>{frequency}</h2>
+                                    <h2 className='text-capitalize'>{frequency}</h2>
                             }
                         </Form.Group>
                     </Form.Row>
@@ -179,18 +180,22 @@ class SteadySaveForm extends Component {
 
                     <Form.Row className={'d-flex justify-content-start mt-2'}>
                         <div className='d-flex justify-content-end'>
-                            <button className='btn btn-sm btn-primary' disabled={customDisable} onClick={this.handleEdit}>
+                            <button className='btn btn-sm btn-primary' disabled={customDisable}
+                                    onClick={this.handleEdit}>
                                 Edit
                             </button>
-                            <button className='btn btn-sm btn-info ml-1'  disabled={customDisable} onClick={this.handleContinue}>
+                            <button className='btn btn-sm btn-info ml-1' disabled={customDisable}
+                                    onClick={this.handleContinue}>
                                 Continue
                             </button>
-                            <button className='btn btn-sm btn-warning ml-1' disabled={customDisable} onClick={this.handlePause}>
+                            <button className='btn btn-sm btn-warning ml-1' disabled={customDisable}
+                                    onClick={this.handlePause}>
                                 Pause
                             </button>
-                            <button className='btn btn-sm btn-danger ml-1'  disabled={customDisable} onClick={this.handleStop}>
-                                Stop
-                            </button>
+                            {/*<button className='btn btn-sm btn-danger ml-1' disabled={customDisable}*/}
+                            {/*        onClick={this.handleStop}>*/}
+                            {/*    Stop*/}
+                            {/*</button>*/}
                         </div>
 
                     </Form.Row>

@@ -7,6 +7,7 @@ import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-
 import {Link, Redirect} from "react-router-dom";
 import {DashboardLink, getUserInfoEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
 import {request} from "../../../ApiUtils/ApiUtils";
+import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
 
 class HorizontalNav extends Component {
 
@@ -30,7 +31,8 @@ class HorizontalNav extends Component {
 
     logout = () => {
 
-        localStorage.clear();
+        localStorage.removeItem(USERTOKEN);
+        localStorage.removeItem(USERINFO);
         this.setState({
             redirectLogin:true,
         })

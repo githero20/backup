@@ -19,7 +19,7 @@ class CentralVaultCard extends Component {
 
     render() {
 
-        const {vaultAmount,totalSteadySave} = this.props;
+        const {vaultAmount,vaultInterest} = this.props;
 
         return (
             <React.Fragment>
@@ -44,11 +44,11 @@ class CentralVaultCard extends Component {
                                 <div className="saved-text">Total Steady  Savings</div>
                                 <div className={'card-amount'}>&#8358; {vaultAmount}</div>
                             </h4>
-                            <span className="card-operator">+</span>
+
                             <div className="card-title ">
                                 <h4>
                                     <div className="saved-text ">Total Interest</div>
-                                    <div className={'card-amount'}>&#8358; {totalSteadySave}</div>
+                                    <div className={'card-amount'}>&#8358; {vaultInterest}</div>
                                 </h4>
                             </div>
                         </div>

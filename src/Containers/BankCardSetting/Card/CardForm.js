@@ -35,6 +35,7 @@ class BankForm extends Component {
         this.setState({resolved:false});
         _handleFormChange(e.target.name,e, this)
     }
+
     validateForm(e){
         e.preventDefault();
         if (!this.validator.allValid()) {

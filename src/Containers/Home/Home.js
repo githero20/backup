@@ -27,13 +27,15 @@ import accentureImage from "../../images/svg/accenture.svg";
 import sfsImage from "../../admin/app-assets/images/svg/sfs.svg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import {HomeLink, LoginLink} from "../../RouteLinks/RouteLinks";
-
+import {HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import ReactOwlCarousel from "react-owl-carousel";
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 class Home extends Component {
 
     state = {
-        showMobileMenu:false,
+        showMobileMenu: false,
     };
 
 
@@ -55,47 +57,50 @@ class Home extends Component {
                     <header className="header header-background">
                         <div className="container">
                             <nav className="home-nav navbar navbar-expand-lg ">
-                                <a  className="navbar-brand"  >
+                                <a className="navbar-brand">
                                     <img src={backupCashLogo} alt="logo" width="200px"/>
                                 </a>
-                                <a  onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
+                                <a onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
                                    data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                    aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="hamburger-box">
                                         <span className="hamburger-inner"></span>
                                     </span>
                                 </a>
-                                <div className="collapse navbar-collapse animated slideInLeft faster" id="navbarSupportedContent">
+                                <div className="collapse navbar-collapse animated slideInLeft faster"
+                                     id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
-                                        <li className="nav-item active">
-                                            <a className="nav-link" href={HomeLink} >Home <span className="sr-only">(current)</span></a>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href={'#'}>FAQs </a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" href={'#'}  >FAQs </a>
+                                            <a className="nav-link" href={'#'}>Testimonials </a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" href={'#'} >Testimonials </a>
+                                            <Link to={LoginLink}  className="nav-link" href={'#'}>Login </Link>
                                         </li>
                                     </ul>
                                     <ul className="cta-link">
                                         <li>
-                                            <Link to={LoginLink} className="btn-rounded-blue btn-gradient-blue">Log In</Link>
+                                            <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
+                                                Sign Up
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
                             </nav>
                             {/*row and two columns */}
                             <div className="row pt-lg-3">
-                                <div className="col-lg-6 mt-md-5 text-center text-lg-left">
+                                <div className="col-lg-6 mt-md-5 mt-lg-1 text-center text-lg-left">
                                     <div className="header-words-container pt-lg-5 pr-lg-3">
-                                        <h1 className="header-title mt-5 mb-5 mt-md-0 mt-lg-5 mb-sm-3 px-2 px-sm-0">
+                                        <h1 className="header-title mt-5 mb-5 mt-md-0 mb-sm-3 px-2 px-sm-0 ">
                                             Protecting your interest is our business.</h1>
                                         <p className="header-sub-title mb-0 ">
                                             Save as little as <strong>₦500 </strong></p>
                                         <p className="header-sub-title mb-5">
                                             Earn up to <strong>13% </strong> interest on Savings. </p>
                                         <Link to={'/sign-up'}
-                                           className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow"> Create
+                                              className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow"> Create
                                             free account</Link>
                                     </div>
                                 </div>
@@ -145,7 +150,8 @@ class Home extends Component {
                                             </div>
                                             <div className="col-md-6 col-lg-8">
                                                 <div className="mt-md-3">
-                                                    <h2 className="text-white pt-md-5">Your Security Is Our Business</h2>
+                                                    <h2 className="text-white pt-md-5">Your Security Is Our
+                                                        Business</h2>
                                                     <h6>Safest Security Measures</h6>
                                                 </div>
                                             </div>
@@ -218,7 +224,8 @@ class Home extends Component {
                                 <div className="row pb-md-5">
                                     <div className="col-md-4 offset-md-4 text-center">
                                         <div className="mt-5 mb-5">
-                                            <Link to={'/sign-up'} className="btn-rounded-corner mb-5 btn-light-blue">Start Now
+                                            <Link to={'/sign-up'} className="btn-rounded-corner mb-5 btn-light-blue">Start
+                                                Now
                                                 <img alt="step-3" src={arrowRight} className=" ml-2"/>
                                             </Link>
                                         </div>
@@ -230,7 +237,7 @@ class Home extends Component {
                     <section className="mb-5">
                         <div className="container">
                             <div className="row mt-0 mt-md-5 mb-md-5">
-                                <div className="col-md-12">
+                                <div className="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
                                     <div className="section-header mt-5 mb-5">
                                         <img className="mb-4 yellow-icon" src={yellowIcon} alt=""/>
                                         <p>Reach your savings goal the simple and
@@ -309,7 +316,9 @@ class Home extends Component {
                                         <div className="carousel-inner">
                                             <div className="carousel-item">
                                                 <div className="comment-box">
-                                                    <div className="thumbnail"><img className="user-image" src={CommentImage} alt="First slide"/></div>
+                                                    <div className="thumbnail"><img className="user-image"
+                                                                                    src={CommentImage}
+                                                                                    alt="First slide"/></div>
 
                                                     <p>Never believed i could be self-disciplined enough to put
                                                         money aside for savings until i joined the SFS Backup cash
@@ -322,7 +331,8 @@ class Home extends Component {
                                             <div className="carousel-item active">
                                                 <div className="comment-box">
                                                     <div className="thumbnail">
-                                                        <img className="user-image" src={CommentImage} alt="First slide"/>
+                                                        <img className="user-image" src={CommentImage}
+                                                             alt="First slide"/>
                                                     </div>
                                                     <p>Never believed i could be self-disciplined enough to put
                                                         money aside for savings until i joined the SFS Backup cash
@@ -335,7 +345,8 @@ class Home extends Component {
                                             <div className="carousel-item">
                                                 <div className="comment-box">
                                                     <div className="thumbnail">
-                                                        <img className="user-image" src={CommentImage} alt="First slide"/></div>
+                                                        <img className="user-image" src={CommentImage}
+                                                             alt="First slide"/></div>
 
                                                     <p>Never believed i could be self-disciplined enough to put
                                                         money aside for savings until i joined the SFS Backup cash
@@ -346,14 +357,15 @@ class Home extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <a className="carousel-control-prev carousel-btn" href="#carouselExampleControls"
+                                        <a className="carousel-control-prev carousel-btn"
+                                           href="#carouselExampleControls"
                                            role="button" data-slide="prev">
-                                            <img  src={carouselLeftArrow} width="60%" alt={''} />
+                                            <img src={carouselLeftArrow} width="60%" alt={''}/>
                                             <span className="sr-only">Previous</span>
                                         </a>
                                         <a className="carousel-btn carousel-control-next"
                                            href="#carouselExampleControls" role="button" data-slide="next">
-                                            <img  src={carouselRightArrow} width="60%"  alt={''} />
+                                            <img src={carouselRightArrow} width="60%" alt={''}/>
                                             <span className="sr-only">Next</span>
                                         </a>
                                     </div>
@@ -401,6 +413,42 @@ class Home extends Component {
                                         </div>
 
                                     </div>
+
+                                    <ReactOwlCarousel
+                                        className="owl-theme"
+                                        loop
+                                        margin={10}
+                                        autoplay={1000}
+                                        autoplayTimeout={5000}
+                                        dots={false}
+                                        responsiveClass={true}
+
+                                    >
+
+                                        <div className="partner-img-container">
+                                            <img className="partner-img " src={paystackImage} alt="paystack"/>
+
+                                        </div>
+                                        <div className="partner-img-container">
+                                            <img className="partner-img-50" src={sfsImage} alt="sfs"/>
+
+                                        </div>
+                                        <div className="partner-img-container">
+                                            <img src={accentureImage} alt="accenture" className="partner-img"/>
+
+
+                                        </div>
+                                        <div className="partner-img-container">
+                                            <img className="partner-img" src={horizonImage} alt="horizon"/>
+
+                                        </div>
+                                        <div className="partner-img-container">
+                                            <img className="partner-img-50" src={aaImage} alt="aa"/>
+
+                                        </div>
+
+
+                                    </ReactOwlCarousel>
                                 </div>
 
                             </div>
@@ -413,9 +461,10 @@ class Home extends Component {
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="action-placeholder ">
-                                        <h2 className="mb-4 mt-5">Protect your interest with SFS Backup cash</h2>
-                                        <Link to={'/sign-up'} data-aos="zoom-in-down"
-                                           className="btn btn-yellow-outline btn-custom-border">Get protected now</Link>
+                                        <h2 className="mb-3 mt-5 text-white cas-title">Protect your interest with SFS
+                                            Backup cash</h2>
+                                        <Link to={'/sign-up'}
+                                              className="btn btn-yellow-outline btn-custom-border cas-btn">Start Now</Link>
                                     </div>
                                 </div>
                             </div>
@@ -425,51 +474,99 @@ class Home extends Component {
                     <section className="chat-bg whatsapp  pt-md-5 mb-5 mb-md-0">
                         <div className="container">
                             <div className="row ">
-                                <div className="col-md-5 offset-md-1">
-                                    <div className="contact-detail-placeholder text-center pt-5 pt-md-0">
-                                        <img className="mb-5 chat-whatsapp-img" src={whatsAppImage}
-                                             alt="chat with us"/>
+                                <div className="col-md-6">
+                                    {/*<div className="contact-detail-placeholder text-center pt-5 pt-md-0">*/}
+                                    {/*    <img className="mb-5 chat-whatsapp-img" src={whatsAppImage}*/}
+                                    {/*         alt="chat with us"/>*/}
+                                    {/*</div>*/}
+                                    <div className="contact-detail-placeholder text-center pt-md-5">
+                                        <p className="deep-blue-color pt-md-5 chat-title">Chat with us on
+                                            whatsapp</p>
+                                        <button type="button" data-aos="fade-up"
+                                                className="btn btn-whatsapp">+234
+                                            818 545 4545
+                                            <img alt={''} src={pinIcon} className="ml-md-2 w-20"/>
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                    <div className="contact-detail-placeholder text-center text-md-left pt-md-5">
-                                        <p className="deep-blue-color pt-md-5 pl-md-3">Chat with us on whatsapp</p>
-                                        <button type="button" data-aos="fade-up"
-                                                className="btn btn-padding btn-white-shadow btn-box-shadow btn-rounded-corner  ">+234
-                                            818 545 4545
-                                            <img alt={''} src={pinIcon} className="ml-md-2"/></button>
+                                    <div className="contact-detail-placeholder text-center pt-md-5">
+                                        <p className="deep-blue-color pt-md-5 chat-title">Connect With Us
+                                            whatsapp</p>
+                                        {/*<button type="button" data-aos="fade-up"*/}
+                                        {/*        className="btn btn-whatsapp">*/}
+                                        {/*    <ul className="footer-icon-list ">*/}
+                                        {/*        <li>*/}
+                                        {/*    <span className="fa-stack fa-sm">*/}
+                                        {/*        <i className="fa fa-circle fa-stack-2x"></i><i*/}
+                                        {/*        className="fa fa-facebook fa-stack-1x fa-inverse"></i>*/}
+                                        {/*    </span>*/}
+                                        {/*        </li>*/}
+                                        {/*        <li>*/}
+                                        {/*    <span className="fa-stack fa-sm">*/}
+                                        {/*        <i className="fa fa-circle fa-stack-2x"></i><i*/}
+                                        {/*        className="fa fa-twitter fa-stack-1x fa-inverse"></i>*/}
+                                        {/*    </span>*/}
+                                        {/*        </li>*/}
+                                        {/*        <li>*/}
+                                        {/*    <span className="fa-stack fa-sm">*/}
+                                        {/*        <i className="fa fa-circle fa-stack-2x"></i><i*/}
+                                        {/*        className="fa fa-instagram fa-stack-1x fa-inverse"></i>*/}
+                                        {/*    </span>*/}
+                                        {/*        </li>*/}
+                                        {/*    </ul>*/}
+
+                                        {/*</button>*/}
+                                        <button type="button" data-aos="fade-up" className="btn btn-whatsapp">
+                                                <div className="footer-icon-list d-flex justify-content-between">
+                                                    <span className="fa-stack fa-sm">
+                                                        <i className="fa fa-circle fa-stack-2x"></i><i
+                                                        className="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                                    </span>
+
+                                                    <span className="fa-stack fa-sm">
+                                                        <i className="fa fa-circle fa-stack-2x"></i><i
+                                                        className="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                                    </span>
+
+                                                    <span className="fa-stack fa-sm">
+                                                        <i className="fa fa-circle fa-stack-2x"></i><i
+                                                        className="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
                     <footer className="light-yellow-bg home-footer footer">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-2 offset-md-2 d-none d-lg-block">
+                        <div className="container my-0 my-lg-5">
+                            <div className="row ">
+                                <div className="col-md-2 offset-md-2 d-none d-lg-block offset-lg-0 col-lg-3">
                                     <div className="footer-logo">
                                         <img src={sfsFooterLogo} alt="sfs footer logo"/>
                                     </div>
                                 </div>
-                                <div className=" col-sm-6 col-md-4 col-lg-2 ">
+                                <div className=" col-sm-6 col-md-4 col-lg-3 ">
                                     <p className="footer-header">Company</p>
                                     <ul className="footer-list">
                                         <li>
-                                            <a href={'#'}  >About Us</a>
+                                            <a href={'#'}>About Us</a>
                                         </li>
                                         <li>
-                                            <a href={'#'}  >Testimonials</a>
+                                            <a href={'#'}>Testimonials</a>
                                         </li>
                                         <li>
-                                            <a href={'#'}  >FAQs</a>
+                                            <a href={'#'}>FAQs</a>
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="col-sm-6 col-md-4 col-lg-2 ">
+                                <div className="col-sm-6 col-md-4 col-lg-3 ">
                                     <p className="footer-header">Quick Links</p>
                                     <ul className="footer-list ">
                                         <li>
-                                            <Link to={'/sign-up'} >Register</Link>
+                                            <Link to={'/sign-up'}>Register</Link>
                                         </li>
                                         <li>
                                             <Link to={'/log-in'}>Log in</Link>
@@ -479,28 +576,34 @@ class Home extends Component {
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-2 ">
-                                    <p className="footer-header">Connect With Us</p>
-                                    <ul className="footer-icon-list ">
-                                        <li>
-                                            <span className="fa-stack fa-sm">
-                                                <i className="fa fa-circle fa-stack-2x"></i><i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span className="fa-stack fa-sm">
-                                                <i className="fa fa-circle fa-stack-2x"></i><i className="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span className="fa-stack fa-sm">
-                                                <i className="fa fa-circle fa-stack-2x"></i><i className="fa fa-instagram fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </li>
-                                    </ul>
+                                <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-3 ">
+                                    <p className="footer-header">Physical Address</p>
+
+                                    <p className='gray-text footer-p'>Skye Bank Building, 287 Ajose Adeogun St, Victoria Island 23401, Lagos</p>
+                                    {/*<ul className="footer-icon-list ">*/}
+                                    {/*    <li>*/}
+                                    {/*        <span className="fa-stack fa-sm">*/}
+                                    {/*            <i className="fa fa-circle fa-stack-2x"></i><i*/}
+                                    {/*            className="fa fa-facebook fa-stack-1x fa-inverse"></i>*/}
+                                    {/*        </span>*/}
+                                    {/*    </li>*/}
+                                    {/*    <li>*/}
+                                    {/*        <span className="fa-stack fa-sm">*/}
+                                    {/*            <i className="fa fa-circle fa-stack-2x"></i><i*/}
+                                    {/*            className="fa fa-twitter fa-stack-1x fa-inverse"></i>*/}
+                                    {/*        </span>*/}
+                                    {/*    </li>*/}
+                                    {/*    <li>*/}
+                                    {/*        <span className="fa-stack fa-sm">*/}
+                                    {/*            <i className="fa fa-circle fa-stack-2x"></i><i*/}
+                                    {/*            className="fa fa-instagram fa-stack-1x fa-inverse"></i>*/}
+                                    {/*        </span>*/}
+                                    {/*    </li>*/}
+                                    {/*</ul>*/}
                                 </div>
                                 <div className="col-md-12 mt-5 ">
-                                    <p className="footer-sub-text">© SFSbackupcash 2019</p>
+                                    <p className="footer-sub-text text-center">&copy; SFSbackupcash 2019. All RIghts
+                                        Reserved</p>
                                 </div>
                             </div>
                         </div>
@@ -511,4 +614,5 @@ class Home extends Component {
         );
     }
 }
+
 export default Home;

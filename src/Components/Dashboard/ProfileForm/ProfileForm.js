@@ -122,13 +122,28 @@ class ProfileForm extends Component {
                                                     </div>
                                                     <div className="col-12">
                                                         <div className="form-group">
-                                                            <label htmlFor="name">Name</label>
+                                                            <label htmlFor="name">First Name</label>
                                                             <input
                                                                 type="text"
                                                                 id="name"
                                                                 disabled
                                                                 className="form-control mb-1"
                                                                 name="name"
+                                                                defaultValue={userProfile?userProfile.name:null}
+                                                            />
+                                                            {/*{this.validator.message('name', name, 'required|string')}*/}
+
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-12">
+                                                        <div className="form-group">
+                                                            <label htmlFor="lastname">Last Name</label>
+                                                            <input
+                                                                type="text"
+                                                                id="lastname"
+                                                                disabled
+                                                                className="form-control mb-1"
+                                                                name="lastname"
                                                                 defaultValue={userProfile?userProfile.name:null}
                                                             />
                                                             {/*{this.validator.message('name', name, 'required|string')}*/}

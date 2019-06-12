@@ -49,7 +49,7 @@ class SteadySave extends Component {
 
     }
 
-    hideModal = ( status=false) => {
+    hideModal = (status = false) => {
         this.setState({
                 showSavingModal: false
             }
@@ -65,7 +65,7 @@ class SteadySave extends Component {
 
     handleSteadySave = (state, res) => {
         this.setState({
-            showLoader:false
+            showLoader: false
         });
         if (state) {
             if (res) {
@@ -104,13 +104,12 @@ class SteadySave extends Component {
 
     setupSteadySave = () => {
         this.setState({
-            showLoader:true
+            showLoader: true
         });
         request(getSteadySaveEndpoint, null, true, 'GET', this.handleSteadySave);
         console.log('setting up steady Save');
         // get data from localStorage
     };
-
 
 
     GetBalance = () => {
@@ -122,6 +121,8 @@ class SteadySave extends Component {
 
 
     };
+
+
     analyseSteadySaveInfo = (status, data) => {
 
         if (status) {
@@ -195,7 +196,6 @@ class SteadySave extends Component {
         //update the button to show status in progress if is paused is 0 or paused if its 1
 
 
-
         //table header and columns
         const columns = [
             {
@@ -213,7 +213,7 @@ class SteadySave extends Component {
             {
                 text: 'Start Amount',
                 dataField: 'start_amount',
-                formatter:moneyFormatter,
+                formatter: moneyFormatter,
                 sort: true
             },
             {
@@ -227,7 +227,7 @@ class SteadySave extends Component {
         return (
 
             <React.Fragment>
-                {this.state.showLoader?<DashboardLoader/>:null}
+                {this.state.showLoader ? <DashboardLoader/> : null}
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={userName}/>
@@ -249,7 +249,9 @@ class SteadySave extends Component {
                                 this.state.showSavingModal ?
                                     (
                                         <React.Fragment>
-                                            <SteadySaveModal setupSteadySave={this.setupSteadySave} steadySave={this.state.steadySave} totalSteadySave={this.state.totalSteadySave}
+                                            <SteadySaveModal setupSteadySave={this.setupSteadySave}
+                                                             steadySave={this.state.steadySave}
+                                                             totalSteadySave={this.state.totalSteadySave}
                                                              show={this.state.showSavingModal} onHide={this.hideModal}/>
                                         </React.Fragment>
 
@@ -306,7 +308,7 @@ class SteadySave extends Component {
                         <span className="mb-btn-wrapper">
                             <button type="button" onClick={this.showModal} className=" btn-blue-gradient-2 round">
                                 <img src={settingsIcon}/>
-                                Settings
+                                Edit Savings Plan
                             </button>
 
                         </span>

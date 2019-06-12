@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
-import {ToastProvider} from 'react-toast-notifications';
+import {ToastProvider, withToastManager} from 'react-toast-notifications';
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {request} from "../../ApiUtils/ApiUtils";
-import {resendActEndpoint} from "../../RouteLinks/RouteLinks";
+import {HomeLink, resendActEndpoint} from "../../RouteLinks/RouteLinks";
+import {Link} from 'react-router-dom';
 
 class ResendActivation extends Component {
 
@@ -18,7 +19,8 @@ class ResendActivation extends Component {
 
 
     resendActivationLink = () => {
-        console.log("email", this.state.email);
+        console.log("email",  this.props.location.state.email);
+        this.setState({loading:true});
         const param = {email: this.props.location.state.email};
         request(resendActEndpoint, param, false, "POST", this.handleResendActLink)
 
@@ -28,13 +30,18 @@ class ResendActivation extends Component {
     handleResendActLink = (state, response) => {
 
         const {toastManager} = this.props;
+        this.setState({
+            loading:false
+        })
 
         if (state) {
 
             console.log(response);
 
-            toastManager.add(`${response.data.success}`, {
+            toastManager.add(`${response.data.message}`, {
                 appearance: 'success',
+                autoDismiss:true,
+                autoDismissTimeout:4000,
             });
 
 
@@ -63,32 +70,30 @@ class ResendActivation extends Component {
                             <div className=" col-md-6 offset-md-6">
                                 {/*   header component */}
                                 <div className=" py-md-1 px-md-1 px-md-5 py-md-5 header-shadow mt-2 mb-md-5 bg-white">
-                                    <img alt="" src={backUpCashLogo} width="200px"/>
+                                    <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>
                                 </div>
                                 <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
-                                <ToastProvider>
                                     <div className="login-form">
                                         <div className="row text-center">
                                             <div className="col-12">
                                                 {/*provide breadcrumb to go back*/}
-                                                <h5 className="form-header-purple mb-3">Your Account Has Not Been
-                                                    Activated</h5>
-                                                <p>Check your mail for activation link or </p>
+                                                <h5 className="form-header-purple">Almost there...</h5>
+                                                <p>Please check your email to confirm your account</p>
+                                                <hr/>
                                             </div>
 
                                             <div className="col-12">
-                                                <div>
+                                                <div className={'mt-lg-2'}>
+                                                    <p className={'mb-lg-2'}>No confirmation email received? Please check your spam folder or</p>
                                                     <button type={'button'} onClick={this.resendActivationLink}
-                                                            className="btn btn-round blue-round-btn auth-btn "
+                                                            className=" act-btn "
                                                             name="action">{this.state.loading ? <ButtonLoader/> :
-                                                        <span>Click to Resend</span>}
+                                                        <span>Request new confirmation email</span>}
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </ToastProvider>
-
                             </div>
                         </div>
                     </div>
@@ -100,4 +105,4 @@ class ResendActivation extends Component {
 
 }
 
-export default ResendActivation;
+export default withToastManager(ResendActivation);

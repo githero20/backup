@@ -108,10 +108,10 @@ class TransactionTable extends Component {
         return (
             <React.Fragment>
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">
-                    <div className="card">
+                    <div className="card table-card">
                         <div className="card-header  ">
                             <div className="d-flex justify-content-start">
-                                <h4 className="card-title table-title">Recent Transaction </h4>
+                                <h4 className="card-title table-title">Recent Transactions </h4>
                                 {/*<div className="table-button-container d-none d-md-inline-block">*/}
                                 {/*                 <span*/}
                                 {/*                     className="mr-md-1 table-grid-view-icon img-2x list-btn active d-block d-md-inline">*/}
@@ -148,13 +148,13 @@ class TransactionTable extends Component {
                             keyField="id"
                             data={transactions}
                             columns={columns}
-                            search
-                        >
+                            search>
+
                             {
                                 props => (
                                     <div>
                                         <div
-                                            className={'d-flex justify-content-between align-items-center mb-1 mx-1'}>
+                                            className={'d-flex justify-content-between flex-md-row flex-column align-items-center mb-1 mx-1'}>
                                             <SearchBar {...props.searchProps} placeholder="Filter" />
                                             {/*<div onClick={this.toggleSort} className="table-sort-display d-block d-md-inline">*/}
                                             {/*    <span><img className=" img-2x " src={sortIcon}/></span>Sort*/}
@@ -165,7 +165,7 @@ class TransactionTable extends Component {
                                             {/*                                                 src={filterIcon}/></span>Filter*/}
                                             {/*</div>*/}
                                             <ExportCSVButton className={'btn-green'}  {...props.csvProps}>Export
-                                                CSV!!</ExportCSVButton>
+                                                CSV</ExportCSVButton>
                                         </div>
 
 
@@ -179,7 +179,6 @@ class TransactionTable extends Component {
                                                     </select>
                                                 </div>
                                                 <button className='btn btn-block btn-custom-blue'>Sort</button>
-
                                             </div>:null
 
                                         }
@@ -196,10 +195,24 @@ class TransactionTable extends Component {
 
                                         }
 
-                                        <BootstrapTable
+                                        <BootstrapTable classes={'spaced-table'}
                                             {...props.baseProps}
-                                            pagination={paginationFactory()}
-                                            filter={filterFactory()}
+                                            pagination={paginationFactory({
+                                                hideSizePerPage: true,
+                                                sizePerPageList: [ {
+                                                    text: '5', value: 5
+                                                }, {
+                                                    text: '10', value: 10
+                                                }],
+                                                withFirstAndLast: true,
+                                                alwaysShowAllBtns: true,
+                                                prePageText: 'Prev',
+                                                nextPageText: 'Next',
+                                            })}
+
+                                            filter={filterFactory({
+
+                                            })}
                                         />
                                     </div>
 

@@ -88,7 +88,7 @@ height-100vh{
 
 .section-header p {
     color: #0A3560;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: bold;
 
 }
@@ -121,6 +121,12 @@ height-100vh{
 
 .btn-light-blue:hover {
     background-color: #316ee3;
+}
+
+.btn-login-outline{
+    border:2px solid #103366;
+    background-color: transparent;
+    color: #103366 !important;
 }
 
 .btn-rounded-blue {
@@ -165,11 +171,11 @@ height-100vh{
     color: #5E5E5E;
 }
 
-.cta-link{
+.cta-link .btn-login-outline{
     transform: translateY(0);
     transition: .5s ease-in-out;
 }
-.cta-link:hover{
+.cta-link .btn-login-outline:hover{
     transform: translateY(-5px);
 }
 
@@ -272,7 +278,7 @@ height-100vh{
 }
 
 .call-action-section {
-    height: 300px;
+    height: 500px;
     background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("../../app-assets/images/call-to-act-bg@2x.png");
     background-size: 100%;
     background-position: top right;
@@ -309,6 +315,9 @@ height-100vh{
 
 .footer-icon-list {
     list-style-type: none;
+    padding-left: 0px;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .footer-icon-list i {
@@ -319,16 +328,25 @@ height-100vh{
     display: inline;
     color:#323268;
 }
-
+.footer-icon-list span {
+    display: inline;
+    color:#323268;
+}
+.footer-p{
+    font-size: 1.3rem;
+    color: #636363;
+}
 .footer-list {
     list-style-type: none;
-    padding-left: 1rem;
+    padding-left:0rem;
 }
-
+.footer-list li{
+    padding:0px;
+}
 .footer-list li a {
     color: #636363;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
 
 .footer-list li a:hover {
@@ -336,17 +354,18 @@ height-100vh{
 }
 
 .footer-sub-text {
-    font-size: .8rem;
-    color: #636363;
+    font-size: 1rem;
+    color: #828282;
 }
 
 .light-yellow-bg {
-    background: #FFFDC9;
+    background: #fffdc94d;
 }
 
 .home-footer.footer {
     min-height: 300px ;
     padding-top: 5rem;
+    font-size:1.5rem;
 }
 
 .footer-icon-list {
@@ -428,16 +447,41 @@ height-100vh{
 }
 
 .section-transparent-card-right p {
-    font-size: 1rem;
-    color: #9B9B9B;
+    font-size: 1.3rem;
+    color: #bdbdbd;
+}
+.section-transparent-card-right h5 {
+    font-size: 1.5rem;
 }
 
 .nav-link {
     color: #8A8A8A;
     font-size: 1.2rem;
     letter-spacing: .5px;
-    margin-right: 3.5rem;
+    margin-right: 1.5rem;
     transition: .5s ease-in-out;
+}
+.nav-link:hover {
+    color: #323268;
+}
+.act-btn{
+    width: 60%;
+    height: 50px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color:#367BFF ;
+    text-align: center;
+    color: white;
+    border-radius: 3rem;
+    border:none;
+    cursor: pointer;
+    transform: translateY(0);
+    transition: all .5s ease-in-out;
+}
+
+.act-btn:hover{
+
+    transform: translateY(-5px);
 }
 
 .card-text {
@@ -558,9 +602,29 @@ height-100vh{
     font-size: 1.3rem;
 }
 
-.whatsapp .btn-padding{
-    padding:1rem 4rem;
+.whatsapp .btn-whatsapp{
+    padding:2.5rem 4rem;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.09);
+    border-radius: 5rem;
+    transform:translateY(0);
+    transition: all .5s ease-in-out;
+}
+.whatsapp .btn-whatsapp:hover{
+    transform:translateY(-5px);
+    transition: all .5s ease-in-out;
+}
+.cas-title{
+    font-weight: bold;
+    font-size: 3.5rem;
+}
+.call-action-section .cas-btn{
+    padding: 1.5rem 4rem;
+}
 
+.whatsapp .chat-title{
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
 }
 /*@media (min-width: 1400px) {*/
 /*    .header-img{*/
@@ -605,6 +669,9 @@ footer-logo {
 .yellow-icon{
     width: 4rem;
 }
+.w-20{
+    width: 20px;
+}
 
 .card-1-img{
     width: 80%;
@@ -614,7 +681,10 @@ footer-logo {
     width: 100%;
     margin: 0 auto;
 }
-
+.footer-header{
+    letter-spacing: 1px;
+    margin-bottom: 1.3rem;
+}
 
 
 @media all and (max-width:768px){

@@ -50,6 +50,7 @@ class BankCardSetting extends Component {
             }
         })
     }
+
     getUserCards(){
         getUserCards((status, payload) => {
             console.log("Cards",status, payload);

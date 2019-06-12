@@ -31,6 +31,7 @@ class UpdatePassword extends Component {
         token:null,
         email:null,
         password:null,
+        old_password:null,
         password_confirmation:null,
         loading:false,
         passErr:false
@@ -184,7 +185,21 @@ class UpdatePassword extends Component {
                                 <h3>Update Password</h3>
                                 <div className='line'></div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-4">
+                                <div className="form-group">
+                                    <label htmlFor="password">Old Password</label>
+                                    <input
+                                        type="password"
+                                        id="old_password"
+                                        onChange={this.changeHandler}
+                                        className="form-control mb-1"
+                                        name="old_password"
+                                    />
+
+                                    {this.validator.message('Old password', password, 'required|string|min:8')}
+                                </div>
+                            </div>
+                            <div className="col-md-4">
                                 <div className="form-group">
                                     <label htmlFor="password">New Password</label>
                                     <input
@@ -195,10 +210,10 @@ class UpdatePassword extends Component {
                                         name="password"
                                     />
 
-                                    {this.validator.message('password', password, 'required|string|min:8')}
+                                    {this.validator.message('Password', password, 'required|string|min:8')}
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <div className="form-group">
                                     <label htmlFor="password_confirmation">Confirm Password</label>
                                     <input

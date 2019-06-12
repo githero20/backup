@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {BASE_URL} from "../RouteLinks/RouteLinks";
+import {USERTOKEN} from "../Components/Auth/HOC/authcontroller";
 
 export function api(url, params, token, method, callback) {
 
@@ -53,13 +54,56 @@ export function request(url, params, token, method, callback) {
     }
     if (method === 'POST') {
         return axios.post(url, params, header).then(res => callback(true, res))
-            .catch(err => callback(false, err.response))
+            .catch(err => {
+                if(err.response){
+                    console.log(err.response);
+                    if(err.response.status===401){
+                        localStorage.clear();
+                        window.location = "/login";
+                    }
+                }else {
+                    return callback(false, err.response);
+                }
+            })
     } else if (method === 'GET') {
-        return axios.get(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
+        return axios.get(url, header).then(res => callback(true, res))
+            .catch(err => {
+                if(err.response){
+                    console.log(err.response);
+                    if(err.response.status===401){
+                        localStorage.clear();
+                        window.location = "/login";
+                    }
+                }else {
+                    return callback(false, err.response);
+                }
+            })
     } else if (method === 'PATCH') {
-        return axios.patch(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
+        return axios.patch(url, header).then(res => callback(true, res))
+            .catch(err => {
+                if(err.response){
+                    console.log(err.response);
+                    if(err.response.status===401){
+                        localStorage.clear();
+                        window.location = "/login";
+                    }
+                }else {
+                    return callback(false, err.response);
+                }
+            })
     }else if (method === 'PUT') {
-        return axios.patch(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
+        return axios.patch(url, header).then(res => callback(true, res))
+            .catch(err => {
+                if(err.response){
+                    console.log(err.response);
+                    if(err.response.status===401){
+                        localStorage.clear();
+                        window.location = "/login";
+                    }
+                }else {
+                    return callback(false, err.response);
+                }
+            })
     }
 }
     export function multipartrequest(url, params, token, method, callback) {

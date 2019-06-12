@@ -144,20 +144,20 @@ export function dateFormatter (cell) {
 }
 
 export function descriptionFormatter (cell) {
-    return  <span className={cell==='credit'?'text-green':'text-red'}>{cell}</span>
+    return  <span className={cell==='credit'?'text-green text-capitalize':'text-red text-capitalize'}>{cell}</span>
 }
 
 export function amountFormatter (cell,row) {
     return (
         <span className={row.type === 'credit' ? 'text-green' : 'text-red'}>
                 {row.type === 'credit' ? '+' : '-'} &#8358; &nbsp;
-            {parseFloat(cell).toFixed(2)}
+            {formatNumber(parseFloat(cell).toFixed(2))}
             </span>
     )
 }
 export function moneyFormatter (cell) {
     return (
-        <span className={'text-green'}> + &#8358; &nbsp;{parseFloat(cell).toFixed(2)}</span>
+        <span className={'text-green'}> + &#8358; &nbsp;{formatNumber(parseFloat(cell).toFixed(2))}</span>
     )
 }
 
@@ -171,7 +171,7 @@ export function steadyStatusFormatter (cell,row) {
 }
 
 export function statusFormatter(cell){
-    return  <label className={cell==='success'?'bg-light-green px-2 sm-pd':'bg-light-red px-2 sm-pd'}>{cell}</label>
+    return  <label className={cell==='success'?'bg-light-green px-2 sm-pd text-capitalize':'bg-light-red px-2 sm-pd text-capitalize'}>{cell}</label>
 }
 export function interestFormatter(cell){
     return <label>+{parseFloat(cell).toFixed(2)}%</label>

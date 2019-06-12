@@ -37,6 +37,14 @@ class LoginForm extends Component {
     };
 
 
+
+    //TODO login should handle is user sign's up but hasn't activated yet
+
+    //TODO on login user should be redirected to the email verification
+
+
+
+
     processLogin = (state, response) => {
 
 

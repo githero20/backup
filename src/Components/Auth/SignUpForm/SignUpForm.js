@@ -4,12 +4,28 @@ import {Link, Redirect} from "react-router-dom";
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
 import ButtonLoader from "../Buttonloader/ButtonLoader";
-import {ActivateAccountLink, RegisterEndpoint} from "../../../RouteLinks/RouteLinks";
+import {
+    ActivateAccountLink,
+    EmailActivationLink,
+    RegisterEndpoint,
+    ResendActivationLink
+} from "../../../RouteLinks/RouteLinks";
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 
 class SignUpForm extends Component {
+
+
+    // after sign up user should be redirected to resend email component
+
+
+    // display  message you have successfully signed up
+
+    // check your email to activate your account
+
+    // or click the link to resend activation
+
 
     //validator
     constructor(props) {
@@ -17,8 +33,9 @@ class SignUpForm extends Component {
 
         this.validator = new SimpleReactValidator({
             messages: {
-                email: 'Please Provide a valid Email.',
-                name: 'Please fill in your name.',
+                email: 'Please provide a valid Email.',
+                name: 'Please fill in your first name.',
+                last_name: 'Please fill in your last name.',
                 phone: 'The phone number must match the required pattern (080********)',
                 password: 'Please provide a strong password',
             }
@@ -29,6 +46,7 @@ class SignUpForm extends Component {
             showReferralInput: false,
             email: '',
             name: '',
+            last_name: '',
             phone: '',
             password: '',
             password_confirmation: '',
@@ -119,66 +137,75 @@ class SignUpForm extends Component {
     getSignUpInfo = (state, response) => {
 
         const {toastManager} = this.props;
-        //save token
-        const serverResponse = response.data;
-        const token = serverResponse.token;
-        const user = serverResponse.user;
-
-        console.log(user, token);
 
         this.setState({
             loading: false
         });
-        this.saveToLocalStorage(user, token);
 
         if (!state) {
-
-            console.log(`request failed: ${JSON.stringify(response)}`);
-            this.setState({
-                error: true,
-                errorMessage: JSON.stringify(response.data.message),
-                loading: false
-            });
-
-            if(response && response.data){
-                console.log(response.data.errors);
-
-
-                let errors = response.data.errors;
-
-                let errorData = Object.values(errors);
-
-                // for (let key in errors) {
-                //     if (errors.hasOwnProperty(key)) {
-                //         toastManager.add(`${errors[key]}`, {
-                //             appearance: 'error',
-                //         });
-                //     }
-                // }
-
-                errorData.map((err,idx)=>{
-                    return(
-                        toastManager.add(`${err}`, {
-                            appearance: 'error',
-                            index:idx
-                        })
-                    )
+            console.log('error');
+            if(response){
+                console.log(`request failed: ${JSON.stringify(response)}`);
+                this.setState({
+                    error: true,
+                    errorMessage: JSON.stringify(response.data.message),
+                    loading: false
                 });
 
-            }else{
-                toastManager.add("No Internet Connection.", {
-                    appearance: 'error'
-                })
+                if(response.data){
+                    console.log(response.data.errors);
+                    let errors = response.data.errors;
+                    let errorData = Object.values(errors);
+                    errorData.map((err,idx)=>{
+                        return(
+                            toastManager.add(`${err}`, {
+                                appearance: 'error',
+                                index:idx,
+                                autoDismiss:true,
+                                autoDismissTimeout:3000,
+                            })
+                        )
+                    });
+
+                }
+
             }
+            // else{
+            //     toastManager.add("No Internet Connection.", {
+            //         appearance: 'error',
+            //         autoDismiss:true,
+            //         autoDismissTimeout:3000,
+            //     })
+            // }
         }else{
-            console.log(response);
 
-            localStorage.setItem(USERTOKEN, response.data.token);
+            console.log('got here to save')
+            if(response){
+                console.log('saved')
 
-            // redirect to dashboard
-            this.setState({
-                redirect: true
-            });
+                const serverResponse = response.data;
+                const token = serverResponse.token;
+                const user = serverResponse.user;
+
+                console.log(user, token);
+                this.saveToLocalStorage(user, token);
+
+                // localStorage.setItem(USERTOKEN, response.data.token);
+
+                // redirect to activate email
+
+                // this.props.history.push({
+                //     pathname: `${ResendActivationLink}`,
+                //     state: {email:this.state.email }
+                // });
+
+
+                this.setState({
+                    redirect: true
+                });
+
+            }
+
         }
     };
 
@@ -227,14 +254,29 @@ class SignUpForm extends Component {
 
     render() {
 
-        const {name, email, referralCode, password, password_confirmation, phone} = this.state;
+        const {name, email, referralCode, password, password_confirmation,last_name, phone} = this.state;
 
 
         if (this.state.redirect) {
 
+
+            // Activate account with paystack
+
+            // return (
+            //     <React.Fragment>
+            //         <Redirect to={ActivateAccountLink} push/>
+            //     </React.Fragment>
+            // );
+            //
             return (
                 <React.Fragment>
-                    <Redirect to={ActivateAccountLink} push/>
+                    {/*<Redirect to={ResendActivationLink} />*/}
+                    <Redirect push to={{
+                        pathname:`${ResendActivationLink}`,
+                        state: { email: this.state.email }
+                    }}
+
+                    />
                 </React.Fragment>
             );
         }
@@ -251,12 +293,31 @@ class SignUpForm extends Component {
                         </div>
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
-                                <label htmlFor="name">Name</label>
+                                <label htmlFor="name">First Name</label>
                                 <input id="name" type="text" name={'name'} className={'form-control'}
                                        onChange={this.changeHandler}/>
                                 {this.validator.message('name', name, 'required|string')}
                             </div>
                         </div>
+
+                        <div className="col-12 col-lg-6">
+                            <div className="form-group">
+                                <label htmlFor="name">Last Name (Surname)</label>
+                                <input id="lastname" type="text" name={'last_name'} className={'form-control'}
+                                       onChange={this.changeHandler}/>
+                                {this.validator.message('last name', last_name, 'required|string')}
+                            </div>
+                        </div>
+
+                        <div className="col-12  col-lg-6 ">
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label>
+                                <input id="email" name={'email'} type="email" className="form-control"
+                                       onChange={this.changeHandler}/>
+                                {this.validator.message('email', email, 'required|email')}
+                            </div>
+                        </div>
+
                         <div className="col-12 col-lg-6 ">
                             <div className="form-group">
                                 <label htmlFor="phoneNumber">Mobile Phone</label>
@@ -265,14 +326,7 @@ class SignUpForm extends Component {
                                 {this.validator.message('phone', phone, 'required|phone|regex:^[0]\\d{10}$')}
                             </div>
                         </div>
-                        <div className="col-12  ">
-                            <div className="form-group">
-                                <label htmlFor="email">Email</label>
-                                <input id="email" name={'email'} type="email" className="form-control"
-                                       onChange={this.changeHandler}/>
-                                {this.validator.message('email', email, 'required|email')}
-                            </div>
-                        </div>
+
 
                         <div className="col-12 col-lg-6">
                             <div className="form-group">

@@ -38,7 +38,7 @@ class BackupStash extends Component {
         email: null,
         showSavingModal: false,
         showLoader: true,
-        newInstantSave: false
+        newInstantSave: false,
     };
 
     constructor(props) {
@@ -59,10 +59,13 @@ class BackupStash extends Component {
         });
     };
 
-    hideTransToCentralVaultModal = () => {
+    hideTransToCentralVaultModal = (status) => {
         this.setState({
             showTransToCentralVault: false
         });
+        if(status){
+            this.setupStash();
+        }
     };
     showTransToCentralVaultModal = () => {
         console.log('Transfer to Central Vault Modal');
@@ -103,6 +106,11 @@ class BackupStash extends Component {
                         console.log(content.balance);
                         this.setState({
                             totalStash: formatNumber(content.balance)
+                        })
+                    }else if (content.account_type_id === STANDARD_ACCOUNT) {
+                        console.log(content.balance);
+                        this.setState({
+                            vaultBalance:content.balance,
                         })
                     }
                 });
@@ -227,6 +235,7 @@ class BackupStash extends Component {
                                 (
                                     <React.Fragment>
                                         <TransferToCentralVaultModal
+                                            stashBalance={this.state.totalStash}
                                             show={this.state.showTransToCentralVault}
                                             onHide={this.hideTransToCentralVaultModal}
                                         />
@@ -251,22 +260,23 @@ class BackupStash extends Component {
                                     <h3 className="gray-header-text fs-mb-1 mb-2">Quick Actions</h3>
 
                                     <div className="mb-quick-actions d-flex flex-md-column flex-wrap ">
-                                        {/*<span className="mb-btn-wrapper">*/}
-                                        {/*    <button type="button" data-toggle="modal" data-target="#large" onClick={this.showTransLockedSavingModal}*/}
-                                        {/*            className=" btn-blue-gradient-2 round">*/}
-                                        {/*        <img src={whiteSaveMoreIcon} alt={'Transfer to Saving Modal'}/>*/}
-                                        {/*        Transfer to Locked Savings*/}
-                                        {/*    </button>*/}
+                                        <span className="mb-btn-wrapper">
+                                            <button type="button" data-toggle="modal" data-target="#large" onClick={this.showTransLockedSavingModal}
+                                                    className=" btn-blue-gradient-2 round">
+                                                <img src={whiteSaveMoreIcon} alt={'Transfer to Saving Modal'}/>
+                                                Transfer to Locked Savings
+                                            </button>
 
-                                        {/*</span>*/}
-                                        {/*<span className="mb-btn-wrapper">*/}
-                                        {/*    <button type="button" data-toggle="modal" data-target="#large" onClick={this.showTransToCentralVaultModal}*/}
-                                        {/*            className=" btn-blue-gradient-2 round">*/}
-                                        {/*        <img src={whiteSaveMoreIcon} alt={'Transfer to Central Vault'}/>*/}
-                                        {/*        Transfer to Central Vault*/}
-                                        {/*    </button>*/}
+                                        </span>
 
-                                        {/*</span>*/}
+                                        <span className="mb-btn-wrapper">
+                                            <button type="button" data-toggle="modal" data-target="#large" onClick={this.showTransToCentralVaultModal}
+                                                    className=" btn-blue-gradient-2 round">
+                                                <img src={whiteSaveMoreIcon} alt={'Transfer to Central Vault'}/>
+                                                Transfer to Central Vault
+                                            </button>
+                                        </span>
+
                                         <span className="mb-btn-wrapper">
                                             <Link to={WithdrawalLink}>
                                                 <button type="button" className=" btn-blue-gradient-2 round">

@@ -175,7 +175,7 @@ class BackupGoals extends Component {
 
                                 <div className="row">
                                     <div id="Back-up-goals" className="col-12 col-md-12">
-                                        <div class Name="card">
+                                        <div className="card">
                                             <div className="card-content mt-1 px-2 px-md-5 py-md-3">
                                                 <div className="table-header d-flex justify-content-between align-items-md-center px-md-2  mb-3">
                                                     <h4 className="table-title">

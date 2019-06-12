@@ -63,7 +63,7 @@ class TransferLockedSavingsModal extends React.Component {
                                 <button className={'round btn-custom-blue modal-btn'} type="submit">
                                     {/*{this.state.loading ? <ButtonLoader/> :*/}
                                         {/*<span>Start Saving</span>}*/}
-                                    <span>Transfer to Locked Savings</span>
+                                    <span>Transfer </span>
                                 </button>
                             </Form.Row>
                         </div>

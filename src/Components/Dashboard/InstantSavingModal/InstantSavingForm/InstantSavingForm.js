@@ -9,6 +9,8 @@ import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 
 import {ADD_CARD} from "../../../../Helpers/Helper";
+import {initTransaction, verifyTransaction} from "../../../../actions/CardAction";
+import {_getUser, _payWithPaystack} from "../../../../utils";
 
 
 class InstantSavingForm extends Component {
@@ -38,25 +40,77 @@ class InstantSavingForm extends Component {
 
     }
 
-    handleAddNewCard = () => {
+
+    initiatePayStack = () => {
+
+        //send api
+        initTransaction({
+            amount: this.state.instantSaveInfo.amount,
+            source: this.state.instantSaveInfo.source,
+        }, (status, payload) => {
+            console.log("status", status, payload);
+            this.setState({loading: false});
+            if (status) {
+                const user = _getUser();
+                console.log(user);
+                _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
+            } else {
+                this.props.toastManager.add(payload, {
+                    appearance: "error",
+                    autoDismiss: true,
+                    autoDismissTimeout: 3000
+                })
+            }
+
+            this.props.onHide();
+        });
+
+    }
 
 
-    };
+    resolvePaystackResponse=(response)=>{
+        this.setState({
+            loading: false,
+        });
+        console.log("Paystack Response", response);
+        verifyTransaction({
+            ref: response.reference,
+            type: "instant"
+        },(status, payload) =>{
+            console.log("status", status, payload);
+            if(status){
+                this.props.toastManager.add("Card Added Successfully",{
+                    appearance:"success",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                });
 
+                this.getUserCards();
+            }else{
+                this.props.toastManager.add("Unable to add card at this moment",{
+                    appearance:"error",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                })
+            }
+        })
 
+    }
     //submit steady save form
     submitForm = (e) => {
-
-
         e.preventDefault();
-
-
         if (this.validator.allValid()) {
             this.setState({
                 loading: true,
             });
-
-            request(instantSaveEndpoint, this.state.instantSaveInfo, true, 'POST', this.HandleInstantSave);
+            if (parseInt(this.state.instantSaveInfo.payment_auth) === 0) {
+                //initiate paystack
+                console.log('got here to initiate paystack');
+                this.initiatePayStack();
+            }else {
+                console.log('going without initiating');
+                request(instantSaveEndpoint, this.state.instantSaveInfo, true, 'POST', this.HandleInstantSave);
+            }
 
 
         } else {
@@ -255,10 +309,10 @@ class InstantSavingForm extends Component {
 
 
                     <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
-                            <button className={'round btn-custom-blue modal-btn'} type="submit">
-                                {this.state.loading ? <ButtonLoader/> :
-                                    <span>Start Saving</span>}
-                            </button>
+                        <button className={'round btn-custom-blue modal-btn'} type="submit">
+                            {this.state.loading ? <ButtonLoader/> :
+                                <span>Start Saving</span>}
+                        </button>
                     </Form.Row>
                 </Form>
             </React.Fragment>

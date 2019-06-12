@@ -166,12 +166,6 @@ class VerticalNav extends Component {
                                     <span className="menu-title">Transactions</span>
                                 </NavLink>
                             </li>
-                            <li className={' nav-item ' + this.getNavLinkClass(BackupStashLink)}>
-                                <NavLink to={BackupStashLink} >
-                                    <img src={WithdrawalIcon}/>
-                                    <span className="menu-title">Backup Stash</span>
-                                </NavLink>
-                            </li>
                             <li className={' nav-item ' + this.getNavLinkClass(WithdrawalLink)}>
                                 <NavLink to={WithdrawalLink} >
                                     <img src={WithdrawalIcon}/>

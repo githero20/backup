@@ -145,6 +145,7 @@ html body .content.app-content {
     right: 2%;
 }
 
+
 .css-e110bw {
     box-sizing: border-box;
     max-height: 100%;
@@ -567,6 +568,7 @@ html body .content.app-content {
     border-collapse: separate;
     border-spacing: 0 .5rem;
     padding: 0rem 3rem;
+    border:none;
 }
 
 .spaced-table th, .spaced-table td {
@@ -734,6 +736,7 @@ html body .content.app-content {
 .modal-btn{
     width:150px;
     height:40px;
+    cursor: pointer;
 }
 
 .btn-custom-blue:hover {
@@ -1777,7 +1780,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .completed-goal-number {
-    color: #0B4AA8;
+    color: white;
     background-color: #91BBF9;
 }
 
@@ -2174,6 +2177,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .steady-save-modal .modal-content,.instant-save-modal .modal-content{
     border-radius: 12px;
+    border: none;
 }
 
 /* Absolute Center Spinner */
@@ -2449,14 +2453,14 @@ html body .content.app-content {
         color: #d1d1d1;
     }
 
-    input[type=text]:not(.browser-default),
-    input[type=email]:not(.browser-default),
-    input[type=password]:not(.browser-default),
-    input[type=tel]:not(.browser-default),
-    input[type=number]:not(.browser-default),
-    input[type=time]:not(.browser-default),
-    select:not(.browser-default),
-    input[type=date]:not(.browser-default) {
+    input[type=text],
+    input[type=email],
+    input[type=password],
+    input[type=tel],
+    input[type=number],
+    input[type=time],
+    select,
+    input[type=date] {
         background-color: transparent;
         border: none;
         border-bottom: 1px solid #9e9e9e;
@@ -2472,35 +2476,35 @@ html body .content.app-content {
         transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
     }
 
-    input[type=text]:not(.browser-default):disabled {
-        color: rgba(0, 0, 0, 0.42);
-        border-bottom: 1px dotted rgba(0, 0, 0, 0.42);
-    }
+    /*input[type=text]:not(.browser-default):disabled {*/
+    /*    color: rgba(0, 0, 0, 0.42);*/
+    /*    border-bottom: 1px dotted rgba(0, 0, 0, 0.42);*/
+    /*}*/
 
-    input[type=text]:not(.browser-default):disabled + label {
-        color: rgba(0, 0, 0, 0.42);
-    }
+    /*input[type=text]:not(.browser-default):disabled + label {*/
+    /*    color: rgba(0, 0, 0, 0.42);*/
+    /*}*/
 
-    input[type=text]:not(.browser-default):focus:not([readonly]) {
-        border-bottom: 1px solid #1e9ff2;
-        -webkit-box-shadow: 0 1px 0 0 #1e9ff2;
-        box-shadow: 0 1px 0 0 #1e9ff2;
-    }
+    /*input[type=text]:not(.browser-default):focus:not([readonly]) {*/
+    /*    border-bottom: 1px solid #1e9ff2;*/
+    /*    -webkit-box-shadow: 0 1px 0 0 #1e9ff2;*/
+    /*    box-shadow: 0 1px 0 0 #1e9ff2;*/
+    /*}*/
 
-    input[type=text]:not(.browser-default):focus:not([readonly]) + label {
-        color: #1e9ff2;
-    }
+    /*input[type=text]:not(.browser-default):focus:not([readonly]) + label {*/
+    /*    color: #1e9ff2;*/
+    /*}*/
 
-    input[type=text]:not(.browser-default) + label:after {
-        display: block;
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 0;
-        opacity: 0;
-        -webkit-transition: .2s opacity ease-out, .2s color ease-out;
-        transition: .2s opacity ease-out, .2s color ease-out;
-    }
+    /*input[type=text]:not(.browser-default) + label:after {*/
+    /*    display: block;*/
+    /*    content: "";*/
+    /*    position: absolute;*/
+    /*    top: 100%;*/
+    /*    left: 0;*/
+    /*    opacity: 0;*/
+    /*    -webkit-transition: .2s opacity ease-out, .2s color ease-out;*/
+    /*    transition: .2s opacity ease-out, .2s color ease-out;*/
+    /*}*/
 
     .input-field {
         position: relative;
@@ -3661,9 +3665,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .login-form .input-field input[type=text]:focus, .login-form .input-field input[type=email]:focus, .login-form .input-field input[type=password]:focus {
     border-bottom: 1px solid #88B6FF;
+    background-color: white;
     box-shadow: none;
 }
-
+input:-webkit-autofill {
+    background-color: white !important;
+}
 .blue-link {
     color: #88B6FF !important;
     transition: all .5s ease-in;
@@ -3983,7 +3990,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .completed-goal-number {
-    color: #0B4AA8;
+    color: white;
     background-color: #91BBF9;
 }
 
@@ -4391,7 +4398,7 @@ input[type=number]::-webkit-outer-spin-button {
     width: 3em;
     margin: auto;
     border:.5rem solid;
-    border-color: #367dff transparent transparent transparent;
+    border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;
     top: 10rem;
     right:6rem;
     display: block;
@@ -4440,4 +4447,29 @@ input[type=number]::-webkit-outer-spin-button {
     /*position: absolute;*/
     right:5rem;
     top:10em;
+}
+
+.ad-container{
+    padding:3rem 0rem 0rem 0rem;
+}
+.ad-container .ad-placeholder{
+    width:8rem;
+    height: 8rem;
+    background-color: white;
+    text-align: center;
+    border-radius:.8rem;
+    margin-bottom: 2rem;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
+    cursor: pointer;
+}
+.ad-placeholder p {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.ad-container .ad-desc-placeholder{
+    padding:1rem 0rem;
+    margin-bottom: 3rem;
+}
+.table-card{
+    overflow: auto;
 }

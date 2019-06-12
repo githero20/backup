@@ -10,18 +10,16 @@ import {HomeLink} from "../../RouteLinks/RouteLinks";
 
 class SignUp extends Component {
 
-    //validator
-    constructor(props) {
-        super(props);
-
-        this.validator = new SimpleReactValidator();
-
-        this.state = {
-            submitted:false,
-        }
-    }
-
-
+    // //validator
+    // constructor(props) {
+    //     super(props);
+    //
+    //     this.validator = new SimpleReactValidator();
+    //
+    //     this.state = {
+    //         submitted:false,
+    //     }
+    // }
 
     //Send date to the second stage to activation container
 

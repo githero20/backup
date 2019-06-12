@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import RightArrow from "../../../admin/app-assets/images/svg/arrow-right.svg";
 import BlueRightArrow from "../../../admin/app-assets/images/svg/blue-arrow-right.svg";
-import {SteadySaveLink, WithdrawalLink} from "../../../RouteLinks/RouteLinks";
+import {BackupStashLink, SteadySaveLink, WithdrawalLink} from "../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 
 class BackUpStashCard extends Component {
@@ -20,7 +20,7 @@ class BackUpStashCard extends Component {
                             <h4 className="card-title saving-balance-text mb-1 mt-5">&#8358; {stashAmount}</h4>
                             <div className="d-flex justify-content-center">
 
-                                <Link to={WithdrawalLink} className="btn white-btn round  ml-1 mr-1 mr-md-0">See
+                                <Link to={BackupStashLink} className="btn white-btn round  ml-1 mr-1 mr-md-0">See
                                     All <img
                                         className="btn-icon"
                                         src={BlueRightArrow} alt={'backup stash'}/>

@@ -5,7 +5,7 @@ import DashboardContainer from "../../Components/Dashboard/DashboardContainer/Da
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
 import {
-    activateUserEndpoint,
+    activateUserEndpoint, CentralVaultInterest,
     getUserInfoEndpoint,
     lockedSavingEndpoint,
     resendActEndpoint
@@ -19,10 +19,11 @@ import {
     STANDARD_ACCOUNT
 } from "../../Helpers/Helper";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
-import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
+import {SHOWAD, USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import ActivationModal from "../../Components/Dashboard/ActivationModal/ActivationModal";
 import {ToastProvider} from 'react-toast-notifications';
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
+import StartNowModal from "../../Components/Dashboard/StartNowModal/StartNowModal";
 
 
 class DashboardIndex extends Component {
@@ -31,6 +32,7 @@ class DashboardIndex extends Component {
         showSteadySavingModal: false,
         showActiveGoalModal: false,
         showlockedSavingsModal: false,
+        showStartModal: true,
         error: false,
         errorMessage: '',
         showActivationModal: false,
@@ -48,7 +50,9 @@ class DashboardIndex extends Component {
         CompletedGoals: 0,
         email: null,
         showLoader: true,
-        isActive:false
+        isActive:false,
+        showAdModal:false,
+        vaultInterest:'0.00'
     };
 
 
@@ -74,6 +78,14 @@ class DashboardIndex extends Component {
         });
     };
 
+    closeStartModal = () => {
+        this.setState({
+            showStartModal: false
+        });
+        setLocalStorage(SHOWAD,'dont_show');
+
+    };
+
     closeSteadySaveModal = () => {
         this.setState({
             showSteadySavingModal: false
@@ -95,13 +107,86 @@ class DashboardIndex extends Component {
     };
 
 
+    adModalController = ( ) =>{
+
+
+        //TODO setup popup for first user login
+
+        //when user logs in for the first time
+
+        if(!getLocalStorage(SHOWAD)){
+            setLocalStorage(SHOWAD,'show');
+            console.log(getLocalStorage(SHOWAD));
+            // show the add
+            this.setState({
+                showStartModal: true
+            })
+
+        }else if(getLocalStorage(SHOWAD)!=='show'){
+            console.log('second run'+getLocalStorage(SHOWAD));
+            this.setState({
+                showStartModal: false
+            })
+
+        }
+
+        //check if storage is set
+
+
+        //if not set session storage
+
+        // show modal
+
+        // when modal is cancelled by the user
+
+        //set the storage to false
+
+        //  if the storage is set and is true
+
+
+        // show modal
+
+        //if the storage and is false don't show the modal
+
+        // modal should contain he links to each feature on the app back up goals , steady save , locked savings
+
+
+
+
+
+    };
+
+
+    handleVaultInterest = (status,response) =>{
+
+        if(status){
+            console.log('got here');
+            if(response){
+                console.log(response.data.data);
+                this.setState({
+                    vaultInterest:formatNumber(parseFloat(response.data.data).toFixed(2))
+                })
+
+            }
+        }
+    }
+
+
+
     setupDashBoard = () => {
 
 
 
+        //controls add display
+        this.adModalController();
 
         //make request
-        request(getUserInfoEndpoint, null, true, 'GET', this.analyseDashboardInfo)
+        request(getUserInfoEndpoint, null, true, 'GET', this.analyseDashboardInfo);
+
+
+        //get vault interest
+
+        request(CentralVaultInterest,null,true,'GET',this.handleVaultInterest);
 
         //make request
         //show loader
@@ -401,7 +486,7 @@ class DashboardIndex extends Component {
     render() {
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount,
-            transactions, userName, totalInterest, CompletedGoals, ActiveGoals, totalSteadySave
+            transactions, userName, totalInterest,vaultInterest, CompletedGoals, ActiveGoals, totalSteadySave
         } = this.state;
 
         return (
@@ -422,6 +507,7 @@ class DashboardIndex extends Component {
                         transactions={transactions}
                         CompletedGoals={CompletedGoals}
                         ActiveGoals={ActiveGoals}
+                        vaultInterest={vaultInterest}
                         error={this.state.error}
                         errorMessage={this.state.errorMessage}
                         // activateAccount={this.activateAccount}
@@ -457,6 +543,11 @@ class DashboardIndex extends Component {
                         />
                     </ToastProvider>
 
+
+                    <StartNowModal
+                        show={this.state.showStartModal}
+                        onHide={this.closeStartModal}
+                    />
 
                 </div>
             </React.Fragment>

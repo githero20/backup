@@ -21,10 +21,10 @@ import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
 import pinIcon from "../../admin/app-assets/images/svg/pin-icon.svg";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
 import CommentImage from "../../admin/app-assets/images/call-to-act-bg.png";
-import aaImage from "../../admin/app-assets/images/svg/aa.svg";
+import tm30 from "../../admin/app-assets/images/svg/tm30.svg";
 import horizonImage from "../../admin/app-assets/images/svg/horizon.svg";
 import accentureImage from "../../images/svg/accenture.svg";
-import sfsImage from "../../admin/app-assets/images/svg/sfs.svg";
+import sfsImage from "../../images/sfs.jpg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
 import {HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
@@ -77,7 +77,7 @@ class Home extends Component {
                                             <a className="nav-link" href={'#'}>Testimonials </a>
                                         </li>
                                         <li className="nav-item">
-                                            <Link to={LoginLink}  className="nav-link" href={'#'}>Login </Link>
+                                            <Link to={LoginLink} className="nav-link" href={'#'}>Login </Link>
                                         </li>
                                     </ul>
                                     <ul className="cta-link">
@@ -173,7 +173,7 @@ class Home extends Component {
                             </div>
                         </div>
                         <div className=" pb-5 pb-md-0 height-100vh ">
-                            <img className="yellow-svg" src={yellowBg} alt=''/>
+                            {/*<img className="yellow-svg" src={yellowBg} alt=''/>*/}
                             <div className="container ">
                                 <div className="row ">
                                     <div className="col-md-4">
@@ -387,32 +387,6 @@ class Home extends Component {
                                     </div>
                                 </div>
                                 <div className="col-12">
-                                    {/*Set up your HTML*/}
-                                    <div className="owl-carousel owl-theme carousel-container">
-
-                                        <div className="partner-img-container">
-                                            <img className="partner-img " src={paystackImage} alt="paystack"/>
-
-                                        </div>
-                                        <div className="partner-img-container">
-                                            <img className="partner-img-50" src={sfsImage} alt="sfs"/>
-
-                                        </div>
-                                        <div className="partner-img-container">
-                                            <img src={accentureImage} alt="accenture" className="partner-img"/>
-
-
-                                        </div>
-                                        <div className="partner-img-container">
-                                            <img className="partner-img" src={horizonImage} alt="horizon"/>
-
-                                        </div>
-                                        <div className="partner-img-container">
-                                            <img className="partner-img-50" src={aaImage} alt="aa"/>
-
-                                        </div>
-
-                                    </div>
 
                                     <ReactOwlCarousel
                                         className="owl-theme"
@@ -430,20 +404,20 @@ class Home extends Component {
 
                                         </div>
                                         <div className="partner-img-container">
-                                            <img className="partner-img-50" src={sfsImage} alt="sfs"/>
+                                            <img className="partner-img-50 sfs-image" src={sfsImage} alt="sfs"/>
 
                                         </div>
-                                        <div className="partner-img-container">
-                                            <img src={accentureImage} alt="accenture" className="partner-img"/>
+                                        {/*<div className="partner-img-container">*/}
+                                        {/*    <img src={accentureImage} alt="accenture" className="partner-img"/>*/}
 
 
-                                        </div>
-                                        <div className="partner-img-container">
-                                            <img className="partner-img" src={horizonImage} alt="horizon"/>
+                                        {/*</div>*/}
+                                        {/*<div className="partner-img-container">*/}
+                                        {/*    <img className="partner-img" src={horizonImage} alt="horizon"/>*/}
 
-                                        </div>
+                                        {/*</div>*/}
                                         <div className="partner-img-container">
-                                            <img className="partner-img-50" src={aaImage} alt="aa"/>
+                                            <img className="partner-img-50 tm-30" src={tm30} alt="aa"/>
 
                                         </div>
 
@@ -464,7 +438,8 @@ class Home extends Component {
                                         <h2 className="mb-3 mt-5 text-white cas-title">Protect your interest with SFS
                                             Backup cash</h2>
                                         <Link to={'/sign-up'}
-                                              className="btn btn-yellow-outline btn-custom-border cas-btn">Start Now</Link>
+                                              className="btn btn-yellow-outline btn-custom-border cas-btn">Start
+                                            Now</Link>
                                     </div>
                                 </div>
                             </div>
@@ -518,22 +493,22 @@ class Home extends Component {
 
                                         {/*</button>*/}
                                         <button type="button" data-aos="fade-up" className="btn btn-whatsapp">
-                                                <div className="footer-icon-list d-flex justify-content-between">
+                                            <div className="footer-icon-list d-flex justify-content-between">
                                                     <span className="fa-stack fa-sm">
                                                         <i className="fa fa-circle fa-stack-2x"></i><i
                                                         className="fa fa-facebook fa-stack-1x fa-inverse"></i>
                                                     </span>
 
-                                                    <span className="fa-stack fa-sm">
+                                                <span className="fa-stack fa-sm">
                                                         <i className="fa fa-circle fa-stack-2x"></i><i
-                                                        className="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                                    className="fa fa-twitter fa-stack-1x fa-inverse"></i>
                                                     </span>
 
-                                                    <span className="fa-stack fa-sm">
+                                                <span className="fa-stack fa-sm">
                                                         <i className="fa fa-circle fa-stack-2x"></i><i
-                                                        className="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                                    className="fa fa-instagram fa-stack-1x fa-inverse"></i>
                                                     </span>
-                                                </div>
+                                            </div>
                                         </button>
                                     </div>
                                 </div>
@@ -579,7 +554,8 @@ class Home extends Component {
                                 <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-3 ">
                                     <p className="footer-header">Physical Address</p>
 
-                                    <p className='gray-text footer-p'>Skye Bank Building, 287 Ajose Adeogun St, Victoria Island 23401, Lagos</p>
+                                    <p className='gray-text footer-p'>Skye Bank Building, 287 Ajose Adeogun St, Victoria
+                                        Island 23401, Lagos</p>
                                     {/*<ul className="footer-icon-list ">*/}
                                     {/*    <li>*/}
                                     {/*        <span className="fa-stack fa-sm">*/}

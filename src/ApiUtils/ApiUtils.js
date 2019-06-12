@@ -149,17 +149,11 @@ export function ActivationRequest(url, token, callback) {
         headers: {
             "Content-Type": "Application/json",
             "credentials": 'same-origin',
-
         }
     };
 
-    if (token) {
-        let token = getLocalStorage('token');
-        console.log(token);
-        if (token !== null) {
-            header.headers['Authorization'] = 'Bearer ' + token;
-        }
-
+    if (token !== null) {
+        header.headers['Authorization'] = 'Bearer ' + token;
     }
 
     return axios.get(url, header).then(res => callback(true, res))

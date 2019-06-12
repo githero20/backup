@@ -116,11 +116,13 @@ height-100vh{
 .btn-light-blue {
     background-color: #367BFF;
     color: white;
+    padding: 1.3rem 3rem 1.3rem 3rem;
     transition: all .3s ease;
 }
 
 .btn-light-blue:hover {
     background-color: #316ee3;
+    color: white;
 }
 
 .btn-login-outline{
@@ -550,7 +552,7 @@ height-100vh{
     justify-content: center;
 }
 .partner-img-container{
-    margin: 0rem 3rem;
+    margin: 0rem 6rem;
     width: 200px;
 }
 .partner-img-container img{
@@ -1207,6 +1209,12 @@ footer-logo {
 
 }
 
+.sfs-image{
+    filter:grayscale(100%) saturate(100%)contrast(80%)opacity(70%);
+}
+.tm-30{
+    width: 50% !important;
+}
 /******* helper  *********/
 
 .show{

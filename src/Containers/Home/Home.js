@@ -93,7 +93,7 @@ class Home extends Component {
                             <div className="row pt-lg-3">
                                 <div className="col-lg-6 mt-md-5 mt-lg-1 text-center text-lg-left">
                                     <div className="header-words-container pt-lg-5 pr-lg-3">
-                                        <h1 className="header-title mt-5 mb-5 mt-md-0 mb-sm-3 px-2 px-sm-0 ">
+                                        <h1 className="header-title mt-5 mt-lg-1 mb-5 mt-md-0 mb-sm-3 px-2 px-sm-0 ">
                                             Protecting your interest is our business.</h1>
                                         <p className="header-sub-title mb-0 ">
                                             Save as little as <strong>₦500 </strong></p>

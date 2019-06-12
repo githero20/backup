@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
 import {ToastProvider} from "react-toast-notifications";
 import {ActivationRequest, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
-import {activateUserEndpoint, DashboardLink, LoginLink, resendActEndpoint} from "../../RouteLinks/RouteLinks";
+import {activateUserEndpoint, DashboardLink, HomeLink, LoginLink, resendActEndpoint} from "../../RouteLinks/RouteLinks";
 import queryString from 'query-string'
 import {Redirect} from "react-router";
 import {Link} from "react-router-dom";
-import {ACTIVATIONMESG, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
+import {ACTIVATIONMESG, USERINFO, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
+import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 
 
 class EmailActivation extends Component {
@@ -17,8 +18,9 @@ class EmailActivation extends Component {
         message:'',
         redirect:false,
         loading:false,
-        buttonMessage:'Click to Resend',
+        buttonMessage:'Resend link',
         resend:false,
+        error:false,
     };
 
 
@@ -37,7 +39,7 @@ class EmailActivation extends Component {
             //save the token
             if(response){
                 setLocalStorage(USERTOKEN,this.state.token);
-                setLocalStorage(ACTIVATIONMESG,this.response.data.message);
+                setLocalStorage(USERINFO,response.data.data);
 
                 //redirect to dashboard
                 this.setState({
@@ -55,7 +57,8 @@ class EmailActivation extends Component {
                 console.log(response);
 
                 this.setState({
-                    message:response.data.message
+                    message:'Something Went Wrong!',
+                    error:true
                 });
 
                 if(response.data.status_code === 401){
@@ -94,19 +97,50 @@ class EmailActivation extends Component {
 
         // retreive token from url
         const param = this.retreiveToken();
-
+        console.log(param.token);
         // call activation endpoint
         ActivationRequest(activateUserEndpoint,param.token,this.handleActivation);
-
-
 
     }
 
 
     resendActivationLink = () => {
-
+        this.setState({
+            loading:true
+        })
         const param = {email:this.state.email};
-        request(resendActEndpoint,param,false,true,this.handleResendActLink)
+        request(resendActEndpoint,param,false,'POST',this.handleResendActLink)
+
+    };
+
+    handleResendActLink = (state, response) => {
+
+        const {toastManager} = this.props;
+
+        if (state) {
+
+            console.log(response);
+            if(response){
+
+                toastManager.add(`${response.data.message}`, {
+                    appearance: 'success',
+                });
+                setTimeout(()=>{ this.setState({
+                    redirect: true
+                })},3000);
+            }
+
+
+        } else {
+
+            if (response) {
+                console.log(response.data);
+                toastManager.add(`${response.data.error}`, {
+                    appearance: 'error',
+                });
+            }
+
+        }
 
     };
 
@@ -131,13 +165,16 @@ class EmailActivation extends Component {
                             <div className=" col-md-6 offset-md-6">
                                 {/*   header component */}
                                 <div className=" py-md-1 px-md-1 px-md-5 py-md-5 header-shadow mt-2 mb-md-5 bg-white">
-                                    <img alt="" src={backUpCashLogo} width="200px"/>
+                                    <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>
                                 </div>
                                 <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                 <ToastProvider>
                                         <div className="col-12 text-center">
                                             <h3 className="form-header-purple mb-5 text-center">{this.state.message}</h3>
-                                            <Link to={LoginLink}>Go to Login</Link>
+                                            {/*<Link to={LoginLink}>Go to Login</Link>*/}
+                                            {/*{ this.state.error ? <button onClick={this.resendActivationLink} className='btn-light-blue auth-btn round'>*/}
+                                            {/*    {this.state.loading?<ButtonLoader/>:<span>Resend Link</span>}*/}
+                                            {/*</button>:null}*/}
                                         </div>
                                 </ToastProvider>
 

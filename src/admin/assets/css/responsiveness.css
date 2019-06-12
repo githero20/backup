@@ -21,6 +21,12 @@
         color: white;
     }
 
+
+    /*whatsapp section*/
+    .whatsapp .btn-whatsapp{
+
+        padding: 1.5rem 2rem;
+    }
     /*bank card */
     .bank-card {
         border-radius: 1rem;

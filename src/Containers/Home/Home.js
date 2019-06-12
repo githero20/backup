@@ -400,11 +400,11 @@ class Home extends Component {
                                     >
 
                                         <div className="partner-img-container">
-                                            <img className="partner-img " src={paystackImage} alt="paystack"/>
+                                            <a href={'http://www.paystack.com'} rel={'noopener noreferrer'} target='_blank'><img className="partner-img " src={paystackImage} alt="paystack"/></a>
 
                                         </div>
                                         <div className="partner-img-container">
-                                            <img className="partner-img-50 sfs-image" src={sfsImage} alt="sfs"/>
+                                            <a href={'https://www.sfsnigeria.com/'} rel={'noopenner noreferrer'} target='_blank'><img className="partner-img-50 sfs-image" src={sfsImage} alt="sfs"/></a>
 
                                         </div>
                                         {/*<div className="partner-img-container">*/}
@@ -417,7 +417,7 @@ class Home extends Component {
 
                                         {/*</div>*/}
                                         <div className="partner-img-container">
-                                            <img className="partner-img-50 tm-30" src={tm30} alt="aa"/>
+                                            <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'} target='_blank'> <img className="partner-img-50 tm-30" src={tm30} alt="aa"/></a>
 
                                         </div>
 
@@ -446,7 +446,7 @@ class Home extends Component {
                         </div>
                     </section>
                     {/*whats app section*/}
-                    <section className="chat-bg whatsapp  pt-md-5 mb-5 mb-md-0">
+                    <section className="chat-bg whatsapp pt-3 pt-md-5 mb-5 mb-md-0">
                         <div className="container">
                             <div className="row ">
                                 <div className="col-md-6">
@@ -465,7 +465,7 @@ class Home extends Component {
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                    <div className="contact-detail-placeholder text-center pt-md-5">
+                                    <div className="contact-detail-placeholder pt-3 text-center pt-md-5">
                                         <p className="deep-blue-color pt-md-5 chat-title">Connect With Us
                                             whatsapp</p>
                                         {/*<button type="button" data-aos="fade-up"*/}

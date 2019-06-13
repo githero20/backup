@@ -42,7 +42,7 @@ class CreateSteadySaveModal extends React.Component {
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
                     <ToastProvider>
-                        <CreateSteadySaveForm setupSteadySave={this.props.setupSteadySave} />
+                        <CreateSteadySaveForm onHide={this.props.onHide} setupSteadySave={this.props.setupSteadySave} />
                     </ToastProvider>
                 </Modal.Body>
             </Modal>

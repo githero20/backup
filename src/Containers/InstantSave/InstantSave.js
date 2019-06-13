@@ -310,7 +310,7 @@ class InstantSave extends Component {
                                         <h3 className="gray-header-text fs-mb-1 mb-2 ">Instant Save <span
                                             className="dot">.</span> Summary
                                         </h3>
-                                        <InstantSaveCard balance={this.state.totalBalance}/>
+                                        <InstantSaveCard balance={formatNumber(parseFloat(this.state.totalBalance).toFixed(2))}/>
                                     </div>
                                     <div className="col-lg-3 col-12 order-lg-5">
                                         <h3 className="gray-header-text fs-mb-1 mb-2 mt-7px">Quick Actions</h3>
@@ -327,7 +327,7 @@ class InstantSave extends Component {
                                                 </div>
                                                 <div className=" d-inline-block">
                                                     <strong
-                                                        className="dark-brown font-size-1-16"><span>₦</span> {this.state.totalInstantSave}</strong>
+                                                        className="dark-brown font-size-1-16"><span>₦</span> {formatNumber(parseFloat(this.state.totalInstantSave).toFixed(2))}</strong>
                                                     <p className="gray-text circular-std mb-p-size">Total Instant Save</p>
                                                 </div>
                                             </span>

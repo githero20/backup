@@ -270,7 +270,7 @@ class WithdrawalForm extends Component {
                                                         {/*<button className={'btn btn-withdraw round mb-2 '}>See withdrawal Days</button>*/}
                                                         <p className={'text-gray'}>Next free withdrawal day</p>
                                                         <h4 className={'text-black'}>{
-                                                            this.state.penaltyFreeDay ? "Today": this.state.nextDate
+                                                            this.state.penaltyFreeDay ? "Today":  moment(this.state.nextDate).format('dddd, MMMM Do')
                                                         }</h4>
                                                     </div>
                                                 </div>
@@ -367,7 +367,7 @@ class WithdrawalForm extends Component {
                         <div className='banner round '>
                             <p>Your next free withdrawal Date is </p>
                             <strong>{
-                                this.state.penaltyFreeDay ? "Today": this.state.nextDate
+                                this.state.penaltyFreeDay ? "Today": moment(this.state.nextDate).format('dddd, MMMM Do')
                             }</strong>
                             <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
                             <ul>

@@ -543,7 +543,6 @@ class ActivationForm extends Component {
 
                             </div>
                         </div>
-
                     </div>
                 </form>
             </React.Fragment>

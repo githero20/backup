@@ -42,6 +42,11 @@ class SteadySaveForm extends Component {
         this.props.onEdit(true);
     };
 
+    handleStart = (e) => {
+        e.preventDefault();
+        this.props.onStart(true);
+    };
+
     handleContinue = (e) => {
         e.preventDefault();
         this.setState({loading: true});
@@ -116,7 +121,6 @@ class SteadySaveForm extends Component {
 
 
     componentDidMount() {
-
         //get pay auths
         const userInfo = JSON.parse(getLocalStorage(USERINFO));
 
@@ -127,10 +131,12 @@ class SteadySaveForm extends Component {
         }
     }
 
+
     render() {
 
         const {start_date, hour_of_day, contribution, frequency} = this.props.steadySave;
         const customDisable = !this.props.steadySave.id;
+        const enableStart = !this.props.steadySave.id;
         console.log(contribution);
         return (
             <React.Fragment>
@@ -180,6 +186,12 @@ class SteadySaveForm extends Component {
 
                     <Form.Row className={'d-flex justify-content-start mt-2'}>
                         <div className='d-flex justify-content-end'>
+                            {enableStart?<button className='btn btn-sm btn-primary mr-1'
+                                    onClick={this.handleStart}>
+                                Start
+                            </button>:null
+
+                            }
                             <button className='btn btn-sm btn-primary' disabled={customDisable}
                                     onClick={this.handleEdit}>
                                 Edit

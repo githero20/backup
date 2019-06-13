@@ -119,7 +119,7 @@ class InstantSave extends Component {
         console.log(transactions);
         if (transactions) {
             //filter credits
-            transactions = transactions.filter((content) => (content.type === 'credit'));
+            transactions = transactions.filter((content) => (content.status === 'success' && content.type === 'credit'));
             //get sum of credits
             const sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
             return sum.amount;
@@ -287,6 +287,7 @@ class InstantSave extends Component {
                                         <InstantSavingModal
                                             show={this.state.showSavingModal}
                                             onHide={this.hideModal}
+                                            updateInstantSave={this.updateInstantSave}
                                         />
                                     </React.Fragment>
 

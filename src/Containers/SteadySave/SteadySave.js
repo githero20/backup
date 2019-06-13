@@ -21,6 +21,7 @@ import SteadySaveTransTable from "../../Components/Dashboard/SteadySaveTransTabl
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
+import CreateSteadySaveModal from "../../Components/Dashboard/CreateSteadySaveModal/CreateSteadySaveModal";
 
 class SteadySave extends Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class SteadySave extends Component {
             totalSteadySave: '0.00',
             email: null,
             showSavingModal: false,
+            showCreateSavingModal: false,
             showLoader: false,
             settings: false,
             steadySave: {
@@ -53,6 +55,13 @@ class SteadySave extends Component {
     hideModal = (status = false) => {
         this.setState({
                 showSavingModal: false
+            }
+        );
+    };
+
+    hideCreateModal = (status = false) => {
+        this.setState({
+                showCreateSavingModal: false
             }
         );
     };
@@ -188,6 +197,12 @@ class SteadySave extends Component {
         })
     };
 
+    showCreateSteadySaveModal = () => {
+        this.setState({
+            showCreateSavingModal: true,
+        })
+    };
+
 
     render() {
 
@@ -253,7 +268,22 @@ class SteadySave extends Component {
                                             <SteadySaveModal setupSteadySave={this.setupSteadySave}
                                                              steadySave={this.state.steadySave}
                                                              totalSteadySave={this.state.totalSteadySave}
-                                                             show={this.state.showSavingModal} onHide={this.hideModal}/>
+                                                             show={this.state.showSavingModal} onHide={this.hideModal}
+                                            />
+                                        </React.Fragment>
+
+                                    ) : null
+                            }
+
+                            {
+                                this.state.showCreateSavingModal ?
+                                    (
+                                        <React.Fragment>
+                                            <CreateSteadySaveModal
+                                                setupSteadySave={this.setupSteadySave}
+                                                             steadySave={this.state.steadySave}
+                                                             totalSteadySave={this.state.totalSteadySave}
+                                                             show={this.state.showCreateSavingModal} onHide={this.hideCreateModal}/>
                                         </React.Fragment>
 
                                     ) : null
@@ -311,6 +341,10 @@ class SteadySave extends Component {
                                         <h3 className="gray-header-text fs-mb-1 mb-2">Quick Actions</h3>
                                         <div className="mb-quick-actions d-flex flex-column flex-wrap ">
                                             <span className="mb-btn-wrapper">
+                                                {/*<button type="button" onClick={this.showCreateSteadySaveModal} className=" btn-blue-gradient-2 round">*/}
+                                                {/*    <img src={whiteSaveMoreIcon}/>*/}
+                                                {/*    Create Steady Save*/}
+                                                {/*</button>*/}
                                                 <button type="button" onClick={this.showModal} className=" btn-blue-gradient-2 round">
                                                     <img src={whiteSaveMoreIcon}/>
                                                     Edit Savings Plan

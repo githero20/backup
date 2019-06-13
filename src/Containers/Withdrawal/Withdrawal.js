@@ -96,14 +96,19 @@ class Withdrawal extends Component {
                     <div className="app-content content">
                         <div className="content-wrapper">
                             {this.state.showLoader?<DashboardLoader/>:null}
-                            <div className="row mb-4">
-                                <div className="col-12">
-                                   {/* message box */}
-                                   {/*<MessageBox/>*/}
-                                </div>
-                            </div>
+                            {/*<div className="row mb-4">*/}
+                            {/*    <div className="col-12">*/}
+                            {/*       /!* message box *!/*/}
+                            {/*       /!*<MessageBox/>*!/*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                             <div className="content-body">
                                 <div className="row">
+                                    <div className="col-12 ">
+                                        <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
+                                            <p>To make a withdrawal, you need to add a bank. If you have no bank added yet, kindly go to Settings, then click Bank/Card.</p>
+                                        </div>
+                                    </div>
                                     <div className="col-lg-4 col-12">
                                         <h3 className="gray-header-text mb-2 ">Withdrawal
                                         </h3>

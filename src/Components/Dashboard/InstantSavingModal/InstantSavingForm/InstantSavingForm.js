@@ -9,7 +9,7 @@ import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 
 import {ADD_CARD} from "../../../../Helpers/Helper";
-import {initTransaction, verifyTransaction} from "../../../../actions/CardAction";
+import {getUserCards, initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {_getUser, _payWithPaystack} from "../../../../utils";
 
 
@@ -38,6 +38,7 @@ class InstantSavingForm extends Component {
             }
         });
 
+        this.getUserCards = this.getUserCards.bind(this);
     }
 
 
@@ -68,6 +69,21 @@ class InstantSavingForm extends Component {
     }
 
 
+    getUserCards(){
+        getUserCards((status, payload) => {
+            console.log("Cards",status, payload);
+            if(status){
+                this.setState({cards:payload});
+            }else{
+                this.props.toastManager.add("Unable to fetch Cards",{
+                    appearance: 'error',
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                })
+            }
+        })
+    }
+
     resolvePaystackResponse=(response)=>{
         this.setState({
             loading: false,
@@ -86,6 +102,8 @@ class InstantSavingForm extends Component {
                 });
 
                 this.getUserCards();
+                this.props.updateInstantSave();
+
             }else{
                 this.props.toastManager.add("Unable to add card at this moment",{
                     appearance:"error",

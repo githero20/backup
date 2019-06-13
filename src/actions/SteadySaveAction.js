@@ -4,7 +4,7 @@ import {
     ContinueSteadySave,
     CreateLockedSavings,
     EditSteadySave,
-    GetLockedSavings,
+    GetLockedSavings, NewSteadySaveEndpoint,
     PauseSteadySave,
     StopSteadySave
 } from "../RouteLinks/RouteLinks";
@@ -23,7 +23,25 @@ export const updateSteadySave = (id,payload, callback) =>{
         })
         .catch(err => {
             console.log("Err", JSON.stringify(err));
-            callback(false, err.response.data.message || "An Error Occurred");
+            if(err.response){
+                callback(false, err.response.data.message || "AN Error Occurred");
+            }
+        })
+};
+
+export const createSteadySave = (payload, callback) =>{
+
+    _axios.post(`${NewSteadySaveEndpoint}`,payload)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            if(err.response){
+                callback(false, err.response.data.message || "AN Error Occurred");
+            }
         })
 };
 
@@ -43,7 +61,9 @@ export const continueSteadySave = (id, callback) =>{
             console.log("Err", JSON.stringify(err));
             try{
                 console.log("Err", JSON.stringify(err));
-                callback(false, err.response.data.message || "An Error Occurred");
+                if(err.response){
+                    callback(false, err.response.data.message || "AN Error Occurred");
+                }
             }catch (e) {
                 //log both e and err
                 callback(false, " An Error Occurred");
@@ -66,7 +86,9 @@ export const pauseSteadySave = (id, callback) =>{
             console.log("Err", JSON.stringify(err));
             try{
                 console.log("Err", JSON.stringify(err));
-                callback(false, err.response.data.message || "An Error Occurred");
+                if(err.response){
+                    callback(false, err.response.data.message || "AN Error Occurred");
+                }
             }catch (e) {
                 //log both e and err
                 callback(false, " An Error Occurred");
@@ -89,7 +111,9 @@ export const stopSteadySave = (id, callback) =>{
             console.log("Err", JSON.stringify(err));
             try{
                 console.log("Err", JSON.stringify(err));
-                callback(false, err.response.data.message || "An Error Occurred");
+                if(err.response){
+                    callback(false, err.response.data.message || "AN Error Occurred");
+                }
             }catch (e) {
                 //log both e and err
                 callback(false, " An Error Occurred");

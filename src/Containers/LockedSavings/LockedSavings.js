@@ -76,10 +76,19 @@ class LockedSavings extends Component {
     };
 
 
-    closeLSModal(){
+    closeLSModal(status=false){
         this.setState({
             showLockedSavingsModal: false
         });
+        if(status){
+            getLockedSavings((status, payload) => {
+                console.log("payload", status, payload);
+                if(status){
+                    this.setState({lockedSavings: payload.data});
+                }
+            })
+        }
+
     };
 
 
@@ -88,8 +97,9 @@ class LockedSavings extends Component {
 
         const columns = [
             {
-                text: '#',
-                dataField: 'id' ,
+                text: 'Date',
+                dataField: 'created_at',
+                formatter:dateFormatter,
                 sort:true,
             },
             {
@@ -129,12 +139,10 @@ class LockedSavings extends Component {
 
         return (
             <React.Fragment>
-                <ToastProvider>
                     <LockedSavingModal
                         show={this.state.showLockedSavingsModal}
                         onHide={this.closeLSModal}
                     />
-                </ToastProvider>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={this.state.userName} />
@@ -171,9 +179,7 @@ class LockedSavings extends Component {
                                                             className=" right-btn-holder deep-blue-bg white "
                                                             data-toggle="modal" data-target="#large"
                                                             onClick={this.showLSModal}>
-
                                                             <img src={lockedSavingIcon}/>
-
                                                             New Locked Savings
                                                         </button>
                                                     </h4>

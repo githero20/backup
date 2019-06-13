@@ -12,7 +12,6 @@ class InstantSavingModal extends React.Component {
     }
 
 
-
     render() {
         return (
             <Modal
@@ -32,6 +31,7 @@ class InstantSavingModal extends React.Component {
                     <ToastProvider>
                         <InstantSavingForm
                             onHide={this.props.onHide}
+                            updateInstantSave={this.props.updateInstantSave}
                         />
                     </ToastProvider>
                 </Modal.Body>

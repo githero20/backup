@@ -70,16 +70,27 @@ class LoginForm extends Component {
             });
 
         } else {
-            if (response) {
+            if(response.status===401){
+                //TODO take user email and redirect to activation page
+                toastManager.add(`Your Account has not been activated Kindly Check your email for an activation link`, {
+                    appearance: 'error',
+                    autoDismiss: true,
+                    autoDismissTimeout:3000
+                });
+
+            }else if (response) {
                 console.log(JSON.stringify(response));
 
                 toastManager.add(`${JSON.stringify(response.data.message)}`, {
                     appearance: 'error',
+                    autoDismiss: true,
+                    autoDismissTimeout:3000
                 });
             } else {
                 toastManager.add("No Internet Connection", {
                     appearance: 'error',
-                    autoDismiss: true
+                    autoDismiss: true,
+                    autoDismissTimeout:3000
                 })
             }
         }

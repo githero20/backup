@@ -25,6 +25,7 @@ class LockedSavingForm extends Component {
                 amount: 0,
                 interest: 0.0,
                 days: 0,
+                source:'central_vault',
                 interestRate: 0.0,
                 accepted: false
             }
@@ -61,13 +62,22 @@ class LockedSavingForm extends Component {
             createLockedSavings(this.state.form, (status, payload) => {
                 this.setState({loading: false});
                 if (status) {
-                    this.toastManager.add("Locked Savings Created", {
+                    this.props.toastManager.add("Locked Savings Created", {
                         appearance: 'success',
+                        autoDismiss: true,
+                        autoDismissTimeout: 3000,
                     });
-                    this.props.onHide();
+                    setTimeout(() => {
+                        this.props.onHide(true);
+                    },1500)
+
+
+                    // setTimeout(this.props.onHide(true),5000);
                 } else {
-                    this.toastManager.add(payload || "An Error Occurred", {
+                    this.props.toastManager.add(payload || "An Error Occurred", {
                         appearance: 'error',
+                        autoDismiss: true,
+                        autoDismissTimeout: 3000,
                     });
                 }
             });
@@ -185,7 +195,7 @@ class LockedSavingForm extends Component {
                                     above. This transaction is IRREVERSIBLE.
                                     <br/>
                                     NB: Funds in "Locked Savings" cannot be accessed until maturity date.
-                                    Locked Funds will be sent back to your BackupCash "Backup Stash" on maturity date.
+                                    Locked Funds will be sent back to your Backup Stash on maturity date.
                                 </Form.Text>}/>
                             {this.validator.message("terms and condition", this.state.form.accepted, "accepted")}
 
@@ -206,8 +216,5 @@ class LockedSavingForm extends Component {
     }
 }
 
-
-const FormWithToast = withToastManager(LockedSavingForm);
-
-// export default LoginWithToast;
-export default FormWithToast;
+const LockedFormWithToast = withToastManager(LockedSavingForm);
+export default LockedFormWithToast;

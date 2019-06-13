@@ -97,14 +97,14 @@ class ResendActivation extends Component {
                                         <div className="row text-center">
                                             <div className="col-12">
                                                 {/*provide breadcrumb to go back*/}
-                                                <h5 className="form-header-purple">Almost there...</h5>
-                                                <p>Please check your email to confirm your account</p>
+                                                <h1>Almost there...</h1>
+                                                <h3>Please check your email to confirm your account</h3>
                                                 <hr/>
                                             </div>
 
                                             <div className="col-12">
                                                 <div className={'mt-lg-2'}>
-                                                    <p className={'mb-lg-2'}>No confirmation email received? Please check your spam folder or</p>
+                                                    <p className={'mb-lg-2 text-gray'}>No confirmation email received? Please check your spam folder or</p>
                                                     <button type={'button'} onClick={this.resendActivationLink}
                                                             className=" act-btn "
                                                             name="action">{this.state.loading ? <ButtonLoader/> :

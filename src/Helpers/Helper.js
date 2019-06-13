@@ -71,8 +71,10 @@ export function getTotal(transactions) {
 export function getTotalSteadySave(transactions) {
     if (transactions) {
         if (transactions.length > 1) {
-            let sum = transactions.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
-            return sum.amount;
+            let credits;
+            credits = transactions.filter((content)=>(content.type==='credit'));
+            credits = credits.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
+            return credits.amount;
         } else {
             let sum = transactions.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
             return sum.start_amount;

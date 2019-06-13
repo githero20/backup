@@ -77,7 +77,7 @@ class SignUpForm extends Component {
         this.setState({
             [name]: value
         });
-        this.validatePasswords();
+        // this.validatePasswords();
     };
 
 

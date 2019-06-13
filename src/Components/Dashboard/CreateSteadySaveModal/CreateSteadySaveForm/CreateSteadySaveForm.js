@@ -33,7 +33,7 @@ class CreateSteadySaveForm extends Component {
                 start_date: "N/A",
                 frequency: "daily",
                 hour_of_day: 0,
-                payment_auth: "N/A",
+                payment_auth: null,
                 raw: null,
                 title:'steady save'
             },
@@ -325,7 +325,7 @@ class CreateSteadySaveForm extends Component {
                                     defaultValue={this.state.form.contribution}
                                     onChange={this.changeHandler}/>
 
-                                {this.validator.message('contribution', this.state.form.contribution, 'required|numeric')}
+                                {this.validator.message('contribution', this.state.form.contribution, 'required|')}
                             </React.Fragment>
                         </Form.Group>
                         <Form.Group as={Col} sm={6} >
@@ -348,7 +348,7 @@ class CreateSteadySaveForm extends Component {
                                         })
                                     }
                                 </Form.Control>
-                                {this.validator.message('Card', this.state.form.payment_auth, 'required')}
+                                {this.validator.message('Debit Card', this.state.form.payment_auth, 'required|numeric')}
                             </React.Fragment>
                         </Form.Group>
                     </Form.Row>
@@ -398,7 +398,6 @@ class CreateSteadySaveForm extends Component {
             </React.Fragment>
         )
     }
-
 
 }
 

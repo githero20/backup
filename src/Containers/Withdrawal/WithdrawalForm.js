@@ -204,7 +204,6 @@ class WithdrawalForm extends Component {
             this.validator.showMessages();
             this.forceUpdate();
         } else {
-            this.setState({loading:true});
             const {form} = this.state;
 
             swal("Are you sure you want to make a withdrawal ?", {
@@ -217,6 +216,7 @@ class WithdrawalForm extends Component {
                     switch (value) {
 
                         case "yes":
+                            this.setState({loading:true});
                             makeWithdrawal(form,(status, payload) =>{
                                 console.log("response", status, payload);
                                 this.setState({loading:false});
@@ -237,7 +237,7 @@ class WithdrawalForm extends Component {
                                 }
                             });
 
-                            swal("Pikachu fainted! You gained 500 XP!");
+                            swal("processing Withdrawal");
                             break;
 
                         case "no":
@@ -245,7 +245,7 @@ class WithdrawalForm extends Component {
                             break;
 
                         default:
-                            swal("Alright");
+                            swal("You Cancelled Your Withdrawal");
                     }
                 });
 

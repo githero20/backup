@@ -143,8 +143,8 @@ class ProfileForm extends Component {
                                                                 id="lastname"
                                                                 disabled
                                                                 className="form-control mb-1"
-                                                                name="lastname"
-                                                                defaultValue={userProfile?userProfile.name:null}
+                                                                name="last_name"
+                                                                defaultValue={userProfile?userProfile.last_name:null}
                                                             />
                                                             {/*{this.validator.message('name', name, 'required|string')}*/}
 
@@ -230,7 +230,7 @@ class ProfileForm extends Component {
                                                     <label htmlFor="email" className="active">Referral
                                                         Code</label>
                                                     <div className="input-group">
-                                                        <input type="email" id="referral_code"
+                                                        <input type="text" id="referral_code" name="referral_code"
                                                                className="form-control"
                                                                defaultValue={userProfile?userProfile.referral_code:null}
                                                                aria-describedby="button-addon2"

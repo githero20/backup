@@ -7,8 +7,9 @@ import editIcon from "../../admin/app-assets/images/svg/edit-icon.svg";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import AvatarImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import ProfileForm from "../../Components/Dashboard/ProfileForm/ProfileForm";
-import {getLocalStorage} from "../../ApiUtils/ApiUtils";
+import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
+import {CentralVaultInterest, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
 
 
 class ProfileSetting extends Component {
@@ -20,23 +21,39 @@ class ProfileSetting extends Component {
     };
 
 
-    setupProfile = (data) => {
-        const profile = JSON.parse(data);
-        console.log(profile);
-        this.setState({
-            userProfile: profile,
-        })
+    setupProfile = (status,res) => {
+        if(status){
+            console.log(res.data.data);
+            this.setState({
+                userProfile:res.data.data
+            })
+
+        }else{
+            console.log(res);
+        }
+        //
+        // this.setState({
+        //     userProfile: profile,
+        // })
 
     };
 
 
     componentDidMount() {
         // fetch User info
-        const data = getLocalStorage(USERINFO);
-        console.log(data);
-        if (data) {
-            this.setupProfile(data);
-        }
+        // const data = getLocalStorage(USERINFO);
+        // console.log(data);
+        // if (data) {
+        //     this.setupProfile(data);
+        // }
+
+            //make request
+            request(getUserInfoEndpoint, null, true, 'GET', this.setupProfile);
+
+
+
+            console.log('setting up profile');
+
     }
 
 
@@ -75,7 +92,7 @@ class ProfileSetting extends Component {
                                                 </div>
                                                 <div className="card-body px-md-3 py-md-3">
                                                    <ProfileForm
-                                                       // userProfile={this.state.userProfile}
+                                                       userProfile={this.state.userProfile}
                                                    />
                                                 </div>
                                             </div>

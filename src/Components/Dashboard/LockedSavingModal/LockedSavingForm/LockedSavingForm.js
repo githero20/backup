@@ -74,11 +74,14 @@ class LockedSavingForm extends Component {
 
                     // setTimeout(this.props.onHide(true),5000);
                 } else {
-                    this.props.toastManager.add(payload || "An Error Occurred", {
-                        appearance: 'error',
-                        autoDismiss: true,
-                        autoDismissTimeout: 3000,
-                    });
+                    if(payload){
+                        this.props.toastManager.add(payload.data.message || "An Error Occurred", {
+                            appearance: 'error',
+                            autoDismiss: true,
+                            autoDismissTimeout: 3000,
+                        });
+                    }
+
                 }
             });
         }

@@ -1,5 +1,6 @@
 import {_axios} from "../utils";
 import {BASE_URL, createBackupGoals, GetBackUpGoals} from "../RouteLinks/RouteLinks";
+import {checkResponse} from "../ApiUtils/ApiUtils";
 
 
 export const getBackUpSavings = (callback) =>{
@@ -11,13 +12,14 @@ export const getBackUpSavings = (callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            if(err.response){
-                callback(false, err.response.data.message || "AN Error Occurred");
-            }
+            // checkResponse(err);
+            // if(err.response){
+            //     callback(false, err.response.data.message || "AN Error Occurred");
+            // }
+            checkResponse(err);
+            callback(false, err.response);
         })
 };
-
-
 
 export const createBackUpGoal = (params, callback) =>{
     // console.log("body", payload);
@@ -27,6 +29,8 @@ export const createBackUpGoal = (params, callback) =>{
         })
         .catch(err => {
             console.log("Err",JSON.stringify(err));
-            callback(false, err.response.data.message || "AN Error Occurred");
+            // callback(false, err.response.data.message || "AN Error Occurred");
+            checkResponse(err);
+            callback(false, err.response);
         })
 };

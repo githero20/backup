@@ -8,6 +8,7 @@ import {
     PauseSteadySave,
     StopSteadySave
 } from "../RouteLinks/RouteLinks";
+import {checkResponse} from "../ApiUtils/ApiUtils";
 
 
 export const updateSteadySave = (id,payload, callback) =>{
@@ -23,9 +24,12 @@ export const updateSteadySave = (id,payload, callback) =>{
         })
         .catch(err => {
             console.log("Err", JSON.stringify(err));
-            if(err.response){
-                callback(false, err.response.data.message || "AN Error Occurred");
-            }
+            // if(err.response){
+            //     callback(false, err.response.data.message || "AN Error Occurred");
+            // }
+
+            checkResponse(err);
+            callback(false, err.response);
         })
 };
 
@@ -39,9 +43,11 @@ export const createSteadySave = (payload, callback) =>{
         })
         .catch(err => {
             console.log("Err", JSON.stringify(err));
-            if(err.response){
-                callback(false, err.response.data.message || "AN Error Occurred");
-            }
+            // if(err.response){
+            //     callback(false, err.response.data.message || "AN Error Occurred");
+            // }
+            checkResponse(err);
+            callback(false, err.response);
         })
 };
 
@@ -61,9 +67,11 @@ export const continueSteadySave = (id, callback) =>{
             console.log("Err", JSON.stringify(err));
             try{
                 console.log("Err", JSON.stringify(err));
-                if(err.response){
-                    callback(false, err.response.data.message || "AN Error Occurred");
-                }
+                // if(err.response){
+                //     callback(false, err.response.data.message || "AN Error Occurred");
+                // }
+                checkResponse(err);
+                callback(false, err.response);
             }catch (e) {
                 //log both e and err
                 callback(false, " An Error Occurred");
@@ -86,9 +94,11 @@ export const pauseSteadySave = (id, callback) =>{
             console.log("Err", JSON.stringify(err));
             try{
                 console.log("Err", JSON.stringify(err));
-                if(err.response){
-                    callback(false, err.response.data.message || "AN Error Occurred");
-                }
+                checkResponse(err);
+                callback(false, err.response);
+                // if(err.response){
+                //     callback(false, err.response.data.message || "AN Error Occurred");
+                // }
             }catch (e) {
                 //log both e and err
                 callback(false, " An Error Occurred");
@@ -111,9 +121,11 @@ export const stopSteadySave = (id, callback) =>{
             console.log("Err", JSON.stringify(err));
             try{
                 console.log("Err", JSON.stringify(err));
-                if(err.response){
-                    callback(false, err.response.data.message || "AN Error Occurred");
-                }
+                checkResponse(err);
+                callback(false, err.response);
+                // if(err.response){
+                //     callback(false, err.response.data.message || "AN Error Occurred");
+                // }
             }catch (e) {
                 //log both e and err
                 callback(false, " An Error Occurred");
@@ -134,7 +146,8 @@ export const createLockedSavings = (payload, callback) =>{
             // console.log("Err",err.data);
             // console.log("Err",JSON.stringify(err));
             // console.log("Err",err.response.data.message);
-            callback(false, err.response.data.message);
+            checkResponse(err);
+            callback(false, err.response);
         })
 };
 

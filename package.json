@@ -29,7 +29,8 @@
     "react-table": "^6.10.0",
     "react-toast-notifications": "^1.4.0",
     "simple-react-validator": "^1.0.7",
-    "styled-components": "^4.3.1"
+    "styled-components": "^4.3.1",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",

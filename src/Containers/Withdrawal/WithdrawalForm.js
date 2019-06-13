@@ -17,6 +17,8 @@ import {
     LOCKED_ACCOUNT,
     STANDARD_ACCOUNT
 } from "../../Helpers/Helper";
+import swal from 'sweetalert';
+
 
 
 class WithdrawalForm extends Component {
@@ -62,9 +64,7 @@ class WithdrawalForm extends Component {
 
 
     componentDidMount() {
-
         //get user info
-
         console.log('got here');
         this.getBalance();
     }
@@ -95,12 +95,7 @@ class WithdrawalForm extends Component {
                             });
                         }
                     });
-
-
-
                 }
-
-
         }
 
 
@@ -211,24 +206,49 @@ class WithdrawalForm extends Component {
         } else {
             this.setState({loading:true});
             const {form} = this.state;
-            makeWithdrawal(form,(status, payload) =>{
-                console.log("response", status, payload);
-                this.setState({loading:false});
-                if(status){
-                    this.props.toastManager.add("Withdrawal Successful",{
-                        appearance: "success",
-                        autoDismiss: true,
-                        autoDismissTimeout: 5000
-                    });
-                    this.props.updateWithdrawalList();
-                }else{
-                    this.props.toastManager.add(payload,{
-                        appearance: "error",
-                        autoDismiss: true,
-                        autoDismissTimeout: 5000
-                    });
-                }
+
+            swal("Are you sure you want to make a withdrawal ?", {
+                buttons: {
+                    cancel: "no",
+                    yes:"yes"
+                },
             })
+                .then((value) => {
+                    switch (value) {
+
+                        case "yes":
+                            makeWithdrawal(form,(status, payload) =>{
+                                console.log("response", status, payload);
+                                this.setState({loading:false});
+                                if(status){
+                                    this.props.toastManager.add("Withdrawal Successful",{
+                                        appearance: "success",
+                                        autoDismiss: true,
+                                        autoDismissTimeout: 5000
+                                    });
+                                    swal("Withdrawal Successful", "success");
+                                    this.props.updateWithdrawalList();
+                                }else{
+                                    this.props.toastManager.add(payload,{
+                                        appearance: "error",
+                                        autoDismiss: true,
+                                        autoDismissTimeout: 5000
+                                    });
+                                }
+                            });
+
+                            swal("Pikachu fainted! You gained 500 XP!");
+                            break;
+
+                        case "no":
+                            swal("Withdrawal cancelled");
+                            break;
+
+                        default:
+                            swal("Alright");
+                    }
+                });
+
         }
     }
     render() {
@@ -257,7 +277,7 @@ class WithdrawalForm extends Component {
                                                         </div>
                                                         <div className="media-body text-left pt-1 ">
                                                             <h3 className=" ">
-                                                                <strong className="blue-card-price ml-2 mr-2">
+                                                                <strong className="blue-card-price fs-1-5 ml-1 mr-2">
                                                                     <strong>₦</strong> {formatNumber(parseFloat(this.state.userBalance).toFixed(2))  }
                                                                 </strong>
                                                             </h3>

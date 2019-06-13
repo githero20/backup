@@ -1,5 +1,6 @@
 import {_axios, _getUser, _setUser} from "../utils";
 import {getUserInfoEndpoint} from "../RouteLinks/RouteLinks";
+import {checkResponse} from "../ApiUtils/ApiUtils";
 
 export const getUserData =  callback =>{
     _axios.get(getUserInfoEndpoint)
@@ -11,6 +12,10 @@ export const getUserData =  callback =>{
         })
         .catch(err => {
             console.log("Err",JSON.stringify(err));
-            if(err.response) {callback(false, err.response.data.data || err.response.data.message);}
+            checkResponse(err);
+            callback(false, err.response);
+            // if(err.response) {callback(false, err.response.data.data || err.response.data.message);
+            //
+            // }
         })
 };

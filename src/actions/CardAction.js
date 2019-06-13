@@ -4,6 +4,7 @@ import {
     InitiateTransactionEndpoint,
     verifyTransactionEndpoint
 } from "../RouteLinks/RouteLinks";
+import {checkResponse} from "../ApiUtils/ApiUtils";
 
 
 export const initTransaction = (payload, callback) =>{
@@ -15,9 +16,11 @@ export const initTransaction = (payload, callback) =>{
         })
         .catch(err => {
             console.log("Err",err);
-            if(err.response){
-                callback(false, err.response.data.message|| err.response.data.data);
-            }
+            // if(err.response){
+            //     callback(false, err.response.data.message|| err.response.data.data);
+            // }
+            checkResponse(err);
+            callback(false, err.response);
         })
 };
 
@@ -31,9 +34,11 @@ export const verifyTransaction = (payload, callback) =>{
         .catch(err => {
             console.log("Err",JSON.stringify(err));
             console.log("Err",err);
-            if(err.response){
-                callback(false, err.response.data.message|| err.response.data.data);
-            }
+            // if(err.response){
+            //     callback(false, err.response.data.message|| err.response.data.data);
+            // }
+            checkResponse(err);
+            callback(false, err.response);
         })
 };
 
@@ -45,8 +50,10 @@ export const getUserCards = (callback) => {
         })
         .catch(err => {
             // console.log("Err",err);
-            if(err.response){
-                callback(false, err.response.data.message|| err.response.data.data);
-            }
+            // if(err.response){
+            //     callback(false, err.response.data.message|| err.response.data.data);
+            // }
+            checkResponse(err);
+            callback(false, err.response);
         })
 };

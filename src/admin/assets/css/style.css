@@ -722,6 +722,9 @@ html body .content.app-content {
     transition: all .5s ease;
     cursor: pointer;
 }
+.fs-1-5{
+    font-size: 1.5rem !important;
+}
 
 .btn-small-blue {
     color: #fff !Important;

@@ -6,6 +6,7 @@ import {
     GetWithdrawalSettings,
     MakeWithdrawal,
 } from "../RouteLinks/RouteLinks";
+import {checkResponse} from "../ApiUtils/ApiUtils";
 
 
 export const getWithdrawalList = (callback) =>{
@@ -16,7 +17,11 @@ export const getWithdrawalList = (callback) =>{
         .catch(err => {
             console.log("Err", JSON.stringify(err));
             console.log("Err", err);
-            callback(false, err.response.data.message || "An Error Occurred");
+            checkResponse(err);
+            callback(false, err.response);
+            // if(err.response){
+            //     callback(false, err.response.data.message || "AN Error Occurred");
+            // }
         })
 };
 
@@ -30,7 +35,8 @@ export const getWithdrawalPenalty = (callback) => {
             console.log("Err", JSON.stringify(err));
             try{
                 console.log("Err", JSON.stringify(err));
-                callback(false, err.response.data.message || "An Error Occurred");
+                checkResponse(err);
+                callback(false, err.response);
             }catch (e) {
                 //log both e and err
                 callback(false, " An Error Occurred");
@@ -47,7 +53,8 @@ export const createWithdrawalSettings = (payload, callback) => {
         .catch(err => {
             try{
                 console.log("Err", JSON.stringify(err));
-                callback(false, err.response.data.message || "An Error Occurred");
+                checkResponse(err);
+                callback(false, err.response);
             }catch (e) {
                 //log both e and err
                 callback(false, " An Error Occurred");
@@ -63,7 +70,8 @@ export const getWithdrawalSettings = (callback) => {
         .catch(err => {
             try{
                 console.log("Err", JSON.stringify(err));
-                callback(false, err.response.data.message || "An Error Occurred");
+                checkResponse(err);
+                callback(false, err.response);
             }catch (e) {
                 //log both e and err
                 callback(false, " An Error Occurred");
@@ -81,7 +89,8 @@ export const makeWithdrawal = (payload, callback) => {
         .catch(err => {
             try{
                 console.log("Err", JSON.stringify(err));
-                callback(false, err.response.data.message || "An Error Occurred");
+                checkResponse(err);
+                callback(false, err.response);
             }catch (e) {
                 //log both e and err
                 console.log("Err", e);

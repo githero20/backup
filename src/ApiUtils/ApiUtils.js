@@ -55,25 +55,20 @@ export function request(url, params, token, method, callback) {
     if (method === 'POST') {
         return axios.post(url, params, header).then(res => callback(true, res))
             .catch(err => {
-                if(err.response){
-                    console.log(err.response);
-                    if(err.response.status===401){
-                        localStorage.clear();
-                        window.location = "/login";
-                    }
-                }else {
-                    return callback(false, err.response);
-                }
+                checkResponse(err);
+                callback(false, err.response);
+                //
+                // if(err.response){
+                //     console.log(err.response);
+                // }else {
+                // }
             })
     } else if (method === 'GET') {
         return axios.get(url, header).then(res => callback(true, res))
             .catch(err => {
                 if(err.response){
                     console.log(err.response);
-                    if(err.response.status===401){
-                        localStorage.clear();
-                        window.location = "/login";
-                    }
+
                 }else {
                     return callback(false, err.response);
                 }
@@ -96,7 +91,7 @@ export function request(url, params, token, method, callback) {
             .catch(err => {
                 if(err.response){
                     console.log(err.response);
-                    if(err.response.status===401){
+                    if(err.response.status === 401){
                         localStorage.clear();
                         window.location = "/login";
                     }
@@ -219,8 +214,19 @@ export function apiGet(url, token, callback) {
         err => callback(false, err.response)
     );
 
-
 }
+
+export const checkResponse = (err)=>{
+  try{
+      if(err.response.status===401){
+          console.log(err.response);
+          // localStorage.clear();
+          // window.location = "/login";
+      }
+  }catch (e) {
+      console.log(err, JSON.stringify(err));
+  }
+};
 
 
 export function getLocalStorage(key) {

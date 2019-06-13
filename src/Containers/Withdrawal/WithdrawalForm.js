@@ -237,11 +237,11 @@ class WithdrawalForm extends Component {
                                 }
                             });
 
-                            swal("processing Withdrawal");
+                            swal("Processing Withdrawal....");
                             break;
 
                         case "no":
-                            swal("Withdrawal cancelled");
+                            swal("Withdrawal Cancelled");
                             break;
 
                         default:

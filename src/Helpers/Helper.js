@@ -151,15 +151,15 @@ export function descriptionFormatter (cell) {
 
 export function amountFormatter (cell,row) {
     return (
-        <span className={row.type === 'credit' ? 'text-green' : 'text-red'}>
+        <p style={{minWidth:'100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
                 {row.type === 'credit' ? '+' : '-'} &#8358; &nbsp;
             {formatNumber(parseFloat(cell).toFixed(2))}
-            </span>
+            </p>
     )
 }
 export function moneyFormatter (cell) {
     return (
-        <span className={'text-green'}> + &#8358; &nbsp;{formatNumber(parseFloat(cell).toFixed(2))}</span>
+        <p style={{minWidth:'150px'}} className={'text-green'}> + &#8358; &nbsp;{formatNumber(parseFloat(cell).toFixed(2))}</p>
     )
 }
 

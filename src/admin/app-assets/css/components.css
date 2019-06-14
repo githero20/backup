@@ -713,8 +713,8 @@ footer.footer-dark
          -o-transform: translateX(6px);
             transform: translateX(6px);
 }
-.main-menu.menu-dark .navigation > li.hover > a > span,
-.main-menu.menu-dark .navigation > li:hover > a > span,
+/*.main-menu.menu-dark .navigation > li.hover > a > span,*/
+/*.main-menu.menu-dark .navigation > li:hover > a > span,*/
 .main-menu.menu-dark .navigation > li.active > a > span
 {
     -webkit-transform: translateX(4px);

@@ -100,11 +100,11 @@ class DashboardContainer extends Component {
                     <div className="content-wrapper">
                         {/* notification component */}
 
-                        {
-                            !isActive?
-                            <MessageBox error={error} errorMessage={this.props.errorMessage} activateAccount={activateAccount}/>
-                            :null
-                        }
+                        {/*{*/}
+                        {/*    !isActive?*/}
+                            <MessageBox />
+                        {/*    :null*/}
+                        {/*}*/}
 
                         {/*Vault Card */}
 

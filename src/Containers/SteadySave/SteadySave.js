@@ -42,10 +42,10 @@ class SteadySave extends Component {
             steadySave: {
                 id: null,
                 contribution: 0,
-                start_date: "N/A",
-                frequency: "N/A",
+                start_date: null,
+                frequency: null,
                 hour_of_day: 0,
-                payment_auth: "N/A",
+                payment_auth: null,
                 raw: null
             }
         };

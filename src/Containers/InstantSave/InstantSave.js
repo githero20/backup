@@ -86,7 +86,7 @@ class InstantSave extends Component {
                     if (content.account_type_id === STANDARD_ACCOUNT) {
                         console.log(content.balance);
                         this.setState({
-                            totalBalance: formatNumber(content.balance)
+                            totalBalance: content.balance
                         })
                     }
                 });
@@ -100,7 +100,7 @@ class InstantSave extends Component {
                 console.log(transactions);
                 this.setState({
                     transactions: transactions,
-                    totalInstantSave: formatNumber(totalInstantSave)
+                    totalInstantSave: totalInstantSave
                 });
 
 
@@ -121,7 +121,7 @@ class InstantSave extends Component {
             //filter credits
             transactions = transactions.filter((content) => (content.status === 'success' && content.type === 'credit'));
             //get sum of credits
-            const sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+            const sum = transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
             return sum.amount;
         }
     }
@@ -155,7 +155,7 @@ class InstantSave extends Component {
                 let totalInstantSave = this.getTotalInstantSave(transactions);
                 this.setState({
                     transactions,
-                    totalInstantSave: formatNumber(totalInstantSave)
+                    totalInstantSave: totalInstantSave
                 });
                 console.log(res);
             }
@@ -266,7 +266,12 @@ class InstantSave extends Component {
 
             }];
 
+
+        console.log(typeof this.state.totalBalance);
+        const balance = parseFloat(this.state.totalBalance).toFixed(2);
+
         return (
+
             <div
                 className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done instant-save"
                 data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">

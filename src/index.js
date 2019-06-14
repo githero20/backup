@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './admin/app-assets/css/vendors.css';
 import './admin/app-assets/css/app.css';
 import './admin/app-assets/css/core/menu/menu-types/vertical-menu-modern.css';
+import './admin/app-assets/fonts/line-awesome/css/line-awesome-font-awesome.css';
 // import './admin/app-assets/fonts/simple-line-icons/style.css';
 import './admin/assets/css/style.css';
 import './admin/assets/css/hamburgers.min.css';

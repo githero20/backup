@@ -167,7 +167,7 @@ class ResetPasswordForm extends Component {
 
         return (
             <React.Fragment>
-                <form className="login-form" onClick={this.submitForm}>
+                <form className="login-form reset-form" onClick={this.submitForm}>
                     <div className="row">
 
                         <div className="col-12">

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
 import { ToastProvider } from 'react-toast-notifications';
 import ResetPasswordForm from "../../Components/Auth/ResetPasswordForm/ResetPasswordForm";
+import {HomeLink} from "../../RouteLinks/RouteLinks";
+import {Link} from 'react-router-dom';
 
 class ResetPassword extends Component {
 
@@ -37,9 +39,9 @@ class ResetPassword extends Component {
                                 <div className=" col-md-6 offset-md-6">
                                     {/*   header component */}
                                     <div className=" py-md-1 px-md-1 px-md-5 py-md-5 header-shadow mt-2 mb-md-5 bg-white">
-                                        <img alt="" src={backUpCashLogo} width="200px"/>
+                                        <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>
                                     </div>
-                                    <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
+                                    <h3 clasdasName="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                     <ToastProvider>
                                         <ResetPasswordForm token={this.state.token} />
                                     </ToastProvider>

@@ -4,6 +4,7 @@ import BlueRightArrow from "../../../admin/app-assets/images/svg/blue-arrow-righ
 import {BackupGoalsLink, InstantSaveLink, SteadySaveLink} from "../../../RouteLinks/RouteLinks";
 
 import {Link} from 'react-router-dom';
+import {formatNumber} from "../../../Helpers/Helper";
 
 class CentralVaultCard extends Component {
 
@@ -42,18 +43,18 @@ class CentralVaultCard extends Component {
                         <div className="card-header d-flex justify-content-between ">
                             <h4 className="card-title ">
                                 <div className="saved-text">Total Steady  Savings</div>
-                                <div className={'card-amount'}>&#8358; {vaultAmount}</div>
+                                <div className={'card-amount'}>&#8358; {formatNumber(vaultAmount)}</div>
                             </h4>
 
                             <div className="card-title ">
                                 <h4>
                                     <div className="saved-text ">Total Interest</div>
-                                    <div className={'card-amount'}>&#8358; {vaultInterest}</div>
+                                    <div className={'card-amount'}>&#8358; {formatNumber(vaultInterest)}</div>
                                 </h4>
                             </div>
                         </div>
                         <div className="card-body text-center">
-                            <h4 className="card-title saving-balance-text mb-1">&#8358; {vaultAmount}</h4>
+                            <h4 className="card-title saving-balance-text mb-1">&#8358; {formatNumber(parseFloat(vaultAmount) + parseFloat(vaultInterest))}</h4>
                             <div className="d-flex justify-content-between">
                                     <Link to={InstantSaveLink}
                                        className="btn btn-small-blue link-btn round "><span>Instant Save </span>

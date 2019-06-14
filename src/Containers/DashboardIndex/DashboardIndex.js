@@ -5,7 +5,7 @@ import DashboardContainer from "../../Components/Dashboard/DashboardContainer/Da
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
 import {
-    activateUserEndpoint, CentralVaultInterest,
+    activateUserEndpoint, CentralVaultInterest, GetBackUpGoals,
     getUserInfoEndpoint,
     lockedSavingEndpoint,
     resendActEndpoint
@@ -24,6 +24,8 @@ import ActivationModal from "../../Components/Dashboard/ActivationModal/Activati
 import {ToastProvider} from 'react-toast-notifications';
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import StartNowModal from "../../Components/Dashboard/StartNowModal/StartNowModal";
+import {getBackUpSavings} from "../../actions/BackUpGoalsAction";
+import moment from "moment";
 
 
 class DashboardIndex extends Component {
@@ -162,7 +164,7 @@ class DashboardIndex extends Component {
         if(status){
             console.log('got here');
             if(response){
-                console.log(response.data.data);
+                console.log('interest info'+JSON.parse(response.data.data));
                 this.setState({
                     vaultInterest:formatNumber(parseFloat(response.data.data).toFixed(2))
                 })
@@ -194,11 +196,53 @@ class DashboardIndex extends Component {
         //hide loader
         //analyse info
 
+        //get back up goals
+        getBackUpSavings(this.handleBackUpGoals);
 
         console.log('setting up dashboard');
 
 
     };
+
+    handleBackUpGoals = (status,response)=>{
+        if(status){
+            console.log('backups'+JSON.stringify(response));
+
+            const now = moment().format('YYYY-MM-DD');
+            console.log('now'+now);
+            const backUpGoals = response;
+
+            //active
+
+            //check  to  filter all goals where current data is greater than today
+            let activeGoals = backUpGoals.filter((content)=>{
+                console.log('date'+content.end_date);
+                console.log('moment date'+moment(content.end_date).format('YYYY-MM-DD'));
+                return (moment(content.end_date).format('YYYY-MM-DD')>now && parseInt(content.is_pause) === 0 && parseInt(content.stop) ===0) ;
+            });
+
+            console.log(activeGoals);
+
+            this.setState({
+                ActiveGoals:activeGoals.length
+            });
+
+
+            //filter when backup goals is pause is false
+
+            let CompletedGoals = backUpGoals.filter((content)=>{
+                return (moment(content.end_date).format('YYYY-MM-DD') < now && parseInt(content.is_pause) === 0 && parseInt(content.stop) === 0) ;
+            });
+
+            this.setState({
+                CompletedGoals:CompletedGoals.length
+            });
+            //filter when is paused is true
+        }else {
+
+            console.log('fjskfsd'+response);
+        }
+    }
 
     checkActiveUser = (status) => {
 
@@ -353,20 +397,20 @@ class DashboardIndex extends Component {
                     accounts.map((content, idx) => {
                         if (content.account_type_id === STANDARD_ACCOUNT) {
                             this.setState({
-                                vaultAmount: formatNumber(parseFloat(content.balance).toFixed(2))
+                                vaultAmount: parseFloat(content.balance).toFixed(2)
                             })
                         } else if (content.account_type_id === BACKUP_GOALS_ACCOUNT) {
                             this.setState({
-                                backupAmount: formatNumber(parseFloat(content.balance).toFixed(2))
+                                backupAmount: parseFloat(content.balance).toFixed(2)
                             })
                         } else if (content.account_type_id === LOCKED_ACCOUNT) {
                             this.setState({
-                                lockedSavingsAmount: formatNumber(parseFloat(content.balance).toFixed(2))
+                                lockedSavingsAmount: parseFloat(content.balance).toFixed(2)
                             })
                         } else if (content.account_type_id === INTEREST_ACCOUNT) {
                             this.setState({
-                                stashAmount: formatNumber(parseFloat(content.balance).toFixed(2)),
-                                totalInterest: formatNumber(parseFloat(content.balance).toFixed(2))
+                                stashAmount: parseFloat(content.balance).toFixed(2),
+                                totalInterest: parseFloat(content.balance).toFixed(2)
                             })
                         }
 

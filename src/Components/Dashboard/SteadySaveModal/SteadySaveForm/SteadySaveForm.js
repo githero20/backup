@@ -148,7 +148,7 @@ class SteadySaveForm extends Component {
                         </Form.Group>
                         <Form.Group as={Col}>
                             <div className={'text-muted secondary-text'}>Contribution</div>
-                            <h2>&#8358;{formatNumber(parseFloat(contribution).toFixed(2) )|| 0}</h2>
+                            <h2>&#8358;{formatNumber(parseFloat(contribution).toFixed(2) )|| 0.00}</h2>
                         </Form.Group>
 
 
@@ -168,14 +168,14 @@ class SteadySaveForm extends Component {
                                             {this.validator.message('frequency', frequency, 'required|string')}
                                         </React.Fragment>
                                     ) :
-                                    <h2 className='text-capitalize'>{frequency}</h2>
+                                    <h2 className='text-capitalize'>{frequency!==null?frequency:'N/A'}</h2>
                             }
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col} sm={6}>
                             <div className={'text-muted secondary-text'}>Start Date</div>
-                            <h2>{start_date}</h2>
+                            <h2>{start_date!==null?start_date:'N/A'}</h2>
                         </Form.Group>
 
                         <Form.Group as={Col} sm={6}>

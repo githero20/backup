@@ -51,11 +51,11 @@ class SignUp extends Component {
                                 </div>
 
                                 <div className="container px-2 px-md-0">
-                                    <div className="row pt-md-2">
+                                    <div className="row pt-md-1">
                                         <div className="col-md-6 offset-md-6">
                                             {/*header component */}
-                                            <div className=" py-md-1 px-md-1 px-lg-3 py-lg-3 header-shadow mt-2 mb-md-5 bg-white">
-                                                <Link to={HomeLink}><img alt="back up cash logo" src={backUpCashLogo} width="200px"/></Link>
+                                            <div className="px-md-2 py-md-2 header-shadow mt-2 mb-md-5 bg-white">
+                                                <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>
                                             </div>
                                             <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                             <ToastProvider>

@@ -200,7 +200,7 @@ class LoginForm extends Component {
                                        className="validate"/>
                                 <label htmlFor="password" className="">Password</label>
 
-                                <Link to={ForgotPasswordLink}>Forgot Password ?</Link>
+                                <Link className={'dark-link'} to={ForgotPasswordLink}>Forgot Password ?</Link>
                             </div>
                         </div>
                         <div className="col-12">

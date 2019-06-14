@@ -17,7 +17,7 @@ const SteadySaveCard = (props) => {
                         <div className="card-content">
                             <div className="card-body">
                                 <h4 className="text-white blue-card-heading ">Total Balance</h4>
-                                <div className="media d-flex pb-2 pb-md-3">
+                                <div className="media d-flex pb-2 pb-md-1 pb-lg-1">
                                     <div className="align-self-center">
                                         <img className="blue-card-icon" src={totalBalanceIcon}  />
                                     </div>

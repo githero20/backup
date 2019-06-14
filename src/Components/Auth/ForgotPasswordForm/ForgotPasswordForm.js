@@ -138,13 +138,13 @@ class ForgotPasswordForm extends Component {
                         <div className="row">
                             <div className="col-12">
                                 {/*provide breadcrumb to go back*/}
-                                <h5 className="form-header-purple mb-5">Forgot Password</h5>
-                                <p>Get a password reset email</p>
+                                <h5 className="form-header-purple mb-1">Forgot Password</h5>
+                                <p className='mb-1'>Get a password reset email</p>
                             </div>
                             <div className="col-12">
                                 <div className="input-field">
                                     <input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="validate" />
-                                    <label htmlFor="email" className="">Email</label>
+                                    <label htmlFor="email" className="">Your Email</label>
                                     {this.validator.message('email', email, 'required|email')}
 
                                 </div>

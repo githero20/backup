@@ -287,12 +287,12 @@ body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .na
          -o-animation: .3s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 fadein;
             animation: .3s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 fadein;
 }
-body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .navigation > li > a > span.badge
+div.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .navigation > li > a > span.badge
 {
     position: absolute;
     right: 20px;
 }
-body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .navigation li.has-sub > a:not(.mm-next):after
+div.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .navigation li.has-sub > a:not(.mm-next):after
 {
     font-family: 'LineAwesome';
     font-size: 1rem;
@@ -311,11 +311,11 @@ body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .na
          -o-transform: rotate(0deg);
             transform: rotate(0deg);
 }
-body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .navigation li.has-sub .has-sub > a:not(.mm-next):after
+div.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .navigation li.has-sub .has-sub > a:not(.mm-next):after
 {
     top: 8px;
 }
-body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .navigation li.open > a:not(.mm-next):after
+div.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .navigation li.open > a:not(.mm-next):after
 {
     -webkit-transform: rotate(90deg);
        -moz-transform: rotate(90deg);
@@ -324,19 +324,19 @@ body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .na
             transform: rotate(90deg);
 }
 
-body.vertical-layout.vertical-menu-modern.menu-collapsed .content,
-body.vertical-layout.vertical-menu-modern.menu-collapsed .footer
+div.vertical-layout.vertical-menu-modern.menu-collapsed .content,
+div.vertical-layout.vertical-menu-modern.menu-collapsed .footer
 {
     margin-left: 60px;
 }
 
-body.vertical-layout.vertical-menu-modern.menu-collapsed .navbar-brand-center .content,
-body.vertical-layout.vertical-menu-modern.menu-collapsed .navbar-brand-center .footer
+div.vertical-layout.vertical-menu-modern.menu-collapsed .navbar-brand-center .content,
+div.vertical-layout.vertical-menu-modern.menu-collapsed .navbar-brand-center .footer
 {
     margin-left: 0;
 }
 
-body.vertical-layout.vertical-menu-modern.menu-collapsed.menu-flipped .content
+div.vertical-layout.vertical-menu-modern.menu-collapsed.menu-flipped .content
 {
     margin: 0;
     margin-right: 60px;

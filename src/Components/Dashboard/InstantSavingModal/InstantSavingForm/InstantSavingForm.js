@@ -3,15 +3,14 @@ import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
 import SimpleReactValidator from "simple-react-validator";
 import {getLocalStorage, request} from "../../../../ApiUtils/ApiUtils";
-import {instantSaveEndpoint} from "../../../../RouteLinks/RouteLinks";
+import {BankCardLink, instantSaveEndpoint} from "../../../../RouteLinks/RouteLinks";
 import {USERACTIVATED, USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-
 import {ADD_CARD} from "../../../../Helpers/Helper";
 import {getUserCards, initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {_getUser, _payWithPaystack} from "../../../../utils";
-
+import {Link} from 'react-router-dom';
 
 class InstantSavingForm extends Component {
 
@@ -24,6 +23,7 @@ class InstantSavingForm extends Component {
         },
         loading: false,
         userCards: [],
+        disableButton:false
     };
 
 
@@ -37,7 +37,6 @@ class InstantSavingForm extends Component {
                 }
             }
         });
-
         this.getUserCards = this.getUserCards.bind(this);
     }
 
@@ -69,22 +68,22 @@ class InstantSavingForm extends Component {
     }
 
 
-    getUserCards(){
+    getUserCards() {
         getUserCards((status, payload) => {
-            console.log("Cards",status, payload);
-            if(status){
-                this.setState({cards:payload});
-            }else{
-                this.props.toastManager.add("Unable to fetch Cards",{
+            console.log("Cards", status, payload);
+            if (status) {
+                this.setState({cards: payload});
+            } else {
+                this.props.toastManager.add("Unable to fetch Cards", {
                     appearance: 'error',
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
+                    autoDismiss: true,
+                    autoDismissTimeout: 3000
                 })
             }
         })
     }
 
-    resolvePaystackResponse=(response)=>{
+    resolvePaystackResponse = (response) => {
         this.setState({
             loading: false,
         });
@@ -92,29 +91,28 @@ class InstantSavingForm extends Component {
         verifyTransaction({
             ref: response.reference,
             type: "instant"
-        },(status, payload) =>{
+        }, (status, payload) => {
             console.log("status", status, payload);
-            if(status){
-                this.props.toastManager.add("Card Added Successfully",{
-                    appearance:"success",
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
+            if (status) {
+                this.props.toastManager.add("Card Added Successfully", {
+                    appearance: "success",
+                    autoDismiss: true,
+                    autoDismissTimeout: 3000
                 });
 
                 this.getUserCards();
                 this.props.updateInstantSave();
 
-            }else{
-                this.props.toastManager.add("Unable to add card at this moment",{
-                    appearance:"error",
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
+            } else {
+                this.props.toastManager.add("Unable to add card at this moment", {
+                    appearance: "error",
+                    autoDismiss: true,
+                    autoDismissTimeout: 3000
                 })
             }
         })
 
     }
-
 
 
     //submit steady save form
@@ -123,15 +121,20 @@ class InstantSavingForm extends Component {
         if (this.validator.allValid()) {
             this.setState({
                 loading: true,
+                disableButton:true
             });
-            if (parseInt(this.state.instantSaveInfo.payment_auth) === 0) {
-                //initiate paystack
-                console.log('got here to initiate paystack');
-                this.initiatePayStack();
-            }else {
+
+            //Paystack add Card
+            // if (parseInt(this.state.instantSaveInfo.payment_auth) === 0) {
+            //     //initiate paystack
+            //     console.log('got here to initiate paystack');
+            //     this.initiatePayStack();
+            // }
+            // else
+            //     {
                 console.log('going without initiating');
                 request(instantSaveEndpoint, this.state.instantSaveInfo, true, 'POST', this.HandleInstantSave);
-            }
+            // }
 
         } else {
 
@@ -148,6 +151,7 @@ class InstantSavingForm extends Component {
 
         this.setState({
             loading: false,
+            disableButton: false,
         });
         const {toastManager} = this.props;
 
@@ -295,7 +299,7 @@ class InstantSavingForm extends Component {
                             <Form.Group className={'mt-md-1 mb-md-3'}>
                                 <Form.Label>Amount</Form.Label>
                                 <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}
-                                              defaultValue={amount} onChange={this.changeHandler}/>
+                                              defaultValue={amount} onBlur={this.sanitizeValue} onChange={this.changeHandler}/>
                                 {this.validator.message('amount', amount, 'required|numeric')}
                             </Form.Group>
                         </Col>
@@ -308,18 +312,19 @@ class InstantSavingForm extends Component {
                                               id={'payment_auth'}
                                               name={'payment_auth'}>
                                     <option value={-1}>Select Card</option>
-                                    <option value={0}>Add New Card</option>
+                                    {/*<option value={0}>Add New Card</option>*/}
                                     {/* loop through and get the number of accounts user has */}
                                     {
                                         this.state.userCards.length > 0 ?
                                             this.state.userCards.map((data, index) => {
                                                 return (
-                                                    <option value={data.id} key={data.id}>{data.card_type}</option>
+                                                    <option value={data.id} key={data.id}>{data.card_type}(**** **** **** {data.last4})</option>
                                                 );
                                             })
                                             : null
                                     }
                                 </Form.Control>
+                                {this.state.userCards.length===0?<label className={'text-muted mt-1'}>You do not have a card click here  <Link to={BankCardLink}>Add Card</Link></label>:null}
                                 {this.validator.message('Debit Card', payment_auth, 'required|numeric')}
                             </Form.Group>
                         </Col>
@@ -327,7 +332,7 @@ class InstantSavingForm extends Component {
 
 
                     <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
-                        <button className={'round btn-custom-blue modal-btn'} type="submit">
+                        <button className={'round btn-custom-blue modal-btn'} disabled={this.state.disableButton?true:false} type="submit">
                             {this.state.loading ? <ButtonLoader/> :
                                 <span>Start Saving</span>}
                         </button>

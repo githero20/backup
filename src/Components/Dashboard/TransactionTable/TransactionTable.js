@@ -148,14 +148,14 @@ class TransactionTable extends Component {
                             keyField="id"
                             data={transactions}
                             columns={columns}
-                            search>
-
+                            search={ { searchFormatted: true } }
+                        >
                             {
                                 props => (
                                     <div>
                                         <div
                                             className={'d-flex justify-content-between flex-md-row align-items-center mb-1 mx-1'}>
-                                            <SearchBar {...props.searchProps} placeholder="Search to filter" className={'flex-shrink-1'} />
+                                            <SearchBar {...props.searchProps} placeholder="Date Filter" className={'flex-shrink-1'} />
                                             {/*<div onClick={this.toggleSort} className="table-sort-display d-block d-md-inline">*/}
                                             {/*    <span><img className=" img-2x " src={sortIcon}/></span>Sort*/}
                                             {/*</div>*/}

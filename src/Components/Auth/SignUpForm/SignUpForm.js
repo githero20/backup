@@ -4,12 +4,7 @@ import {Link, Redirect} from "react-router-dom";
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
 import ButtonLoader from "../Buttonloader/ButtonLoader";
-import {
-    ActivateAccountLink,
-    EmailActivationLink,
-    RegisterEndpoint,
-    ResendActivationLink
-} from "../../../RouteLinks/RouteLinks";
+import {RegisterEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteLinks";
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
@@ -37,8 +32,18 @@ class SignUpForm extends Component {
                 name: 'Please fill in your first name.',
                 last_name: 'Please fill in your last name.',
                 phone: 'The phone number must match the required pattern (080********)',
-                password: 'Please provide a strong password',
-            }
+                password: 'Password must contain at least one lowercase letter, one uppercase letter , one number and must be a minimum of 8 characters',
+            },
+            // validators: {
+            //     password: {  // name the rule
+            //         message: 'The :attribute must be a valid IP address and must be :values.',
+            //         rule: (val, params, validator) => {
+            //             return validator.helpers.testRegex(val,/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/)
+            //         },
+            //         messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
+            //         required: true  // optional
+            //     }
+            // }
 
         });
 
@@ -53,6 +58,7 @@ class SignUpForm extends Component {
             referralCode: '',
             submitted: false,
             ConfirmPassError: false,
+            passwordError: false,
             loading: false,
             redirect: false,
             error: false,
@@ -74,6 +80,19 @@ class SignUpForm extends Component {
     changeHandler = event => {
         const name = event.target.name;
         const value = event.target.value;
+
+        console.log(value);
+
+        //validate password
+        if (name === 'password') {
+            this.validatePassword();
+        }
+
+        //validate confirm password
+        if (name === 'password_confirmation') {
+            console.log('validating');
+            this.validatePasswords(value);
+        }
         this.setState({
             [name]: value
         });
@@ -110,25 +129,38 @@ class SignUpForm extends Component {
     };
 
 
-    validatePasswords = () => {
+    validatePasswords = (value) => {
 
-
-        const {password, password_confirmation} = this.state;
-
+        const {password} = this.state;
         // perform all neccassary validations
-
-        if (password !== password_confirmation) {
+        if (password != value) {
+            console.log('false' + password, value);
             this.setState({
                 ConfirmPassError: true,
             })
-
         } else {
-
+            console.log('true' + password);
             this.setState({
                 ConfirmPassError: false,
             });
+        }
 
-            return true;
+    };
+
+    validatePassword = () => {
+        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+        //^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})
+
+        const {password} = this.state;
+
+        if (strongRegex.exec(password)) {
+            this.setState({
+                passwordError: false,
+            })
+        } else {
+            this.setState({
+                passwordError: true,
+            })
         }
 
     };
@@ -144,7 +176,7 @@ class SignUpForm extends Component {
 
         if (!state) {
             console.log('error');
-            if(response){
+            if (response) {
                 console.log(`request failed: ${JSON.stringify(response)}`);
                 this.setState({
                     error: true,
@@ -152,17 +184,17 @@ class SignUpForm extends Component {
                     loading: false
                 });
 
-                if(response.data){
+                if (response.data) {
                     console.log(response.data.errors);
                     let errors = response.data.errors;
                     let errorData = Object.values(errors);
-                    errorData.map((err,idx)=>{
-                        return(
+                    errorData.map((err, idx) => {
+                        return (
                             toastManager.add(`${err}`, {
                                 appearance: 'error',
-                                index:idx,
-                                autoDismiss:true,
-                                autoDismissTimeout:3000,
+                                index: idx,
+                                autoDismiss: true,
+                                autoDismissTimeout: 3000,
                             })
                         )
                     });
@@ -177,11 +209,11 @@ class SignUpForm extends Component {
             //         autoDismissTimeout:3000,
             //     })
             // }
-        }else{
+        } else {
 
-            console.log('got here to save')
-            if(response){
-                console.log('saved')
+            console.log('got here to save');
+            if (response) {
+                console.log('saved');
 
                 const serverResponse = response.data;
                 const token = serverResponse.token;
@@ -216,9 +248,10 @@ class SignUpForm extends Component {
             //validate confirm password
 
             // perform all necessary validation
-            const PasswordValid = this.validatePasswords();
+            const ConfPassValid = this.validatePasswords();
+            const PassVal = this.validatePassword();
 
-            if (PasswordValid) {
+            if (ConfPassValid && PassVal) {
                 //    make api call
                 this.setState({
                     loading: true
@@ -234,6 +267,7 @@ class SignUpForm extends Component {
             //display All errors
 
             this.validatePasswords();
+            this.validatePassword();
 
             this.validator.showMessages();
             // rerender to show messages for the first time
@@ -254,7 +288,7 @@ class SignUpForm extends Component {
 
     render() {
 
-        const {name, email, referralCode, password, password_confirmation,last_name, phone} = this.state;
+        const {name, email, referralCode, password, password_confirmation, last_name, phone} = this.state;
 
 
         if (this.state.redirect) {
@@ -272,8 +306,8 @@ class SignUpForm extends Component {
                 <React.Fragment>
                     {/*<Redirect to={ResendActivationLink} />*/}
                     <Redirect push to={{
-                        pathname:`${ResendActivationLink}`,
-                        state: { email: this.state.email }
+                        pathname: `${ResendActivationLink}`,
+                        state: {email: this.state.email}
                     }}
 
                     />
@@ -332,9 +366,15 @@ class SignUpForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="password">Password</label>
                                 <input id="password" type="password" name={'password'} className={'form-control'}
-                                       onChange={this.changeHandler}/>
-                                {this.validator.message('password', password, 'required|string|min:8')}
-
+                                       onChange={this.changeHandler} onBlur={this.validatePassword}/>
+                                {/*{this.validator.message('password', password, `required|string|min:8`)}*/}
+                                {/*^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})*/}
+                                {this.state.passwordError ?
+                                    <label className={'srv-validation-message'}>Password must contain at least one
+                                        lowercase letter,
+                                        one uppercase letter , one number ,one special character and must be a minimum
+                                        of 8 characters
+                                    </label> : null}
                             </div>
                         </div>
                         <div className="col-12 col-lg-6">
@@ -342,7 +382,7 @@ class SignUpForm extends Component {
                                 <label htmlFor="password_confirmation">Confirm Password</label>
                                 <input id="password_confirmation" name={'password_confirmation'} type="password"
                                        className="form-control" onChange={this.changeHandler}
-                                       onBlur={this.validatePasswords}/>
+                                       />
                                 {this.state.ConfirmPassError ?
                                     <label className={'srv-validation-message'}>Password Doesn't match</label> : null}
                             </div>

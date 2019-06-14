@@ -388,7 +388,7 @@ class DashboardIndex extends Component {
                     let accounts = res.data.data.accounts.data;
 
                     let transactions = res.data.data.transactions.data;
-
+                    transactions = transactions.filter((content)=>content.status=='success');
 
                     this.setState({
                         transactions

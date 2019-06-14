@@ -104,11 +104,7 @@ class BackupGoals extends Component {
     render() {
 
         const columns = [
-            {
-                text: '#',
-                dataField: 'id' ,
-                sort:true,
-            },
+
             {
                 text: 'Name',
                 dataField: 'title',

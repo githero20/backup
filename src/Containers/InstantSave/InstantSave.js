@@ -95,7 +95,7 @@ class InstantSave extends Component {
                 //TODO loop through transactions and add up only credits
 
                 let transactions = data.data.data.transactions.data;
-
+                transactions = transactions.filter((content)=>content.status=='success');
                 let totalInstantSave = this.getTotalInstantSave(transactions);
                 console.log(transactions);
                 this.setState({

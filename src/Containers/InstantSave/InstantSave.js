@@ -237,7 +237,8 @@ class InstantSave extends Component {
                 text: 'Date',
                 dataField: 'created_at',
                 formatter: dateFormatter,
-                sort: true
+                sort: true,
+                searchable: true,
             },
             {
                 text: 'Description',

@@ -148,7 +148,8 @@ class TransactionTable extends Component {
                             keyField="id"
                             data={transactions}
                             columns={columns}
-                            search={ { searchFormatted: true } }
+                            // search={ { searchFormatted: true } }
+                            search
                         >
                             {
                                 props => (
@@ -210,9 +211,7 @@ class TransactionTable extends Component {
                                                 nextPageText: 'Next',
                                             })}
 
-                                            filter={filterFactory({
-
-                                            })}
+                                            filter={filterFactory({})}
                                         />
                                     </div>
 

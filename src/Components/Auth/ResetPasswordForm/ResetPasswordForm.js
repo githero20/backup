@@ -171,7 +171,7 @@ class ResetPasswordForm extends Component {
                     <div className="row">
 
                         <div className="col-12">
-                            <h5 className="form-header-purple mb-5">Enter New password</h5>
+                            <h5 className="form-header-purple mb-5">Reset password</h5>
 
                         </div>
 
@@ -188,7 +188,7 @@ class ResetPasswordForm extends Component {
                         <div className="col-12">
                             <div className="input-field">
                                 <input id="password" name={'password'}  onChange={this.changeHandler} type="password" className="validate" />
-                                <label htmlFor="password" className="">Password</label>
+                                <label htmlFor="password" className="">New Password</label>
                             </div>
                             {this.validator.message('password', password, 'required|string|min:8')}
                         </div>
@@ -196,7 +196,7 @@ class ResetPasswordForm extends Component {
 
                         <div className="col-12 ">
                             <div className="input-field">
-                                <label htmlFor="password_confirmation">Confirm Password</label>
+                                <label htmlFor="password_confirmation">Confirm New Password</label>
                                 <input id="password_confirmation" name={'password_confirmation'} type="password"
                                        className="validate" onChange={this.changeHandler}
                                        onBlur={this.validatePasswords}/>
@@ -208,7 +208,7 @@ class ResetPasswordForm extends Component {
 
 
                         <div className="col-12">
-                            <div className="d-flex  flex-md-row justify-content-end align-items-center">
+                            <div className="d-flex mt-1  flex-md-row justify-content-end align-items-center">
                                 {/* submit button */}
                                 <button type="submit"  className="btn btn-round blue-round-btn auth-btn "
                                         name="action">{this.state.loading?<ButtonLoader/>:

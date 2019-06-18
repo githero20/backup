@@ -15,6 +15,7 @@ import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
 import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../../../utils";
 import {initTransaction, verifyTransaction} from "../../../../actions/CardAction";
+import moment from "moment";
 
 
 class CreateSteadySaveForm extends Component {
@@ -373,7 +374,7 @@ class CreateSteadySaveForm extends Component {
                         <Form.Group as={Col} sm={6} >
                             <div className={'text-muted secondary-text'}>Start Date</div>
                             <React.Fragment>
-                                <Form.Control type="date" defaultValue={this.state.form.start_date} name={'start_date'}
+                                <Form.Control type="date"  min={moment().format("YYYY-MM-DD")}  defaultValue={this.state.form.start_date} name={'start_date'}
                                               id={'start_date'}
                                               disabled={this.state.disableStartDate}
                                               onChange={this.changeHandler}/>

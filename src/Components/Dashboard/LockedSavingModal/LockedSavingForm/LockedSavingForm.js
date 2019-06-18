@@ -6,8 +6,8 @@ import {_calculateDateDifference, _handleFormChange} from "../../../../utils/ind
 import SimpleReactValidator from "simple-react-validator";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import {withToastManager} from 'react-toast-notifications';
-
 import {createLockedSavings, getLockedInterestSavings} from "../../../../actions/LockedSavingsAction";
+import moment from 'moment';
 
 class LockedSavingForm extends Component {
 
@@ -88,6 +88,7 @@ class LockedSavingForm extends Component {
         console.log(this.state.form);
     };
 
+
     handleDateInput(e) {
         e.preventDefault();
         _handleFormChange("end_date", e, this);
@@ -122,8 +123,9 @@ class LockedSavingForm extends Component {
 
         // toastManager.add("Data");
 
-
     }
+
+
 
     render() {
         return (
@@ -146,6 +148,7 @@ class LockedSavingForm extends Component {
                                 onChange={this.handleDateInput}
                                 type="date"
                                 format="YYYY-MM-DD"
+                                min={moment().format('YYYY-MM-DD')}
                                 name="end_date"
                                 value={this.state.form.end_date}
                             />
@@ -177,7 +180,7 @@ class LockedSavingForm extends Component {
                             <Form.Control
                                 type="text"
                                 disabled={true}
-                                value={`${this.state.form.interestRate} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days`}
+                                value={`₦ ${this.state.form.interestRate} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days`}
                             />
                             <Form.Text className="text-muted">
                                 This upfront interest will be deposited in your Backup Cash "Backup Stash" and can be withdrawn immediately

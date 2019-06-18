@@ -16,6 +16,7 @@ import {
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
 import {getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
+import filterFactory, { dateFilter ,Comparator} from 'react-bootstrap-table2-filter';
 import moment from "moment";
 
 class InstantSave extends Component {
@@ -60,6 +61,19 @@ class InstantSave extends Component {
             showSavingModal: true
         });
     };
+
+
+    //add the input package
+
+    //change event handler
+
+    //set appropriate state
+
+    //validate format
+
+
+    // send request
+
 
 
     analyseInstantSaveInfo = (status, data) => {
@@ -239,6 +253,9 @@ class InstantSave extends Component {
                 formatter: dateFormatter,
                 sort: true,
                 searchable: true,
+                filter: dateFilter({
+                    defaultValue: { date: moment().format('YYYY-MM-DD'),comparator: Comparator.GT}
+                })
             },
             {
                 text: 'Description',

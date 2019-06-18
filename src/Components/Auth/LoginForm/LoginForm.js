@@ -5,11 +5,12 @@ import SimpleReactValidator from "simple-react-validator";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {DashboardLink, ForgotPasswordLink, LoginEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteLinks";
-import {api} from "../../../ApiUtils/ApiUtils";
-import {USERTOKEN} from "../HOC/authcontroller";
+import {api, setLocalStorage} from "../../../ApiUtils/ApiUtils";
+import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 import {getUserData} from "../../../actions/UserAction";
 import {_setUser} from "../../../utils";
+import {setupUser} from "../../../Helpers/Helper";
 
 class LoginForm extends Component {
     state = {
@@ -25,6 +26,7 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.validator = new SimpleReactValidator();
+        this.processLogin = this.processLogin.bind(this);
     }
 
     //Retrieves user inputs
@@ -45,34 +47,61 @@ class LoginForm extends Component {
 
 
 
-    processLogin = (state, response) => {
+    processLogin(state, response) {
 
 
-        this.setState({loading: false});
 
         const {toastManager} = this.props;
 
         if (state) {
             console.log(response);
+            if(response){
+                localStorage.setItem(USERTOKEN, response.data.token);
+                localStorage.setItem(USERINFO, response.data.user);
 
-            localStorage.setItem(USERTOKEN, response.data.token);
+                setTimeout(()=>{
+                    this.setState({
+                        redirect: true,
+                        loading: false
+                    });
+                },3000);
+                console.log("before",this);
+            }
 
-            //Temporary get user details
-            getUserData((status, payload) => {
-                console.log("status", status,payload);
-                if(status){
-                    _setUser(payload);
-                }
-            });
-            // redirect to dashboard
-            this.setState({
-                redirect: true
-            });
+            // //Temporary get user details
+            // getUserData((status, payload) => {
+            //     console.log("status", status,payload);
+            //     if(status){
+            //        // const setComplete =  setLocalStorage(USERINFO,payload);
+            //        //  let done = false ;
+            //         console.log("after",this);
+            //         setupUser(USERINFO,payload);
+            //         setTimeout(()=>{
+            //             this.setState({
+            //                 redirect: true,
+            //                 loading: false
+            //             });
+            //         },2000);
+            //
+            //
+            //         // if(done){
+            //         //     this.setState({
+            //         //         redirect: true,
+            //         //         loading: false
+            //         //     });
+            //         // }
+            //
+            //     }
+            // });
+
+
+
 
         } else {
-             if (response) {
+            this.setState({loading: false});
+
+            if (response) {
                  if(response.status===401){
-                     //TODO take user email and redirect to activation page
                      toastManager.add(`Your Account has not been activated Kindly Check your email for an activation link`, {
                          appearance: 'error',
                          autoDismiss: true,
@@ -80,8 +109,6 @@ class LoginForm extends Component {
                      });
 
                  }else{
-                     console.log(JSON.stringify(response));
-
                      toastManager.add(`${JSON.stringify(response.data.message)}`, {
                          appearance: 'error',
                          autoDismiss: true,

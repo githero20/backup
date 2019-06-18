@@ -9,6 +9,8 @@ import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack}
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {updateSteadySave} from "../../actions/SteadySaveAction";
 import {initTransaction, verifyTransaction} from "../../actions/CardAction";
+import moment from "moment";
+import {getTodaysDate, getToken} from "../../Helpers/Helper";
 
 
 class SteadySaveForm extends Component {
@@ -173,27 +175,35 @@ class SteadySaveForm extends Component {
 
             }else{
 
-                updateSteadySave(this.props.steadySave.id, this.state.form,(status, payload) => {
-                    this.setState({loading:false});
-                    if(!status){
-                        this.toastManager.add(JSON.stringify(payload),{
-                            appearance: "error",
-                            autoDismissTimeout:5000,
-                            autoDismiss:true
-                        });
-                    }else{
-                        this.toastManager.add("Steady save updated successfully",{
-                            appearance: "success",
-                            autoDismissTimeout:3000,
-                            autoDismiss:true
-                        });
-                        console.log(payload);
-                        setTimeout(this.props.onHide,3000);
-                        this.props.setupSteadySave();
-                        //set timeout
-                    }
-                    console.log("res", status, payload);
-                })
+
+                //make sure user is authenticated
+                let token = getToken();
+
+                token.then(data=>{
+                    console.log(this.state.form);
+                    updateSteadySave(this.props.steadySave.id, this.state.form,(status, payload) => {
+                        this.setState({loading:false});
+                        if(!status){
+                            this.toastManager.add(JSON.stringify(payload),{
+                                appearance: "error",
+                                autoDismissTimeout:5000,
+                                autoDismiss:true
+                            });
+                        }else{
+                            this.toastManager.add("Steady save updated successfully",{
+                                appearance: "success",
+                                autoDismissTimeout:3000,
+                                autoDismiss:true
+                            });
+                            console.log(payload);
+                            setTimeout(this.props.onHide,3000);
+                            this.props.setupSteadySave();
+                            //set timeout
+                        }
+                        console.log("res", status, payload);
+                    })
+                });
+
                 // const id = this.props.id;
                 // request(`${EditSteadySave}${id}`, null, true, 'GET', this.handleResponse)
 
@@ -357,7 +367,7 @@ class SteadySaveForm extends Component {
                         <Form.Group as={Col} sm={6} >
                             <div className={'text-muted secondary-text'}>Start Date</div>
                             <React.Fragment>
-                                <Form.Control type="date" defaultValue={this.state.form.start_date} name={'start_date'}
+                                <Form.Control type="date" min={moment().format('YYYY-MM-DD')} defaultValue={this.state.form.start_date} name={'start_date'}
                                               id={'start_date'}
                                               disabled={this.state.disableStartDate}
                                               onChange={this.changeHandler}/>

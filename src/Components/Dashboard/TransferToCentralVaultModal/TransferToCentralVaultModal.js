@@ -33,7 +33,8 @@ class TransferToCentralVaultModal extends Component {
 
     state={
         amount:0,
-        loading:false
+        loading:false,
+        disableBtn:false
     }
 
     //get the vault the balance from users central vault
@@ -61,6 +62,7 @@ class TransferToCentralVaultModal extends Component {
         if (this.validator.allValid()) {
             this.setState({
                 loading: true,
+                disableBtn:true
             });
 
             request(TransferToVault,this.state,true,'POST',this.handleRequest);
@@ -80,7 +82,8 @@ class TransferToCentralVaultModal extends Component {
     handleRequest = (status,res) =>{
 
         this.setState({
-            loading:false
+            loading:false,
+            disableBtn:false
         });
 
         const {toastManager} = this.props;
@@ -143,7 +146,7 @@ class TransferToCentralVaultModal extends Component {
                                         <div className="media-body text-left pt-1 ">
                                             <h3>
                                                 <strong className="blue-card-price ml-2 mr-2">
-                                                    <strong>₦</strong> {formatNumber(parseFloat(this.props.stashBalance).toFixed(2))}
+                                                    <strong>₦</strong> {this.props.stashBalance}
                                                 </strong>
                                             </h3>
                                         </div>
@@ -161,7 +164,7 @@ class TransferToCentralVaultModal extends Component {
                                 </Col>
                             </div>
                             <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
-                                <button className={'round btn-custom-blue auth-btn modal-btn'} onClick={this.submit} type="button">
+                                <button className={'round btn-custom-blue auth-btn modal-btn'} onClick={this.submit} disabled={this.state.disableBtn} type="button">
                                     {this.state.loading ? <ButtonLoader/> :
                                         <span>Transfer</span>}
                                 </button>

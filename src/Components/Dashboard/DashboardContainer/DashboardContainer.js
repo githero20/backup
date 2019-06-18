@@ -4,13 +4,14 @@ import CentralVaultCard from "../CentralVaultCard/CentralVaultCard";
 import BackUpGoalCard from "../BackUpGoalCard/BackUpGoalCard";
 import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";
 import LockedSavingsCard from "../LockedSavingCard/LockedSavingsCard";
-import TotalSavingsBlueCard from "../TotalSavingsBlueCard/TotalSavingsBlueCard";
-import TotalInterestCard from "../TotalSavingsCard/TotalInterestCard";
-import moment from "moment";
-import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import {amountFormatter, dateFormatter, descriptionFormatter, statusFormatter} from "../../../Helpers/Helper";
-import { textFilter } from 'react-bootstrap-table2-filter';
 import MessageBox from "./MessageBox/MessageBox";
+import blueIcon from '../../../admin/app-assets/images/icons/blue-icon@2x.png';
+import orangeIcon from '../../../admin/app-assets/images/icons/orange-icon@2x.png';
+import purpleIcon from '../../../admin/app-assets/images/icons/purple-icon@2x.png';
+import yellowIcon from '../../../admin/app-assets/images/icons/yellow-icon@2x.png';
+import adImg from '../../../admin/app-assets/images/icons/ad-one@2x.jpg';
+import adImgTwo from '../../../admin/app-assets/images/icons/ad-img@2x.jpg';
 
 
 class DashboardContainer extends Component {
@@ -23,7 +24,7 @@ class DashboardContainer extends Component {
     // send the the children components
 
 
-    runFilter = ()=>{
+    runFilter = () => {
 
         //take the value of select
         const filterValue = document.getElementById('filter-param').value;
@@ -35,7 +36,6 @@ class DashboardContainer extends Component {
     }
 
 
-
     render() {
 
         let {error, activateAccount} = this.props;
@@ -45,51 +45,50 @@ class DashboardContainer extends Component {
 
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
-            transactions, totalInterest, ActiveGoals, CompletedGoals,vaultInterest
+            transactions, totalInterest, ActiveGoals, CompletedGoals, vaultInterest
         } = this.props;
 
-  const columns = [
+        const columns = [
             {
                 text: 'Date',
-                dataField: 'created_at' ,
-                formatter:dateFormatter,
-                sort:true,
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
             },
             {
                 text: 'Description',
                 dataField: 'type',
-                formatter:descriptionFormatter,
-                sort:true,
+                formatter: descriptionFormatter,
+                sort: true,
 
             },
             {
                 text: 'Amount',
                 dataField: 'amount',
-                formatter:amountFormatter,
-                sort:true,
+                formatter: amountFormatter,
+                sort: true,
 
             },
             {
                 text: 'Status',
                 dataField: 'status',
-                formatter:statusFormatter,
-                sort:true,
+                formatter: statusFormatter,
+                sort: true,
                 sortCaret: (order, column) => {
                     if (!order) return (<span>&nbsp;&nbsp;</span>);
                     else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-up'></i></span>);
-                    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-down' ></i></span>);
+                    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-down'></i></span>);
                     return null;
                 }
             },
             {
                 text: 'Reference',
                 dataField: 'reference',
-                sort:true,
+                sort: true,
 
             }];
 
         const {isActive} = this.props;
-
 
 
         return (
@@ -102,7 +101,7 @@ class DashboardContainer extends Component {
 
                         {/*{*/}
                         {/*    !isActive?*/}
-                            <MessageBox />
+                        <MessageBox/>
                         {/*    :null*/}
                         {/*}*/}
 
@@ -110,6 +109,8 @@ class DashboardContainer extends Component {
 
                         <div className="content-body">
                             <div className="row">
+
+
                                 <CentralVaultCard
                                     vaultAmount={vaultAmount}
                                     totalSteadySave={totalSteadySave}
@@ -134,6 +135,30 @@ class DashboardContainer extends Component {
 
                                 <BackUpStashCard stashAmount={stashAmount}/>
 
+
+
+                                <div className="col-12 col-lg-6">
+                                    <div className="dash-ads">
+                                        <img src={adImg} className='ad-img' alt="advert one "/>
+                                        <div className={'dash-action left-action'}>
+                                            <h5>New Investment
+                                                Opportunities</h5>
+                                            <a className={'ad-gray-link'}>Know more <i className='fa fa-arrow-right'></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-12 col-lg-6">
+                                    <div className="dash-ads">
+                                        <img src={adImgTwo} className='ad-img' alt="advert two"/>
+                                        <div className={'dash-action right-action'}>
+                                            <a className={'ad-link-white'}>Know more <i className='fa fa-arrow-right'></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/*adverts*/}
+
+
                             </div>
                             {/*<div className="row">*/}
                             {/*    <div className="col-md-6  col-12 ">*/}
@@ -148,7 +173,8 @@ class DashboardContainer extends Component {
                             {/*</div>*/}
 
                             <div className="row">
-                                <TransactionTable runFilter={this.runFilter} transactions={transactions.reverse()} columns={columns} />
+                                <TransactionTable runFilter={this.runFilter} transactions={transactions.reverse()}
+                                                  columns={columns}/>
 
                             </div>
 

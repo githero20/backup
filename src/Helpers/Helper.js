@@ -1,6 +1,8 @@
 import moment from "moment";
 import React from "react";
 import {_isDateAfterToday} from "../utils";
+import {getLocalStorage, setLocalStorage} from "../ApiUtils/ApiUtils";
+import {USERINFO, USERTOKEN} from "../Components/Auth/HOC/authcontroller";
 
 
 export const STANDARD_ACCOUNT = 1;
@@ -159,7 +161,7 @@ export function amountFormatter (cell,row) {
 }
 export function moneyFormatter (cell) {
     return (
-        <p style={{minWidth:'150px'}} className={'text-green'}> + &#8358; &nbsp;{formatNumber(parseFloat(cell).toFixed(2))}</p>
+        <p style={{minWidth:'150px'}} className={'text-green'}> {cell!=null?`+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}`:"N/A"}</p>
     )
 }
 
@@ -179,6 +181,11 @@ export function interestFormatter(cell){
     return <label>+{parseFloat(cell).toFixed(2)}%</label>
 
 }
+
+export function viewFormatter(cell){
+    return <button className={'btn btn-custom-blue btn-block'}>View History</button>
+
+}
 export function lockedStatusFormatter(cell){
     return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> : <button className={'btn btn-warning'}>Ongoing</button>)
 
@@ -186,4 +193,21 @@ export function lockedStatusFormatter(cell){
 export function frequencyFormatter(cell){
     return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> : <button className={'btn btn-warning'}>Ongoing</button>)
 
+}
+
+export function getTodaysDate () {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    return   yyyy + '-' + mm + '-' + dd  ;
+}
+
+export async function getToken() {
+    return await getLocalStorage(USERTOKEN);
+}
+
+export  function setupUser(payload){
+    setLocalStorage(USERINFO,payload);
 }

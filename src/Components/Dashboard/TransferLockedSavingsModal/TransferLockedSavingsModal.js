@@ -4,12 +4,12 @@ import {ToastProvider} from "react-toast-notifications";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
-import totalBalanceIcon from "../../../admin/app-assets/images/svg/total-balance-icon.svg";
 import {_calculateDateDifference, _handleFormChange} from "../../../utils";
 import Button from "react-bootstrap/Button";
 import SimpleReactValidator from "simple-react-validator";
 import {createLockedSavings, getLockedInterestSavings} from "../../../actions/LockedSavingsAction";
 import {withToastManager} from "react-toast-notifications";
+import moment from "moment";
 
 
 class TransferLockedSavingsModal extends React.Component {
@@ -71,7 +71,12 @@ class TransferLockedSavingsModal extends React.Component {
                         autoDismiss:true,
                         autoDismissTimeout:3000,
                     });
-                    this.props.onHide();
+                    setTimeout(()=>{
+                        this.props.setupStash();
+                        this.props.onHide();
+                    },3000);
+
+
                 } else {
                     this.toastManager.add(payload || "An Error Occurred", {
                         appearance: 'error',
@@ -158,10 +163,11 @@ class TransferLockedSavingsModal extends React.Component {
                                         type="date"
                                         format="YYYY-MM-DD"
                                         name="end_date"
+                                        min={moment().format('YYYY-MM-DD')}
                                         value={this.state.form.end_date}
                                     />
                                     <Form.Text className="text-muted">
-                                        Enter the maturity date when funds should be returned to your BackupCash savings.
+                                        Enter the maturity date when funds should be returned to your Backup Stash savings.
                                     </Form.Text>
                                     {this.validator.message("maturity date", this.state.form.end_date, "required")}
                                 </Form.Group>
@@ -179,7 +185,7 @@ class TransferLockedSavingsModal extends React.Component {
                                     />
                                     {this.validator.message("capital investment", this.state.form.amount, "required")}
                                     <Form.Text className="text-muted">
-                                        Enter the amount that will be instantly removed from your BackupCash "Central Vault"
+                                        Enter the amount that will be instantly removed from your Backup Stash
                                         balance and locked away.
                                     </Form.Text>
                                 </Form.Group>
@@ -188,10 +194,10 @@ class TransferLockedSavingsModal extends React.Component {
                                     <Form.Control
                                         type="text"
                                         disabled={true}
-                                        value={`${this.state.form.interestRate} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days`}
+                                        value={`₦ ${this.state.form.interestRate} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days`}
                                     />
                                     <Form.Text className="text-muted">
-                                        This upfront interest will be deposited in your Backup Cash "Backup Stash" and can be withdrawn immediately
+                                        This upfront interest will be deposited in your Backup Stash and can be withdrawn immediately
                                     </Form.Text>
                                 </Form.Group>
                             </Form.Row>
@@ -204,12 +210,12 @@ class TransferLockedSavingsModal extends React.Component {
                                         label={<Form.Text>
                                             I hereby confirm and approve this transaction, and I authorize SFS BackupCash to
                                             LOCK ₦
-                                            <span>{this.state.form.amount}</span> &nbsp; from my BackupCash savings immediately
+                                            <span>{this.state.form.amount}</span> &nbsp; from my Backup Stash savings immediately
                                             and return it in full on the date I set in the "Maturity Date"
                                             above. This transaction is IRREVERSIBLE.
                                             <br/>
                                             NB: Funds in "Locked Savings" cannot be accessed until maturity date.
-                                            Locked Funds will be sent back to your BackupCash "Backup Stash" on maturity date.
+                                            Locked Funds will be sent back to your Backup Stash on maturity date.
                                         </Form.Text>}/>
                                     {this.validator.message("terms and condition", this.state.form.accepted, "accepted")}
 

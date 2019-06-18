@@ -6,7 +6,7 @@ import KycIcon from "../../../admin/app-assets/images/svg/kyc-icon.svg";
 import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import {Link, Redirect} from "react-router-dom";
 import {DashboardLink, getUserInfoEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
-import {request} from "../../../ApiUtils/ApiUtils";
+import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
 
 class HorizontalNav extends Component {
@@ -38,6 +38,19 @@ class HorizontalNav extends Component {
         })
     };
 
+    componentDidMount() {
+
+        //get name from localStorage
+        if(getLocalStorage(USERINFO)){
+            setTimeout(()=>{
+                const user = JSON.parse(getLocalStorage(USERINFO));
+                this.setState({userName:user.name})
+
+            },3000);
+        }
+
+
+    }
 
     showMobileMenu = () => {
 
@@ -92,9 +105,8 @@ class HorizontalNav extends Component {
 
     render() {
 
-        const {userName} = this.props;
+        const {userName} = this.state;
         // const {userName} = this.state;
-        console.log(userName);
 
 
         if(this.state.redirectLogin){

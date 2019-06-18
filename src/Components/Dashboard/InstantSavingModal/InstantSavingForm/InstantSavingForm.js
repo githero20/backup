@@ -11,6 +11,7 @@ import {ADD_CARD} from "../../../../Helpers/Helper";
 import {getUserCards, initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {_getUser, _payWithPaystack} from "../../../../utils";
 import {Link} from 'react-router-dom';
+import AutoNumeric from 'autonumeric';
 
 class InstantSavingForm extends Component {
 
@@ -23,7 +24,8 @@ class InstantSavingForm extends Component {
         },
         loading: false,
         userCards: [],
-        disableButton:false
+        disableButton:false,
+        err:null
     };
 
 
@@ -205,6 +207,40 @@ class InstantSavingForm extends Component {
     };
 
 
+    textAmountHandler=(event)=>{
+        let name = event.target.name;
+        let value = event.target.value;
+
+        console.log(name,value);
+        // check if the value exist
+        if(value!==""){
+            if(parseFloat(value).toFixed(2) !== 0.00){
+               const rawValue = parseFloat(value.trim().replace(',','').replace('₦',''))
+                console.log(name,rawValue);
+                let data = {...this.state.instantSaveInfo};
+                data[name] = rawValue;
+                this.setState({
+                    instantSaveInfo: data,
+                    err: ''
+                })
+            }
+        }else {
+            this.setState({
+                err: 'Please Input the Amount you want to Save'
+            })
+        }
+
+        //strip the commas
+
+
+        // convert to number
+
+
+        // check if the number i
+
+    }
+
+
     componentDidMount() {
         //get pay auths
         const userInfo = JSON.parse(getLocalStorage(USERINFO));
@@ -214,6 +250,24 @@ class InstantSavingForm extends Component {
                 userCards: userInfo.authorization.data
             })
         }
+
+
+        //
+
+        // // Setting up the version
+        // document.querySelector('#version').innerHTML = `AutoNumeric version <code>${AutoNumeric.version()}</code>`;
+
+        // AutoNumeric initialisation
+        const isAmount = new AutoNumeric('.instant-save-input', {currencySymbol: "₦",
+            maximumValue: "1000000000",
+            minimumValue: "0",
+            currencySymbolPlacement:'p',
+            digitGroupSeparator:',',
+            noEventListeners:false,
+        });
+
+        console.log(isAmount);
+
     }
 
 
@@ -285,6 +339,7 @@ class InstantSavingForm extends Component {
     };
 
 
+
     render() {
         const {payment_auth, amount} = this.state.instantSaveInfo;
         if (this.state.instantSaveInfo.payment_auth === ADD_CARD) {
@@ -294,13 +349,33 @@ class InstantSavingForm extends Component {
         return (
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
+                    {/*<Form.Row>*/}
+                    {/*    <Col>*/}
+                    {/*        <Form.Group className={'mt-md-1 mb-md-3'}>*/}
+                    {/*            <Form.Label>Amount</Form.Label>*/}
+                    {/*            <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}*/}
+                    {/*                          defaultValue={amount}  onChange={this.changeHandler}/>*/}
+                    {/*            {this.validator.message('amount', amount, 'required|numeric')}*/}
+                    {/*        </Form.Group>*/}
+                    {/*    </Col>*/}
+                    {/*</Form.Row>*/}
+
+                    {/*auto numeric */}
+
                     <Form.Row>
                         <Col>
                             <Form.Group className={'mt-md-1 mb-md-3'}>
                                 <Form.Label>Amount</Form.Label>
-                                <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}
-                                              defaultValue={amount} onBlur={this.sanitizeValue} onChange={this.changeHandler}/>
-                                {this.validator.message('amount', amount, 'required|numeric')}
+                                {/* used automatic js text for numbers */}
+                                <Form.Control
+                                    type="text"
+                                    className={'instant-save-input'}
+                                    placeholder={'₦500'} name={'amount'}
+                                    id={'amount'}
+                                    onChange={this.textAmountHandler}
+                                />
+                                {this.state.err?<span>{this.state.err}</span>:null}
+                                {/*{this.validator.message('amount', amount, 'required|numeric')}*/}
                             </Form.Group>
                         </Col>
                     </Form.Row>

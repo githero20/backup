@@ -145,13 +145,17 @@ class WithdrawalForm extends Component {
                 }else{
                     this.props.history.push("/bank-card-setting");
                 }
-            }else{
-                this.props.toastManager.add("Unable to get bank accounts",{
-                    appearance: "error",
-                    autoDismissTimeout: 5000,
-                    autoDismiss:true
-                });
             }
+
+            //TODO handle no internet and no accounts error
+
+            // else{
+            //     this.props.toastManager.add("Unable to get bank accounts",{
+            //         appearance: "error",
+            //         autoDismissTimeout: 5000,
+            //         autoDismiss:true
+            //     });
+            // }
         });
     }
 

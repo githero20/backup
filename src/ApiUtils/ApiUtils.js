@@ -50,7 +50,6 @@ export function request(url, params, token, method, callback) {
         if (token !== null) {
             header.headers['Authorization'] = 'Bearer ' + token;
         }
-
     }
     if (method === 'POST') {
         return axios.post(url, params, header).then(res => callback(true, res))
@@ -202,7 +201,7 @@ export function apiGet(url, token, callback) {
     if (token) {
         let userToken = getLocalStorage('token');
         console.log(userToken);
-        if (userToken === null) {
+        if (userToken === null && userToken !==undefined) {
             header.headers['Authorization'] = 'Bearer ' + userToken;
         }
 
@@ -230,7 +229,9 @@ export const checkResponse = (err)=>{
 
 
 export function getLocalStorage(key) {
-    return localStorage.getItem(key);
+    if(localStorage.getItem(key)!==null&&localStorage.getItem(key)!==undefined){
+        return localStorage.getItem(key);
+    }
 
 }
 

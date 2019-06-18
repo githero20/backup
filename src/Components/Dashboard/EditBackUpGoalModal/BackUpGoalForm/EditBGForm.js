@@ -7,14 +7,14 @@ import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../../../utils";
-import {createBackUpGoal} from "../../../../actions/BackUpGoalsAction";
+import {createBackUpGoal, editBGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import {initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {getTodaysDate} from "../../../../Helpers/Helper";
 import moment from "moment";
 
 
-class BackUpGoalsForm extends Component {
+class EditBGForm extends Component {
 
     constructor(props) {
         super(props);
@@ -40,9 +40,10 @@ class BackUpGoalsForm extends Component {
             showDay: false,
             showHour: true,
             loading:false,
+            disabled:true
 
         };
-        this.reset = this.reset.bind(this);
+
         this.changeHandler = this.changeHandler.bind(this);
         this.handleFrequencySelect = this.handleFrequencySelect.bind(this);
         this.handleGoalAmount = this.handleGoalAmount.bind(this);
@@ -114,6 +115,7 @@ class BackUpGoalsForm extends Component {
     }
 
     submitForm = (e) => {
+
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
@@ -127,13 +129,16 @@ class BackUpGoalsForm extends Component {
                 loading:true,
             });
 
-            if (parseInt(this.state.form.payment_auth) === 0) {
-                //initiate paystack
-                console.log('got here to initiate paystack');
-                this.initiatePayStack();
-            }else {
+            // if (parseInt(this.state.form.payment_auth) === 0) {
+            //     //initiate paystack
+            //     console.log('got here to initiate paystack');
+            //     this.initiatePayStack();
+            // }else {
 
-                createBackUpGoal(this.state.form, (status, payload) =>{
+
+                //TODO update backup Goals
+                console.log('formdata :'+JSON.stringify(this.state.form));
+                editBGoal(this.state.form.id, this.state.form,(status, payload) =>{
                     //remove loader
 
                     this.setState({
@@ -142,7 +147,7 @@ class BackUpGoalsForm extends Component {
                     console.log("Res", status, payload);
                     if(status){
                         console.log("here");
-                        this.props.toastManager.add("Backup Goal Saved.", {
+                        this.props.toastManager.add("Backup Goal Updated.", {
                             appearance: "success"
                         });
                         setTimeout(()=> this.props.onHide(true), 2000);
@@ -156,69 +161,12 @@ class BackUpGoalsForm extends Component {
                     }
                 });
 
-            }
+            // }
 
         }
 
     };
 
-
-
-    initiatePayStack = () => {
-
-        //send api
-        initTransaction({
-            amount: parseFloat(this.state.form.contribution),
-            source: 'quick',
-        }, (status, payload) => {
-            console.log("status", status, payload);
-            this.setState({loading: false});
-            if (status) {
-                const user = _getUser();
-                console.log(user);
-                _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
-            } else {
-                this.props.toastManager.add(payload, {
-                    appearance: "error",
-                    autoDismiss: true,
-                    autoDismissTimeout: 3000
-                })
-            }
-
-            this.props.onHide();
-        });
-
-    }
-
-
-    resolvePaystackResponse=(response)=>{
-        this.setState({
-            loading: false,
-        });
-        console.log("Paystack Response", response);
-        verifyTransaction({
-            ref: response.reference,
-            type: "instant"
-        },(status, payload) =>{
-            console.log("status", status, payload);
-            if(status){
-                this.props.toastManager.add("Card Added Successfully",{
-                    appearance:"success",
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
-                });
-
-                this.getUserCards();
-            }else{
-                this.props.toastManager.add("Unable to add card at this moment",{
-                    appearance:"error",
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
-                })
-            }
-        })
-
-    }
 
 
 
@@ -233,50 +181,61 @@ class BackUpGoalsForm extends Component {
             this
         );
 
+
+
         // console.log("megg", event.target.name, event.target.value);
         this.handleFrequencySelect(form,inverse);
 
     };
-    reset(){
 
-        let data = this.state.form;
-        data.amount=0;
-        data.payment_auth=-1;
-        data.start_date= null;
-        data.maturity_date= null;
-        data.title= null;
-        data.payment_auth= null;
-        data.frequency= 'daily';
-        data.hour_of_day= '12';
-        data.contribution=null;
-        data.goal_amount= null;
-        data.day_of_week= '1';
-        data.day_of_month= '1';
 
-        this.setState({
-            form:data
-        })
-
-    };
     componentDidMount() {
 
         //get pay auths
         //TODO(dont save card details to local storage, if you will be saving it, encrypt it)
         const userInfo = JSON.parse(getLocalStorage(USERINFO));
         if (JSON.parse(getLocalStorage(USERINFO))) {
+            console.log(userInfo.authorization.data);
             this.setState({
-                userCards: userInfo.authorization.data
+                userCards: userInfo.authorization.data,
             })
 
+            let formData = {...this.state.form} ;
+
+            formData.title = this.props.selectedBG.title;
+            formData.id = this.props.selectedBG.id;
+            formData.payment_auth =Number(this.props.selectedBG.gw_authorization_code) ;
+            formData.hour_of_day = this.props.selectedBG.hour_of_day;
+            formData.target_amount = this.props.selectedBG.target_amount;
+            formData.start_date = this.props.selectedBG.start_date;
+            formData.frequency = this.props.selectedBG.frequency;
+            formData.gw_authorization_code = this.props.selectedBG.gw_authorization_code;
+            formData.end_date = this.props.selectedBG.end_date;
+            formData.start_amount = this.props.selectedBG.start_amount;
+            formData.hour_of_day = this.props.selectedBG.hour_of_day;
+            formData.day_of_week = this.props.selectedBG.day_of_week;
+            formData.day_of_month = this.props.selectedBG.day_of_month;
+
+            this.setState({
+                form:formData
+            });
         }
     }
-    render() {
-        const {title, goal_amount, start_date,frequency,payment_auth, maturity_date, contribution, hour_of_day, day_of_week, day_of_month} = this.state.form;
 
+    enableEdit = ()=>{
+        this.setState({
+            disabled:false
+        })
+    }
+
+
+    render() {
+        const {title, target_amount, start_date,frequency,gw_authorization_code, end_date, start_amount, hour_of_day, day_of_week, day_of_month} = this.state.form;
+        // console.log('selected bg :'+JSON.stringify(this.props.selectedBG));
         const showHour = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Hour of the day</Form.Label>
-                <Form.Control as="select" defaulValue={this.state.form.hour_of_day} onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
+                <Form.Control as="select" defaultValue={hour_of_day!=null?hour_of_day:12} disabled={this.state.disabled} onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
                     <option value={'1'}>1:00 am</option>
                     <option value={'2'}>2:00 am</option>
                     <option value={'3'}>3:00 am</option>
@@ -303,11 +262,12 @@ class BackUpGoalsForm extends Component {
 
             </Form.Group>
         );
+
+
         const showMonth = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Month</Form.Label>
-                <Form.Control as="select" defaultValue={this.state.form.day_of_month} onChange={this.changeHandler}
-                              id="day_of_month" name={'day_of_month'}>
+                <Form.Control as="select" value={day_of_month!=null?day_of_month:1} disabled={true} onChange={this.changeHandler} id="day_of_month" name={'day_of_month'}>
                     <option value={'1'}>1</option>
                     <option value={'2'}>2</option>
                     <option value={'3'}>3</option>
@@ -346,7 +306,7 @@ class BackUpGoalsForm extends Component {
         const showDay = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Week</Form.Label>
-                <Form.Control as="select" defaultValue={this.state.form.day_of_week} onChange={this.changeHandler}
+                <Form.Control as="select" value={day_of_week!=null?day_of_week:1} disabled={true} onChange={this.changeHandler}
                               id="day_of_week" name="day_of_week">
                     <option value={'1'}>Mon</option>
                     <option value={'2'}>Tue</option>
@@ -360,7 +320,7 @@ class BackUpGoalsForm extends Component {
         );
         return (
             <React.Fragment>
-                <Form onSubmit={this.submitForm}>
+                <Form>
                     <Form.Row>
                         <Form.Group as={Col}>
                             <Form.Label>Plan Name</Form.Label>
@@ -368,6 +328,7 @@ class BackUpGoalsForm extends Component {
                                 type="text"
                                 name={'title'}
                                 id={'title'}
+                                disabled={this.state.disabled}
                                 onChange={this.changeHandler}
                                 placeholder={'e.g School fees'}
                                 defaultValue={title}
@@ -376,15 +337,18 @@ class BackUpGoalsForm extends Component {
                         </Form.Group>
 
                         <Form.Group as={Col} sm={6}>
-                            <Form.Label>Contribution(NGN)</Form.Label>
+                            <Form.Label>Start amount (NGN)</Form.Label>
                             <Form.Control
-                                type="number" id="contribution"
-                                value={contribution} step={'5'} name="contribution"
-                                onChange={this.changeHandler}/>
+                                type="number" id="start_amount"
+                                value={start_amount} step={'5'} name="start_amount"
+                                onChange={this.changeHandler}
+                                disabled={true}
+                            />
+
                             <Form.Text className="text-muted">
                                 Contribution range daily [ &#8358; 50 - &#8358; 25000]
                             </Form.Text>
-                            {this.validator.message('contribution', contribution, 'required|numeric')}
+                            {this.validator.message('start amount', start_amount, 'required|numeric')}
 
                         </Form.Group>
                     </Form.Row>
@@ -395,6 +359,7 @@ class BackUpGoalsForm extends Component {
                                           id={'start_date'}
                                           min={moment().format('YYYY-MM-DD')}
                                           value={start_date}
+                                          disabled={true}
                                           onChange={this.changeHandler}/>
                             {this.validator.message('start_date', start_date, 'required|string')}
 
@@ -404,23 +369,23 @@ class BackUpGoalsForm extends Component {
                             <Form.Label>Maturity Date</Form.Label>
                             <Form.Control
                                 type="date"
-                                name={'maturity_date'}
-                                id={'maturity_date'}
+                                name={'end_date'}
+                                id={'end_date'}
                                 min={moment().format('YYYY-MM-DD')}
-                                value={maturity_date}
+                                value={end_date}
+                                disabled={true}
                                 onChange={this.changeHandler}/>
-                            {this.validator.message('maturity_date', maturity_date, 'required|string')}
+                            {this.validator.message('end_date', end_date, 'required|string')}
 
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col} sm={6}>
                             <Form.Label>Account to Debit</Form.Label>
-                            <Form.Control as="select"   onChange={this.changeHandler} defaultValue={'payment_auth'} Value={payment_auth} id={'payment_auth'}
+                            <Form.Control as="select" disabled={this.state.disabled} onChange={this.changeHandler} value={gw_authorization_code!=null?gw_authorization_code:-1} id={'payment_auth'}
                                           name={'payment_auth'}>
-                                <option value={-1} >Select Card</option>
-                                <option value={0} >Add Card</option>
                                 {/* loop through and get the number of accounts user has */}
+                                <option value={-1} >Select Card</option>
                                 {
                                     this.state.userCards.length > 0 ?
 
@@ -435,15 +400,16 @@ class BackUpGoalsForm extends Component {
                                 }
 
                             </Form.Control>
-                            {this.validator.message('payment_auth', payment_auth, 'required|numeric')}
+                            {this.validator.message('credit card', gw_authorization_code, 'required|numeric')}
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label>Goal Amount(NGN)</Form.Label>
                             <Form.Control
                                 type="number"
-                                name={'goal_amount'}
+                                name={'target_amount'}
                                 id={'number'}
-                                value={goal_amount}
+                                value={target_amount!==null?target_amount:0}
+                                disabled={true}
                                 onChange={this.handleGoalAmount}/>
                         </Form.Group>
                     </Form.Row>
@@ -451,7 +417,7 @@ class BackUpGoalsForm extends Component {
                         <Form.Group as={Col}>
                             <Form.Label>Frequency </Form.Label>
                             {/*select Box */}
-                            <Form.Control as="select" id="frequency" defaultValue={frequency} onChange={this.changeHandler} name={'frequency'}>
+                            <Form.Control as="select" id="frequency" defaultValue={frequency} disabled={true} onChange={this.changeHandler} name={'frequency'}>
                                 <option value={'daily'}>Daily</option>
                                 <option value={'weekly'}>Weekly</option>
                                 <option value={'monthly'}>Monthly</option>
@@ -465,11 +431,20 @@ class BackUpGoalsForm extends Component {
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
 
-                            <Button className={'round btn-custom-blue modal-btn'} type="submit">
-                                {this.state.loading?<ButtonLoader/>:
-                                    <span>Start </span>}
+                        {this.state.disabled ?
+                            <Button onClick={this.enableEdit} className={'round btn-custom-blue modal-btn'} type="button">
+                                Edit
+                            </Button> :
+                            (
 
-                            </Button>
+                                <Button className={'round btn-custom-blue modal-btn'}  type="button"  onClick={this.submitForm}>
+                                    {this.state.loading ? <ButtonLoader/> :
+                                        <span>Update Goal </span>
+                                    }
+                                </Button>
+                            )
+                        }
+
                     </Form.Row>
 
                 </Form>
@@ -478,8 +453,6 @@ class BackUpGoalsForm extends Component {
     }
 }
 
+export default withToastManager(EditBGForm);
 
-const BackUpToastForm = withToastManager(BackUpGoalsForm);
-
-export default BackUpToastForm;
 

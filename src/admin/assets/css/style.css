@@ -1541,7 +1541,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* When the checkbox is checked, add a blue background */
 .label-container input:checked ~ .checkmark {
-    background-color: #2196F3;
+    background-color: #367BFF;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -3778,7 +3778,7 @@ input:-webkit-autofill:active  {
 
 /* When the checkbox is checked, add a blue background */
 .label-container input:checked ~ .checkmark {
-    background-color: #2196F3;
+    background-color: #367BFF;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -4539,4 +4539,91 @@ input:-webkit-autofill:active  {
 }
 .mt-7px{
     margin-top:7px;
+}
+
+.dash-card{
+    background-color: white;
+    width:100%;
+    border-radius: 1rem;
+    padding: 2rem 1rem;
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    min-height: 200px;
+    font-family: "Circular Std","Product Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.blue-border-right{
+    border-right: 5px solid #2567FF;
+}
+.purple-border-right{
+    border-right: 5px solid #BEABFF;
+}
+.yellow-border-right{
+    border-right: 5px solid #FBDA72;
+}
+.orange-border-right{
+    border-right: 5px solid #FFB658;
+}
+.dash-card-img{
+    width: 70%;
+    margin:0 auto;
+}
+.dash-card-total-details strong{
+    margin: 0px 5px ;
+}
+.dash-header{
+    font-size: 16px;
+    font-family: "Circular Std Medium","Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.dash-card .dash-btn{
+    background-color: #F9F9F9;
+    color:#2D2D2D;
+    padding: 10px 20px;
+    border-radius:10px;
+    margin: 10px 0px;
+}
+.dash-card .dash-card-img-cover{
+    flex: 0 1 70px;
+}
+.ad-img{
+    width: 100%;
+    /*box-shadow: 0px 10px 5px rgba(0,0,0,0.05);*/
+}
+.dash-ads{
+    position: relative;
+}
+.dash-action{
+    position: absolute;
+    width: 200px;
+    top:20%;
+}
+.left-action{
+    top:20%;
+    left:5%;
+}
+
+.right-action {
+    top: 70%;
+    left: 45%;
+}
+.dash-action .ad-link-white{
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
+}
+.dash-action .ad-gray-link{
+    text-decoration: none;
+    color:#777777;
+    font-size: 12px;
+}
+.goal-box{
+    min-height: 100px;
+    cursor: pointer;
+}
+.goal-target{
+    font-size: 12px;
+    margin-bottom: .5rem;
+    margin-top: 1rem;
+}
+.shadow-md{
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
 }

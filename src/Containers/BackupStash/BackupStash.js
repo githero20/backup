@@ -8,8 +8,15 @@ import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox
 import InstantSavingModal from "../../Components/Dashboard/InstantSavingModal/InstantSavingModal";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
-import {USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
-import {formatNumber, INTEREST_ACCOUNT, STANDARD_ACCOUNT} from "../../Helpers/Helper";
+import {ToastProvider} from 'react-toast-notifications';
+import {
+    amountFormatter,
+    dateFormatter,
+    descriptionFormatter,
+    formatNumber,
+    INTEREST_ACCOUNT,
+    STANDARD_ACCOUNT, statusFormatter
+} from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
 import {
     getTransactionsApi,
@@ -165,31 +172,31 @@ class BackupStash extends Component {
     componentDidMount() {
 
 
-        //get user instant saves
+        //get user backup stash
         this.setupStash();
 
     }
 
 
-    loadInstantSaveTable = (status, payload) => {
-        //hide loader
-        this.setState({
-            showLoader: false
-        });
-
-        //handle response
-        if (status) {
-            if (payload) {
-                console.log(JSON.parse(JSON.stringify(payload)));
-                this.setState({
-                    transactions: payload.data.data.transactions.data
-                });
-                console.log('success', payload);
-            }
-
-        }
-
-    };
+    // loadInstantSaveTable = (status, payload) => {
+    //     //hide loader
+    //     this.setState({
+    //         showLoader: false
+    //     });
+    //
+    //     //handle response
+    //     if (status) {
+    //         if (payload) {
+    //             console.log(JSON.parse(JSON.stringify(payload)));
+    //             this.setState({
+    //                 transactions: payload.data.data.transactions.data
+    //             });
+    //             console.log('success', payload);
+    //         }
+    //
+    //     }
+    //
+    // };
 
     componentWillMount() {
 
@@ -202,6 +209,46 @@ class BackupStash extends Component {
 
 
     render() {
+
+        const columns = [
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
+            },
+            {
+                text: 'Description',
+                dataField: 'type',
+                formatter: descriptionFormatter,
+                sort: true,
+
+            },
+            {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter: amountFormatter,
+                sort: true,
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter: statusFormatter,
+                sort: true,
+                sortCaret: (order, column) => {
+                    if (!order) return (<span>&nbsp;&nbsp;</span>);
+                    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-up'></i></span>);
+                    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-down'></i></span>);
+                    return null;
+                }
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort: true,
+
+            }];
 
         return (
             <div
@@ -221,10 +268,13 @@ class BackupStash extends Component {
                             this.state.showTransferLockedSavings ?
                                 (
                                     <React.Fragment>
+                                        <ToastProvider>
                                         <TransferLockedSavingsModal
                                             show={this.state.showTransferLockedSavings}
                                             onHide={this.hideTransLockedSavingModal}
+                                            setupStash={this.setupStash}
                                         />
+                                        </ToastProvider>
                                     </React.Fragment>
 
                                 ) : null
@@ -234,11 +284,13 @@ class BackupStash extends Component {
                             this.state.showTransToCentralVault ?
                                 (
                                     <React.Fragment>
-                                        <TransferToCentralVaultModal
-                                            stashBalance={this.state.totalStash}
-                                            show={this.state.showTransToCentralVault}
-                                            onHide={this.hideTransToCentralVaultModal}
-                                        />
+                                        <ToastProvider>
+                                            <TransferToCentralVaultModal
+                                                stashBalance={this.state.totalStash}
+                                                show={this.state.showTransToCentralVault}
+                                                onHide={this.hideTransToCentralVaultModal}
+                                            />
+                                        </ToastProvider>
                                     </React.Fragment>
 
                                 ) : null
@@ -253,7 +305,7 @@ class BackupStash extends Component {
                                     <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
                                         <p>Collection pot for interest paid from all other products.
                                             Zero penalty fees on withdrawals and no interest to be accrued on the amount
-                                            here. You can transfer funds to central vault or locked savings</p>
+                                            here. You can transfer funds to central vault or locked savings.</p>
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-12">
@@ -299,7 +351,7 @@ class BackupStash extends Component {
 
                             <div className="row">
                                 {/*transaction table */}
-                                {/*<TransactionTable transactions={this.state.transactions}/>*/}
+                                <TransactionTable transactions={this.state.transactions} columns={columns}/>
 
                             </div>
 

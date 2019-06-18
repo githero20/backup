@@ -5,6 +5,7 @@ import moment from "moment";
 import {BASE_URL, verifyTransactionEndpoint} from "../RouteLinks/RouteLinks";
 import {USERTOKEN} from "../Components/Auth/HOC/authcontroller";
 import {getLocalStorage} from "../ApiUtils/ApiUtils";
+import {getToken} from "../Helpers/Helper";
 
 export const GOOGLE_PLACE_API_KEY = "AIzaSyBMe9I7kVgdErGjrHStl34d3RLk5rfi0gw";
 
@@ -65,10 +66,12 @@ export const _getUser = () => {
 
 // const baseUrl = `http://localhost:8000/api/v1`;
 // const baseUrl = "https://phoenix-foodvendor.herokuapp.com/api/v1";
+
+
 export const _axios = axios.create({
     baseURL: BASE_URL,
     headers: {
-        Authorization: "Bearer " + getLocalStorage('token')
+        Authorization: "Bearer " + getLocalStorage(USERTOKEN)
         // Authorization: "Bearer " + _getToken()
     }
 });

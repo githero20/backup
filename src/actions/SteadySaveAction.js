@@ -4,7 +4,7 @@ import {
     ContinueSteadySave,
     CreateLockedSavings,
     EditSteadySave,
-    GetLockedSavings, NewSteadySaveEndpoint,
+    GetLockedSavings, getSteadySaveHistory, getSteadySaveTrans, NewSteadySaveEndpoint,
     PauseSteadySave,
     StopSteadySave
 } from "../RouteLinks/RouteLinks";
@@ -58,6 +58,60 @@ export const continueSteadySave = (id, callback) =>{
         return;
     }
     _axios.get(`${ContinueSteadySave}/${id}`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            try{
+                console.log("Err", JSON.stringify(err));
+                // if(err.response){
+                //     callback(false, err.response.data.message || "AN Error Occurred");
+                // }
+                checkResponse(err);
+                callback(false, err.response);
+            }catch (e) {
+                //log both e and err
+                callback(false, " An Error Occurred");
+            }
+        })
+};
+
+export const getSteadySavHistory = (id, callback) =>{
+    if(!id){
+        callback(false,"Invalid Steady Save Identifier");
+        return;
+    }
+    _axios.get(`${getSteadySaveHistory}/${id}`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            try{
+                console.log("Err", JSON.stringify(err));
+                // if(err.response){
+                //     callback(false, err.response.data.message || "AN Error Occurred");
+                // }
+                checkResponse(err);
+                callback(false, err.response);
+            }catch (e) {
+                //log both e and err
+                callback(false, " An Error Occurred");
+            }
+        })
+};
+
+export const getSteadySavTrans = (id, callback) =>{
+    if(!id){
+        callback(false,"Invalid Steady Save Identifier");
+        return;
+    }
+    _axios.get(`${getSteadySaveTrans}/${id}`)
         .then(res => {
             console.log(res);
             console.log(res.data.data);

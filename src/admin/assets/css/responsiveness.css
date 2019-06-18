@@ -88,6 +88,27 @@
     .mb-details-container, .mb-btn-wrapper {
         width: 100%;
     }
+
+    .dash-card-img{
+        width: 30%;
+    }
+    .dash-btn{
+        padding: 5px 10px;
+        font-size: 12px;
+        line-height: 2em;
+    }
+    .dash-action h5{
+        font-size: 12px;
+    }
+    .dash-ads .dash-action a{
+        font-size: 8px;
+    }
+    .dash-action {
+        width: 100px;
+    }
+    .right-action{
+        left:40%;
+    }
 }
 
 
@@ -121,7 +142,8 @@
 
 @media only screen and (min-width: 900px) and (max-width: 1200px) {
     html body .content.app-content{
-        margin-left: 20%;
+        margin-left: 18%;
+        background-color: #F7FBFF;
     }
     /*.mb-btn-wrapper button {*/
     /*    padding: 1rem 2rem 1rem 3rem;*/
@@ -228,7 +250,13 @@
         width: 100%;
     }
 
+    html body .content.app-content{
+        margin-left: 18%;
+        background-color: #F7FBFF;
+    }
+
     html body .content .content-wrapper{
         padding-top: 0rem;
+
     }
 }

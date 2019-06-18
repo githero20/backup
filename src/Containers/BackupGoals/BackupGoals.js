@@ -1,70 +1,75 @@
 import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import listIcon from "../../admin/app-assets/images/svg/list-icon.svg";
-import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
-import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.svg";
-import sortIcon from "../../admin/app-assets/images/svg/sort-icon.svg";
 import addSavingsIcon from "../../admin/app-assets/images/svg/add-lock-saving.svg";
-import BackUpGoalsTable from "../../Components/Dashboard/BackUpGoalsTable/BackUpGoalsTable";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
-import {getBackUpSavings} from "../../actions/BackUpGoalsAction";
+import {getBackUpGoalAndHistory, getBackUpSavings} from "../../actions/BackUpGoalsAction";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
-import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
-import {
-    moneyFormatter,
-    dateFormatter,
-    descriptionFormatter,
-    lockedStatusFormatter
-} from "../../Helpers/Helper";
 import {getUserData} from "../../actions/UserAction";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
+import {formatNumber} from "../../Helpers/Helper";
+import {withToastManager} from 'react-toast-notifications';
+import BGInfoCard from "./BGInfoCard";
+import BackupGoalQuickActions from "./BackupGoalQuickActions";
+import BGStartAmountCard from "./BGStartAmountCard";
+import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
+import {dateFormatter,moneyFormatter} from "../../Helpers/Helper";
 
 class BackupGoals extends Component {
 
     //get all back up goals
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             showBackUpModal: false,
-            accountInfo:null,
-            userName:null,
+            accountInfo: null,
+            userName: null,
             backupGoals: [],
-            loading:false,
-            showLoader:false
+            loading: false,
+            showLoader: false,
+            showBackupGoal: false,
+            BackupGoalHistory:[],
+            selectedBG:null,
+            selectedBGHistory:null
         };
         // this.handleBackUpGoals = this.handleBackUpGoals.bind(this);
     }
 
-    showBackUpModal =()=>{
+    showBackUpModal = () => {
         this.setState({
-            showBackUpModal:true,
+            showBackUpModal: true,
         })
     };
-    hideModal = (status = false) =>{
+
+    hideBackupGoal=()=>{
         this.setState({
-            showBackUpModal:false,
+            showBackupGoal: false,
+        })
+    }
+
+    hideModal = (status = false) => {
+        this.setState({
+            showBackUpModal: false,
         });
 
-        if(status){
+        if (status) {
             this.fetchBackUpGoals();
         }
     };
 
 
-    fetchBackUpGoals(){
+    fetchBackUpGoals() {
         this.setState({
-            showloader:true,
+            showloader: true,
         });
         getBackUpSavings((status, payload) => {
             this.setState({
-                showLoader:false
+                showLoader: false
             });
-            console.log("Getbackupgoals",status, payload);
-            if(status){
+            console.log("Getbackupgoals", status, payload);
+            if (status) {
                 this.setState({backupGoals: payload})
-            }else{
+            } else {
                 console.error("An error occurred", payload);
             }
 
@@ -72,10 +77,9 @@ class BackupGoals extends Component {
     }
 
 
-
     componentDidMount() {
         this.setState({
-            showLoader:true,
+            showLoader: true,
         });
         getUserData(this.handleUserInfo);
 
@@ -83,76 +87,164 @@ class BackupGoals extends Component {
         // this.setupBackupGoals();
     }
 
-    handleUserInfo = (status,res)=>{
+    handleUserInfo = (status, res) => {
         this.setState({
-            showLoader:false,
+            showLoader: false,
         });
 
-        if(status){
+        if (status) {
 
             this.setState({
-                userName:res.name
+                userName: res.name
             })
+
+        } else if (!status) {
+            if (res) {
+                this.props.toastManager.add(res.message || 'An error occurred!!', {
+                    appearance: 'error',
+                    autoDismiss: true,
+                    autoDismissTimeout: 3000,
+                });
+            }
+
+        } else {
+            this.props.toastManager.add("No Internet Connection", {
+                appearance: 'error',
+                autoDismiss: true,
+                autoDismissTimeout: 3000,
+            });
+        }
+
+    }
+
+    handleBGoalAndHist = (status, res) => {
+        if (status) {
+            console.log(res);
+        }
+
+
+    };
+
+    showBackUp =()=>{
+        this.setState({
+            showBackupGoal:true,
+        })
+    }
+
+
+
+    showBackUpHistory = (id) => {
+
+        this.setState({
+            showBackupGoal: true
+        })
+
+        console.log(id);
+        getBackUpGoalAndHistory(id, this.handleBGHistory);
+    }
+
+    handleBGHistory(status, res) {
+        if (status) {
+
+            if(res){
+                //TODO bind reponse
+                console.log(res);
+                this.setState({
+                    selectedBGHistory:res.backup_goals_history.data
+                })
+            }
+
+        } else {
+            if (res) {
+                // this.props.toastManager.add(res.message||'An error occurred!!', {
+                //     appearance: 'error',
+                //     autoDismiss: true,
+                //     autoDismissTimeout: 3000,
+                // });
+                {/*<Toast content={'successfully got it'} status={'success'}/>*/
+                }
+
+            }
+            // }else {
+            //     this.props.toastManager.add("No Internet Connection", {
+            //         appearance: 'error',
+            //         autoDismiss: true,
+            //         autoDismissTimeout: 3000,
+            //     });
+            // }
 
         }
 
     }
 
-
-
-
     render() {
 
+        console.log(this.state.selectedBG);
         const columns = [
 
             {
-                text: 'Name',
-                dataField: 'title',
-                sort:true,
-
+                text: 'Date Created',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
             },
             {
+                text: 'Name',
+
+                dataField: 'title',
+                sort: true,
+            }, {
+
+
                 text: 'Target Amount',
                 dataField: 'target_amount',
-                formatter:moneyFormatter,
-                sort:true,
-
+                formatter: moneyFormatter,
+                sort: true,
             },
+
             {
                 text: 'Start Amount',
                 dataField: 'start_amount',
-                formatter:moneyFormatter,
-                sort:true,
-            },
+                formatter: moneyFormatter,
+                sort: true,
+            }
+            ,
             {
                 text: 'Start Date',
                 dataField: 'start_date',
-                formatter:dateFormatter,
-                sort:true,
-
+                formatter: dateFormatter,
+                sort: true,
             },
             {
                 text: 'End Date',
                 dataField: 'end_date',
-                formatter:dateFormatter,
-                sort:true,
-
+                formatter: dateFormatter,
+                sort: true,
             },
             {
                 text: 'Frequency',
                 dataField: 'frequency',
-                sort:true,
+                sort: true,
 
-            }];
+
+            }
+
+
+        ];
 
         return (
             <React.Fragment>
-                {this.state.showLoader?<DashboardLoader/>:null}
+                {this.state.showLoader ? <DashboardLoader/> : null}
                 <BackUpGoalsModal show={this.state.showBackUpModal} onHide={this.hideModal}/>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav userName={this.state.userName} />
-                    <VerticalNav userName={this.state.userName} />
+                    <HorizontalNav userName={this.state.userName}/>
+                    <VerticalNav userName={this.state.userName}/>
+
+                    {/* show individual back up goal */}
+
+                    {/* handle backup goal operations */}
+
                     <div className="app-content content">
                         <div className="content-wrapper">
                             {/*<div className="row mb-4">*/}
@@ -164,84 +256,292 @@ class BackupGoals extends Component {
                             {/*<div className="content-header row">*/}
 
                             {/*</div>*/}
-                            <div className="content-body">
-                                {/*<MessageBox/>*/}
-                                <div className="row">
-                                    <div className="col-12 ">
-                                        <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
-                                            <p>Want to save towards a new phone, car or rent Setup a savings goal and be on your way to greatness.</p>
+                            {this.state.showBackupGoal ?
+                                (
+
+                                    <React.Fragment>
+
+                                        <div className="content-header row mt-5">
+
                                         </div>
-                                    </div>
-                                    <div className="col-lg-4 col-12">
-                                        <h3 className="gray-header-text mb-2 ">Backup Goals
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div id="Back-up-goals" className="col-12 col-md-12">
-                                        <div className="card">
-                                            <div className="card-content mt-1 px-2 px-md-5 py-md-3">
-                                                <div className="table-header d-flex justify-content-between align-items-md-center px-md-2  mb-3">
-                                                    <h4 className="table-title">
-                                                        <button onClick={this.showBackUpModal} className=" right-btn-holder deep-blue-bg white "
-                                                                data-toggle="modal" data-target="#large">
-                                                            <img src={addSavingsIcon}/>
-                                                            New Goals
-                                                        </button>
-                                                    </h4>
-                                                    <ul className=" mb-0 locked-saving-display d-none d-md-inline-block">
-                                                        <li>{this.state.backupGoals.length} &nbsp; Locked saving</li>
-                                                    </ul>
-                                                    {/*<div className="table-button-container d-none d-md-inline-block">*/}
-                                                    {/*     <span*/}
-                                                    {/*         className="mr-md-1 table-grid-view-icon img-2x list-btn active d-block d-md-inline">*/}
-                                                    {/*         <img src={listIcon} className=" img-2x "/>*/}
-                                                    {/*     </span>*/}
-                                                    {/*                        <span*/}
-                                                    {/*                            className="mr-md-1 table-grid-view-icon img-2x  grid-btn d-block d-md-inline">*/}
-                                                    {/*        <img src={gridIcon} className=" img-2x "/>*/}
-                                                    {/*    </span>*/}
-                                                    {/*                        <span className="table-view-display d-block d-md-inline">*/}
-                                                    {/*        <img src={tableArrowLeft}*/}
-                                                    {/*             className="mr-1 img-1x"/> grid view*/}
-                                                    {/*    </span>*/}
-                                                    {/*</div>*/}
-                                                    {/*<div className="table-sort-display d-block d-md-inline"><span>*/}
-                                                    {/*    <img className=" img-2x " src={sortIcon}/>*/}
-                                                    {/*    </span>sort*/}
-                                                    {/*</div>*/}
-                                                    {/*<div className="table-sort-display d-none d-md-inline">*/}
-                                                    {/*    <button type="button" className="btn-green">Export CSV</button>*/}
-                                                    {/*</div>*/}
+                                        <div className="content-body">
+                                            {/*<MessageBox/>*/}
+                                            <div className="row">
+                                                <div className="col-12 ">
+                                                    <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
+                                                        <p>Want to save towards a new phone, car or rent Setup a savings
+                                                            goal and be on your way to greatness.</p>
+                                                    </div>
                                                 </div>
-                                               {/* table component */}
+                                                {/*<div className="col-lg-4 col-12">*/}
+                                                {/*    <h3 className="gray-header-text mb-2 ">Backup Goals*/}
+                                                {/*    </h3>*/}
+                                                {/*</div>*/}
+                                            </div>
 
-                                               {/*<BackUpGoalsTable backupGoals={this.state.backupGoals} />*/}
+                                            <div className="row">
 
-                                               <TransactionTable transactions={this.state.backupGoals} columns={columns} />
+                                                {/*<div className="col-lg-4 col-12 order-lg-8">*/}
+                                                {/*    <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>*/}
+                                                {/*        <p>Start saving your money here automatically, daily, weekly or*/}
+                                                {/*            monthly.We want you to be disciplined, so we’ll charge you 5% if*/}
+                                                {/*            you choose to withdraw outside of your set withdrawal days.</p>*/}
+                                                {/*    </div>*/}
+                                                {/*</div>*/}
+
+                                                {/*<SteadySaveCard totalBalance={this.state.totalBalance}*/}
+                                                {/*                newSteadySave={this.showNewSteadySaveModal}/>*/}
+
+                                                <div className="col-lg-4 col-12">
+                                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">BackUpGoal <span
+                                                        className="dot">.</span> Summary
+
+                                                    </h3>
+                                                   <BGInfoCard bgInfo={this.state.selectedBG}/>
+                                                </div>
+                                                <div className="col-lg-4 col-12">
+                                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">&nbsp;
+                                                    </h3>
+                                                    <BGStartAmountCard bgInfo={this.state.selectedBG}/>
+                                                </div>
+                                                <BackupGoalQuickActions showBackUpHistory={this.showBackUpHistory}  hideBG={this.hideBackupGoal} fetchGoals={this.fetchBackUpGoals} selectedBG={this.state.selectedBG}/>
+                                            </div>
+                                            <div className="row">
+                                                <div id="Back-up-goals" className="col-12 col-md-12">
+                                                    <div className="card">
+                                                        <div className="card-content mt-1 px-2 px-md-5 py-md-3">
+                                                            {/*<div*/}
+                                                            {/*    className="table-header d-flex justify-content-between align-items-md-center px-md-2  mb-3">*/}
+                                                            {/*    <h4 className="table-title">*/}
+                                                            {/*        <button onClick={this.showBackUpModal}*/}
+                                                            {/*                className=" right-btn-holder deep-blue-bg white "*/}
+                                                            {/*                data-toggle="modal" data-target="#large">*/}
+                                                            {/*            <img src={addSavingsIcon}/>*/}
+                                                            {/*            New Goals*/}
+                                                            {/*        </button>*/}
+                                                            {/*    </h4>*/}
+                                                            {/*    /!*<ul className=" mb-0 locked-saving-display d-none d-md-inline-block">*!/*/}
+                                                            {/*    /!*    <li>{this.state.backupGoals.length} &nbsp; Goals</li>*!/*/}
+                                                            {/*    /!*</ul>*!/*/}
+
+                                                            {/*</div>*/}
+                                                            {/* table component */}
+
+                                                            {/*<BackUpGoalsTable backupGoals={this.state.backupGoals} />*/}
+
+                                                            {/*table component*/}
+                                                            {
+                                                                this.state.selectedHistory?
+                                                                    (
+                                                                        <TransactionTable transactions={this.state.selectedBG.backup_goals_history} columns={columns} />
+                                                                    ):
+                                                                    <div className='text-center'>
+                                                                        <i className='fa fa-5x fa-history'></i>
+                                                                        <p className='text-muted'>No BackUp Goal History</p>
+                                                                    </div>
+
+                                                            }
+
+
+
+
+                                                            {/* Grid component    */}
+
+                                                            <div className="row">
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </React.Fragment>
 
-                                <div className="row">
-                                    <div className="col-12">
-                                        <div className="card box-shadow-0">
-                                            <div className="card-content">
+                                ) :
+                                (
+                                    <div className="content-body">
+                                        {/*<MessageBox/>*/}
+                                        <div className="row">
+                                            <div className="col-12 ">
+                                                <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
+                                                    <p>Want to save towards a new phone, car or rent Setup a savings
+                                                        goal and be on your way to greatness.</p>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-4 col-12">
+                                                <h3 className="gray-header-text mb-2 ">Backup Goals
+                                                </h3>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-12">
-                                        <div className="card box-shadow-0">
-                                            <div className="card-content">
+                                        <div className="row">
+                                            <div id="Back-up-goals" className="col-12 col-md-12">
+                                                <div className="card">
+                                                    <div className="card-content mt-1 px-2 px-md-5 py-md-3">
+                                                        <div
+                                                            className="table-header d-flex justify-content-between align-items-md-center px-md-2  mb-3">
+                                                            <h4 className="table-title">
+                                                                <button onClick={this.showBackUpModal}
+                                                                        className=" right-btn-holder deep-blue-bg white "
+                                                                        data-toggle="modal" data-target="#large">
+                                                                    <img src={addSavingsIcon}/>
+                                                                    New Goals
+                                                                </button>
+                                                            </h4>
+                                                            <ul className=" mb-0 locked-saving-display d-none d-md-inline-block">
+                                                                <li>{this.state.backupGoals.length} &nbsp; Goals</li>
+                                                            </ul>
+                                                            {/*<div className="table-button-container d-none d-md-inline-block">*/}
+                                                            {/*     <span*/}
+                                                            {/*         className="mr-md-1 table-grid-view-icon img-2x list-btn active d-block d-md-inline">*/}
+                                                            {/*         <img src={listIcon} className=" img-2x "/>*/}
+                                                            {/*     </span>*/}
+                                                            {/*                        <span*/}
+                                                            {/*                            className="mr-md-1 table-grid-view-icon img-2x  grid-btn d-block d-md-inline">*/}
+                                                            {/*        <img src={gridIcon} className=" img-2x "/>*/}
+                                                            {/*    </span>*/}
+                                                            {/*                        <span className="table-view-display d-block d-md-inline">*/}
+                                                            {/*        <img src={tableArrowLeft}*/}
+                                                            {/*             className="mr-1 img-1x"/> grid view*/}
+                                                            {/*    </span>*/}
+                                                            {/*</div>*/}
+                                                            {/*<div className="table-sort-display d-block d-md-inline"><span>*/}
+                                                            {/*    <img className=" img-2x " src={sortIcon}/>*/}
+                                                            {/*    </span>sort*/}
+                                                            {/*</div>*/}
+                                                            {/*<div className="table-sort-display d-none d-md-inline">*/}
+                                                            {/*    <button type="button" className="btn-green">Export CSV</button>*/}
+                                                            {/*</div>*/}
+                                                        </div>
+                                                        {/* table component */}
+
+                                                        {/*<BackUpGoalsTable backupGoals={this.state.backupGoals} />*/}
+
+                                                        {/*table component*/}
+
+                                                        {/*<TransactionTable transactions={this.state.backupGoals} columns={columns} />*/}
+
+
+                                                        {/* Grid component    */}
+
+                                                        <div className="row">
+
+                                                            {this.state.backupGoals.length !== 0 ?
+                                                                (
+                                                                    this.state.backupGoals.map((content) => {
+                                                                        return (
+                                                                            <div key={content.id}
+                                                                                 className="col-12 col-md-4"
+                                                                                 onClick={() => {
+                                                                                     this.showBackUp(content.id)
+                                                                                     this.setState({
+                                                                                         selectedBG:content
+                                                                                     })
+                                                                                 }}>
+                                                                                <div
+                                                                                    className="goal-box round bg-white shadow-md w-100 px-3 py-2 pull-up mb-2">
+                                                                                    <h5 className={'text-capitalize'}>{content.title}</h5>
+                                                                                    <p className={'gray-text goal-target'}>Target</p>
+                                                                                    <div
+                                                                                        className='d-flex justify-content-between'>
+                                                                                        <h6 className={'goal-box-amount'}>{formatNumber(content.target_amount)}</h6>
+                                                                                        {!Number(content.is_pause) ?
+                                                                                            (
+                                                                                                <span
+                                                                                                    className={'goal-active text-success'}>Active</span>) :
+                                                                                            (
+                                                                                                <span
+                                                                                                    className={'goal-inactive gray-text'}>Paused</span>
+                                                                                            )
+
+                                                                                        }
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        );
+                                                                    })
+                                                                )
+                                                                :
+                                                                <div className="col-12 text-center text-muted">
+
+                                                                    <i className='fa fa-5x fa-briefcase'></i>
+                                                                    <h2>No Back Up Goals</h2>
+                                                                </div>
+
+
+                                                            }
+
+
+                                                            {/* TODO Handle moe than 10 goals */}
+
+
+                                                            {/*<div className="col-12 col-md-4">*/}
+                                                            {/*    <div*/}
+                                                            {/*        className="goal-box round bg-white shadow-md w-100 px-3 py-2 mb-2">*/}
+                                                            {/*        <h5>New Boeing 747</h5>*/}
+                                                            {/*        <p className={'gray-text goal-target'}>Target</p>*/}
+                                                            {/*        <div className='d-flex justify-content-between'>*/}
+                                                            {/*            <h6 className={'goal-box-amount'}>₦150,000,000.00</h6>*/}
+                                                            {/*            <span*/}
+                                                            {/*                className={'goal-active text-success'}>Active</span>*/}
+                                                            {/*        </div>*/}
+                                                            {/*    </div>*/}
+                                                            {/*</div>*/}
+                                                            {/*<div className="col-12 col-md-4">*/}
+                                                            {/*    <div*/}
+                                                            {/*        className="goal-box round bg-white shadow-md w-100 px-3 py-2 mb-2">*/}
+                                                            {/*        <h5>New Boeing 747</h5>*/}
+                                                            {/*        <p className={'gray-text goal-target'}>Target</p>*/}
+                                                            {/*        <div className='d-flex justify-content-between'>*/}
+                                                            {/*            <h6 className={'goal-box-amount'}>₦150,000,000.00</h6>*/}
+                                                            {/*            <span*/}
+                                                            {/*                className={'goal-inactive gray-text'}>Paused</span>*/}
+                                                            {/*        </div>*/}
+                                                            {/*    </div>*/}
+                                                            {/*</div>*/}
+                                                            {/*<div className="col-12 col-md-4">*/}
+                                                            {/*    <div*/}
+                                                            {/*        className="goal-box round bg-white shadow-md w-100 px-3 py-2 mb-2">*/}
+                                                            {/*        <h5>New Boeing 747</h5>*/}
+                                                            {/*        <p className={'gray-text goal-target'}>Target</p>*/}
+                                                            {/*        <div className='d-flex justify-content-between'>*/}
+                                                            {/*            <h6 className={'goal-box-amount'}>₦150,000,000.00</h6>*/}
+                                                            {/*            <span*/}
+                                                            {/*                className={'goal-inactive gray-text'}>Paused</span>*/}
+                                                            {/*        </div>*/}
+                                                            {/*    </div>*/}
+                                                            {/*</div>*/}
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                            </div>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="card box-shadow-0">
+                                                    <div className="card-content">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="card box-shadow-0">
+                                                    <div className="card-content">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                )
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -250,4 +550,4 @@ class BackupGoals extends Component {
     }
 }
 
-export default BackupGoals;
+export default withToastManager(BackupGoals);

@@ -5,7 +5,8 @@ import DashboardContainer from "../../Components/Dashboard/DashboardContainer/Da
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
 import {
-    activateUserEndpoint, CentralVaultInterest, GetBackUpGoals,
+    activateUserEndpoint,
+    CentralVaultInterest,
     getUserInfoEndpoint,
     lockedSavingEndpoint,
     resendActEndpoint
@@ -13,13 +14,12 @@ import {
 import {api, getLocalStorage, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
 import {
     BACKUP_GOALS_ACCOUNT,
-    formatNumber,
     INTEREST_ACCOUNT,
     LOCKED_ACCOUNT,
     STANDARD_ACCOUNT
 } from "../../Helpers/Helper";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
-import {SHOWAD, USERACTIVATED, USERINFO} from "../../Components/Auth/HOC/authcontroller";
+import {SHOWAD, USERINFO, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
 import ActivationModal from "../../Components/Dashboard/ActivationModal/ActivationModal";
 import {ToastProvider} from 'react-toast-notifications';
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
@@ -40,22 +40,27 @@ class DashboardIndex extends Component {
         showActivationModal: false,
         activationSuccss: false,
         accountInfo: null,
-        vaultAmount: '0.00',
-        backupAmount: '0.00',
-        lockedSavingsAmount: '0.00',
-        stashAmount: '0.00',
+        vaultAmount: 0,
+        backupAmount: 0,
+        lockedSavingsAmount: 0,
+        stashAmount: 0,
         transactions: [],
         userName: '',
-        totalInterest: '0.00',
-        totalSteadySave: '0.00',
+        totalInterest: 0,
+        totalSteadySave: 0,
         ActiveGoals: 0,
         CompletedGoals: 0,
         email: null,
         showLoader: true,
         isActive:false,
         showAdModal:false,
-        vaultInterest:'0.00'
+        vaultInterest:0
     };
+
+    constructor(props) {
+        super(props);
+        this.getToken = this.getToken.bind(this);
+    }
 
 
     showSteadySaveModal = () => {
@@ -164,9 +169,9 @@ class DashboardIndex extends Component {
         if(status){
             console.log('got here');
             if(response){
-                console.log('interest info'+JSON.parse(response.data.data));
+                console.log('interest info'+ parseFloat(JSON.parse(response.data.data)).toFixed(2));
                 this.setState({
-                    vaultInterest:formatNumber(parseFloat(response.data.data).toFixed(2))
+                    vaultInterest:parseFloat(JSON.parse(response.data.data)).toFixed(2)
                 })
 
             }
@@ -507,6 +512,9 @@ class DashboardIndex extends Component {
 
     };
 
+    async getToken() {
+        return await getLocalStorage(USERTOKEN);
+    }
 
     componentDidMount() {
 
@@ -517,15 +525,18 @@ class DashboardIndex extends Component {
         //setup dashboard
         console.log('dashboard mounted');
 
-        this.setupDashBoard();
+        //get token if token isset
+        let token = this.getToken();
+        token.then(() => {
+            this.setupDashBoard()
+        });
+        // if(token){
+        //     this.setupDashBoard();
+        // }
 
 
     }
 
-
-    componentWillMount() {
-
-    }
 
     render() {
         const {
@@ -543,6 +554,7 @@ class DashboardIndex extends Component {
                     <DashboardContainer
                         isActive={this.state.isActive}
                         vaultAmount={vaultAmount}
+                        vaultInterest={vaultInterest}
                         backupAmount={backupAmount}
                         lockedSavingsAmount={lockedSavingsAmount}
                         totalInterest={totalInterest}
@@ -551,7 +563,6 @@ class DashboardIndex extends Component {
                         transactions={transactions}
                         CompletedGoals={CompletedGoals}
                         ActiveGoals={ActiveGoals}
-                        vaultInterest={vaultInterest}
                         error={this.state.error}
                         errorMessage={this.state.errorMessage}
                         // activateAccount={this.activateAccount}

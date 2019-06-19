@@ -6,7 +6,13 @@ import BigTransactionTable from "../../Components/Dashboard/BigTransactionTable/
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getTransactionsApi} from "../../RouteLinks/RouteLinks";
 import {request} from "../../ApiUtils/ApiUtils";
-import {amountFormatter, dateFormatter, descriptionFormatter, statusFormatter} from "../../Helpers/Helper";
+import {
+    amountFormatter,
+    balanceFormatter,
+    dateFormatter,
+    descriptionFormatter,
+    statusFormatter
+} from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {getUserData} from "../../actions/UserAction";
 
@@ -118,7 +124,7 @@ class Transactions extends Component {
             },{
                 text: 'Balance',
                 dataField: 'balance',
-                formatter:amountFormatter,
+                formatter:balanceFormatter,
                 sort:true,
 
             },

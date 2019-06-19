@@ -8,15 +8,17 @@ import TransactionTable from "../../Components/Dashboard/TransactionTable/Transa
 import {request} from "../../ApiUtils/ApiUtils";
 import {
     amountFormatter,
+    balanceFormatter,
     dateFormatter,
     descriptionFormatter,
     formatNumber,
-    STANDARD_ACCOUNT, statusFormatter
+    STANDARD_ACCOUNT,
+    statusFormatter
 } from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
 import {getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
-import filterFactory, { dateFilter ,Comparator} from 'react-bootstrap-table2-filter';
+import {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
 import moment from "moment";
 
 class InstantSave extends Component {
@@ -98,7 +100,7 @@ class InstantSave extends Component {
                 //display total balance
                 accounts.map((content, idx) => {
                     if (content.account_type_id === STANDARD_ACCOUNT) {
-                        console.log(content.balance);
+                        // console.log(content.balance);
                         this.setState({
                             totalBalance: content.balance
                         })
@@ -106,16 +108,17 @@ class InstantSave extends Component {
                 });
 
 
-                //TODO loop through transactions and add up only credits
-
-                let transactions = data.data.data.transactions.data;
-                transactions = transactions.filter((content)=>content.status=='success');
-                let totalInstantSave = this.getTotalInstantSave(transactions);
-                console.log(transactions);
-                this.setState({
-                    transactions: transactions,
-                    totalInstantSave: totalInstantSave
-                });
+                // //TODO loop through transactions and add up only credits
+                //
+                // let transactions = data.data.data.transactions.data;
+                // transactions = transactions.filter((content)=>content.status=='success');
+                // let totalInstantSave = this.getTotalInstantSave(transactions);
+                // console.log("transactions"+transactions);
+                // console.log('totalInstant save'+totalInstantSave);
+                // this.setState({
+                //     // transactions: transactions,
+                //     totalInstantSave: totalInstantSave
+                // });
 
 
             } else {
@@ -130,12 +133,13 @@ class InstantSave extends Component {
 
 
     getTotalInstantSave(transactions) {
-        console.log(transactions);
         if (transactions) {
             //filter credits
-            transactions = transactions.filter((content) => (content.status === 'success' && content.type === 'credit'));
+            let instantSaves = transactions.filter((content) => (content.status === 'success' && content.type === 'credit'));
             //get sum of credits
-            const sum = transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
+            const sum = instantSaves.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
+            // console.log('sum'+sum);
+
             return sum.amount;
         }
     }
@@ -143,57 +147,51 @@ class InstantSave extends Component {
 
     setupInstantSave = () => {
 
-        console.log('setting up instant Save');
+        // console.log('setting up instant Save');
         //call get user info
         request(getUserInfoEndpoint, null, true, 'GET', this.analyseInstantSaveInfo)
 
 
     };
 
-    loadInstantSaves() {
+
+    loadInstantSaves = () => {
 
         //get transactions from api
-        console.log(this.state.transactions);
+        // console.log(this.state.transactions);
         request(instantSaveTransEndpoint, null, true, 'GET', this.handleTransactions);
 
-
-    }
-
-
-    handleTransactions = (state, res) => {
-
-        //handle all instant save by the user
-        if (state) {
-            if (res) {
-                let transactions = res.data.data.transactions.data;
-                let totalInstantSave = this.getTotalInstantSave(transactions);
-                this.setState({
-                    transactions,
-                    totalInstantSave: totalInstantSave
-                });
-                console.log(res);
-            }
-
-        } else {
-            if (res) {
-                console.log(res);
-            }
-        }
 
     };
 
 
-    componentDidMount() {
+    handleTransactions = (state, res) => {
 
+        if (state) {
+            let transactions = res.data.data
+                .filter(content => content.status == 'success' && content.type == 'credit');
+                this.setState({
+                    transactions,
+                    totalInstantSave: transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount || 0
+                });
 
-        //get user instant saves
-        this.setupInstantSave();
+        }
 
+    };
 
-        //get instant save transactions
-        this.loadInstantSaves();
-
-    }
+    //
+    //
+    // componentDidMount() {
+    //
+    //     //get instant save transactions
+    //     this.loadInstantSaves();
+    //
+    //     //get user instant saves
+    //     this.setupInstantSave();
+    //
+    //
+    //
+    // }
 
 
     loadInstantSaveTable = (status, payload) => {
@@ -205,11 +203,12 @@ class InstantSave extends Component {
         //handle response
         if (status) {
             if (payload) {
-                console.log(JSON.parse(JSON.stringify(payload)));
+                // console.log(JSON.parse(JSON.stringify(payload)));
+                let transactions = payload.data.data.transactions.data.filter((content) => content.status === 'success');
                 this.setState({
-                    transactions: payload.data.data.transactions.data
+                    transactions
                 });
-                console.log('success', payload);
+                // console.log('success', payload);
             }
 
         }
@@ -219,19 +218,21 @@ class InstantSave extends Component {
     componentWillMount() {
 
         //get user instant saves
-        this.setupInstantSave();
+        // this.setupInstantSave();
 
-
+        this.loadInstantSaves();
         //update tables
-        this.updateInstantSave();
+        // this.updateInstantSave();
 
     }
 
     updateInstantSave = () => {
         //TODO Add Table Loader
         //call get user info
+        // request(instantSaveTransEndpoint, null, true, 'GET', this.handleTransactions);
         request(getUserInfoEndpoint, null, true, 'GET', this.loadInstantSaveTable)
     };
+
 
     createInstantSave = () => {
         this.setState({
@@ -270,6 +271,12 @@ class InstantSave extends Component {
                 formatter: amountFormatter,
                 sort: true
 
+            }, {
+                text: 'Balance',
+                dataField: 'balance',
+                formatter: balanceFormatter,
+                sort: true
+
             },
             {
                 text: 'Status',
@@ -285,7 +292,7 @@ class InstantSave extends Component {
             }];
 
 
-        console.log(typeof this.state.totalBalance);
+        // console.log(typeof this.state.totalBalance);
         const balance = parseFloat(this.state.totalBalance).toFixed(2);
 
         return (
@@ -311,6 +318,7 @@ class InstantSave extends Component {
                                             show={this.state.showSavingModal}
                                             onHide={this.hideModal}
                                             updateInstantSave={this.updateInstantSave}
+                                            setupInstantSave={this.setupInstantSave}
                                         />
                                     </React.Fragment>
 

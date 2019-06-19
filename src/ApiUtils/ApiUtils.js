@@ -52,18 +52,15 @@ export function request(url, params, token, method, callback) {
         }
     }
     if (method === 'POST') {
-        return axios.post(url, params, header).then(res => callback(true, res))
+        axios.post(url, params, header).
+        then(res => callback(true, res))
             .catch(err => {
                 checkResponse(err);
                 callback(false, err.response);
-                //
-                // if(err.response){
-                //     console.log(err.response);
-                // }else {
-                // }
             })
     } else if (method === 'GET') {
-        return axios.get(url, header).then(res => callback(true, res))
+         axios.get(url, header)
+             .then(res => callback(true, res))
             .catch(err => {
                 if(err.response){
                     console.log(err.response);
@@ -73,7 +70,7 @@ export function request(url, params, token, method, callback) {
                 }
             })
     } else if (method === 'PATCH') {
-        return axios.patch(url, header).then(res => callback(true, res))
+         axios.patch(url, header).then(res => callback(true, res))
             .catch(err => {
                 if(err.response){
                     console.log(err.response);
@@ -86,7 +83,7 @@ export function request(url, params, token, method, callback) {
                 }
             })
     }else if (method === 'PUT') {
-        return axios.patch(url, header).then(res => callback(true, res))
+        axios.patch(url, header).then(res => callback(true, res))
             .catch(err => {
                 if(err.response){
                     console.log(err.response);
@@ -229,8 +226,10 @@ export const checkResponse = (err)=>{
 
 
 export function getLocalStorage(key) {
-    if(localStorage.getItem(key)!== null && localStorage.getItem(key)!==undefined ){
+    if(localStorage.getItem(key)!== null && localStorage.getItem(key)!== undefined ){
         return localStorage.getItem(key);
+    }else {
+        return '';
     }
 
 }

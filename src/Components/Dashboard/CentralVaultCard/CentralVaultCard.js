@@ -87,7 +87,7 @@ class CentralVaultCard extends Component {
                                 <div className='d-flex flex-column '>
                                     <div
                                         className='d-flex dash-card-total-details justify-content-between'>
-                                        <h6>Total Steady Savings</h6><strong><i
+                                        <h6>Total Savings</h6><strong><i
                                         className='fa fa-arrow-right '></i>&#8358;{vaultAmount!==0?formatNumber(vaultAmount):0.00}</strong>
                                     </div>
                                     <div

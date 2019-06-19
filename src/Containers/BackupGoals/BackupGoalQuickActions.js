@@ -1,6 +1,6 @@
 import React from 'react';
 import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
-import {continueBGoal, createBackUpGoal, pauseBGoal, stopBGoal} from "../../actions/BackUpGoalsAction";
+import {continueBGoal, createBackUpGoal, getPenalty, pauseBGoal, stopBGoal} from "../../actions/BackUpGoalsAction";
 import {withToastManager} from 'react-toast-notifications';
 import swal from "sweetalert";
 import EditBGModal from "../../Components/Dashboard/EditBackUpGoalModal/EditBGModal";
@@ -28,6 +28,7 @@ class BackupGoalQuickActions extends React.Component {
                 day_of_week: null,
                 day_of_month: null,
             },
+            penalty:0,
             dateDifference: 0,
             userCards: [],
             showMonth: false,
@@ -188,22 +189,49 @@ class BackupGoalQuickActions extends React.Component {
         })
     }
 
+    calculatePenalty(penalty,history){
+        let amount;
+        if(history.length!==0){
+            amount = history.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
+            return (penalty/100)*amount;
+        }
+        return 0;
+    }
+
 
     handleStop = (id) => {
 
-        swal({
-            title: "Backup Goals",
-            text: "Hey! sure you want to stop this active Backup Goal ?",
-            icon: "warning",
-            buttons: true,
-        })
-            .then((willStop) => {
-                if (willStop) {
-                    stopBGoal(id, this.handleStopResponse);
-                } else {
-                    swal("Your Backup Goal is still active");
-                }
-            });
+
+        // call endpoint to get penalty
+        getPenalty((status,res)=>{
+
+            if(status){
+
+                // console.log(res.data.withdraw_penalty,id)
+
+                const penalty = this.calculatePenalty(res.data.withdraw_penalty,this.props.selectedBGHistory);
+
+                swal({
+                    title: "Hey! sure you want to stop this Backup Goal\n" +
+                        "before maturity? ",
+                    text: `Note : This fund will be available for withdrawal in your 
+Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty of ₦ ${penalty} will be deducted from your  `,
+                    icon: "warning",
+                    buttons: true,
+                }).then((willStop) => {
+                        if (willStop) {
+                            stopBGoal(id, this.handleStopResponse);
+                        } else {
+                            swal("Your Backup Goal is still running.");
+                        }
+                    });
+
+
+
+            }
+
+        });
+
 
     }
 
@@ -244,7 +272,6 @@ class BackupGoalQuickActions extends React.Component {
                     swal("Your Backup Goal is active");
                 }
             });
-
     }
 
     handlePauseResponse = (status, res) => {

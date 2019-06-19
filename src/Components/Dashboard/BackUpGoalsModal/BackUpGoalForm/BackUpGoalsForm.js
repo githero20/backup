@@ -12,6 +12,8 @@ import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import {initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {amountInput, getTodaysDate, initializeAmountInput} from "../../../../Helpers/Helper";
 import moment from "moment";
+import {Link} from "react-router-dom";
+import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
 
 
 class BackUpGoalsForm extends Component {
@@ -29,8 +31,8 @@ class BackUpGoalsForm extends Component {
                 payment_auth: null,
                 frequency: 'daily',
                 hour_of_day: '12',
-                contribution: 0,
-                goal_amount: 0,
+                contribution: null,
+                goal_amount: null,
                 day_of_week: null,
                 day_of_month: null,
             },
@@ -40,7 +42,8 @@ class BackUpGoalsForm extends Component {
             showDay: false,
             showHour: true,
             loading:false,
-            err:''
+            err:'',
+            addCard:false
 
         };
         this.reset = this.reset.bind(this);
@@ -128,12 +131,13 @@ class BackUpGoalsForm extends Component {
                 loading:true,
             });
 
-            if (parseInt(this.state.form.payment_auth) === 0) {
-                //initiate paystack
-                console.log('got here to initiate paystack');
-                this.initiatePayStack();
-            }else {
+            // if (parseInt(this.state.form.payment_auth) === 0) {
+            //     //initiate paystack
+            //     console.log('got here to initiate paystack');
+            //     this.initiatePayStack();
+            // }else {
 
+                console.log(JSON.stringify(this.state.form));
                 createBackUpGoal(this.state.form, (status, payload) =>{
                     //remove loader
 
@@ -157,69 +161,69 @@ class BackUpGoalsForm extends Component {
                     }
                 });
 
-            }
+            // }
 
         }
 
     };
 
 
-
-    initiatePayStack = () => {
-
-        //send api
-        initTransaction({
-            amount: parseFloat(this.state.form.contribution),
-            source: 'quick',
-        }, (status, payload) => {
-            console.log("status", status, payload);
-            this.setState({loading: false});
-            if (status) {
-                const user = _getUser();
-                console.log(user);
-                _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
-            } else {
-                this.props.toastManager.add(payload, {
-                    appearance: "error",
-                    autoDismiss: true,
-                    autoDismissTimeout: 3000
-                })
-            }
-
-            this.props.onHide();
-        });
-
-    }
-
-
-    resolvePaystackResponse=(response)=>{
-        this.setState({
-            loading: false,
-        });
-        console.log("Paystack Response", response);
-        verifyTransaction({
-            ref: response.reference,
-            type: "instant"
-        },(status, payload) =>{
-            console.log("status", status, payload);
-            if(status){
-                this.props.toastManager.add("Card Added Successfully",{
-                    appearance:"success",
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
-                });
-
-                this.getUserCards();
-            }else{
-                this.props.toastManager.add("Unable to add card at this moment",{
-                    appearance:"error",
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
-                })
-            }
-        })
-
-    }
+    //
+    // initiatePayStack = () => {
+    //
+    //     //send api
+    //     initTransaction({
+    //         amount: parseFloat(this.state.form.contribution),
+    //         source: 'quick',
+    //     }, (status, payload) => {
+    //         console.log("status", status, payload);
+    //         this.setState({loading: false});
+    //         if (status) {
+    //             const user = _getUser();
+    //             console.log(user);
+    //             _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
+    //         } else {
+    //             this.props.toastManager.add(payload, {
+    //                 appearance: "error",
+    //                 autoDismiss: true,
+    //                 autoDismissTimeout: 3000
+    //             })
+    //         }
+    //
+    //         this.props.onHide();
+    //     });
+    //
+    // }
+    //
+    //
+    // resolvePaystackResponse=(response)=>{
+    //     this.setState({
+    //         loading: false,
+    //     });
+    //     console.log("Paystack Response", response);
+    //     verifyTransaction({
+    //         ref: response.reference,
+    //         type: "instant"
+    //     },(status, payload) =>{
+    //         console.log("status", status, payload);
+    //         if(status){
+    //             this.props.toastManager.add("Card Added Successfully",{
+    //                 appearance:"success",
+    //                 autoDismiss:true,
+    //                 autoDismissTimeout:3000
+    //             });
+    //
+    //             this.getUserCards();
+    //         }else{
+    //             this.props.toastManager.add("Unable to add card at this moment",{
+    //                 appearance:"error",
+    //                 autoDismiss:true,
+    //                 autoDismissTimeout:3000
+    //             })
+    //         }
+    //     })
+    //
+    // }
 
 
 
@@ -234,6 +238,18 @@ class BackUpGoalsForm extends Component {
             this
         );
 
+        const name = event.target.name;
+        const value = event.target.value;
+        console.log(name,value);
+        if(name =='payment_auth' && value=='add'){
+            this.setState({
+                addCard:true
+            })
+        }else {
+            this.setState({
+                addCard:false
+            })
+        }
         // console.log("megg", event.target.name, event.target.value);
         this.handleFrequencySelect(form,inverse);
 
@@ -315,6 +331,8 @@ class BackUpGoalsForm extends Component {
                     <option value={'7'}>7:00 am</option>
                     <option value={'8'}>8:00 am</option>
                     <option value={'9'}>9:00 am</option>
+                    <option value={'10'}>10:00 am</option>
+                    <option value={'11'}>11:00 am</option>
                     <option value="12">12:00 noon</option>
                     <option value="13">1:00 pm</option>
                     <option value="14">2:00 pm</option>
@@ -407,15 +425,15 @@ class BackUpGoalsForm extends Component {
                         <Form.Group as={Col} sm={6}>
                             <Form.Label>Contribution(NGN)</Form.Label>
                             <Form.Control
-                                type="text" id="contribution"
-                                className={'amount-input'}
+                                type="number" id="contribution"
+                                // className={'amount-input'}
                                 value={contribution} step={'5'} name="contribution"
                                 onChange={this.changeHandler}/>
                             <Form.Text className="text-muted">
                                 Contribution range daily [ &#8358; 50 - &#8358; 25000]
                             </Form.Text>
-                            {/*{this.validator.message('contribution', contribution, 'required|numeric')}*/}
-                            {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}
+                            {this.validator.message('contribution', contribution, 'required|numeric')}
+                            {/*{this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
 
                         </Form.Group>
                     </Form.Row>
@@ -424,7 +442,7 @@ class BackUpGoalsForm extends Component {
                             <Form.Label>Start Date</Form.Label>
                             <Form.Control type="date" name={'start_date'}
                                           id={'start_date'}
-                                          min={moment().format('YYYY-MM-DD')}
+                                          min={moment().add(1,'days').format('YYYY-MM-DD')}
                                           value={start_date}
                                           onChange={this.changeHandler}/>
                             {this.validator.message('start_date', start_date, 'required|string')}
@@ -449,8 +467,8 @@ class BackUpGoalsForm extends Component {
                             <Form.Label>Account to Debit</Form.Label>
                             <Form.Control as="select"   onChange={this.changeHandler} defaultValue={'payment_auth'} Value={payment_auth} id={'payment_auth'}
                                           name={'payment_auth'}>
-                                <option value={-1} >Select Card</option>
-                                <option value={0} >Add Card</option>
+                                <option value={''} >Select Card</option>
+                                <option value={'add'} >Add Card</option>
                                 {/* loop through and get the number of accounts user has */}
                                 {
                                     this.state.userCards.length > 0 ?
@@ -462,21 +480,25 @@ class BackUpGoalsForm extends Component {
                                                 );
 
                                         })
-                                        : <option value={-1} >Select Card</option>
+                                        : null
                                 }
 
                             </Form.Control>
                             {this.validator.message('payment_auth', payment_auth, 'required|numeric')}
+                            {this.state.addCard?<label className={'text-muted mt-1'}> click here to <Link to={BankCardLink}>Add Card</Link></label>:null}
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label>Goal Amount(NGN)</Form.Label>
                             <Form.Control
-                                type="text"
-                                className={'amount-input'}
+                                type="number"
+                                // className={'amount-input'}
                                 name={'goal_amount'}
                                 id={'number'}
                                 value={goal_amount}
-                                onChange={this.handleGoalAmount}/>
+                                onChange={this.handleGoalAmount}
+                            />
+                            {this.validator.message('Goal Amount', goal_amount, 'required|numeric')}
+
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>

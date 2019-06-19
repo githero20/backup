@@ -10,6 +10,13 @@ import WithdrawalList from "./WithdrawalList";
 import WithdrawalForm from "./WithdrawalForm";
 import {getUserData} from "../../actions/UserAction";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
+import {
+    amountFormatter,
+    balanceFormatter, confirmedFormatter,
+    dateFormatter,
+    descriptionFormatter,
+    statusFormatter
+} from "../../Helpers/Helper";
 
 class Withdrawal extends Component {
 
@@ -90,6 +97,47 @@ class Withdrawal extends Component {
 
 
     render() {
+
+        const columns = [
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
+            },
+            {
+                text: 'Status',
+                dataField: 'is_confirmed',
+                formatter: confirmedFormatter,
+                sort: true,
+
+            },
+            {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter: amountFormatter,
+                sort: true,
+
+            },{
+                text: 'Balance',
+                dataField: 'last_amount',
+                formatter: balanceFormatter,
+                sort: true,
+
+            },
+            {
+                text: 'Account',
+                dataField: 'account_type',
+                // formatter: statusFormatter,
+                sort: true,
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort: true,
+
+            }];
+
         return (
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
@@ -151,7 +199,7 @@ class Withdrawal extends Component {
                                                 <ToastProvider>
                                                     {
                                                         !this.state.showWithdrawalForm
-                                                            ? <WithdrawalList showForm={this.showForm} withdrawals={this.state.withdrawals}/>
+                                                            ? <WithdrawalList showForm={this.showForm} withdrawals={this.state.withdrawals} columns={columns} transactions={this.state.withdrawals}/>
                                                             : <WithdrawalForm hideForm={this.hideForm} updateWithdrawalList={this.getWithdrawalList}/>
                                                     }
                                                 </ToastProvider>

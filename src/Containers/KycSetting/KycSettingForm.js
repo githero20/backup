@@ -11,6 +11,7 @@ import {GetUserKYC} from "../../RouteLinks/RouteLinks";
 import {ToastProvider, withToastManager} from "react-toast-notifications";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
+import moment from "moment";
 
 let formData = new FormData();
 
@@ -29,7 +30,7 @@ class KycSettingForm extends Component {
                 employment_status: "student",
                 end_year_amount: "less_than50000",
                 id: "",
-                date_of_birth: this.getTodayDate(),
+                date_of_birth: null,
                 identification_type: "InternationalPassport",
                 identification_type_number: "",
                 issue_date: this.getTodayDate(),
@@ -386,6 +387,7 @@ class KycSettingForm extends Component {
                                                                                                className="form-control"
                                                                                                placeholder=""
                                                                                                value={this.state.form.date_of_birth}
+                                                                                               max={moment('december 31 2001').format('YYYY-MM-DD')}
                                                                                                onChange={this.handleChange}
                                                                                                name="date_of_birth"
                                                                                                required
@@ -533,6 +535,7 @@ class KycSettingForm extends Component {
                                                                                                    id="issuedate"
                                                                                                    className="form-control"
                                                                                                    placeholder=""
+                                                                                                   max={moment().format('YYYY-MM-DD')}
                                                                                                    value={this.state.form.issue_date}
                                                                                                    onChange={this.handleChange}
                                                                                                    name="issue_date"
@@ -551,6 +554,7 @@ class KycSettingForm extends Component {
                                                                                                    onChange={this.handleChange}
                                                                                                    className="form-control"
                                                                                                    placeholder=""
+                                                                                                   min={moment().format('YYYY-MM-DD')}
                                                                                                    name="expiry_date"
                                                                                                    required/>
                                                                                         </div>

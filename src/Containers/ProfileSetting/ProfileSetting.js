@@ -10,6 +10,7 @@ import ProfileForm from "../../Components/Dashboard/ProfileForm/ProfileForm";
 import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {CentralVaultInterest, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
+import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 
 
 class ProfileSetting extends Component {
@@ -17,7 +18,8 @@ class ProfileSetting extends Component {
 
 
     state = {
-        userProfile: null
+        userProfile: null,
+        showLoader:false,
     };
 
 
@@ -25,9 +27,9 @@ class ProfileSetting extends Component {
         if(status){
             console.log(res.data.data);
             this.setState({
-                userProfile:res.data.data
+                userProfile:res.data.data,
+                showLoader:false
             })
-
         }else{
             console.log(res);
         }
@@ -48,18 +50,14 @@ class ProfileSetting extends Component {
         // }
 
             //make request
+            this.setState({showLoader:true});
             request(getUserInfoEndpoint, null, true, 'GET', this.setupProfile);
-
-
-
             console.log('setting up profile');
 
     }
 
 
     render() {
-
-        console.log(this.state.userProfile);
 
         return (
             <React.Fragment>
@@ -76,7 +74,7 @@ class ProfileSetting extends Component {
                                     {/*<MessageBox/>   */}
                                 </div>
                             </div>
-
+                            {this.state.showLoader ? <DashboardLoader/> : null}
                             <div className="content-header row">
                             </div>
                             <div className="content-body">

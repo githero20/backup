@@ -4,7 +4,13 @@ import CentralVaultCard from "../CentralVaultCard/CentralVaultCard";
 import BackUpGoalCard from "../BackUpGoalCard/BackUpGoalCard";
 import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";
 import LockedSavingsCard from "../LockedSavingCard/LockedSavingsCard";
-import {amountFormatter, dateFormatter, descriptionFormatter, statusFormatter} from "../../../Helpers/Helper";
+import {
+    amountFormatter,
+    balanceFormatter,
+    dateFormatter,
+    descriptionFormatter,
+    statusFormatter
+} from "../../../Helpers/Helper";
 import MessageBox from "./MessageBox/MessageBox";
 import blueIcon from '../../../admin/app-assets/images/icons/blue-icon@2x.png';
 import orangeIcon from '../../../admin/app-assets/images/icons/orange-icon@2x.png';
@@ -66,6 +72,12 @@ class DashboardContainer extends Component {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter: amountFormatter,
+                sort: true,
+
+            },{
+                text: 'Balance',
+                dataField: 'balance',
+                formatter: balanceFormatter,
                 sort: true,
 
             },

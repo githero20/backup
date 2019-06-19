@@ -3,8 +3,8 @@ import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
 import SimpleReactValidator from "simple-react-validator";
 import {getLocalStorage, request} from "../../../../ApiUtils/ApiUtils";
-import {BankCardLink, instantSaveEndpoint} from "../../../../RouteLinks/RouteLinks";
-import {USERACTIVATED, USERINFO} from "../../../Auth/HOC/authcontroller";
+import {BankCardLink, instantSaveEndpoint, verifyTransactionEndpoint} from "../../../../RouteLinks/RouteLinks";
+import {USERACTIVATED, USERINFO, USERTOKEN} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import {ADD_CARD, amountInput, initializeAmountInput} from "../../../../Helpers/Helper";
@@ -17,7 +17,7 @@ class InstantSavingForm extends Component {
 
 
     state = {
-        instantSaveInfo: {
+        form: {
             amount: null,
             payment_auth: null,
             source: 'quick',
@@ -42,13 +42,17 @@ class InstantSavingForm extends Component {
         this.getUserCards = this.getUserCards.bind(this);
     }
 
+    //paystack
+
+
 
     initiatePayStack = () => {
 
         //send api
+        console.log(this.state.form);
         initTransaction({
-            amount: this.state.instantSaveInfo.amount,
-            source: this.state.instantSaveInfo.source,
+            amount: parseFloat(this.state.form.amount),
+            source: 'quick',
         }, (status, payload) => {
             console.log("status", status, payload);
             this.setState({loading: false});
@@ -57,6 +61,7 @@ class InstantSavingForm extends Component {
                 console.log(user);
                 _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
             } else {
+                console.log(payload);
                 this.props.toastManager.add(payload, {
                     appearance: "error",
                     autoDismiss: true,
@@ -68,6 +73,44 @@ class InstantSavingForm extends Component {
         });
 
     }
+
+
+    resolvePaystackResponse=(response)=>{
+
+        this.setState({
+            loading: false,
+        });
+        console.log("Paystack Response", response);
+        verifyTransaction({
+            ref: response.reference,
+            type: "instant"
+        },(status, payload) =>{
+            console.log("status", status, payload);
+            if(status){
+                this.props.toastManager.add("Card Added Successfully",{
+                    appearance:"success",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                });
+
+                this.getUserCards();
+                //reload all instant saves
+                this.props.updateInstantSave();
+                this.props.setupInstantSave();
+
+
+            }else{
+                this.props.toastManager.add("Unable to add card at this moment",{
+                    appearance:"error",
+                    autoDismiss:true,
+                    autoDismissTimeout:3000
+                })
+            }
+        })
+
+    }
+    
+
 
 
     getUserCards() {
@@ -85,36 +128,6 @@ class InstantSavingForm extends Component {
         })
     }
 
-    resolvePaystackResponse = (response) => {
-        this.setState({
-            loading: false,
-        });
-        console.log("Paystack Response", response);
-        verifyTransaction({
-            ref: response.reference,
-            type: "instant"
-        }, (status, payload) => {
-            console.log("status", status, payload);
-            if (status) {
-                this.props.toastManager.add("Card Added Successfully", {
-                    appearance: "success",
-                    autoDismiss: true,
-                    autoDismissTimeout: 3000
-                });
-
-                this.getUserCards();
-                this.props.updateInstantSave();
-
-            } else {
-                this.props.toastManager.add("Unable to add card at this moment", {
-                    appearance: "error",
-                    autoDismiss: true,
-                    autoDismissTimeout: 3000
-                })
-            }
-        })
-
-    }
 
 
     //submit steady save form
@@ -126,17 +139,16 @@ class InstantSavingForm extends Component {
                 disableButton:true
             });
 
-            //Paystack add Card
-            // if (parseInt(this.state.instantSaveInfo.payment_auth) === 0) {
-            //     //initiate paystack
-            //     console.log('got here to initiate paystack');
-            //     this.initiatePayStack();
-            // }
-            // else
-            //     {
+            //if add bank is selected
+            if (parseInt(this.state.form.payment_auth) === 0) {
+                //initiate paystack
+                console.log('got here to initiate paystack');
+                this.initiatePayStack();
+
+            }else{
                 console.log('going without initiating');
-                request(instantSaveEndpoint, this.state.instantSaveInfo, true, 'POST', this.HandleInstantSave);
-            // }
+                request(instantSaveEndpoint, this.state.form, true, 'POST', this.HandleInstantSave);
+            }
 
         } else {
 
@@ -194,15 +206,23 @@ class InstantSavingForm extends Component {
         //handle least instant save amount
         // value = handleLeastAmount(name,value);
         //copy states object
-        const data = {...this.state.instantSaveInfo};
+        const data = {...this.state.form};
         data[name] = value;
 
         //get select data
 
+        //Paystack add Card
+        if (name==='payment_auth' && value === 0) {
+            //initiate paystack
+            console.log('got here to initiate paystack');
+            this.initiatePayStack();
+        }
+
+
         //manipulate object and set the state object
 
         this.setState({
-            instantSaveInfo: data
+            form: data
         });
     };
 
@@ -217,10 +237,10 @@ class InstantSavingForm extends Component {
             if(parseFloat(value).toFixed(2) !== 0.00){
                const rawValue = parseFloat(value.trim().replace(',','').replace('₦',''))
                 console.log(name,rawValue);
-                let data = {...this.state.instantSaveInfo};
+                let data = {...this.state.form};
                 data[name] = rawValue;
                 this.setState({
-                    instantSaveInfo: data,
+                    form: data,
                     err: ''
                 })
             }
@@ -241,135 +261,118 @@ class InstantSavingForm extends Component {
                 userCards: userInfo.authorization.data
             })
         }
-
-
-        //
-
-        // // Setting up the version
-        // document.querySelector('#version').innerHTML = `AutoNumeric version <code>${AutoNumeric.version()}</code>`;
-
-        // AutoNumeric initialisation
-        // const isAmount = new AutoNumeric('.instant-save-input', {currencySymbol: "₦",
-        //     maximumValue: "1000000000",
-        //     minimumValue: "0",
-        //     currencySymbolPlacement:'p',
-        //     digitGroupSeparator:',',
-        //     noEventListeners:false,
-        // });
-
         initializeAmountInput();
-
     }
 
 
     resetFormFields = () => {
 
-        let data = this.state.instantSaveInfo;
+        let data = this.state.form;
         data.amount = 0;
         data.payment_auth = -1;
 
         this.setState({
-            instantSaveInfo: data
+            form: data
         })
     };
 
-    addNewCard = () => {
-        if (getLocalStorage(USERINFO)) {
-            console.log(getLocalStorage(USERINFO));
-            if (getLocalStorage(USERACTIVATED)) {
-                let status = JSON.parse(getLocalStorage(USERACTIVATED));
-                if (status === true) {
-                    console.log('got here to retrieve it ');
-                    let data = JSON.parse(getLocalStorage(USERINFO));
-                    console.log(data);
-                }
-            }
-        }
-
-        // const handler = window.PaystackPop.setup({
-        //     key: key,
-        //     email: email,
-        //     amount: this.calculateAmount(amount),
-        //     currency: "NGN",
-        //     ref: ref,
-        //     channels:['card'],
-        //     metadata: {
-        //         custom_fields: [
-        //             {
-        //                 display_name: "Mobile Number",
-        //                 variable_name: "mobile_number",
-        //                 value: "+2348012345678"
-        //             }
-        //         ]
-        //     },
-        //
-        //     callback: (response)=>{
-        //
-        //         let param = {
-        //             type:'steady_save',
-        //             ref:response.reference
-        //         };
-        //
-        //         console.log(response);
-        //
-        //         let token = localStorage.getItem(USERTOKEN);
-        //
-        //         this.verifyTransaction(verifyTransactionEndpoint,param,token);
-        //
-        //     },
-        //
-        //     onClose: function(){
-        //
-        //
-        //     }
-        // });
-        //
-        //
-        // handler.openIframe();
-
-    };
+    // addNewCard = () => {
+    //     if (getLocalStorage(USERINFO)) {
+    //         console.log(getLocalStorage(USERINFO));
+    //         if (getLocalStorage(USERACTIVATED)) {
+    //             let status = JSON.parse(getLocalStorage(USERACTIVATED));
+    //             if (status === true) {
+    //                 console.log('got here to retrieve it ');
+    //                 let data = JSON.parse(getLocalStorage(USERINFO));
+    //                 console.log(data);
+    //             }
+    //         }
+    //     }
+    //
+    //     const handler = window.PaystackPop.setup({
+    //         key: key,
+    //         email: email,
+    //         amount: this.calculateAmount(amount),
+    //         currency: "NGN",
+    //         ref: ref,
+    //         channels:['card'],
+    //         metadata: {
+    //             custom_fields: [
+    //                 {
+    //                     display_name: "Mobile Number",
+    //                     variable_name: "mobile_number",
+    //                     value: "+2348012345678"
+    //                 }
+    //             ]
+    //         },
+    //
+    //         callback: (response)=>{
+    //
+    //             let param = {
+    //                 type:'steady_save',
+    //                 ref:response.reference
+    //             };
+    //
+    //             console.log(response);
+    //
+    //             let token = localStorage.getItem(USERTOKEN);
+    //
+    //             this.verifyTransaction(verifyTransactionEndpoint,param,token);
+    //
+    //         },
+    //
+    //         onClose: function(){
+    //
+    //
+    //         }
+    //     });
+    //
+    //
+    //     handler.openIframe();
+    //
+    // };
 
 
 
     render() {
-        const {payment_auth, amount} = this.state.instantSaveInfo;
-        if (this.state.instantSaveInfo.payment_auth === ADD_CARD) {
-
-            this.addNewCard();
-        }
+        const {payment_auth, amount} = this.state.form;
+        // if (this.state.form.payment_auth === ADD_CARD) {
+        //
+        //     this.addNewCard();
+        // }
         return (
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
-                    {/*<Form.Row>*/}
-                    {/*    <Col>*/}
-                    {/*        <Form.Group className={'mt-md-1 mb-md-3'}>*/}
-                    {/*            <Form.Label>Amount</Form.Label>*/}
-                    {/*            <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}*/}
-                    {/*                          defaultValue={amount}  onChange={this.changeHandler}/>*/}
-                    {/*            {this.validator.message('amount', amount, 'required|numeric')}*/}
-                    {/*        </Form.Group>*/}
-                    {/*    </Col>*/}
-                    {/*</Form.Row>*/}
-
-                    {/*auto numeric */}
-
                     <Form.Row>
                         <Col>
                             <Form.Group className={'mt-md-1 mb-md-3'}>
                                 <Form.Label>Amount</Form.Label>
-                                {/* used automatic js text for numbers */}
-                                <Form.Control
-                                    type="text"
-                                    className={'amount-input'}
-                                    placeholder={'₦500'} name={'amount'}
-                                    id={'amount'}
-                                    onChange={this.textAmountHandler}
-                                />
-                                {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}
-                                {/*{this.validator.message('amount', amount, 'required|numeric')}*/}
+                                <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}
+                                              defaultValue={amount}  onChange={this.changeHandler}/>
+                                {this.validator.message('amount', amount, 'required|numeric')}
                             </Form.Group>
                         </Col>
                     </Form.Row>
+
+                    {/*auto numeric */}
+
+                    {/*<Form.Row>*/}
+                    {/*    <Col>*/}
+                    {/*        <Form.Group className={'mt-md-1 mb-md-3'}>*/}
+                    {/*            <Form.Label>Amount</Form.Label>*/}
+                    {/*            /!* used automatic js text for numbers *!/*/}
+                    {/*            <Form.Control*/}
+                    {/*                type="text"*/}
+                    {/*                className={'amount-input'}*/}
+                    {/*                placeholder={'₦500'} name={'amount'}*/}
+                    {/*                id={'amount'}*/}
+                    {/*                onChange={this.textAmountHandler}*/}
+                    {/*            />*/}
+                    {/*            {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
+                    {/*            /!*{this.validator.message('amount', amount, 'required|numeric')}*!/*/}
+                    {/*        </Form.Group>*/}
+                    {/*    </Col>*/}
+                    {/*</Form.Row>*/}
                     <Form.Row>
                         <Col className={'mt-md-1 mb-md-3'}>
                             <Form.Group>
@@ -378,6 +381,7 @@ class InstantSavingForm extends Component {
                                               id={'payment_auth'}
                                               name={'payment_auth'}>
                                     <option value={-1}>Select Card</option>
+                                    <option value={0}>Add Card</option>
                                     {/*<option value={0}>Add New Card</option>*/}
                                     {/* loop through and get the number of accounts user has */}
                                     {
@@ -390,8 +394,8 @@ class InstantSavingForm extends Component {
                                             : null
                                     }
                                 </Form.Control>
-                                {this.state.userCards.length===0?<label className={'text-muted mt-1'}>You do not have a card click here  <Link to={BankCardLink}>Add Card</Link></label>:null}
-                                {this.validator.message('Debit Card', payment_auth, 'required|numeric')}
+                                {/*{this.state.userCards.length===0?<label className={'text-muted mt-1'}>You do not have a card click here  <Link to={BankCardLink}>Add Card</Link></label>:null}*/}
+                                {this.validator.message('payment_auth', payment_auth, 'required|numeric')}
                             </Form.Group>
                         </Col>
                     </Form.Row>

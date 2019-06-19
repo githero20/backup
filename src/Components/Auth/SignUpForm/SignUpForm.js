@@ -133,16 +133,19 @@ class SignUpForm extends Component {
 
         const {password} = this.state;
         // perform all neccassary validations
-        if (password != value) {
+        if (password !== value) {
             console.log('false' + password, value);
             this.setState({
                 ConfirmPassError: true,
             })
+            return false;
         } else {
             console.log('true' + password);
             this.setState({
                 ConfirmPassError: false,
             });
+            return true;
+
         }
 
     };
@@ -157,10 +160,14 @@ class SignUpForm extends Component {
             this.setState({
                 passwordError: false,
             })
+            return true;
+
         } else {
             this.setState({
                 passwordError: true,
             })
+            return false;
+
         }
 
     };
@@ -248,9 +255,9 @@ class SignUpForm extends Component {
             //validate confirm password
 
             // perform all necessary validation
-            const ConfPassValid = this.validatePasswords();
+            const ConfPassValid = this.validatePasswords(this.state.password_confirmation);
             const PassVal = this.validatePassword();
-
+            console.log(ConfPassValid,PassVal);
             if (ConfPassValid && PassVal) {
                 //    make api call
                 this.setState({
@@ -266,7 +273,7 @@ class SignUpForm extends Component {
 
             //display All errors
 
-            this.validatePasswords();
+            this.validatePasswords(this.state.password_confirmation);
             this.validatePassword();
 
             this.validator.showMessages();

@@ -2566,8 +2566,8 @@ html body .content.app-content {
 
  .main-menu .navigation li.has-sub > a:after{
      font-family: "FontAwesome","Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-     /*content: "\f105";*/
-     content:"\f061";
+     content: "\f105";
+     /*content:"\f061";*/
     font-size: 1rem;
     position: absolute;
     top: 14px;

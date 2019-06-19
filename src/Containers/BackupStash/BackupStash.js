@@ -10,15 +10,16 @@ import TransactionTable from "../../Components/Dashboard/TransactionTable/Transa
 import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import {ToastProvider} from 'react-toast-notifications';
 import {
-    amountFormatter,
+    amountFormatter, balanceFormatter,
     dateFormatter,
     descriptionFormatter,
     formatNumber,
-    INTEREST_ACCOUNT,
+    INTEREST_ACCOUNT, sourceTypeFormatter,
     STANDARD_ACCOUNT, statusFormatter
 } from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
 import {
+    getBackUpStashTransEndpoint,
     getTransactionsApi,
     getUserInfoEndpoint,
     instantSaveTransEndpoint,
@@ -122,14 +123,7 @@ class BackupStash extends Component {
                     }
                 });
 
-                console.log(data.data.data.transactions.data);
-                //TODO loop through transactions and add up only credits
-                let transactions = data.data.data.transactions.data;
-                let totalInstantSave = this.getTotalInstantSave(transactions);
-                this.setState({
-                    transactions,
-                    totalInstantSave: formatNumber(totalInstantSave)
-                });
+
 
 
             } else {
@@ -152,6 +146,19 @@ class BackupStash extends Component {
         }
     }
 
+    analyseStashTrans = (status,res)=>{
+
+        if(status){
+            console.log(res);
+            if(res){
+                this.setState({
+                    transactions:res.data.data
+                })
+            }
+        }
+
+    }
+
 
     setupStash = () => {
 
@@ -162,7 +169,10 @@ class BackupStash extends Component {
             showLoader:true,
         })
         //call get user info
-        request(getUserInfoEndpoint, null, true, 'GET', this.analyseStashInfo)
+        request(getUserInfoEndpoint, null, true, 'GET', this.analyseStashInfo);
+
+        //stash transactions
+        request(getBackUpStashTransEndpoint, null, true, 'GET', this.analyseStashTrans)
 
 
     };
@@ -178,34 +188,6 @@ class BackupStash extends Component {
     }
 
 
-    // loadInstantSaveTable = (status, payload) => {
-    //     //hide loader
-    //     this.setState({
-    //         showLoader: false
-    //     });
-    //
-    //     //handle response
-    //     if (status) {
-    //         if (payload) {
-    //             console.log(JSON.parse(JSON.stringify(payload)));
-    //             this.setState({
-    //                 transactions: payload.data.data.transactions.data
-    //             });
-    //             console.log('success', payload);
-    //         }
-    //
-    //     }
-    //
-    // };
-
-    componentWillMount() {
-
-        //get user instant saves
-        this.setupStash();
-
-
-    }
-
 
 
     render() {
@@ -218,7 +200,7 @@ class BackupStash extends Component {
                 sort: true,
             },
             {
-                text: 'Description',
+                text: 'Phase',
                 dataField: 'type',
                 formatter: descriptionFormatter,
                 sort: true,
@@ -228,6 +210,12 @@ class BackupStash extends Component {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter: amountFormatter,
+                sort: true,
+
+            },{
+                text: 'Balance',
+                dataField: 'balance',
+                formatter: balanceFormatter,
                 sort: true,
 
             },

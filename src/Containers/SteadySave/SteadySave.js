@@ -294,6 +294,9 @@ class SteadySave extends Component {
                         // make request to get transaction
                         getSteadySavTrans(row.id, this.handleSSaveTrans);
 
+                        //TODO Add history endpoint to get history of steady save
+
+
 
                     }
                 }
@@ -397,7 +400,7 @@ class SteadySave extends Component {
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-4 col-12">
-                                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">BackUpGoal <span
+                                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">Steady Save <span
                                                         className="dot">.</span> Summary
                                                     </h3>
                                                     <SteadyAmountCard bgInfo={this.state.selectedSteadySave}/>

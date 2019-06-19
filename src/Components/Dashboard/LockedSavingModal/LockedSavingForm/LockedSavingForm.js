@@ -23,7 +23,7 @@ class LockedSavingForm extends Component {
             form: {
                 title: "",
                 end_date: "",
-                amount: 0,
+                amount: null,
                 interest: 0.0,
                 days: 0,
                 source:'central_vault',
@@ -169,12 +169,12 @@ class LockedSavingForm extends Component {
                                 onChange={this.handleDateInput}
                                 type="date"
                                 format="YYYY-MM-DD"
-                                min={moment().format('YYYY-MM-DD')}
+                                min={moment().add('1','days').format('YYYY-MM-DD')}
                                 name="end_date"
                                 value={this.state.form.end_date}
                             />
                             <Form.Text className="text-muted">
-                                Enter the maturity date when funds should be returned to your BackupCash savings.
+                                Enter the maturity date when funds should be returned to your Backup Stash.
                             </Form.Text>
                             {this.validator.message("maturity date", this.state.form.end_date, "required")}
                         </Form.Group>
@@ -185,17 +185,17 @@ class LockedSavingForm extends Component {
                         <Form.Group as={Col} sm={6} controlId="formGridCity">
                             <Form.Label>Capital Investment</Form.Label>
                             <Form.Control
-                                type="text"
-                                className={'amount-input'}
+                                type="number"
+                                // className={'amount-input'}
                                 onChange={this.handleAmountInput}
-                                value={this.state.form.amount}
-
+                                defaultValue={this.state.form.amount}
+                                name="amount"
                             />
-                            {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}
+                            {/*{this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
 
-                            {/*{this.validator.message("capital investment", this.state.form.amount, "required")}*/}
+                            {this.validator.message("capital investment", this.state.form.amount, "required")}
                             <Form.Text className="text-muted">
-                                Enter the amount that will be instantly removed from your BackupCash "Central Vault"
+                                Enter the amount that will be instantly removed from your Central Vault
                                 balance and locked away.
                             </Form.Text>
                         </Form.Group>
@@ -204,10 +204,10 @@ class LockedSavingForm extends Component {
                             <Form.Control
                                 type="text"
                                 disabled={true}
-                                value={`₦ ${formatNumber(this.state.form.interestRate)} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days`}
+                                value={`₦ ${formatNumber(this.state.form.interestRate)} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days (${formatNumber(this.state.form.interest.toFixed(2))}% P.A)`}
                             />
                             <Form.Text className="text-muted">
-                                This upfront interest will be deposited in your Backup Cash "Backup Stash" and can be withdrawn immediately
+                                This upfront interest will be deposited in your Backup Stash and can be withdrawn immediately
                             </Form.Text>
                         </Form.Group>
                     </Form.Row>

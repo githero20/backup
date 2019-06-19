@@ -39,7 +39,7 @@ class HorizontalNav extends Component {
         })
     };
 
-    async componentDidMount() {
+     componentDidMount() {
 
         //get name from localStorage
         // if(getLocalStorage(USERINFO)){
@@ -50,7 +50,7 @@ class HorizontalNav extends Component {
         //     },3000);
         // }
                 try{
-                    const user = await JSON.parse(getLocalStorage(USERINFO));
+                    const user = JSON.parse(getLocalStorage(USERINFO));
                     this.setState({userName:user.name})
                 }catch (e) {
                     console.log(e);

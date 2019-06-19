@@ -147,6 +147,9 @@ export function transformHour(hour) {
 export function dateFormatter (cell) {
     return  <span>{moment(cell).format('LLL')}</span>
 }
+export function confirmedFormatter (cell) {
+    return   <label>{cell ? <span className='text-success'>Completed </span>:<span className='text-danger'>Failed </span>}</label>
+}
 
 export function descriptionFormatter (cell) {
     return  <span className={cell==='credit'?'text-green text-capitalize':'text-red text-capitalize'}>{cell}</span>
@@ -179,7 +182,7 @@ export function statusFormatter(cell){
     return  <label className={cell==='success'?'bg-light-green px-2 sm-pd text-capitalize':'bg-light-red px-2 sm-pd text-capitalize'}>{cell}</label>
 }
 export function interestFormatter(cell){
-    return <label>+{parseFloat(cell).toFixed(2)}%</label>
+    return (<label style={{minWidth:'100px'}}>+ {`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`}</label>)
 
 }
 
@@ -188,7 +191,11 @@ export function viewFormatter(cell){
 
 }
 export function balanceFormatter(cell){
-    return <label className={'text-info'}>{cell!=null?formatNumber(parseFloat(cell).toFixed(2)):'N/A'}</label>
+    return <label style={{minWidth:'100px'}} className={'text-info'}>{cell!=null?`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`:'N/A'}</label>
+
+}
+export function sourceTypeFormatter(cell){
+    return <label style={{minWidth:'100px'}} className={'text-info'}>{cell!=null?`₦ ${cell.data.name}`:'N/A'}</label>
 
 }
 export function lockedStatusFormatter(cell){
@@ -236,6 +243,9 @@ export function amountInput (selector){
         currencySymbolPlacement:'p',
         digitGroupSeparator:',',
         noEventListeners:false,
+        decimalPlacesShownOnFocus:0,
+        decimalPlacesShownOnBlur:0,
+        outputFormat:'number'
     });
 
     return isAmount;

@@ -11,6 +11,8 @@ import {updateSteadySave} from "../../actions/SteadySaveAction";
 import {initTransaction, verifyTransaction} from "../../actions/CardAction";
 import moment from "moment";
 import {getToken, initializeAmountInput} from "../../Helpers/Helper";
+import {Link} from 'react-router-dom';
+import {BankCardLink} from "../../RouteLinks/RouteLinks";
 
 
 class SteadySaveForm extends Component {
@@ -27,7 +29,8 @@ class SteadySaveForm extends Component {
             showMonth: false,
             showDay: false,
             showHour: false,
-            userCards: []
+            userCards: [],
+            addCard:false
         };
         console.log("Edit", this.state);
         this.validator = new SimpleReactValidator();
@@ -61,6 +64,19 @@ class SteadySaveForm extends Component {
             event,
             this
         );
+
+        const name = event.target.name;
+        const value = event.target.value;
+        console.log(name,value);
+        if(name =='payment_auth' && value=='add'){
+            this.setState({
+                addCard:true
+            })
+        }else {
+            this.setState({
+                addCard:false
+            })
+        }
 
         // console.log("megg", event.target.name, event.target.value);
         this.handleFrequencySelect(form);
@@ -168,12 +184,12 @@ class SteadySaveForm extends Component {
 
 
             //if add bank is selected
-            if (parseInt(this.state.form.payment_auth) === 0) {
-                //initiate paystack
-                console.log('got here to initiate paystack');
-                this.initiatePayStack();
-
-            } else {
+            // if (parseInt(this.state.form.payment_auth) === 0) {
+            //     //initiate paystack
+            //     console.log('got here to initiate paystack');
+            //     this.initiatePayStack();
+            //
+            // } else {
 
 
                 //make sure user is authenticated
@@ -207,7 +223,7 @@ class SteadySaveForm extends Component {
                 // const id = this.props.id;
                 // request(`${EditSteadySave}${id}`, null, true, 'GET', this.handleResponse)
 
-            }
+            // }
 
 
         }
@@ -230,6 +246,8 @@ class SteadySaveForm extends Component {
                     <option value={'7'}>7:00 am</option>
                     <option value={'8'}>8:00 am</option>
                     <option value={'9'}>9:00 am</option>
+                    <option value={'10'}>10:00 am</option>
+                    <option value={'11'}>11:00 am</option>
                     <option value="12">12:00 noon</option>
                     <option value="13">1:00 pm</option>
                     <option value="14">2:00 pm</option>
@@ -316,9 +334,9 @@ class SteadySaveForm extends Component {
                             <div className={'text-muted secondary-text'}>Contribution</div>
                             <React.Fragment>
                                 <Form.Control
-                                    type="text"
+                                    type="number"
                                     name={'contribution'}
-                                    className={'amount-input'}
+                                    // className={'amount-input'}
                                     defaultValue={this.state.form.contribution}
                                     onChange={this.changeHandler}/>
 
@@ -333,20 +351,26 @@ class SteadySaveForm extends Component {
                                     onChange={this.changeHandler}
                                     defaultValue={this.state.form.payment_auth}
                                     name={'payment_auth'}>
-                                    <option value={-1}>Select Card</option>
-                                    <option value={0}>Add Card</option>
+                                    <option value={''}>Select Card</option>
+                                    <option value={'add'}>Add Card</option>
                                     {
-                                        this.state.userCards.map((data) => {
-                                            if (data.channel == "card")
+                                        this.state.userCards.map((data,index) => {
+                                            if (data.channel == "card"){
+
                                                 return (
-                                                    <option value={data.id} key={data.id}>{data.card_type}(**** ****
+                                                    <option value={data.id} key={data.id} selected={index===0?true:null}>{data.card_type}(**** ****
                                                         **** {data.last4})</option>
                                                 );
+                                            }
+
                                         })
                                     }
                                 </Form.Control>
-                                {this.validator.message('Card', this.state.form.payment_auth, 'required')}
+
+                                {this.validator.message('Card', this.state.form.payment_auth, 'required|numeric')}
                             </React.Fragment>
+                            {this.state.addCard?<label className={'text-muted mt-1'}> click here to <Link to={BankCardLink}>Add Card</Link></label>:null}
+
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
@@ -373,7 +397,7 @@ class SteadySaveForm extends Component {
                                 <Form.Control type="date" min={moment().format('YYYY-MM-DD')}
                                               defaultValue={this.state.form.start_date} name={'start_date'}
                                               id={'start_date'}
-                                              disabled={this.state.disableStartDate}
+                                              disabled={true}
                                               onChange={this.changeHandler}/>
                                 {this.validator.message('start_date', this.state.form.start_date, 'required|string')}
                             </React.Fragment>

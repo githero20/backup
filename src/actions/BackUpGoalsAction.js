@@ -4,7 +4,7 @@ import {
     createBackupGoals, editBackupGoal,
     GetBackUpGoals,
     getBGoalHistory, getBGoalTrans,
-    getSteadySaveHistory, pauseBackupGoal, stopBackupGoal
+    getSteadySaveHistory, GetWithdrawalPenalty, pauseBackupGoal, stopBackupGoal
 } from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 
@@ -12,6 +12,24 @@ import {checkResponse} from "../ApiUtils/ApiUtils";
 export const getBackUpSavings = (callback) =>{
     // console.log("body", payload);
     _axios.get(`${GetBackUpGoals}`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            // checkResponse(err);
+            // if(err.response){
+            //     callback(false, err.response.data.message || "AN Error Occurred");
+            // }
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};
+
+export const getPenalty = (callback) =>{
+    // console.log("body", payload);
+    _axios.get(`${GetWithdrawalPenalty}`)
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -191,6 +209,7 @@ export const stopBGoal = (id, callback) =>{
             }
         })
 };
+
 
 
 export const createBackUpGoal = (params, callback) =>{

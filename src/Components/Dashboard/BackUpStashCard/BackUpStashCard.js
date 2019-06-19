@@ -4,6 +4,7 @@ import BlueRightArrow from "../../../admin/app-assets/images/svg/blue-arrow-righ
 import {BackupStashLink, SteadySaveLink, WithdrawalLink} from "../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 import yellowIcon from "../../../admin/app-assets/images/icons/yellow-icon@2x.png";
+import {formatNumber} from "../../../Helpers/Helper";
 
 class BackUpStashCard extends Component {
 
@@ -41,7 +42,7 @@ class BackUpStashCard extends Component {
                         </div>
                         <div className="card-item flex-grow-1">
                             <p>Balance</p>
-                            <h3 className='my-2 my-md-0'>&#8358; {stashAmount}</h3>
+                            <h3 className='my-2 my-md-0'>&#8358; {formatNumber(stashAmount)}</h3>
                             {/*<div className="dash-card-analysis d-flex">*/}
                             {/*    <div className='d-flex flex-md-column'>*/}
                             {/*        <div*/}

@@ -317,6 +317,7 @@ class BackupGoals extends Component {
                                                                         hideBG={this.hideBackupGoal}
                                                                         fetchGoals={this.fetchBackUpGoals}
                                                                         selectedBG={this.state.selectedBG}
+                                                                        selectedBGHistory={this.state.selectedBGHistory}
                                                                         updateSelectedBG={this.updateSelectedBG}
                                                 />
                                             </div>
@@ -460,13 +461,25 @@ class BackupGoals extends Component {
                                                                                         className='d-flex justify-content-between'>
                                                                                         {/*(moment(content.end_date).format('YYYY-MM-DD')>moment().format('YYYY-MM-DD') && parseInt(content.is_pause) === 0 && parseInt(content.stop)*/}
                                                                                         <h6 className={'goal-box-amount'}>{formatNumber(parseFloat(content.target_amount).toFixed(2))}</h6>
-                                                                                        {moment(content.end_date).format('YYYY-MM-DD') > moment().format('YYYY-MM-DD') && !parseInt(content.is_pause) && parseInt(content.stop)===0 ?
+                                                                                        {
+                                                                                            moment(content.end_date).format('YYYY-MM-DD') > moment().format('YYYY-MM-DD') && parseInt(content.is_pause)===0 && parseInt(content.stop)===0 ?
                                                                                             (
                                                                                                 <span
-                                                                                                    className={'goal-active text-success'}>Active</span>) :
+                                                                                                    className={'goal-active text-info'}>Active</span>) :
                                                                                             (
-                                                                                                <span
-                                                                                                    className={'goal-inactive gray-text'}>Paused</span>
+
+                                                                                                (
+                                                                                                    (
+                                                                                                        moment(content.end_date).format('YYYY-MM-DD') > moment().format('YYYY-MM-DD') && parseInt(content.is_pause)===1 && parseInt(content.stop) === 0)?
+                                                                                                        <span className={'goal-inactive gray-text'}>Paused</span>:(
+                                                                                                        (
+                                                                                                            moment(content.end_date).format('YYYY-MM-DD') < moment().format('YYYY-MM-DD') && !parseInt(content.is_pause) && parseInt(content.stop) === 0)?
+                                                                                                            <span className={'goal-inactive text-success'}>Completed</span>:
+                                                                                                            <span className={'goal-inactive text-success'}>Completed</span>
+                                                                                                )
+
+                                                                                                )
+
                                                                                             )
 
                                                                                         }

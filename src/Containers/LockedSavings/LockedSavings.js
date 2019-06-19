@@ -15,25 +15,27 @@ import {
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
+import LockedTransactionTable from "../../Components/Dashboard/LockedTransactionTable/LockedTransactionTable";
 
 
 class LockedSavings extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            showLockedSavingsModal: false,
-            lockedSavings:[],
-            showLoader:false
-        };
 
         console.log(_getToken());
         this.showLSModal = this.showLSModal.bind(this);
         this.closeLSModal = this.closeLSModal.bind(this);
     }
 
+    state = {
+        showLockedSavingsModal: false,
+        lockedSavings:[],
+        showLoader:false
+    };
+
     //get user info
-    componentWillMount() {
+    componentDidMount() {
         console.log("Mounted");
 
         this.setState({
@@ -46,7 +48,7 @@ class LockedSavings extends Component {
             console.log("payload", status, payload);
             if(status){
                 //TODO(work on making this merging this payload.data.to lockedSavings[])
-                this.setState({lockedSavings: payload.data});
+                this.setState({lockedSavings: payload});
 
             }
         })
@@ -94,6 +96,8 @@ class LockedSavings extends Component {
 
     render() {
 
+
+        console.log(this.state.lockedSavings);
         const columns = [
             {
                 text: 'Date',
@@ -189,7 +193,7 @@ class LockedSavings extends Component {
                                                         </button>
                                                     </h4>
                                                     <ul className=" mb-0 locked-saving-display d-none d-md-inline-block">
-                                                        <li>{this.state.lockedSavings.length} &nbsp; Locked saving</li>
+                                                        <li>{this.state.lockedSavings.length!==0?this.state.lockedSavings.length:0} &nbsp; Locked saving</li>
                                                     </ul>
                                                     {/*<div className="table-button-container d-none d-md-inline-block">*/}
                                                     {/* <span*/}
@@ -211,59 +215,75 @@ class LockedSavings extends Component {
                                                     {/*</div>*/}
                                                 </div>
                                                 <div className="row">
-                                                    <TransactionTable transactions={this.state.lockedSavings} columns={columns} />
+                                                    {/*<TransactionTable transactions={this.state.lockedSavings} columns={columns} />*/}
+                                                    <LockedTransactionTable transactions={this.state.lockedSavings} columns={columns} />
                                                 </div>
 
                                                 {/*<div className="box-grid-container  light-blue-bg px-md-3 py-md-3">*/}
 
 
-                                                    {/*<div className="table-view table-responsive mb-5">*/}
-                                                    {/*    <table id="recent-orders"*/}
-                                                    {/*           className="table table-hover table-xl mb-0 spaced-table text-center">*/}
-                                                    {/*        <thead>*/}
-                                                    {/*        <tr>*/}
-                                                    {/*            <th>#</th>*/}
-                                                    {/*            <th>Name</th>*/}
-                                                    {/*            <th>Amount</th>*/}
-                                                    {/*            <th>Interest</th>*/}
-                                                    {/*            <th>Start Date</th>*/}
-                                                    {/*            <th>End Date</th>*/}
-                                                    {/*            <th>Status</th>*/}
-                                                    {/*        </tr>*/}
-                                                    {/*        </thead>*/}
-                                                    {/*        <tbody>*/}
-                                                    {/*        {*/}
-                                                    {/*            this.state.lockedSavings.map(ls => {*/}
-                                                    {/*                console.log("Index", ls);*/}
-                                                    {/*                return (*/}
-                                                    {/*                    <tr>*/}
-                                                    {/*                        <td>*/}
-                                                    {/*                            {ls.id}*/}
-                                                    {/*                        </td>*/}
-                                                    {/*                        <td>*/}
-                                                    {/*                            {ls.title}*/}
-                                                    {/*                        </td>*/}
-                                                    {/*                        <td>*/}
-                                                    {/*                            {ls.amount}*/}
-                                                    {/*                        </td>*/}
-                                                    {/*                        <td>*/}
-                                                    {/*                            <label>+{parseFloat(ls.interest).toFixed(2)}%</label>*/}
-                                                    {/*                        </td>*/}
-                                                    {/*                        <td>*/}
-                                                    {/*                            {_transformDate(ls.start_date)}*/}
-                                                    {/*                        </td>*/}
-                                                    {/*                        <td>{_transformDate(ls.end_date)}</td>*/}
-                                                    {/*                        <td>{*/}
-                                                    {/*                            _isDateAfterToday(ls.end_date) ? "Completed" : "Ongoing"*/}
-                                                    {/*                        }</td>*/}
 
-                                                    {/*                    </tr>*/}
-                                                    {/*                )*/}
-                                                    {/*            })*/}
-                                                    {/*        }*/}
-                                                    {/*        </tbody>*/}
-                                                    {/*    </table>*/}
-                                                    {/*</div>*/}
+                                                            {
+                                                                this.state.lockedSavings.length!==0? (
+
+                                                                        <div className="table-view table-responsive mb-5">
+                                                                            <table id="recent-orders"
+                                                                                   className="table table-hover table-xl mb-0 spaced-table text-center">
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Name</th>
+                                                                                    <th>Amount</th>
+                                                                                    <th>Interest</th>
+                                                                                    <th>Start Date</th>
+                                                                                    <th>End Date</th>
+                                                                                    <th>Status</th>
+                                                                                </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {
+
+                                                                                        this.state.lockedSavings.map(ls => {
+                                                                                            console.log("Index", ls);
+                                                                                            return (
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        {ls.id}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {ls.title}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {ls.amount}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <label>+{parseFloat(ls.interest).toFixed(2)}%</label>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {_transformDate(ls.start_date)}
+                                                                                                    </td>
+                                                                                                    <td>{_transformDate(ls.end_date)}</td>
+                                                                                                    <td>{
+                                                                                                        _isDateAfterToday(ls.end_date) ? "Completed" : "Ongoing"
+                                                                                                    }</td>
+
+                                                                                                </tr>
+                                                                                            );
+
+
+                                                                                        })
+
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                ):
+                                                                    <div className='text-center'>
+                                                                        <i className='fa fa-5x fa-briefcase'></i>
+                                                                        <p>No locked Savings at the moment</p>
+                                                                    </div>
+                                                            }
+
 
                                                     {/*pagination */}
 

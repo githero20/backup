@@ -172,6 +172,7 @@ class InstantSave extends Component {
                 .filter(content => content.status == 'success' && content.type == 'credit');
                 this.setState({
                     transactions,
+                    showLoader:false,
                     totalInstantSave: transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount || 0
                 });
 
@@ -218,7 +219,7 @@ class InstantSave extends Component {
     componentWillMount() {
 
         //get user instant saves
-        // this.setupInstantSave();
+        this.setupInstantSave();
 
         this.loadInstantSaves();
         //update tables

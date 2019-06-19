@@ -115,7 +115,7 @@ class StartNowModal extends React.Component {
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     <div className='ad-container d-flex flex-column pt-1 pt-md-3 pt-lg-5 mt-lg-3 align-items-center flex-md-row justify-content-between'>
                         <div onClick={this.instantHandler} onMouseEnter={this.instantHandler}
-                             onMouseLeave={this.instantHandler} className={'ad-placeholder ad-active'}>
+                             onMouseLeave={this.instantHandler} className={`ad-placeholder ${this.state.showInstantSave?'active':null} `}>
                             <img alt={'instant-save'} className={'ad-img'} src={InstantSaveIcon}/>
                             <p>Instant Save<img className={this.state.showInstantSave?'active':null} src={markSelected} /></p>
                             <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
@@ -124,7 +124,7 @@ class StartNowModal extends React.Component {
                             </div>
                         </div>
                         <div onClick={this.steadyHandler} onMouseEnter={this.steadyHandler}
-                             onMouseLeave={this.steadyHandler} className={'ad-placeholder'}>
+                             onMouseLeave={this.steadyHandler} className={`ad-placeholder ${this.state.showSteadySave?'active':null}`}>
                             <img className={'ad-img'} alt={'steady-save'} src={SSIcon}/>
                             <p>Steady Save<img  className={this.state.showSteadySave?'active':null} src={markSelected}/></p>
                             <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
@@ -133,7 +133,7 @@ class StartNowModal extends React.Component {
                             </div>
                         </div>
                         <div onClick={this.lockedHandler} onMouseLeave={this.lockedHandler}
-                             onMouseEnter={this.lockedHandler} className={'ad-placeholder'}>
+                             onMouseEnter={this.lockedHandler} className={`ad-placeholder ${this.state.showLockedSave?'active':null}`}>
                             <img className={'ad-img'} alt={'locked-savings'} src={LSIcon}/>
                             <p>Locked Savings<img className={this.state.showLockedSave?'active':null} src={markSelected} /></p>
                             <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
@@ -142,7 +142,7 @@ class StartNowModal extends React.Component {
                             </div>
                         </div>
                         <div onClick={this.backupHandler} onMouseEnter={this.backupHandler}
-                             onMouseLeave={this.backupHandler} className={'ad-placeholder'}>
+                             onMouseLeave={this.backupHandler} className={`ad-placeholder ${this.state.showBackupGoal?'active':null}`}>
                             <img className={'ad-img'} alt={'backup-goals'} src={BGIcon}/>
                             <p>Backup Goals<img className={this.state.showBackupGoal?'active':null} src={markSelected} /></p>
                             <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>

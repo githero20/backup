@@ -17,7 +17,7 @@ import {formatNumber} from "../../Helpers/Helper";
                                 <div className="media-body text-left pt-1 ">
                                     <div className="text-white ">
                                         <h5>Start Amount</h5>
-                                        <strong className="blue-card-price ml-2 mr-2 text-capitalize">{props.bgInfo?formatNumber(props.bgInfo.start_amount):null}</strong>
+                                        <strong className="blue-card-price ml-2 mr-2 text-capitalize">{props.bgInfo?formatNumber(parseFloat(props.bgInfo.start_amount).toFixed(2)):null}</strong>
                                     </div>
                                 </div>
                             </div>

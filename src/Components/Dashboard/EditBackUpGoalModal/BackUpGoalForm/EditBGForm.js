@@ -198,13 +198,13 @@ class EditBGForm extends Component {
             console.log(userInfo.authorization.data);
             this.setState({
                 userCards: userInfo.authorization.data,
-            })
+            });
 
             let formData = {...this.state.form} ;
 
             formData.title = this.props.selectedBG.title;
             formData.id = this.props.selectedBG.id;
-            formData.payment_auth =Number(this.props.selectedBG.gw_authorization_code) ;
+            formData.payment_auth = this.props.selectedBG.gw_authorization_code;
             formData.hour_of_day = this.props.selectedBG.hour_of_day;
             formData.target_amount = this.props.selectedBG.target_amount;
             formData.start_date = this.props.selectedBG.start_date;
@@ -226,7 +226,7 @@ class EditBGForm extends Component {
         this.setState({
             disabled:false
         })
-    }
+    };
 
 
     render() {

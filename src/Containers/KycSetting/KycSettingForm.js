@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
-import Button from "react-bootstrap/Button";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
 import {_handleFormChange} from "../../utils/index";
-import {request, multipartrequest} from "../../ApiUtils/ApiUtils";
+import {multipartrequest, request} from "../../ApiUtils/ApiUtils";
 import {GetUserKYC} from "../../RouteLinks/RouteLinks";
-import {withToastManager, ToastProvider} from "react-toast-notifications";
+import {ToastProvider, withToastManager} from "react-toast-notifications";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
 
@@ -39,8 +37,8 @@ class KycSettingForm extends Component {
                 edit: 0,
                 gender: "male"
             },
-            showLoader:false,
-            userName:null,
+            showLoader: false,
+            userName: null,
         };
         this.validator = new SimpleReactValidator();
 
@@ -86,22 +84,22 @@ class KycSettingForm extends Component {
 
     componentWillMount() {
         this.setState({
-            showLoader:true,
+            showLoader: true,
         });
 
         getUserData(this.handleUserInfo);
         this.getUserKyc();
     }
 
-    handleUserInfo = (status,res)=>{
+    handleUserInfo = (status, res) => {
         this.setState({
-            showLoader:false,
+            showLoader: false,
         });
 
-        if(status){
+        if (status) {
 
             this.setState({
-                userName:res.name
+                userName: res.name
             })
 
         }
@@ -179,12 +177,12 @@ class KycSettingForm extends Component {
                     <div
                         className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                         data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                        <HorizontalNav userName={this.state.userName} />
-                        <VerticalNav userName={this.state.userName} />
+                        <HorizontalNav userName={this.state.userName}/>
+                        <VerticalNav userName={this.state.userName}/>
 
                         <div className="app-content content">
                             <div className="content-wrapper">
-                                {this.state.showLoader?<DashboardLoader/>:null}
+                                {this.state.showLoader ? <DashboardLoader/> : null}
                                 <div className="row mb-4">
                                     <div className="col-12">
                                         {/* TODO Add Message box */}
@@ -584,22 +582,23 @@ class KycSettingForm extends Component {
 
 
                                                                             </div>
+                                                                            <Form.Row
+                                                                                className={'d-flex justify-content-end mt-2'}>
+
+
+                                                                                <button
+                                                                                    className={'btn btn-custom-blue round auth-btn'}
+                                                                                    type="submit">
+                                                                                    {this.state.loading ?
+                                                                                        <ButtonLoader/> : "Update KYC"}
+                                                                                </button>
+
+
+                                                                            </Form.Row>
 
                                                                             <div className="form-actions left">
 
-                                                                                <Form.Row
-                                                                                    className={'d-flex justify-content-end mt-2'}>
 
-
-                                                                                    <button
-                                                                                        className={'blue-round-btn auth-btn'}
-                                                                                        type="submit">
-                                                                                        {this.state.loading ?
-                                                                                            <ButtonLoader/> : "Update KYC"}
-                                                                                    </button>
-
-
-                                                                                </Form.Row>
 
                                                                             </div>
                                                                         </form>

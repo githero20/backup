@@ -229,7 +229,7 @@ export const checkResponse = (err)=>{
 
 
 export function getLocalStorage(key) {
-    if(localStorage.getItem(key)!==null&&localStorage.getItem(key)!==undefined){
+    if(localStorage.getItem(key)!== null && localStorage.getItem(key)!==undefined ){
         return localStorage.getItem(key);
     }
 

@@ -10,8 +10,8 @@ import blueIcon from '../../../admin/app-assets/images/icons/blue-icon@2x.png';
 import orangeIcon from '../../../admin/app-assets/images/icons/orange-icon@2x.png';
 import purpleIcon from '../../../admin/app-assets/images/icons/purple-icon@2x.png';
 import yellowIcon from '../../../admin/app-assets/images/icons/yellow-icon@2x.png';
-import adImg from '../../../admin/app-assets/images/icons/ad-one@2x.jpg';
-import adImgTwo from '../../../admin/app-assets/images/icons/ad-img@2x.jpg';
+import adImg from '../../../admin/app-assets/images/svg/adtwo.svg';
+import adImgTwo from '../../../admin/app-assets/images/svg/adone.svg';
 
 
 class DashboardContainer extends Component {
@@ -138,8 +138,8 @@ class DashboardContainer extends Component {
 
 
                                 <div className="col-12 col-lg-6">
-                                    <div className="dash-ads">
-                                        <img src={adImg} className='ad-img' alt="advert one "/>
+                                    <div className="dash-ads mb-3">
+                                        <img src={adImg} className='dash-ad-img' alt="advert one "/>
                                         <div className={'dash-action left-action'}>
                                             <h5>New Investment
                                                 Opportunities</h5>
@@ -148,8 +148,8 @@ class DashboardContainer extends Component {
                                     </div>
                                 </div>
                                 <div className="col-12 col-lg-6">
-                                    <div className="dash-ads">
-                                        <img src={adImgTwo} className='ad-img' alt="advert two"/>
+                                    <div className="dash-ads mb-3">
+                                        <img src={adImgTwo} className='dash-ad-img' alt="advert two"/>
                                         <div className={'dash-action right-action'}>
                                             <a className={'ad-link-white'}>Know more <i className='fa fa-arrow-right'></i></a>
                                         </div>

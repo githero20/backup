@@ -10,7 +10,7 @@ import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack}
 import {createBackUpGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import {initTransaction, verifyTransaction} from "../../../../actions/CardAction";
-import {getTodaysDate} from "../../../../Helpers/Helper";
+import {amountInput, getTodaysDate, initializeAmountInput} from "../../../../Helpers/Helper";
 import moment from "moment";
 
 
@@ -40,6 +40,7 @@ class BackUpGoalsForm extends Component {
             showDay: false,
             showHour: true,
             loading:false,
+            err:''
 
         };
         this.reset = this.reset.bind(this);
@@ -258,6 +259,31 @@ class BackUpGoalsForm extends Component {
         })
 
     };
+
+
+    textAmountHandler=(event)=>{
+        let name = event.target.name;
+        let value = event.target.value;
+
+        console.log(name,value);
+        // check if the value exist
+        if(value!==""){
+            if(parseFloat(value).toFixed(2) !== 0.00){
+                const rawValue = parseFloat(value.trim().replace(',','').replace('₦',''))
+                console.log(name,rawValue);
+                let data = {...this.state.instantSaveInfo};
+                data[name] = rawValue;
+                this.setState({
+                    form: data,
+                    err: ''
+                })
+            }
+        }else {
+            this.setState({
+                err: 'Please Input the Amount you want to Save'
+            })
+        }
+    };
     componentDidMount() {
 
         //get pay auths
@@ -269,6 +295,9 @@ class BackUpGoalsForm extends Component {
             })
 
         }
+
+        initializeAmountInput();
+
     }
     render() {
         const {title, goal_amount, start_date,frequency,payment_auth, maturity_date, contribution, hour_of_day, day_of_week, day_of_month} = this.state.form;
@@ -378,13 +407,15 @@ class BackUpGoalsForm extends Component {
                         <Form.Group as={Col} sm={6}>
                             <Form.Label>Contribution(NGN)</Form.Label>
                             <Form.Control
-                                type="number" id="contribution"
+                                type="text" id="contribution"
+                                className={'amount-input'}
                                 value={contribution} step={'5'} name="contribution"
                                 onChange={this.changeHandler}/>
                             <Form.Text className="text-muted">
                                 Contribution range daily [ &#8358; 50 - &#8358; 25000]
                             </Form.Text>
-                            {this.validator.message('contribution', contribution, 'required|numeric')}
+                            {/*{this.validator.message('contribution', contribution, 'required|numeric')}*/}
+                            {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}
 
                         </Form.Group>
                     </Form.Row>
@@ -440,7 +471,8 @@ class BackUpGoalsForm extends Component {
                         <Form.Group as={Col}>
                             <Form.Label>Goal Amount(NGN)</Form.Label>
                             <Form.Control
-                                type="number"
+                                type="text"
+                                className={'amount-input'}
                                 name={'goal_amount'}
                                 id={'number'}
                                 value={goal_amount}

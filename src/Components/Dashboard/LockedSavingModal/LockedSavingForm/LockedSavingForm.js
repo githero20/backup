@@ -8,6 +8,7 @@ import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import {withToastManager} from 'react-toast-notifications';
 import {createLockedSavings, getLockedInterestSavings} from "../../../../actions/LockedSavingsAction";
 import moment from 'moment';
+import {amountInput, formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
 
 class LockedSavingForm extends Component {
 
@@ -28,7 +29,8 @@ class LockedSavingForm extends Component {
                 source:'central_vault',
                 interestRate: 0.0,
                 accepted: false
-            }
+            },
+            err:''
         };
         this.validator = new SimpleReactValidator({
             messages: {
@@ -102,10 +104,23 @@ class LockedSavingForm extends Component {
     };
 
     handleAmountInput(e) {
-        let form = {...this.state.form};
-        form.amount = e.target.value;
-        form.interestRate = ((form.interest/100) * e.target.value).toFixed(2);
-        this.setState({form});
+
+        const value = e.target.value;
+        if(value!=="" && parseFloat(value).toFixed(2) !== 0.00){
+                const rawValue = parseFloat(value.trim().replace(',','').replace('₦',''));
+                console.log(rawValue);
+                let form = {...this.state.form};
+                form.amount = rawValue;
+                form.interestRate = ((form.interest/100) * rawValue).toFixed(2);
+                console.log('interest rate',form.interestRate);
+                this.setState({form,err:''});
+
+        }else {
+            this.setState({
+                err: 'Please Input the Amount you want to Contribute'
+            })
+        }
+
     }
 
     handleLockedSavingsInterest(status, data) {
@@ -126,6 +141,11 @@ class LockedSavingForm extends Component {
     }
 
 
+    componentDidMount() {
+        // getLockedInterestSavings()
+        // initialize inputs with commas
+       initializeAmountInput();
+    }
 
     render() {
         return (
@@ -142,6 +162,7 @@ class LockedSavingForm extends Component {
                             />
                             {this.validator.message("locked savings name", this.state.form.title, "required")}
                         </Form.Group>
+
                         <Form.Group as={Col} sm={6}  controlId="formGridEmail">
                             <Form.Label>Maturity Date</Form.Label>
                             <Form.Control
@@ -157,19 +178,22 @@ class LockedSavingForm extends Component {
                             </Form.Text>
                             {this.validator.message("maturity date", this.state.form.end_date, "required")}
                         </Form.Group>
-
                     </Form.Row>
 
                     <Form.Row>
+
                         <Form.Group as={Col} sm={6} controlId="formGridCity">
                             <Form.Label>Capital Investment</Form.Label>
                             <Form.Control
-                                type="number"
+                                type="text"
+                                className={'amount-input'}
                                 onChange={this.handleAmountInput}
                                 value={this.state.form.amount}
 
                             />
-                            {this.validator.message("capital investment", this.state.form.amount, "required")}
+                            {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}
+
+                            {/*{this.validator.message("capital investment", this.state.form.amount, "required")}*/}
                             <Form.Text className="text-muted">
                                 Enter the amount that will be instantly removed from your BackupCash "Central Vault"
                                 balance and locked away.
@@ -180,7 +204,7 @@ class LockedSavingForm extends Component {
                             <Form.Control
                                 type="text"
                                 disabled={true}
-                                value={`₦ ${this.state.form.interestRate} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days`}
+                                value={`₦ ${formatNumber(this.state.form.interestRate)} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days`}
                             />
                             <Form.Text className="text-muted">
                                 This upfront interest will be deposited in your Backup Cash "Backup Stash" and can be withdrawn immediately
@@ -196,7 +220,7 @@ class LockedSavingForm extends Component {
                                 label={<Form.Text>
                                     I hereby confirm and approve this transaction, and I authorize SFS BackupCash to
                                     LOCK ₦
-                                    <span>{this.state.form.amount}</span> &nbsp; from my BackupCash savings immediately
+                                    <span>{formatNumber(this.state.form.amount)}</span> &nbsp; from my BackupCash savings immediately
                                     and return it in full on the date I set in the "Maturity Date"
                                     above. This transaction is IRREVERSIBLE.
                                     <br/>

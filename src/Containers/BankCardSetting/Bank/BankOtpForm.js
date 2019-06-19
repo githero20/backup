@@ -84,7 +84,7 @@ class BankOtpForm extends Component {
                     <Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridCity">
-                                <Form.Text>An OTP has been sent to you email and phone number.</Form.Text>
+                                <Form.Text>An OTP has been sent to your email and phone number.</Form.Text>
                                 <Form.Label>Enter OTP: </Form.Label>
                                 <Form.Control
                                     type="number"

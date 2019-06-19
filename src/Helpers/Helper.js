@@ -3,6 +3,7 @@ import React from "react";
 import {_isDateAfterToday} from "../utils";
 import {getLocalStorage, setLocalStorage} from "../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../Components/Auth/HOC/authcontroller";
+import AutoNumeric from "autonumeric";
 
 
 export const STANDARD_ACCOUNT = 1;
@@ -154,8 +155,8 @@ export function descriptionFormatter (cell) {
 export function amountFormatter (cell,row) {
     return (
         <p style={{minWidth:'100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
-                {row.type === 'credit' ? '+' : '-'} &#8358; &nbsp;
-            {formatNumber(parseFloat(cell).toFixed(2))}
+                {row.type === 'credit' ? '+' : '-'}
+            {cell!=null?(`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`):'N/A'}
             </p>
     )
 }
@@ -210,4 +211,37 @@ export async function getToken() {
 
 export  function setupUser(payload){
     setLocalStorage(USERINFO,payload);
+}
+
+
+export function amountInput (selector){
+
+
+    // AutoNumeric initialisation
+    // const isAmount = new AutoNumeric(className, {currencySymbol: "₦",
+    //     maximumValue: "1000000000",
+    //     minimumValue: "0",
+    //     currencySymbolPlacement:'p',
+    //     digitGroupSeparator:',',
+    //     noEventListeners:false,
+    // });
+
+    const isAmount = AutoNumeric.multiple(selector, {currencySymbol: "₦",
+        maximumValue: "1000000000",
+        minimumValue: "0",
+        currencySymbolPlacement:'p',
+        digitGroupSeparator:',',
+        noEventListeners:false,
+    });
+
+    return isAmount;
+
+}
+
+
+export function initializeAmountInput() {
+    // initialize inputs with commas
+    const isAmount = amountInput('.amount-input');
+
+    console.log(isAmount);
 }

@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {formatNumber, transformHour} from "../../../../Helpers/Helper";
+import {formatNumber, initializeAmountInput, transformHour} from "../../../../Helpers/Helper";
 import {
     continueSteadySave, createSteadySave,
     pauseSteadySave,
@@ -38,6 +38,7 @@ class CreateSteadySaveForm extends Component {
                 raw: null,
                 title:'steady save'
             },
+            err:'',
             showMonth: false,
             showDay: false,
             showHour: true,
@@ -57,6 +58,8 @@ class CreateSteadySaveForm extends Component {
                 userCards: userInfo.authorization.data
             })
         }
+
+        initializeAmountInput();
     }
 
     validateStartDate() {
@@ -212,13 +215,35 @@ class CreateSteadySaveForm extends Component {
                 })
                 // const id = this.props.id;
                 // request(`${EditSteadySave}${id}`, null, true, 'GET', this.handleResponse)
-
             }
-
-
         }
 
     };
+
+    textAmountHandler=(event)=>{
+        let name = event.target.name;
+        let value = event.target.value;
+
+        console.log(name,value);
+        // check if the value exist
+        if(value!==""){
+            if(parseFloat(value).toFixed(2) !== 0.00){
+                const rawValue = parseFloat(value.trim().replace(',','').replace('₦',''))
+                console.log(name,rawValue);
+                let data = {...this.state.instantSaveInfo};
+                data[name] = rawValue;
+                this.setState({
+                    form: data,
+                    err: ''
+                })
+            }
+        }else {
+            this.setState({
+                err: 'Please Input the Amount you want to Save'
+            })
+        }
+    };
+
 
     render() {
 
@@ -323,10 +348,12 @@ class CreateSteadySaveForm extends Component {
                                 <Form.Control
                                     type="text"
                                     name={'contribution'}
+                                    className={'amount-input'}
                                     defaultValue={this.state.form.contribution}
-                                    onChange={this.changeHandler}/>
-
-                                {this.validator.message('contribution', this.state.form.contribution, 'required|')}
+                                    onChange={this.textAmountHandler}/>
+                                {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}
+                                {/*{this.validator.message('amount', amount, 'required|numeric')}*/}
+                                {/*{this.validator.message('contribution', this.state.form.contribution, 'required')}*/}
                             </React.Fragment>
                         </Form.Group>
                         <Form.Group as={Col} sm={6} >

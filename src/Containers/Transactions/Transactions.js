@@ -115,6 +115,12 @@ class Transactions extends Component {
                 formatter:amountFormatter,
                 sort:true,
 
+            },{
+                text: 'Balance',
+                dataField: 'balance',
+                formatter:amountFormatter,
+                sort:true,
+
             },
             {
                 text: 'Status',

@@ -11,7 +11,7 @@ import {checkResponse} from "../ApiUtils/ApiUtils";
 
 export const getBackUpSavings = (callback) =>{
     // console.log("body", payload);
-    _axios.get(`${BASE_URL}/${GetBackUpGoals}`)
+    _axios.get(`${GetBackUpGoals}`)
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -143,7 +143,7 @@ export const editBGoal = (id,params, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.post(`${editBackupGoal}/${id}`)
+    _axios.post(`${editBackupGoal}/${id}`, params)
         .then(res => {
             console.log(res);
             console.log(res.data.data);

@@ -34,7 +34,8 @@ class UpdatePassword extends Component {
         old_password:null,
         password_confirmation:null,
         loading:false,
-        passErr:false
+        passErr:false,
+        passwordError:false
     };
 
     // get and validate password
@@ -49,15 +50,51 @@ class UpdatePassword extends Component {
 
     }
 
-
+    //
+    // //Retrieves user inputs
+    // changeHandler = event => {
+    //     const name = event.target.name;
+    //     const value = event.target.value;
+    //
+    //     this.setState({
+    //         [name]: value
+    //     });
+    // };
     //Retrieves user inputs
     changeHandler = event => {
         const name = event.target.name;
         const value = event.target.value;
 
+        console.log(value);
+
+        //validate password
+        if (name === 'password') {
+            this.validatePassword();
+        }
+
         this.setState({
             [name]: value
         });
+        // this.validatePasswords();
+    };
+
+
+    validatePassword = () => {
+        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+        //^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})
+
+        const {password} = this.state;
+
+        if (strongRegex.exec(password)) {
+            this.setState({
+                passwordError: false,
+            })
+        } else {
+            this.setState({
+                passwordError: true,
+            })
+        }
+
     };
 
     handleUpdateResponse = (state,response)=> {
@@ -196,7 +233,13 @@ class UpdatePassword extends Component {
                                         name="old_password"
                                     />
 
-                                    {this.validator.message('Old password', password, 'required|string|min:8')}
+                                    {/*{this.validator.message('Old password', password, 'required|string|min:8')}*/}
+                                    {this.state.passwordError ?
+                                        <label className={'srv-validation-message'}>Password must contain at least one
+                                            lowercase letter,
+                                            one uppercase letter , one number ,one special character and must be a minimum
+                                            of 8 characters
+                                        </label> : null}
                                 </div>
                             </div>
                             <div className="col-md-4">

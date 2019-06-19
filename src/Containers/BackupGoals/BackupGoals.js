@@ -33,6 +33,7 @@ class BackupGoals extends Component {
             selectedBGHistory:null
         };
         // this.handleBackUpGoals = this.handleBackUpGoals.bind(this);
+        this.fetchBackUpGoals = this.fetchBackUpGoals.bind(this);
     }
 
     showBackUpModal = () => {
@@ -59,6 +60,7 @@ class BackupGoals extends Component {
 
 
     fetchBackUpGoals() {
+        console.log('i ran after continue');
         this.setState({
             showloader: true,
         });
@@ -177,9 +179,15 @@ class BackupGoals extends Component {
 
     }
 
+    updateSelectedBG=(content)=>{
+        // this.showBackUp(content.id)
+        this.setState({
+            selectedBG:content
+        })
+    }
+
     render() {
 
-        console.log(this.state.selectedBG);
         const columns = [
 
             {
@@ -304,7 +312,12 @@ class BackupGoals extends Component {
                                                     </h3>
                                                     <BGStartAmountCard bgInfo={this.state.selectedBG}/>
                                                 </div>
-                                                <BackupGoalQuickActions showBackUpHistory={this.showBackUpHistory}  hideBG={this.hideBackupGoal} fetchGoals={this.fetchBackUpGoals} selectedBG={this.state.selectedBG}/>
+                                                <BackupGoalQuickActions showBackUpHistory={this.showBackUpHistory}
+                                                                        hideBG={this.hideBackupGoal}
+                                                                        fetchGoals={this.fetchBackUpGoals}
+                                                                        selectedBG={this.state.selectedBG}
+                                                                        updateSelectedBG={this.updateSelectedBG}
+                                                />
                                             </div>
                                             <div className="row">
                                                 <div id="Back-up-goals" className="col-12 col-md-12">
@@ -444,7 +457,7 @@ class BackupGoals extends Component {
                                                                                     <p className={'gray-text goal-target'}>Target</p>
                                                                                     <div
                                                                                         className='d-flex justify-content-between'>
-                                                                                        <h6 className={'goal-box-amount'}>{formatNumber(content.target_amount)}</h6>
+                                                                                        <h6 className={'goal-box-amount'}>{formatNumber(parseFloat(content.target_amount).toFixed(2))}</h6>
                                                                                         {!Number(content.is_pause) ?
                                                                                             (
                                                                                                 <span

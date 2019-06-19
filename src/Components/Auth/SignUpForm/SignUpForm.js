@@ -382,7 +382,7 @@ class SignUpForm extends Component {
                                 <label htmlFor="password_confirmation">Confirm Password</label>
                                 <input id="password_confirmation" name={'password_confirmation'} type="password"
                                        className="form-control" onChange={this.changeHandler}
-                                       />
+                                />
                                 {this.state.ConfirmPassError ?
                                     <label className={'srv-validation-message'}>Password Doesn't match</label> : null}
                             </div>

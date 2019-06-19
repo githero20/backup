@@ -7,7 +7,7 @@ import {BankCardLink, instantSaveEndpoint} from "../../../../RouteLinks/RouteLin
 import {USERACTIVATED, USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {ADD_CARD} from "../../../../Helpers/Helper";
+import {ADD_CARD, amountInput, initializeAmountInput} from "../../../../Helpers/Helper";
 import {getUserCards, initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {_getUser, _payWithPaystack} from "../../../../utils";
 import {Link} from 'react-router-dom';
@@ -229,15 +229,6 @@ class InstantSavingForm extends Component {
                 err: 'Please Input the Amount you want to Save'
             })
         }
-
-        //strip the commas
-
-
-        // convert to number
-
-
-        // check if the number i
-
     }
 
 
@@ -258,15 +249,15 @@ class InstantSavingForm extends Component {
         // document.querySelector('#version').innerHTML = `AutoNumeric version <code>${AutoNumeric.version()}</code>`;
 
         // AutoNumeric initialisation
-        const isAmount = new AutoNumeric('.instant-save-input', {currencySymbol: "₦",
-            maximumValue: "1000000000",
-            minimumValue: "0",
-            currencySymbolPlacement:'p',
-            digitGroupSeparator:',',
-            noEventListeners:false,
-        });
+        // const isAmount = new AutoNumeric('.instant-save-input', {currencySymbol: "₦",
+        //     maximumValue: "1000000000",
+        //     minimumValue: "0",
+        //     currencySymbolPlacement:'p',
+        //     digitGroupSeparator:',',
+        //     noEventListeners:false,
+        // });
 
-        console.log(isAmount);
+        initializeAmountInput();
 
     }
 
@@ -369,12 +360,12 @@ class InstantSavingForm extends Component {
                                 {/* used automatic js text for numbers */}
                                 <Form.Control
                                     type="text"
-                                    className={'instant-save-input'}
+                                    className={'amount-input'}
                                     placeholder={'₦500'} name={'amount'}
                                     id={'amount'}
                                     onChange={this.textAmountHandler}
                                 />
-                                {this.state.err?<span>{this.state.err}</span>:null}
+                                {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}
                                 {/*{this.validator.message('amount', amount, 'required|numeric')}*/}
                             </Form.Group>
                         </Col>

@@ -109,6 +109,12 @@ class LockedSavings extends Component {
 
             },
             {
+                text: 'Balance',
+                dataField: 'balance',
+                // formatter:moneyFormatter,
+                sort:true,
+
+            },{
                 text: 'Amount',
                 dataField: 'amount',
                 formatter:moneyFormatter,
@@ -205,12 +211,12 @@ class LockedSavings extends Component {
                                                     {/*    </span>sort*/}
                                                     {/*</div>*/}
                                                 </div>
+                                                <div className="row">
+                                                    <TransactionTable transactions={this.state.lockedSavings} columns={columns} />
+                                                </div>
 
                                                 <div className="box-grid-container  light-blue-bg px-md-3 py-md-3">
 
-                                                    <div className="row">
-                                                        <TransactionTable transactions={this.state.lockedSavings} columns={columns} />
-                                                    </div>
 
                                                     {/*<div className="table-view table-responsive mb-5">*/}
                                                     {/*    <table id="recent-orders"*/}

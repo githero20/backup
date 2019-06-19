@@ -8,6 +8,7 @@ import {Link, Redirect} from "react-router-dom";
 import {DashboardLink, getUserInfoEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
 import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
+import {amountInput} from "../../../Helpers/Helper";
 
 class HorizontalNav extends Component {
 
@@ -38,16 +39,22 @@ class HorizontalNav extends Component {
         })
     };
 
-    componentDidMount() {
+    async componentDidMount() {
 
         //get name from localStorage
-        if(getLocalStorage(USERINFO)){
-            setTimeout(()=>{
-                const user = JSON.parse(getLocalStorage(USERINFO));
-                this.setState({userName:user.name})
-
-            },3000);
-        }
+        // if(getLocalStorage(USERINFO)){
+        //     setTimeout(()=>{
+        //         const user = JSON.parse(getLocalStorage(USERINFO));
+        //         this.setState({userName:user.name})
+        //
+        //     },3000);
+        // }
+                try{
+                    const user = await JSON.parse(getLocalStorage(USERINFO));
+                    this.setState({userName:user.name})
+                }catch (e) {
+                    console.log(e);
+                }
 
 
     }

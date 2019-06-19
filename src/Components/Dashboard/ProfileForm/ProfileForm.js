@@ -6,7 +6,7 @@ import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../Auth/HOC/authcontroller";
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import SimpleReactValidator from "simple-react-validator";
-
+import  swal from 'sweetalert';
 
 class ProfileForm extends Component {
 
@@ -81,11 +81,23 @@ class ProfileForm extends Component {
     // };
 
     copyToClipboard = (e) => {
-        document.getElementById('referral_code').value();
+
+        let text = document.getElementById("referral_code").value;
+        console.log(text);
+
+        let textField = document.createElement('textarea');
+        textField.innerText = text;
+        document.body.appendChild(textField);
+        textField.select();
         document.execCommand('copy');
-        // This is just personal preference.
-        // I prefer to not show the the whole text area selected.
-        e.target.focus();
+        textField.remove();
+        swal('Copied','Referral Code Copied!!','success');
+        //
+        // document.getElementById('referral_code').value();
+        // document.execCommand('copy');
+        // // This is just personal preference.
+        // // I prefer to not show the the whole text area selected.
+        // e.target.focus();
         this.setState({ copySuccess: true });
     };
 
@@ -127,18 +139,18 @@ class ProfileForm extends Component {
                                         <img src={AvatarImage}
                                              className="height-100 rounded-circle" alt=""/>
                                     </div>
-                                    <div className="d-inline ml-1 ml-md-0 d-md-flex">
-                                        <button type="button"
-                                                className="btn-sm-outline mr-1"><img
-                                            className="img-2x"
-                                            src={deleteIcon}/>
-                                        </button>
-                                        <button type="button"
-                                                className="btn-sm-outline"><img
-                                            className="img-2x"
-                                            src={editIcon}/>
-                                        </button>
-                                    </div>
+                                    {/*<div className="d-inline ml-1 ml-md-0 d-md-flex">*/}
+                                    {/*    <button type="button"*/}
+                                    {/*            className="btn-sm-outline mr-1"><img*/}
+                                    {/*        className="img-2x"*/}
+                                    {/*        src={deleteIcon}/>*/}
+                                    {/*    </button>*/}
+                                    {/*    <button type="button"*/}
+                                    {/*            className="btn-sm-outline"><img*/}
+                                    {/*        className="img-2x"*/}
+                                    {/*        src={editIcon}/>*/}
+                                    {/*    </button>*/}
+                                    {/*</div>*/}
                                 </div>
                                 <div className="col-md-8">
                                     <div className="row">

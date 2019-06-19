@@ -3,14 +3,11 @@ import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-wh
 import {continueBGoal, createBackUpGoal, pauseBGoal, stopBGoal} from "../../actions/BackUpGoalsAction";
 import {withToastManager} from 'react-toast-notifications';
 import swal from "sweetalert";
-import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import EditBGModal from "../../Components/Dashboard/EditBackUpGoalModal/EditBGModal";
 import SimpleReactValidator from "simple-react-validator";
-import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../utils";
-import {initTransaction, verifyTransaction} from "../../actions/CardAction";
+import {_calculateDateDifference, _handleFormChange} from "../../utils";
 
-class BackupGoalQuickActions extends React.Component
-{
+class BackupGoalQuickActions extends React.Component {
 
 
     constructor(props) {
@@ -31,13 +28,13 @@ class BackupGoalQuickActions extends React.Component
                 day_of_week: null,
                 day_of_month: null,
             },
-            dateDifference:0,
+            dateDifference: 0,
             userCards: [],
             showMonth: false,
             showDay: false,
             showHour: true,
-            loading:false,
-            showEditModal:false
+            loading: false,
+            showEditModal: false
         };
 
         this.changeHandler = this.changeHandler.bind(this);
@@ -47,11 +44,11 @@ class BackupGoalQuickActions extends React.Component
 
 
     //validate form
-    handleFrequencySelect(form, inverse = false){
+    handleFrequencySelect(form, inverse = false) {
         // console.log(form);
-        if(inverse){
-            if(form.frequency == "daily"){
-                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date,"days")) || 0;
+        if (inverse) {
+            if (form.frequency == "daily") {
+                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date, "days")) || 0;
                 this.setState({
                     showMonth: false,
                     showDay: false,
@@ -59,17 +56,16 @@ class BackupGoalQuickActions extends React.Component
                     form
                 });
                 //calculate the difference between the start date and the maturity date
-            }
-            else if(form.frequency == "weekly"){
-                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date,"weeks")) || 0;
+            } else if (form.frequency == "weekly") {
+                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date, "weeks")) || 0;
                 this.setState({
                     showMonth: false,
                     showDay: true,
                     showHour: true,
                     form
                 });
-            }else if(form.frequency == "monthly"){
-                form.contribution = (form.goal_amount /_calculateDateDifference(form.start_date, form.maturity_date,"months")) || 0;
+            } else if (form.frequency == "monthly") {
+                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date, "months")) || 0;
                 this.setState({
                     showMonth: true,
                     showDay: false,
@@ -77,9 +73,9 @@ class BackupGoalQuickActions extends React.Component
                     form
                 })
             }
-        }else{
-            if(form.frequency == "daily"){
-                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"days") * form.contribution) || 0;
+        } else {
+            if (form.frequency == "daily") {
+                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "days") * form.contribution) || 0;
                 this.setState({
                     showMonth: false,
                     showDay: false,
@@ -87,17 +83,16 @@ class BackupGoalQuickActions extends React.Component
                     form
                 });
                 //calculate the difference between the start date and the maturity date
-            }
-            else if(form.frequency == "weekly"){
-                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
+            } else if (form.frequency == "weekly") {
+                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "weeks") * form.contribution) || 0;
                 this.setState({
                     showMonth: false,
                     showDay: true,
                     showHour: true,
                     form
                 });
-            }else if(form.frequency == "monthly"){
-                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
+            } else if (form.frequency == "monthly") {
+                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "months") * form.contribution) || 0;
                 this.setState({
                     showMonth: true,
                     showDay: false,
@@ -122,29 +117,29 @@ class BackupGoalQuickActions extends React.Component
             console.log('worked');
             //show loader
             this.setState({
-                loading:true,
+                loading: true,
             });
 
             if (parseInt(this.state.form.payment_auth) === 0) {
                 //initiate paystack
                 console.log('got here to initiate paystack');
                 this.initiatePayStack();
-            }else {
+            } else {
 
-                createBackUpGoal(this.state.form, (status, payload) =>{
+                createBackUpGoal(this.state.form, (status, payload) => {
                     //remove loader
 
                     this.setState({
-                        loading:false,
+                        loading: false,
                     });
                     console.log("Res", status, payload);
-                    if(status){
+                    if (status) {
                         console.log("here");
                         this.props.toastManager.add("Backup Goal Saved.", {
                             appearance: "success"
                         });
-                        setTimeout(()=> this.props.onHide(true), 2000);
-                    }else{
+                        setTimeout(() => this.props.onHide(true), 2000);
+                    } else {
                         // console.log(payload, "Message", this.toastManager);
                         this.props.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
                             appearance: "error",
@@ -161,56 +156,40 @@ class BackupGoalQuickActions extends React.Component
     };
 
 
-
-    hideModal= ()=>{
+    hideModal = () => {
         this.setState({
-            showEditModal:false
+            showEditModal: false
         })
     }
 
 
-    handleGoalAmount(e){
+    handleGoalAmount(e) {
         this.changeHandler(e, true)
     }
+
     //Retrieves user inputs
-    changeHandler(event, inverse = false){
-        const form =  _handleFormChange(
+    changeHandler(event, inverse = false) {
+        const form = _handleFormChange(
             event.target.name,
             event,
             this
         );
 
         // console.log("megg", event.target.name, event.target.value);
-        this.handleFrequencySelect(form,inverse);
+        this.handleFrequencySelect(form, inverse);
 
     };
 
 
-    handleEdit=(id)=>{
-
+    handleEdit = (id) => {
         // show modal
         this.setState({
-            showEditModal:true,
+            showEditModal: true,
         })
-
-        // fetch info
-
-        //display info
-
-        //edit info
-
-        //validate info
-
-
-        // submit info
-
-        // handle response and error
-
-
     }
 
 
-    handleStop  =(id)=>{
+    handleStop = (id) => {
 
         swal({
             title: "Backup Goals",
@@ -220,7 +199,7 @@ class BackupGoalQuickActions extends React.Component
         })
             .then((willStop) => {
                 if (willStop) {
-                    stopBGoal(id,this.handleStopResponse);
+                    stopBGoal(id, this.handleStopResponse);
                 } else {
                     swal("Your Backup Goal is still active");
                 }
@@ -228,15 +207,18 @@ class BackupGoalQuickActions extends React.Component
 
     }
 
-    handleStopResponse = (status,res)=>{
-        if(status){
+    handleStopResponse = (status, res) => {
+
+        if (status) {
 
             console.log(res);
             swal("You have successfully stopped your backup goal.", {
                 icon: "success",
+            }).then(() => {
+                this.props.fetchGoals();
+                this.props.updateSelectedBG(res);
             });
-            this.props.fetchGoals();
-        }else {
+        } else {
             console.log(res);
             swal("Something went wrong.", {
                 icon: "error",
@@ -245,7 +227,7 @@ class BackupGoalQuickActions extends React.Component
     }
 
 
-    handlePause=(id)=>{
+    handlePause = (id) => {
         swal({
             title: "Backup Goals",
             text: "Hey! sure you want to pause this active Backup Goal ?",
@@ -255,7 +237,7 @@ class BackupGoalQuickActions extends React.Component
             .then((willPause) => {
                 if (willPause) {
 
-                    pauseBGoal(id,this.handlePauseResponse);
+                    pauseBGoal(id, this.handlePauseResponse);
 
 
                 } else {
@@ -265,17 +247,19 @@ class BackupGoalQuickActions extends React.Component
 
     }
 
-    handlePauseResponse = (status,res)=>{
-        if(status){
+    handlePauseResponse = (status, res) => {
+        if (status) {
             swal("You have successfully paused your backup goal.", {
                 icon: "success",
+            }).then(() => {
+                this.props.fetchGoals();
+                this.props.updateSelectedBG(res);
             });
-            this.props.fetchGoals();
         }
     }
 
 
-    handleContinue=(id)=>{
+    handleContinue = (id) => {
         swal({
             title: "Backup Goals",
             text: "Hey! sure you want to continue this Backup Goal ?",
@@ -284,7 +268,7 @@ class BackupGoalQuickActions extends React.Component
         })
             .then((willContinue) => {
                 if (willContinue) {
-                    continueBGoal(id,this.handleContinueResponse);
+                    continueBGoal(id, this.handleContinueResponse);
                 } else {
                     swal("Your Backup Goal is currently paused");
                 }
@@ -293,16 +277,17 @@ class BackupGoalQuickActions extends React.Component
     }
 
 
-    handleContinueResponse = (status,res)=>{
-        if(status){
+    handleContinueResponse = (status, res) => {
+        if (status) {
             swal("You have successfully continued your backup goal.", {
                 icon: "success",
+            }).then(() => {
+                this.props.fetchGoals();
+                this.props.updateSelectedBG(res);
             });
-            this.props.fetchGoals();
         }
 
     }
-
 
 
     componentDidMount() {
@@ -311,12 +296,13 @@ class BackupGoalQuickActions extends React.Component
     }
 
 
-    render()
-    {
+    render() {
         return (
             <React.Fragment>
                 <div className="col-lg-3 col-12 order-lg-5">
-                    <h3 className="gray-header-text text-right fs-mb-1 mb-2"><a href='#!' className='gray-text' onClick={()=>this.props.hideBG()}><i className={'fa fa-arrow-left'}></i> Back</a></h3>
+                    <h3 className="gray-header-text text-right fs-mb-1 mb-2"><a href='#!' className='gray-text'
+                                                                                onClick={() => this.props.hideBG()}><i
+                        className={'fa fa-arrow-left'}></i> Back</a></h3>
                     <div className="mb-quick-actions d-flex flex-column flex-wrap ">
                         <span className="mb-btn-wrapper">
                             <button type="button"
@@ -331,7 +317,8 @@ class BackupGoalQuickActions extends React.Component
                             this.state.showEditModal ?
                                 (
                                     <React.Fragment>
-                                        <EditBGModal selectedBG={this.props.selectedBG} show={this.state.showEditModal} onHide={this.hideModal}
+                                        <EditBGModal selectedBG={this.props.selectedBG} show={this.state.showEditModal}
+                                                     onHide={this.hideModal}
                                         />
                                     </React.Fragment>
 
@@ -340,7 +327,7 @@ class BackupGoalQuickActions extends React.Component
 
 
                         {
-                            Number(this.props.selectedBG.is_pause)?
+                            Number(this.props.selectedBG.is_pause) ?
 
                                 (
                                     <span className="mb-btn-wrapper">
@@ -352,7 +339,7 @@ class BackupGoalQuickActions extends React.Component
                                         </button>
                                     </span>
 
-                                ):
+                                ) :
                                 (
                                     <span className="mb-btn-wrapper">
                                         <button type="button"
@@ -366,7 +353,7 @@ class BackupGoalQuickActions extends React.Component
                         }
 
                         {
-                            !Number(this.props.selectedBG.stop)?
+                            !Number(this.props.selectedBG.stop) ?
                                 (
                                     <span className="mb-btn-wrapper">
                                         <button type="button"
@@ -376,7 +363,7 @@ class BackupGoalQuickActions extends React.Component
                                             Stop
                                         </button>
                                     </span>
-                                ):null
+                                ) : null
                         }
 
 

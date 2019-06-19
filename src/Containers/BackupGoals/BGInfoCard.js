@@ -22,7 +22,7 @@ import {formatNumber} from "../../Helpers/Helper";
 
                                     <div className="text-white ">
                                         <h5 className={'text-capitalize'}>target Amount</h5>
-                                        <strong className="blue-card-price ml-2 mr-2">₦ {props.bgInfo?formatNumber(props.bgInfo.target_amount):'0.00'}</strong>
+                                        <strong className="blue-card-price ml-2 mr-2">₦ {props.bgInfo?formatNumber(parseFloat(props.bgInfo.target_amount).toFixed(2)):'0.00'}</strong>
                                     </div>
                                 </div>
                             </div>

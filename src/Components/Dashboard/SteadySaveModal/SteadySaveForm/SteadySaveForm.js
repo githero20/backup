@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {formatNumber, transformHour} from "../../../../Helpers/Helper";
+import {amountInput, formatNumber, initializeAmountInput, transformHour} from "../../../../Helpers/Helper";
 import {continueSteadySave, pauseSteadySave, stopSteadySave} from "../../../../actions/SteadySaveAction";
 
 
@@ -129,6 +129,9 @@ class SteadySaveForm extends Component {
                 userCards: userInfo.authorization.data
             });
         }
+
+        initializeAmountInput();
+
     }
 
 

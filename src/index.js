@@ -12,6 +12,7 @@ import './admin/assets/css/responsiveness.css';
 import * as serviceWorker from './serviceWorker';
 import AppRouter from "./AppRouter/AppRouter";
 import {ToastProvider} from "react-toast-notifications";
+import {amountInput} from "./Helpers/Helper";
 
 
 ReactDOM.render(<ToastProvider><AppRouter/></ToastProvider>, document.getElementById('root'));

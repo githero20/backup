@@ -187,6 +187,10 @@ export function viewFormatter(cell){
     return <button className={'btn btn-custom-blue btn-block'}>View History</button>
 
 }
+export function balanceFormatter(cell){
+    return <label className={'text-info'}>{cell!=null?formatNumber(parseFloat(cell).toFixed(2)):'N/A'}</label>
+
+}
 export function lockedStatusFormatter(cell){
     return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> : <button className={'btn btn-warning'}>Ongoing</button>)
 

@@ -13,6 +13,7 @@ import BackupGoalQuickActions from "./BackupGoalQuickActions";
 import BGStartAmountCard from "./BGStartAmountCard";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {dateFormatter,moneyFormatter} from "../../Helpers/Helper";
+import moment from 'moment';
 
 class BackupGoals extends Component {
 
@@ -457,8 +458,9 @@ class BackupGoals extends Component {
                                                                                     <p className={'gray-text goal-target'}>Target</p>
                                                                                     <div
                                                                                         className='d-flex justify-content-between'>
+                                                                                        {/*(moment(content.end_date).format('YYYY-MM-DD')>moment().format('YYYY-MM-DD') && parseInt(content.is_pause) === 0 && parseInt(content.stop)*/}
                                                                                         <h6 className={'goal-box-amount'}>{formatNumber(parseFloat(content.target_amount).toFixed(2))}</h6>
-                                                                                        {!Number(content.is_pause) ?
+                                                                                        {moment(content.end_date).format('YYYY-MM-DD') > moment().format('YYYY-MM-DD') && !parseInt(content.is_pause) && parseInt(content.stop)===0 ?
                                                                                             (
                                                                                                 <span
                                                                                                     className={'goal-active text-success'}>Active</span>) :

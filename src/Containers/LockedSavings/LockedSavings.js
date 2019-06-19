@@ -9,9 +9,8 @@ import {_getToken, _isDateAfter, _isDateAfterToday, _transformDate} from "../../
 import {getLockedSavings} from "../../actions/LockedSavingsAction";
 import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import {
-    dateFormatter,
-    descriptionFormatter,
-    interestFormatter, lockedStatusFormatter, moneyFormatter,
+    dateFormatter, balanceFormatter,
+    interestFormatter, moneyFormatter,
 } from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
@@ -111,7 +110,7 @@ class LockedSavings extends Component {
             {
                 text: 'Balance',
                 dataField: 'balance',
-                // formatter:moneyFormatter,
+                formatter:balanceFormatter,
                 sort:true,
 
             },{
@@ -215,7 +214,7 @@ class LockedSavings extends Component {
                                                     <TransactionTable transactions={this.state.lockedSavings} columns={columns} />
                                                 </div>
 
-                                                <div className="box-grid-container  light-blue-bg px-md-3 py-md-3">
+                                                {/*<div className="box-grid-container  light-blue-bg px-md-3 py-md-3">*/}
 
 
                                                     {/*<div className="table-view table-responsive mb-5">*/}
@@ -296,7 +295,7 @@ class LockedSavings extends Component {
                                                     {/*        </li>*/}
                                                     {/*    </ul>*/}
                                                     {/*</nav>*/}
-                                                </div>
+                                                {/*</div>*/}
                                             </div>
                                         </div>
                                     </div>

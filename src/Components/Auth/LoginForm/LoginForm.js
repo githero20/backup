@@ -97,7 +97,6 @@ class LoginForm extends Component {
 
 
         } else {
-            console.log('err login',state,response.status);
 
             this.setState({loading: false});
 

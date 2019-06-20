@@ -90,7 +90,7 @@ export const makeWithdrawal = (payload, callback) => {
             try{
                 console.log("Err", JSON.stringify(err));
                 checkResponse(err);
-                callback(false, err.response);
+                callback(false, err.response.data.message);
             }catch (e) {
                 //log both e and err
                 console.log("Err", e);

@@ -35,7 +35,7 @@ const AuthController = component => {
                 axios.get(verifyTokenURL, {headers: {Authorization: `Bearer ${JSON.parse(localStorage.getItem(USERTOKEN))}`}}).then(
                     res => {
                         localStorage.setItem(USERINFO, JSON.stringify(res.data.data));
-                        console.log(JSON.stringify(res.data.data));
+                        // console.log(JSON.stringify(res.data.data));
                         setFetching(false);
                     },
                     err => {
@@ -55,10 +55,10 @@ const AuthController = component => {
                                 }
                             } else{
                                 //TODO("Log to central Log")
-                                console.error("Unknown Error", err);
+                                // console.error("Unknown Error", err);
                             }
                         }catch (e) {
-                            console.log("Critical Error", e);
+                            // console.log("Critical Error", e);
                         }
 
                     }

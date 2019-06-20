@@ -64,12 +64,13 @@ class Withdrawal extends Component {
         }
 
 
-    }
+    };
 
 
     getWithdrawalList() {
         getWithdrawalList((status, payload) => {
-            if (status) {
+            console.log("Get Withdrawal List", status, payload);
+            if (status && payload.data.length > 0) {
                 this.setState({withdrawals: payload.data});
             }
             //

@@ -65,13 +65,13 @@ class WithdrawalForm extends Component {
 
     componentDidMount() {
         //get user info
-        console.log('got here');
+        // console.log('got here');
         this.getBalance();
     }
 
     getBalance = () => {
 
-        console.log('ran request');
+        // console.log('ran request');
         request(getUserInfoEndpoint,null,true,'GET',this.saveBalance);
 
     };
@@ -81,10 +81,7 @@ class WithdrawalForm extends Component {
         if(state){
 
                 if (res.data.data.accounts) {
-
                     console.log(res.data.data.accounts);
-
-                    // loop through data and set appropriate states
                     let accounts = res.data.data.accounts.data;
 
                     //get th balance
@@ -99,7 +96,7 @@ class WithdrawalForm extends Component {
         }
 
 
-    }
+    };
 
 
 
@@ -143,7 +140,9 @@ class WithdrawalForm extends Component {
                 if(payload && payload.length > 0){
                     this.setState({userBanks:payload});
                 }else{
-                    this.props.history.push("/bank-card-setting");
+                    console.log("Props", this.props, this.props.history)
+                    // this.props.history.push("/bank-card-setting");
+                    //TODO(Find another way to redirect to bank histort)
                 }
             }
 
@@ -398,7 +397,7 @@ class WithdrawalForm extends Component {
                                 {
                                     this.state.withdrawalSettings.map((settings, index) =>{
                                         const split = settings.withdrawal_date.split("/");
-                                        const month =  (moment(split[0], "MM").format("MMMM"));
+                                        const month =  (moment(split[0], "M").format("MMMM"));
                                         const day =  (moment(split[1], "DD").format("Do"));
                                         return (
                                             <li key={index}>Every {day} of {month}</li>

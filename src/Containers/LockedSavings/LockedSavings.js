@@ -121,13 +121,7 @@ class LockedSavings extends Component {
                 sort:true,
 
             },
-            {
-                text: 'Balance',
-                dataField: 'balance',
-                formatter:balanceFormatter,
-                sort:true,
-
-            },{
+           {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter:moneyFormatter,

@@ -54,6 +54,17 @@ class LockedSavings extends Component {
         })
     }
 
+    updateLockedSaving=()=>{
+        getLockedSavings((status, payload) => {
+            console.log("payload", status, payload);
+            if(status){
+                //TODO(work on making this merging this payload.data.to lockedSavings[])
+                this.setState({lockedSavings: payload});
+
+            }
+        })
+    }
+
     handleUserInfo = (status,res)=>{
         this.setState({
             showLoader:false,
@@ -97,7 +108,6 @@ class LockedSavings extends Component {
     render() {
 
 
-        console.log(this.state.lockedSavings);
         const columns = [
             {
                 text: 'Date',
@@ -151,6 +161,7 @@ class LockedSavings extends Component {
                     <LockedSavingModal
                         show={this.state.showLockedSavingsModal}
                         onHide={this.closeLSModal}
+                        updateLockedSaving={this.updateLockedSaving}
                     />
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
@@ -193,7 +204,8 @@ class LockedSavings extends Component {
                                                         </button>
                                                     </h4>
                                                     <ul className=" mb-0 locked-saving-display d-none d-md-inline-block">
-                                                        <li>{this.state.lockedSavings.length!==0?this.state.lockedSavings.length:0} &nbsp; Locked saving</li>
+                                                        <li>{this.state.lockedSavings!=undefined?this.state.lockedSavings.length:0} &nbsp; Locked saving</li>
+
                                                     </ul>
                                                     {/*<div className="table-button-container d-none d-md-inline-block">*/}
                                                     {/* <span*/}
@@ -216,7 +228,7 @@ class LockedSavings extends Component {
                                                 </div>
                                                 <div className="row">
                                                     {/*<TransactionTable transactions={this.state.lockedSavings} columns={columns} />*/}
-                                                    <LockedTransactionTable transactions={this.state.lockedSavings} columns={columns} />
+                                                    <LockedTransactionTable transactions={this.state.lockedSavings||[]} columns={columns} />
                                                 </div>
 
                                                 {/*<div className="box-grid-container  light-blue-bg px-md-3 py-md-3">*/}

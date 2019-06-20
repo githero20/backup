@@ -65,7 +65,11 @@ class LockedSavingForm extends Component {
         } else {
             this.setState({loading: true});
             //send api
-            createLockedSavings(this.state.form, (status, payload) => {
+            let formdata = {...this.state.form};
+
+            formdata.interest = this.state.form.interestRate;
+
+            createLockedSavings(formdata, (status, payload) => {
                 this.setState({loading: false});
                 if (status) {
                     this.props.toastManager.add("Locked Savings Created", {
@@ -75,17 +79,24 @@ class LockedSavingForm extends Component {
                     });
                     setTimeout(() => {
                         this.props.onHide(true);
+                        this.props.updateLockedSaving();
                     },1500)
 
 
                     // setTimeout(this.props.onHide(true),5000);
                 } else {
                     if(payload){
-                        this.props.toastManager.add(payload.data.message || "An Error Occurred", {
-                            appearance: 'error',
-                            autoDismiss: true,
-                            autoDismissTimeout: 3000,
-                        });
+                        if(payload.status==401){
+                            window.location='/login'
+                        }else {
+                            this.props.toastManager.add(payload.data.message || "An Error Occurred", {
+                                appearance: 'error',
+                                autoDismiss: true,
+                                autoDismissTimeout: 3000,
+                            });
+
+                        }
+
                     }
 
                 }

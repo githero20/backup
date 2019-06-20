@@ -25,6 +25,7 @@ class LockedSavingModal extends React.Component {
                     <ToastProvider>
                         <LockedSavingForm
                             onHide={this.props.onHide}
+                            updateLockedSaving={this.props.updateLockedSaving}
                         />
                     </ToastProvider>
                 </Modal.Body>

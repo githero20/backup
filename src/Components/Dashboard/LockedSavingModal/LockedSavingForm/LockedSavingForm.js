@@ -102,6 +102,7 @@ class LockedSavingForm extends Component {
         const dateDifference = _calculateDateDifference(null, endDate);
 
         // console.log("enddate", endDate, dateDifference);
+        console.log(dateDifference);
         getLockedInterestSavings({days: dateDifference}, this.handleLockedSavingsInterest);
         this.setState({dateDifference: dateDifference});
         //update after
@@ -128,6 +129,8 @@ class LockedSavingForm extends Component {
     }
 
     handleLockedSavingsInterest(status, data) {
+
+        console.log('sfsfdf locked',status,data);
         if (status) {
             let form = {...this.state.form};
             form.interest = data;
@@ -160,7 +163,7 @@ class LockedSavingForm extends Component {
 
 
     componentDidMount() {
-        // getLockedInterestSavings()
+        // getLockedInterestSavings();
         // initialize inputs with commas
        initializeAmountInput();
        console.log('component mounted');

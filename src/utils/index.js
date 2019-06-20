@@ -71,7 +71,7 @@ export const _getUser = () => {
 export const _axios = axios.create({
     baseURL: BASE_URL,
     headers: {
-        Authorization: `Bearer ${(localStorage.getItem(USERTOKEN)!=null)?localStorage.getItem(USERTOKEN).replace('/"/g',''):''}`
+        Authorization: `Bearer ${(localStorage.getItem(USERTOKEN)!=null)?localStorage.getItem(USERTOKEN).replace(/"/g,''):''}`
         // Authorization: "Bearer " + _getToken()
     }
 });

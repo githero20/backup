@@ -222,7 +222,7 @@ export const checkResponse = (err)=>{
       }
   }catch (e) {
       console.log(err, JSON.stringify(err));
-      swal('Poor Connection','','warning');
+      // swal('Poor Connection','','warning');
   }
 };
 

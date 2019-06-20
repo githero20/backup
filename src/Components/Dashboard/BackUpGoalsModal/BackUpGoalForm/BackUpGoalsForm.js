@@ -304,8 +304,8 @@ class BackUpGoalsForm extends Component {
 
         //get pay auths
         //TODO(dont save card details to local storage, if you will be saving it, encrypt it)
-        const userInfo = JSON.parse(getLocalStorage(USERINFO));
-        if (JSON.parse(getLocalStorage(USERINFO))) {
+        const userInfo = getLocalStorage(USERINFO);
+        if (getLocalStorage(USERINFO)!=undefined) {
             this.setState({
                 userCards: userInfo.authorization.data
             })

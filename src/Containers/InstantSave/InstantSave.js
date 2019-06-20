@@ -256,7 +256,7 @@ class InstantSave extends Component {
                 sort: true,
                 searchable: true,
                 filter: dateFilter({
-                    defaultValue: { date: moment().format('YYYY-MM-DD'),comparator: Comparator.GT}
+                    defaultValue: { date: moment().format('YYYY-MM-DD'),comparator: Comparator.LT}
                 })
             },
             {

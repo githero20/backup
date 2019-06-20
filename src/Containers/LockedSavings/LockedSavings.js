@@ -55,12 +55,12 @@ class LockedSavings extends Component {
     }
 
     updateLockedSaving=()=>{
+        this.setState({showLoader:true});
         getLockedSavings((status, payload) => {
             console.log("payload", status, payload);
             if(status){
                 //TODO(work on making this merging this payload.data.to lockedSavings[])
-                this.setState({lockedSavings: payload});
-
+                this.setState({lockedSavings: payload,showLoader:false});
             }
         })
     }
@@ -92,14 +92,14 @@ class LockedSavings extends Component {
         this.setState({
             showLockedSavingsModal: false
         });
-        if(status){
-            getLockedSavings((status, payload) => {
-                console.log("payload", status, payload);
-                if(status){
-                    this.setState({lockedSavings: payload.data});
-                }
-            })
-        }
+        // if(status){
+        //     getLockedSavings((status, payload) => {
+        //         console.log("payload", status, payload);
+        //         if(status){
+        //             this.setState({lockedSavings: payload.data});
+        //         }
+        //     })
+        // }
 
     };
 

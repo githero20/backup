@@ -122,9 +122,9 @@ class SteadySaveForm extends Component {
 
     componentDidMount() {
         //get pay auths
-        const userInfo = JSON.parse(getLocalStorage(USERINFO));
+        const userInfo = getLocalStorage(USERINFO);
 
-        if (JSON.parse(getLocalStorage(USERINFO))) {
+        if (getLocalStorage(USERINFO)!=undefined) {
             this.setState({
                 userCards: userInfo.authorization.data
             });

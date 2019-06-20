@@ -302,7 +302,7 @@ class ActivationForm extends Component {
 
     retrieveUserEmail = ()=>{
 
-        if(localStorage.getItem(USERINFO)){
+        if(localStorage.getItem(USERINFO)!=undefined){
             const user = JSON.parse(localStorage.getItem(USERINFO));
             if(user!==null){
                 return user.email;

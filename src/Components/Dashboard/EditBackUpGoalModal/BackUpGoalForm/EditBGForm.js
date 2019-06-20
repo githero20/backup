@@ -193,8 +193,8 @@ class EditBGForm extends Component {
 
         //get pay auths
         //TODO(dont save card details to local storage, if you will be saving it, encrypt it)
-        const userInfo = JSON.parse(getLocalStorage(USERINFO));
-        if (JSON.parse(getLocalStorage(USERINFO))) {
+        const userInfo = getLocalStorage(USERINFO);
+        if (getLocalStorage(USERINFO)!=undefined) {
             console.log(userInfo.authorization.data);
             this.setState({
                 userCards: userInfo.authorization.data,

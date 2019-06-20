@@ -54,8 +54,8 @@ class CreateSteadySaveForm extends Component {
         // this.setState({form:this.props.steadySave});
         this.validateStartDate();
         this.handleFrequencySelect(this.state.form);
-        const userInfo = JSON.parse(getLocalStorage(USERINFO));
-        if (JSON.parse(getLocalStorage(USERINFO))) {
+        const userInfo = getLocalStorage(USERINFO);
+        if (getLocalStorage(USERINFO)!=undefined) {
             this.setState({
                 userCards: userInfo.authorization.data
             })

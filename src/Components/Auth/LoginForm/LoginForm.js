@@ -50,12 +50,11 @@ class LoginForm extends Component {
      processLogin(state, response) {
 
 
-
+        console.log('dsd',state,response);
         const {toastManager} = this.props;
 
         if (state) {
-            console.log(response);
-            if(response){
+            if(response!=undefined){
                 localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
                 localStorage.setItem(USERINFO,JSON.stringify(response.data.user));
 
@@ -98,15 +97,27 @@ class LoginForm extends Component {
 
 
         } else {
+            console.log('err login',state,response.status);
+
             this.setState({loading: false});
 
-            if (response) {
-                 if(response.status===401){
-                     toastManager.add(`Your Account has not been activated Kindly Check your email for an activation link`, {
-                         appearance: 'error',
-                         autoDismiss: true,
-                         autoDismissTimeout:3000
-                     });
+                 if(response.status==401){
+
+                     if(response.data.message=="invalid_credentials"){
+
+                         toastManager.add(`Invalid Credentials`, {
+                             appearance: 'error',
+                             autoDismiss: true,
+                             autoDismissTimeout:3000
+                         });
+                     } else if(response.data.message=='Incorrect email or password,Try again') {
+                         toastManager.add('Incorrect Email or Password', {
+                             appearance: 'error',
+                             autoDismiss: true,
+                             autoDismissTimeout:3000
+                         });
+                     }
+
 
                  }else{
                      toastManager.add(`${JSON.stringify(response.data.message)}`, {
@@ -116,15 +127,15 @@ class LoginForm extends Component {
                      });
 
                  }
-
-
-            } else {
-                toastManager.add("No Internet Connection", {
-                    appearance: 'error',
-                    autoDismiss: true,
-                    autoDismissTimeout:3000
-                })
-            }
+            //
+            //
+            // } else {
+            //     toastManager.add("No Internet Connection", {
+            //         appearance: 'error',
+            //         autoDismiss: true,
+            //         autoDismissTimeout:3000
+            //     })
+            // }
         }
 
     };

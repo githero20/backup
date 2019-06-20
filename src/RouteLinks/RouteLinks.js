@@ -74,6 +74,7 @@ export const CreateWithdrawalSettings = `sfsbapi/v1/user/withdrawals/settings`;
 export const GetWithdrawalSettings = `sfsbapi/v1/user/withdrawals/settings`;
 export const MakeWithdrawal = `sfsbapi/v1/user/withdrawals`;
 export const CentralVaultInterest = `/sfsbapi/v1/user/interest`;
+export const getAdminInterest = `sfsbapi/v1/get-admin-interest`;
 export const LockedInterest = `sfsbapi/v1/user/savings/locked/interest`;
 export const TransferToVault = `/sfsbapi/v1/user/transfer/centralvault`;
 

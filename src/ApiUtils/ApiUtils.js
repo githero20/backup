@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import {BASE_URL} from "../RouteLinks/RouteLinks";
 import {USERTOKEN} from "../Components/Auth/HOC/authcontroller";
+import swal from 'sweetalert';
+
 
 export function api(url, params, token, method, callback) {
 
@@ -31,7 +33,6 @@ export function api(url, params, token, method, callback) {
 
 
 }
-
 export function request(url, params, token, method, callback) {
 
     url = `${BASE_URL}${url}`;
@@ -221,6 +222,7 @@ export const checkResponse = (err)=>{
       }
   }catch (e) {
       console.log(err, JSON.stringify(err));
+      swal('Poor Connection','','warning');
   }
 };
 

@@ -343,36 +343,36 @@ class InstantSavingForm extends Component {
         return (
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
-                    <Form.Row>
-                        <Col>
-                            <Form.Group className={'mt-md-1 mb-md-3'}>
-                                <Form.Label>Amount</Form.Label>
-                                <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}
-                                              defaultValue={amount}  onChange={this.changeHandler}/>
-                                {this.validator.message('amount', amount, 'required|numeric')}
-                            </Form.Group>
-                        </Col>
-                    </Form.Row>
-
-                    {/*auto numeric */}
-
                     {/*<Form.Row>*/}
                     {/*    <Col>*/}
                     {/*        <Form.Group className={'mt-md-1 mb-md-3'}>*/}
                     {/*            <Form.Label>Amount</Form.Label>*/}
-                    {/*            /!* used automatic js text for numbers *!/*/}
-                    {/*            <Form.Control*/}
-                    {/*                type="text"*/}
-                    {/*                className={'amount-input'}*/}
-                    {/*                placeholder={'₦500'} name={'amount'}*/}
-                    {/*                id={'amount'}*/}
-                    {/*                onChange={this.textAmountHandler}*/}
-                    {/*            />*/}
-                    {/*            {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
-                    {/*            /!*{this.validator.message('amount', amount, 'required|numeric')}*!/*/}
+                    {/*            <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}*/}
+                    {/*                          defaultValue={amount}  onChange={this.changeHandler}/>*/}
+                    {/*            {this.validator.message('amount', amount, 'required|numeric')}*/}
                     {/*        </Form.Group>*/}
                     {/*    </Col>*/}
                     {/*</Form.Row>*/}
+
+                    {/*auto numeric */}
+
+                    <Form.Row>
+                        <Col>
+                            <Form.Group className={'mt-md-1 mb-md-3'}>
+                                <Form.Label>Amount</Form.Label>
+                                {/* used automatic js text for numbers */}
+                                <Form.Control
+                                    type="text"
+                                    className={'amount-input'}
+                                    placeholder={'₦500'} name={'amount'}
+                                    id={'amount'}
+                                    onChange={this.textAmountHandler}
+                                />
+                                {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}
+                                {/*{this.validator.message('amount', amount, 'required|numeric')}*/}
+                            </Form.Group>
+                        </Col>
+                    </Form.Row>
                     <Form.Row>
                         <Col className={'mt-md-1 mb-md-3'}>
                             <Form.Group>

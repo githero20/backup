@@ -71,9 +71,11 @@ class BackupGoals extends Component {
             this.setState({
                 showLoader: false
             });
-            console.log("Getbackupgoals", status, payload.data.data);
             if (status) {
-                this.setState({backupGoals: payload.data.data})
+                if(payload){
+                    console.log("Getbackupgoals", status, payload.data.data);
+                    this.setState({backupGoals: payload.data.data})
+                }
             } else {
                 console.error("An error occurred", payload);
             }

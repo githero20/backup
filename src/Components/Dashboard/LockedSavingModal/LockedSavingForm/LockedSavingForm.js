@@ -9,6 +9,8 @@ import {withToastManager} from 'react-toast-notifications';
 import {createLockedSavings, getLockedInterestSavings} from "../../../../actions/LockedSavingsAction";
 import moment from 'moment';
 import {amountInput, formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
+import {request} from "../../../../ApiUtils/ApiUtils";
+import {getAdminInterest} from "../../../../RouteLinks/RouteLinks";
 
 class LockedSavingForm extends Component {
 
@@ -28,7 +30,8 @@ class LockedSavingForm extends Component {
                 days: 0,
                 source:'central_vault',
                 interestRate: 0.0,
-                accepted: false
+                accepted: false,
+                adminInterest:0
             },
             err:''
         };
@@ -44,6 +47,7 @@ class LockedSavingForm extends Component {
         this.handleDateInput = this.handleDateInput.bind(this);
         this.handleAmountInput = this.handleAmountInput.bind(this);
         this.handleLockedSavingsInterest = this.handleLockedSavingsInterest.bind(this);
+        this.handleAdminInterest = this.handleAdminInterest.bind(this);
     }
 
     //Create Form
@@ -140,11 +144,27 @@ class LockedSavingForm extends Component {
 
     }
 
+     handleAdminInterest (status, res){
+            console.log('interest',res);
+        if (status) {
+            let data = res;
+            console.log('adminInterest'+data);
+            // let form = {...this.state.form};
+            // form.adminInterest = JSON.parse(res.data.interest);
+            // this.setState({form});
+        }
+
+        // toastManager.add("Data");
+
+    };
+
 
     componentDidMount() {
         // getLockedInterestSavings()
         // initialize inputs with commas
        initializeAmountInput();
+       console.log('component mounted');
+       request(getAdminInterest,null,true,"GET",this.handleAdminInterest);
     }
 
     render() {
@@ -204,7 +224,8 @@ class LockedSavingForm extends Component {
                             <Form.Control
                                 type="text"
                                 disabled={true}
-                                value={`₦ ${formatNumber(this.state.form.interestRate)} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days (${formatNumber(this.state.form.interest.toFixed(2))}% P.A)`}
+//                            (${this.state.form.adminInterest.toFixed(2)}% P.A)
+                                value={`₦ ${formatNumber(this.state.form.interestRate)} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days `}
                             />
                             <Form.Text className="text-muted">
                                 This upfront interest will be deposited in your Backup Stash and can be withdrawn immediately

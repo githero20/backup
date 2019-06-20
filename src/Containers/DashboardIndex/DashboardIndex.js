@@ -122,16 +122,16 @@ class DashboardIndex extends Component {
 
         //when user logs in for the first time
 
-        if(!getLocalStorage(SHOWAD)){
+        if(!localStorage.getItem(SHOWAD)){
             setLocalStorage(SHOWAD,'show');
-            console.log(getLocalStorage(SHOWAD));
+            // console.log(getLocalStorage(SHOWAD));
             // show the add
             this.setState({
                 showStartModal: true
             })
 
-        }else if(getLocalStorage(SHOWAD)!=='show'){
-            console.log('second run'+getLocalStorage(SHOWAD));
+        }else if(JSON.stringify(localStorage.getItem(SHOWAD))!=='show'){
+            // console.log('second run'+getLocalStorage(SHOWAD));
             this.setState({
                 showStartModal: false
             })

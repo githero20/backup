@@ -235,8 +235,9 @@ class InstantSavingForm extends Component {
         // check if the value exist
         if(value!==""){
             if(parseFloat(value).toFixed(2) !== 0.00){
-               const rawValue = parseFloat(value.replace(',','').replace('₦',''))
-                console.log(name,rawValue);
+                let strippedVal = value.replace(/,/g,'').replace('₦','')
+               const rawValue = parseFloat(strippedVal);
+                console.log(name,strippedVal);
                 let data = {...this.state.form};
                 data[name] = rawValue;
                 this.setState({

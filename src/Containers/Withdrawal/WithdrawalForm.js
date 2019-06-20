@@ -254,9 +254,12 @@ class WithdrawalForm extends Component {
 
         }
     }
+
     render() {
 
         console.log(this.state.userBalance);
+        const year = moment().year();
+        console.log(year);
         return (
             <div className={'row'}>
                 <WithdrawalSettingsModal show={this.state.showWithdrawalSetting} onHide={this.hideWithdrawalSettings}/>
@@ -395,10 +398,11 @@ class WithdrawalForm extends Component {
                             <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
                             <ul>
                                 {
+
                                     this.state.withdrawalSettings.map((settings, index) =>{
                                         const split = settings.withdrawal_date.split("/");
-                                        const month =  (moment(split[0], "M").format("MMMM"));
-                                        const day =  (moment(split[1], "DD").format("Do"));
+                                        const month =  (moment(`${year} ${split[0]}`, "YYYY MM").format("MMMM"));
+                                        const day =  (moment(`${year} ${month} ${split[1]}`, "YYYY MMMM DD").format("Do"));
                                         return (
                                             <li key={index}>Every {day} of {month}</li>
                                         );

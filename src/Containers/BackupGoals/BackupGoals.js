@@ -14,6 +14,8 @@ import BGStartAmountCard from "./BGStartAmountCard";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {dateFormatter,moneyFormatter} from "../../Helpers/Helper";
 import moment from 'moment';
+import {GetBackUpGoals} from "../../RouteLinks/RouteLinks";
+import {request} from "../../ApiUtils/ApiUtils";
 
 class BackupGoals extends Component {
 
@@ -65,13 +67,13 @@ class BackupGoals extends Component {
         this.setState({
             showloader: true,
         });
-        getBackUpSavings((status, payload) => {
+        request(GetBackUpGoals,null,true,'GET',(status, payload) => {
             this.setState({
                 showLoader: false
             });
-            console.log("Getbackupgoals", status, payload);
+            console.log("Getbackupgoals", status, payload.data.data);
             if (status) {
-                this.setState({backupGoals: payload})
+                this.setState({backupGoals: payload.data.data})
             } else {
                 console.error("An error occurred", payload);
             }

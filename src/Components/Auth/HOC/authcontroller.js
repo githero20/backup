@@ -19,7 +19,7 @@ const AuthController = component => {
         const [fetching, setFetching] = useState(true);
 
         const RenderComponent = props.component;
-        const token = localStorage.getItem(USERTOKEN);
+        const token = JSON.parse(localStorage.getItem(USERTOKEN));
 
         useEffect(() => {
 
@@ -32,7 +32,7 @@ const AuthController = component => {
             }
             else{
 
-                axios.get(verifyTokenURL, {headers: {Authorization: `Bearer ${localStorage.getItem(USERTOKEN)}`}}).then(
+                axios.get(verifyTokenURL, {headers: {Authorization: `Bearer ${JSON.parse(localStorage.getItem(USERTOKEN))}`}}).then(
                     res => {
                         localStorage.setItem(USERINFO, JSON.stringify(res.data.data));
                         console.log(JSON.stringify(res.data.data));

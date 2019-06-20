@@ -227,7 +227,7 @@ export const checkResponse = (err)=>{
 
 export function getLocalStorage(key) {
     if(localStorage.getItem(key)!== null && localStorage.getItem(key)!== undefined ){
-        return localStorage.getItem(key);
+        return JSON.parse(localStorage.getItem(key));
     }else {
         return '';
     }
@@ -235,6 +235,6 @@ export function getLocalStorage(key) {
 }
 
 export function setLocalStorage(key, value) {
-    localStorage.setItem(key, value);
+    localStorage.setItem(key, JSON.stringify(value));
 
 }

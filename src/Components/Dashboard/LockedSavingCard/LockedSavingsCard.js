@@ -9,7 +9,7 @@ import {formatNumber} from "../../../Helpers/Helper";
 class LockedSavingsCard extends Component {
     render() {
 
-        const {lockedSavingsAmount} = this.props;
+        const {lockedSavingsAmount,lockedSavingsInterest} = this.props;
 
         return (
             <React.Fragment>
@@ -73,11 +73,11 @@ class LockedSavingsCard extends Component {
                                     </div>
                                     {/*locked savings interest */}
 
-                                    {/*<div*/}
-                                    {/*    className='d-flex dash-card-total-details justify-content-between'>*/}
-                                    {/*    <h6>Total Interest</h6><strong><i*/}
-                                    {/*    className='fa fa-arrow-right '></i>&#8358;3,000,00</strong>*/}
-                                    {/*</div>*/}
+                                    <div
+                                        className='d-flex dash-card-total-details justify-content-between'>
+                                        <h6>Total Interest</h6><strong><i
+                                        className='fa fa-arrow-right '></i>&#8358;{lockedSavingsInterest!==0?formatNumber(lockedSavingsInterest):0.00}</strong>
+                                    </div>
 
                                 </div>
                                 {/*<div className='d-flex'>*/}

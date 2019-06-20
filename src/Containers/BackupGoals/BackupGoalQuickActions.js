@@ -385,7 +385,7 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
                                     <span className="mb-btn-wrapper">
                                         <button type="button"
                                                 onClick={() => this.handleStop(this.props.selectedBG.id)}
-                                                className=" btn-blue-gradient-2 round">
+                                                className=" btn-blue-gradient-2 bg-white round">
                                             <img src={whiteSaveMoreIcon}/>
                                             Stop
                                         </button>

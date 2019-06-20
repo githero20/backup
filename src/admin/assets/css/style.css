@@ -2409,6 +2409,7 @@ html body .content.app-content {
 /*error class*/
 .srv-validation-message{
     color: #8b0000;
+    font-size:12px;
 }
 /*!*materialize css*!*/
 

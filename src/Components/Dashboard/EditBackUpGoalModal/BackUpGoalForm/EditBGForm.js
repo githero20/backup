@@ -235,7 +235,7 @@ class EditBGForm extends Component {
         const showHour = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Hour of the day</Form.Label>
-                <Form.Control as="select" defaultValue={hour_of_day!=null?hour_of_day:12} disabled={this.state.disabled} onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
+                <Form.Control as="select" value={hour_of_day!=null?hour_of_day:12} disabled={this.state.disabled} onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
                     <option value={'1'}>1:00 am</option>
                     <option value={'2'}>2:00 am</option>
                     <option value={'3'}>3:00 am</option>
@@ -245,6 +245,8 @@ class EditBGForm extends Component {
                     <option value={'7'}>7:00 am</option>
                     <option value={'8'}>8:00 am</option>
                     <option value={'9'}>9:00 am</option>
+                    <option value={'10'}>10:00 am</option>
+                    <option value={'11'}>11:00 am</option>
                     <option value="12">12:00 noon</option>
                     <option value="13">1:00 pm</option>
                     <option value="14">2:00 pm</option>
@@ -417,7 +419,7 @@ class EditBGForm extends Component {
                         <Form.Group as={Col}>
                             <Form.Label>Frequency </Form.Label>
                             {/*select Box */}
-                            <Form.Control as="select" id="frequency" defaultValue={frequency} disabled={true} onChange={this.changeHandler} name={'frequency'}>
+                            <Form.Control as="select" id="frequency" value={frequency} disabled={true} onChange={this.changeHandler} name={'frequency'}>
                                 <option value={'daily'}>Daily</option>
                                 <option value={'weekly'}>Weekly</option>
                                 <option value={'monthly'}>Monthly</option>

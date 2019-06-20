@@ -51,7 +51,7 @@ class DashboardContainer extends Component {
 
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
-            transactions, totalInterest, ActiveGoals, CompletedGoals, vaultInterest
+            transactions, totalInterest, ActiveGoals, CompletedGoals, vaultInterest,lockedSavingsInterest
         } = this.props;
 
         const columns = [
@@ -141,6 +141,7 @@ class DashboardContainer extends Component {
 
                                 <LockedSavingsCard
                                     lockedSavingsAmount={lockedSavingsAmount}
+                                    lockedSavingsInterest={lockedSavingsInterest}
                                     onHide={this.props.hideLSModal}
                                     showModal={this.props.showLSModal}
                                 />

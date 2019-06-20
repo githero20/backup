@@ -56,8 +56,8 @@ class LoginForm extends Component {
         if (state) {
             console.log(response);
             if(response){
-                localStorage.setItem(USERTOKEN, response.data.token);
-                localStorage.setItem(USERINFO, response.data.user);
+                localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
+                localStorage.setItem(USERINFO,JSON.stringify(response.data.user));
 
                 setTimeout(()=>{
                     this.setState({

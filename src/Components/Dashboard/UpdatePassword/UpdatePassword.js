@@ -197,7 +197,7 @@ class UpdatePassword extends Component {
     componentDidMount(){
 
         const token = getLocalStorage(USERTOKEN);
-        const data = JSON.parse(getLocalStorage(USERINFO));
+        const data = getLocalStorage(USERINFO);
 
         if(data){
             this.setState({

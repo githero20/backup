@@ -50,7 +50,8 @@ class HorizontalNav extends Component {
         //     },3000);
         // }
                 try{
-                    const user = JSON.parse(getLocalStorage(USERINFO));
+                    const user = getLocalStorage(USERINFO);
+                    console.log('user info '+user.name);
                     this.setState({userName:user.name})
                 }catch (e) {
                     console.log(e);

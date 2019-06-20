@@ -6,8 +6,8 @@ import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySa
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
 import {
     activateUserEndpoint,
-    CentralVaultInterest,
-    getUserInfoEndpoint,
+    CentralVaultInterest, GetBackUpGoals,
+    getUserInfoEndpoint, LockedInterest,
     lockedSavingEndpoint,
     resendActEndpoint
 } from "../../RouteLinks/RouteLinks";
@@ -54,7 +54,8 @@ class DashboardIndex extends Component {
         showLoader: true,
         isActive:false,
         showAdModal:false,
-        vaultInterest:0
+        vaultInterest:0,
+        lockedSavingsInterest:0
     };
 
     constructor(props) {
@@ -167,11 +168,21 @@ class DashboardIndex extends Component {
     handleVaultInterest = (status,response) =>{
 
         if(status){
-            console.log('got here');
             if(response){
-                console.log('interest info'+ parseFloat(JSON.parse(response.data.data)).toFixed(2));
                 this.setState({
                     vaultInterest:parseFloat(JSON.parse(response.data.data)).toFixed(2)
+                })
+
+            }
+        }
+    }
+
+    handleLockedInterest = (status,response) =>{
+
+        if(status){
+            if(response){
+                this.setState({
+                    lockedSavingsInterest:parseFloat(JSON.parse(response.data.data)).toFixed(2)
                 })
 
             }
@@ -187,39 +198,33 @@ class DashboardIndex extends Component {
         //controls add display
         this.adModalController();
 
-        //make request
-        request(getUserInfoEndpoint, null, true, 'GET', this.analyseDashboardInfo);
 
 
-        //get vault interest
+            request(getUserInfoEndpoint, null, true, 'GET', this.analyseDashboardInfo);
 
-        request(CentralVaultInterest,null,true,'GET',this.handleVaultInterest);
+            request(CentralVaultInterest,null,true,'GET',this.handleVaultInterest);
 
-        //make request
-        //show loader
-        //get the response
-        //hide loader
-        //analyse info
 
-        //get back up goals
-        getBackUpSavings(this.handleBackUpGoals);
+            request(LockedInterest,null,true,'GET',this.handleLockedInterest);
 
-        console.log('setting up dashboard');
+
+            // request(lockedSavingEndpoint,null,true,'GET',this.handleLockedSavings);
+
+
+            request(GetBackUpGoals,null,true,'GET',this.handleBackUpGoals);
 
 
     };
 
     handleBackUpGoals = (status,response)=>{
+        console.log('backups',status,response);
         if(status){
-            console.log('backups'+JSON.stringify(response));
-
             const now = moment().format('YYYY-MM-DD');
-            console.log('now'+now);
-            const backUpGoals = response;
+            const backUpGoals = response.data.data;
 
             //active
 
-            //check  to  filter all goals where current data is greater than today
+            // //check  to  filter all goals where current data is greater than today
             let activeGoals = backUpGoals.filter((content)=>{
                 console.log('date'+content.end_date);
                 console.log('moment date'+moment(content.end_date).format('YYYY-MM-DD'));
@@ -330,9 +335,14 @@ class DashboardIndex extends Component {
 
     getLockedSavings = (url, callback) => {
 
-        request(url, null, true, null, callback);
+        request(url, null, true, "GET", callback);
 
     };
+     getBackUpSavings = (url, callback) => {
+
+            request(url, null, true, 'GET', callback);
+
+     };
 
 
     handleLockedSavings = (state, res) => {
@@ -365,9 +375,6 @@ class DashboardIndex extends Component {
         //     this.analyseDashboardInfo(status, data);
         // }
 
-
-        //get locked savings
-        this.getLockedSavings(lockedSavingEndpoint, this.handleLockedSavings);
 
         if (status) {
 
@@ -425,12 +432,10 @@ class DashboardIndex extends Component {
                 }
 
 
-            } else {
-                console.log(res);
-                return null;
             }
 
-
+        }else {
+            console.log(res)
         }
 
 
@@ -540,7 +545,7 @@ class DashboardIndex extends Component {
 
     render() {
         const {
-            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount,
+            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount,lockedSavingsInterest,
             transactions, userName, totalInterest,vaultInterest, CompletedGoals, ActiveGoals, totalSteadySave
         } = this.state;
 
@@ -557,6 +562,7 @@ class DashboardIndex extends Component {
                         vaultInterest={vaultInterest}
                         backupAmount={backupAmount}
                         lockedSavingsAmount={lockedSavingsAmount}
+                        lockedSavingsInterest={lockedSavingsInterest}
                         totalInterest={totalInterest}
                         totalSteadySave={totalSteadySave}
                         stashAmount={stashAmount}

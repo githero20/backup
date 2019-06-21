@@ -57,8 +57,8 @@ class LoginForm extends Component {
             if(response!=undefined){
                 localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
                 localStorage.setItem(USERINFO,JSON.stringify(response.data.user));
-
                 setTimeout(()=>{
+                    console.log('login token'+localStorage.getItem(USERTOKEN));
                     this.setState({
                         redirect: true,
                         loading: false

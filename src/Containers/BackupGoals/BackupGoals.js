@@ -16,6 +16,7 @@ import {dateFormatter,moneyFormatter} from "../../Helpers/Helper";
 import moment from 'moment';
 import {GetBackUpGoals} from "../../RouteLinks/RouteLinks";
 import {request} from "../../ApiUtils/ApiUtils";
+import {USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
 
 class BackupGoals extends Component {
 
@@ -85,6 +86,7 @@ class BackupGoals extends Component {
 
 
     componentDidMount() {
+
         this.setState({
             showLoader: true,
         });

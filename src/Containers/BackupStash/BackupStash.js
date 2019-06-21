@@ -14,7 +14,7 @@ import {
     dateFormatter,
     descriptionFormatter,
     formatNumber,
-    INTEREST_ACCOUNT, sourceTypeFormatter,
+    INTEREST_ACCOUNT, sourceFormatter, sourceTypeFormatter,
     STANDARD_ACCOUNT, statusFormatter
 } from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
@@ -203,6 +203,12 @@ class BackupStash extends Component {
                 text: 'Phase',
                 dataField: 'type',
                 formatter: descriptionFormatter,
+                sort: true,
+
+            },{
+                text: 'Description',
+                dataField: 'sourcetypes',
+                formatter: sourceFormatter,
                 sort: true,
 
             },

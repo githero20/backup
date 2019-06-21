@@ -8,7 +8,7 @@ import {
     amountFormatter,
     balanceFormatter,
     dateFormatter,
-    descriptionFormatter,
+    descriptionFormatter, sourceFormatter,
     statusFormatter
 } from "../../../Helpers/Helper";
 import MessageBox from "./MessageBox/MessageBox";
@@ -62,9 +62,15 @@ class DashboardContainer extends Component {
                 sort: true,
             },
             {
-                text: 'Description',
+                text: 'Phase',
                 dataField: 'type',
                 formatter: descriptionFormatter,
+                sort: true,
+
+            }, {
+                text: 'Description',
+                dataField: 'sourcetypes',
+                formatter: sourceFormatter,
                 sort: true,
 
             },

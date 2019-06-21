@@ -161,17 +161,14 @@ export function requestAPI(url, params, token, method, callback, errCallback) {
         headers: {
             "Content-Type": "Application/json",
             "credentials": 'same-origin',
-
         }
     };
 
     if (token) {
         let token = getLocalStorage('token');
-        console.log(token);
         if (token !== null) {
             header.headers['Authorization'] = 'Bearer ' + token;
         }
-
     }
     if (method === 'POST') {
         return axios.post(url, params, header).then(res => callback(true, res))

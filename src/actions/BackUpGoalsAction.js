@@ -92,7 +92,7 @@ export const getBackUpGoalAndTrans = (id, callback) =>{
                 // if(err.response){
                 //     callback(false, err.response.data.message || "AN Error Occurred");
                 // }
-                checkResponse(err);
+                // checkResponse(err);
                 callback(false, err.response);
             }catch (e) {
                 //log both e and err

@@ -10,7 +10,7 @@ import {
     amountFormatter,
     balanceFormatter,
     dateFormatter,
-    descriptionFormatter,
+    descriptionFormatter, sourceFormatter,
     statusFormatter
 } from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
@@ -109,9 +109,15 @@ class Transactions extends Component {
                 sort:true,
             },
             {
-                text: 'Description',
+                text: 'Phase',
                 dataField: 'type',
                 formatter:descriptionFormatter,
+                sort:true,
+
+            },{
+                text: 'Description',
+                dataField: 'sourcetypes',
+                formatter:sourceFormatter,
                 sort:true,
 
             },

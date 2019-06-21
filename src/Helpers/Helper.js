@@ -145,7 +145,7 @@ export function transformHour(hour) {
 
 
 export function dateFormatter (cell) {
-    return  <span>{moment(cell).format('LLL')}</span>
+    return  <p style={{minWidth:'150px'}}>{moment(cell).format('LLL')}</p>
 }
 export function confirmedFormatter (cell) {
     return   <label>{cell ? <span className='text-success'>Completed </span>:<span className='text-danger'>Failed </span>}</label>
@@ -153,6 +153,10 @@ export function confirmedFormatter (cell) {
 
 export function descriptionFormatter (cell) {
     return  <span className={cell==='credit'?'text-green text-capitalize':'text-red text-capitalize'}>{cell}</span>
+}
+export function sourceFormatter (cell,row) {
+    console.log(cell,row)
+    return  <p style={{minWidth:'150px'}} className={'text-secondary text-capitalize'} >{`${cell.data.name.replace(/_/g,' ')} savings`}</p>
 }
 
 export function amountFormatter (cell,row) {
@@ -170,7 +174,6 @@ export function moneyFormatter (cell) {
 }
 
 export function steadyStatusFormatter (cell,row) {
-
         if(parseInt(row.is_pause)){
             return <button className={'btn btn-warning'}>Paused</button>
         }else {

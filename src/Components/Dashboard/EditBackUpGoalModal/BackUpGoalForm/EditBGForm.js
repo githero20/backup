@@ -410,7 +410,7 @@ class EditBGForm extends Component {
                                 type="date"
                                 name={'maturity_date'}
                                 id={'maturity_date'}
-                                min={moment().format('YYYY-MM-DD')}
+                                min={moment(maturity_date).format('YYYY-MM-DD')}
                                 value={maturity_date}
                                 disabled={this.state.disabled}
                                 // onChange={this.changeHandler}

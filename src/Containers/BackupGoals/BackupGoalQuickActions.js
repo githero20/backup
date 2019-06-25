@@ -212,28 +212,41 @@ class BackupGoalQuickActions extends React.Component {
             buttons: true,
         }).then((willStop) => {
             if (willStop) {
-                //TODO get penalty
-                // call endpoint to get penalty
-                getPenalty((status,res)=>{
-                    if(status){
-                        const penalty = this.calculatePenalty(res.withdraw_penalty,this.props.selectedBGHistory);
-                        swal(
-                            {
-                                title:  'BackupGoals',
-                                text: 'Note : This fund will be available for withdrawal in your Backup Stash.\n' +
-                                    `However, a penalty fee of ₦ ${penalty} will be deducted from your account `,
-                                icon: "warning",
-                                buttons: true,
-                            }).then((willStop)=>{
-                                if(willStop){
-                                    stopBGoal(id, this.handleStopResponse);
-                                }
-                        });
 
-                    }else {
-                        console.log('error occurred',status,res);
+                //get penalty endpoint
+                // getPenalty((status,res)=>{
+                //     if(status){
+                //         const penalty = this.calculatePenalty(res.withdraw_penalty,this.props.selectedBGHistory);
+                //         swal(
+                //             {
+                //                 title:  'BackupGoals',
+                //                 text: 'Note : This fund will be available for withdrawal in your Backup Stash.\n' +
+                //                     `However, a penalty fee of ₦ ${penalty} will be deducted from your account `,
+                //                 icon: "warning",
+                //                 buttons: true,
+                //             }).then((willStop)=>{
+                //                 if(willStop){
+                //                     stopBGoal(id, this.handleStopResponse);
+                //                 }
+                //         });
+                //
+                //     }else {
+                //         console.log('error occurred',status,res);
+                //     }
+                // });
+                //
+
+                swal({
+                        title:  'BackupGoals',
+                        text: ' This fund will be transferred to your central vault',
+                        icon: "warning",
+                        buttons: true,
+                    }).then((willStop)=>{
+                    if(willStop){
+                        stopBGoal(id, this.handleStopResponse);
                     }
                 });
+
             } else {
                 swal("Your Backup Goal is still running.");
             }
@@ -246,7 +259,6 @@ class BackupGoalQuickActions extends React.Component {
     handleStopResponse = (status, res) => {
 
         if (status) {
-
             console.log(res);
             swal("You have successfully stopped your backup goal.", {
                 icon: "success",
@@ -312,6 +324,8 @@ class BackupGoalQuickActions extends React.Component {
     };
 
 
+
+
     handleContinueResponse = (status, res) => {
         if (status) {
             swal("You have successfully continued your backup goal.", {
@@ -339,55 +353,67 @@ class BackupGoalQuickActions extends React.Component {
                                                                                 onClick={() => this.props.hideBG()}> Back to Goals
                         &nbsp;<i className='fa fa-arrow-right '></i></a></h3>
                     <div className="mb-quick-actions d-flex flex-column flex-wrap ">
-                        <span className="mb-btn-wrapper">
-                            <button type="button"
-                                    onClick={() => this.handleEdit(this.props.selectedBG.id)}
-                                    className=" btn-blue-gradient-2 round">
-                                <img src={editIcon}/>
-                                Edit Backup Goal
-                            </button>
-                        </span>
+
                         {/*show edit modal*/}
-                        {
-                            this.state.showEditModal ?
-                                (
-                                    <React.Fragment>
-                                        <EditBGModal selectedBG={this.props.selectedBG}
-                                                     updateSelectedBG={this.props.updateSelectedBG}
-                                                     fetchGoals={this.props.fetchGoals}
-                                                     show={this.state.showEditModal}
-                                                     onHide={this.hideModal}
-                                        />
-                                    </React.Fragment>
 
+                        {
+                            !Number(this.props.selectedBG.stop) ?
+                                (
+                                  <React.Fragment>
+                                        <span className="mb-btn-wrapper">
+                                            <button type="button"
+                                                    onClick={() => this.handleEdit(this.props.selectedBG.id)}
+                                                    className=" btn-blue-gradient-2 round">
+                                                <img src={editIcon}/>
+                                                Edit Backup Goal
+                                            </button>
+                                        </span>
+
+                                      {
+                                          this.state.showEditModal ?
+                                              (
+                                                  <React.Fragment>
+                                                      <EditBGModal selectedBG={this.props.selectedBG}
+                                                                   updateSelectedBG={this.props.updateSelectedBG}
+                                                                   fetchGoals={this.props.fetchGoals}
+                                                                   show={this.state.showEditModal}
+                                                                   onHide={this.hideModal}
+                                                      />
+                                                  </React.Fragment>
+
+                                              ) : null
+                                      }
+
+
+                                      {
+                                          Number(this.props.selectedBG.is_pause) ?
+
+                                              (
+                                                  <span className="mb-btn-wrapper">
+                                                    <button type="button"
+                                                            onClick={() => this.handleContinue(this.props.selectedBG.id)}
+                                                            className=" btn-blue-gradient-2 round">
+                                                        <img src={continueIcon}/>
+                                                        Continue
+                                                    </button>
+                                                  </span>
+
+                                              ) :
+                                              (
+                                                  <span className="mb-btn-wrapper">
+                                                    <button type="button"
+                                                            onClick={() => this.handlePause(this.props.selectedBG.id)}
+                                                            className=" btn-blue-gradient-2 round">
+                                                        <img src={pauseIcon}/>
+                                                        Pause
+                                                    </button>
+                                                  </span>
+                                              )
+                                      }
+
+
+                                  </React.Fragment>
                                 ) : null
-                        }
-
-
-                        {
-                            Number(this.props.selectedBG.is_pause) ?
-
-                                (
-                                    <span className="mb-btn-wrapper">
-                                        <button type="button"
-                                                onClick={() => this.handleContinue(this.props.selectedBG.id)}
-                                                className=" btn-blue-gradient-2 round">
-                                            <img src={continueIcon}/>
-                                            Continue
-                                        </button>
-                                    </span>
-
-                                ) :
-                                (
-                                    <span className="mb-btn-wrapper">
-                                        <button type="button"
-                                                onClick={() => this.handlePause(this.props.selectedBG.id)}
-                                                className=" btn-blue-gradient-2 round">
-                                            <img src={pauseIcon}/>
-                                            Pause
-                                        </button>
-                                    </span>
-                                )
                         }
 
                         {

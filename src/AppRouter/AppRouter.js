@@ -15,7 +15,7 @@ import ProfileSetting from "../Containers/ProfileSetting/ProfileSetting";
 import BankCardSetting from "../Containers/BankCardSetting/BankCardSetting";
 import ActivateAccount from "../Containers/ActivateAccount/ActivateAccount";
 import {
-    ActivateAccountLink,
+    ActivateAccountLink, addWithdrawalLink,
     BackupGoalsLink,
     BackupStashLink,
     BankCardLink,
@@ -43,6 +43,7 @@ import ResendActivation from "../Containers/ResendActivation/ResendActivation";
 import KycSetting from "../Containers/KycSetting/KycSetting";
 import BackupStash from "../Containers/BackupStash/BackupStash";
 import {ToastProvider} from "react-toast-notifications";
+import SetupWithdrawal from "../Containers/SetupWithdrawal/SetupWithdrawal";
 
 class AppRouter extends Component {
 
@@ -76,6 +77,7 @@ class AppRouter extends Component {
                         <Route path={ActivateAccountLink} component={ActivateAccount}/>
                         <Route path={ForgotPasswordLink} component={ForgotPassword}/>
                         <Route path={ResetPasswordLink} component={ResetPassword}/>
+                        <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
                     </Router>
                 </ToastProvider>
             </React.Fragment>

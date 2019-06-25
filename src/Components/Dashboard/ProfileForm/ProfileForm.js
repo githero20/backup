@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import SimpleReactValidator from "simple-react-validator";
 import {withToastManager} from 'react-toast-notifications';
+import {capitalize} from "../../../Helpers/Helper";
 
 class ProfileForm extends Component {
 
@@ -66,15 +67,19 @@ class ProfileForm extends Component {
 
     copyToClipboard = (e) => {
 
-        let text = document.getElementById("referral_code").value;
-        console.log(text);
+        // let text = document.getElementById("referral_code").value;
+        console.log(this.props.userProfile);
 
         let textField = document.createElement('textarea');
-        const referralText = this.props.userProfile.name + ' with this ' + text;
-        const otherText = ' invites you to save for the rainy day on BackUpCash.' +
-            'It is a financial planning tool designed to help you automate ' +
-            'savings towards a financial goal. Sign-up and get started using the link below:';
-        textField.innerText = `${referralText} ${otherText} ${this.props.userProfile.referral_link}`;
+
+        const referralText =
+            this.props.userProfile ? capitalize(this.props.userProfile.name) : null
+            + ' ' +
+            this.props.userProfile ? capitalize(this.props.userProfile.last_name) : null;
+        const otherText = 'invites you to save for the rainy day on BackUpCash.' +
+            '\n It is a financial planning tool designed to help you automate ' +
+            'savings towards a financial goal. Sign-up and get started using the link below: \n';
+        textField.innerText = referralText + ' ' + otherText  + this.props.userProfile.referral_link;
 
         document.body.appendChild(textField);
         textField.select();

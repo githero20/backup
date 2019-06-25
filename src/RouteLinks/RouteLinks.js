@@ -22,6 +22,7 @@ export const ResendActivationLink  = '/resend/email';
 export const HomeLink  = '/';
 export const KycSettingLink  = '/kyc-setting';
 export const BackupStashLink  = '/backup-stash';
+export const addWithdrawalLink  = '/add-bank';
 
 
 
@@ -49,6 +50,7 @@ export const GetLockedSavingsInterest  = `sfsbapi/v1/get-locked-saving-interest`
 export const CreateLockedSavings = `sfsbapi/v1/user/savings/locked`;
 export const GetLockedSavings = `sfsbapi/v1/user/savings/locked`;
 export const SaveBankAccount = `sfsbapi/v1/user/banks/sendotp`;
+export const registerBank = `sfsbapi/v1/user/banks/register`;
 export const ResendBankOTP = `/sfsbapi/v1/user/banks/resendotp`;
 export const VerifyBankOTP = `sfsbapi/v1/user/banks/verifyotp`;
 export const GetUserBanks = `sfsbapi/v1/user/banks`;

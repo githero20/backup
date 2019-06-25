@@ -84,6 +84,8 @@ export function getTotalSteadySave(transactions) {
         }
     }
 }
+
+
 export function getTotalSteadySaveDebit(transactions) {
     if (transactions) {
         if (transactions.length > 1) {
@@ -97,6 +99,29 @@ export function getTotalSteadySaveDebit(transactions) {
         }
     }
 }
+ export function getPercentage(startValue,endValue) {
+    if(Number(startValue)!=0 && Number(endValue)!=0){
+        return (startValue/endValue)*100;
+
+    }else return 100;
+
+ }
+//
+// export function capitalize (value) {
+//     value.prototype.capitalize = function() {
+//         return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+//     };
+// };
+export function capitalize (value) {
+     let words = value.split(' ');
+     if(words.length>1){
+       return  words.map((content)=>content.charAt(0).toUpperCase()).join(' ');
+     }else {
+        return value.charAt(0).toUpperCase() + value.slice(1);
+     }
+        // return value.replace(/(?:^|\s)\S/g, value.toUpperCase());
+};
+
 export function getTotalSuccessful(transactions) {
     if (transactions) {
         if (transactions.length > 1) {
@@ -105,6 +130,20 @@ export function getTotalSuccessful(transactions) {
             return successful.length;
         } else {
             return transactions.length;
+        }
+    }
+}
+export function getTotalBGSuccessful(transactions) {
+
+
+    if (transactions) {
+        if (transactions.length > 1) {
+            let successful;
+            successful = transactions.filter((content)=>(content.status=='success'));
+            successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+            return successful.amount;
+        } else {
+            return 0;
         }
     }
 }

@@ -279,7 +279,7 @@ class BackupGoals extends Component {
                                                     <div className="col-lg-4 col-12">
                                                         <h3 className="gray-header-text fs-mb-1 mb-2 ">&nbsp;
                                                         </h3>
-                                                        <BGStartAmountCard bgInfo={this.state.selectedBG}/>
+                                                        <BGStartAmountCard bgInfo={this.state.selectedBG} selectedBGHistory={this.state.selectedBGHistory} />
                                                     </div>
                                                     <BackupGoalQuickActions showBackUpHistory={this.showBackUpHistory}
                                                                             hideBG={this.hideBackupGoal}

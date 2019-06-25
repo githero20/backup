@@ -12,8 +12,8 @@ class SignUp extends Component {
 
 
     state = {
-        referral_code:undefined
-    }
+        referral_code:''
+    };
 
     // handle the referral case
 
@@ -23,7 +23,7 @@ class SignUp extends Component {
 
         console.log(props);
         if(props){
-            this.setState({ referral_code:props.match.params.ref})
+            this.setState({ referral_code:props.match.params.ref},()=>{console.log('just set state',this.state)})
         }
     };
 

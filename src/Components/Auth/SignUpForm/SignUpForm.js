@@ -55,7 +55,8 @@ class SignUpForm extends Component {
             phone: '',
             password: '',
             password_confirmation: '',
-            referral_code_userid: undefined,
+            referral_code_userid: '',
+            disableReferral:false,
             submitted: false,
             ConfirmPassError: false,
             passwordError: false,
@@ -81,8 +82,6 @@ class SignUpForm extends Component {
         const name = event.target.name;
         const value = event.target.value;
 
-        console.log(value);
-
         //validate password
         if (name === 'password') {
             this.validatePassword();
@@ -90,7 +89,6 @@ class SignUpForm extends Component {
 
         //validate confirm password
         if (name === 'password_confirmation') {
-            console.log('validating');
             this.validatePasswords(value);
         }
         this.setState({
@@ -105,7 +103,6 @@ class SignUpForm extends Component {
         if (user && token) {
 
             localStorage.setItem(USERINFO, JSON.stringify(user));
-            console.log(token, user);
             localStorage.setItem(USERTOKEN, token);
 
             this.setState({
@@ -137,7 +134,7 @@ class SignUpForm extends Component {
             console.log('false' + password, value);
             this.setState({
                 ConfirmPassError: true,
-            })
+            });
             return false;
         } else {
             console.log('true' + password);
@@ -217,32 +214,14 @@ class SignUpForm extends Component {
             //     })
             // }
         } else {
-
-            console.log('got here to save');
             if (response) {
-                console.log('saved');
-
                 const serverResponse = response.data;
                 const token = serverResponse.token;
                 const user = serverResponse.user;
-
-                console.log(user, token);
                 this.saveToLocalStorage(user, token);
-
-                // localStorage.setItem(USERTOKEN, response.data.token);
-
-                // redirect to activate email
-
-                // this.props.history.push({
-                //     pathname: `${ResendActivationLink}`,
-                //     state: {email:this.state.email }
-                // });
-
-
                 this.setState({
                     redirect: true
                 });
-
             }
 
         }
@@ -257,7 +236,7 @@ class SignUpForm extends Component {
             // perform all necessary validation
             const ConfPassValid = this.validatePasswords(this.state.password_confirmation);
             const PassVal = this.validatePassword();
-            console.log(ConfPassValid,PassVal);
+            console.log(ConfPassValid, PassVal);
             if (ConfPassValid && PassVal) {
                 //    make api call
                 this.setState({
@@ -285,9 +264,6 @@ class SignUpForm extends Component {
     };
 
 
-
-
-
     //hides error display
     hideError = () => {
         this.setState({
@@ -295,28 +271,33 @@ class SignUpForm extends Component {
         });
     };
 
-
-    componentDidMount() {
+    componentWillReceiveProps(newProps) {
 
         // add to the referral input
-        const {referralCode} = this.props;
-       if(referralCode){
-           this.setState({
-               referral_code_userid:referralCode,
-               showReferralInput:true
-           })
-       }
+        const {referralCode} = newProps;
+        console.log('referral code', referralCode);
+        if(referralCode){
+            this.setState({
+                referral_code_userid: referralCode,
+                showReferralInput: true,
+                disableReferral:true
+            }, () => {
+                console.log('rendering form state',this.state);
+            });
+        }
 
 
 
-        // and display in readonly else leave it hidden
+
     }
+
+
 
     render() {
 
-        const {name, email, referral_code_userid, password, password_confirmation, last_name, phone} = this.state;
+        const {name, email, referral_code_userid, password, password_confirmation,disableReferral, last_name, phone} = this.state;
 
-        const {referralCode}= this.props;
+        const {referralCode} = this.props;
 
         if (this.state.redirect) {
 
@@ -364,7 +345,8 @@ class SignUpForm extends Component {
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
                                 <label htmlFor="name">Last Name (Surname)</label>
-                                <input id="lastname" type="text" name={'last_name'} className={'form-control text-capitalize'}
+                                <input id="lastname" type="text" name={'last_name'}
+                                       className={'form-control text-capitalize'}
                                        onChange={this.changeHandler}/>
                                 {this.validator.message('last name', last_name, 'required|string')}
                             </div>
@@ -425,7 +407,9 @@ class SignUpForm extends Component {
                                 {
                                     this.state.showReferralInput ?
                                         <div className="form-group fade-in" id="referal-input-container">
-                                            <input id="referral_code_userid" name={'referral_code_userid'} disabled={!referral_code_userid} value={referral_code_userid} onChange={this.changeHandler}
+                                            <input id="referral_code_userid" name={'referral_code_userid'}
+                                                   disabled={disableReferral} value={referral_code_userid}
+                                                   onChange={this.changeHandler}
                                                    type="text" className="form-control"/>
                                             {this.validator.message('referral Code', referral_code_userid, 'string')}
                                         </div>

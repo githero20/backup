@@ -101,6 +101,7 @@ class BankForm extends Component {
                <option key={index} value={bank.code}>{bank.name}</option>
            );
         });
+
         return (
             <React.Fragment>
                 <Form onSubmit={this.validateForm}>
@@ -126,8 +127,6 @@ class BankForm extends Component {
                             />
                             {this.validator.message("Account Number",this.state.form.account_number,"required|numeric|size:10")}
                         </Form.Group>
-
-
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridCity">

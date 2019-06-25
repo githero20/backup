@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
-import {Link, Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
 import ButtonLoader from "../Buttonloader/ButtonLoader";
-import {RegisterEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteLinks";
-import {api} from "../../../ApiUtils/ApiUtils";
-import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
+import {ResendActivationLink} from "../../../RouteLinks/RouteLinks";
+import {USERINFO, USERTOKEN, USERWITHDRAWAL} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {getListOfBanks, resolveBankName, sendBankOTP} from "../../../actions/BankAction";
-import Form from "react-bootstrap/Form";
+import {resolveBankName} from "../../../actions/BankAction";
 import {_handleFormChange} from "../../../utils";
-import {setupWithdrawal} from "../../../actions/setupWithdrawalAction";
-import queryString from "query-string";
+import {resolveBank, setupWithdrawal} from "../../../actions/setupWithdrawalAction";
+import DashboardLoader from "../../Dashboard/DashboardLoader/DashboardLoader";
 
 class SetupWithdrawalForm extends Component {
 
@@ -26,9 +24,6 @@ class SetupWithdrawalForm extends Component {
     // on blur verify user account
 
     // get all banks
-
-
-
 
 
     //validator
@@ -57,20 +52,24 @@ class SetupWithdrawalForm extends Component {
         });
 
         this.state = {
-            form:{
-                bank_code:'',
-                account_number:'',
-                bank_name:'',
-                withdrawal_pin:'',
-                bank:'',
-                pin_one:'',
-                pin_two:'',
-                pin_three:'',
-                pin_four:'',
+            form: {
+                bank_code: '',
+                account_number: '',
+                account_name: '',
+                bank_name: '',
+                withdrawal_pin: '',
+                bank: '',
+                pin_one: '',
+                pin_two: '',
+                pin_three: '',
+                pin_four: '',
             },
             resolved: false,
-            token:'',
+            showBank: false,
+            pinErr: false,
+            token: '',
             loading: false,
+            bankLoading: false,
             redirect: false,
         };
 
@@ -96,21 +95,20 @@ class SetupWithdrawalForm extends Component {
     //else display error
 
 
-
     validateInput = (e) => {
-        if(e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8 ){
+        if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
             e.preventDefault();
         }
     };
 
 
-    handleChange(e){
-        this.setState({resolved:false});
-        _handleFormChange(e.target.name,e, this);
+    handleChange(e) {
+        this.setState({resolved: false});
+        _handleFormChange(e.target.name, e, this);
 
         //handle concatenation of pin
-        this.handlePinConcatenation(e.target.name,e);
-        this.getUserBank(e.target.name,e);
+        this.handlePinConcatenation(e.target.name, e);
+        // this.getUserBank(e.target.name, e);
     };
 
 
@@ -118,91 +116,148 @@ class SetupWithdrawalForm extends Component {
         let form = {...this.state.form};
         form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
 
-        if(name=='pin_one'||name=='pin_two'||name=='pin_three'||name=='pin_four'){
-            form['withdrawal_pin']+=event.target.value;
+        if (name == 'pin_one' || name == 'pin_two' || name == 'pin_three' || name == 'pin_four') {
+
+            form.withdrawal_pin = form.pin_one + form.pin_two + form.pin_three + form.pin_four;
+            console.log('form pin', form.withdrawal_pin);
+            this.setState({form});
+            // console.log('withdrawal pin', form['withdrawal_pin']);
         }
-        this.setState({form});
-        console.log('withdrawal pin', form['withdrawal_pin']);
-        if(callback != null){
+
+        console.log('length of pin ',form.withdrawal_pin.length);
+        if(form.withdrawal_pin.length >= 4 ){
+            this.setState({
+                pinErr:false
+            })
+        }
+
+        if (form['bank_code'] != '' && form['account_number'].length === 10 && form['bank_name'] == '') {
+
+            console.log('got here', event.target.value.length);
+            this.setState({
+                bankLoading: true
+            });
+            resolveBank(form, null, this.handleResolveBank)
+            //load up
+            // make request
+        }
+        if (callback != null) {
             callback();
         }
         return form;
-    }
+    };
+    //
+    // getUserBank = (name, event, callback = null) => {
+    //     let form = {...this.state.form};
+    //     form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    //
+    //     this.setState({form});
+    //
+    //     if (form['bank_code'] != '' && form['account_number'].length === 10 && form['bank_name']=='') {
+    //
+    //         console.log('got here', event.target.value.length);
+    //         this.setState({
+    //             bankLoading: true
+    //         });
+    //         resolveBank(form, null, this.handleResolveBank)
+    //         //load up
+    //         // make request
+    //     }
+    //     if (callback != null) {
+    //         callback();
+    //     }
+    //     return form;
+    // };
 
-        getUserBank = (name, event, callback = null) => {
+
+    handleResolveBank = (status, res) => {
+        this.setState({
+            bankLoading: false
+        });
+
+        if (status) {
             let form = {...this.state.form};
-            form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+            console.log(res.data);
+            form.account_name = form.bank_name = res.data.account_name;
+            this.setState({form, showBank: true});
+            console.log('resolve bank data', res);
 
-            if( name=='account_number' &&event.target.value.length===10){
-                form['withdrawal_pin']+=event.target.value;
-            }
-            this.setState({form});
-            console.log('withdrawal pin', form['withdrawal_pin']);
-            if(callback != null){
-                callback();
-            }
-            return form;
+        } else {
+            console.log('err', res);
         }
 
+    };
 
 
-    validateForm(e){
+    validateForm(e) {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             // this.props.toastManager("An Error Occured");
             // rerender to show messages for the first time
             this.forceUpdate();
-        }else{
-            this.setState({loading:true});
+        } else if (this.state.form.withdrawal_pin.length >= 4) {
+            this.setState({loading: true});
             //send api
             const {form} = this.state;
             const bank = this.props.banks.find(bank => bank.code == form.bank_code);
             form.bank = `${bank.name}.${bank.code}`;
-
             //send all details
-
-            console.log('submitted form',form);
-            setupWithdrawal(form,this.state.token,(status, payload) => {
-                this.setState({loading:false});
-                if(status){
+            console.log('submitted form', form);
+            setupWithdrawal(form, this.state.token, (status, payload) => {
+                this.setState({loading: false});
+                if (status) {
                     console.log(payload);
                     // this.props.showOtp(payload);
+
+                    // save user withdrawal info
+                    localStorage.setItem(USERWITHDRAWAL,payload.data);
+
+                    setTimeout(()=>{
+                        this.setState({
+                            redirect:true
+                        });
+                    },3000);
                     //TODO handle response and redirect
 
-                }else{
-                    this.props.toastManager.add(payload,{
-                        appearance:"error",
-                        autoDismiss:true,
-                        autoDismissTimeout:3000
+                } else {
+                    console.log('err',payload);
+                    this.props.toastManager.add('Something went wrong!!', {
+                        appearance: "error",
+                        autoDismiss: true,
+                        autoDismissTimeout: 3000
                     })
                 }
             });
+        } else {
+            this.setState({
+                pinErr: true,
+            })
         }
     };
 
-    resolveAccountNumber(e){
+    resolveAccountNumber(e) {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             this.forceUpdate();
-        }
-        else{
-            this.setState({loading:true});
+        } else {
+            this.setState({loading: true});
             //send api
             const {form} = this.state;
-            resolveBankName(form.account_number, form.bank_code,(status, payload) => {
-                if(status){
+            resolveBankName(form.account_number, form.bank_code, (status, payload) => {
+                if (status) {
                     let form = this.state.form;
                     form.account_name = payload.account_name;
-                    this.setState({loading:false, resolved:true, form});
-                }else{
-                    this.setState({loading:false});
-                    this.props.toastManager.add(payload,{
-                        appearance:"error",
-                        autoDismiss:true,
-                        autoDismissTimeout:3000
-                    })
+                    this.setState({loading: false, resolved: true, form});
+                } else {
+                    this.setState({loading: false});
+                    console.log('err',payload);
+                    // this.props.toastManager.add(payload, {
+                    //     appearance: "error",
+                    //     autoDismiss: true,
+                    //     autoDismissTimeout: 3000
+                    // })
                 }
             });
         }
@@ -220,10 +275,6 @@ class SetupWithdrawalForm extends Component {
             })
         }
     };
-
-
-
-
 
 
     getSignUpInfo = (state, response) => {
@@ -317,14 +368,17 @@ class SetupWithdrawalForm extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            token:nextProps.token
+            token: nextProps.token
         });
+    }
+    componentDidMount() {
+        console.log('props',this.props);
     }
 
     render() {
 
-        const { bank_name,account_number} = this.state.form;
-        const { pin_one, pin_two, pin_three, pin_four} = this.state;
+        const {bank_name, account_number} = this.state.form;
+        const {pin_one, pin_two, pin_three, pin_four} = this.state;
 
         const {referralCode} = this.props;
 
@@ -352,30 +406,34 @@ class SetupWithdrawalForm extends Component {
             );
         }
 
-        const banksSelect = this.props.banks.map((bank,index) => {
-            return(
+        const banksSelect = this.props.banks.map((bank, index) => {
+            return (
                 <option key={index} value={bank.code}>{bank.name}</option>
             );
         });
 
         return (
             <React.Fragment>
+
+                {this.state.bankLoading ? <DashboardLoader/> : null}
+
                 <form className="login-form " onSubmit={this.validateForm}>
                     <div className="row">
                         <div className="col-12">
-                            <h5 className="form-header-purple mb-5">Add Wthdrawal Bank</h5>
+                            <h5 className="form-header-purple mb-5">Add Withdrawal Bank</h5>
                             {/*{this.state.error ?*/}
                             {/*    <Alert message={this.state.errorMessage} hideError={this.hideError}/> : null}*/}
                         </div>
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
                                 <label htmlFor="bank_code">Bank Name: </label>
-                                <select className={'form-control'} value={this.state.form.bank_code} onChange={this.handleChange}
+                                <select className={'form-control'} value={this.state.form.bank_code}
+                                        onChange={this.handleChange}
                                         name="bank_code">
                                     <option value={""}>Select Bank</option>
                                     {banksSelect}
                                 </select>
-                                {this.validator.message("Bank Name",this.state.form.bank_code,"required|numeric")}
+                                {this.validator.message("Bank Name", this.state.form.bank_code, "required|numeric")}
                             </div>
                         </div>
 
@@ -390,21 +448,29 @@ class SetupWithdrawalForm extends Component {
                             </div>
                         </div>
 
-                        <div className="col-12 ">
-                            <div className="form-group">
-                                <label htmlFor="phoneNumber">Verify User </label>
-                                <input id="verify_user" name={'verify_user'} type="text" className={'form-control'}
-                                       // onChange={this.changeHandler}
-                                />
-                                {/*{this.validator.message('phone', phone, 'required|phone|regex:^[0]\\d{10}$')}*/}
-                            </div>
-                        </div>
+                        {
+                            this.state.showBank ? (
+                                <div className="col-12 ">
+                                    <div className="form-group">
+                                        <label htmlFor="phoneNumber">Account Name </label>
+                                        <input id="bank_name" disabled={true} name={'bank_name'} value={bank_name}
+                                               type="text"
+                                               className={'form-control'}
+                                            // onChange={this.changeHandler}
+                                        />
+                                        {/*{this.validator.message('phone', phone, 'required|phone|regex:^[0]\\d{10}$')}*/}
+                                    </div>
+                                </div>
+                            ) : null
+                        }
 
 
                         <div className="col-md-6">
                             <div className="form-group">
-                                <label htmlFor="password">Add Pin</label>
-                                <div><span className='srv-validation-message'>Please Set your pin </span></div>
+                                <label>Add Withdrawal Pin</label>
+                                {this.state.pinErr ?
+                                    <p><span className='srv-validation-message'>Your pin must be four digits</span></p>
+                                    : null}
                                 <div className="row">
                                     <div className="col-3">
                                         <input id="pin_one" type="number" name={'pin_one'}
@@ -413,7 +479,6 @@ class SetupWithdrawalForm extends Component {
                                                onKeyUp={this.validateInput}
                                                onKeyDown={this.validateInput}
                                         />
-                                        {this.validator.message('pin_one', pin_one, `required|numeric|max:1`)}
 
                                     </div>
                                     <div className="col-3">
@@ -423,7 +488,6 @@ class SetupWithdrawalForm extends Component {
                                                onKeyUp={this.validateInput}
                                                onKeyDown={this.validateInput}
                                         />
-                                        {this.validator.message('pin_two', pin_two, `required|numeric|max:1`)}
 
                                     </div>
                                     <div className="col-3">
@@ -433,7 +497,6 @@ class SetupWithdrawalForm extends Component {
                                                onKeyUp={this.validateInput}
                                                onKeyDown={this.validateInput}
                                         />
-                                        {this.validator.message('pin_three', pin_three, `required|numeric|max:1`)}
 
                                     </div>
                                     <div className="col-3">
@@ -443,8 +506,6 @@ class SetupWithdrawalForm extends Component {
                                                onKeyUp={this.validateInput}
                                                onKeyDown={this.validateInput}
                                         />
-                                        {this.validator.message('pin_four', pin_four, `required|numeric|max:1`)}
-
                                     </div>
                                 </div>
 

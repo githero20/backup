@@ -277,8 +277,10 @@ class SignUpForm extends Component {
         const {referralCode} = newProps;
         console.log('referral code', referralCode);
         if(referralCode){
+            let code  = referralCode.split('/');
+            code = code[0];
             this.setState({
-                referral_code_userid: referralCode,
+                referral_code_userid: code,
                 showReferralInput: true,
                 disableReferral:true
             }, () => {

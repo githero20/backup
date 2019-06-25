@@ -5,6 +5,7 @@ import {setLocalStorage} from "../../../ApiUtils/ApiUtils";
 
 export const USERTOKEN = "token";
 export const USERINFO = "user";
+export const USERWITHDRAWAL = "user-withdrawal";
 export const DASHBOARDINFO = "dashboard-info";
 export const USERACTIVATED = "activated";
 export const ACTIVATIONMESG = "activation-msg";

@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom";
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
 import ButtonLoader from "../Buttonloader/ButtonLoader";
-import {ResendActivationLink} from "../../../RouteLinks/RouteLinks";
+import {DashboardLink} from "../../../RouteLinks/RouteLinks";
 import {USERINFO, USERTOKEN, USERWITHDRAWAL} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 import {resolveBankName} from "../../../actions/BankAction";
@@ -124,10 +124,10 @@ class SetupWithdrawalForm extends Component {
             // console.log('withdrawal pin', form['withdrawal_pin']);
         }
 
-        console.log('length of pin ',form.withdrawal_pin.length);
-        if(form.withdrawal_pin.length >= 4 ){
+        console.log('length of pin ', form.withdrawal_pin.length);
+        if (form.withdrawal_pin.length >= 4) {
             this.setState({
-                pinErr:false
+                pinErr: false
             })
         }
 
@@ -211,17 +211,17 @@ class SetupWithdrawalForm extends Component {
                     // this.props.showOtp(payload);
 
                     // save user withdrawal info
-                    localStorage.setItem(USERWITHDRAWAL,payload.data);
+                    localStorage.setItem(USERWITHDRAWAL, payload.data);
 
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         this.setState({
-                            redirect:true
+                            redirect: true
                         });
-                    },3000);
+                    }, 3000);
                     //TODO handle response and redirect
 
                 } else {
-                    console.log('err',payload);
+                    console.log('err', payload);
                     this.props.toastManager.add('Something went wrong!!', {
                         appearance: "error",
                         autoDismiss: true,
@@ -252,7 +252,7 @@ class SetupWithdrawalForm extends Component {
                     this.setState({loading: false, resolved: true, form});
                 } else {
                     this.setState({loading: false});
-                    console.log('err',payload);
+                    console.log('err', payload);
                     // this.props.toastManager.add(payload, {
                     //     appearance: "error",
                     //     autoDismiss: true,
@@ -371,37 +371,19 @@ class SetupWithdrawalForm extends Component {
             token: nextProps.token
         });
     }
+
     componentDidMount() {
-        console.log('props',this.props);
+        console.log('props', this.props);
     }
 
     render() {
 
         const {bank_name, account_number} = this.state.form;
-        const {pin_one, pin_two, pin_three, pin_four} = this.state;
-
-        const {referralCode} = this.props;
-
         if (this.state.redirect) {
-
-
-            // Activate account with paystack
-
-            // return (
-            //     <React.Fragment>
-            //         <Redirect to={ActivateAccountLink} push/>
-            //     </React.Fragment>
-            // );
-            //
             return (
                 <React.Fragment>
-                    {/*<Redirect to={ResendActivationLink} />*/}
-                    <Redirect push to={{
-                        pathname: `${ResendActivationLink}`,
-                        state: {email: this.state.email}
-                    }}
 
-                    />
+                    <Redirect push to={DashboardLink}/>
                 </React.Fragment>
             );
         }
@@ -414,9 +396,7 @@ class SetupWithdrawalForm extends Component {
 
         return (
             <React.Fragment>
-
                 {this.state.bankLoading ? <DashboardLoader/> : null}
-
                 <form className="login-form " onSubmit={this.validateForm}>
                     <div className="row">
                         <div className="col-12">

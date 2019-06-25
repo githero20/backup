@@ -14,9 +14,10 @@ import {
     amountFormatter,
     balanceFormatter, confirmedFormatter,
     dateFormatter,
-    descriptionFormatter,
+    descriptionFormatter, sourceFormatter,
     statusFormatter
 } from "../../Helpers/Helper";
+import ErrorBoundary from "../../Components/Auth/HOC/ErrorBoundary";
 
 class Withdrawal extends Component {
 
@@ -54,16 +55,12 @@ class Withdrawal extends Component {
         this.setState({
             showLoader:false,
         });
-
         if(status){
 
             this.setState({
                 userName:res.name
             })
-
         }
-
-
     };
 
 
@@ -120,6 +117,12 @@ class Withdrawal extends Component {
                 sort: true,
 
             },{
+                text: 'Description',
+                dataField: 'sourcetypes',
+                formatter: sourceFormatter,
+                sort: true,
+
+            },{
                 text: 'Balance',
                 dataField: 'last_amount',
                 formatter: balanceFormatter,
@@ -141,7 +144,7 @@ class Withdrawal extends Component {
 
         return (
             <React.Fragment>
-                <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
+                    <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={this.state.userName} />
                     <VerticalNav userName={this.state.userName} />
@@ -172,7 +175,7 @@ class Withdrawal extends Component {
                                     <div id="recent-sales" className="col-12 col-md-12">
                                         <div className="card">
                                             <div className="card-content mt-1 px-md-5 px-1 py-1">
-                                                <div className="table-header d-flex flex-column flex-md-row justify-content-end mb-3">
+                                                <div className="table-header d-flex flex-column flex-md-row justify-content-start mb-3">
                                                     {/*<span className="table-button-container mb-2 mb-md-0">*/}
                                                     {/*    <span className="mr-1 table-grid-view-icon img-2x active">*/}
                                                     {/*        <img src={listIcon} className=" img-2x "/>*/}
@@ -185,6 +188,7 @@ class Withdrawal extends Component {
                                                     {/*             className="mr-1 img-1x"/> table view*/}
                                                     {/*    </span>*/}
                                                     {/*</span>*/}
+
                                                     {
                                                         !this.state.showWithdrawalForm
                                                         ?
@@ -192,10 +196,23 @@ class Withdrawal extends Component {
                                                                     onClick={this.showForm}>Withdraw
                                                             </button>
                                                             :
-                                                            <button className="round white btn-withdraw flex-grow-0 "
-                                                                    onClick={this.hideForm}>Go Back
-                                                            </button>
+                                                            <a href='#' className="gray-text back-btn "
+                                                                    onClick={this.hideForm}>Back to Withdrawals <i className='fa fa-chevron-right'></i>
+                                                            </a>
                                                     }
+
+
+                                                    {/*{*/}
+                                                    {/*    !this.state.showWithdrawalForm*/}
+                                                    {/*    ?*/}
+                                                    {/*        <button className="round white btn-withdraw flex-grow-0 "*/}
+                                                    {/*                onClick={this.showForm}>Withdraw*/}
+                                                    {/*        </button>*/}
+                                                    {/*        :*/}
+                                                    {/*        <button className="round white btn-withdraw flex-grow-0 "*/}
+                                                    {/*                onClick={this.hideForm}>Go Back*/}
+                                                    {/*        </button>*/}
+                                                    {/*}*/}
                                                 </div>
                                                 <ToastProvider>
                                                     {

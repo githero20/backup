@@ -79,15 +79,15 @@ class ProfileSetting extends Component {
                             </div>
                             <div className="content-body">
                                 <div className="row">
-                                    <div className="col-lg-8 col-12">
-                                        <h3 className="gray-header-text mb-2 ">Profile
+                                    <div className=" col-12">
+                                        <h3 className="gray-header-text mb-2 ">Profile Settings
 
                                         </h3>
                                         <div className="card curved-radius">
                                             <div className="card-content collapse show">
-                                                <div className="card-header">
-                                                    <h4 className="card-title">Profile Settings</h4>
-                                                </div>
+                                                {/*<div className="card-header">*/}
+                                                {/*    <h4 className="card-title">Profile Settings</h4>*/}
+                                                {/*</div>*/}
                                                 <div className="card-body px-md-3 py-md-3">
                                                    <ProfileForm
                                                        userProfile={this.state.userProfile}

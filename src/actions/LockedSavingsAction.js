@@ -1,11 +1,13 @@
-import {_axios} from "../utils";
+import {_axios, _getHeader} from "../utils";
 import {BASE_URL, CreateLockedSavings, GetLockedSavings, GetLockedSavingsInterest} from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 
 
 export const getLockedInterestSavings = (payload, callback) =>{
     console.log("body", payload);
-    _axios.post(`${BASE_URL}/${GetLockedSavingsInterest}`,payload)
+    _axios.post(`${BASE_URL}/${GetLockedSavingsInterest}`,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -20,7 +22,9 @@ export const getLockedInterestSavings = (payload, callback) =>{
 
 export const createLockedSavings = (payload, callback) =>{
     console.log("body", payload);
-    _axios.post(`${BASE_URL}/${CreateLockedSavings}`,payload)
+    _axios.post(`${BASE_URL}/${CreateLockedSavings}`,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
@@ -73,7 +77,9 @@ export const getLockedSavings = (callback) =>{
     //
     // callback(data.status == "success", data.data);
     // return;
-    _axios.get(`${BASE_URL}${GetLockedSavings}`)
+    _axios.get(`${BASE_URL}${GetLockedSavings}`,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             callback(res.data.status == "success", res.data.data);

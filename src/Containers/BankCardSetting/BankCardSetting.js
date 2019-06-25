@@ -11,7 +11,6 @@ import CardModal from "./Card/CardModal";
 import {getUserCards, verifyTransaction} from "../../actions/CardAction";
 import {withToastManager} from "react-toast-notifications";
 import {getUserData} from "../../actions/UserAction";
-import {getLockedSavings} from "../../actions/LockedSavingsAction";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 
 class BankCardSetting extends Component {
@@ -23,8 +22,8 @@ class BankCardSetting extends Component {
             showCardModal: false,
             banks: [],
             cards: [],
-            userName:null,
-            showLoader:false,
+            userName: null,
+            showLoader: false,
         };
 
         this.showBankModal = this.showBankModal.bind(this);
@@ -36,39 +35,32 @@ class BankCardSetting extends Component {
         this.getUserCards = this.getUserCards.bind(this);
     }
 
-    getUserBanks(){
+    getUserBanks() {
         getUserBanks((status, payload) => {
             console.log(status, payload);
-            if(status){
-                this.setState({banks:payload});
-            }else{
-                this.props.toastManager.add("Unable to fetch Bank Accounts",{
-                    appearance: 'error',
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
-                })
+            if (status) {
+                this.setState({banks: payload});
+            } else {
+                this.toastMessage("Unable to fetch Bank Accounts", 'error');
             }
         })
     }
 
-    getUserCards(){
+    getUserCards() {
         getUserCards((status, payload) => {
-            console.log("Cards",status, payload);
-            if(status){
-                this.setState({cards:payload});
-            }else{
-                this.props.toastManager.add("Unable to fetch Cards",{
-                    appearance: 'error',
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
-                })
+            console.log("Cards", status, payload);
+            if (status) {
+                this.setState({cards: payload});
+            } else {
+                this.toastMessage("Unable to fetch Cards", 'error');
             }
         })
     }
+
     componentWillMount() {
 
         this.setState({
-            showLoader:true,
+            showLoader: true,
         });
 
         getUserData(this.handleUserInfo);
@@ -78,21 +70,21 @@ class BankCardSetting extends Component {
     }
 
 
-    handleUserInfo = (status,res)=>{
+    handleUserInfo = (status, res) => {
         this.setState({
-            showLoader:false,
+            showLoader: false,
         });
 
-        if(status){
+        if (status) {
 
             this.setState({
-                userName:res.name
+                userName: res.name
             })
 
         }
 
-
     }
+
 
     showBankModal() {
         this.setState({showBankModal: true});
@@ -104,7 +96,7 @@ class BankCardSetting extends Component {
 
     hideBankModal(status = false) {
         this.setState({showBankModal: false});
-        if(status){
+        if (status) {
             this.getUserBanks();
         }
     }
@@ -113,27 +105,21 @@ class BankCardSetting extends Component {
         this.setState({showCardModal: false})
     }
 
-    resolvePaystackResponse(response){
+    resolvePaystackResponse(response) {
         console.log("Paystack Response", response);
         verifyTransaction({
             ref: response.reference,
             type: "instant"
-        },(status, payload) =>{
+        }, (status, payload) => {
             console.log("status", status, payload);
-            if(status){
-                this.props.toastManager.add("Card Added Successfully",{
-                    appearance:"success",
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
-                });
+            if (status) {
+
+                this.toastMessage("Card Added Successfully", 'success');
 
                 this.getUserCards();
-            }else{
-                this.props.toastManager.add("Unable to add card at this moment",{
-                    appearance:"error",
-                    autoDismiss:true,
-                    autoDismissTimeout:3000
-                })
+            } else {
+
+                this.toastMessage("Unable to add card at this moment", 'error');
             }
         })
 
@@ -141,19 +127,29 @@ class BankCardSetting extends Component {
 
 
 
+    toastMessage = (message, status) => {
+        const {toastManager} = this.props;
+        toastManager.add(message, {
+            appearance: status,
+            autoDismiss: true,
+            autoDismissTimeout: 4000,
+            pauseOnHover: false,
+        })
+    };
+
     render() {
-        const randomGradient = ["gray-gradient","blue-gradient"];
-        const cards = this.state.cards.map((card,index) => {
+        const randomGradient = ["gray-gradient", "blue-gradient"];
+        const cards = this.state.cards.map((card, index) => {
             const grad = randomGradient[Math.floor(Math.random() * randomGradient.length)];
-            console.log("grad",Math.floor(Math.random() * randomGradient.length), grad);
+            console.log("grad", Math.floor(Math.random() * randomGradient.length), grad);
             let cardType = masterCardImage;
             //TODO(get verve image)
-            if(card.brand == "visa")
+            if (card.brand == "visa")
                 cardType = visaImage;
-            else if(card.brand == "verve")
+            else if (card.brand == "verve")
                 cardType = visaImage;
             return (
-                <div key={index} className={"bank-card " + grad +  " mb-2 mb-md-0  mr-2"}>
+                <div key={index} className={"bank-card " + grad + " mb-2 mb-md-0  mr-2"}>
                     <div className="d-flex justify-content-end">
                         <img
                             src={menuIcon}
@@ -169,24 +165,25 @@ class BankCardSetting extends Component {
                     </div>
                 </div>
 
-           );
+            );
         });
         return (
 
 
             <React.Fragment>
                 {/*<ToastProvider>*/}
-                    <BankModal show={this.state.showBankModal} onHide={this.hideBankModal}/>
-                    <CardModal show={this.state.showCardModal} onHide={this.hideCardModal} onResolve={this.resolvePaystackResponse}/>
+                <BankModal show={this.state.showBankModal} onHide={this.hideBankModal}/>
+                <CardModal show={this.state.showCardModal} onHide={this.hideCardModal}
+                           onResolve={this.resolvePaystackResponse}/>
                 {/*</ToastProvider>*/}
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav userName={this.state.userName} />
-                    <VerticalNav userName={this.state.userName} />
+                    <HorizontalNav userName={this.state.userName}/>
+                    <VerticalNav userName={this.state.userName}/>
 
                     <div className="app-content content">
                         <div className="content-wrapper">
-                            {this.state.showLoader?<DashboardLoader/>:null}
+                            {this.state.showLoader ? <DashboardLoader/> : null}
                             <div className="row mb-4">
                                 <div className="col-12">
                                     {/*message box*/}
@@ -204,69 +201,93 @@ class BankCardSetting extends Component {
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-lg-6 col-md-12">
+                                        <div className=" col-md-12">
                                             <div className="card round px-md-3">
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
                                                         <h3 className=" d-flex justify-content-between align-items-center light-gray setting-header">
                                                             <h3>My Banks</h3>
                                                             <span
-                                                                 className="pull-right right-btn-holder"
-                                                                 onClick={this.showBankModal}>
+                                                                className="pull-right right-btn-holder"
+                                                                onClick={this.showBankModal}>
                                                             <button
                                                                 type="button"
                                                                 className="btn-custom-round-blue plus-btn-shadow mr-1">
-                                                                <img className="img-2x" src={addButton}/>
+                                                                <img  src={addButton}/>
                                                             </button>Add Bank</span>
                                                         </h3>
 
 
-                                                        <div className="table-responsive">
-                                                            <table
-                                                                   className="table table-hover text-center">
-                                                                <thead>
-                                                                <tr>
-                                                                    <th>Bank Name</th>
-                                                                    <th>Account Number</th>
-                                                                    {/*<th>Action</th>*/}
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                {
-                                                                    this.state.banks.map((bank, index) => {
-                                                                        return (
-                                                                            <tr key={index}>
-                                                                                <td>
-                                                                                    {bank.bank}
-                                                                                </td>
-                                                                                <td>
-                                                                                    {bank.bank_number}
-                                                                                </td>
-                                                                                {/*<td>*/}
-                                                                                    {/*<button className={"btn btn-sm btn-danger"}>*/}
-                                                                                        {/*<i className={"glyphicons fa-trash"}/> delete*/}
-                                                                                    {/*</button>*/}
-                                                                                {/*</td>*/}
+                                                        {/*<div className="table-responsive">*/}
+                                                        {/*    <table*/}
+                                                        {/*           className="table table-hover text-center">*/}
+                                                        {/*        <thead>*/}
+                                                        {/*        <tr>*/}
+                                                        {/*            <th>Bank Name</th>*/}
+                                                        {/*            <th>Account Number</th>*/}
+                                                        {/*            /!*<th>Action</th>*!/*/}
+                                                        {/*        </tr>*/}
+                                                        {/*        </thead>*/}
+                                                        {/*        <tbody>*/}
+                                                        {/*        {*/}
+                                                        {/*            this.state.banks.map((bank, index) => {*/}
+                                                        {/*                return (*/}
+                                                        {/*                    <tr key={index}>*/}
+                                                        {/*                        <td>*/}
+                                                        {/*                            {bank.bank}*/}
+                                                        {/*                        </td>*/}
+                                                        {/*                        <td>*/}
+                                                        {/*                            {bank.bank_number}*/}
+                                                        {/*                        </td>*/}
+                                                        {/*                        /!*<td>*!/*/}
+                                                        {/*                            /!*<button className={"btn btn-sm btn-danger"}>*!/*/}
+                                                        {/*                                /!*<i className={"glyphicons fa-trash"}/> delete*!/*/}
+                                                        {/*                            /!*</button>*!/*/}
+                                                        {/*                        /!*</td>*!/*/}
 
-                                                                            </tr>
-                                                                        )
-                                                                    })
-                                                                }
-                                                                </tbody>
-                                                            </table>
+                                                        {/*                    </tr>*/}
+                                                        {/*                )*/}
+                                                        {/*            })*/}
+                                                        {/*        }*/}
+                                                        {/*        </tbody>*/}
+                                                        {/*    </table>*/}
+                                                        {/*</div>*/}
+
+                                                        <div
+                                                            className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">
+
+                                                            {
+                                                                this.state.banks.map((bank, index) => {
+                                                                    return (
+                                                                        <div key={index}
+                                                                             className={"bank-card gray-gradient mb-2 mb-md-0  mr-2"}>
+                                                                            <div className="d-flex justify-content-end">
+                                                                                <img
+                                                                                    src={menuIcon}
+                                                                                    className=" big-dots"/>
+                                                                            </div>
+                                                                            <p className="mb-md-3 mt-2 ml-1 ml-md-0 mt-md-0"> {bank.bank_number}</p>
+                                                                            <div className="ml-1 ml-md-0 sm-font"><span
+                                                                                className="mr-5 mb-1 sm-font"></span><span>{bank.bank}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+
                                                         </div>
 
                                                         {/*{*/}
-                                                            {/*this.state.banks.length == 0*/}
-                                                            {/*?<h4 className="card-text mt-5 text-center setting-header px-5 light-gray">You*/}
-                                                                    {/*currently do not have any banks accounts Added</h4>*/}
-                                                                {/*: banksTemplate*/}
+                                                        {/*this.state.banks.length == 0*/}
+                                                        {/*?<h4 className="card-text mt-5 text-center setting-header px-5 light-gray">You*/}
+                                                        {/*currently do not have any banks accounts Added</h4>*/}
+                                                        {/*: banksTemplate*/}
                                                         {/*}*/}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-lg-6 col-md-12">
+                                        <div className=" col-md-12">
                                             <div className="card round px-md-3">
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
@@ -277,12 +298,11 @@ class BankCardSetting extends Component {
                                                                 <button
                                                                     type="button"
                                                                     className="btn-custom-round-blue plus-btn-shadow mr-1">
-                                                                    <img
-                                                                    className="img-2x "
-                                                                    src={addButton}/>
+                                                                    <img src={addButton}/>
                                                             </button>Add Card</span>
                                                         </h3>
-                                                        <div className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">
+                                                        <div
+                                                            className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">
                                                             {cards}
                                                         </div>
 
@@ -300,7 +320,6 @@ class BankCardSetting extends Component {
         );
     }
 }
-
 
 
 export default withToastManager(BankCardSetting);

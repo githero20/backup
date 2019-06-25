@@ -115,7 +115,7 @@ class Home extends Component {
                                          className="ill-2x pt-5" width="100%"/>
                                 </div>
                                 <div className="offset-0 col-md-6 ">
-                                    <div className="section-detail-card pl-md-5">
+                                    <div data-aos={'fade-up'}  data-aos-delay={300} className="section-detail-card pl-md-5">
                                         <div className="yellow-icon-holder">
                                             <img className="mb-4 yellow-icon" src={yellowIcon}
                                                  alt="yellow icon"/>
@@ -199,7 +199,7 @@ class Home extends Component {
                                             </div>
                                             <p className="card-text mb-5">Choose a savings plan that
                                                 works for you </p>
-                                            <div className="card mb-5" data-aos="fade-down">
+                                            <div className="card mb-5"   data-aos-delay={500} data-aos="fade-down">
                                                 <img className="card-1-img" src={cardIll2} alt="illustration"/>
                                             </div>
 
@@ -214,7 +214,7 @@ class Home extends Component {
                                             </div>
                                             <p className="card-text mb-5">Rest easy and watch
                                                 your money grow </p>
-                                            <div className="card mb-5" data-aos="fade-up">
+                                            <div className="card mb-5"  data-aos-delay={1000} data-aos="fade-up">
                                                 <img className="card-2-img" src={cardIll3} alt="illustration"/>
                                             </div>
 

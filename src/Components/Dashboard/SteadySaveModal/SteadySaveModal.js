@@ -42,7 +42,7 @@ class SteadySaveModal extends React.Component {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
-                className={'steady-save-modal'}
+                className={'steady-save-modal round'}
             >
                 <Modal.Header className={' px-md-3 pt-md-3'} closeButton={this.props.onHide}>
                     <Modal.Title id="contained-modal-title-vcenter">

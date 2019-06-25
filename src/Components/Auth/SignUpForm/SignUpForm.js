@@ -55,7 +55,7 @@ class SignUpForm extends Component {
             phone: '',
             password: '',
             password_confirmation: '',
-            referralCode: '',
+            referral_code_userid: undefined,
             submitted: false,
             ConfirmPassError: false,
             passwordError: false,
@@ -285,6 +285,9 @@ class SignUpForm extends Component {
     };
 
 
+
+
+
     //hides error display
     hideError = () => {
         this.setState({
@@ -293,10 +296,27 @@ class SignUpForm extends Component {
     };
 
 
+    componentDidMount() {
+
+        // add to the referral input
+        const {referralCode} = this.props;
+       if(referralCode){
+           this.setState({
+               referral_code_userid:referralCode,
+               showReferralInput:true
+           })
+       }
+
+
+
+        // and display in readonly else leave it hidden
+    }
+
     render() {
 
-        const {name, email, referralCode, password, password_confirmation, last_name, phone} = this.state;
+        const {name, email, referral_code_userid, password, password_confirmation, last_name, phone} = this.state;
 
+        const {referralCode}= this.props;
 
         if (this.state.redirect) {
 
@@ -335,7 +355,7 @@ class SignUpForm extends Component {
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
                                 <label htmlFor="name">First Name</label>
-                                <input id="name" type="text" name={'name'} className={'form-control'}
+                                <input id="name" type="text" name={'name'} className={'form-control text-capitalize'}
                                        onChange={this.changeHandler}/>
                                 {this.validator.message('name', name, 'required|string')}
                             </div>
@@ -344,7 +364,7 @@ class SignUpForm extends Component {
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
                                 <label htmlFor="name">Last Name (Surname)</label>
-                                <input id="lastname" type="text" name={'last_name'} className={'form-control'}
+                                <input id="lastname" type="text" name={'last_name'} className={'form-control text-capitalize'}
                                        onChange={this.changeHandler}/>
                                 {this.validator.message('last name', last_name, 'required|string')}
                             </div>
@@ -404,10 +424,10 @@ class SignUpForm extends Component {
                                 </a>
                                 {
                                     this.state.showReferralInput ?
-                                        <div className="form-group" id="referal-input-container">
-                                            <input id="referralCode" name={'referralCode'} onChange={this.changeHandler}
+                                        <div className="form-group fade-in" id="referal-input-container">
+                                            <input id="referral_code_userid" name={'referral_code_userid'} disabled={!referral_code_userid} value={referral_code_userid} onChange={this.changeHandler}
                                                    type="text" className="form-control"/>
-                                            {this.validator.message('referralCode', referralCode, 'string')}
+                                            {this.validator.message('referral Code', referral_code_userid, 'string')}
                                         </div>
                                         : null}
                             </div>

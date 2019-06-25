@@ -1,4 +1,4 @@
-import {_axios} from "../utils";
+import {_axios, _getHeader} from "../utils";
 import {
     CreateWithdrawalSettings,
     GetWithdrawal,
@@ -10,7 +10,9 @@ import {checkResponse} from "../ApiUtils/ApiUtils";
 
 
 export const getWithdrawalList = (callback) =>{
-    _axios.get(GetWithdrawal)
+    _axios.get(GetWithdrawal,{
+        headers: _getHeader()
+    })
         .then(res => {
             callback(res.data.status == "success", res.data.data);
         })
@@ -27,7 +29,9 @@ export const getWithdrawalList = (callback) =>{
 
 
 export const getWithdrawalPenalty = (callback) => {
-        _axios.get(`${GetWithdrawalPenalty}`)
+        _axios.get(`${GetWithdrawalPenalty}`,{
+            headers: _getHeader()
+        })
         .then(res => {
             callback(res.data.status == "success", res.data.data);
         })
@@ -46,7 +50,9 @@ export const getWithdrawalPenalty = (callback) => {
 
 
 export const createWithdrawalSettings = (payload, callback) => {
-    _axios.post(`${CreateWithdrawalSettings}`, payload)
+    _axios.post(`${CreateWithdrawalSettings}`, payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             callback(res.data.status == "success", res.data.data);
         })
@@ -63,7 +69,9 @@ export const createWithdrawalSettings = (payload, callback) => {
 };
 
 export const getWithdrawalSettings = (callback) => {
-    _axios.get(`${GetWithdrawalSettings}`)
+    _axios.get(`${GetWithdrawalSettings}`,{
+        headers: _getHeader()
+    })
         .then(res => {
             callback(res.data.status == "success", res.data);
         })
@@ -80,7 +88,9 @@ export const getWithdrawalSettings = (callback) => {
 };
 
 export const makeWithdrawal = (payload, callback) => {
-    _axios.post(`${MakeWithdrawal}`, payload)
+    _axios.post(`${MakeWithdrawal}`, payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log(res);
             console.log(res.data.data);

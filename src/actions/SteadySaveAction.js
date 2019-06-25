@@ -1,4 +1,4 @@
-import {_axios} from "../utils";
+import {_axios, _getHeader} from "../utils";
 import {
     BASE_URL,
     ContinueSteadySave,
@@ -16,7 +16,9 @@ export const updateSteadySave = (id,payload, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.post(`${EditSteadySave}/${id}`,payload)
+    _axios.post(`${EditSteadySave}/${id}`,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -35,7 +37,9 @@ export const updateSteadySave = (id,payload, callback) =>{
 
 export const createSteadySave = (payload, callback) =>{
 
-    _axios.post(`${NewSteadySaveEndpoint}`,payload)
+    _axios.post(`${NewSteadySaveEndpoint}`,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -57,7 +61,9 @@ export const continueSteadySave = (id, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.get(`${ContinueSteadySave}/${id}`)
+    _axios.get(`${ContinueSteadySave}/${id}`,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -84,7 +90,9 @@ export const getSteadySavHistory = (id, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.get(`${getSteadySaveHistory}/${id}`)
+    _axios.get(`${getSteadySaveHistory}/${id}`,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -111,7 +119,9 @@ export const getSteadySavTrans = (id, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.get(`${getSteadySaveTrans}/${id}`)
+    _axios.get(`${getSteadySaveTrans}/${id}`,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -138,7 +148,9 @@ export const pauseSteadySave = (id, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.get(`${PauseSteadySave}/${id}`)
+    _axios.get(`${PauseSteadySave}/${id}`,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -165,7 +177,9 @@ export const stopSteadySave = (id, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.get(`${StopSteadySave}/${id}`)
+    _axios.get(`${StopSteadySave}/${id}`,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log(res);
             console.log(res.data.data);
@@ -190,7 +204,9 @@ export const stopSteadySave = (id, callback) =>{
 
 export const createLockedSavings = (payload, callback) =>{
     console.log("body", payload);
-    _axios.post(`${BASE_URL}/${CreateLockedSavings}`,payload)
+    _axios.post(`${BASE_URL}/${CreateLockedSavings}`,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
@@ -242,7 +258,9 @@ export const getLockedSavings = (callback) =>{
     //
     // callback(data.status == "success", data.data);
     // return;
-    _axios.get(`${BASE_URL}${GetLockedSavings}`)
+    _axios.get(`${BASE_URL}${GetLockedSavings}`,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             callback(res.data.status == "success", res.data.data);

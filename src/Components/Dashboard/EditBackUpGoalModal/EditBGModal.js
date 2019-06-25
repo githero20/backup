@@ -9,7 +9,7 @@ class EditBGModal extends React.Component {
         return (
             <Modal
                 {...this.props}
-                size="lg"
+                size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 className={'steady-save-modal'}
@@ -22,7 +22,7 @@ class EditBGModal extends React.Component {
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
                     <ToastProvider>
-                        <EditBGForm selectedBG={this.props.selectedBG} onHide={this.props.onHide}/>
+                        <EditBGForm selectedBG={this.props.selectedBG} fetchGoals={this.props.fetchGoals} updateSelectedBG={this.props.updateSelectedBG} onHide={this.props.onHide}/>
                     </ToastProvider>
                 </Modal.Body>
             </Modal>

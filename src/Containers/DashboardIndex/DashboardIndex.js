@@ -69,7 +69,6 @@ class DashboardIndex extends Component {
             showSteadySavingModal: true
         });
 
-        console.log(this.props);
     };
 
 
@@ -166,7 +165,7 @@ class DashboardIndex extends Component {
 
 
     handleVaultInterest = (status,response) =>{
-
+        console.log(response);
         if(status){
             if(response){
                 this.setState({
@@ -217,7 +216,6 @@ class DashboardIndex extends Component {
     };
 
     handleBackUpGoals = (status,response)=>{
-        console.log('backups',status,response);
         if(status){
             const now = moment().format('YYYY-MM-DD');
             const backUpGoals = response.data.data;
@@ -226,12 +224,9 @@ class DashboardIndex extends Component {
 
             // //check  to  filter all goals where current data is greater than today
             let activeGoals = backUpGoals.filter((content)=>{
-                console.log('date'+content.end_date);
-                console.log('moment date'+moment(content.end_date).format('YYYY-MM-DD'));
                 return (moment(content.end_date).format('YYYY-MM-DD')>now && parseInt(content.is_pause) === 0 && parseInt(content.stop) ===0) ;
             });
 
-            console.log(activeGoals);
 
             this.setState({
                 ActiveGoals:activeGoals.length
@@ -250,7 +245,6 @@ class DashboardIndex extends Component {
             //filter when is paused is true
         }else {
 
-            console.log('fjskfsd'+response);
         }
     }
 
@@ -386,12 +380,12 @@ class DashboardIndex extends Component {
                     showLoader:false
                 });
 
-                if(res.data.data.active){
-
-                    //check for activated user
-                    this.checkActiveUser(res.data.data.active);
-
-                }
+                // if(res.data.data.active){
+                //
+                //     //check for activated user
+                //     this.checkActiveUser(res.data.data.active);
+                //
+                // }
 
 
                 if (res.data.data.accounts) {

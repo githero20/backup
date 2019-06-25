@@ -256,7 +256,7 @@ class InstantSavingForm extends Component {
     componentDidMount() {
         //get pay auths
         const userInfo = getLocalStorage(USERINFO);
-
+        console.log('instant save info'+userInfo);
         if (getLocalStorage(USERINFO)!=undefined) {
             this.setState({
                 userCards: userInfo.authorization.data

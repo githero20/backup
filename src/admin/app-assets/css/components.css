@@ -433,8 +433,8 @@ footer.footer-dark
 {
     color: #545766;
 }
-.main-menu.menu-light .navigation > li.hover > a > i,
-.main-menu.menu-light .navigation > li:hover > a > i,
+/*.main-menu.menu-light .navigation > li.hover > a > i,*/
+/*.main-menu.menu-light .navigation > li:hover > a > i,*/
 .main-menu.menu-light .navigation > li.active > a > i
 {
     -webkit-transform: translateX(6px);
@@ -443,8 +443,8 @@ footer.footer-dark
          -o-transform: translateX(6px);
             transform: translateX(6px);
 }
-.main-menu.menu-light .navigation > li.hover > a > span,
-.main-menu.menu-light .navigation > li:hover > a > span,
+/*.main-menu.menu-light .navigation > li.hover > a > span,*/
+/*.main-menu.menu-light .navigation > li:hover > a > span,*/
 .main-menu.menu-light .navigation > li.active > a > span
 {
     -webkit-transform: translateX(4px);
@@ -685,14 +685,14 @@ footer.footer-dark
     border-right: 4px solid #1e9ff2; 
     background: #23262f;
 }
-.main-menu.menu-dark .navigation > li.open .hover > a
-{
-    -webkit-transform: translateX(-4px);
-       -moz-transform: translateX(-4px);
-        -ms-transform: translateX(-4px);
-         -o-transform: translateX(-4px);
-            transform: translateX(-4px);
-}
+/*.main-menu.menu-dark .navigation > li.open .hover > a*/
+/*{*/
+/*    -webkit-transform: translateX(-4px);*/
+/*       -moz-transform: translateX(-4px);*/
+/*        -ms-transform: translateX(-4px);*/
+/*         -o-transform: translateX(-4px);*/
+/*            transform: translateX(-4px);*/
+/*}*/
 .main-menu.menu-dark .navigation > li:not(.open) > ul
 {
     display: none;
@@ -705,11 +705,11 @@ footer.footer-dark
 
 .main-menu.menu-dark .navigation > li.active > a > i
 {
-    -webkit-transform: translateX(6px);
-       -moz-transform: translateX(6px);
-        -ms-transform: translateX(6px);
-         -o-transform: translateX(6px);
-            transform: translateX(6px);
+    /*-webkit-transform: translateX(6px);*/
+    /*   -moz-transform: translateX(6px);*/
+    /*    -ms-transform: translateX(6px);*/
+    /*     -o-transform: translateX(6px);*/
+    /*        transform: translateX(6px);*/
 }
 
 .main-menu.menu-dark .navigation > li.active > a > span

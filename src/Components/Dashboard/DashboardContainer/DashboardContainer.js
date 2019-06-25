@@ -18,6 +18,9 @@ import purpleIcon from '../../../admin/app-assets/images/icons/purple-icon@2x.pn
 import yellowIcon from '../../../admin/app-assets/images/icons/yellow-icon@2x.png';
 import adImg from '../../../admin/app-assets/images/svg/adtwo.svg';
 import adImgTwo from '../../../admin/app-assets/images/svg/adone.svg';
+import { dateFilter, Comparator } from 'react-bootstrap-table-next';
+
+import filterIcon from "../../../admin/app-assets/images/svg/filter-filled-tool-symbol.svg";
 
 
 class DashboardContainer extends Component {
@@ -42,17 +45,26 @@ class DashboardContainer extends Component {
     }
 
 
+
     render() {
 
         let {error, activateAccount} = this.props;
 
         //set appropriate data for vault cards
-        let typeFilter;
+        let createdDateFilter;
 
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
             transactions, totalInterest, ActiveGoals, CompletedGoals, vaultInterest,lockedSavingsInterest
         } = this.props;
+
+
+        const handleFilter = () => {
+            createdDateFilter({
+                date: new Date(2018, 0, 1),
+                comparator: Comparator.GT
+            });
+        };
 
         const columns = [
             {
@@ -60,6 +72,11 @@ class DashboardContainer extends Component {
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
+                // filter: dateFilter({
+                //     getFilter: (filter) => {
+                //         createdDateFilter = filter;
+                //     }
+                // })
             },
             {
                 text: 'Phase',
@@ -107,7 +124,6 @@ class DashboardContainer extends Component {
             }];
 
         const {isActive} = this.props;
-
 
         return (
 
@@ -192,6 +208,7 @@ class DashboardContainer extends Component {
                             {/*</div>*/}
 
                             <div className="row">
+
                                 <TransactionTable runFilter={this.runFilter} transactions={transactions.reverse()}
                                                   columns={columns}/>
 

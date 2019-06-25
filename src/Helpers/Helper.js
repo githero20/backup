@@ -84,6 +84,30 @@ export function getTotalSteadySave(transactions) {
         }
     }
 }
+export function getTotalSteadySaveDebit(transactions) {
+    if (transactions) {
+        if (transactions.length > 1) {
+            let debits;
+            debits = transactions.filter((content)=>(content.type==='debit'));
+            debits = debits.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+            return debits.amount;
+        } else {
+            let sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+            return sum.amount;
+        }
+    }
+}
+export function getTotalSuccessful(transactions) {
+    if (transactions) {
+        if (transactions.length > 1) {
+            let successful;
+            successful = transactions.filter((content)=>(content.status=='success'));
+            return successful.length;
+        } else {
+            return transactions.length;
+        }
+    }
+}
 
 
 export function transformHour(hour) {
@@ -175,9 +199,9 @@ export function moneyFormatter (cell) {
 
 export function steadyStatusFormatter (cell,row) {
         if(parseInt(row.is_pause)){
-            return <button className={'btn btn-warning'}>Paused</button>
+            return <button className={'btn round btn-warning'}>Paused</button>
         }else {
-            return <button className={'btn btn-success'}>Ongoing</button>
+            return <button className={'btn round btn-success'}>Ongoing</button>
         }
 }
 
@@ -190,7 +214,7 @@ export function interestFormatter(cell){
 }
 
 export function viewFormatter(cell){
-    return <button className={'btn btn-custom-blue btn-block'}>View History</button>
+    return <button className={'btn round btn-custom-blue btn-block'}>View History</button>
 
 }
 export function balanceFormatter(cell){

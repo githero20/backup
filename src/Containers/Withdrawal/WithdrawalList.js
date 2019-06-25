@@ -30,7 +30,7 @@ class WithdrawalList extends Component {
 
     render() {
 
-        const {transactions,columns}=this.props;
+        const {transactions,columns,isShow,showForm}=this.props;
 
         return (
             <React.Fragment>
@@ -38,6 +38,8 @@ class WithdrawalList extends Component {
                 <ToolkitProvider
                     keyField="id"
                     data={transactions}
+                    isShow={isShow}
+                    showForm={showForm}
                     columns={columns}
                     // search={ { searchFormatted: true } }
                     search
@@ -56,6 +58,7 @@ class WithdrawalList extends Component {
                                     {/*    data-toggle="modal" data-target="#sort"><img className=" img-2x "*/}
                                     {/*                                                 src={filterIcon}/></span>Filter*/}
                                     {/*</div>*/}
+
                                     <ExportCSVButton className="btn-green flex-shrink-1"  {...props.csvProps}>Export
                                         CSV</ExportCSVButton>
                                 </div>

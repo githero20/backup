@@ -15,12 +15,13 @@ import {
 } from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {getUserData} from "../../actions/UserAction";
+import {withToastManager} from 'react-toast-notifications';
 
 class Transactions extends Component {
 
     state={
         transactions:[],
-        showloader: false,
+        showLoader: false,
         userName:null
     };
 
@@ -36,10 +37,6 @@ class Transactions extends Component {
         })
 
         request(getTransactionsApi,null,true,'GET',this.handleTransactions);
-
-
-
-
     }
 
 
@@ -48,25 +45,29 @@ class Transactions extends Component {
     handleTransactions = (state,res) => {
         this.setState({
             showLoader:false
-        })
-        if(state){
-            if(res){
+        });
+
+        if(state&&res){
                 this.setState({
-                    transactions:res.data.data.data
+                    transactions:res.data.data
                 });
-                console.log(res);
-            }
-
+        }else if(!state&&res){
+            this.toastMessage(res.data.message,'error');
         }else{
-            if(res){
-
-                console.log(res);
-            }
+            this.toastMessage('No Internet','error');
         }
 
     };
 
-
+    toastMessage=(message, status) =>{
+        const {toastManager} = this.props;
+        toastManager.add(message, {
+            appearance: status,
+            autoDismiss: true,
+            autoDismissTimeout: 4000,
+            pauseOnHover: false,
+        })
+    };
 
 
     componentDidMount() {
@@ -76,7 +77,7 @@ class Transactions extends Component {
             showLoader:true,
         });
 
-        getUserData(this.handleUserInfo);
+        // getUserData(this.handleUserInfo);
 
         this.loadTransactions();
     }
@@ -101,6 +102,7 @@ class Transactions extends Component {
 
     render() {
 
+        console.log('transaction state',this.state.transactions);
         const columns = [
             {
                 text: 'Date',
@@ -114,7 +116,8 @@ class Transactions extends Component {
                 formatter:descriptionFormatter,
                 sort:true,
 
-            },{
+            },
+            {
                 text: 'Description',
                 dataField: 'sourcetypes',
                 formatter:sourceFormatter,
@@ -150,7 +153,6 @@ class Transactions extends Component {
         return (
             <React.Fragment>
                 {this.state.showLoader? <DashboardLoader /> :null}
-
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={this.state.userName}/>
@@ -178,11 +180,9 @@ class Transactions extends Component {
                                 </div>
 
                                 <div className="row">
-
                                     {/*<BigTransactionTable transactions={this.state.transactions} /> */}
 
                                     <TransactionTable transactions={this.state.transactions} columns={columns} />
-
                                 </div>
 
 
@@ -203,4 +203,4 @@ class Transactions extends Component {
         );
     }
 }
-export default Transactions;
+export default withToastManager(Transactions);

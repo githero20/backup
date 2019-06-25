@@ -90,13 +90,13 @@ class BankForm extends Component {
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-between mt-2'}>
                         <div>
-                            <Button onClick={this.props.onHide}
-                                    className={'mr-1 round btn-gradient-blue'}>Close</Button>
+                            <button onClick={this.props.onHide}
+                                    className='mr-1 round btn-outline-gray modal-btn'>Close</button>
                         </div>
                         <div className={'d-flex justify-content-end'}>
-                            <Button className={'round btn-gradient-blue '} type="submit">
+                            <button className={'round btn-custom-blue modal-btn '} type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Continue"}
-                            </Button>
+                            </button>
                         </div>
 
                     </Form.Row>

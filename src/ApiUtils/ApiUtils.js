@@ -18,10 +18,10 @@ export function api(url, params, token, method, callback) {
 
     if (token) {
         let token = getLocalStorage('token');
-        console.log(token);
         if (token !== null) {
             header.headers['Authorization'] = 'Bearer ' + token;
         }
+
 
     }
     if (method) {
@@ -47,7 +47,6 @@ export function request(url, params, token, method, callback) {
 
     if (token) {
         let token = getLocalStorage('token');
-        console.log(token);
         if (token !== null) {
             header.headers['Authorization'] = 'Bearer ' + token;
         }
@@ -109,7 +108,6 @@ export function request(url, params, token, method, callback) {
         };
         if (token) {
             let token = getLocalStorage('token');
-            console.log(token);
             if (token !== null) {
                 header.headers['Authorization'] = 'Bearer ' + token;
             }
@@ -195,7 +193,6 @@ export function apiGet(url, token, callback) {
 
     if (token) {
         let userToken = getLocalStorage('token');
-        console.log(userToken);
         if (userToken === null && userToken !==undefined) {
             header.headers['Authorization'] = 'Bearer ' + userToken;
         }

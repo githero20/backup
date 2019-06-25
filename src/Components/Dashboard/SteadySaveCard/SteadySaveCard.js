@@ -16,22 +16,21 @@ const SteadySaveCard = (props) => {
                         <img className="floated-icon" src={transTotalSavingsIcon}/>
                         <div className="card-content">
                             <div className="card-body">
-                                <h4 className="text-white blue-card-heading ">Total Balance</h4>
-                                <div className="media d-flex pb-2 pb-md-1 pb-lg-1">
+                                <h4 className="text-white blue-card-heading ">Central Vault Balance</h4>
+                                <div className="media d-flex align-items-center pb-2 pb-md-1 pb-lg-1">
                                     <div className="align-self-center">
                                         <img className="blue-card-icon" src={totalBalanceIcon}  />
                                     </div>
-                                    <div className="media-body text-left pt-1 ">
-                                        <h3 className="text-white clearfix"><strong
+                                    <div className="media-body text-left ">
+                                        <h3 className="text-white "><strong
                                             className="blue-card-price ml-2 mr-2">₦
                                             {props.totalBalance}</strong>
-
                                         </h3>
                                     </div>
                                 </div>
                                 {/*<div className={'d-flex justify-content-end'}>*/}
-                                {/*    <a href="#" onClick={props.newSteadySave} className=" text-white ">New Steady*/}
-                                {/*        Save    <img src={settingsIcon}/></a>*/}
+                                {/*    <a href="#" onClick={props.newSteadySave} className=" text-white ">Start Save*/}
+                                {/*     &nbsp;<img src={settingsIcon}/></a>*/}
                                 {/*</div>*/}
                             </div>
                         </div>

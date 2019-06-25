@@ -1,5 +1,8 @@
 import React from 'react';
 import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
+import editIcon from "../../admin/app-assets/images/svg/Transfer to Backup Stash.svg";
+import pauseIcon from "../../admin/app-assets/images/svg/Transfer to Central Vault icon.svg";
+import continueIcon from "../../admin/app-assets/images/svg/Withdraw.svg";
 import {continueBGoal, createBackUpGoal, getPenalty, pauseBGoal, stopBGoal} from "../../actions/BackUpGoalsAction";
 import {withToastManager} from 'react-toast-notifications';
 import swal from "sweetalert";
@@ -193,7 +196,7 @@ class BackupGoalQuickActions extends React.Component {
         let amount;
         if(history.length!==0){
             amount = history.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
-            return (penalty/100)*amount;
+            return (penalty/100)*amount.amount;
         }
         return 0;
     }
@@ -202,38 +205,43 @@ class BackupGoalQuickActions extends React.Component {
     handleStop = (id) => {
 
 
-        // call endpoint to get penalty
-        getPenalty((status,res)=>{
+        swal({
+            title: "Backup Goals",
+            text: `Hey! sure you want to stop this Backup Goal before maturity?`,
+            icon: "warning",
+            buttons: true,
+        }).then((willStop) => {
+            if (willStop) {
+                //TODO get penalty
+                // call endpoint to get penalty
+                getPenalty((status,res)=>{
+                    if(status){
+                        const penalty = this.calculatePenalty(res.withdraw_penalty,this.props.selectedBGHistory);
+                        swal(
+                            {
+                                title:  'BackupGoals',
+                                text: 'Note : This fund will be available for withdrawal in your Backup Stash.\n' +
+                                    `However, a penalty fee of ₦ ${penalty} will be deducted from your account `,
+                                icon: "warning",
+                                buttons: true,
+                            }).then((willStop)=>{
+                                if(willStop){
+                                    stopBGoal(id, this.handleStopResponse);
+                                }
+                        });
 
-            if(status){
-
-                // console.log(res.data.withdraw_penalty,id)
-
-                const penalty = this.calculatePenalty(res.data.withdraw_penalty,this.props.selectedBGHistory);
-
-                swal({
-                    title: "Hey! sure you want to stop this Backup Goal\n" +
-                        "before maturity? ",
-                    text: `Note : This fund will be available for withdrawal in your 
-Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty of ₦ ${penalty} will be deducted from your  `,
-                    icon: "warning",
-                    buttons: true,
-                }).then((willStop) => {
-                        if (willStop) {
-                            stopBGoal(id, this.handleStopResponse);
-                        } else {
-                            swal("Your Backup Goal is still running.");
-                        }
-                    });
-
-
-
+                    }else {
+                        console.log('error occurred',status,res);
+                    }
+                });
+            } else {
+                swal("Your Backup Goal is still running.");
             }
-
         });
 
 
     }
+
 
     handleStopResponse = (status, res) => {
 
@@ -252,7 +260,7 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
                 icon: "error",
             });
         }
-    }
+    };
 
 
     handlePause = (id) => {
@@ -272,7 +280,7 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
                     swal("Your Backup Goal is active");
                 }
             });
-    }
+    };
 
     handlePauseResponse = (status, res) => {
         if (status) {
@@ -283,7 +291,7 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
                 this.props.updateSelectedBG(res);
             });
         }
-    }
+    };
 
 
     handleContinue = (id) => {
@@ -301,7 +309,7 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
                 }
             });
 
-    }
+    };
 
 
     handleContinueResponse = (status, res) => {
@@ -314,7 +322,7 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
             });
         }
 
-    }
+    };
 
 
     componentDidMount() {
@@ -327,15 +335,15 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
         return (
             <React.Fragment>
                 <div className="col-lg-3 col-12 order-lg-5">
-                    <h3 className="gray-header-text text-right fs-mb-1 mb-2"><a href='#!' className='gray-text'
-                                                                                onClick={() => this.props.hideBG()}><i
-                        className={'fa fa-arrow-left'}></i> Back</a></h3>
+                    <h3 className="gray-header-text text-right fs-mb-1 mb-2"><a href='#!' className='gray-text back-btn'
+                                                                                onClick={() => this.props.hideBG()}> Back to Goals
+                        &nbsp;<i className='fa fa-arrow-right '></i></a></h3>
                     <div className="mb-quick-actions d-flex flex-column flex-wrap ">
                         <span className="mb-btn-wrapper">
                             <button type="button"
                                     onClick={() => this.handleEdit(this.props.selectedBG.id)}
                                     className=" btn-blue-gradient-2 round">
-                                <img src={whiteSaveMoreIcon}/>
+                                <img src={editIcon}/>
                                 Edit Backup Goal
                             </button>
                         </span>
@@ -344,7 +352,10 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
                             this.state.showEditModal ?
                                 (
                                     <React.Fragment>
-                                        <EditBGModal selectedBG={this.props.selectedBG} show={this.state.showEditModal}
+                                        <EditBGModal selectedBG={this.props.selectedBG}
+                                                     updateSelectedBG={this.props.updateSelectedBG}
+                                                     fetchGoals={this.props.fetchGoals}
+                                                     show={this.state.showEditModal}
                                                      onHide={this.hideModal}
                                         />
                                     </React.Fragment>
@@ -361,7 +372,7 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
                                         <button type="button"
                                                 onClick={() => this.handleContinue(this.props.selectedBG.id)}
                                                 className=" btn-blue-gradient-2 round">
-                                            <img src={whiteSaveMoreIcon}/>
+                                            <img src={continueIcon}/>
                                             Continue
                                         </button>
                                     </span>
@@ -372,7 +383,7 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
                                         <button type="button"
                                                 onClick={() => this.handlePause(this.props.selectedBG.id)}
                                                 className=" btn-blue-gradient-2 round">
-                                            <img src={whiteSaveMoreIcon}/>
+                                            <img src={pauseIcon}/>
                                             Pause
                                         </button>
                                     </span>
@@ -386,7 +397,7 @@ Backup Stash. However, a penalty fee will be deducted.Are you sure ? a penalty o
                                         <button type="button"
                                                 onClick={() => this.handleStop(this.props.selectedBG.id)}
                                                 className=" btn-blue-gradient-2 bg-white round">
-                                            <img src={whiteSaveMoreIcon}/>
+                                            <img src={continueIcon}/>
                                             Stop
                                         </button>
                                     </span>

@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
-import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
-import deleteIcon from "../../../admin/app-assets/images/svg/delete-icon.svg";
-import editIcon from "../../../admin/app-assets/images/svg/edit-icon.svg";
-import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
-import {USERINFO} from "../../Auth/HOC/authcontroller";
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import SimpleReactValidator from "simple-react-validator";
-import  swal from 'sweetalert';
+import {withToastManager} from 'react-toast-notifications';
 
 class ProfileForm extends Component {
 
@@ -18,7 +13,7 @@ class ProfileForm extends Component {
         ConfirmPassError: false,
         loading: false,
         userProfile: null,
-        copySuccess:false
+        copySuccess: false
 
     };
 
@@ -46,7 +41,7 @@ class ProfileForm extends Component {
         super(props);
 
         this.validator = new SimpleReactValidator();
-
+        this.toastMessage = this.toastMessage.bind(this);
     }
 
     //Retrieves user inputs
@@ -58,27 +53,16 @@ class ProfileForm extends Component {
         });
     };
 
-    // copyToClipboard = str => {
-    //     const el = document.createElement('textarea');  // Create a <textarea> element
-    //     el.value = str;                                 // Set its value to the string that you want copied
-    //     el.setAttribute('readonly', '');                // Make it readonly to be tamper-proof
-    //     el.style.position = 'absolute';
-    //     el.style.left = '-9999px';                      // Move outside the screen to make it invisible
-    //     document.body.appendChild(el);                  // Append the <textarea> element to the HTML document
-    //     const selected =
-    //         document.getSelection().rangeCount > 0        // Check if there is any content selected previously
-    //             ? document.getSelection().getRangeAt(0)     // Store selection if found
-    //             : false;                                    // Mark as false to know no selection existed before
-    //     el.select();                                    // Select the <textarea> content
-    //     document.execCommand('copy');                   // Copy - only works as a result of a user action (e.g. click events)
-    //     document.body.removeChild(el);                  // Remove the <textarea> element
-    //     if (selected) {                                 // If a selection existed before copying
-    //         document.getSelection().removeAllRanges();    // Unselect everything on the HTML document
-    //         document.getSelection().addRange(selected);   // Restore the original selection
-    //     }
-    //
-    //
-    // };
+    toastMessage(message, status) {
+        const {toastManager} = this.props;
+        toastManager.add(message, {
+            appearance: status,
+            autoDismiss: true,
+            autoDismissTimeout: 4000,
+            pauseOnHover: false,
+        })
+    }
+
 
     copyToClipboard = (e) => {
 
@@ -86,19 +70,24 @@ class ProfileForm extends Component {
         console.log(text);
 
         let textField = document.createElement('textarea');
-        textField.innerText = text;
+        const referralText = this.props.userProfile.name + ' with this ' + text;
+        const otherText = ' invites you to save for the rainy day on BackUpCash.' +
+            'It is a financial planning tool designed to help you automate ' +
+            'savings towards a financial goal. Sign-up and get started using the link below:';
+        textField.innerText = `${referralText} ${otherText} ${this.props.userProfile.referral_link}`;
+
         document.body.appendChild(textField);
         textField.select();
         document.execCommand('copy');
         textField.remove();
-        swal('Copied','Referral Code Copied!!','success');
+        this.toastMessage('Copied!', 'success');
         //
         // document.getElementById('referral_code').value();
         // document.execCommand('copy');
         // // This is just personal preference.
         // // I prefer to not show the the whole text area selected.
         // e.target.focus();
-        this.setState({ copySuccess: true });
+        this.setState({copySuccess: true});
     };
 
     validatePasswords = () => {
@@ -131,33 +120,34 @@ class ProfileForm extends Component {
         return (
             <React.Fragment>
                 <div>
-                    <form className="form lock-form px-md-1">
+                    <form className="form lock-form px-md-1 text-capitalize">
                         <div className="form-body">
                             <div className="row mb-2">
-                                <div className="col-md-4">
-                                    <div className=" mb-1 d-inline d-md-block">
-                                        <img src={AvatarImage}
-                                             className="height-100 rounded-circle" alt=""/>
-                                    </div>
-                                    {/*<div className="d-inline ml-1 ml-md-0 d-md-flex">*/}
-                                    {/*    <button type="button"*/}
-                                    {/*            className="btn-sm-outline mr-1"><img*/}
-                                    {/*        className="img-2x"*/}
-                                    {/*        src={deleteIcon}/>*/}
-                                    {/*    </button>*/}
-                                    {/*    <button type="button"*/}
-                                    {/*            className="btn-sm-outline"><img*/}
-                                    {/*        className="img-2x"*/}
-                                    {/*        src={editIcon}/>*/}
-                                    {/*    </button>*/}
-                                    {/*</div>*/}
-                                </div>
-                                <div className="col-md-8">
+                                {/*<div className="col-md-4">*/}
+                                {/*<div className=" mb-1 d-inline d-md-block">*/}
+                                {/*    <img src={AvatarImage}*/}
+                                {/*         className="height-100 rounded-circle" alt=""/>*/}
+                                {/*</div>*/}
+                                {/*<div className="d-inline ml-1 ml-md-0 d-md-flex">*/}
+                                {/*    <button type="button"*/}
+                                {/*            className="btn-sm-outline mr-1"><img*/}
+                                {/*        className="img-2x"*/}
+                                {/*        src={deleteIcon}/>*/}
+                                {/*    </button>*/}
+                                {/*    <button type="button"*/}
+                                {/*            className="btn-sm-outline"><img*/}
+                                {/*        className="img-2x"*/}
+                                {/*        src={editIcon}/>*/}
+                                {/*    </button>*/}
+                                {/*</div>*/}
+                                {/*</div>*/}
+                                <div className="col-md-12">
                                     <div className="row">
                                         <div className="col-12">
-                                            <h4 className="my-2 mt-md-0 mb-md-2">General</h4>
+                                            <h4 className="mt-md-0 ">General</h4>
+                                            <div className='line'></div>
                                         </div>
-                                        <div className="col-12">
+                                        <div className="col-12 col-lg-6">
                                             <div className="form-group">
                                                 <label htmlFor="name">First Name</label>
                                                 <input
@@ -172,7 +162,7 @@ class ProfileForm extends Component {
 
                                             </div>
                                         </div>
-                                        <div className="col-12">
+                                        <div className="col-12 col-lg-6">
                                             <div className="form-group">
                                                 <label htmlFor="lastname">Last Name</label>
                                                 <input
@@ -187,7 +177,7 @@ class ProfileForm extends Component {
 
                                             </div>
                                         </div>
-                                        <div className="col-md-12">
+                                        <div className="col-md-12 col-lg-6">
                                             <div
                                                 className="custom-form-group form-group">
                                                 <label htmlFor="email"
@@ -242,26 +232,26 @@ class ProfileForm extends Component {
                                             </div>
 
                                         </div>
+                                        <div className="col-md-12 col-lg-6">
+                                            <div className="form-group">
+                                                <label htmlFor="phoneNumber">Phone
+                                                    Number</label>
+                                                <input
+                                                    type="number"
+                                                    id="phoneNumber"
+                                                    disabled
+                                                    className="form-control mb-1"
+                                                    name="phoneNumber"
+                                                    defaultValue={userProfile ? userProfile.phone : null}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
 
                             </div>
                             <div className="row">
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label htmlFor="phoneNumber">Phone
-                                            Number</label>
-                                        <input
-                                            type="number"
-                                            id="phoneNumber"
-                                            disabled
-                                            className="form-control mb-1"
-                                            name="phoneNumber"
-                                            defaultValue={userProfile ? userProfile.phone : null}
-                                        />
-                                    </div>
-                                </div>
                                 <div className="col-md-6">
                                     <div className="form-group form-group-outline">
                                         <label htmlFor="email" className="active">Referral
@@ -275,8 +265,8 @@ class ProfileForm extends Component {
 
                                             <div className="input-group-append">
                                                 <button onClick={this.copyToClipboard}
-                                                    className="btn light-gray-bg deep-gray-color"
-                                                    type="button">Copy
+                                                        className="btn light-gray-bg deep-gray-color"
+                                                        type="button">Copy
                                                 </button>
                                             </div>
 
@@ -293,4 +283,4 @@ class ProfileForm extends Component {
     }
 }
 
-export default ProfileForm;
+export default withToastManager(ProfileForm);

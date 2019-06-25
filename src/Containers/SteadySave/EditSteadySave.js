@@ -407,11 +407,6 @@ class SteadySaveForm extends Component {
                         {this.state.showMonth ? showMonth : null}
                     </Form.Row>
 
-                    <Form.Row>
-
-                    </Form.Row>
-
-
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
                         <div className={'d-flex justify-content-end'}>
                             <button className={'round modal-btn btn-custom-blue '} type="submit">

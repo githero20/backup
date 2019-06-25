@@ -1,21 +1,10 @@
 import React, {Component} from 'react';
-import mobileTableStatIcon from "../../../admin/app-assets/images/svg/green-dot.svg";
-import moment from "moment";
-import listIcon from "../../../admin/app-assets/images/svg/list-icon.svg";
-import gridIcon from "../../../admin/app-assets/images/svg/grid-icon.svg";
-import tableLeftArrow from "../../../admin/app-assets/images/svg/table-arrow-left.svg";
-import sortIcon from "../../../admin/app-assets/images/svg/order-interface-symbol-with-down-arrow.svg";
-import filterIcon from "../../../admin/app-assets/images/svg/filter-filled-tool-symbol.svg";
-import {CSVLink} from "react-csv";
-import {Col, Form, Row} from 'react-bootstrap';
-import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import DataTable from 'react-data-table-component';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, {Search, CSVExport} from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, {CSVExport, Search} from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory, {selectFilter} from 'react-bootstrap-table2-filter'
-
+import filterFactory from 'react-bootstrap-table2-filter'
+import filterIcon from '../../../admin/app-assets/images/svg/filter-filled-tool-symbol.svg';
 const {SearchBar, ClearSearchButton} = Search;
 const {ExportCSVButton} = CSVExport;
 
@@ -26,8 +15,8 @@ class TransactionTable extends Component {
         currentTransactions: [],
         currentPage: null,
         totalPages: null,
-        sort:false,
-        filter:false
+        sort: false,
+        filter: false
 
     };
 
@@ -59,30 +48,28 @@ class TransactionTable extends Component {
 
     }
 
-    changeSort = () =>{
+    changeSort = () => {
         this.setState({
-            sort:!this.state.sort
+            sort: !this.state.sort
         })
     };
 
-    changeFilter = () =>{
+    changeFilter = () => {
         this.setState({
-            filter:!this.state.filter
+            filter: !this.state.filter
         })
     };
 
 
-    toggleSort=()=>{
+    toggleSort = () => {
 
 
-       this.changeSort();
-
-
+        this.changeSort();
 
 
     };
 
-    toggleFilter=()=>{
+    toggleFilter = () => {
 
         this.changeFilter();
 
@@ -109,7 +96,7 @@ class TransactionTable extends Component {
             <React.Fragment>
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">
                     <div className="card table-card">
-                        <div className="card-header  ">
+                        <div className="card-header">
                             <div className="d-flex justify-content-start">
                                 <h4 className="card-title table-title">Recent Transactions </h4>
                                 {/*<div className="table-button-container d-none d-md-inline-block">*/}
@@ -155,63 +142,91 @@ class TransactionTable extends Component {
                                 props => (
                                     <div>
                                         <div
-                                            className={'d-flex justify-content-between flex-md-row align-items-center mb-1 mx-1'}>
-                                            <SearchBar {...props.searchProps} placeholder="Date Filter" className={'flex-shrink-1'} />
+                                            className={'d-flex justify-content-end flex-md-row align-items-center mb-1 mx-1'}>
+                                            {/*<SearchBar {...props.searchProps} placeholder="Date Filter" className={'flex-shrink-1'} />*/}
+
+                                            {/*date filter*/}
+
                                             {/*<div onClick={this.toggleSort} className="table-sort-display d-block d-md-inline">*/}
                                             {/*    <span><img className=" img-2x " src={sortIcon}/></span>Sort*/}
                                             {/*</div>*/}
 
-                                            {/*<div onClick={this.toggleFilter} className="table-sort-display d-block d-md-inline"><span*/}
-                                            {/*    data-toggle="modal" data-target="#sort"><img className=" img-2x "*/}
-                                            {/*                                                 src={filterIcon}/></span>Filter*/}
+                                            {/*<div onClick={this.toggleFilter} className="table-sort-display d-block d-md-inline sort-icon">*/}
+                                            {/*    <span data-toggle="modal" data-target="#sort">*/}
+                                            {/*        <img className=" img-2x" src={filterIcon}/>*/}
+                                            {/*    </span>Date Filter*/}
                                             {/*</div>*/}
+
                                             <ExportCSVButton className="btn-green flex-shrink-1"  {...props.csvProps}>Export
                                                 CSV</ExportCSVButton>
                                         </div>
 
 
-                                        {this.state.sort?
+                                        {this.state.sort ?
 
                                             <div className='sort-box round shadow-sm'>
                                                 <p>Sort Table </p>
                                                 <div className={'mb-1'}>
                                                     <select onChange={this.runSort} name={'sort-column'}>
-                                                        {columns.map((content)=>(<option value={content.dataField}>{content.text}</option>))}
+                                                        {columns.map((content) => (
+                                                            <option value={content.dataField}>{content.text}</option>))}
                                                     </select>
                                                 </div>
                                                 <button className='btn btn-block btn-custom-blue'>Sort</button>
-                                            </div>:null
+                                            </div> : null
 
                                         }
 
-                                        {this.state.filter?
+                                        {this.state.filter ?
 
 
-                                            <div className='filter-box round shadow-sm'>
-                                                <p>Filter Table </p>
-                                                <input type={'text'}  id={'filter-param'} name={'filter-param'}/>
-                                                <button className={'btn btn-custom-blue'} onClick={this.props.runFilter}>Filter</button>
+                                            <div className='filter-box round shadow'>
+                                                <div className="filter date-filter">
+                                                    <div className="filter-label" >
+                                                        <span className="sr-only">Filter comparator</span>
+                                                        <select id="date-filter-comparator-InStock Date"
+                                                                className="date-filter-comparator form-control ">
+                                                            <option selected="">Filter</option>
+                                                            <option value="=">Equal To</option>
+                                                            {/*<option value="!=">!=</option>*/}
+                                                            <option value=">">Greater Than</option>
+                                                            <option value=">=">Greater Than or Equal</option>
+                                                            <option value="<">Less Than</option>
+                                                            <option value="<=">Less Than or Equal</option>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <span className="sr-only">Date Filter</span>
+                                                        <input
+                                                            id="date-filter"
+                                                            name="date-filter"
+                                                            className="filter date-filter-input form-control " type="date"
+                                                            placeholder="Enter Date..." />
+                                                    </div>
+                                                </div>
+                                                {/*<button className={'btn btn-custom-blue'}*/}
+                                                {/*        onClick={this.props.runFilter}>Filter*/}
+                                                {/*</button>*/}
                                             </div>
-                                            :null
+                                            : null
 
                                         }
 
                                         <BootstrapTable classes={'spaced-table'}
-                                            {...props.baseProps}
-                                            pagination={paginationFactory({
-                                                hideSizePerPage: true,
-                                                sizePerPageList: [ {
-                                                    text: '5', value: 5
-                                                }, {
-                                                    text: '10', value: 10
-                                                }],
-                                                withFirstAndLast: true,
-                                                alwaysShowAllBtns: true,
-                                                prePageText: 'Prev',
-                                                nextPageText: 'Next',
-                                            })}
-
-                                            filter={filterFactory({})}
+                                                        {...props.baseProps}
+                                                        pagination={paginationFactory({
+                                                            hideSizePerPage: true,
+                                                            sizePerPageList: [{
+                                                                text: '5', value: 5
+                                                            }, {
+                                                                text: '10', value: 10
+                                                            }],
+                                                            withFirstAndLast: true,
+                                                            alwaysShowAllBtns: true,
+                                                            prePageText: 'Prev',
+                                                            nextPageText: 'Next',
+                                                        })}
+                                                        filter={filterFactory({})}
                                         />
                                     </div>
 
@@ -221,20 +236,7 @@ class TransactionTable extends Component {
 
 
 
-                        {/*<ReactTable*/}
-                        {/*    data={transactions}*/}
-                        {/*    columns={columns}*/}
-                        {/*    sortable={true}*/}
-                        {/*    resizable={true}*/}
-                        {/*    filterable={true}*/}
-                        {/*    loading={false}*/}
-                        {/*/>*/}
-
-
-
-
                         <div className="card-content mt-1 light-table-bg">
-
                             {/*<DataTable*/}
                             {/*    columns={columns}*/}
                             {/*    data={transactions}*/}

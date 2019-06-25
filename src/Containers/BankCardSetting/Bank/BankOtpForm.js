@@ -82,7 +82,6 @@ class BankOtpForm extends Component {
             <React.Fragment>
                 <Form onSubmit={this.validateForm}>
                     <Form.Row>
-                        <Form.Row>
                             <Form.Group as={Col} controlId="formGridCity">
                                 <Form.Text>An OTP has been sent to your email and phone number.</Form.Text>
                                 <Form.Label>Enter OTP: </Form.Label>
@@ -93,20 +92,19 @@ class BankOtpForm extends Component {
                                 />
                                 {this.validator.message("OTP",this.state.form.otp,"required")}
                             </Form.Group>
-                        </Form.Row>
                     </Form.Row>
 
                     <Form.Row className={'d-flex justify-content-between mt-2'}>
                         <div>
-                            <Button className={'round btn-gradient-blue '} onClick={this.resendOtp} type="button">
+                            <button className={'round btn-custom-blue  modal-btn'} onClick={this.resendOtp} type="button">
                                 {this.state.resendLoading ? <ButtonLoader/> : "Resend OTP"}
-                            </Button>
+                            </button>
                         </div>
                         <div className={'d-flex justify-content-end'}>
 
-                            <Button className={'round btn-gradient-blue '} type="submit">
+                            <button className={'round btn-custom-blue modal-btn '} type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Confirm OTP"}
-                            </Button>
+                            </button>
                         </div>
 
                     </Form.Row>

@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
 import LoginForm from "../../Components/Auth/LoginForm/LoginForm";
 import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
-import {ToastProvider} from 'react-toast-notifications';
 import {HomeLink} from "../../RouteLinks/RouteLinks";
+import {ToastProvider} from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
 class Login extends Component {
 

@@ -1,9 +1,11 @@
-import {_axios, _getUser, _setUser} from "../utils";
+import {_axios, _getHeader, _getUser, _setUser} from "../utils";
 import {getUserInfoEndpoint} from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 
 export const getUserData =  callback =>{
-    _axios.get(getUserInfoEndpoint)
+    _axios.get(getUserInfoEndpoint,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             if(callback){

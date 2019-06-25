@@ -6,12 +6,14 @@ import {request} from "../../ApiUtils/ApiUtils";
 import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySaveCard";
 import {
     dateFormatter,
+    descriptionFormatter,
     formatNumber,
     getTodaysDate,
     getToken,
-    getTotalSteadySave,
+    getTotalSteadySave, getTotalSteadySaveDebit, getTotalSuccessful,
     moneyFormatter,
-    STANDARD_ACCOUNT, statusFormatter,
+    STANDARD_ACCOUNT,
+    statusFormatter,
     steadyStatusFormatter,
     viewFormatter
 } from "../../Helpers/Helper";
@@ -35,6 +37,8 @@ class SteadySave extends Component {
             userName: '',
             totalBalance: '0.00',
             totalSteadySave: '0.00',
+            totalSuccessful: 0,
+            totalAttempts: 0,
             email: null,
             showSavingModal: false,
             showCreateSavingModal: false,
@@ -50,8 +54,8 @@ class SteadySave extends Component {
                 raw: null
             },
             showSSaveTrans: false,
-            selectedSteadySave:null,
-            steadySaveHistory:[]
+            selectedSteadySave: null,
+            steadySaveHistory: []
         };
 
     }
@@ -83,9 +87,7 @@ class SteadySave extends Component {
         });
         if (state) {
             if (res) {
-                console.log("Data", res.data.data);
                 const totalSteadySave = getTotalSteadySave(res.data.data);
-                console.log(totalSteadySave);
                 this.setState({
                     transactions: res.data.data,
                     totalSteadySave: formatNumber(parseFloat(totalSteadySave).toFixed(2)),
@@ -121,7 +123,6 @@ class SteadySave extends Component {
             showLoader: true
         });
         request(getSteadySaveEndpoint, null, true, 'GET', this.handleSteadySave);
-        console.log('setting up steady Save');
         // get data from localStorage
 
         //get steady save and history
@@ -131,9 +132,6 @@ class SteadySave extends Component {
 
 
     GetBalance = () => {
-
-        console.log('setting up instant Save');
-
         //call get user info
         request(getUserInfoEndpoint, null, true, 'GET', this.analyseSteadySaveInfo)
 
@@ -154,33 +152,19 @@ class SteadySave extends Component {
 
             //set account
             if (data.data.data.accounts) {
-
-                console.log(data.data.data.accounts)
-
-
                 // loop through data and set appropriate states
                 let accounts = data.data.data.accounts.data;
-
                 //display total balance
                 accounts.map((content, idx) => {
                     if (content.account_type_id === STANDARD_ACCOUNT) {
-                        console.log(content.balance);
                         this.setState({
                             totalBalance: formatNumber(parseFloat(content.balance).toFixed(2))
                         })
                     }
                 });
 
-                // console.log('dfjsd');
-                // console.log(data.data.data.transactions.data);
-                // //TODO loop through transactions and add up only credits
-                // let transactions = data.data.data.transactions.data;
-                // let totalInstantSave = this.getTotalInstantSave(transactions);
-                // this.setState({
-                //     transactions,
-                //     totalInstantSave: formatNumber(totalInstantSave)
-                // });
 
+                // //TODO loop through transactions and add up only credits
 
             } else {
                 console.log(data);
@@ -195,15 +179,12 @@ class SteadySave extends Component {
 
 
     componentDidMount() {
-
-
         //get token if token isset
         let token = getToken();
         token.then(() => {
             this.setupSteadySave();
             this.GetBalance();
         });
-
     }
 
     showNewSteadySaveModal = () => {
@@ -220,32 +201,32 @@ class SteadySave extends Component {
 
     handleSSaveTrans = (status, res) => {
 
-        if (status) {
-            if(res){
-                console.log(res);
+        //TODO calc total steady save
+        if (status&&res) {
+            const totalSteadySave = getTotalSteadySaveDebit(res.data);
+            const totalSuccessful = getTotalSuccessful(res.data);
+            if (res) {
                 this.setState({
-                    showLoader:false,
-                    steadySaveHistory:res.data
+                    showLoader: false,
+                    steadySaveHistory: res.data,
+                    totalAttempts: res.data.length,
+                    totalSuccessful,
+                    totalSteadySave:formatNumber(parseFloat(totalSteadySave).toFixed(2))
                 })
             }
         }
-
     }
 
     hideTransactions = () => {
         this.setState({
             showSSaveTrans: false
         })
-
     }
 
     render() {
 
         const {transactions, userName} = this.state;
-
-
         //update the button to show status in progress if is paused is 0 or paused if its 1
-
 
         //table header and columns
         const columns = [
@@ -262,7 +243,7 @@ class SteadySave extends Component {
 
             },
             {
-                text: 'Start Amount',
+                text: 'Contribution',
                 dataField: 'start_amount',
                 formatter: moneyFormatter,
                 sort: true
@@ -279,15 +260,10 @@ class SteadySave extends Component {
                 formatter: viewFormatter,
                 events: {
                     onClick: (e, column, columnIndex, row, rowIndex) => {
-                        console.log(e);
-                        console.log(column);
-                        console.log(columnIndex);
-                        console.log(row);
-                        console.log(rowIndex);
                         this.setState({
                             showSSaveTrans: true,
-                            selectedSteadySave:row,
-                            showLoader:true
+                            selectedSteadySave: row,
+                            showLoader: true
                         })
                         //set appropriate state to change view
 
@@ -295,7 +271,6 @@ class SteadySave extends Component {
                         getSteadySavTrans(row.id, this.handleSSaveTrans);
 
                         //TODO Add history endpoint to get history of steady save
-
 
 
                     }
@@ -311,8 +286,9 @@ class SteadySave extends Component {
                 sort: true
             },
             {
-                text: 'Description',
+                text: 'Phase',
                 dataField: 'type',
+                formatter: descriptionFormatter,
                 sort: true
 
             },
@@ -321,7 +297,7 @@ class SteadySave extends Component {
                 dataField: 'balance',
                 formatter: moneyFormatter,
                 sort: true
-            },{
+            }, {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter: moneyFormatter,
@@ -395,7 +371,8 @@ class SteadySave extends Component {
                                                 <div className="col-12">
                                                     <div className="text-right">
                                                         <a href='#!' onClick={this.hideTransactions}
-                                                           className={'text-gray'}>Back to Steady Save <i className='fa fa-arrow-right'></i>
+                                                           className='gray-text back-btn'>Back to Steady Save <i
+                                                            className='fa fa-arrow-right'></i>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -405,10 +382,50 @@ class SteadySave extends Component {
                                                     </h3>
                                                     <SteadyAmountCard bgInfo={this.state.selectedSteadySave}/>
                                                 </div>
-                                                <div className="col-lg-4 col-12">
-                                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">&nbsp;
-                                                    </h3>
+                                                {/*<div className="col-lg-4 col-12">*/}
+                                                {/*    <h3 className="gray-header-text fs-mb-1 mb-2 ">&nbsp;*/}
+                                                {/*    </h3>*/}
+                                                {/*</div>*/}
+
+                                                <div className="col-lg-4 col-12 order-lg-5">
+                                                    <h3 className="gray-header-text fs-mb-1 mb-2">Quick Actions</h3>
+                                                    <div className="mb-quick-actions d-flex flex-column flex-wrap ">
+                                                        <span className="mb-details-container ">
+                                                            <div className="d-inline-block q-detail-img">
+                                                                <img src={uploadIcon}/>
+                                                            </div>
+                                                            <div className=" d-inline-block">
+                                                                <strong
+                                                                    className="dark-brown font-size-1-16"><span>₦</span> {this.state.totalSteadySave} </strong>
+                                                                <p className="gray-text circular-std mb-p-size">Total Steady Save</p>
+                                                            </div>
+                                                        </span>
+                                                        <span className="mb-details-container align-items-center">
+                                                            <div className="d-inline-block q-detail-img">
+                                                                <img src={uploadIcon}/>
+                                                            </div>
+                                                            <div className="d-inline-block ">
+
+                                                                <p className="gray-text circular-std mb-p-size">
+                                                                    <strong className="dark-brown font-size-1-16">{this.state.totalAttempts} &nbsp; </strong>
+                                                                    Total Attempts</p>
+                                                            </div>
+                                                        </span>
+                                                        <span className="mb-details-container align-items-center ">
+                                                            <div className="d-inline-block q-detail-img">
+                                                                <img src={uploadIcon}/>
+                                                            </div>
+                                                            <div className=" d-inline-block">
+
+                                                                <p className="gray-text circular-std mb-p-size">
+                                                                     <strong className="dark-brown font-size-1-16"> {this.state.totalSuccessful} &nbsp;</strong>
+                                                                    Total Successful</p>
+                                                            </div>
+                                                        </span>
+                                                    </div>
                                                 </div>
+
+
                                                 {/*<BackupGoalQuickActions showBackUpHistory={this.showBackUpHistory}  hideBG={this.hideBackupGoal} fetchGoals={this.fetchBackUpGoals} selectedBG={this.state.selectedBG}/>*/}
                                             </div>
                                             <div className="row">
@@ -431,7 +448,10 @@ class SteadySave extends Component {
 
                                                             {/*</div>*/}
                                                             {/* table component */}
-                                                            <SSaveTransTable emptyMessage={'No Steady Saves Available'} title={'Steady Save History'} transactions={this.state.steadySaveHistory} columns={historyColumns}/>
+                                                            <SSaveTransTable emptyMessage={'No Steady Saves Available'}
+                                                                             title={'Steady Save History'}
+                                                                             transactions={this.state.steadySaveHistory}
+                                                                             columns={historyColumns}/>
                                                             {/*<BackUpGoalsTable backupGoals={this.state.backupGoals} />*/}
 
                                                             {/*table component*/}
@@ -522,7 +542,8 @@ class SteadySave extends Component {
                                             </div>
 
                                             <SteadySaveCard totalBalance={this.state.totalBalance}
-                                                            newSteadySave={this.showNewSteadySaveModal}/>
+                                                            newSteadySave={this.showNewSteadySaveModal}
+                                            />
 
                                             {/*<div className="col-lg-4 col-12">*/}
                                             {/*    <h3 className="gray-header-text fs-mb-1 mb-2 ">Steady Save <span*/}
@@ -557,29 +578,30 @@ class SteadySave extends Component {
 
 
                                             <div className="col-lg-3 col-12 order-lg-5">
-                                                <h3 className="gray-header-text fs-mb-1 mb-2">Quick Actions</h3>
+                                                <h3 className="gray-header-text fs-mb-1 mb-2">&nbsp;</h3>
                                                 <div className="mb-quick-actions d-flex flex-column flex-wrap ">
-                                            <span className="mb-btn-wrapper">
-                                                {/*<button type="button" onClick={this.showCreateSteadySaveModal} className=" btn-blue-gradient-2 round">*/}
-                                                {/*    <img src={whiteSaveMoreIcon}/>*/}
-                                                {/*    Create Steady Save*/}
-                                                {/*</button>*/}
-                                                <button type="button" onClick={this.showModal}
-                                                        className=" btn-blue-gradient-2 round">
-                                                    <img src={whiteSaveMoreIcon}/>
-                                                    Edit Savings Plan
-                                                </button>
-                                            </span>
-                                                    <span className="mb-details-container ">
-                                                <div className="d-inline-block q-detail-img">
-                                                    <img src={uploadIcon}/>
-                                                </div>
-                                                <div className=" d-inline-block">
-                                                    <strong
-                                                        className="dark-brown font-size-1-16"><span>₦</span> {this.state.totalSteadySave}</strong>
-                                                    <p className="gray-text circular-std mb-p-size">Total Steady Save</p>
-                                                </div>
-                                            </span>
+                                                    <span className="mb-btn-wrapper">
+                                                        {/*<button type="button" onClick={this.showCreateSteadySaveModal} className=" btn-blue-gradient-2 round">*/}
+                                                        {/*    <img src={whiteSaveMoreIcon}/>*/}
+                                                        {/*    Create Steady Save*/}
+                                                        {/*</button>*/}
+                                                        <button type="button" onClick={this.showModal}
+                                                                className=" btn-blue-gradient-2 round">
+                                                            <img src={whiteSaveMoreIcon}/>
+                                                            Edit Savings Plan
+                                                        </button>
+                                                    </span>
+
+                                                    {/*<span className="mb-details-container ">*/}
+                                                    {/*    <div className="d-inline-block q-detail-img">*/}
+                                                    {/*        <img src={uploadIcon}/>*/}
+                                                    {/*    </div>*/}
+                                                    {/*    <div className=" d-inline-block">*/}
+                                                    {/*        <strong*/}
+                                                    {/*            className="dark-brown font-size-1-16"><span>₦</span> {this.state.totalSteadySave}</strong>*/}
+                                                    {/*        <p className="gray-text circular-std mb-p-size">Total Steady Save</p>*/}
+                                                    {/*    </div>*/}
+                                                    {/*</span>*/}
                                                 </div>
                                             </div>
                                         </div>
@@ -589,7 +611,8 @@ class SteadySave extends Component {
                                             {/*<TransactionTable transactions={transactions} columns={columns}/>*/}
 
                                             {/* //TODO show steady save transactions */}
-                                            <SSaveTransTable title={'Steady Save'} transactions={transactions} columns={columns}/>
+                                            <SSaveTransTable title={'Steady Save'} transactions={transactions}
+                                                             columns={columns}/>
 
                                             {/*<SteadySaveTransTable transactions={transactions}/>*/}
                                             {/* //TODO show steady save history */}

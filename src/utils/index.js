@@ -67,14 +67,31 @@ export const _getUser = () => {
 // const baseUrl = `http://localhost:8000/api/v1`;
 // const baseUrl = "https://phoenix-foodvendor.herokuapp.com/api/v1";
 
+//
+// export const _axios = axios.create({
+//     baseURL: BASE_URL,
+//     headers: {
+//         Authorization: `Bearer ${(localStorage.getItem(USERTOKEN)!=null) ? (localStorage.getItem(USERTOKEN).replace(/"/g,'')): ''}`
+//         // Authorization: "Bearer " + _getToken()
+//     }
+// });
 
 export const _axios = axios.create({
     baseURL: BASE_URL,
-    headers: {
-        Authorization: `Bearer ${(localStorage.getItem(USERTOKEN)!=null) ? (localStorage.getItem(USERTOKEN).replace(/"/g,'')): ''}`
-        // Authorization: "Bearer " + _getToken()
-    }
+    // headers: {
+    //     Authorization: `Bearer ${(getLocalStorage(USERTOKEN) ? getLocalStorage(USERTOKEN): '')}`
+    //
+    //     // Authorization: "Bearer " + _getToken()
+    // }
 });
+
+export const _getHeader = () => {
+    console.log('user token',localStorage.getItem(USERTOKEN));
+    return {
+        Authorization: `Bearer ${(localStorage.getItem(USERTOKEN)? getLocalStorage(USERTOKEN): '')}`
+    }
+
+};
 
 export const Loading = ({isSpinning}) => {
     return (

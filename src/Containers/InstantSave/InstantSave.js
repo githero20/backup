@@ -139,7 +139,6 @@ class InstantSave extends Component {
             //get sum of credits
             const sum = instantSaves.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
             // console.log('sum'+sum);
-
             return sum.amount;
         }
     }
@@ -255,9 +254,9 @@ class InstantSave extends Component {
                 formatter: dateFormatter,
                 sort: true,
                 searchable: true,
-                filter: dateFilter({
-                    defaultValue: { date: moment().format('YYYY-MM-DD'),comparator: Comparator.LT}
-                })
+                // filter: dateFilter({
+                //     defaultValue: { date: moment().format('YYYY-MM-DD'),comparator: Comparator.LT}
+                // })
             },
             {
                 text: 'Description',

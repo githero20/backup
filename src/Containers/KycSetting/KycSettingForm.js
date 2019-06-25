@@ -72,8 +72,28 @@ class KycSettingForm extends Component {
     }
 
     handleChange(e) {
-        _handleFormChange(e.target.name, e, this)
+        _handleFormChange(e.target.name, e, this);
+
+
+        var input = document.getElementById( 'file-upload' );
+        var infoArea = document.getElementById( 'file-upload-filename' );
+
+        input.addEventListener( 'change', showFileName );
+
+        function showFileName( event ) {
+
+            // the change event gives us the input it occurred in
+            var input = event.srcElement;
+
+            // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+            var fileName = input.files[0].name;
+
+            // use fileName however fits your app best, i.e. add it into a div
+            infoArea.textContent = 'File name: ' + fileName;
+        }
+
     }
+
 
     handleFileChange(e) {
         console.log("files");
@@ -218,7 +238,7 @@ class KycSettingForm extends Component {
                                                                         </ul>
                                                                     </div>
                                                                 </div>
-                                                                <div className="card-content collapse show">
+                                                                <div className="card-content kyc-form collapse show">
                                                                     <div className="card-body px-5">
 
 
@@ -370,6 +390,7 @@ class KycSettingForm extends Component {
 
                                                                                                 />
                                                                                             </Form.Group>
+
                                                                                             {/* <Form.Text>Mother maiden name.</Form.Text> */}
                                                                                             {this.validator.message("maiden_name", this.state.form.maiden_name, "required")}
                                                                                         </Form.Row>
@@ -437,7 +458,7 @@ class KycSettingForm extends Component {
                                                                         </ul>
                                                                     </div>
                                                                 </div>
-                                                                <div className="card-content ">
+                                                                <div className="card-content kyc-form ">
                                                                     <div className="card-body px-5">
                                                                         <form className="form lock-form">
                                                                             <div className="form-body">
@@ -509,17 +530,33 @@ class KycSettingForm extends Component {
                                                                                                    onChange={this.handleFileChange}
                                                                                                    name="identification_type_picture_url"
                                                                                                    required/>
-                                                                                            {/* <div className="custom-file1">
-                                                                                        <input type="file"
-                                                    
-                                                                                                onChange={this.handleFileChange}
-                                                                                                 className="custom-file-input"
-                                                                                               name = "identification_type_picture_url"
-                                                                                               id="inputGroupFile01" required/> 
+
+                                                                                            <input type="file"
+                                                                                                   id="file-upload"
+                                                                                                   className='cust-file-upload'
+                                                                                                    required/>
                                                                                             <label
-                                                                                                className="custom-file-label"
-                                                                                                htmlFor="inputGroupFile01">Browse</label> 
-                                                                                   </div> */}
+                                                                                                htmlFor="file-upload">Upload
+                                                                                                file</label>
+                                                                                            <div
+                                                                                                id="file-upload-filename">dsdflsfg</div>
+                                                                                           {/*<div className="custom-file1">*/}
+                                                                                           {/*    <label*/}
+                                                                                           {/*        className="custom-file-label"*/}
+                                                                                           {/*        id='file-upload-filename'*/}
+                                                                                           {/*        htmlFor="inputGroupFile01">*/}
+                                                                                           {/*        Browse*/}
+                                                                                           {/*    </label>*/}
+                                                                                           {/*     <input type="file"*/}
+
+                                                                                           {/*             onChange={this.handleFileChange}*/}
+                                                                                           {/*             className="custom-file-input"*/}
+                                                                                           {/*             name = "identification_type_picture_url"*/}
+                                                                                           {/*             required*/}
+                                                                                           {/*     />*/}
+                                                                                           {/*    */}
+                                                                                           {/*</div>*/}
+
                                                                                         </div>
 
                                                                                     </div>
@@ -563,7 +600,7 @@ class KycSettingForm extends Component {
 
                                                                                 </div>
                                                                                 <div className="row">
-                                                                                    <div className="col-md-6">
+                                                                                    <div className="col-12">
 
                                                                                         <div className="form-group">
                                                                                             <Form.Group
@@ -591,17 +628,16 @@ class KycSettingForm extends Component {
 
 
                                                                                 <button
-                                                                                    className={'btn btn-custom-blue round auth-btn'}
+                                                                                    className={'btn btn-custom-blue round '}
                                                                                     type="submit">
                                                                                     {this.state.loading ?
-                                                                                        <ButtonLoader/> : "Update KYC"}
+                                                                                        <ButtonLoader/> : "Update"}
                                                                                 </button>
 
 
                                                                             </Form.Row>
 
                                                                             <div className="form-actions left">
-
 
 
                                                                             </div>

@@ -1,4 +1,4 @@
-import {_axios} from "../utils";
+import {_axios, _getHeader} from "../utils";
 import {BASE_URL, GetUserBanks, ResendBankOTP, SaveBankAccount, VerifyBankOTP} from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 
@@ -46,7 +46,9 @@ export const resolveBankName = (accountNumber, bankCode,callback) =>{
 
 export const sendBankOTP = (payload, callback) =>{
     console.log("body", payload);
-    _axios.post(`${BASE_URL}/${SaveBankAccount}`,payload)
+    _axios.post(`${BASE_URL}/${SaveBankAccount}`,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
@@ -63,7 +65,9 @@ export const sendBankOTP = (payload, callback) =>{
 
 export const resendBankOTP = (payload, callback) =>{
     console.log("body", payload);
-    _axios.post(`${BASE_URL}/${ResendBankOTP}`,payload)
+    _axios.post(`${BASE_URL}/${ResendBankOTP}`,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
@@ -82,7 +86,9 @@ export const resendBankOTP = (payload, callback) =>{
 
 export const verifyOtp = (payload, callback) =>{
     console.log("body", payload);
-    _axios.post(VerifyBankOTP,payload)
+    _axios.post(VerifyBankOTP,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
@@ -98,7 +104,9 @@ export const verifyOtp = (payload, callback) =>{
 };
 
 export const getUserBanks = (callback) => {
-    _axios.get(GetUserBanks)
+    _axios.get(GetUserBanks,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             callback(res.data.status == "success", res.data.data);

@@ -5,12 +5,10 @@ import SimpleReactValidator from "simple-react-validator";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {DashboardLink, ForgotPasswordLink, LoginEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteLinks";
-import {api, setLocalStorage} from "../../../ApiUtils/ApiUtils";
+import {api} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {getUserData} from "../../../actions/UserAction";
-import {_setUser} from "../../../utils";
-import {setupUser} from "../../../Helpers/Helper";
+
 
 class LoginForm extends Component {
     state = {
@@ -27,6 +25,7 @@ class LoginForm extends Component {
         super(props);
         this.validator = new SimpleReactValidator();
         this.processLogin = this.processLogin.bind(this);
+        this.toastMessage = this.toastMessage.bind(this);
     }
 
     //Retrieves user inputs
@@ -39,32 +38,34 @@ class LoginForm extends Component {
     };
 
 
-
     //TODO login should handle is user sign's up but hasn't activated yet
 
     //TODO on login user should be redirected to the email verification
 
 
-
-
-     processLogin(state, response) {
-
-
-        console.log('dsd',state,response);
+    toastMessage(message, status) {
         const {toastManager} = this.props;
+        toastManager.add(message, {
+            appearance: status,
+            autoDismiss: true,
+            autoDismissTimeout: 4000,
+            pauseOnHover: false,
+        })
+    }
 
+    processLogin(state, response) {
         if (state) {
-            if(response!=undefined){
+            if (response != undefined) {
                 localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
-                localStorage.setItem(USERINFO,JSON.stringify(response.data.user));
-                setTimeout(()=>{
-                    console.log('login token'+localStorage.getItem(USERTOKEN));
+                localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
+                setTimeout(() => {
+                    console.log('login token' + localStorage.getItem(USERTOKEN));
                     this.setState({
                         redirect: true,
                         loading: false
                     });
-                },3000);
-                console.log("before",this);
+                }, 3000);
+                console.log("before", this);
             }
 
             // //Temporary get user details
@@ -92,62 +93,34 @@ class LoginForm extends Component {
             //
             //     }
             // });
-
-
-
-
         } else {
 
             this.setState({loading: false});
 
-                 if(response.status==401){
+            if (response) {
+                if (response.status == 401) {
 
-                     if(response.data.message=="invalid_credentials"){
+                    if (response.data.message == "invalid_credentials") {
+                        this.toastMessage(`Invalid Credentials`, 'error');
+                    } else if (response.data.message == 'Incorrect email or password,Try again') {
+                        this.toastMessage('Incorrect Email or Password', 'error');
+                    }
 
-                         toastManager.add(`Invalid Credentials`, {
-                             appearance: 'error',
-                             autoDismiss: true,
-                             autoDismissTimeout:3000
-                         });
-                     } else if(response.data.message=='Incorrect email or password,Try again') {
-                         toastManager.add('Incorrect Email or Password', {
-                             appearance: 'error',
-                             autoDismiss: true,
-                             autoDismissTimeout:3000
-                         });
-                     }
-
-
-                 }else{
-                     toastManager.add(`${JSON.stringify(response.data.message)}`, {
-                         appearance: 'error',
-                         autoDismiss: true,
-                         autoDismissTimeout:3000
-                     });
-
-                 }
-            //
-            //
-            // } else {
-            //     toastManager.add("No Internet Connection", {
-            //         appearance: 'error',
-            //         autoDismiss: true,
-            //         autoDismissTimeout:3000
-            //     })
-            // }
+                } else {
+                    this.toastMessage(`${JSON.stringify(response.data.message)}`, 'error');
+                }
+            } else {
+                this.toastMessage(`${JSON.stringify("Poor Connectivity!!")}`, 'error');
+            }
         }
-
     };
 
-    Login = (url, param, login)  =>{
 
+    Login = (url, param, login) => {
         this.setState({
             loading: true
         });
-
         api(url, param, false, true, login);
-
-
     };
 
 
@@ -166,8 +139,12 @@ class LoginForm extends Component {
     };
 
 
-    validate = () => {
+    componentDidMount() {
+        localStorage.removeItem(USERTOKEN);
+        localStorage.removeItem(USERINFO);
+    }
 
+    validate = () => {
         if (this.validator.allValid()) {
             const PasswordRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
             //validate confirm password
@@ -207,7 +184,7 @@ class LoginForm extends Component {
                 <React.Fragment>
                     <Redirect to={{
                         pathname: `${ResendActivationLink}/${email}`,
-                        state:{email:email}
+                        state: {email: email}
                     }} push/>
                 </React.Fragment>
             );
@@ -215,6 +192,7 @@ class LoginForm extends Component {
 
         return (
             <React.Fragment>
+                {/*<Toast content={'oshey baddest'} status={"error"} />*/}
                 <form className="login-form " onSubmit={this.submitForm}>
                     <div className="row">
                         <div className="col-12">
@@ -247,30 +225,38 @@ class LoginForm extends Component {
                                     Up</Link> </label>
                             </div>
                         </div>
+                        {/*<div className="col-12">*/}
+                        {/*    <div*/}
+                        {/*        className="d-flex  flex-column flex-md-row justify-content-between align-items-center">*/}
+
+                        {/*        <button type={'submit'} className="btn btn-round blue-round-btn auth-btn order-md-12"*/}
+                        {/*                name="action">{this.state.loading ? <ButtonLoader/> :*/}
+                        {/*            <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}*/}
+                        {/*        </button>*/}
+                        {/*        <label className=" mt-3 mt-md-0 label-container d-flex align-items-center ">*/}
+                        {/*            <input type="checkbox" className="login-check-box order-md-1"*/}
+                        {/*                   defaultChecked={false}/>*/}
+                        {/*            <span className='checkmark'></span>*/}
+                        {/*            <span className='fs-xs'>Always stay signed In</span>*/}
+                        {/*        </label>*/}
+                        {/*    </div>*/}
+                        {/*</div> */}
                         <div className="col-12">
                             <div
-                                className="d-flex  flex-column flex-md-row justify-content-between align-items-center">
+                                className="d-flex  flex-column flex-md-row justify-content-end align-items-center">
 
                                 <button type={'submit'} className="btn btn-round blue-round-btn auth-btn order-md-12"
                                         name="action">{this.state.loading ? <ButtonLoader/> :
                                     <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
                                 </button>
-                                <label className=" mt-3 mt-md-0 label-container d-flex align-items-center ">
-                                    <input type="checkbox" className="login-check-box order-md-1"
-                                           defaultChecked={false}/>
-                                    <span className='checkmark'></span>
-                                    <span className='fs-xs'>Always stay signed In</span>
-                                </label>
                             </div>
                         </div>
                     </div>
                 </form>
-
             </React.Fragment>
         );
     }
 }
 
-const LoginWithToast = withToastManager(LoginForm);
 
-export default LoginWithToast;
+export default withToastManager(LoginForm);

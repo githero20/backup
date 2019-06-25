@@ -148,23 +148,22 @@ class BankForm extends Component {
 
 
                     </Form.Row>
-                    <Form.Row className={'d-flex justify-content-between mt-2'}>
-                        <div>
-                            <Button onClick={this.props.onHide}
-                                    className={'mr-1 round btn-gradient-blue'}>Close</Button>
-                        </div>
+                    <Form.Row className={'d-flex justify-content-end mt-2'}>
+                        {/*<div>*/}
+                        {/*    <button onClick={this.props.onHide} className='mr-1 round btn-outline-gray px-1'>Close</button>*/}
+                        {/*</div>*/}
                         <div className={'d-flex justify-content-end'}>
 
                             {
                                 !this.state.resolved
                                     ?
-                                    <Button className={'round btn-gradient-blue '} onClick={this.resolveAccountNumber} >
+                                    <button className={'round btn-custom-blue modal-btn px-1'} onClick={this.resolveAccountNumber} >
                                         {this.state.loading ? <ButtonLoader/> : "Confirm"}
-                                    </Button>
+                                    </button>
                                     :
-                                    <Button className={'round btn-gradient-blue '} type="submit">
+                                    <button className={'round btn-custom-blue modal-btn px-1'} type="submit">
                                         {this.state.loading ? <ButtonLoader/> : "Add Bank"}
-                                    </Button>
+                                    </button>
 
                             }
 

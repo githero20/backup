@@ -28,7 +28,7 @@ section {
     /*padding-top: 8rem;*/
     /*padding-bottom: 8rem;*/
 }
-height-100vh{
+#height-100vh {
     height: 100vh;
    }
 .nav-item.index-page{
@@ -97,9 +97,7 @@ height-100vh{
     color: #686868;
     font-size: 1.2rem;
 }
-.deep-drown{
-    color: #686868;
-}
+
 .section-header {
     text-align: center;
     padding: 1.5rem 0;
@@ -148,16 +146,7 @@ height-100vh{
 .deep-blue-color{
     color:#0A3560;
 }
-#hideAll{
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-    background-color: white;
-    z-index: 99; /* Higher than anything else in the document */
 
-}
 .btn-gradient-blue {
     background: rgb(54,123,255);
     background: linear-gradient(90deg, rgba(54,123,255,1) 0%, rgba(0,80,147,1) 100%);
@@ -207,6 +196,12 @@ height-100vh{
     position: relative;
 }
 
+.dash-card-analysis h6 ,.dash-card-analysis strong {
+    font-size: 12px;
+}
+.card-item h3{
+    margin-bottom: 2rem;
+}
 .header-title {
     margin-top: 5rem !important;
     font-family: Gilroy bold;
@@ -335,7 +330,8 @@ height-100vh{
     color:#323268;
 }
 .footer-p{
-    font-size: 1.3rem;
+    margin-top: 2rem;
+    font-size: 1rem;
     color: #636363;
 }
 .footer-list {
@@ -348,7 +344,7 @@ height-100vh{
 .footer-list li a {
     color: #636363;
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 .footer-list li a:hover {
@@ -500,10 +496,6 @@ height-100vh{
     font-size: 1.3rem;
 }
 
-.minimize-menu {
-    display: none;
-}
-
 .carousel-item {
     width: 100%;
 }
@@ -543,10 +535,7 @@ height-100vh{
     -ms-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
 }
-.thumbnail img.portrait {
-    width: 100%;
-    height: auto;
-}
+
 .carousel-container{
     display: flex;
     justify-content: center;
@@ -657,9 +646,6 @@ height-100vh{
 comment-job-title {
     color: #9B9B9B;
 }
-.slightly-deep-brown{
-    color:#9B9B9B;
-}
 
 footer-logo {
     margin-bottom: 5rem;
@@ -761,13 +747,6 @@ footer-logo {
 
 /*mobile menu */
 @media (max-width: 768px) {
-    .minimize-menu {
-        display: block;
-        color: #0A3560;
-        position: absolute;
-        right: 16%;
-        top: 12%;
-    }
     .navbar-toggler:focus{
         outline: none;
     }
@@ -1204,9 +1183,6 @@ footer-logo {
         line-height: 1.7rem;
     }
 
-}
-.descriptive-info{
-    background-color: #2497FF;
 }
 
 .sfs-image{

@@ -4,7 +4,7 @@ import {formatNumber} from "../../Helpers/Helper";
  const BGStartAmountCard = (props)=> {
         return (
             <React.Fragment>
-                <div className="card pull-up bg-white shadow saving-card">
+                <div className="card pull-up bg-white shadow-sm saving-card">
                     {/*<img className="floated-icon" src={transTotalSavingsIcon}/>*/}
                     <div className="card-content">
                         <div className="card-body">

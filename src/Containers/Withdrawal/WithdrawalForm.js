@@ -10,38 +10,32 @@ import {_handleFormChange} from "../../utils";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {request} from "../../ApiUtils/ApiUtils";
 import {getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
-import {
-    BACKUP_GOALS_ACCOUNT,
-    formatNumber,
-    INTEREST_ACCOUNT,
-    LOCKED_ACCOUNT,
-    STANDARD_ACCOUNT
-} from "../../Helpers/Helper";
+import {formatNumber, INTEREST_ACCOUNT, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import swal from 'sweetalert';
-
 
 
 class WithdrawalForm extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             loading: false,
-            withdrawalSettings:[],
-            penalty:null,
-            userBanks:[],
-            hasPenalty:true,
-            nextDate:"",
-            userBalance:0.00,
-            penaltyFreeDay:false,
-            settingsOwner:"you",
-            form:{
-                penalty_from:"central_vault",
-                withdraw_amount:"500",
-                bank_account:"",
-                source:"central_vault"
+            withdrawalSettings: [],
+            penalty: null,
+            userBanks: [],
+            hasPenalty: true,
+            nextDate: "",
+            userBalance: 0.00,
+            stashBalance: 0.00,
+            penaltyFreeDay: false,
+            settingsOwner: "you",
+            form: {
+                penalty_from: "central_vault",
+                withdraw_amount: "500",
+                bank_account: "",
+                source: "central_vault"
             },
-            showWithdrawalSetting:false
+            showWithdrawalSetting: false
         };
 
         this.validator = new SimpleReactValidator();
@@ -72,74 +66,76 @@ class WithdrawalForm extends Component {
     getBalance = () => {
 
         // console.log('ran request');
-        request(getUserInfoEndpoint,null,true,'GET',this.saveBalance);
+        request(getUserInfoEndpoint, null, true, 'GET', this.saveBalance);
 
     };
 
-    saveBalance =(state,res)=>{
+    saveBalance = (state, res) => {
 
-        if(state){
+        if (state) {
 
-                if (res.data.data.accounts) {
-                    console.log(res.data.data.accounts);
-                    let accounts = res.data.data.accounts.data;
+            if (res.data.data.accounts) {
+                console.log(res.data.data.accounts);
+                let accounts = res.data.data.accounts.data;
 
-                    //get th balance
-                    accounts.map((content, idx) => {
-                        if (content.account_type_id === STANDARD_ACCOUNT) {
-                            this.setState({
-                                userBalance:content.balance
-                            });
-                        }
-                    });
-                }
+                //get th balance
+                accounts.map((content, idx) => {
+                    if (content.account_type_id === STANDARD_ACCOUNT) {
+                        this.setState({
+                            userBalance: content.balance
+                        });
+                    } else if (content.account_type_id === INTEREST_ACCOUNT) {
+                        this.setState({
+                            stashBalance: content.balance
+                        });
+                    }
+                });
+            }
         }
-
-
     };
 
 
-
-    getWithdrawalSettings(){
+    getWithdrawalSettings() {
         // e.preventDefault();
         getWithdrawalSettings((status, payload) => {
-            if(status){
+            if (status) {
 
                 console.log("Withdr", status, payload);
-                this.setState({withdrawalSettings:payload.data, settingsOwner: payload.owner});
+                this.setState({withdrawalSettings: payload.data, settingsOwner: payload.owner});
                 this.getNextWithdrawalDate(payload.data);
-            }else{
-                this.props.toastManager.add("unable to get withdrawal settings",{
+            } else {
+                this.props.toastManager.add("unable to get withdrawal settings", {
                     appearance: "error",
                     autoDismissTimeout: 5000,
-                    autoDismiss:true
+                    autoDismiss: true
                 });
             }
         });
     }
 
 
-    getWithdrawalPenalty(){
+    getWithdrawalPenalty() {
         // e.preventDefault();
         getWithdrawalPenalty((status, payload) => {
-            if(status){
-                this.setState({penalty:payload});
-                console.log('penalty:'+JSON.parse(payload));
-            }else{
-                this.props.toastManager.add("unable to get withdrawal penalty",{
+            if (status) {
+                this.setState({penalty: payload});
+                console.log('penalty:' + JSON.parse(payload));
+            } else {
+                this.props.toastManager.add("unable to get withdrawal penalty", {
                     appearance: "error",
                     autoDismissTimeout: 5000,
-                    autoDismiss:true
+                    autoDismiss: true
                 });
             }
         });
     }
-    getUserBanks(){
+
+    getUserBanks() {
         getUserBanks((status, payload) => {
-            if(status){
-                if(payload && payload.length > 0){
-                    this.setState({userBanks:payload});
-                }else{
+            if (status) {
+                if (payload && payload.length > 0) {
+                    this.setState({userBanks: payload});
+                } else {
                     console.log("Props", this.props, this.props.history)
                     // this.props.history.push("/bank-card-setting");
                     //TODO(Find another way to redirect to bank histort)
@@ -159,49 +155,48 @@ class WithdrawalForm extends Component {
     }
 
 
-
-
-    showWithdrawalSettings(){
+    showWithdrawalSettings() {
         this.setState({showWithdrawalSetting: true})
     }
-    hideWithdrawalSettings(){
+
+    hideWithdrawalSettings() {
         this.setState({showWithdrawalSetting: false})
     }
 
-    handleWithdrawFrom(e){
-        if(e.target.value == "backup_stash" || this.state.penaltyFreeDay){
-            this.setState({hasPenalty:false});
-        }else{
-            this.setState({hasPenalty:true});
+    handleWithdrawFrom(e) {
+        if (e.target.value == "backup_stash" || this.state.penaltyFreeDay) {
+            this.setState({hasPenalty: false});
+        } else {
+            this.setState({hasPenalty: true});
         }
 
         this.handleChange(e);
     }
 
-    handleChange(e){
-        _handleFormChange(e.target.name,e, this)
+    handleChange(e) {
+        _handleFormChange(e.target.name, e, this)
     }
 
-    getNextWithdrawalDate(withdrawalDates = []){
-        try{
+    getNextWithdrawalDate(withdrawalDates = []) {
+        try {
             // 22n october 2019
             const now = moment();
-            for(let date of withdrawalDates){
-                let d = moment(date.withdrawal_date,"MM/DD");
-                let diff = d.diff(now,"days");
-                if( diff == 0){
+            for (let date of withdrawalDates) {
+                let d = moment(date.withdrawal_date, "MM/DD");
+                let diff = d.diff(now, "days");
+                if (diff == 0) {
                     this.setState({hasPenalty: false, penaltyFreeDay: true, nextDate: d.format("LL")});
-                }else if(diff > 0){
+                } else if (diff > 0) {
                     this.setState({nextDate: d.format("LL")});
                     break;
                 }
             }
-        }catch (e) {
+        } catch (e) {
             console.log(e);
         }
     }
 
-    onSubmit(e){
+    onSubmit(e) {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
@@ -212,27 +207,27 @@ class WithdrawalForm extends Component {
             swal("Are you sure you want to make a withdrawal ?", {
                 buttons: {
                     cancel: "no",
-                    yes:"yes"
+                    yes: "yes"
                 },
             })
                 .then((value) => {
                     switch (value) {
 
                         case "yes":
-                            this.setState({loading:true});
-                            makeWithdrawal(form,(status, payload) =>{
+                            this.setState({loading: true});
+                            makeWithdrawal(form, (status, payload) => {
                                 console.log("response", status, payload);
-                                this.setState({loading:false});
-                                if(status){
-                                    this.props.toastManager.add("Withdrawal Successful",{
+                                this.setState({loading: false});
+                                if (status) {
+                                    this.props.toastManager.add("Withdrawal Successful", {
                                         appearance: "success",
                                         autoDismiss: true,
                                         autoDismissTimeout: 5000
                                     });
                                     swal("Withdrawal Successful", "success");
                                     this.props.updateWithdrawalList();
-                                }else{
-                                    this.props.toastManager.add(payload,{
+                                } else {
+                                    this.props.toastManager.add(payload, {
                                         appearance: "error",
                                         autoDismiss: true,
                                         autoDismissTimeout: 5000
@@ -266,17 +261,16 @@ class WithdrawalForm extends Component {
                 <div className="col-lg-7">
                     {/* withdrawal form component */}
                     <Fragment>
-                        <div className="card curved-radius"
-                             data-height="60px">
-                            <div className="card-content collapse show" >
-                                <div className="card-body px-5">
+                        <div>
+                            <div>
+                                <div>
                                     <form className="form lock-form" onSubmit={this.onSubmit}>
                                         <div className="form-body">
                                             <div className="row mb-4">
                                                 <div className="col-lg-12">
                                                     <h5>Central Vault balance</h5>
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-12">
                                                     <div className="media d-flex pb-2 pb-md-5">
                                                         <div className="align-self-center">
                                                             <img className="blue-card-icon" src={totalBalanceIcon}/>
@@ -284,19 +278,19 @@ class WithdrawalForm extends Component {
                                                         <div className="media-body text-left pt-1 ">
                                                             <h3 className=" ">
                                                                 <strong className="blue-card-price fs-1-5 ml-1 mr-2">
-                                                                    <strong>₦</strong> {formatNumber(parseFloat(this.state.userBalance).toFixed(2))  }
+                                                                    <strong>₦</strong> {formatNumber(parseFloat(this.state.userBalance).toFixed(2))}
                                                                 </strong>
                                                             </h3>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-12">
                                                     <div className="form-group">
 
                                                         {/*<button className={'btn btn-withdraw round mb-2 '}>See withdrawal Days</button>*/}
                                                         <p className={'text-gray'}>Next free withdrawal day</p>
                                                         <h4 className={'text-black'}>{
-                                                            this.state.penaltyFreeDay ? "Today":  moment(this.state.nextDate).format('dddd, MMMM Do')
+                                                            this.state.penaltyFreeDay ? "Today" : moment(this.state.nextDate).format('dddd, MMMM Do')
                                                         }</h4>
                                                     </div>
                                                 </div>
@@ -317,9 +311,10 @@ class WithdrawalForm extends Component {
                                                                 Select bank
                                                             </option>
                                                             {
-                                                                this.state.userBanks.map((bank, index) =>{
-                                                                    return  (
-                                                                        <option key={index} value={bank.gw_customer_code}>
+                                                                this.state.userBanks.map((bank, index) => {
+                                                                    return (
+                                                                        <option key={index}
+                                                                                value={bank.gw_customer_code}>
                                                                             {bank.bank}({bank.bank_number})
                                                                         </option>
                                                                     );
@@ -333,7 +328,8 @@ class WithdrawalForm extends Component {
 
                                                 <div className="col-md-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="name">How much do you want to withdraw today?</label>
+                                                        <label htmlFor="name">How much do you want to withdraw
+                                                            today?</label>
                                                         <input
                                                             type="number"
                                                             className="form-control mb-1"
@@ -349,7 +345,8 @@ class WithdrawalForm extends Component {
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
                                                         <label>Where do you want to withdraw from?</label>
-                                                        <select name="source" onChange={this.handleWithdrawFrom} value={this.state.form.source}                                                                className="form-control">
+                                                        <select name="source" onChange={this.handleWithdrawFrom}
+                                                                value={this.state.form.source} className="form-control">
                                                             <option value="central_vault">Central Vault
                                                             </option>
                                                             <option value="backup_stash">Backup Stash
@@ -361,7 +358,8 @@ class WithdrawalForm extends Component {
                                                 <div className="col-lg-12" hidden={!this.state.hasPenalty}>
                                                     <div className="form-group">
                                                         <label>Where do you want to charge your Penalty Fee?</label>
-                                                        <select onChange={this.handleChange} name="penalty_from" value={this.state.form.penalty_from}
+                                                        <select onChange={this.handleChange} name="penalty_from"
+                                                                value={this.state.form.penalty_from}
                                                                 className="form-control">
                                                             <option value="central_vault">Balance in Central Vault
                                                             </option>
@@ -374,7 +372,8 @@ class WithdrawalForm extends Component {
                                             </div>
                                         </div>
 
-                                        <div className="form-actions d-flex justify-content-center justify-content-md-end">
+                                        <div
+                                            className="form-actions d-flex justify-content-center justify-content-md-end">
                                             <button type="submit"
                                                     className="btn  btn-bg-shade-2 px-3 py-1 round pull-right">
                                                 {this.state.loading ? <ButtonLoader/> : "Withdraw"}
@@ -389,20 +388,38 @@ class WithdrawalForm extends Component {
                     </Fragment>
                 </div>
                 <div className="col-lg-5">
+                    <div className="col-lg-12">
+                        <h5>Backup Stash balance</h5>
+                    </div>
+                    <div className="col-12">
+                        <div className="media d-flex pb-2 pb-md-5">
+                            <div className="align-self-center">
+                                <img className="blue-card-icon" src={totalBalanceIcon}/>
+                            </div>
+                            <div className="media-body text-left pt-1 ">
+                                <h3 className=" ">
+                                    <strong className="blue-card-price fs-1-5 ml-1 mr-2">
+                                        <strong>₦</strong> {formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}
+                                    </strong>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
                     <Fragment>
+
                         <div className='banner round '>
                             <p>Your next free withdrawal Date is </p>
                             <strong>{
-                                this.state.penaltyFreeDay ? "Today": moment(this.state.nextDate).format('dddd, MMMM Do')
+                                this.state.penaltyFreeDay ? "Today" : moment(this.state.nextDate).format('dddd, MMMM Do')
                             }</strong>
                             <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
                             <ul>
                                 {
 
-                                    this.state.withdrawalSettings.map((settings, index) =>{
+                                    this.state.withdrawalSettings.map((settings, index) => {
                                         const split = settings.withdrawal_date.split("/");
-                                        const month =  (moment(`${year} ${split[0]}`, "YYYY MM").format("MMMM"));
-                                        const day =  (moment(`${year} ${month} ${split[1]}`, "YYYY MMMM DD").format("Do"));
+                                        const month = (moment(`${year} ${split[0]}`, "YYYY MM").format("MMMM"));
+                                        const day = (moment(`${year} ${month} ${split[1]}`, "YYYY MMMM DD").format("Do"));
                                         return (
                                             <li key={index}>Every {day} of {month}</li>
                                         );
@@ -412,7 +429,8 @@ class WithdrawalForm extends Component {
 
                             {
                                 this.state.settingsOwner == "you" ? "" :
-                                    <button className='btn btn-custom-blue btn-block' onClick={this.showWithdrawalSettings}>Change Settings</button>
+                                    <button className='btn btn-custom-blue btn-block'
+                                            onClick={this.showWithdrawalSettings}>Change Settings</button>
                             }
                         </div>
                     </Fragment>

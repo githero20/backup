@@ -1,4 +1,4 @@
-import {_axios} from "../utils";
+import {_axios, _getHeader} from "../utils";
 import {
     GetUsersCards,
     InitiateTransactionEndpoint,
@@ -9,7 +9,9 @@ import {checkResponse} from "../ApiUtils/ApiUtils";
 
 export const initTransaction = (payload, callback) =>{
     console.log("body", payload);
-    _axios.post(InitiateTransactionEndpoint,payload)
+    _axios.post(InitiateTransactionEndpoint,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
@@ -26,7 +28,9 @@ export const initTransaction = (payload, callback) =>{
 
 
 export const verifyTransaction = (payload, callback) =>{
-    _axios.post(verifyTransactionEndpoint,payload)
+    _axios.post(verifyTransactionEndpoint,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             console.log("Res",res);
             callback(true, res.data.data);
@@ -43,7 +47,9 @@ export const verifyTransaction = (payload, callback) =>{
 };
 
 export const getUserCards = (callback) => {
-    _axios.get(GetUsersCards)
+    _axios.get(GetUsersCards,{
+        headers: _getHeader()
+    })
         .then(res => {
             // console.log("Res",res);
             callback(res.data.status == "success", res.data.data);

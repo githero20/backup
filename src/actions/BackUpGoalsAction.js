@@ -1,4 +1,4 @@
-import {_axios} from "../utils";
+import {_axios, _getHeader} from "../utils";
 import {
     BASE_URL, continueBackupGoal,
     createBackupGoals, editBackupGoal,
@@ -11,10 +11,10 @@ import {checkResponse} from "../ApiUtils/ApiUtils";
 
 export const getBackUpSavings = (callback) =>{
     // console.log("body", payload);
-    _axios.get(`${GetBackUpGoals}`)
+    _axios.get(`${GetBackUpGoals}`,{
+        headers: _getHeader()
+    })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -29,10 +29,10 @@ export const getBackUpSavings = (callback) =>{
 
 export const getPenalty = (callback) =>{
     // console.log("body", payload);
-    _axios.get(`${GetWithdrawalPenalty}`)
+    _axios.get(`${GetWithdrawalPenalty}`,{
+        headers: _getHeader()
+    })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -51,11 +51,11 @@ export const getBackUpGoalAndHistory = (id, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.get(`${getBGoalHistory}/${id}`)
+    _axios.get(`${getBGoalHistory}/${id}`,{
+        headers: _getHeader()
+    })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
-            callback(res.data.status == "success", res.data.data);
+            callback(true, res.data.data);
         })
         .catch(err => {
             console.log("Err", JSON.stringify(err));
@@ -79,10 +79,10 @@ export const getBackUpGoalAndTrans = (id, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.get(`${getBGoalTrans}/${id}`)
+    _axios.get(`${getBGoalTrans}/${id}`,{
+        headers: _getHeader()
+    })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -106,10 +106,10 @@ export const pauseBGoal = (id, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.get(`${pauseBackupGoal}/${id}`)
+    _axios.get(`${pauseBackupGoal}/${id}`,{
+        headers: _getHeader()
+    })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -134,10 +134,10 @@ export const continueBGoal = (id, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.get(`${continueBackupGoal}/${id}`)
+    _axios.get(`${continueBackupGoal}/${id}`,{
+        headers: _getHeader()
+    })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -161,10 +161,10 @@ export const editBGoal = (id,params, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.post(`${editBackupGoal}/${id}`, params)
+    _axios.post(`${editBackupGoal}/${id}`, params,{
+        headers: _getHeader()
+    })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -188,10 +188,11 @@ export const stopBGoal = (id, callback) =>{
         callback(false,"Invalid Steady Save Identifier");
         return;
     }
-    _axios.get(`${stopBackupGoal}/${id}`)
+    _axios.get(`${stopBackupGoal}/${id}`,{
+        headers: _getHeader()
+    })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
+
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -214,7 +215,9 @@ export const stopBGoal = (id, callback) =>{
 
 export const createBackUpGoal = (params, callback) =>{
     // console.log("body", payload);
-    _axios.post(`${createBackupGoals}`, params)
+    _axios.post(`${createBackupGoals}`, params,{
+        headers: _getHeader()
+    })
         .then(res => {
             callback(res.data.status == "success", res.data.data);
         })

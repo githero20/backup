@@ -1,11 +1,13 @@
-import {_axios} from "../utils";
+import {_axios, _getHeader} from "../utils";
 import {GetUserKYC} from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 
 
 
 export const getUserKyc = (callback) =>{
-    _axios.get(GetUserKYC)
+    _axios.get(GetUserKYC,{
+        headers: _getHeader()
+    })
         .then(res => {
             callback(res.data.status == "success", res.data);
         })
@@ -18,7 +20,9 @@ export const getUserKyc = (callback) =>{
 };
 
 export const storeUserKyc = (payload,callback) =>{
-    _axios.post(GetUserKYC,payload)
+    _axios.post(GetUserKYC,payload,{
+        headers: _getHeader()
+    })
         .then(res => {
             callback(res.data.status == "success", res.data);
         })

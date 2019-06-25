@@ -219,7 +219,7 @@ class UpdatePassword extends Component {
                 <div>
                         <div className="row my-5">
                             <div className='col-12'>
-                                <h3>Update Password</h3>
+                                <h4 className=''>Update Password</h4>
                                 <div className='line'></div>
                             </div>
                             <div className="col-md-4">

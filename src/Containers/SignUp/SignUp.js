@@ -10,18 +10,32 @@ import {HomeLink} from "../../RouteLinks/RouteLinks";
 
 class SignUp extends Component {
 
-    // //validator
-    // constructor(props) {
-    //     super(props);
-    //
-    //     this.validator = new SimpleReactValidator();
-    //
-    //     this.state = {
-    //         submitted:false,
-    //     }
-    // }
 
-    //Send date to the second stage to activation container
+    state = {
+        referral_code:undefined
+    }
+
+    // handle the referral case
+
+    // check if there is a referral
+
+    getReferral = (props) =>{
+
+        console.log(props);
+        if(props){
+            this.setState({ referral_code:props.match.params.ref})
+        }
+    };
+
+
+
+
+
+
+
+    componentDidMount() {
+        this.getReferral(this.props);
+    }
 
     render() {
         return (
@@ -59,7 +73,7 @@ class SignUp extends Component {
                                             </div>
                                             <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                             <ToastProvider>
-                                                <SignUpForm />
+                                                <SignUpForm referralCode={this.state.referral_code} />
                                             </ToastProvider>
                                         </div>
                                     </div>

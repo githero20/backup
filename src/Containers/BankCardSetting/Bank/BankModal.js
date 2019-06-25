@@ -50,7 +50,7 @@ class BankModal extends React.Component {
                 centered
                 className={'steady-save-modal'}
             >
-                <Modal.Header className={' px-md-3'} closeButton={this.props.onHide}>
+                <Modal.Header className={' px-md-3 py-3'} closeButton={this.props.onHide}>
                     <Modal.Title id="contained-modal-title-vcenter">
                         <h4>Add Bank</h4>
                     </Modal.Title>

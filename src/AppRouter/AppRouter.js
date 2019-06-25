@@ -23,7 +23,7 @@ import {
     EmailActivationLink,
     ForgotPasswordLink,
     HomeLink,
-    InstantSaveLink,
+    InstantSaveLink, InviteLink,
     KycSettingLink,
     LockedSavingsLink,
     LoginLink,
@@ -72,14 +72,15 @@ class AppRouter extends Component {
                         {/*auth routes*/}
                         <Route path={LoginLink} component={Login}/>
                         <Route path={SignUpLink} component={SignUp}/>
+                        <Route path={InviteLink} component={SignUp}/>
                         <Route path={ActivateAccountLink} component={ActivateAccount}/>
                         <Route path={ForgotPasswordLink} component={ForgotPassword}/>
                         <Route path={ResetPasswordLink} component={ResetPassword}/>
                     </Router>
                 </ToastProvider>
             </React.Fragment>
-        );
+    );
     }
-}
+    }
 
-export default AppRouter;
+    export default AppRouter;

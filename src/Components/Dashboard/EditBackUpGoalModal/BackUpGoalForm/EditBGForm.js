@@ -52,6 +52,7 @@ class EditBGForm extends Component {
     //validate form
     handleFrequencySelect(form, inverse = false){
         // console.log(form);
+        console.log(inverse);
         if(inverse){
             if(form.frequency == "daily"){
                 form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date,"days")) || 0;
@@ -82,7 +83,8 @@ class EditBGForm extends Component {
             }
         }else{
             if(form.frequency == "daily"){
-                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"days") * form.contribution) || 0;
+                form.goal_amount = form.target_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"days") * form.contribution) || 0;
+
                 this.setState({
                     showMonth: false,
                     showDay: false,
@@ -92,7 +94,9 @@ class EditBGForm extends Component {
                 //calculate the difference between the start date and the maturity date
             }
             else if(form.frequency == "weekly"){
-                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
+
+                form.goal_amount = form.target_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
+
                 this.setState({
                     showMonth: false,
                     showDay: true,
@@ -100,7 +104,7 @@ class EditBGForm extends Component {
                     form
                 });
             }else if(form.frequency == "monthly"){
-                form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
+                form.goal_amount = form.target_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
                 this.setState({
                     showMonth: true,
                     showDay: false,
@@ -150,7 +154,11 @@ class EditBGForm extends Component {
                         this.props.toastManager.add("Backup Goal Updated.", {
                             appearance: "success"
                         });
-                        setTimeout(()=> this.props.onHide(true), 2000);
+                        setTimeout(() => {
+                            this.props.onHide(true);
+                            this.props.updateSelectedBG(payload);
+                            this.props.fetchGoals();
+                        }, 2000);
                     }else{
                         // console.log(payload, "Message", this.toastManager);
                         this.props.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
@@ -168,9 +176,8 @@ class EditBGForm extends Component {
     };
 
 
-
-
     handleGoalAmount(e){
+        console.log(e,this.state);
         this.changeHandler(e, true)
     }
     //Retrieves user inputs
@@ -181,20 +188,17 @@ class EditBGForm extends Component {
             this
         );
 
-
-
         // console.log("megg", event.target.name, event.target.value);
+        console.log('got her to handle frequency change');
         this.handleFrequencySelect(form,inverse);
 
     };
 
-
     componentDidMount() {
-
         //get pay auths
         //TODO(dont save card details to local storage, if you will be saving it, encrypt it)
         const userInfo = getLocalStorage(USERINFO);
-        if (getLocalStorage(USERINFO)!=undefined) {
+        if (userInfo!=undefined) {
             console.log(userInfo.authorization.data);
             this.setState({
                 userCards: userInfo.authorization.data,
@@ -211,7 +215,9 @@ class EditBGForm extends Component {
             formData.frequency = this.props.selectedBG.frequency;
             formData.gw_authorization_code = this.props.selectedBG.gw_authorization_code;
             formData.end_date = this.props.selectedBG.end_date;
-            formData.start_amount = this.props.selectedBG.start_amount;
+            formData.maturity_date = this.props.selectedBG.end_date;
+            formData.start_amount = Number(this.props.selectedBG.start_amount);
+            formData.contribution = this.props.selectedBG.start_amount;
             formData.hour_of_day = this.props.selectedBG.hour_of_day;
             formData.day_of_week = this.props.selectedBG.day_of_week;
             formData.day_of_month = this.props.selectedBG.day_of_month;
@@ -230,8 +236,9 @@ class EditBGForm extends Component {
 
 
     render() {
-        const {title, target_amount, start_date,frequency,gw_authorization_code, end_date, start_amount, hour_of_day, day_of_week, day_of_month} = this.state.form;
+        const {title, target_amount, start_date,frequency,gw_authorization_code, end_date,maturity_date, start_amount, hour_of_day, day_of_week, day_of_month} = this.state.form;
         // console.log('selected bg :'+JSON.stringify(this.props.selectedBG));
+        console.log(this.state);
         const showHour = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Hour of the day</Form.Label>
@@ -308,8 +315,12 @@ class EditBGForm extends Component {
         const showDay = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Week</Form.Label>
-                <Form.Control as="select" value={day_of_week!=null?day_of_week:1} disabled={true} onChange={this.changeHandler}
-                              id="day_of_week" name="day_of_week">
+                <Form.Control as="select"
+                              value={day_of_week!=null?day_of_week:1}
+                              disabled={true}
+                              onChange={this.changeHandler}
+                              id="day_of_week" name="day_of_week"
+                >
                     <option value={'1'}>Mon</option>
                     <option value={'2'}>Tue</option>
                     <option value={'3'}>Wed</option>
@@ -338,73 +349,77 @@ class EditBGForm extends Component {
                             {this.validator.message('title', title, 'required|string')}
                         </Form.Group>
 
-                        <Form.Group as={Col} sm={6}>
-                            <Form.Label>Start amount (NGN)</Form.Label>
-                            <Form.Control
-                                type="number" id="start_amount"
-                                value={start_amount} step={'5'} name="start_amount"
-                                onChange={this.changeHandler}
-                                disabled={true}
-                            />
 
-                            <Form.Text className="text-muted">
-                                Contribution range daily [ &#8358; 50 - &#8358; 25000]
-                            </Form.Text>
-                            {this.validator.message('start amount', start_amount, 'required|numeric')}
+                        {/*<Form.Group as={Col} sm={6}>*/}
+                        {/*    <Form.Label>Start amount (NGN)</Form.Label>*/}
+                        {/*    <Form.Control*/}
+                        {/*        type="number" id="start_amount"*/}
+                        {/*        value={start_amount} step={'5'} name="start_amount"*/}
+                        {/*        onChange={this.changeHandler}*/}
+                        {/*        disabled={true}*/}
+                        {/*    />*/}
 
-                        </Form.Group>
+                        {/*    <Form.Text className="text-muted">*/}
+                        {/*        Contribution range daily [ &#8358; 50 - &#8358; 25000]*/}
+                        {/*    </Form.Text>*/}
+                        {/*    {this.validator.message('start amount', start_amount, 'required|numeric')}*/}
+
+                        {/*</Form.Group>*/}
                     </Form.Row>
                     <Form.Row>
-                        <Form.Group as={Col}>
-                            <Form.Label>Start Date</Form.Label>
-                            <Form.Control type="date" name={'start_date'}
-                                          id={'start_date'}
-                                          min={moment().format('YYYY-MM-DD')}
-                                          value={start_date}
-                                          disabled={true}
-                                          onChange={this.changeHandler}/>
-                            {this.validator.message('start_date', start_date, 'required|string')}
+                        {/*<Form.Group as={Col}>*/}
+                        {/*    <Form.Label>Start Date</Form.Label>*/}
+                        {/*    <Form.Control type="date" name={'start_date'}*/}
+                        {/*                  id={'start_date'}*/}
+                        {/*                  min={moment().format('YYYY-MM-DD')}*/}
+                        {/*                  value={start_date}*/}
+                        {/*                  disabled={true}*/}
+                        {/*                  onChange={this.changeHandler}*/}
+                        {/*    />*/}
+                        {/*    {this.validator.message('start_date', start_date, 'required|string')}*/}
 
-                        </Form.Group>
+                        {/*</Form.Group>*/}
 
-                        <Form.Group as={Col}>
+                    </Form.Row>
+                    <Form.Row>
+                        {/*<Form.Group as={Col} sm={6}>*/}
+                        {/*    <Form.Label>Account to Debit</Form.Label>*/}
+                        {/*    <Form.Control as="select" disabled={true} onChange={this.changeHandler} value={gw_authorization_code!=null?gw_authorization_code:-1} id={'payment_auth'}*/}
+                        {/*                  name={'payment_auth'}>*/}
+                        {/*        /!* loop through and get the number of accounts user has *!/*/}
+                        {/*        <option value={-1} >Select Card</option>*/}
+                        {/*        {*/}
+                        {/*            this.state.userCards.length > 0 ?*/}
+
+                        {/*                this.state.userCards.map((data) => {*/}
+                        {/*                    if(data.channel == "card")*/}
+                        {/*                        return (*/}
+                        {/*                            <option value={data.id} key={data.id}>{data.card_type}(**** **** **** {data.last4})</option>*/}
+                        {/*                        );*/}
+
+                        {/*                })*/}
+                        {/*                : <option value={-1} >Select Card</option>*/}
+                        {/*        }*/}
+
+                        {/*    </Form.Control>*/}
+                        {/*    {this.validator.message('credit card', gw_authorization_code, 'required|numeric')}*/}
+                        {/*</Form.Group>*/}
+                        <Form.Group as={Col} sm={6}>
                             <Form.Label>Maturity Date</Form.Label>
                             <Form.Control
                                 type="date"
-                                name={'end_date'}
-                                id={'end_date'}
+                                name={'maturity_date'}
+                                id={'maturity_date'}
                                 min={moment().format('YYYY-MM-DD')}
-                                value={end_date}
-                                disabled={true}
-                                onChange={this.changeHandler}/>
-                            {this.validator.message('end_date', end_date, 'required|string')}
+                                value={maturity_date}
+                                disabled={this.state.disabled}
+                                // onChange={this.changeHandler}
+                                onChange={this.changeHandler}
+                            />
+                            {this.validator.message('maturity_date', maturity_date, 'required|string')}
 
                         </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
                         <Form.Group as={Col} sm={6}>
-                            <Form.Label>Account to Debit</Form.Label>
-                            <Form.Control as="select" disabled={this.state.disabled} onChange={this.changeHandler} value={gw_authorization_code!=null?gw_authorization_code:-1} id={'payment_auth'}
-                                          name={'payment_auth'}>
-                                {/* loop through and get the number of accounts user has */}
-                                <option value={-1} >Select Card</option>
-                                {
-                                    this.state.userCards.length > 0 ?
-
-                                        this.state.userCards.map((data) => {
-                                            if(data.channel == "card")
-                                                return (
-                                                    <option value={data.id} key={data.id}>{data.card_type}(**** **** **** {data.last4})</option>
-                                                );
-
-                                        })
-                                        : <option value={-1} >Select Card</option>
-                                }
-
-                            </Form.Control>
-                            {this.validator.message('credit card', gw_authorization_code, 'required|numeric')}
-                        </Form.Group>
-                        <Form.Group as={Col}>
                             <Form.Label>Goal Amount(NGN)</Form.Label>
                             <Form.Control
                                 type="number"
@@ -412,22 +427,22 @@ class EditBGForm extends Component {
                                 id={'number'}
                                 value={target_amount!==null?target_amount:0}
                                 disabled={true}
-                                onChange={this.handleGoalAmount}/>
+                                onChange={this.changeHandler}/>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                        <Form.Group as={Col}>
-                            <Form.Label>Frequency </Form.Label>
-                            {/*select Box */}
-                            <Form.Control as="select" id="frequency" value={frequency} disabled={true} onChange={this.changeHandler} name={'frequency'}>
-                                <option value={'daily'}>Daily</option>
-                                <option value={'weekly'}>Weekly</option>
-                                <option value={'monthly'}>Monthly</option>
-                            </Form.Control>
-                            {this.validator.message('frequency', frequency, 'required|string')}
-                        </Form.Group>
+                        {/*<Form.Group as={Col}>*/}
+                        {/*    <Form.Label>Frequency </Form.Label>*/}
+                        {/*    /!*select Box *!/*/}
+                        {/*    <Form.Control as="select" id="frequency" value={frequency} disabled={true} onChange={this.changeHandler} name={'frequency'}>*/}
+                        {/*        <option value={'daily'}>Daily</option>*/}
+                        {/*        <option value={'weekly'}>Weekly</option>*/}
+                        {/*        <option value={'monthly'}>Monthly</option>*/}
+                        {/*    </Form.Control>*/}
+                        {/*    {this.validator.message('frequency', frequency, 'required|string')}*/}
+                        {/*</Form.Group>*/}
 
-                        {this.state.showHour ? showHour: null}
+                        {/*{this.state.showHour ? showHour: null}*/}
                         {this.state.showDay ? showDay: null}
                         {this.state.showMonth ? showMonth: null}
                     </Form.Row>

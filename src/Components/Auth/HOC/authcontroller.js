@@ -20,7 +20,10 @@ const AuthController = component => {
         const [fetching, setFetching] = useState(true);
 
         const RenderComponent = props.component;
-        const token = JSON.parse(localStorage.getItem(USERTOKEN));
+        let data = localStorage.getItem(USERTOKEN);
+        console.log('data stored',data);
+        const token = JSON.parse(data);
+        console.log('token from storage ',token);
 
         useEffect(() => {
 

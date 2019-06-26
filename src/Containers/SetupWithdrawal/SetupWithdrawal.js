@@ -33,7 +33,6 @@ class SetupWithdrawal extends Component {
     }
 
     retreiveToken = () =>{
-
         const search = queryString.parse(this.props.location.search);
         // console.log(search.token);
         this.setState({

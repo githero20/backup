@@ -168,7 +168,7 @@ class AddPinModal extends Component {
 
                                 <div className="col">
                                     <div className="form-group">
-                                        <label>WithdrawalPin</label>
+                                        <label>Enter Withdrawal Pin</label>
                                         {this.state.pinErr ?
                                             <p><span
                                                 className='srv-validation-message'>Your pin must be four digits</span>

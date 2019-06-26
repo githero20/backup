@@ -325,6 +325,12 @@ class WithdrawalForm extends Component {
         })
     };
 
+    validateInput = (e) => {
+        if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
+            e.preventDefault();
+        }
+    };
+
     render() {
         const year = moment().year();
         return (
@@ -339,7 +345,6 @@ class WithdrawalForm extends Component {
                         ) : null
 
                 }
-
 
                 <WithdrawalSettingsModal show={this.state.showWithdrawalSetting} onHide={this.hideWithdrawalSettings}/>
                 <div className="col-lg-7">
@@ -468,7 +473,7 @@ class WithdrawalForm extends Component {
 
                                                 <div className="col">
                                                     <div className="form-group">
-                                                        <label>WithdrawalPin</label>
+                                                        <label>Enter Withdrawal Pin</label>
                                                         {this.state.pinErr ?
                                                             <p><span
                                                                 className='srv-validation-message'>Your pin must be four digits</span>

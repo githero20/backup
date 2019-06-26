@@ -12,11 +12,11 @@ class WithdrawalSettingsForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading:false,
+            loading: false,
             form: {
-                first_quarter:"2019-01-01",
-                second_quarter:"2019-04-01",
-                third_quarter:"2019-07-01",
+                first_quarter: "2019-01-01",
+                second_quarter: "2019-04-01",
+                third_quarter: "2019-07-01",
                 fourth_quarter: "2019-10-01"
             }
         };
@@ -31,43 +31,44 @@ class WithdrawalSettingsForm extends Component {
     //save
     //handle response
 
-    handleChange(e){
-        this.setState({resolved:false});
-        _handleFormChange(e.target.name,e, this)
+    handleChange(e) {
+        this.setState({resolved: false});
+        _handleFormChange(e.target.name, e, this)
     }
-    validateForm(e){
+
+    validateForm(e) {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             // this.props.toastManager("An Error Occured");
             // rerender to show messages for the first time
             this.forceUpdate();
-        }else{
-            this.setState({loading:true});
+        } else {
+            this.setState({loading: true});
             //send api
             const {form} = this.state;
             const param = {
-                label: ["First Quarter", "Second Quarter", "Third Quarter","Fourth Quarter"],
+                label: ["First Quarter", "Second Quarter", "Third Quarter", "Fourth Quarter"],
                 withdrawal_date: [moment(form.first_quarter).format("M/DD"), moment(form.second_quarter).format("M/DD"), moment(form.third_quarter).format("M/DD"), moment(form.fourth_quarter).format("M/DD")]
             };
 
             console.log("Log", param);
 
-            createWithdrawalSettings(param,(status, payload) =>{
-                this.setState({loading:false});
-                if(status){
-                    this.props.toastManager.add("Settings Updated",{
-                        appearance:"success",
-                        autoDismissTimeout:3000,
-                        autoDismiss:true
+            createWithdrawalSettings(param, (status, payload) => {
+                this.setState({loading: false});
+                if (status) {
+                    this.props.toastManager.add("Settings Updated", {
+                        appearance: "success",
+                        autoDismissTimeout: 3000,
+                        autoDismiss: true
                     });
 
                     setTimeout(this.props.onHide, 3000);
-                }else{
-                    this.props.toastManager.add(payload,{
-                        appearance:"error",
-                        autoDismissTimeout:3000,
-                        autoDismiss:true
+                } else {
+                    this.props.toastManager.add(payload, {
+                        appearance: "error",
+                        autoDismissTimeout: 3000,
+                        autoDismiss: true
                     });
                 }
             })
@@ -80,71 +81,85 @@ class WithdrawalSettingsForm extends Component {
                 <Fragment>
                     <form className="form lock-form" onSubmit={this.validateForm}>
                         <Form.Text>
-                            You are using Backup Cash's FREE WITHDRAWAL DATES. You can either accept these DATES as your Free Withdrawal Dates or set your own Dates . To accept these dates, click "Save Settings" below, otherwise edit the dates to reflect your own withdrawal dates.
+                            You are using Backup Cash's FREE WITHDRAWAL DATES. You can either accept these DATES as your
+                            Free Withdrawal Dates or set your own Dates . To accept these dates, click "Save Settings"
+                            below, otherwise edit the dates to reflect your own withdrawal dates.
                         </Form.Text>
                         <Form.Text className="alert-danger">
                             Please note that you can ONLY change these Dates once
                         </Form.Text>
                         <div className="form-body">
                             <div className="row">
-                                <div className="form-group col-lg-6">
-                                    <label htmlFor="first_quarter"
-                                           className=" col-form-label">First Quarter</label>
-                                    <div className="col-lg-12">
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label htmlFor="first_quarter" className=" col-form-label">First Quarter</label>
                                         <input type="date"
                                                required={true}
                                                className="form-control"
                                                onChange={this.handleChange}
                                                id="first_quarter"
                                                name="first_quarter"
+                                               min={moment(this.state.form.first_quarter).format('MM/DD')}
+                                               max={moment(this.state.form.second_quarter).format('MM/DD')}
                                                value={this.state.form.first_quarter}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label htmlFor="second_quarter" className=" col-form-label">Second
+                                            Quarter</label>
+                                        <input type="date"
+                                               className="form-control"
+                                               onChange={this.handleChange}
+                                               id="second_quarter"
+                                               name="second_quarter"
+                                               required={true}
+                                               min={moment(this.state.form.second_quarter).format('MM/DD')}
+                                               max={moment(this.state.form.third_quarter).format('MM/DD')}
+                                               value={this.state.form.second_quarter}
                                         />
                                     </div>
                                 </div>
 
                             </div>
 
-                            <div className="form-group row">
-                                <label htmlFor="second_quarter"
-                                       className="col-lg-12 col-form-label">Second Quarter</label>
-                                <div className="col-lg-12">
-                                    <input type="date"
-                                           className="form-control"
-                                           onChange={this.handleChange}
-                                           id="second_quarter"
-                                           name="second_quarter"
-                                           required={true}
-                                           value={this.state.form.second_quarter}
-                                    />
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-group ">
+                                        <label htmlFor="third_quarter"
+                                               className="col-form-label">Third Quarter</label>
+
+                                        <input type="date"
+                                               required={true}
+                                               className="form-control"
+                                               onChange={this.handleChange}
+                                               id="third_quarter"
+                                               name="third_quarter"
+                                               min={moment(this.state.form.third_quarter).format('MM/DD')}
+                                               max={moment(this.state.form.fourth_quarter).format('MM/DD')}
+                                               value={this.state.form.third_quarter}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="third_quarter"
-                                       className="col-lg-12 col-form-label">Third Quarter</label>
-                                <div className="col-lg-12">
-                                    <input type="date"
-                                           required={true}
-                                           className="form-control"
-                                           onChange={this.handleChange}
-                                           id="third_quarter"
-                                           name="third_quarter"
-                                           value={this.state.form.third_quarter}
-                                    />
+
+                                <div className="col-md-6">
+                                    <div className="form-group ">
+                                        <label htmlFor="fourth_quarter" className=" col-form-label">Fourth Quarter</label>
+                                        <input type="date"
+                                               required={true}
+                                               className="form-control"
+                                               onChange={this.handleChange}
+                                               id="fourth_quarter"
+                                               name="fourth_quarter"
+                                               min={moment(this.state.form.fourth_quarter).format('MM/DD')}
+                                               value={this.state.form.fourth_quarter}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="fourth_quarter"
-                                       className="col-sm-12 col-form-label">Fourth Quarter</label>
-                                <div className="col-sm-12">
-                                    <input type="date"
-                                           required={true}
-                                           className="form-control"
-                                           onChange={this.handleChange}
-                                           id="fourth_quarter"
-                                           name="fourth_quarter"
-                                           value={this.state.form.fourth_quarter}
-                                    />
-                                </div>
+
+
                             </div>
 
                         </div>
@@ -156,7 +171,7 @@ class WithdrawalSettingsForm extends Component {
                             </button>
                             <button type="submit"
                                     className="btn  btn-bg-shade-2 px-3 py-1 round pull-right">
-                                {this.state.loading?<ButtonLoader/>:
+                                {this.state.loading ? <ButtonLoader/> :
                                     <span>Update</span>}
                             </button>
 

@@ -5,7 +5,7 @@ const BackUpProgressBar = (props) => {
 
     // filter success full transactions
     let percentage, paidAmount, targetAmount;
-    if (!Number(props.backupInfo.stop)) {
+    // if (!Number(props.backupInfo.stop)) {
 
         paidAmount = getTotalBGSuccessful(props.backupHistory);
         //get target amount
@@ -13,11 +13,11 @@ const BackUpProgressBar = (props) => {
         //get percentage
         percentage = getPercentage(paidAmount, targetAmount);
 
-    } else {
-        paidAmount = targetAmount = 100;
-        percentage = getPercentage(paidAmount, targetAmount);
-
-    }
+    // } else {
+    //     paidAmount = targetAmount = 100;
+    //     percentage = getPercentage(paidAmount, targetAmount);
+    //
+    // }
 
 
     //receive the history of backup goals and the  target amount

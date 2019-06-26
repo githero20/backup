@@ -874,6 +874,9 @@ input[type="date"]::-webkit-clear-button { display: none; }
 .btn-custom-round-blue {
     background-color: #2784F4;
     border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    line-height: 14px;
     border: 1px solid #2784F4;
 }
 
@@ -4509,7 +4512,7 @@ input:-webkit-autofill:active  {
 .descriptive-info{
     color: white;
     border-radius:2rem;
-    text-align: center;
+    /*text-align: center;*/
     font-size: 14px;
     background: rgba(54, 123, 255, 1);
     background: linear-gradient(270deg, rgba(23, 225, 255, 1) 0%, rgba(54, 123, 255, 1) 70%, rgba(54, 123, 255, 1) 100%);

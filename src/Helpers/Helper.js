@@ -103,7 +103,7 @@ export function getTotalSteadySaveDebit(transactions) {
     if(Number(startValue)!=0 && Number(endValue)!=0){
         return (startValue/endValue)*100;
 
-    }else return 100;
+    }else return 0;
 
  }
 //
@@ -130,6 +130,23 @@ export function getTotalSuccessful(transactions) {
             return successful.length;
         } else {
             return transactions.length;
+        }
+    }
+}
+
+export function getTotalFailed(transactions) {
+    if (transactions) {
+        if (transactions.length > 1) {
+            let failed;
+            failed = transactions.filter((content)=>(content.status=='failed'));
+            if(failed.length>0){
+                failed = failed.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+                return failed.amount;
+            }else {
+                return 0
+            }
+        } else {
+            return 0;
         }
     }
 }

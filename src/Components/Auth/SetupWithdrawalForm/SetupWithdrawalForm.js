@@ -270,7 +270,7 @@ class SetupWithdrawalForm extends Component {
         if (user && token) {
 
             localStorage.setItem(USERINFO, JSON.stringify(user));
-            localStorage.setItem(USERTOKEN, token);
+            localStorage.setItem(USERTOKEN, JSON.stringify(token));
 
             this.setState({
                 redirect: true
@@ -384,7 +384,6 @@ class SetupWithdrawalForm extends Component {
         if (this.state.redirect) {
             return (
                 <React.Fragment>
-
                     <Redirect push to={DashboardLink}/>
                 </React.Fragment>
             );

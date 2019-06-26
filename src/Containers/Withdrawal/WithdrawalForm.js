@@ -297,7 +297,7 @@ class WithdrawalForm extends Component {
                                     swal("Withdrawal Successful", "success");
                                     this.props.updateWithdrawalList();
                                 } else {
-                                    this.toastMessage(payload.data.message, 'error')
+                                    this.toastMessage(payload, 'error')
                                 }
                             });
 
@@ -351,12 +351,9 @@ class WithdrawalForm extends Component {
                     {/* withdrawal form component */}
                     <Fragment>
                         {/*
-                            show withdrawal pin form if userpin is null
+                            show withdrawal pin form if user pin is null
 
                         */}
-
-
-
                         <div>
                             <div>
                                 <div>

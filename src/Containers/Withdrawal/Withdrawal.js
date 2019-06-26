@@ -106,7 +106,6 @@ class Withdrawal extends Component {
 
 
     render() {
-
         const columns = [
             {
                 text: 'Date',

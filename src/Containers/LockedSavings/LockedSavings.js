@@ -173,7 +173,8 @@ class LockedSavings extends Component {
                                 <div className="row">
                                     <div className="col-12 ">
                                         <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
-                                            <p>Earn your interest upfront, but you need to lock your money with us for a period set by you. You can withdraw at the end of the period you have set.</p>
+                                            <p>Earn your interest upfront, but you need to lock your money with us for a period set by you.
+                                                <br/>You can withdraw at the end of the period you have set.</p>
                                         </div>
                                     </div>
                                     <div className="col-lg-4 col-12">

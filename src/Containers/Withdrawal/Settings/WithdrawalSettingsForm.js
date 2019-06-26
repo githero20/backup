@@ -14,10 +14,10 @@ class WithdrawalSettingsForm extends Component {
         this.state = {
             loading: false,
             form: {
-                first_quarter: "2019-01-01",
-                second_quarter: "2019-04-01",
-                third_quarter: "2019-07-01",
-                fourth_quarter: "2019-10-01"
+                first_quarter: moment().year()+"-01-01",
+                second_quarter: moment().year()+"-04-01",
+                third_quarter: moment().year()+"-07-01",
+                fourth_quarter: moment().year()+"-10-01"
             }
         };
         this.validator = new SimpleReactValidator();

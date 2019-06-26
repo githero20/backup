@@ -206,7 +206,7 @@ class BankCardSetting extends Component {
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
                                                         <div className=" d-flex justify-content-between align-items-center light-gray setting-header">
-                                                            <p>My Banks</p>
+                                                            <h5>My Banks</h5>
                                                             <span
                                                                 className="pull-right right-btn-holder"
                                                                 onClick={this.showBankModal}>
@@ -292,7 +292,7 @@ class BankCardSetting extends Component {
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
                                                         <div className=" d-flex justify-content-between align-items-center light-gray setting-header">
-                                                            <h3>Debit/Credit</h3>
+                                                            <h5>Debit/Credit</h5>
                                                             <span className="pull-right right-btn-holder"
                                                                   onClick={this.showCardModal}>
                                                                 <button

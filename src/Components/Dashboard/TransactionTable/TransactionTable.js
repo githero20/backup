@@ -226,7 +226,7 @@ class TransactionTable extends Component {
                                                             prePageText: 'Prev',
                                                             nextPageText: 'Next',
                                                         })}
-                                                        filter={filterFactory({})}
+                                                        filter={filterFactory()}
                                         />
                                     </div>
 

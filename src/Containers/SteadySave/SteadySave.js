@@ -10,7 +10,10 @@ import {
     formatNumber,
     getTodaysDate,
     getToken,
-    getTotalSteadySave, getTotalSteadySaveDebit, getTotalSuccessful,
+    getTotalFailed,
+    getTotalSteadySave,
+    getTotalSteadySaveDebit,
+    getTotalSuccessful,
     moneyFormatter,
     STANDARD_ACCOUNT,
     statusFormatter,
@@ -39,6 +42,7 @@ class SteadySave extends Component {
             totalSteadySave: '0.00',
             totalSuccessful: 0,
             totalAttempts: 0,
+            totalFailed: 0,
             email: null,
             showSavingModal: false,
             showCreateSavingModal: false,
@@ -202,16 +206,18 @@ class SteadySave extends Component {
     handleSSaveTrans = (status, res) => {
 
         //TODO calc total steady save
-        if (status&&res) {
+        if (status && res) {
             const totalSteadySave = getTotalSteadySaveDebit(res.data);
             const totalSuccessful = getTotalSuccessful(res.data);
+            const totalFailed = getTotalFailed(res.data);
             if (res) {
                 this.setState({
                     showLoader: false,
                     steadySaveHistory: res.data,
                     totalAttempts: res.data.length,
                     totalSuccessful,
-                    totalSteadySave:formatNumber(parseFloat(totalSteadySave).toFixed(2))
+                    totalFailed,
+                    totalSteadySave: formatNumber(parseFloat(totalSteadySave).toFixed(2))
                 })
             }
         }
@@ -388,16 +394,17 @@ class SteadySave extends Component {
                                                 {/*</div>*/}
 
                                                 <div className="col-lg-4 col-12 order-lg-5">
-                                                    <h3 className="gray-header-text fs-mb-1 mb-2">Quick Actions</h3>
+                                                    <h3 className="gray-header-text fs-mb-1 mb-2">&nbsp;</h3>
                                                     <div className="mb-quick-actions d-flex flex-column flex-wrap ">
                                                         <span className="mb-details-container ">
                                                             <div className="d-inline-block q-detail-img">
                                                                 <img src={uploadIcon}/>
                                                             </div>
                                                             <div className=" d-inline-block">
+                                                                  <p className="gray-text circular-std mb-p-size">Total Steady Save</p>
                                                                 <strong
                                                                     className="dark-brown font-size-1-16"><span>₦</span> {this.state.totalSteadySave} </strong>
-                                                                <p className="gray-text circular-std mb-p-size">Total Steady Save</p>
+
                                                             </div>
                                                         </span>
                                                         <span className="mb-details-container align-items-center">
@@ -405,10 +412,59 @@ class SteadySave extends Component {
                                                                 <img src={uploadIcon}/>
                                                             </div>
                                                             <div className="d-inline-block ">
+                                                                <p className="gray-text circular-std mb-p-size">
+                                                                    <strong
+                                                                        className="dark-brown font-size-1-16">{this.state.totalAttempts} &nbsp; </strong>
+                                                                    Total Attempts</p>
+                                                            </div>
+                                                        </span>
+                                                        {/*<span className="mb-details-container align-items-center ">*/}
+                                                        {/*    <div className="d-inline-block q-detail-img">*/}
+                                                        {/*        <img src={uploadIcon}/>*/}
+                                                        {/*    </div>*/}
+                                                        {/*    <div className=" d-inline-block">*/}
+
+                                                        {/*        <p className="gray-text circular-std mb-p-size">*/}
+                                                        {/*             <strong className="dark-brown font-size-1-16"> {this.state.totalSuccessful} &nbsp;</strong>*/}
+                                                        {/*            Total Successful</p>*/}
+                                                        {/*    </div>*/}
+                                                        {/*</span>*/}
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-lg-4 col-12 order-lg-5">
+                                                    <h3 className="gray-header-text fs-mb-1 mb-2">&nbsp;</h3>
+                                                    <div className="mb-quick-actions d-flex flex-column flex-wrap ">
+                                                        {/*<span className="mb-details-container ">*/}
+                                                        {/*    <div className="d-inline-block q-detail-img">*/}
+                                                        {/*        <img src={uploadIcon}/>*/}
+                                                        {/*    </div>*/}
+                                                        {/*    <div className=" d-inline-block">*/}
+                                                        {/*        <strong*/}
+                                                        {/*            className="dark-brown font-size-1-16"><span>₦</span> {this.state.totalSteadySave} </strong>*/}
+                                                        {/*        <p className="gray-text circular-std mb-p-size">Total Steady Save</p>*/}
+                                                        {/*    </div>*/}
+                                                        {/*</span>*/}
+                                                        {/*<span className="mb-details-container align-items-center">*/}
+                                                        {/*    <div className="d-inline-block q-detail-img">*/}
+                                                        {/*        <img src={uploadIcon}/>*/}
+                                                        {/*    </div>*/}
+                                                        {/*    <div className="d-inline-block ">*/}
+                                                        {/*        <p className="gray-text circular-std mb-p-size">*/}
+                                                        {/*            <strong className="dark-brown font-size-1-16">{this.state.totalAttempts} &nbsp; </strong>*/}
+                                                        {/*            Total Attempts</p>*/}
+                                                        {/*    </div>*/}
+                                                        {/*</span>*/}
+                                                        <span className="mb-details-container align-items-center ">
+                                                            <div className="d-inline-block q-detail-img">
+                                                                <img src={uploadIcon}/>
+                                                            </div>
+                                                            <div className=" d-inline-block">
 
                                                                 <p className="gray-text circular-std mb-p-size">
-                                                                    <strong className="dark-brown font-size-1-16">{this.state.totalAttempts} &nbsp; </strong>
-                                                                    Total Attempts</p>
+                                                                     <strong
+                                                                         className="dark-brown font-size-1-16"> {this.state.totalSuccessful} &nbsp;</strong>
+                                                                    Total Successful</p>
                                                             </div>
                                                         </span>
                                                         <span className="mb-details-container align-items-center ">
@@ -418,8 +474,9 @@ class SteadySave extends Component {
                                                             <div className=" d-inline-block">
 
                                                                 <p className="gray-text circular-std mb-p-size">
-                                                                     <strong className="dark-brown font-size-1-16"> {this.state.totalSuccessful} &nbsp;</strong>
-                                                                    Total Successful</p>
+                                                                     <strong
+                                                                         className="dark-brown font-size-1-16"> ₦ {formatNumber(parseFloat(this.state.totalFailed).toFixed(2))} &nbsp;</strong>
+                                                                    Due Pay</p>
                                                             </div>
                                                         </span>
                                                     </div>

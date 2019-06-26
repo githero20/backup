@@ -441,12 +441,13 @@ class BackupGoals extends Component {
                                                                                                             (
                                                                                                                 moment(content.end_date).format('YYYY-MM-DD') > moment().format('YYYY-MM-DD') && parseInt(content.is_pause) && !parseInt(content.stop) ) ?
                                                                                                                 <span
-                                                                                                                    className={'goal-inactive gray-text'}>Paused</span> : (
+                                                                                                                    className={'goal-inactive text-warning'}>Paused</span> : (
                                                                                                                     (moment(content.end_date).format('YYYY-MM-DD') < moment().format('YYYY-MM-DD') && !parseInt(content.is_pause) && !parseInt(content.stop)) ?
                                                                                                                         <span
                                                                                                                             className={'goal-inactive text-success'}>Completed</span> :
-                                                                                                                        <span
-                                                                                                                            className={'goal-inactive text-success'}>Completed</span>
+                                                                                                                        (parseInt(content.stop)? <span
+                                                                                                                            className={'goal-inactive gray-text'}>Stopped</span> :null)
+
                                                                                                                 )
 
                                                                                                         )

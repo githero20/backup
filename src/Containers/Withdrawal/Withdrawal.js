@@ -82,11 +82,6 @@ class Withdrawal extends Component {
                     appearance: "error",
                     autoDismiss: true
                 })
-            }else {
-                this.props.toastManager.add("Unable to get withdrawals at this moment", {
-                    appearance: "error",
-                    autoDismiss: true
-                })
             }
         })
         //TODO    display No withdrawal on table

@@ -199,7 +199,7 @@ class WithdrawalForm extends Component {
     hideWithdrawalSettings() {
         this.setState({showWithdrawalSetting: false})
     }
-    hidePinModal() {
+    hidePinModal=()=> {
         this.setState({showPinModal: false})
     }
 
@@ -335,12 +335,11 @@ class WithdrawalForm extends Component {
                             <AddPinModal
                                 show={this.state.showPinModal}
                                 onHide={this.hidePinModal}
-                                setupStash={this.setupStash}
-
                             />
                         ) : null
 
                 }
+
 
                 <WithdrawalSettingsModal show={this.state.showWithdrawalSetting} onHide={this.hideWithdrawalSettings}/>
                 <div className="col-lg-7">

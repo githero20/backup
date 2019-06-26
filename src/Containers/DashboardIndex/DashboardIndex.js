@@ -165,7 +165,6 @@ class DashboardIndex extends Component {
 
 
     handleVaultInterest = (status,response) =>{
-        console.log(response);
         if(status){
             if(response){
                 this.setState({
@@ -174,7 +173,8 @@ class DashboardIndex extends Component {
 
             }
         }
-    }
+    };
+
 
     handleLockedInterest = (status,response) =>{
 
@@ -186,7 +186,7 @@ class DashboardIndex extends Component {
 
             }
         }
-    }
+    };
 
 
 
@@ -215,6 +215,8 @@ class DashboardIndex extends Component {
 
     };
 
+
+
     handleBackUpGoals = (status,response)=>{
         if(status){
             const now = moment().format('YYYY-MM-DD');
@@ -236,7 +238,11 @@ class DashboardIndex extends Component {
             //filter when backup goals is pause is false
 
             let CompletedGoals = backUpGoals.filter((content)=>{
-                return (moment(content.end_date).format('YYYY-MM-DD') < now && parseInt(content.is_pause) === 0 && parseInt(content.stop) === 0) ;
+                return ((moment(content.end_date).format('YYYY-MM-DD') < now
+                    && parseInt(content.is_pause) === 0
+                    && parseInt(content.stop) === 0) ||
+                    (parseInt(content.stop) === 1)
+                ) ;
             });
 
             this.setState({
@@ -246,7 +252,9 @@ class DashboardIndex extends Component {
         }else {
 
         }
-    }
+    };
+
+
 
     checkActiveUser = (status) => {
 
@@ -522,7 +530,6 @@ class DashboardIndex extends Component {
         //if user account is activated
 
         //setup dashboard
-        console.log('dashboard mounted');
 
         //get token if token isset
         let token = this.getToken();

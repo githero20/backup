@@ -4,7 +4,7 @@ import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-
 import SimpleReactValidator from 'simple-react-validator';
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {DashboardLink} from "../../../RouteLinks/RouteLinks";
-import {USERINFO, USERTOKEN, USERWITHDRAWAL} from "../HOC/authcontroller";
+import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 import {resolveBankName} from "../../../actions/BankAction";
 import {_handleFormChange} from "../../../utils";
@@ -211,7 +211,9 @@ class SetupWithdrawalForm extends Component {
                     // this.props.showOtp(payload);
 
                     // save user withdrawal info
-                    localStorage.setItem(USERWITHDRAWAL, payload.data);
+                    localStorage.setItem(USERINFO, payload.data);
+                    localStorage.setItem(USERTOKEN, this.state.token);
+
 
                     setTimeout(() => {
                         this.setState({
@@ -488,9 +490,9 @@ class SetupWithdrawalForm extends Component {
                                         />
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+
                         <div className="col-12 text-center text-md-right ">
                             <div>
                                 <button type={'submit'}

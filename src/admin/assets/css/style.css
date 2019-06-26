@@ -108,7 +108,14 @@ button .loadingSpinner {
     height:40px;
 }
 
+.purple-link{
+    color:#5059e5;
 
+}
+.purple-link:hover{
+    color: #474fc8;
+
+}
 .alert-warning{
     color:#ef0000 !important;
     background-color: white !important;
@@ -284,6 +291,12 @@ html body .content.app-content {
     }
 
 }
+input.pin-control{
+    text-align: center;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button { display: none; }
 
 .btn-green{
     background-color: #1BE27F;
@@ -576,6 +589,15 @@ html body .content.app-content {
     padding: .5rem 3rem;
     border-radius: 3rem;
     color: gray;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+}
+.code-btn:hover {
+    border: 1px solid transparent;
+    background-color: #736CC4;
+    padding: .5rem 3rem;
+    border-radius: 3rem;
+    color: white;
 }
 
 .history-btn {
@@ -2845,12 +2867,6 @@ html body .content.app-content {
     color: #736CC4;
 }
 
-.code-btn {
-    border: 1px solid gray;
-    padding: .5rem 3rem;
-    border-radius: 3rem;
-    color: gray;
-}
 
 .history-btn {
     border: none;
@@ -4493,9 +4509,16 @@ input:-webkit-autofill:active  {
 .descriptive-info{
     color: white;
     border-radius:2rem;
-    font-size: 12px;
+    text-align: center;
+    font-size: 14px;
     background: rgba(54, 123, 255, 1);
     background: linear-gradient(270deg, rgba(23, 225, 255, 1) 0%, rgba(54, 123, 255, 1) 70%, rgba(54, 123, 255, 1) 100%);
+}
+.descriptive-info p {
+    margin-bottom:0px;
+}
+p{
+    margin-bottom:0px;
 }
 .mt-7px{
     margin-top:7px;

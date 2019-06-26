@@ -43,6 +43,14 @@ class Withdrawal extends Component {
             showLoader:true,
         });
 
+        // check if a user has a pin
+
+        // withdrawal pin
+
+
+        // if not prompt user to add a new withdrawal pin
+
+
         getUserData(this.handleUserInfo);
 
         this.getWithdrawalList();
@@ -91,7 +99,11 @@ class Withdrawal extends Component {
     }
 
 
-
+    activateLoader=()=>{
+        this.setState({
+            loading:!this.state.loading
+        });
+    }
 
 
     render() {
@@ -218,7 +230,7 @@ class Withdrawal extends Component {
                                                     {
                                                         !this.state.showWithdrawalForm
                                                             ? <WithdrawalList showForm={this.showForm} withdrawals={this.state.withdrawals} columns={columns} transactions={this.state.withdrawals}/>
-                                                            : <WithdrawalForm hideForm={this.hideForm} updateWithdrawalList={this.getWithdrawalList}/>
+                                                            : <WithdrawalForm activateLoader={this.activateLoader} hideForm={this.hideForm} updateWithdrawalList={this.getWithdrawalList}/>
                                                     }
                                                 </ToastProvider>
                                             </div>

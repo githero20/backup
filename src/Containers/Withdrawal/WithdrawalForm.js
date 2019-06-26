@@ -1,6 +1,12 @@
 import React, {Component, Fragment} from 'react';
 import totalBalanceIcon from "../../admin/app-assets/images/svg/total-balance-icon.svg";
-import {getWithdrawalPenalty, getWithdrawalSettings, makeWithdrawal} from "../../actions/WithdrawalAction";
+import {
+    addWithdrawalPin,
+    getWithdrawalPenalty,
+    getWithdrawalPin,
+    getWithdrawalSettings,
+    makeWithdrawal
+} from "../../actions/WithdrawalAction";
 import {withToastManager} from "react-toast-notifications";
 import {getUserBanks} from "../../actions/BankAction";
 import moment from "moment";
@@ -9,17 +15,19 @@ import SimpleReactValidator from "simple-react-validator";
 import {_handleFormChange} from "../../utils";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {request} from "../../ApiUtils/ApiUtils";
-import {getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
+import {BankCardLink, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
 import {formatNumber, INTEREST_ACCOUNT, STANDARD_ACCOUNT} from "../../Helpers/Helper";
 import swal from 'sweetalert';
-
+import {Link} from 'react-router-dom';
+import AddPinModal from "../../Components/Dashboard/AddPinModal/AddPinModal";
+import TransferLockedSavingsModal
+    from "../../Components/Dashboard/TransferLockedSavingsModal/TransferLockedSavingsModal";
 
 class WithdrawalForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            loading: false,
             withdrawalSettings: [],
             penalty: null,
             userBanks: [],
@@ -28,12 +36,20 @@ class WithdrawalForm extends Component {
             userBalance: 0.00,
             stashBalance: 0.00,
             penaltyFreeDay: false,
+            userPin: false,
+            showPinModal:false,
+            pinErr:false,
             settingsOwner: "you",
             form: {
                 penalty_from: "central_vault",
                 withdraw_amount: "500",
                 bank_account: "",
-                source: "central_vault"
+                source: "central_vault",
+                pin_one:'',
+                pin_two:'',
+                pin_three:'',
+                pin_four:'',
+                withdrawal_pin:''
             },
             showWithdrawalSetting: false
         };
@@ -51,9 +67,9 @@ class WithdrawalForm extends Component {
     }
 
     componentWillMount() {
+        this.props.activateLoader();
         this.getWithdrawalSettings();
         this.getUserBanks();
-
     }
 
 
@@ -98,11 +114,32 @@ class WithdrawalForm extends Component {
     getWithdrawalSettings() {
         // e.preventDefault();
         getWithdrawalSettings((status, payload) => {
+            this.setState({loading: false});
             if (status) {
-
                 console.log("Withdr", status, payload);
                 this.setState({withdrawalSettings: payload.data, settingsOwner: payload.owner});
                 this.getNextWithdrawalDate(payload.data);
+
+                //TODO call endpoint to check if user has a pin
+                getWithdrawalPin((status, payload) => {
+                    console.log('user pin', payload);
+                    if (status) {
+                        this.setState({
+                            userPin: payload.data,
+                            showPinModal:true,
+                        })
+
+                    } else {
+
+
+                    }
+
+                });
+
+
+                // TODO if not popup a form for user to add pin
+
+
             } else {
                 this.props.toastManager.add("unable to get withdrawal settings", {
                     appearance: "error",
@@ -162,6 +199,9 @@ class WithdrawalForm extends Component {
     hideWithdrawalSettings() {
         this.setState({showWithdrawalSetting: false})
     }
+    hidePinModal() {
+        this.setState({showPinModal: false})
+    }
 
     handleWithdrawFrom(e) {
         if (e.target.value == "backup_stash" || this.state.penaltyFreeDay) {
@@ -174,9 +214,34 @@ class WithdrawalForm extends Component {
     }
 
     handleChange(e) {
-        _handleFormChange(e.target.name, e, this)
+        _handleFormChange(e.target.name, e, this);
+        this.handlePinConcatenation(e.target.name,e);
     }
 
+    handlePinConcatenation = (name, event, callback = null) => {
+        let form = {...this.state.form};
+        form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+
+        if (name == 'pin_one' || name == 'pin_two' || name == 'pin_three' || name == 'pin_four') {
+
+            form.withdrawal_pin = form.pin_one + form.pin_two + form.pin_three + form.pin_four;
+            console.log('form pin', form.withdrawal_pin);
+            this.setState({form});
+            // console.log('withdrawal pin', form['withdrawal_pin']);
+        }
+
+        console.log('length of pin ', form.withdrawal_pin.length);
+        if (form.withdrawal_pin.length >= 4) {
+            this.setState({
+                pinErr: false
+            })
+        }
+
+        if (callback != null) {
+            callback();
+        }
+        return form;
+    };
     getNextWithdrawalDate(withdrawalDates = []) {
         try {
             // 22n october 2019
@@ -201,7 +266,12 @@ class WithdrawalForm extends Component {
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             this.forceUpdate();
+        } else if (!(this.state.form.withdrawal_pin.length >= 4)) {
+            this.setState({
+                pinErr: true
+            });
         } else {
+
             const {form} = this.state;
 
             swal("Are you sure you want to make a withdrawal ?", {
@@ -227,11 +297,7 @@ class WithdrawalForm extends Component {
                                     swal("Withdrawal Successful", "success");
                                     this.props.updateWithdrawalList();
                                 } else {
-                                    this.props.toastManager.add(payload, {
-                                        appearance: "error",
-                                        autoDismiss: true,
-                                        autoDismissTimeout: 5000
-                                    });
+                                    this.toastMessage(payload.data.message, 'error')
                                 }
                             });
 
@@ -246,21 +312,47 @@ class WithdrawalForm extends Component {
                             swal("You Cancelled Your Withdrawal");
                     }
                 });
-
         }
     }
 
-    render() {
+    toastMessage = (message, status) => {
+        const {toastManager} = this.props;
+        toastManager.add(message, {
+            appearance: status,
+            autoDismiss: true,
+            autoDismissTimeout: 4000,
+            pauseOnHover: false,
+        })
+    };
 
-        console.log(this.state.userBalance);
+    render() {
         const year = moment().year();
-        console.log(year);
         return (
             <div className={'row'}>
+                {
+                    this.state.userPin === null ?
+                        (
+                            <AddPinModal
+                                show={this.state.showPinModal}
+                                onHide={this.hidePinModal}
+                                setupStash={this.setupStash}
+
+                            />
+                        ) : null
+
+                }
+
                 <WithdrawalSettingsModal show={this.state.showWithdrawalSetting} onHide={this.hideWithdrawalSettings}/>
                 <div className="col-lg-7">
                     {/* withdrawal form component */}
                     <Fragment>
+                        {/*
+                            show withdrawal pin form if userpin is null
+
+                        */}
+
+
+
                         <div>
                             <div>
                                 <div>
@@ -306,7 +398,7 @@ class WithdrawalForm extends Component {
                                                         <select name="bank_account"
                                                                 onChange={this.handleChange}
                                                                 value={this.state.form.bank_account}
-                                                                className="form-control">
+                                                                className="form-control mb-1">
                                                             <option value="">
                                                                 Select bank
                                                             </option>
@@ -320,7 +412,12 @@ class WithdrawalForm extends Component {
                                                                     );
                                                                 })
                                                             }
+                                                            {console.log('user banks', this.state.userBanks)}
                                                         </select>
+                                                        {this.state.userBanks.length == 0 ?
+                                                            <Link to={BankCardLink}>Click here to add a
+                                                                bank</Link> : null}
+
                                                     </div>
                                                     {this.validator.message('bank_account', this.state.form.bank_account, 'required')}
                                                 </div>
@@ -365,10 +462,59 @@ class WithdrawalForm extends Component {
                                                             </option>
                                                             <option value="amount_to_withdraw">Amount to be Withdrawn
                                                             </option>
-
                                                         </select>
                                                     </div>
                                                 </div>
+
+
+                                                <div className="col">
+                                                    <div className="form-group">
+                                                        <label>WithdrawalPin</label>
+                                                        {this.state.pinErr ?
+                                                            <p><span
+                                                                className='srv-validation-message'>Your pin must be four digits</span>
+                                                            </p>
+                                                            : null}
+                                                        <div className="row">
+                                                            <div className="col-3">
+                                                                <input id="pin_one" type="password" name={'pin_one'}
+                                                                       className={'form-control pin-control'}
+                                                                       onChange={this.handleChange}
+                                                                       onKeyUp={this.validateInput}
+                                                                       onKeyDown={this.validateInput}
+                                                                />
+
+                                                            </div>
+                                                            <div className="col-3">
+                                                                <input id="pin_two" type="password" name={'pin_two'}
+                                                                       className={'form-control pin-control'}
+                                                                       onChange={this.handleChange}
+                                                                       onKeyUp={this.validateInput}
+                                                                       onKeyDown={this.validateInput}
+                                                                />
+
+                                                            </div>
+                                                            <div className="col-3">
+                                                                <input id="pin_three" type="password" name={'pin_three'}
+                                                                       className={'form-control pin-control'}
+                                                                       onChange={this.handleChange}
+                                                                       onKeyUp={this.validateInput}
+                                                                       onKeyDown={this.validateInput}
+                                                                />
+
+                                                            </div>
+                                                            <div className="col-3">
+                                                                <input id="pin_four" type="password" name={'pin_four'}
+                                                                       className={'form-control pin-control'}
+                                                                       onChange={this.handleChange}
+                                                                       onKeyUp={this.validateInput}
+                                                                       onKeyDown={this.validateInput}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
 

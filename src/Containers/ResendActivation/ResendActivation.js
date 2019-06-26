@@ -66,24 +66,23 @@ class ResendActivation extends Component {
                 <section className="login-background login-section">
                     <h3 className="welcome-text d-none d-md-block">Welcome <br/>Back</h3>
 
-                    <div id="timeline-wrap">
-                        <div id="timeline">
-                        </div>
+                    {/*<div id="timeline-wrap">*/}
+                    {/*    <div id="timeline">*/}
+                    {/*    </div>*/}
 
-                        {/*// <!-- This is the individual marker-->*/}
-                        <div className="marker mfirst timeline-icon  text-center">
-                            <div className="circular-icon ">1</div>
-                            <label>Create <br/> Account</label>
-                        </div>
-                        {/*// <!-- / marker -->*/}
 
-                        {/*// <!-- This is the individual marker-->*/}
-                        <div className="marker mlast timeline-icon  text-center">
-                            <div className="circular-icon active">2</div>
-                            <label>Activate Account</label>
-                        </div>
-                        {/*// <!-- / marker -->*/}
-                    </div>
+                    {/*    <div className="marker mfirst timeline-icon  text-center">*/}
+                    {/*        <div className="circular-icon ">1</div>*/}
+                    {/*        <label>Create <br/> Account</label>*/}
+                    {/*    </div>*/}
+
+
+                    {/*    <div className="marker mlast timeline-icon  text-center">*/}
+                    {/*        <div className="circular-icon active">2</div>*/}
+                    {/*        <label>Activate Account</label>*/}
+                    {/*    </div>*/}
+
+                    {/*</div>*/}
 
                     <div className="container">
                         <div className="row  pt-md-2">

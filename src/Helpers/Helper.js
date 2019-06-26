@@ -115,7 +115,7 @@ export function getTotalSteadySaveDebit(transactions) {
 export function capitalize (value) {
      let words = value.split(' ');
      if(words.length>1){
-       return  words.map((content)=>content.charAt(0).toUpperCase()).join(' ');
+       return  words.map((content)=>content.charAt(0).toUpperCase()+content.slice(1)).join(' ');
      }else {
         return value.charAt(0).toUpperCase() + value.slice(1);
      }
@@ -217,8 +217,7 @@ export function confirmedFormatter (cell) {
 export function descriptionFormatter (cell) {
     return  <span className={cell==='credit'?'text-green text-capitalize':'text-red text-capitalize'}>{cell}</span>
 }
-export function sourceFormatter (cell,row) {
-    console.log(cell,row)
+export function sourceFormatter (cell) {
     return  <p style={{minWidth:'150px'}} className={'text-secondary text-capitalize'} >{`${cell.data.name.replace(/_/g,' ')} savings`}</p>
 }
 

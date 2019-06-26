@@ -1,10 +1,11 @@
 import {_axios, _getHeader} from "../utils";
 import {
-    CreateWithdrawalSettings,
+    changeWithdrawalPin,
+    CreateWithdrawalSettings, getUserWithdrawalPin,
     GetWithdrawal,
     GetWithdrawalPenalty,
     GetWithdrawalSettings,
-    MakeWithdrawal,
+    MakeWithdrawal, storeWithdrawalPin,
 } from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 
@@ -86,9 +87,71 @@ export const getWithdrawalSettings = (callback) => {
             }
         })
 };
+export const getWithdrawalPin = (callback) => {
+    _axios.get(`${getUserWithdrawalPin}`,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            callback(res.data.status == "success", res.data);
+        })
+        .catch(err => {
+            try{
+                console.log("Err", JSON.stringify(err));
+                checkResponse(err);
+                callback(false, err.response);
+            }catch (e) {
+                //log both e and err
+                callback(false, " An Error Occurred");
+            }
+        })
+};
 
 export const makeWithdrawal = (payload, callback) => {
     _axios.post(`${MakeWithdrawal}`, payload,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            try{
+                console.log("Err", JSON.stringify(err));
+                checkResponse(err);
+                callback(false, err.response.data.message);
+            }catch (e) {
+                //log both e and err
+                console.log("Err", e);
+                callback(false, " An Error Occurred");
+            }
+        })
+};
+
+export const addWithdrawalPin = (payload, callback) => {
+    _axios.post(`${storeWithdrawalPin}`, payload,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            console.log(res);
+            console.log(res.data.data);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            try{
+                console.log("Err", JSON.stringify(err));
+                checkResponse(err);
+                callback(false, err.response.data.message);
+            }catch (e) {
+                //log both e and err
+                console.log("Err", e);
+                callback(false, " An Error Occurred");
+            }
+        })
+};
+
+export const changePin = (payload, callback) => {
+    _axios.post(`${changeWithdrawalPin}`, payload,{
         headers: _getHeader()
     })
         .then(res => {

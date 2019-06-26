@@ -3,6 +3,7 @@ import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import SimpleReactValidator from "simple-react-validator";
 import {withToastManager} from 'react-toast-notifications';
 import {capitalize} from "../../../Helpers/Helper";
+import UpdateWithdrawalPin from "../UpdateWithdrawalPin/UpdateWithdrawalPin";
 
 class ProfileForm extends Component {
 
@@ -94,6 +95,8 @@ class ProfileForm extends Component {
         // e.target.focus();
         this.setState({copySuccess: true});
     };
+
+
 
     validatePasswords = () => {
 
@@ -280,6 +283,7 @@ class ProfileForm extends Component {
                                 </div>
                             </div>
                             <UpdatePassword/>
+                            <UpdateWithdrawalPin/>
                         </div>
                     </form>
                 </div>

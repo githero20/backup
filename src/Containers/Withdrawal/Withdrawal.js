@@ -15,7 +15,7 @@ import {
     balanceFormatter, confirmedFormatter,
     dateFormatter,
     descriptionFormatter, sourceFormatter,
-    statusFormatter
+    statusFormatter, withdrawSourceFormatter
 } from "../../Helpers/Helper";
 import ErrorBoundary from "../../Components/Auth/HOC/ErrorBoundary";
 
@@ -134,8 +134,8 @@ class Withdrawal extends Component {
 
             },{
                 text: 'Description',
-                dataField: 'sourcetypes',
-                formatter: sourceFormatter,
+                dataField: 'source',
+                formatter: withdrawSourceFormatter,
                 sort: true,
 
             },{

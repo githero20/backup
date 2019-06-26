@@ -220,6 +220,9 @@ export function descriptionFormatter (cell) {
 export function sourceFormatter (cell) {
     return  <p style={{minWidth:'150px'}} className={'text-secondary text-capitalize'} >{`${cell.data.name.replace(/_/g,' ')} savings`}</p>
 }
+export function withdrawSourceFormatter (cell) {
+    return  <p style={{minWidth:'150px'}} className={'text-secondary text-capitalize'} >{`${cell.replace(/_/g,' ')}`}</p>
+}
 
 export function amountFormatter (cell,row) {
     return (

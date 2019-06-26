@@ -4517,6 +4517,12 @@ input:-webkit-autofill:active  {
     background: rgba(54, 123, 255, 1);
     background: linear-gradient(270deg, rgba(23, 225, 255, 1) 0%, rgba(54, 123, 255, 1) 70%, rgba(54, 123, 255, 1) 100%);
 }
+.withdrawal-modal .modal-header .close{
+    display: none;
+}
+.back-up-percent span {
+    font-size:12px;
+}
 .descriptive-info p {
     margin-bottom:0px;
 }

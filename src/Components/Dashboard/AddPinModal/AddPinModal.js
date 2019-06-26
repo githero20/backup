@@ -6,6 +6,8 @@ import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
 import {addWithdrawalPin} from "../../../actions/WithdrawalAction";
 import swal from 'sweetalert';
+import {DashboardLink} from "../../../RouteLinks/RouteLinks";
+import {Link} from 'react-router-dom';
 
 class AddPinModal extends Component {
 
@@ -151,12 +153,15 @@ class AddPinModal extends Component {
                 size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
-                className={'instant-save-modal steady-save-modal'}>
+                className={'instant-save-modal steady-save-modal withdrawal-modal'}>
 
-                <Modal.Header className={' px-md-3 py-md-3'} closeButton={this.props.onHide}>
+                <Modal.Header className={'d-flex justify-content-between px-md-3 py-md-3'} closeButton={()=>this.props.hideForm()}>
                     <Modal.Title id="contained-modal-title-vcenter">
                         <h4>Add Withdrawal Pin</h4>
                     </Modal.Title>
+                    <a href='#' className="gray-text back-btn "
+                       onClick={()=>this.props.hideForm()}>Back to Withdrawals <i className='fa fa-chevron-right'></i>
+                    </a>
                 </Modal.Header>
 
 
@@ -176,7 +181,7 @@ class AddPinModal extends Component {
                                             : null}
                                         <div className="row">
                                             <div className="col-3">
-                                                <input id="pin_one" type="password" name={'pin_one'}
+                                                <input id="pin_one" type="number" name={'pin_one'}
                                                        className={'form-control pin-control'}
                                                        onChange={this.handleChange}
                                                        onKeyUp={this.validateInput}
@@ -185,7 +190,7 @@ class AddPinModal extends Component {
 
                                             </div>
                                             <div className="col-3">
-                                                <input id="pin_two" type="password" name={'pin_two'}
+                                                <input id="pin_two" type="number" name={'pin_two'}
                                                        className={'form-control pin-control'}
                                                        onChange={this.handleChange}
                                                        onKeyUp={this.validateInput}
@@ -194,7 +199,7 @@ class AddPinModal extends Component {
 
                                             </div>
                                             <div className="col-3">
-                                                <input id="pin_three" type="password" name={'pin_three'}
+                                                <input id="pin_three" type="number" name={'pin_three'}
                                                        className={'form-control pin-control'}
                                                        onChange={this.handleChange}
                                                        onKeyUp={this.validateInput}
@@ -203,7 +208,7 @@ class AddPinModal extends Component {
 
                                             </div>
                                             <div className="col-3">
-                                                <input id="pin_four" type="password" name={'pin_four'}
+                                                <input id="pin_four" type="number" name={'pin_four'}
                                                        className={'form-control pin-control'}
                                                        onChange={this.handleChange}
                                                        onKeyUp={this.validateInput}

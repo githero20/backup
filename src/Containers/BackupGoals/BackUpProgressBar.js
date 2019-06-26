@@ -26,8 +26,8 @@ const BackUpProgressBar = (props) => {
     return (
         <React.Fragment>
             <div className="d-flex justify-content-between">
-                <h6>Progess</h6>
-                <div className='back-up-percent'> { percentage.toFixed(2)} %</div>
+                <h6>Your Goal</h6>
+                <div className='back-up-percent'> <strong>{ percentage.toFixed(2)} % </strong><span>Done</span></div>
             </div>
             <div className='cust-progress-bar w-100 round overflow-hidden shadow-sm'>
                 <div className="progress-indicator round bg-success" style={{width: percentage + '%'}}>&nbsp;</div>

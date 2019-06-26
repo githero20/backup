@@ -59,13 +59,11 @@ class LoginForm extends Component {
                 localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
                 localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
                 setTimeout(() => {
-                    console.log('login token' + localStorage.getItem(USERTOKEN));
                     this.setState({
                         redirect: true,
                         loading: false
                     });
                 }, 3000);
-                console.log("before", this);
             }
 
             // //Temporary get user details
@@ -179,7 +177,6 @@ class LoginForm extends Component {
         }
 
         if (this.state.resendActErr) {
-            console.log(email);
             return (
                 <React.Fragment>
                     <Redirect to={{

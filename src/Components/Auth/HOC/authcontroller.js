@@ -12,7 +12,7 @@ export const ACTIVATIONMESG = "activation-msg";
 export const ACTIVATONEMAIL = "activation-email";
 export const SHOWAD = "show-ad";
 
-const verifyTokenURL = BASE_URL+"sfsbapi/v1/user";
+const verifyTokenURL = BASE_URL + "sfsbapi/v1/user";
 
 
 const AuthController = component => {
@@ -20,10 +20,7 @@ const AuthController = component => {
         const [fetching, setFetching] = useState(true);
 
         const RenderComponent = props.component;
-        let data = localStorage.getItem(USERTOKEN);
-        console.log('data stored',data);
-        const token = JSON.parse(data);
-        console.log('token from storage ',token);
+        const token = localStorage.getItem(USERTOKEN);
 
         useEffect(() => {
 
@@ -33,8 +30,7 @@ const AuthController = component => {
                 );
                 localStorage.removeItem(USERTOKEN);
                 localStorage.removeItem(USERINFO);
-            }
-            else{
+            } else {
 
                 axios.get(verifyTokenURL, {headers: {Authorization: `Bearer ${JSON.parse(localStorage.getItem(USERTOKEN))}`}}).then(
                     res => {
@@ -43,12 +39,12 @@ const AuthController = component => {
                         setFetching(false);
                     },
                     err => {
-                        try{
-                            if(err.response) {
-                                if(err.response.data.message === "Account has not been activated, click on resend"){
-                                    setLocalStorage(USERACTIVATED,false);
+                        try {
+                            if (err.response) {
+                                if (err.response.data.message === "Account has not been activated, click on resend") {
+                                    setLocalStorage(USERACTIVATED, false);
 
-                                }else{
+                                } else {
 
                                     props.history.push(
                                         `/login`
@@ -57,11 +53,11 @@ const AuthController = component => {
                                     localStorage.removeItem(USERINFO);
                                     return null;
                                 }
-                            } else{
+                            } else {
                                 //TODO("Log to central Log")
                                 // console.error("Unknown Error", err);
                             }
-                        }catch (e) {
+                        } catch (e) {
                             // console.log("Critical Error", e);
                         }
 
@@ -71,8 +67,6 @@ const AuthController = component => {
 
 
         }, [RenderComponent]);
-
-
 
 
         //
@@ -87,7 +81,6 @@ const AuthController = component => {
     Authenticate.defaultProps = {
         component
     };
-
 
 
     return Authenticate

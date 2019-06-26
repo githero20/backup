@@ -268,16 +268,11 @@ class SetupWithdrawalForm extends Component {
     saveToLocalStorage = (user, token) => {
 
         if (user && token) {
-            console.log('user', user);
-            console.log('user', token);
             localStorage.setItem(USERTOKEN, JSON.stringify(token));
             localStorage.setItem(USERINFO, JSON.stringify(user));
-            setTimeout(() => {
-                this.setState({
-                    redirect: true
-                });
-            }, 3000);
-
+            this.setState({
+                redirect: true
+            });
         }
     };
 

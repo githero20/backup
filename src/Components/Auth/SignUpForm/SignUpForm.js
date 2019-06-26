@@ -131,13 +131,11 @@ class SignUpForm extends Component {
         const {password} = this.state;
         // perform all neccassary validations
         if (password !== value) {
-            console.log('false' + password, value);
             this.setState({
                 ConfirmPassError: true,
             });
             return false;
         } else {
-            console.log('true' + password);
             this.setState({
                 ConfirmPassError: false,
             });
@@ -179,9 +177,7 @@ class SignUpForm extends Component {
         });
 
         if (!state) {
-            console.log('error');
             if (response) {
-                console.log(`request failed: ${JSON.stringify(response)}`);
                 this.setState({
                     error: true,
                     errorMessage: JSON.stringify(response.data.message),
@@ -189,7 +185,6 @@ class SignUpForm extends Component {
                 });
 
                 if (response.data) {
-                    console.log(response.data.errors);
                     let errors = response.data.errors;
                     let errorData = Object.values(errors);
                     errorData.map((err, idx) => {
@@ -236,7 +231,6 @@ class SignUpForm extends Component {
             // perform all necessary validation
             const ConfPassValid = this.validatePasswords(this.state.password_confirmation);
             const PassVal = this.validatePassword();
-            console.log(ConfPassValid, PassVal);
             if (ConfPassValid && PassVal) {
                 //    make api call
                 this.setState({
@@ -275,7 +269,6 @@ class SignUpForm extends Component {
 
         // add to the referral input
         const {referralCode} = newProps;
-        console.log('referral code', referralCode);
         if(referralCode){
             let code  = referralCode.split('/');
             code = code[0];
@@ -283,8 +276,6 @@ class SignUpForm extends Component {
                 referral_code_userid: code,
                 showReferralInput: true,
                 disableReferral:true
-            }, () => {
-                console.log('rendering form state',this.state);
             });
         }
 

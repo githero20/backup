@@ -269,7 +269,7 @@ class SetupWithdrawalForm extends Component {
 
         if (user && token) {
             localStorage.setItem(USERTOKEN, JSON.stringify(token));
-            localStorage.setItem(USERINFO, JSON.stringify(user));
+            localStorage.setItem(USERINFO, user);
             this.setState({
                 redirect: true
             });

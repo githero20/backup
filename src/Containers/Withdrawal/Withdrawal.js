@@ -77,16 +77,20 @@ class Withdrawal extends Component {
             console.log("Get Withdrawal List", status, payload);
             if (status && payload.data.length > 0) {
                 this.setState({withdrawals: payload.data});
+            } else if(!status && payload){
+                this.props.toastManager.add(payload, {
+                    appearance: "error",
+                    autoDismiss: true
+                })
+            }else {
+                this.props.toastManager.add("Unable to get withdrawals at this moment", {
+                    appearance: "error",
+                    autoDismiss: true
+                })
             }
-            //
-            // else {
-            //     this.props.toastManager.add("Unable to get withdrawals at this moment", {
-            //         appearance: "error",
-            //         autoDismiss: true
-            //     })
-            // //TODO    display No withdrawal on table
-            // }
         })
+        //TODO    display No withdrawal on table
+
     }
     showForm() {
         this.setState({showWithdrawalForm: true});

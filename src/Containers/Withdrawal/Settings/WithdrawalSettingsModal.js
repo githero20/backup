@@ -17,7 +17,7 @@ class BankModal extends React.Component {
         return (
             <Modal
                 {...this.props}
-                size="sm"
+                size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 className={'steady-save-modal'}

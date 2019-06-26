@@ -18,7 +18,7 @@ class ProfileSetting extends Component {
 
 
     state = {
-        userProfile: null,
+        userProfile: '',
         showLoader:false,
     };
 

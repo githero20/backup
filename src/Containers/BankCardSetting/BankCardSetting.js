@@ -205,8 +205,8 @@ class BankCardSetting extends Component {
                                             <div className="card round px-md-3">
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
-                                                        <h3 className=" d-flex justify-content-between align-items-center light-gray setting-header">
-                                                            <h3>My Banks</h3>
+                                                        <div className=" d-flex justify-content-between align-items-center light-gray setting-header">
+                                                            <p>My Banks</p>
                                                             <span
                                                                 className="pull-right right-btn-holder"
                                                                 onClick={this.showBankModal}>
@@ -215,7 +215,7 @@ class BankCardSetting extends Component {
                                                                 className="btn-custom-round-blue plus-btn-shadow mr-1">
                                                                 <img  src={addButton}/>
                                                             </button>Add Bank</span>
-                                                        </h3>
+                                                        </div>
 
 
                                                         {/*<div className="table-responsive">*/}
@@ -291,7 +291,7 @@ class BankCardSetting extends Component {
                                             <div className="card round px-md-3">
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
-                                                        <h3 className=" d-flex justify-content-between align-items-center light-gray setting-header">
+                                                        <div className=" d-flex justify-content-between align-items-center light-gray setting-header">
                                                             <h3>Debit/Credit</h3>
                                                             <span className="pull-right right-btn-holder"
                                                                   onClick={this.showCardModal}>
@@ -300,7 +300,7 @@ class BankCardSetting extends Component {
                                                                     className="btn-custom-round-blue plus-btn-shadow mr-1">
                                                                     <img src={addButton}/>
                                                             </button>Add Card</span>
-                                                        </h3>
+                                                        </div>
                                                         <div
                                                             className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">
                                                             {cards}

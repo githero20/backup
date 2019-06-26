@@ -128,7 +128,7 @@ class ProfileForm extends Component {
         return (
             <React.Fragment>
                 <div>
-                    <form className="form lock-form px-md-1 text-capitalize">
+                    <div className="form lock-form px-md-1 text-capitalize">
                         <div className="form-body">
                             <div className="row mb-2">
                                 {/*<div className="col-md-4">*/}
@@ -285,7 +285,7 @@ class ProfileForm extends Component {
                             <UpdatePassword/>
                             <UpdateWithdrawalPin/>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </React.Fragment>
         );

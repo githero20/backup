@@ -86,20 +86,24 @@ class WithdrawalSettingsForm extends Component {
                             Please note that you can ONLY change these Dates once
                         </Form.Text>
                         <div className="form-body">
-                            <div className="form-group row">
-                                <label htmlFor="first_quarter"
-                                       className="col-lg-12 col-form-label">First Quarter</label>
-                                <div className="col-lg-12">
-                                    <input type="date"
-                                           required={true}
-                                           className="form-control"
-                                           onChange={this.handleChange}
-                                           id="first_quarter"
-                                           name="first_quarter"
-                                           value={this.state.form.first_quarter}
-                                    />
+                            <div className="row">
+                                <div className="form-group col-lg-6">
+                                    <label htmlFor="first_quarter"
+                                           className=" col-form-label">First Quarter</label>
+                                    <div className="col-lg-12">
+                                        <input type="date"
+                                               required={true}
+                                               className="form-control"
+                                               onChange={this.handleChange}
+                                               id="first_quarter"
+                                               name="first_quarter"
+                                               value={this.state.form.first_quarter}
+                                        />
+                                    </div>
                                 </div>
+
                             </div>
+
                             <div className="form-group row">
                                 <label htmlFor="second_quarter"
                                        className="col-lg-12 col-form-label">Second Quarter</label>

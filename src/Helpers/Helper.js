@@ -27,7 +27,7 @@ export function animateCSS(element, animationName, callback) {
 }
 
 export function formatNumber(num) {
-    if(num)
+    if (num)
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') || 0;
     else
         return "0";
@@ -75,7 +75,7 @@ export function getTotalSteadySave(transactions) {
     if (transactions) {
         if (transactions.length > 1) {
             let credits;
-            credits = transactions.filter((content)=>(content.type==='credit'));
+            credits = transactions.filter((content) => (content.type === 'credit'));
             credits = credits.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
             return credits.amount;
         } else {
@@ -90,7 +90,7 @@ export function getTotalSteadySaveDebit(transactions) {
     if (transactions) {
         if (transactions.length > 1) {
             let debits;
-            debits = transactions.filter((content)=>(content.type==='debit'));
+            debits = transactions.filter((content) => (content.type === 'debit'));
             debits = debits.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
             return debits.amount;
         } else {
@@ -99,52 +99,73 @@ export function getTotalSteadySaveDebit(transactions) {
         }
     }
 }
- export function getPercentage(startValue,endValue) {
-    if(Number(startValue)!=0 && Number(endValue)!=0){
-        return (startValue/endValue)*100;
 
-    }else return 0;
+export function getPercentage(startValue, endValue) {
+    if (Number(startValue) != 0 && Number(endValue) != 0) {
+        return (startValue / endValue) * 100;
 
- }
+    } else return 0;
+
+}
+
 //
 // export function capitalize (value) {
 //     value.prototype.capitalize = function() {
 //         return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
 //     };
 // };
-export function capitalize (value) {
-     let words = value.split(' ');
-     if(words.length>1){
-       return  words.map((content)=>content.charAt(0).toUpperCase()+content.slice(1)).join(' ');
-     }else {
+export function capitalize(value) {
+    let words = value.split(' ');
+    if (words.length > 1) {
+        return words.map((content) => content.charAt(0).toUpperCase() + content.slice(1)).join(' ');
+    } else {
         return value.charAt(0).toUpperCase() + value.slice(1);
-     }
-        // return value.replace(/(?:^|\s)\S/g, value.toUpperCase());
+    }
+    // return value.replace(/(?:^|\s)\S/g, value.toUpperCase());
 };
 
-export function validateInputEntry (e) {
-    // if (!((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105))) {
-    //     // 0-9 only
-    //     console.log('got here');
-    //     if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
-    //         e.preventDefault();
-    //     }// e.preventDefault();
-    // }
-    if (!(e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
-        // 0-9 only
-        if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
-            e.preventDefault();
+export function validateInputEntry(e) {
+    e.persist();
+    validateLength(e);
+
+    validateNumbers(e);
+
+
+}
+
+export function shiftFocus(e) {
+    if (e.type == 'keyup' && e.keyCode !== 46 && e.keyCode !== 8) {
+
+        if (e.target.parentElement.nextElementSibling) {
+            // && e.target.parentElement.nextElementSibling.firstChild.length>0
+            if (e.target.parentElement.nextElementSibling.firstChild.value == '') {
+                e.target.parentElement.nextElementSibling.firstChild.focus();
+                //
+                //     console.log('there is value',true,e.target.parentElement.nextElementSibling.firstChild.value);
+                // }else {
+                //     console.log('no value',false);
+                // }
+                // console.log('siblling element', e.target.parentElement.nextElementSibling.firstChild.value);
+            }
         }
-        e.preventDefault();
     }
 }
 
-export function handleFocus (e) {
+export function validateLength(e) {
+    if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
+        //only one input and delete
+        e.preventDefault();
 
-        if (e.target.value.length > 0 ) {
-            e.target.nextElementSibling.focus();
-        }
+    }
 
+}
+
+export function validateNumbers(e) {
+    let charCode = (e.which) ? e.which : e.keyCode;
+    if (charCode > 31 && ((charCode < 48 || charCode > 57) || (charCode > 96 && charCode < 105))) {
+        e.preventDefault();
+    }
+    shiftFocus(e);
 }
 
 
@@ -152,7 +173,7 @@ export function getTotalSuccessful(transactions) {
     if (transactions) {
         if (transactions.length > 1) {
             let successful;
-            successful = transactions.filter((content)=>(content.status=='success'));
+            successful = transactions.filter((content) => (content.status == 'success'));
             return successful.length;
         } else {
             return transactions.length;
@@ -164,11 +185,11 @@ export function getTotalFailed(transactions) {
     if (transactions) {
         if (transactions.length > 1) {
             let failed;
-            failed = transactions.filter((content)=>(content.status=='failed'));
-            if(failed.length>0){
+            failed = transactions.filter((content) => (content.status == 'failed'));
+            if (failed.length > 0) {
                 failed = failed.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
                 return failed.amount;
-            }else {
+            } else {
                 return 0
             }
         } else {
@@ -176,13 +197,14 @@ export function getTotalFailed(transactions) {
         }
     }
 }
+
 export function getTotalBGSuccessful(transactions) {
 
 
     if (transactions) {
         if (transactions.length > 1) {
             let successful;
-            successful = transactions.filter((content)=>(content.status=='success'));
+            successful = transactions.filter((content) => (content.status == 'success'));
             successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
             return successful.amount;
         } else {
@@ -250,92 +272,112 @@ export function transformHour(hour) {
 }
 
 
-export function dateFormatter (cell) {
-    return  <p style={{minWidth:'150px'}}>{moment(cell).format('LLL')}</p>
-}
-export function confirmedFormatter (cell) {
-    return   <label>{cell ? <span className='text-success'>Completed </span>:<span className='text-danger'>Failed </span>}</label>
+export function dateFormatter(cell) {
+    return <p style={{minWidth: '150px'}}>{moment(cell).format('LLL')}</p>
 }
 
-export function descriptionFormatter (cell) {
-    return  <span className={cell==='credit'?'text-green text-capitalize':'text-red text-capitalize'}>{cell}</span>
-}
-export function sourceFormatter (cell) {
-    return  <p style={{minWidth:'150px'}} className={'text-secondary text-capitalize'} >{`${cell.data.name.replace(/_/g,' ')} savings`}</p>
-}
-export function withdrawSourceFormatter (cell) {
-    return  <p style={{minWidth:'150px'}} className={'text-secondary text-capitalize'} >{`${cell.replace(/_/g,' ')}`}</p>
+export function confirmedFormatter(cell) {
+    return <label>{cell ? <span className='text-success'>Completed </span> :
+        <span className='text-danger'>Failed </span>}</label>
 }
 
-export function amountFormatter (cell,row) {
+export function descriptionFormatter(cell) {
+    return <span
+        className={cell === 'credit' ? 'text-green text-capitalize' : 'text-red text-capitalize'}>{cell}</span>
+}
+
+export function sourceFormatter(cell) {
+    return <p style={{minWidth: '150px'}}
+              className={'text-secondary text-capitalize'}>{`${cell.data.name.replace(/_/g, ' ')} savings`}</p>
+}
+
+export function withdrawSourceFormatter(cell) {
+    return <p style={{minWidth: '150px'}}
+              className={'text-secondary text-capitalize'}>{`${cell.replace(/_/g, ' ')}`}</p>
+}
+
+export function amountFormatter(cell, row) {
     return (
-        <p style={{minWidth:'100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
-                {row.type === 'credit' ? '+' : '-'}
-            {cell!=null?(`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`):'N/A'}
-            </p>
+        <p style={{minWidth: '100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
+            {row.type === 'credit' ? '+' : '-'}
+            {cell != null ? (`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`) : 'N/A'}
+        </p>
     )
 }
-export function moneyFormatter (cell) {
+
+export function moneyFormatter(cell) {
     return (
-        <p style={{minWidth:'150px'}} className={'text-green'}> {cell!=null?`+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}`:"N/A"}</p>
+        <p style={{minWidth: '150px'}}
+           className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
     )
 }
 
-export function steadyStatusFormatter (cell,row) {
-        if(parseInt(row.is_pause)){
-            return <button className={'btn round btn-warning'}>Paused</button>
-        }else {
-            return <button className={'btn round btn-success'}>Ongoing</button>
-        }
+export function steadyStatusFormatter(cell, row) {
+    if (parseInt(row.is_pause)) {
+        return <button className={'btn round btn-warning'}>Paused</button>
+    } else {
+        return <button className={'btn round btn-success'}>Ongoing</button>
+    }
 }
-export function statusFormatter(cell){
-    return  <label className={cell==='success'?'bg-light-green px-2 sm-pd text-capitalize':'bg-light-red px-2 sm-pd text-capitalize'}>{cell}</label>
+
+export function statusFormatter(cell) {
+    return <label
+        className={cell === 'success' ? 'bg-light-green px-2 sm-pd text-capitalize' : 'bg-light-red px-2 sm-pd text-capitalize'}>{cell}</label>
 }
-export function interestFormatter(cell){
-    return (<label style={{minWidth:'100px'}}>+ {`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`}</label>)
+
+export function interestFormatter(cell) {
+    return (<label style={{minWidth: '100px'}}>+ {`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`}</label>)
 
 }
 
-export function viewFormatter(cell){
+export function viewFormatter(cell) {
     return <button className={'btn round btn-custom-blue btn-block'}>View History</button>
 
 }
-export function balanceFormatter(cell){
-    return <label style={{minWidth:'100px'}} className={'text-info'}>{cell!=null?`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`:'N/A'}</label>
 
-}
-export function sourceTypeFormatter(cell){
-    return <label style={{minWidth:'100px'}} className={'text-info'}>{cell!=null?`₦ ${cell.data.name}`:'N/A'}</label>
-
-}
-export function lockedStatusFormatter(cell){
-    return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> : <button className={'btn btn-warning'}>Ongoing</button>)
-
-}
-export function frequencyFormatter(cell){
-    return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> : <button className={'btn btn-warning'}>Ongoing</button>)
+export function balanceFormatter(cell) {
+    return <label style={{minWidth: '100px'}}
+                  className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
 
 }
 
-export function getTodaysDate () {
+export function sourceTypeFormatter(cell) {
+    return <label style={{minWidth: '100px'}}
+                  className={'text-info'}>{cell != null ? `₦ ${cell.data.name}` : 'N/A'}</label>
+
+}
+
+export function lockedStatusFormatter(cell) {
+    return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> :
+        <button className={'btn btn-warning'}>Ongoing</button>)
+
+}
+
+export function frequencyFormatter(cell) {
+    return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> :
+        <button className={'btn btn-warning'}>Ongoing</button>)
+
+}
+
+export function getTodaysDate() {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     let yyyy = today.getFullYear();
 
-    return   yyyy + '-' + mm + '-' + dd  ;
+    return yyyy + '-' + mm + '-' + dd;
 }
 
 export async function getToken() {
     return await getLocalStorage(USERTOKEN);
 }
 
-export  function setupUser(payload){
-    setLocalStorage(USERINFO,payload);
+export function setupUser(payload) {
+    setLocalStorage(USERINFO, payload);
 }
 
 
-export function amountInput (selector){
+export function amountInput(selector) {
 
 
     // AutoNumeric initialisation
@@ -347,15 +389,16 @@ export function amountInput (selector){
     //     noEventListeners:false,
     // });
 
-    const isAmount = AutoNumeric.multiple(selector, {currencySymbol: "₦",
+    const isAmount = AutoNumeric.multiple(selector, {
+        currencySymbol: "₦",
         maximumValue: "1000000000",
         minimumValue: "0",
-        currencySymbolPlacement:'p',
-        digitGroupSeparator:',',
-        noEventListeners:false,
-        decimalPlacesShownOnFocus:0,
-        decimalPlacesShownOnBlur:0,
-        outputFormat:'number'
+        currencySymbolPlacement: 'p',
+        digitGroupSeparator: ',',
+        noEventListeners: false,
+        decimalPlacesShownOnFocus: 0,
+        decimalPlacesShownOnBlur: 0,
+        outputFormat: 'number'
     });
 
     return isAmount;

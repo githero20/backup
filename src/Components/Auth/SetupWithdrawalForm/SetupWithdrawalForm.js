@@ -101,28 +101,6 @@ class SetupWithdrawalForm extends Component {
         // handle focus
 
 
-        //get all the item
-
-        //if the event length is >0
-
-        // shift the focus to the sibling item
-        let InputElements = document.getElementsByClassName('pin-control');
-
-        for (let item of InputElements) {
-
-            console.log('sibling',item.nextElementSibling);
-            // if(e.target.value.length >0){
-            //     item.nextElementSibling.focus();
-            // }
-        }
-        // InputElements.map((contents)=>{
-        //     console.log('elements',contents);
-        //     return contents;
-        // });
-        // // handleFocus(e);
-        //
-        // console.log('event',e.persist(),e);
-
     };
 
 

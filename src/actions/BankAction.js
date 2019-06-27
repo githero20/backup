@@ -7,8 +7,6 @@ import {checkResponse} from "../ApiUtils/ApiUtils";
 export const getListOfBanks = (callback) =>{
     _axios.get(`https://api.paystack.co/bank`)
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status, res.data.data);
         })
         .catch(err => {
@@ -31,8 +29,6 @@ export const resolveBankName = (accountNumber, bankCode,callback) =>{
         }
     })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status, res.data.data);
         })
         .catch(err => {
@@ -45,12 +41,12 @@ export const resolveBankName = (accountNumber, bankCode,callback) =>{
 };
 
 export const sendBankOTP = (payload, callback) =>{
-    console.log("body", payload);
+
     _axios.post(`${BASE_URL}/${SaveBankAccount}`,payload,{
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
+
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -69,7 +65,6 @@ export const resendBankOTP = (payload, callback) =>{
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -85,12 +80,10 @@ export const resendBankOTP = (payload, callback) =>{
 
 
 export const verifyOtp = (payload, callback) =>{
-    console.log("body", payload);
     _axios.post(VerifyBankOTP,payload,{
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -108,7 +101,6 @@ export const getUserBanks = (callback) => {
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {

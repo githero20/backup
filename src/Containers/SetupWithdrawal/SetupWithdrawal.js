@@ -20,7 +20,6 @@ class SetupWithdrawal extends Component {
 
     componentDidMount() {
         getListOfBanks((status, payload) =>{
-            console.log("res", status, payload);
             if(status){
                 this.setState({banks:payload});
             }else {
@@ -34,7 +33,6 @@ class SetupWithdrawal extends Component {
 
     retreiveToken = () =>{
         const search = queryString.parse(this.props.location.search);
-        // console.log(search.token);
         this.setState({
             token:search.token
         });

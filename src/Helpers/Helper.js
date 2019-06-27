@@ -122,6 +122,32 @@ export function capitalize (value) {
         // return value.replace(/(?:^|\s)\S/g, value.toUpperCase());
 };
 
+export function validateInputEntry (e) {
+    // if (!((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105))) {
+    //     // 0-9 only
+    //     console.log('got here');
+    //     if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
+    //         e.preventDefault();
+    //     }// e.preventDefault();
+    // }
+    if (!(e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+        // 0-9 only
+        if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
+            e.preventDefault();
+        }
+        e.preventDefault();
+    }
+}
+
+export function handleFocus (e) {
+
+        if (e.target.value.length > 0 ) {
+            e.target.nextElementSibling.focus();
+        }
+
+}
+
+
 export function getTotalSuccessful(transactions) {
     if (transactions) {
         if (transactions.length > 1) {
@@ -262,7 +288,6 @@ export function steadyStatusFormatter (cell,row) {
             return <button className={'btn round btn-success'}>Ongoing</button>
         }
 }
-
 export function statusFormatter(cell){
     return  <label className={cell==='success'?'bg-light-green px-2 sm-pd text-capitalize':'bg-light-red px-2 sm-pd text-capitalize'}>{cell}</label>
 }

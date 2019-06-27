@@ -10,6 +10,7 @@ import {resolveBankName} from "../../../actions/BankAction";
 import {_handleFormChange} from "../../../utils";
 import {resolveBank, setupWithdrawal} from "../../../actions/setupWithdrawalAction";
 import DashboardLoader from "../../Dashboard/DashboardLoader/DashboardLoader";
+import {handleFocus, validateInputEntry} from "../../../Helpers/Helper";
 
 class SetupWithdrawalForm extends Component {
 
@@ -96,9 +97,32 @@ class SetupWithdrawalForm extends Component {
 
 
     validateInput = (e) => {
-        if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
-            e.preventDefault();
+        validateInputEntry(e);
+        // handle focus
+
+
+        //get all the item
+
+        //if the event length is >0
+
+        // shift the focus to the sibling item
+        let InputElements = document.getElementsByClassName('pin-control');
+
+        for (let item of InputElements) {
+
+            console.log('sibling',item.nextElementSibling);
+            // if(e.target.value.length >0){
+            //     item.nextElementSibling.focus();
+            // }
         }
+        // InputElements.map((contents)=>{
+        //     console.log('elements',contents);
+        //     return contents;
+        // });
+        // // handleFocus(e);
+        //
+        // console.log('event',e.persist(),e);
+
     };
 
 
@@ -372,9 +396,6 @@ class SetupWithdrawalForm extends Component {
         });
     }
 
-    componentDidMount() {
-        console.log('props', this.props);
-    }
 
     render() {
 
@@ -452,8 +473,8 @@ class SetupWithdrawalForm extends Component {
                                     : null}
                                 <div className="row">
                                     <div className="col-3">
-                                        <input id="pin_one" type="number" name={'pin_one'}
-                                               className={'form-control'}
+                                        <input id="pin_one" type="password" name={'pin_one'}
+                                               className={'form-control pin-control'}
                                                onChange={this.handleChange}
                                                onKeyUp={this.validateInput}
                                                onKeyDown={this.validateInput}
@@ -461,8 +482,8 @@ class SetupWithdrawalForm extends Component {
 
                                     </div>
                                     <div className="col-3">
-                                        <input id="pin_two" type="number" name={'pin_two'}
-                                               className={'form-control'}
+                                        <input id="pin_two" type="password" name={'pin_two'}
+                                               className={'form-control pin-control'}
                                                onChange={this.handleChange}
                                                onKeyUp={this.validateInput}
                                                onKeyDown={this.validateInput}
@@ -470,8 +491,8 @@ class SetupWithdrawalForm extends Component {
 
                                     </div>
                                     <div className="col-3">
-                                        <input id="pin_three" type="number" name={'pin_three'}
-                                               className={'form-control'}
+                                        <input id="pin_three" type="password" name={'pin_three'}
+                                               className={'form-control pin-control'}
                                                onChange={this.handleChange}
                                                onKeyUp={this.validateInput}
                                                onKeyDown={this.validateInput}
@@ -479,8 +500,8 @@ class SetupWithdrawalForm extends Component {
 
                                     </div>
                                     <div className="col-3">
-                                        <input id="pin_four" type="number" name={'pin_four'}
-                                               className={'form-control'}
+                                        <input id="pin_four" type="password" name={'pin_four'}
+                                               className={'form-control pin-control'}
                                                onChange={this.handleChange}
                                                onKeyUp={this.validateInput}
                                                onKeyDown={this.validateInput}

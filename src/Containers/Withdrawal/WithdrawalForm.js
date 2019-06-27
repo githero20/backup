@@ -16,7 +16,7 @@ import {_handleFormChange} from "../../utils";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {request} from "../../ApiUtils/ApiUtils";
 import {BankCardLink, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
-import {formatNumber, INTEREST_ACCOUNT, STANDARD_ACCOUNT} from "../../Helpers/Helper";
+import {formatNumber, INTEREST_ACCOUNT, STANDARD_ACCOUNT, validateInputEntry} from "../../Helpers/Helper";
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import AddPinModal from "../../Components/Dashboard/AddPinModal/AddPinModal";
@@ -326,9 +326,10 @@ class WithdrawalForm extends Component {
     };
 
     validateInput = (e) => {
-        if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
-            e.preventDefault();
-        }
+        validateInputEntry(e);
+        // if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
+        //     e.preventDefault();
+        // }
     };
 
     render() {
@@ -346,11 +347,11 @@ class WithdrawalForm extends Component {
                         ) : null
 
                 }
-                <AddPinModal
-                    show={this.state.showPinModal}
-                    // onHide={this.hidePinModal}
-                    hideForm={this.props.hideForm}
-                />
+                {/*<AddPinModal*/}
+                {/*    show={this.state.showPinModal}*/}
+                {/*    // onHide={this.hidePinModal}*/}
+                {/*    hideForm={this.props.hideForm}*/}
+                {/*/>*/}
 
                 <WithdrawalSettingsModal show={this.state.showWithdrawalSetting} onHide={this.hideWithdrawalSettings}/>
                 <div className="col-lg-7">
@@ -484,7 +485,7 @@ class WithdrawalForm extends Component {
                                                             : null}
                                                         <div className="row">
                                                             <div className="col-3">
-                                                                <input id="pin_one" type="number" name={'pin_one'}
+                                                                <input id="pin_one" type="password" name={'pin_one'}
                                                                        className={'form-control pin-control'}
                                                                        onChange={this.handleChange}
                                                                        onKeyUp={this.validateInput}
@@ -493,7 +494,7 @@ class WithdrawalForm extends Component {
 
                                                             </div>
                                                             <div className="col-3">
-                                                                <input id="pin_two" type="number" name={'pin_two'}
+                                                                <input id="pin_two" type="password" name={'pin_two'}
                                                                        className={'form-control pin-control'}
                                                                        onChange={this.handleChange}
                                                                        onKeyUp={this.validateInput}
@@ -502,7 +503,7 @@ class WithdrawalForm extends Component {
 
                                                             </div>
                                                             <div className="col-3">
-                                                                <input id="pin_three" type="number" name={'pin_three'}
+                                                                <input id="pin_three" type="password" name={'pin_three'}
                                                                        className={'form-control pin-control'}
                                                                        onChange={this.handleChange}
                                                                        onKeyUp={this.validateInput}
@@ -511,7 +512,7 @@ class WithdrawalForm extends Component {
 
                                                             </div>
                                                             <div className="col-3">
-                                                                <input id="pin_four" type="number" name={'pin_four'}
+                                                                <input id="pin_four" type="password" name={'pin_four'}
                                                                        className={'form-control pin-control'}
                                                                        onChange={this.handleChange}
                                                                        onKeyUp={this.validateInput}

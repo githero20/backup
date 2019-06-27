@@ -3,6 +3,7 @@ import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 import swal from "sweetalert";
 import {changePin} from "../../../actions/WithdrawalAction";
+import {validateInputEntry} from "../../../Helpers/Helper";
 
 class UpdateWithdrawalPin extends Component {
 
@@ -124,9 +125,10 @@ class UpdateWithdrawalPin extends Component {
     };
 
     validateInput = (e) => {
-        if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
-            e.preventDefault();
-        }
+        validateInputEntry(e);
+        // if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
+        //     e.preventDefault();
+        // }
     };
 
 

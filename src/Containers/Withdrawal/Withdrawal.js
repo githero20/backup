@@ -74,14 +74,14 @@ class Withdrawal extends Component {
 
     getWithdrawalList() {
         getWithdrawalList((status, payload) => {
-            console.log("Get Withdrawal List", status, payload);
             if (status && payload.data.length > 0) {
                 this.setState({withdrawals: payload.data});
             } else if(!status && payload){
-                this.props.toastManager.add(payload, {
-                    appearance: "error",
-                    autoDismiss: true
-                })
+                console.log(payload.data.message);
+                // this.props.toastManager.add(payload, {
+                //     appearance: "error",
+                //     autoDismiss: true
+                // })
             }
         })
         //TODO    display No withdrawal on table
@@ -184,7 +184,7 @@ class Withdrawal extends Component {
                                 <div className="row">
                                     <div  className="withdrawal col-12 col-md-12">
                                         <div className="card">
-                                            <div className="card-content mt-1 px-1 py-1">
+                                            <div className="card-content mt-1 px-5 py-1">
                                                 <div className="table-header d-flex flex-column flex-md-row justify-content-start mb-3">
                                                     {/*<span className="table-button-container mb-2 mb-md-0">*/}
                                                     {/*    <span className="mr-1 table-grid-view-icon img-2x active">*/}

@@ -56,7 +56,6 @@ export const _getToken = () => {
 };
 
 export const _setUser = (user) =>{
-    console.log("User before saving", user);
     return local.setObject("user",user);
 };
 
@@ -86,7 +85,6 @@ export const _axios = axios.create({
 });
 
 export const _getHeader = () => {
-    console.log('user token',localStorage.getItem(USERTOKEN));
     return {
         Authorization: `Bearer ${(localStorage.getItem(USERTOKEN)? getLocalStorage(USERTOKEN): '')}`
     }

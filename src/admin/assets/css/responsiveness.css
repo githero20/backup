@@ -22,6 +22,13 @@
     .menu-title {
         color: white;
     }
+
+    .lock-form input.form-control, .lock-form select.form-control {
+        color: #606060;
+        font-size: .9rem;
+        padding-left: 0rem;
+    }
+
     .ad-container .ad-placeholder {
         width: 12rem;
         padding: 10px;

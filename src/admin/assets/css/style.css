@@ -4535,6 +4535,9 @@ p{
 .media h6{
     font-size: 12px;
 }
+.amount-display{
+    background-color: #2b335e;
+}
 
 .dash-card{
     background-color: white;

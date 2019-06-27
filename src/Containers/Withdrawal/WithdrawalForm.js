@@ -341,7 +341,7 @@ class WithdrawalForm extends Component {
                         (
                             <AddPinModal
                                 show={this.state.showPinModal}
-                                // onHide={this.hidePinModal}
+                                onHide={this.hidePinModal}
                                 hideForm={this.props.hideForm}
                             />
                         ) : null

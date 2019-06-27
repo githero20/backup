@@ -7,7 +7,7 @@ import {BankCardLink, instantSaveEndpoint, verifyTransactionEndpoint} from "../.
 import {USERACTIVATED, USERINFO, USERTOKEN} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {ADD_CARD, amountInput, initializeAmountInput} from "../../../../Helpers/Helper";
+import {ADD_CARD, amountInput, formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
 import {getUserCards, initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {_getUser, _payWithPaystack} from "../../../../utils";
 import {Link} from 'react-router-dom';
@@ -344,36 +344,36 @@ class InstantSavingForm extends Component {
         return (
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
+                    <Form.Row>
+                        <Col>
+                            <Form.Group className={'mt-md-1 mb-md-3'}>
+                                <Form.Label className='d-block'>Amount<span className='amount-display round float-right text-white px-1'>₦ {formatNumber(Number(amount).toFixed(2))}</span></Form.Label>
+                                <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}
+                                              defaultValue={amount}  onChange={this.changeHandler}/>
+                                {this.validator.message('amount', amount, 'required|numeric')}
+                            </Form.Group>
+                        </Col>
+                    </Form.Row>
+
+                    {/*auto numeric */}
+
                     {/*<Form.Row>*/}
                     {/*    <Col>*/}
                     {/*        <Form.Group className={'mt-md-1 mb-md-3'}>*/}
                     {/*            <Form.Label>Amount</Form.Label>*/}
-                    {/*            <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}*/}
-                    {/*                          defaultValue={amount}  onChange={this.changeHandler}/>*/}
-                    {/*            {this.validator.message('amount', amount, 'required|numeric')}*/}
+                    {/*            /!* used automatic js text for numbers *!/*/}
+                    {/*            <Form.Control*/}
+                    {/*                type="text"*/}
+                    {/*                className={'amount-input'}*/}
+                    {/*                placeholder={'₦500'} name={'amount'}*/}
+                    {/*                id={'amount'}*/}
+                    {/*                onChange={this.textAmountHandler}*/}
+                    {/*            />*/}
+                    {/*            {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
+                    {/*            /!*{this.validator.message('amount', amount, 'required|numeric')}*!/*/}
                     {/*        </Form.Group>*/}
                     {/*    </Col>*/}
                     {/*</Form.Row>*/}
-
-                    {/*auto numeric */}
-
-                    <Form.Row>
-                        <Col>
-                            <Form.Group className={'mt-md-1 mb-md-3'}>
-                                <Form.Label>Amount</Form.Label>
-                                {/* used automatic js text for numbers */}
-                                <Form.Control
-                                    type="text"
-                                    className={'amount-input'}
-                                    placeholder={'₦500'} name={'amount'}
-                                    id={'amount'}
-                                    onChange={this.textAmountHandler}
-                                />
-                                {this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}
-                                {/*{this.validator.message('amount', amount, 'required|numeric')}*/}
-                            </Form.Group>
-                        </Col>
-                    </Form.Row>
                     <Form.Row>
                         <Col className={'mt-md-1 mb-md-3'}>
                             <Form.Group>

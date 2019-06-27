@@ -10,7 +10,7 @@ import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack}
 import {createBackUpGoal, editBGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import {initTransaction, verifyTransaction} from "../../../../actions/CardAction";
-import {getTodaysDate} from "../../../../Helpers/Helper";
+import {formatNumber, getTodaysDate} from "../../../../Helpers/Helper";
 import moment from "moment";
 
 
@@ -404,7 +404,7 @@ class EditBGForm extends Component {
                         {/*    </Form.Control>*/}
                         {/*    {this.validator.message('credit card', gw_authorization_code, 'required|numeric')}*/}
                         {/*</Form.Group>*/}
-                        <Form.Group as={Col} sm={6}>
+                        <Form.Group as={Col} sm={12}>
                             <Form.Label>Maturity Date</Form.Label>
                             <Form.Control
                                 type="date"
@@ -419,8 +419,12 @@ class EditBGForm extends Component {
                             {this.validator.message('maturity_date', maturity_date, 'required|string')}
 
                         </Form.Group>
-                        <Form.Group as={Col} sm={6}>
-                            <Form.Label>Goal Amount(NGN)</Form.Label>
+                        <Form.Group as={Col} sm={12}>
+                            <Form.Label className='d-block'>Goal Amount(NGN)
+                                <span className='amount-display round float-right text-white px-1'>
+                                    ₦ {formatNumber(Number(target_amount).toFixed(2))}
+                                </span>
+                            </Form.Label>
                             <Form.Control
                                 type="number"
                                 name={'target_amount'}

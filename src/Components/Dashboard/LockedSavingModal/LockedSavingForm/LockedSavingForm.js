@@ -8,7 +8,7 @@ import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import {withToastManager} from 'react-toast-notifications';
 import {createLockedSavings, getLockedInterestSavings} from "../../../../actions/LockedSavingsAction";
 import moment from 'moment';
-import {amountInput, formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
+import {formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
 import {request} from "../../../../ApiUtils/ApiUtils";
 import {getAdminInterest} from "../../../../RouteLinks/RouteLinks";
 
@@ -28,12 +28,12 @@ class LockedSavingForm extends Component {
                 amount: null,
                 interest: 0.0,
                 days: 0,
-                source:'central_vault',
+                source: 'central_vault',
                 interestRate: 0.0,
                 accepted: false,
-                adminInterest:0
+                adminInterest: 0
             },
-            err:''
+            err: ''
         };
         this.validator = new SimpleReactValidator({
             messages: {
@@ -80,15 +80,15 @@ class LockedSavingForm extends Component {
                     setTimeout(() => {
                         this.props.onHide(true);
                         this.props.updateLockedSaving();
-                    },1500)
+                    }, 1500)
 
 
                     // setTimeout(this.props.onHide(true),5000);
                 } else {
-                    if(payload){
-                        if(payload.status==401){
-                            window.location='/login'
-                        }else {
+                    if (payload) {
+                        if (payload.status == 401) {
+                            window.location = '/login'
+                        } else {
                             this.props.toastManager.add(payload.data.message || "An Error Occurred", {
                                 appearance: 'error',
                                 autoDismiss: true,
@@ -122,16 +122,16 @@ class LockedSavingForm extends Component {
     handleAmountInput(e) {
 
         const value = e.target.value;
-        if(value!=="" && parseFloat(value).toFixed(2) !== 0.00){
-                const rawValue = parseFloat(value.trim().replace(',','').replace('₦',''));
-                console.log(rawValue);
-                let form = {...this.state.form};
-                form.amount = rawValue;
-                form.interestRate = ((form.interest/100) * rawValue).toFixed(2);
-                console.log('interest rate',form.interestRate);
-                this.setState({form,err:''});
+        if (value !== "" && parseFloat(value).toFixed(2) !== 0.00) {
+            const rawValue = parseFloat(value.trim().replace(',', '').replace('₦', ''));
+            console.log(rawValue);
+            let form = {...this.state.form};
+            form.amount = rawValue;
+            form.interestRate = ((form.interest / 100) * rawValue).toFixed(2);
+            console.log('interest rate', form.interestRate);
+            this.setState({form, err: ''});
 
-        }else {
+        } else {
             this.setState({
                 err: 'Please Input the Amount you want to Contribute'
             })
@@ -141,7 +141,7 @@ class LockedSavingForm extends Component {
 
     handleLockedSavingsInterest(status, data) {
 
-        console.log('sfsfdf locked',status,data);
+        console.log('sfsfdf locked', status, data);
         if (status) {
             let form = {...this.state.form};
             form.interest = data;
@@ -158,11 +158,11 @@ class LockedSavingForm extends Component {
 
     }
 
-     handleAdminInterest (status, res){
-            console.log('interest',res);
+    handleAdminInterest(status, res) {
+        console.log('interest', res);
         if (status) {
             let data = res;
-            console.log('adminInterest'+data);
+            console.log('adminInterest' + data);
             // let form = {...this.state.form};
             // form.adminInterest = JSON.parse(res.data.interest);
             // this.setState({form});
@@ -176,9 +176,9 @@ class LockedSavingForm extends Component {
     componentDidMount() {
         // getLockedInterestSavings();
         // initialize inputs with commas
-       initializeAmountInput();
-       console.log('component mounted');
-       request(getAdminInterest,null,true,"GET",this.handleAdminInterest);
+        initializeAmountInput();
+        console.log('component mounted');
+        request(getAdminInterest, null, true, "GET", this.handleAdminInterest);
     }
 
     render() {
@@ -197,13 +197,13 @@ class LockedSavingForm extends Component {
                             {this.validator.message("locked savings name", this.state.form.title, "required")}
                         </Form.Group>
 
-                        <Form.Group as={Col} sm={6}  controlId="formGridEmail">
+                        <Form.Group as={Col} sm={6} controlId="formGridEmail">
                             <Form.Label>Maturity Date</Form.Label>
                             <Form.Control
                                 onChange={this.handleDateInput}
                                 type="date"
                                 format="YYYY-MM-DD"
-                                min={moment().add('1','days').format('YYYY-MM-DD')}
+                                min={moment().add('1', 'days').format('YYYY-MM-DD')}
                                 name="end_date"
                                 value={this.state.form.end_date}
                             />
@@ -217,7 +217,11 @@ class LockedSavingForm extends Component {
                     <Form.Row>
 
                         <Form.Group as={Col} sm={6} controlId="formGridCity">
-                            <Form.Label>Capital Investment</Form.Label>
+                            <Form.Label className='d-block'>Capital Investment
+                                <span className='amount-display round float-right text-white px-1'>
+                                    ₦ {formatNumber(Number(this.state.form.amount).toFixed(2))}
+                                </span>
+                            </Form.Label>
                             <Form.Control
                                 type="number"
                                 // className={'amount-input'}
@@ -234,15 +238,20 @@ class LockedSavingForm extends Component {
                             </Form.Text>
                         </Form.Group>
                         <Form.Group as={Col} sm={6} controlId="formGridCity">
-                            <Form.Label>Upfront Interest</Form.Label>
+                            <Form.Label className='d-block'>Upfront Interest
+                                <span className='amount-display round float-right text-white px-1'>
+                                    ₦ {formatNumber(Number(this.state.form.interestRate).toFixed(2))}
+                                </span>
+                            </Form.Label>
                             <Form.Control
                                 type="text"
                                 disabled={true}
-//                            (${this.state.form.adminInterest.toFixed(2)}% P.A)
+                                //                            (${this.state.form.adminInterest.toFixed(2)}% P.A)
                                 value={`₦ ${formatNumber(this.state.form.interestRate)} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days `}
                             />
                             <Form.Text className="text-muted">
-                                This upfront interest will be deposited in your Backup Stash and can be withdrawn immediately
+                                This upfront interest will be deposited in your Backup Stash and can be withdrawn
+                                immediately
                             </Form.Text>
                         </Form.Group>
                     </Form.Row>
@@ -255,7 +264,8 @@ class LockedSavingForm extends Component {
                                 label={<Form.Text>
                                     I hereby confirm and approve this transaction, and I authorize SFS BackupCash to
                                     LOCK ₦
-                                    <span>{formatNumber(this.state.form.amount)}</span> &nbsp; from my BackupCash savings immediately
+                                    <span>{formatNumber(this.state.form.amount)}</span> &nbsp; from my BackupCash
+                                    savings immediately
                                     and return it in full on the date I set in the "Maturity Date"
                                     above. This transaction is IRREVERSIBLE.
                                     <br/>

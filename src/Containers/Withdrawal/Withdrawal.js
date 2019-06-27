@@ -182,9 +182,9 @@ class Withdrawal extends Component {
                                 </div>
 
                                 <div className="row">
-                                    <div id="recent-sales" className="col-12 col-md-12">
+                                    <div  className="withdrawal col-12 col-md-12">
                                         <div className="card">
-                                            <div className="card-content mt-1 px-md-5 px-1 py-1">
+                                            <div className="card-content mt-1 px-1 py-1">
                                                 <div className="table-header d-flex flex-column flex-md-row justify-content-start mb-3">
                                                     {/*<span className="table-button-container mb-2 mb-md-0">*/}
                                                     {/*    <span className="mr-1 table-grid-view-icon img-2x active">*/}

@@ -348,7 +348,11 @@ class CreateSteadySaveForm extends Component {
                 <Form onSubmit={this.submitForm}>
                     <Form.Row>
                         <Form.Group as={Col} sm={6} >
-                            <div className={'text-muted secondary-text'}>Contribution</div>
+                            <div className={'text-muted secondary-text'}>Contribution
+                                <span className='amount-display round float-right text-white px-1'>
+                                    ₦ {formatNumber(Number(this.state.form.contribution).toFixed(2))}
+                                </span>
+                            </div>
                             <React.Fragment>
                                 <Form.Control
                                     type="number"

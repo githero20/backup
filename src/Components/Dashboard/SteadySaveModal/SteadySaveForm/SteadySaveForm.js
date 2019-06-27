@@ -220,12 +220,14 @@ class SteadySaveForm extends Component {
                             <h2>&#8358;{formatNumber(this.props.totalSteadySave) || 0}</h2>
                         </Form.Group>
                         <Form.Group as={Col} md={6}>
-                            <div className={'text-muted secondary-text'}>Contribution</div>
+                            <div className={'text-muted secondary-text'}>Contribution
+
+                            </div>
                             <h2>&#8358;{formatNumber(parseFloat(contribution).toFixed(2)) || 0.00}</h2>
                         </Form.Group>
 
 
-                        <Form.Group as={Col} >
+                        <Form.Group as={Col}>
                             <div className={'text-muted secondary-text'}>Frequency</div>
                             {
                                 this.state.showEditInput ?

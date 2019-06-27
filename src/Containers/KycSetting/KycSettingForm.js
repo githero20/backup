@@ -538,8 +538,8 @@ class KycSettingForm extends Component {
                                                                                             <label
                                                                                                 htmlFor="file-upload">Upload
                                                                                                 file</label>
-                                                                                            <div
-                                                                                                id="file-upload-filename">dsdflsfg</div>
+                                                                                            {/*<div*/}
+                                                                                            {/*    id="file-upload-filename">dsdflsfg</div>*/}
                                                                                            {/*<div className="custom-file1">*/}
                                                                                            {/*    <label*/}
                                                                                            {/*        className="custom-file-label"*/}

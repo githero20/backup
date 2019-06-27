@@ -9,7 +9,7 @@ import {withToastManager} from "react-toast-notifications";
 import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
 import {createBackUpGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {initializeAmountInput} from "../../../../Helpers/Helper";
+import {formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
@@ -84,7 +84,7 @@ class BackUpGoalsForm extends Component {
         } else {
             if (form.frequency == "daily") {
                 form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "days") * form.contribution) || 0;
-                console.log('daily goal amount',form.goal_amount);
+                console.log('daily goal amount', form.goal_amount);
                 this.setState({
                     showMonth: false,
                     showDay: false,
@@ -101,7 +101,7 @@ class BackUpGoalsForm extends Component {
                     form
                 });
             } else if (form.frequency == "monthly") {
-                console.log('monthly goal amount',form.goal_amount);
+                console.log('monthly goal amount', form.goal_amount);
 
                 form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "months") * form.contribution) || 0;
                 this.setState({
@@ -426,7 +426,11 @@ class BackUpGoalsForm extends Component {
                         </Form.Group>
 
                         <Form.Group as={Col} sm={6}>
-                            <Form.Label>Contribution(NGN)</Form.Label>
+                            <Form.Label className='d-block'>Contribution(NGN)
+                                <span className='amount-display round float-right text-white px-1'>
+                                    ₦ {formatNumber(Number(contribution).toFixed(2))}
+                                </span>
+                            </Form.Label>
                             <Form.Control
                                 type="number" id="contribution"
                                 // className={'amount-input'}
@@ -434,6 +438,7 @@ class BackUpGoalsForm extends Component {
                                 onChange={this.changeHandler}/>
                             <Form.Text className="text-muted">
                                 Contribution range daily [ &#8358; 50 - &#8358; 25000]
+
                             </Form.Text>
                             {this.validator.message('contribution', contribution, 'required|numeric')}
                             {/*{this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
@@ -495,7 +500,11 @@ class BackUpGoalsForm extends Component {
                                     Card</Link></label> : null}
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label>Goal Amount(NGN)</Form.Label>
+                            <Form.Label  className='d-block'>Goal Amount(NGN)
+                                <span className='amount-display round float-right text-white px-1'>
+                                    ₦ {formatNumber(Number(goal_amount).toFixed(2))}
+                                </span>
+                            </Form.Label>
                             <Form.Control
                                 type="number"
                                 // className={'amount-input'}
@@ -539,7 +548,6 @@ class BackUpGoalsForm extends Component {
         );
     }
 }
-
 
 
 export default withToastManager(BackUpGoalsForm);

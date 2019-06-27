@@ -317,7 +317,7 @@ class BackupGoals extends Component {
                                                                     this.state.selectedBGHistory ?
                                                                         (
                                                                             <TransactionTable
-                                                                                transactions={this.state.selectedBGHistory}
+                                                                                transactions={this.state.selectedBGHistory.reverse()}
                                                                                 columns={columns}/>
                                                                         ) :
                                                                         <div className='text-center'>

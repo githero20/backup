@@ -4549,6 +4549,9 @@ p{
     min-height: 200px;
     font-family: "Circular Std","Product Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+.withdrawal .card {
+    overflow:auto;
+}
 .blue-border-right{
     border-right: 5px solid #2567FF;
 }

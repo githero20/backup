@@ -28,6 +28,7 @@ import CreateSteadySaveModal from "../../Components/Dashboard/CreateSteadySaveMo
 import SSaveTransTable from "../../Components/Dashboard/SSaveTransTable/SSaveTransTable";
 import {getSteadySavTrans} from "../../actions/SteadySaveAction";
 import SteadyAmountCard from "./SteadyAmountCard";
+import PayNowModal from "../../Components/Dashboard/PayNowModal/PayNowModal";
 
 class SteadySave extends Component {
     constructor(props) {
@@ -48,6 +49,7 @@ class SteadySave extends Component {
             showCreateSavingModal: false,
             showLoader: false,
             settings: false,
+            showPayModal: false,
             steadySave: {
                 id: null,
                 contribution: 0,
@@ -70,6 +72,12 @@ class SteadySave extends Component {
             }
         );
     };
+    hidePayModal = () => {
+        this.setState({
+                showPayModal: false
+            }
+        );
+    };
 
     hideCreateModal = (status = false) => {
         this.setState({
@@ -81,6 +89,12 @@ class SteadySave extends Component {
     showModal = () => {
         this.setState({
             showSavingModal: true
+        });
+    };
+
+    showPayModal = () => {
+        this.setState({
+            showPayModal: true
         });
     };
 
@@ -472,16 +486,34 @@ class SteadySave extends Component {
                                                                 <img src={uploadIcon}/>
                                                             </div>
                                                             <div className=" d-inline-block">
-
                                                                 <p className="gray-text circular-std mb-p-size">
-                                                                     <strong
-                                                                         className="dark-brown font-size-1-16"> ₦ {formatNumber(parseFloat(this.state.totalFailed).toFixed(2))} &nbsp;</strong>
-                                                                    Due Pay</p>
+                                                                     <strong className="dark-brown font-size-1-16">
+                                                                         ₦ {formatNumber(parseFloat(this.state.totalFailed).toFixed(2))} &nbsp;
+                                                                     </strong>
+                                                                     Due Pay
+                                                                    <div>
+                                                                         {
+                                                                             this.state.totalFailed > 0 ?
+                                                                                 <a href='#' className=''
+                                                                                    onClick={() => this.showPayModal()}>Pay
+                                                                                     Now</a> :
+                                                                                 <a href='#' className=''
+                                                                                    onClick={() => this.showPayModal()}>Pay
+                                                                                     Now</a>
+                                                                         }
+                                                                    </div>
+
+
+
+                                                                </p>
                                                             </div>
                                                         </span>
                                                     </div>
                                                 </div>
 
+                                                {this.state.showPayModal ? <PayNowModal show={this.state.showPayModal}
+                                                                                        selectedSSave={this.state.selectedSteadySave}
+                                                                                        onHide={this.hidePayModal}/> : null}
 
                                                 {/*<BackupGoalQuickActions showBackUpHistory={this.showBackUpHistory}  hideBG={this.hideBackupGoal} fetchGoals={this.fetchBackUpGoals} selectedBG={this.state.selectedBG}/>*/}
                                             </div>
@@ -508,7 +540,8 @@ class SteadySave extends Component {
                                                             <SSaveTransTable emptyMessage={'No Steady Saves Available'}
                                                                              title={'Steady Save History'}
                                                                              transactions={this.state.steadySaveHistory}
-                                                                             columns={historyColumns}/>
+                                                                             columns={historyColumns}
+                                                            />
                                                             {/*<BackUpGoalsTable backupGoals={this.state.backupGoals} />*/}
 
                                                             {/*table component*/}

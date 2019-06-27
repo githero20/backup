@@ -10,7 +10,7 @@ import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {updateSteadySave} from "../../actions/SteadySaveAction";
 import {initTransaction, verifyTransaction} from "../../actions/CardAction";
 import moment from "moment";
-import {getToken, initializeAmountInput} from "../../Helpers/Helper";
+import {formatNumber, getToken, initializeAmountInput} from "../../Helpers/Helper";
 import {Link} from 'react-router-dom';
 import {BankCardLink} from "../../RouteLinks/RouteLinks";
 
@@ -331,7 +331,9 @@ class SteadySaveForm extends Component {
                 <Form onSubmit={this.submitForm}>
                     <Form.Row>
                         <Form.Group as={Col} sm={6}>
-                            <div className={'text-muted secondary-text'}>Contribution</div>
+                            <div className={'text-muted secondary-text'}>Contribution <span className='amount-display round float-right text-white px-1'>
+                                    ₦ {formatNumber(Number(this.state.form.contribution).toFixed(2))}
+                                    </span></div>
                             <React.Fragment>
                                 <Form.Control
                                     type="number"

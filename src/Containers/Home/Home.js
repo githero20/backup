@@ -6,7 +6,6 @@ import backupCashLogo from "../../admin/app-assets/images/Logo.png";
 import illustration1 from "../../admin/app-assets/images/wymg@2x.png";
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
 import securityIcon from "../../admin/app-assets/images/svg/security-icon.svg";
-import yellowBg from "../../admin/app-assets/images/svg/yellow-bg-img.svg";
 import cardIll1 from "../../admin/app-assets/images/svg/card-ill-1.svg";
 import cardIll2 from "../../admin/app-assets/images/svg/card-ill-3.svg";
 import cardIll3 from "../../admin/app-assets/images/svg/card-ill-2.svg";
@@ -16,19 +15,16 @@ import featureImage1 from "../../admin/app-assets/images/svg/feature-image-1.svg
 import featureImage2 from "../../admin/app-assets/images/svg/feature-img-2.svg";
 import featureImage3 from "../../admin/app-assets/images/svg/feature-img-3.svg";
 import featureImage4 from "../../admin/app-assets/images/svg/feature-img-4.svg";
-import whatsAppImage from "../../admin/app-assets/images/svg/what-app-icon.svg";
 import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
 import pinIcon from "../../admin/app-assets/images/svg/pin-icon.svg";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
 import polarisBank from "../../admin/app-assets/images/polaris-bank.png";
 import CommentImage from "../../admin/app-assets/images/call-to-act-bg.png";
 import tm30 from "../../admin/app-assets/images/tm30logo.png";
-import horizonImage from "../../admin/app-assets/images/svg/horizon.svg";
-import accentureImage from "../../images/svg/accenture.svg";
 import sfsImage from "../../images/sfs.jpg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import {HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import {LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -108,26 +104,28 @@ class Home extends Component {
                             </div>
                         </div>
                     </header>
-                    <section className="pb-sm-0 pb-md-5 mb-md-5 pt-md-5">
+                    <section className="pb-sm-0  mb-md-5 pt-md-5">
                         <div className="container">
-                            <div className="row  mb-5 pt-md-5 mb-md-5">
+                            <div className="row  mb-5 pt-md-5 mb-md-0">
                                 <div className="col-md-6 text-center text-md-left">
                                     <img src={illustration1} alt="backup cash illustration"
                                          className="ill-2x" width="100%"/>
                                 </div>
                                 <div className="offset-0 col-md-6 ">
-                                    <div data-aos={'fade-up'}  data-aos-delay={300} className="section-detail-card pl-md-5">
+                                    <div data-aos={'fade-up'} data-aos-delay={300}
+                                         className="section-detail-card pl-md-5">
                                         <div className="yellow-icon-holder">
-                                            <img className="mb-4 yellow-icon" src={yellowIcon}
+                                            <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
                                                  alt="yellow icon"/>
                                         </div>
-                                        <h2 className="section-details-header text-center text-md-left">Watch Your Money
+                                        <h2 className="section-details-header text-center text-md-left mb-md-2">Watch
+                                            Your Money
                                             Grow</h2>
-                                        <p className="section-details-paragraph mb-1 text-justify ">
+                                        <p className="section-details-paragraph mb-md-2  ">
                                             Backup Cash is a secure and innovative savings
                                             platform that allows you automate your savings
                                             and earn interest on your deposits. </p>
-                                        <p className="section-details-paragraph  text-justify ">
+                                        <p className="section-details-paragraph ">
                                             Our platform is designed to help users cultivate a
                                             focused financial attitude by saving little amounts
                                             of money periodically towards a specific financial
@@ -141,19 +139,36 @@ class Home extends Component {
                         <div className="container">
                             <div className="row text-center text-md-left">
                                 <div className=" col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                                    {/*<div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">*/}
+                                    {/*    <div className="row pb-md-5">*/}
+                                    {/*        <div className="col-md-12 col-lg-12">*/}
+                                    {/*            <div className="security-img-wrapper mb-5 mb-md-0 pt-md-2">*/}
+                                    {/*                <img className="img-2x" src={securityIcon}*/}
+                                    {/*                     alt="security icon"/>*/}
+                                    {/*            </div>*/}
+                                    {/*        </div>*/}
+                                    {/*        <div className="col-md-6 col-lg-8">*/}
+                                    {/*            <div className="mt-md-3">*/}
+                                    {/*                <h2 className="text-white pt-md-5">Your Security Is Our*/}
+                                    {/*                    Business</h2>*/}
+                                    {/*                <h6>Safest Security Measures</h6>*/}
+                                    {/*            </div>*/}
+                                    {/*        </div>*/}
+                                    {/*    </div>*/}
+                                    {/*</div>*/}
                                     <div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">
                                         <div className="row pb-md-5">
-                                            <div className="col-md-6 col-lg-4">
-                                                <div className="security-img-wrapper mb-5 mb-md-0 pt-md-2">
-                                                    <img className="img-2x" src={securityIcon}
-                                                         alt="security icon"/>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6 col-lg-8">
-                                                <div className="mt-md-3">
-                                                    <h2 className="text-white pt-md-5">Your Security Is Our
-                                                        Business</h2>
-                                                    <h6>Safest Security Measures</h6>
+                                            <div className="col-12">
+                                                <div className="d-flex justify-content-around align-items-center">
+                                                    <div className="security-img-wrapper">
+                                                        <img className="img-2x" src={securityIcon}
+                                                             alt="security icon"/>
+                                                    </div>
+                                                    <div className="">
+                                                        <h2 className="text-white ">Your Security Is Our
+                                                            Business</h2>
+                                                        <h6>Safest Security Measures</h6>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -166,7 +181,7 @@ class Home extends Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
-                                    <div className="section-header pb-md-2 ">
+                                    <div className="section-header mt-md-5 ">
                                         <img className="mb-5 mb-md-3 yellow-icon-2" src={yellowIcon} alt=""/>
                                         <p>It’s Easy To Start With Backup Cash</p>
                                     </div>
@@ -200,7 +215,7 @@ class Home extends Component {
                                             </div>
                                             <p className="card-text mb-5">Choose a savings plan that
                                                 works for you </p>
-                                            <div className="card mb-5"   data-aos-delay={500} data-aos="fade-down">
+                                            <div className="card mb-5" data-aos-delay={500} data-aos="fade-down">
                                                 <img className="card-1-img" src={cardIll2} alt="illustration"/>
                                             </div>
 
@@ -215,7 +230,7 @@ class Home extends Component {
                                             </div>
                                             <p className="card-text mb-5">Rest easy and watch
                                                 your money grow </p>
-                                            <div className="card mb-5"  data-aos-delay={1000} data-aos="fade-up">
+                                            <div className="card mb-5" data-aos-delay={1000} data-aos="fade-up">
                                                 <img className="card-2-img" src={cardIll3} alt="illustration"/>
                                             </div>
 
@@ -401,11 +416,15 @@ class Home extends Component {
                                     >
 
                                         <div className="partner-img-container">
-                                            <a href={'http://www.paystack.com'} rel={'noopener noreferrer'} target='_blank'><img className="partner-img " src={paystackImage} alt="paystack"/></a>
+                                            <a href={'http://www.paystack.com'} rel={'noopener noreferrer'}
+                                               target='_blank'><img className="partner-img " src={paystackImage}
+                                                                    alt="paystack"/></a>
 
                                         </div>
                                         <div className="partner-img-container">
-                                            <a href={'https://www.sfsnigeria.com/'} rel={'noopenner noreferrer'} target='_blank'><img className="partner-img-50 sfs-image" src={sfsImage} alt="sfs"/></a>
+                                            <a href={'https://www.sfsnigeria.com/'} rel={'noopenner noreferrer'}
+                                               target='_blank'><img className="partner-img-50 sfs-image" src={sfsImage}
+                                                                    alt="sfs"/></a>
 
                                         </div>
                                         {/*<div className="partner-img-container">*/}
@@ -418,11 +437,15 @@ class Home extends Component {
 
                                         {/*</div>*/}
                                         <div className="partner-img-container">
-                                            <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'} target='_blank'> <img className="partner-img-50 tm-30" src={tm30} alt="aa"/></a>
+                                            <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
+                                               target='_blank'> <img className="partner-img-50 tm-30" src={tm30}
+                                                                     alt="aa"/></a>
 
                                         </div>
                                         <div className="partner-img-container">
-                                            <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'} target='_blank'> <img className="partner-img-50 polaris" src={polarisBank} alt="aa"/></a>
+                                            <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
+                                               target='_blank'> <img className="partner-img-50 polaris"
+                                                                     src={polarisBank} alt="aa"/></a>
 
                                         </div>
 
@@ -585,7 +608,8 @@ class Home extends Component {
                                     <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All RIghts
                                         Reserved</p>
                                     <p className="footer-sub-text text-center">Powered by
-                                        <a href='http://www.tm30.net' rel='noreferrer' className='footer-brand-link' target='_blank'> TM30
+                                        <a href='http://www.tm30.net' rel='noreferrer' className='footer-brand-link'
+                                           target='_blank'> TM30
                                         </a>
                                     </p>
                                 </div>

@@ -79,17 +79,19 @@ section {
 
 .section-details-header {
     color: #0A3560;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
+    font-family: 'Circular Std Black',Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
 }
 .polaris{
     width: 30%;
     filter: grayscale(1) opacity(.7);
 }
 .section-details-paragraph {
-    color: #9B9B9B ;
+    color: rgba(67,67,67,0.6) ;
     font-size: 1.2rem;
     line-height: 2.3rem;
+    font-family: 'Circular Std Book',Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
 }
 
 .section-header p {
@@ -243,8 +245,8 @@ section {
     margin: 0 auto;
 }
 .deep-blue-bg-drop{
-    background: rgb(10,53,96);
-    background: linear-gradient(90deg, rgba(10,53,96,1) 0%, rgba(0,54,147,1) 100%);
+    background: rgb(16,51,102);
+    background: linear-gradient(0deg, rgba(16,51,102,1) 0%, rgba(9,22,70,1) 100%);
 }
 .light-yellow-backdrop{
     background-color: rgba(255,253,201,0.14);
@@ -438,6 +440,8 @@ section {
 .security-info-wrapper h2{
     font-size: 1.5rem;
     font-weight: bold;
+    margin-bottom: 1rem;
+    font-family: "Circular Std Black",Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
 }
 .security-info-wrapper h6{
     font-size: 1rem;
@@ -451,7 +455,7 @@ section {
 
 }
 .security-img-wrapper img{
-    width: 100%;
+    width: 200px;
 }
 
 .section-transparent-card-right p {
@@ -1004,7 +1008,7 @@ footer-logo {
         font-size: 1.3rem;
     }
     .section-details-paragraph {
-        color: #9B9B9B;
+        color:rgba(67,67,67,0.6);
         font-size: 1.1rem;
         line-height: 2.0rem;
     }

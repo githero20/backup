@@ -481,33 +481,32 @@ class SteadySave extends Component {
                                                                     Total Successful</p>
                                                             </div>
                                                         </span>
-                                                        <span className="mb-details-container align-items-center ">
-                                                            <div className="d-inline-block q-detail-img">
-                                                                <img src={uploadIcon}/>
-                                                            </div>
-                                                            <div className=" d-inline-block">
-                                                                <p className="gray-text circular-std mb-p-size">
-                                                                     <strong className="dark-brown font-size-1-16">
-                                                                         ₦ {formatNumber(parseFloat(this.state.totalFailed).toFixed(2))} &nbsp;
-                                                                     </strong>
-                                                                     Due Pay
-                                                                    <div>
-                                                                         {
-                                                                             this.state.totalFailed > 0 ?
-                                                                                 <a href='#' className=''
-                                                                                    onClick={() => this.showPayModal()}>Pay
-                                                                                     Now</a> :
-                                                                                 <a href='#' className=''
-                                                                                    onClick={() => this.showPayModal()}>Pay
-                                                                                     Now</a>
-                                                                         }
-                                                                    </div>
 
-
-
-                                                                </p>
-                                                            </div>
-                                                        </span>
+                                                        {/* TODO due pay  */}
+                                                        {/*<span className="mb-details-container align-items-center ">*/}
+                                                        {/*    <div className="d-inline-block q-detail-img">*/}
+                                                        {/*        <img src={uploadIcon}/>*/}
+                                                        {/*    </div>*/}
+                                                        {/*    <div className=" d-inline-block">*/}
+                                                        {/*        <p className="gray-text circular-std mb-p-size">*/}
+                                                        {/*             <strong className="dark-brown font-size-1-16">*/}
+                                                        {/*                 ₦ {formatNumber(parseFloat(this.state.totalFailed).toFixed(2))} &nbsp;*/}
+                                                        {/*             </strong>*/}
+                                                        {/*             Due Pay*/}
+                                                        {/*            <div>*/}
+                                                        {/*                 {*/}
+                                                        {/*                     this.state.totalFailed > 0 ?*/}
+                                                        {/*                         <a href='#' className=''*/}
+                                                        {/*                            onClick={() => this.showPayModal()}>Pay*/}
+                                                        {/*                             Now</a> :*/}
+                                                        {/*                         <a href='#' className=''*/}
+                                                        {/*                            onClick={() => this.showPayModal()}>Pay*/}
+                                                        {/*                             Now</a>*/}
+                                                        {/*                 }*/}
+                                                        {/*            </div>*/}
+                                                        {/*        </p>*/}
+                                                        {/*    </div>*/}
+                                                        {/*</span>*/}
                                                     </div>
                                                 </div>
 

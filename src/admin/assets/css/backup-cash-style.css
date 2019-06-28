@@ -11,6 +11,10 @@
     font-family: "Product Sans Medium";
     src: url("../../app-assets/fonts/app-fonts/Product Sans Regular.ttf");
 }
+@font-face {
+    font-family: "Circular Std Black";
+    src: url("../../app-assets/fonts/app-fonts/CircularStd-Black.otf");
+}
 
 
 .homeBody {
@@ -55,12 +59,11 @@ section {
     font-size: 1.2rem;
     cursor: pointer;
     transition: all .3s ease-in-out;
-    box-shadow: 0px 4px 5px rgba(0,0,0,0.2);
 }
 
 .btn-dark-blue:hover {
     color: white;
-    box-shadow: 3px 5px 5px rgba(54, 125, 255, 0.2);
+    box-shadow:0 2px 10px 0px rgba(2,43,105,0.28);
     transform: translateY(-5px);
 }
 
@@ -79,7 +82,10 @@ section {
     font-size: 2rem;
     font-weight: bold;
 }
-
+.polaris{
+    width: 30%;
+    filter: grayscale(1) opacity(.7);
+}
 .section-details-paragraph {
     color: #9B9B9B ;
     font-size: 1.2rem;
@@ -89,6 +95,7 @@ section {
 .section-header p {
     color: #0A3560;
     font-size: 1.6rem;
+    font-family: "Circular Std Black","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
     font-weight: bold;
 
 }
@@ -224,7 +231,7 @@ section {
 }
 .yellow-gradient {
     background: rgb(255,218,13);
-    background: linear-gradient(90deg, rgba(255,254,250,1) 0%, rgba(255,218,13,0.1) 50%, rgba(255,254,250,1) 100%);
+    background: linear-gradient(90deg, rgba(255,254,250,1) 0%, rgba(255,218,13,0.05) 50%, rgba(255,254,250,1) 100%);
     position: relative;
 }
 .yellow-svg {
@@ -256,7 +263,7 @@ section {
 
 .card-container .card {
     padding: 2rem 2rem;
-    box-shadow: 0px 0px 20px rgba(0,0,0,0.05);
+    box-shadow:0 26px 30px -14px rgba(0,102,245,0.08);
     border-radius: 1rem;
     height: 400px;
     border: 0px;
@@ -487,8 +494,11 @@ section {
 }
 
 .card-text {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     padding: 0rem 2rem;
+    max-width: 80%;
+    margin: 0 auto;
+    font-family: "Circular Std Medium",Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
     color: #323268;
     font-weight: normal;
     line-height: 1.6rem;
@@ -1195,6 +1205,10 @@ footer-logo {
 }
 .tm-30{
     width: 50% !important;
+    filter: grayscale(1);
+}
+.footer-brand-link{
+    color: #555555;
 }
 /******* helper  *********/
 

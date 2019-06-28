@@ -20,6 +20,7 @@ import whatsAppImage from "../../admin/app-assets/images/svg/what-app-icon.svg";
 import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
 import pinIcon from "../../admin/app-assets/images/svg/pin-icon.svg";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
+import polarisBank from "../../admin/app-assets/images/polaris-bank.png";
 import CommentImage from "../../admin/app-assets/images/call-to-act-bg.png";
 import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import horizonImage from "../../admin/app-assets/images/svg/horizon.svg";
@@ -123,7 +124,7 @@ class Home extends Component {
                                         <h2 className="section-details-header text-center text-md-left">Watch Your Money
                                             Grow</h2>
                                         <p className="section-details-paragraph mb-1 text-justify ">
-                                            Backup cash is a secure and innovative savings
+                                            Backup Cash is a secure and innovative savings
                                             platform that allows you automate your savings
                                             and earn interest on your deposits. </p>
                                         <p className="section-details-paragraph  text-justify ">
@@ -165,7 +166,7 @@ class Home extends Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
-                                    <div className="section-header pb-md-0 ">
+                                    <div className="section-header pb-md-2 ">
                                         <img className="mb-5 mb-md-3 yellow-icon-2" src={yellowIcon} alt=""/>
                                         <p>It’s Easy To Start With Backup Cash</p>
                                     </div>
@@ -321,7 +322,7 @@ class Home extends Component {
                                                                                     alt="First slide"/></div>
 
                                                     <p>Never believed i could be self-disciplined enough to put
-                                                        money aside for savings until i joined the SFS Backup cash
+                                                        money aside for savings until i joined the SFS Backup Cash
                                                         platform.</p>
                                                     <h4>Sandra Stark</h4>
                                                     <span>Civil Servant</span>
@@ -335,7 +336,7 @@ class Home extends Component {
                                                              alt="First slide"/>
                                                     </div>
                                                     <p>Never believed i could be self-disciplined enough to put
-                                                        money aside for savings until i joined the SFS Backup cash
+                                                        money aside for savings until i joined the SFS Backup Cash
                                                         platform.</p>
                                                     <h4 className="comment-name">Sandra Stark</h4>
                                                     <span>Civil Servant</span>
@@ -349,7 +350,7 @@ class Home extends Component {
                                                              alt="First slide"/></div>
 
                                                     <p>Never believed i could be self-disciplined enough to put
-                                                        money aside for savings until i joined the SFS Backup cash
+                                                        money aside for savings until i joined the SFS Backup Cash
                                                         platform.</p>
                                                     <h4>Sandra Stark</h4>
                                                     <span className="comment-job-title">Civil Servant</span>
@@ -420,6 +421,10 @@ class Home extends Component {
                                             <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'} target='_blank'> <img className="partner-img-50 tm-30" src={tm30} alt="aa"/></a>
 
                                         </div>
+                                        <div className="partner-img-container">
+                                            <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'} target='_blank'> <img className="partner-img-50 polaris" src={polarisBank} alt="aa"/></a>
+
+                                        </div>
 
 
                                     </ReactOwlCarousel>
@@ -436,7 +441,7 @@ class Home extends Component {
                                 <div className="col-md-6">
                                     <div className="action-placeholder ">
                                         <h2 className="mb-3 mt-5 text-white cas-title">Protect your interest with SFS
-                                            Backup cash</h2>
+                                            Backup Cash</h2>
                                         <Link to={'/sign-up'}
                                               className="btn btn-yellow-outline btn-custom-border cas-btn">Start
                                             Now</Link>
@@ -456,7 +461,7 @@ class Home extends Component {
                                     {/*</div>*/}
                                     <div className="contact-detail-placeholder text-center pt-md-5">
                                         <p className="deep-blue-color pt-md-5 chat-title">Chat with us on
-                                            whatsapp</p>
+                                            Whatsapp</p>
                                         <button type="button" data-aos="fade-up"
                                                 className="btn btn-whatsapp">+234
                                             818 545 4545
@@ -466,8 +471,7 @@ class Home extends Component {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="contact-detail-placeholder pt-3 text-center pt-md-5">
-                                        <p className="deep-blue-color pt-md-5 chat-title">Connect With Us
-                                            whatsapp</p>
+                                        <p className="deep-blue-color pt-md-5 chat-title">Connect with social media</p>
                                         {/*<button type="button" data-aos="fade-up"*/}
                                         {/*        className="btn btn-whatsapp">*/}
                                         {/*    <ul className="footer-icon-list ">*/}
@@ -554,7 +558,7 @@ class Home extends Component {
                                 <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-3 ">
                                     <p className="footer-header">Physical Address</p>
 
-                                    <p className='gray-text footer-p'>Skye Bank Building, 287 Ajose Adeogun St, Victoria
+                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun St, Victoria
                                         Island 23401, Lagos</p>
                                     {/*<ul className="footer-icon-list ">*/}
                                     {/*    <li>*/}
@@ -578,10 +582,10 @@ class Home extends Component {
                                     {/*</ul>*/}
                                 </div>
                                 <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
-                                    <p className="footer-sub-text text-center">&copy; SFSbackupcash 2019. All RIghts
+                                    <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All RIghts
                                         Reserved</p>
                                     <p className="footer-sub-text text-center">Powered by
-                                        <a href='http://www.tm30.net' rel='noreferrer' target='_blank'> TM 30
+                                        <a href='http://www.tm30.net' rel='noreferrer' className='footer-brand-link' target='_blank'> TM30
                                         </a>
                                     </p>
                                 </div>

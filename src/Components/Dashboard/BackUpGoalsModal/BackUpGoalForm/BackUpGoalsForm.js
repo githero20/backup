@@ -463,7 +463,7 @@ class BackUpGoalsForm extends Component {
                                 type="date"
                                 name={'maturity_date'}
                                 id={'maturity_date'}
-                                min={moment().format('YYYY-MM-DD')}
+                                min={moment(start_date).add(1,'days').format('YYYY-MM-DD')}
                                 value={maturity_date}
                                 onChange={this.changeHandler}/>
                             {this.validator.message('maturity_date', maturity_date, 'required|string')}

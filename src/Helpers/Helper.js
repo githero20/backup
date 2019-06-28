@@ -202,7 +202,7 @@ export function getTotalBGSuccessful(transactions) {
 
 
     if (transactions) {
-        if (transactions.length > 1) {
+        if (transactions.length > 0) {
             let successful;
             successful = transactions.filter((content) => (content.status == 'success'));
             successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));

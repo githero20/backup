@@ -142,7 +142,7 @@ class MessageBox extends Component {
                             <label className='d-flex justify-content-center'>
                                 {
                                     this.state.updateKyc ? (kycInfo) :
-                                        (referralInfo)
+                                        null
                                 }
                             </label>
                             <label>

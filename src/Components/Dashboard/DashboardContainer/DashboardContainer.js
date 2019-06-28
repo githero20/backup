@@ -202,7 +202,7 @@ const DashboardContainer = (props) => {
                         {/*</div>*/}
 
                         <div className="row">
-                            <button className={'btn'} onClick={handleFilter}>filter</button>
+                            {/*<button className={'btn'} onClick={handleFilter}>filter</button>*/}
 
                             <TransactionTable filter={filterFactory()} runFilter={runFilter}
                                               transactions={transactions.reverse()}

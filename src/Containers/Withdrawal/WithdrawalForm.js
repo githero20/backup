@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import totalBalanceIcon from "../../admin/app-assets/images/svg/total-balance-icon.svg";
 import {
-    addWithdrawalPin,
     getWithdrawalPenalty,
     getWithdrawalPin,
     getWithdrawalSettings,
@@ -20,8 +19,6 @@ import {formatNumber, INTEREST_ACCOUNT, STANDARD_ACCOUNT, validateInputEntry} fr
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import AddPinModal from "../../Components/Dashboard/AddPinModal/AddPinModal";
-import TransferLockedSavingsModal
-    from "../../Components/Dashboard/TransferLockedSavingsModal/TransferLockedSavingsModal";
 
 class WithdrawalForm extends Component {
 
@@ -37,19 +34,19 @@ class WithdrawalForm extends Component {
             stashBalance: 0.00,
             penaltyFreeDay: false,
             userPin: false,
-            showPinModal:false,
-            pinErr:false,
+            showPinModal: false,
+            pinErr: false,
             settingsOwner: "you",
             form: {
                 penalty_from: "central_vault",
                 withdraw_amount: "500",
                 bank_account: "",
                 source: "central_vault",
-                pin_one:'',
-                pin_two:'',
-                pin_three:'',
-                pin_four:'',
-                withdrawal_pin:''
+                pin_one: '',
+                pin_two: '',
+                pin_three: '',
+                pin_four: '',
+                withdrawal_pin: ''
             },
             showWithdrawalSetting: false
         };
@@ -126,7 +123,7 @@ class WithdrawalForm extends Component {
                     if (status) {
                         this.setState({
                             userPin: payload.data,
-                            showPinModal:true,
+                            showPinModal: true,
                         })
 
                     } else {
@@ -199,23 +196,27 @@ class WithdrawalForm extends Component {
     hideWithdrawalSettings() {
         this.setState({showWithdrawalSetting: false})
     }
-    hidePinModal=()=> {
+
+    hidePinModal = () => {
         this.setState({showPinModal: false})
     }
 
     handleWithdrawFrom(e) {
+
+        this.handleChange(e);
         if (e.target.value == "backup_stash" || this.state.penaltyFreeDay) {
-            this.setState({hasPenalty: false});
+            let form = {...this.state.form};
+            delete form.penalty_from;
+            this.setState({hasPenalty: false, form});
         } else {
             this.setState({hasPenalty: true});
         }
 
-        this.handleChange(e);
     }
 
     handleChange(e) {
         _handleFormChange(e.target.name, e, this);
-        this.handlePinConcatenation(e.target.name,e);
+        this.handlePinConcatenation(e.target.name, e);
     }
 
     handlePinConcatenation = (name, event, callback = null) => {
@@ -242,6 +243,7 @@ class WithdrawalForm extends Component {
         }
         return form;
     };
+
     getNextWithdrawalDate(withdrawalDates = []) {
         try {
             // 22n october 2019

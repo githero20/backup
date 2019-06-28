@@ -279,14 +279,14 @@ height-100vh{
     margin-bottom: 3rem;
 }
 
-.call-action-section {
-    height: 300px;
-    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("../images/call-to-act-bg@2x.png");
-    background-size: 100%;
-    background-position: top right;
-    background-repeat: no-repeat;
-    color: white;
-}
+/*.call-action-section {*/
+/*    height: 300px;*/
+/*    background: linear-gradient( rgba(71, 15, 198, 0.5), rgba(64, 13, 170, 0.5)), url("../images/call-to-act-bg@2x.png");*/
+/*    background-size: 100%;*/
+/*    background-position: top right;*/
+/*    background-repeat: no-repeat;*/
+/*    color: white;*/
+/*}*/
 
 .btn-yellow-outline {
     border: 1px solid #FFDE17;

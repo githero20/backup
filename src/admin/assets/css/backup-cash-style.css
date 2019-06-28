@@ -299,15 +299,22 @@ section {
     margin-bottom: 3rem;
 }
 
+/*.call-action-section {*/
+/*    height: 500px;*/
+/*    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("../../app-assets/images/call-to-act-bg@2x.png");*/
+/*    background-size: 100%;*/
+/*    background-position: top right;*/
+/*    background-repeat: no-repeat;*/
+/*    color: white;*/
+/*}*/
 .call-action-section {
-    height: 500px;
-    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("../../app-assets/images/call-to-act-bg@2x.png");
+    height: 300px;
+    background: linear-gradient( rgba(10, 1, 31, 0.78), rgba(7, 1, 19, 0.8)), url("../../app-assets/images/call-to-act-bg@2x.png");
     background-size: 100%;
     background-position: top right;
     background-repeat: no-repeat;
     color: white;
 }
-
 .btn-yellow-outline {
     border: 1px solid #FFDE17;
     color: white;
@@ -439,10 +446,16 @@ section {
 
 .section-transparent-card-icon {
     display: flex;
-    max-width: 120px;
+    max-width: 150px;
     width: 100%;
     box-sizing: content-box;
     justify-content: center;
+}
+.section-transparent-card-icon img{
+    width: 80px;
+}
+.reduced-section-transparent-card img{
+    width: 60px;
 }
 
 .section-transparent-card-right {
@@ -473,10 +486,13 @@ section {
 
 .section-transparent-card-right p {
     font-size: 1.3rem;
-    color: #bdbdbd;
+    font-family: "Circular Std Book",Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
+    /*color: #bdbdbd;*/
+    color: rgba(0,0,0,0.7);
 }
 .section-transparent-card-right h5 {
     font-size: 1.5rem;
+    font-family: "Circular Std Black",Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
 }
 
 .nav-link {
@@ -639,8 +655,9 @@ section {
     transition: all .5s ease-in-out;
 }
 .cas-title{
-    font-weight: bold;
-    font-size: 3.5rem;
+    font-weight: normal;
+    font-size: 2rem;
+    font-family: "Circular Std Black",Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
 }
 .call-action-section .cas-btn{
     padding: 1.5rem 4rem;

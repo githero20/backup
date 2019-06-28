@@ -19,7 +19,7 @@ import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
 import pinIcon from "../../admin/app-assets/images/svg/pin-icon.svg";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
 import polarisBank from "../../admin/app-assets/images/polaris-bank.png";
-import CommentImage from "../../admin/app-assets/images/call-to-act-bg.png";
+import CommentImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../images/sfs.jpg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
@@ -261,7 +261,7 @@ class Home extends Component {
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                    <div className="section-transparent-card mb-5 ">
+                                    <div className="section-transparent-card reduced-section-transparent-card mb-5 ">
                                         <div className="section-transparent-card-icon">
                                             <img src={featureImage1} alt={""}/>
                                         </div>
@@ -327,7 +327,7 @@ class Home extends Component {
 
                         <div className="light-yellow-backdrop">
                             <div className="container">
-                                <div className="row pt-5">
+                                <div className="row pt-5 px-lg-5 mx-lg-5">
                                     <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                                         <div className="carousel-inner">
                                             <div className="carousel-item">
@@ -336,11 +336,12 @@ class Home extends Component {
                                                                                     src={CommentImage}
                                                                                     alt="First slide"/></div>
 
-                                                    <p>Never believed i could be self-disciplined enough to put
-                                                        money aside for savings until i joined the SFS Backup Cash
-                                                        platform.</p>
-                                                    <h4>Sandra Stark</h4>
-                                                    <span>Civil Servant</span>
+                                                    <p>I was a bit skeptical about using Backup Cash given the large of
+                                                        savings apps out there. In just 3 weeks of using this service,
+                                                        I am definitely hooked.
+                                                    </p>
+                                                    <h4>Ambrose Clark</h4>
+                                                    <span>Builder</span>
                                                     <img src={commentIcon} alt="comment" className="comment"/>
                                                 </div>
                                             </div>
@@ -350,11 +351,9 @@ class Home extends Component {
                                                         <img className="user-image" src={CommentImage}
                                                              alt="First slide"/>
                                                     </div>
-                                                    <p>Never believed i could be self-disciplined enough to put
-                                                        money aside for savings until i joined the SFS Backup Cash
-                                                        platform.</p>
-                                                    <h4 className="comment-name">Sandra Stark</h4>
-                                                    <span>Civil Servant</span>
+                                                    <p>I love that they have a USSD channel that works seamlessly.</p>
+                                                    <h4 className="comment-name">Emeka Udoji</h4>
+                                                    <span>Student</span>
                                                     <img className="comment" src={commentIcon} alt="comment"/>
                                                 </div>
                                             </div>
@@ -364,11 +363,49 @@ class Home extends Component {
                                                         <img className="user-image" src={CommentImage}
                                                              alt="First slide"/></div>
 
-                                                    <p>Never believed i could be self-disciplined enough to put
-                                                        money aside for savings until i joined the SFS Backup Cash
-                                                        platform.</p>
-                                                    <h4>Sandra Stark</h4>
-                                                    <span className="comment-job-title">Civil Servant</span>
+                                                    <p>Cool app. I signed up and made my 1st savings deposit via Facebook messenger.</p>
+                                                    <h4>Tomi Falade </h4>
+                                                    <span className="comment-job-title">Voiceover Artist</span>
+                                                    <img className="comment" src={commentIcon} alt="comment"/>
+                                                </div>
+                                            </div>
+                                            <div className="carousel-item">
+                                                <div className="comment-box">
+                                                    <div className="thumbnail">
+                                                        <img className="user-image" src={CommentImage}
+                                                             alt="First slide"/></div>
+
+                                                    <p>As an accountant, the daily interest growth calculation is a feature that I love. </p>
+                                                    <h4>Ikujenyo Olubunmi  </h4>
+                                                    <span className="comment-job-title">Finance Expert</span>
+                                                    <img className="comment" src={commentIcon} alt="comment"/>
+                                                </div>
+                                            </div>
+                                            <div className="carousel-item">
+                                                <div className="comment-box">
+                                                    <div className="thumbnail">
+                                                        <img className="user-image" src={CommentImage}
+                                                             alt="First slide"/></div>
+
+                                                    <p>Being able to concurrently save for the office rent and my end of year
+                                                        vacation on one platform even though I am using two different cards is so convenient.
+                                                    </p>
+                                                    <h4>Ope Craig   </h4>
+                                                    <span className="comment-job-title">Business Owner</span>
+                                                    <img className="comment" src={commentIcon} alt="comment"/>
+                                                </div>
+                                            </div>
+                                            <div className="carousel-item">
+                                                <div className="comment-box">
+                                                    <div className="thumbnail">
+                                                        <img className="user-image" src={CommentImage}
+                                                             alt="First slide"/></div>
+
+                                                    <p>Last December, I couldn’t attend all my favorite shows because of the costs.
+                                                        Right now, I have saved enough for at least 3 shows and a nice outfit.
+                                                    </p>
+                                                    <h4>Tobi Oladele </h4>
+                                                    <span className="comment-job-title">Intern</span>
                                                     <img className="comment" src={commentIcon} alt="comment"/>
                                                 </div>
                                             </div>
@@ -463,7 +500,7 @@ class Home extends Component {
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="action-placeholder ">
-                                        <h2 className="mb-3 mt-5 text-white cas-title">Protect your interest with SFS
+                                        <h2 className="mb-3 mt-5 pr-lg-5 text-white cas-title">Protect your interest with SFS
                                             Backup Cash</h2>
                                         <Link to={'/sign-up'}
                                               className="btn btn-yellow-outline btn-custom-border cas-btn">Start

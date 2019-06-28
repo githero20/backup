@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
-import backupCashLogo from "../../admin/app-assets/images/Logo.png";
+import backupCashLogo from "../../admin/app-assets/images/Newlogo-02.png";
 import illustration1 from "../../admin/app-assets/images/wymg@2x.png";
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
 import securityIcon from "../../admin/app-assets/images/svg/security-icon.svg";
 import cardIll1 from "../../admin/app-assets/images/svg/card-ill-1.svg";
-import cardIll2 from "../../admin/app-assets/images/svg/card-ill-3.svg";
+import cardIll2 from "../../admin/app-assets/images/custom-plan@2x.png";
 import cardIll3 from "../../admin/app-assets/images/svg/card-ill-2.svg";
 import arrowRight from "../../images/svg/righ-arrow.svg";
 import carouselRightArrow from "../../images/svg/righ-arrow.svg";
@@ -106,7 +106,7 @@ class Home extends Component {
                     </header>
                     <section className="pb-sm-0  mb-md-5 pt-md-5">
                         <div className="container">
-                            <div className="row  mb-5 pt-md-5 mb-md-0">
+                            <div className="row  mb-5 mb-md-0">
                                 <div className="col-md-6 text-center text-md-left">
                                     <img src={illustration1} alt="backup cash illustration"
                                          className="ill-2x" width="100%"/>
@@ -216,7 +216,7 @@ class Home extends Component {
                                             <p className="card-text mb-5">Choose a savings plan that
                                                 works for you </p>
                                             <div className="card mb-5" data-aos-delay={500} data-aos="fade-down">
-                                                <img className="card-1-img" src={cardIll2} alt="illustration"/>
+                                                <img className="card-1-img mt-3" src={cardIll2} alt="illustration"/>
                                             </div>
 
                                         </div>
@@ -242,7 +242,7 @@ class Home extends Component {
                                         <div className="mt-5 mb-5">
                                             <Link to={'/sign-up'} className="btn-rounded-corner mb-5 btn-light-blue">Start
                                                 Now
-                                                <img alt="step-3" src={arrowRight} className=" ml-2"/>
+                                                {/*<img alt="step-3" src={arrowRight} className=" ml-2"/>*/}
                                             </Link>
                                         </div>
                                     </div>

@@ -88,10 +88,13 @@ section {
     filter: grayscale(1) opacity(.7);
 }
 .section-details-paragraph {
-    color: rgba(67,67,67,0.6) ;
+    color: rgba(0,0,0,0.7);
     font-size: 1.2rem;
-    line-height: 2.3rem;
-    font-family: 'Circular Std Book',Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
+    line-height: 2rem;
+    padding-right: 1rem;
+    letter-spacing: 0.5px;
+    font-family: 'Circular Std Book',Product Sans, Quicksand,
+    Georgia, Times New Roman, Times, serif;
 }
 
 .section-header p {
@@ -121,14 +124,24 @@ section {
 }
 
 .btn-light-blue {
-    background-color: #367BFF;
+    background: rgb(54,123,255);
+    background: linear-gradient(180deg, rgba(54,123,255,1) 0%, rgba(6,125,187,1) 100%);
+    /*background-color: #367BFF;*/
     color: white;
     padding: 1.3rem 3rem 1.3rem 3rem;
-    transition: all .3s ease;
+    transition: background 1s ease;
+}
+.btn-light-blue:after{
+    content: url("../../../images/svg/righ-arrow.svg");
+    display: inline-block;
+    margin-left:.5rem;
+    width:1rem;
 }
 
 .btn-light-blue:hover {
-    background-color: #316ee3;
+    /*background-color: #316ee3;*/
+    background: linear-gradient(180deg, rgba(6,125,187,1) 0%, rgba(54,123,255,1) 100%);
+
     color: white;
 }
 
@@ -509,7 +522,8 @@ section {
 }
 
 .header-sub-title {
-    color: #7F7F7F;
+    /*color: #7F7F7F;*/
+    color: rgba(0,0,0,0.7);
     margin-bottom: 0rem;
     font-size: 1.3rem;
 }

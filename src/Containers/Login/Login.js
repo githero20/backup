@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
+import backUpCashLogo from "../../admin/app-assets/images/Newlogo-02.png";
 import LoginForm from "../../Components/Auth/LoginForm/LoginForm";
 import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
 import {HomeLink} from "../../RouteLinks/RouteLinks";

@@ -577,9 +577,13 @@ class Home extends Component {
                                     {/*    </li>*/}
                                     {/*</ul>*/}
                                 </div>
-                                <div className="col-md-12 mt-5 ">
+                                <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
                                     <p className="footer-sub-text text-center">&copy; SFSbackupcash 2019. All RIghts
                                         Reserved</p>
+                                    <p className="footer-sub-text text-center">Powered by
+                                        <a href='http://www.tm30.net' rel='noreferrer' target='_blank'> TM 30
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         </div>

@@ -965,6 +965,63 @@ input[type="date"]::-webkit-clear-button { display: none; }
 
 }
 
+.error-body{
+    background-image: url("../../../images/svg/errorbg@2x.png");
+    background-position: center 30%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100vh;
+    color: #02368B;
+}
+.error-nav .navbar-brand img{
+
+}
+.error-section .error-header{
+    font-family: "Gilroy Bold","Product Sans", "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+    font-size: 4rem;
+    color: #02368B;
+
+}
+.error-section .error-title{
+    font-family: "Circular Std Medium","Product Sans", "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+    font-size: 1rem;
+    color: #02368B;
+
+}
+.error-section .error-img{
+   width: 15%;
+    margin: 0 auto;
+}
+.error-section .error-btn{
+    border-radius: 3rem;
+    border: 1.5px solid #02368B;
+    color: #02368B;
+    background-color: white;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+}
+.error-section .error-btn img{
+    margin-right: .8rem;
+    width:20px;
+}
+.error-btn:hover{
+    background-color: #02368B;
+    color:white ;
+    border: 1.5px solid transparent;
+
+
+}
+.error-btn:hover img{
+    filter:invert(100) brightness(50);
+
+}
 .blue-gradient {
     background: linear-gradient(360deg, rgba(23, 225, 255, 1) 0%, rgba(54, 123, 255, 1) 70%, rgba(54, 123, 255, 1) 100%);
     color: white;

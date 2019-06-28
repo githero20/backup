@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
 import backupCashLogo from "../../admin/app-assets/images/Logo.png";
-import illustration1 from "../../admin/app-assets/images/svg/backupcash-illustration-1.svg";
+import illustration1 from "../../admin/app-assets/images/wymg@2x.png";
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
 import securityIcon from "../../admin/app-assets/images/svg/security-icon.svg";
 import yellowBg from "../../admin/app-assets/images/svg/yellow-bg-img.svg";
@@ -94,7 +94,7 @@ class Home extends Component {
                                 <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
                                     <div className="header-words-container pt-lg-5 pr-lg-3">
                                         <h1 className="header-title mt-5 mt-lg-1 mb-2 mt-md-0  px-2 px-sm-0 ">
-                                            Protecting your interest is our business.</h1>
+                                            Protecting your <br/> interest is our business.</h1>
                                         <p className="header-sub-title mb-0 ">
                                             Save as little as <strong>₦500 </strong></p>
                                         <p className="header-sub-title mb-2">
@@ -112,7 +112,7 @@ class Home extends Component {
                             <div className="row  mb-5 pt-md-5 mb-md-5">
                                 <div className="col-md-6 text-center text-md-left">
                                     <img src={illustration1} alt="backup cash illustration"
-                                         className="ill-2x pt-5" width="100%"/>
+                                         className="ill-2x" width="100%"/>
                                 </div>
                                 <div className="offset-0 col-md-6 ">
                                     <div data-aos={'fade-up'}  data-aos-delay={300} className="section-detail-card pl-md-5">

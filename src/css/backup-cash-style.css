@@ -207,12 +207,12 @@ height-100vh{
     position: relative;
 }
 
-.header-title {
-    margin-top: 5rem !important;
-    font-family: Gilroy bold;
-    font-size: 3.4rem;
-    color: #103366;
-}
+/*.header-title {*/
+/*    margin-top: 5rem !important;*/
+/*    font-family: Gilroy bold;*/
+/*    font-size: 3rem;*/
+/*    color: #103366;*/
+/*}*/
 
 .header-img {
     position: absolute;
@@ -736,10 +736,10 @@ footer-logo {
         padding: 0rem;
     }
 
-    header {
-        min-height: 100vh;
-        padding: 3rem 5rem 5rem 5rem;
-    }
+    /*header {*/
+    /*    min-height: 100vh;*/
+    /*    padding: 3rem 10rem 5rem 10rem;*/
+    /*}*/
 
 
 }

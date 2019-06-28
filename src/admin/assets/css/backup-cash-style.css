@@ -41,8 +41,8 @@ section {
 }
 
 .btn-custom-border {
-    border-top-left-radius: 2rem;
-    border-bottom-right-radius: 2rem;
+    border-top-left-radius: 2.5rem;
+    border-bottom-right-radius: 2.5rem;
     border-top-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
@@ -53,19 +53,15 @@ section {
     background: linear-gradient(0deg, rgba(16,51,102,1) 0%, rgba(0,34,81,1) 100%);
     color: white;
     font-size: 1.2rem;
+    cursor: pointer;
     transition: all .3s ease-in-out;
+    box-shadow: 0px 4px 5px rgba(0,0,0,0.2);
 }
-.btn-hover-shadow{
-    box-shadow: none;
-    transform: translateY(0);
-    transition: .5s ease-in-out;
-}
-.btn-hover-shadow:hover{
-    box-shadow: 3px 5px 5px rgba(54, 125, 255, 0.2);
-    transform: translateY(-5px);
-}
+
 .btn-dark-blue:hover {
     color: white;
+    box-shadow: 3px 5px 5px rgba(54, 125, 255, 0.2);
+    transform: translateY(-5px);
 }
 
 .home-nav.navbar {
@@ -74,6 +70,8 @@ section {
 
 .navbar .navbar-nav {
     background: transparent;
+    font-family: "Circular Std Book","Product Sans", Quicksand, Georgia, 'Times New Roman',
+    Times, serif;
 }
 
 .section-details-header {
@@ -150,10 +148,13 @@ section {
 }
 
 .btn-gradient-blue {
-    background: rgb(54,123,255);
-    background: linear-gradient(90deg, rgba(54,123,255,1) 0%, rgba(0,80,147,1) 100%);
+    background: rgb(2,54,139);
+    background: linear-gradient(298deg, rgba(2,54,139,1) 0%, rgba(2,54,139,1) 100%);
+    /*background: rgb(54,123,255);*/
+    /*background: linear-gradient(90deg, rgba(54,123,255,1) 0%, rgba(0,80,147,1) 100%);*/
     box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     color: white;
+    font-size: 1rem;
     transform: translateY(0);
     transition: 1s ease;
     -webkit-transition: 1s ease;
@@ -188,11 +189,11 @@ section {
     display: inline-block;
 }
 
-.btn-dark-blue {
-    color: white;
-    background: #103366;
-    transition: .5s ease-in-out;
-}
+/*.btn-dark-blue {*/
+/*    color: white;*/
+/*    background: #103366;*/
+/*    transition: .5s ease-in-out;*/
+/*}*/
 
 .header-background {
     position: relative;
@@ -207,7 +208,7 @@ section {
 .header-title {
     margin-top: 5rem !important;
     font-family: Gilroy bold;
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: #103366;
 }
 
@@ -455,10 +456,11 @@ section {
 }
 
 .nav-link {
-    color: #8A8A8A;
-    font-size: 1.2rem;
+    /*color: #8A8A8A;*/
+    color: #494949;
+    font-size: 1rem;
     letter-spacing: .5px;
-    margin-right: 1.5rem;
+    margin-right: 2.5rem;
     transition: .5s ease-in-out;
 }
 .nav-link:hover {
@@ -592,7 +594,8 @@ section {
 
 .header .btn{
     padding: 1.3rem 2rem;
-    font-size: 1.3rem;
+    font-size: 1rem;
+    letter-spacing: .5px;
 }
 
 .whatsapp .btn-whatsapp{

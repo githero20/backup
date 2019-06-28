@@ -55,12 +55,12 @@ height-100vh{
     border-bottom-left-radius: 0px;
 }
 
-.btn-dark-blue {
-    background: #103366;
-    color: white;
-    font-size: 1.2rem;
-    transition: all .3s ease-in-out;
-}
+/*.btn-dark-blue {*/
+/*    background: #103366;*/
+/*    color: white;*/
+/*    font-size: 1.2rem;*/
+/*    transition: all .3s ease-in-out;*/
+/*}*/
 .btn-hover-shadow{
     box-shadow: none;
     transform: translateY(0);

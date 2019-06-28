@@ -58,7 +58,7 @@ class Home extends Component {
                         <div className="container">
                             <nav className="home-nav navbar navbar-expand-lg ">
                                 <a className="navbar-brand">
-                                    <img src={backupCashLogo} alt="logo" width="200px"/>
+                                    <img src={backupCashLogo} alt="logo" width="180px"/>
                                 </a>
                                 <a onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
                                    data-toggle="collapse" data-aria-controls="navbarSupportedContent"

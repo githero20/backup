@@ -203,20 +203,23 @@ class WithdrawalForm extends Component {
 
     handleWithdrawFrom(e) {
 
-        this.handleChange(e);
+         let form = this.handleChange(e);
         if (e.target.value == "backup_stash" || this.state.penaltyFreeDay) {
-            let form = {...this.state.form};
+            // let form = {...this.state.form};
+            // console.log(form);
             delete form.penalty_from;
             this.setState({hasPenalty: false, form});
         } else {
-            this.setState({hasPenalty: true});
+            form.penalty_from="central_vault";
+            this.setState({hasPenalty: true,form});
         }
 
     }
 
     handleChange(e) {
-        _handleFormChange(e.target.name, e, this);
+       let form = _handleFormChange(e.target.name, e, this);
         this.handlePinConcatenation(e.target.name, e);
+        return form;
     }
 
     handlePinConcatenation = (name, event, callback = null) => {
@@ -453,7 +456,7 @@ class WithdrawalForm extends Component {
                                                     <div className="form-group">
                                                         <label>Where do you want to withdraw from?</label>
                                                         <select name="source" onChange={this.handleWithdrawFrom}
-                                                                value={this.state.form.source} className="form-control">
+                                                                defaultValue={this.state.form.source} className="form-control">
                                                             <option value="central_vault">Central Vault
                                                             </option>
                                                             <option value="backup_stash">Backup Stash

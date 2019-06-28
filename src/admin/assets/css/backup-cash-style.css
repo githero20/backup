@@ -357,6 +357,13 @@ section {
     display: inline;
     color:#323268;
 }
+.footer-icon-list a {
+    color:#323268;
+    transition: all .5s ease-in-out;
+}
+.footer-icon-list a:hover {
+    color: #202041;
+}
 .footer-icon-list span {
     display: inline;
     color:#323268;

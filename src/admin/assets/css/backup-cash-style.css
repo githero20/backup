@@ -643,11 +643,21 @@ section {
 }
 
 .whatsapp .btn-whatsapp{
-    padding:1.4rem 4rem;
+    padding: 1.4rem 4rem;
     background-color: white;
+    min-width: 50%;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.09);
     border-radius: 5rem;
-    transform:translateY(0);
+    transform: translateY(0);
+    transition: all .5s ease-in-out;
+}
+.whatsapp .btn-whatsapp.social-media{
+    padding: 1rem 4rem;
+    background-color: white;
+    min-width: 50%;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.09);
+    border-radius: 5rem;
+    transform: translateY(0);
     transition: all .5s ease-in-out;
 }
 .whatsapp .btn-whatsapp:hover{

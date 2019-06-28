@@ -9,7 +9,6 @@ import securityIcon from "../../admin/app-assets/images/svg/security-icon.svg";
 import cardIll1 from "../../admin/app-assets/images/svg/card-ill-1.svg";
 import cardIll2 from "../../admin/app-assets/images/custom-plan@2x.png";
 import cardIll3 from "../../admin/app-assets/images/svg/card-ill-2.svg";
-import arrowRight from "../../images/svg/righ-arrow.svg";
 import carouselRightArrow from "../../images/svg/righ-arrow.svg";
 import featureImage1 from "../../admin/app-assets/images/svg/feature-image-1.svg";
 import featureImage2 from "../../admin/app-assets/images/svg/feature-img-2.svg";
@@ -363,7 +362,8 @@ class Home extends Component {
                                                         <img className="user-image" src={CommentImage}
                                                              alt="First slide"/></div>
 
-                                                    <p>Cool app. I signed up and made my 1st savings deposit via Facebook messenger.</p>
+                                                    <p>Cool app. I signed up and made my 1st savings deposit via
+                                                        Facebook messenger.</p>
                                                     <h4>Tomi Falade </h4>
                                                     <span className="comment-job-title">Voiceover Artist</span>
                                                     <img className="comment" src={commentIcon} alt="comment"/>
@@ -375,8 +375,9 @@ class Home extends Component {
                                                         <img className="user-image" src={CommentImage}
                                                              alt="First slide"/></div>
 
-                                                    <p>As an accountant, the daily interest growth calculation is a feature that I love. </p>
-                                                    <h4>Ikujenyo Olubunmi  </h4>
+                                                    <p>As an accountant, the daily interest growth calculation is a
+                                                        feature that I love. </p>
+                                                    <h4>Ikujenyo Olubunmi </h4>
                                                     <span className="comment-job-title">Finance Expert</span>
                                                     <img className="comment" src={commentIcon} alt="comment"/>
                                                 </div>
@@ -387,10 +388,12 @@ class Home extends Component {
                                                         <img className="user-image" src={CommentImage}
                                                              alt="First slide"/></div>
 
-                                                    <p>Being able to concurrently save for the office rent and my end of year
-                                                        vacation on one platform even though I am using two different cards is so convenient.
+                                                    <p>Being able to concurrently save for the office rent and my end of
+                                                        year
+                                                        vacation on one platform even though I am using two different
+                                                        cards is so convenient.
                                                     </p>
-                                                    <h4>Ope Craig   </h4>
+                                                    <h4>Ope Craig </h4>
                                                     <span className="comment-job-title">Business Owner</span>
                                                     <img className="comment" src={commentIcon} alt="comment"/>
                                                 </div>
@@ -401,8 +404,10 @@ class Home extends Component {
                                                         <img className="user-image" src={CommentImage}
                                                              alt="First slide"/></div>
 
-                                                    <p>Last December, I couldn’t attend all my favorite shows because of the costs.
-                                                        Right now, I have saved enough for at least 3 shows and a nice outfit.
+                                                    <p>Last December, I couldn’t attend all my favorite shows because of
+                                                        the costs.
+                                                        Right now, I have saved enough for at least 3 shows and a nice
+                                                        outfit.
                                                     </p>
                                                     <h4>Tobi Oladele </h4>
                                                     <span className="comment-job-title">Intern</span>
@@ -497,10 +502,11 @@ class Home extends Component {
                     {/*call to action*/}
                     <section className="call-action-section cta pt-5">
                         <div className="container">
-                            <div className="row">
+                            <div className="row px-lg-5 mx-lg-5">
                                 <div className="col-md-6">
                                     <div className="action-placeholder ">
-                                        <h2 className="mb-3 mt-5 pr-lg-5 text-white cas-title">Protect your interest with SFS
+                                        <h2 className="mb-3 mt-5 pr-lg-5 text-white cas-title">Protect your interest
+                                            with SFS
                                             Backup Cash</h2>
                                         <Link to={'/sign-up'}
                                               className="btn btn-yellow-outline btn-custom-border cas-btn">Start
@@ -522,11 +528,11 @@ class Home extends Component {
                                     <div className="contact-detail-placeholder text-center pt-md-5">
                                         <p className="deep-blue-color pt-md-5 chat-title">Chat with us on
                                             Whatsapp</p>
-                                        <button type="button" data-aos="fade-up"
-                                                className="btn btn-whatsapp">+234
+                                        <div data-aos="fade-up"
+                                             className="btn btn-whatsapp">+234
                                             818 545 4545
                                             <img alt={''} src={pinIcon} className="ml-md-2 w-20"/>
-                                        </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
@@ -556,24 +562,33 @@ class Home extends Component {
                                         {/*    </ul>*/}
 
                                         {/*</button>*/}
-                                        <button type="button" data-aos="fade-up" className="btn btn-whatsapp">
+                                        <div data-aos="fade-up" className="btn btn-whatsapp social-media">
                                             <div className="footer-icon-list d-flex justify-content-between">
                                                     <span className="fa-stack fa-sm">
-                                                        <i className="fa fa-circle fa-stack-2x"></i><i
-                                                        className="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                                        <a href='http://www.facebook.com/sfsbackupcash' rel='noreferrer'
+                                                           target='_blank'>
+                                                            <i className="fa fa-circle fa-stack-2x"></i><i
+                                                            className="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                                        </a>
                                                     </span>
 
                                                 <span className="fa-stack fa-sm">
-                                                        <i className="fa fa-circle fa-stack-2x"></i><i
-                                                    className="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                                        <a href='' target='_blank'>
+                                                            <i className="fa fa-circle fa-stack-2x"></i>
+                                                            <i className="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                                        </a>
                                                     </span>
 
                                                 <span className="fa-stack fa-sm">
-                                                        <i className="fa fa-circle fa-stack-2x"></i><i
-                                                    className="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                                    <a href="http://www.instagram.com/sfsbackupcash" rel='noreferrer'
+                                                       target='_blank'>
+                                                         <i className="fa fa-circle fa-stack-2x"></i>
+                                                        <i className="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                                    </a>
+
                                                     </span>
                                             </div>
-                                        </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -581,7 +596,7 @@ class Home extends Component {
                     </section>
                     <footer className="light-yellow-bg home-footer footer">
                         <div className="container my-0 my-lg-5">
-                            <div className="row ">
+                            <div className="row px-lg-5 mx-lg-5">
                                 <div className="col-md-2 offset-md-2 d-none d-lg-block offset-lg-0 col-lg-3">
                                     <div className="footer-logo">
                                         <img src={sfsFooterLogo} alt="sfs footer logo"/>
@@ -644,7 +659,7 @@ class Home extends Component {
                                 <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
                                     <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All RIghts
                                         Reserved</p>
-                                    <p className="footer-sub-text text-center">Powered by
+                                    <p className="footer-sub-text text-center mr-lg-3">Powered by
                                         <a href='http://www.tm30.net' rel='noreferrer' className='footer-brand-link'
                                            target='_blank'> TM30
                                         </a>

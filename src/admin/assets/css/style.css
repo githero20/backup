@@ -91,6 +91,17 @@ button{
     animation: loadingSpinner 0.7s infinite linear;
     -webkit-animation: loadingSpinner 0.7s infinite linear;
 }
+.dash-cust-blue{
+    color:white;
+    background-color: #2784F4;
+    border: 1px solid transparent;
+    transition: all .5s ease-in-out;
+}
+.dash-cust-blue:hover{
+    color:#2784F4;
+    background-color: white;
+    border: 1px solid #2784F4;
+}
 .text-green{
     color: green;
 }

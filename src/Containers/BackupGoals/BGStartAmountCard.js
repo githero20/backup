@@ -27,20 +27,22 @@ const BGStartAmountCard = (props) => {
                                     <strong
                                         className="blue-card-price ml-2 mr-2 text-capitalize">{props.bgInfo ? `₦ ${formatNumber(parseFloat(totalPaid).toFixed(2))}` : null}</strong>
                                 </div>
-                                <div>
-                                    <h6 className={'text-capitalize'}>Due Pay</h6>
-                                    <strong
-                                        className="blue-card-price ml-2 mr-2">₦ {props.selectedBGHistory ? formatNumber(Number(totalDue).toFixed(2)) : '0.00'}</strong>
+                                <div className="d-flex flex-md-row align-items-center justify-content-between mb-2">
+                                    <div>
+                                        <h6 className={'text-capitalize'}>Due Pay</h6>
+                                        <strong
+                                            className="blue-card-price text-danger ml-2 mr-2">₦ {props.selectedBGHistory ? formatNumber(Number(totalDue).toFixed(2)) : '0.00'}</strong>
+                                    </div>
+                                    <p>
+                                        {
+                                            totalDue > 0 ?
+                                                <a href='#' className='btn btn-sm dash-cust-blue round'
+                                                   onClick={() => props.showPayModal()}>Pay
+                                                    Now</a> :
+                                                null
+                                        }
+                                    </p>
                                 </div>
-                                <p>
-                                    {
-                                        totalDue > 0 ?
-                                            <a href='#' className=''
-                                               onClick={() => props.showPayModal()}>Pay
-                                                Now</a> :
-                                            null
-                                    }
-                                </p>
 
                                 <BackUpProgressBar backupHistory={props.selectedBGHistory} backupInfo={props.bgInfo}/>
 

@@ -56,15 +56,11 @@ class BGPayNowModal extends Component {
 
     //Retrieves user inputs
     changeHandler =(event) =>{
-
-
         _handleFormChange(
             event.target.name,
             event,
             this
         );
-
-
         // const name = event.target.name;
         // let value = event.target.value;
         //
@@ -214,6 +210,7 @@ class BGPayNowModal extends Component {
         // set steady save to pay
         let form = {...this.state.form};
         form.backup_goal_id = this.props.selectedBG.id;
+        form.amount = this.props.totalFailed;
         this.setState({
             form
         });
@@ -253,8 +250,10 @@ class BGPayNowModal extends Component {
                                             type="number"
                                             name={'amount'}
                                             // className={'amount-input'}
-                                            defaultValue={this.state.form.amount}
-                                            onChange={this.changeHandler}/>
+                                            value={this.state.form.amount}
+                                            disabled={true}
+                                            onChange={this.changeHandler}
+                                        />
                                         {/*{this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
                                         {/*{this.validator.message('amount', amount, 'required|numeric')}*/}
                                         {this.validator.message('amount', this.state.form.amount, 'required|numeric')}

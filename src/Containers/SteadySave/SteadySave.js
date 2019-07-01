@@ -534,6 +534,7 @@ class SteadySave extends Component {
                                                 <ToastProvider>
                                                     {this.state.showPayModal ? <PayNowModal show={this.state.showPayModal}
                                                                                             selectedSSave={this.state.selectedSteadySave}
+                                                                                            totalFailed={this.state.totalFailed}
                                                                                             getHistoryTrans={this.getHistAndTrans}
                                                                                             onHide={this.hidePayModal}
                                                     /> : null}

@@ -81,7 +81,8 @@ section {
 
 .faq-main .card-body {
     color: #7F7F7F;
-    font-size: 13px;
+    font-size: 15px;
+    font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .faq-form {

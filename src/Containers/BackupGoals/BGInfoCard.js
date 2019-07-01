@@ -22,17 +22,20 @@ import {formatNumber, getTotalBGSuccessful, getTotalFailed, getTotalSuccessful} 
                                         <strong className="blue-card-price ml-2 mr-2 text-capitalize">{props.bgInfo?props.bgInfo.title:null}</strong>
                                     </div>
 
-                                    <div>
+                                    <div className='mb-1'>
                                         <h6 className={'text-capitalize'}>target Amount</h6>
                                         <strong className="blue-card-price ml-2 mr-2">₦ {props.bgInfo?formatNumber(parseFloat(props.bgInfo.target_amount).toFixed(2)):'0.00'}</strong>
                                     </div>
-                                    <div>
-                                        <h6 className={'text-capitalize'}>Total Attempts</h6>
-                                        <strong className="blue-card-price ml-2 mr-2">{props.bgInfo?totalAttempts:0}</strong>
-                                    </div>
-                                    <div>
-                                        <h6 className={'text-capitalize'}>Total Successful</h6>
-                                        <strong className="blue-card-price ml-2 mr-2">{props.bgInfo?totalSuccessful:0}</strong>
+                                    <div className='d-flex justify-content-between'>
+                                        <div>
+                                            <h6 className={'text-capitalize'}>Attempts</h6>
+                                            <strong className="blue-card-price ml-2 mr-2">{props.bgInfo?totalAttempts:0}</strong>
+                                        </div>
+                                        <div>
+                                            <h6 className={'text-capitalize'}>Successful</h6>
+                                            <strong className="blue-card-price ml-2 mr-2">{props.bgInfo?totalSuccessful:0}</strong>
+                                        </div>
+
                                     </div>
 
                                 </div>

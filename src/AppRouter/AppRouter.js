@@ -80,9 +80,9 @@ class AppRouter extends Component {
                             <Route path={ActivateAccountLink} component={ActivateAccount}/>
                             <Route path={ForgotPasswordLink} component={ForgotPassword}/>
                             <Route path={ResetPasswordLink} component={ResetPassword}/>
-                            <Route path={addWithdrawalLink} component={SetupWithdrawal}/>                            <Route exact path={HomeLink} component={Home}/>
+                            <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
                             <Route path={FaqLink} component={Faq} />
-                            <Route  component={ErrorPage}/>
+                            <Route component={ErrorPage}/>
                         </Switch>
 
                     </Router>

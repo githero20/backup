@@ -36,6 +36,7 @@ export const initiateSteadySaveEndpoint  = `sfsbapi/v1/user/transaction/init/ste
 export const verifyTransactionEndpoint  = `sfsbapi/v1/user/transaction/verify`;
 export const passwordResetEndpoint  = `sfsbapi/v1/auth/password/email`;
 export const getUserInfoEndpoint  = `sfsbapi/v1/user`;
+export const getUserPointsEndpoint  = `sfsbapi/v1/user/point`;
 export const activateUserEndpoint  = `sfsbapi/v1/user/activate`;
 export const resendActEndpoint  = `sfsbapi/v1/auth/activate/resend`;
 export const instantSaveEndpoint  = `sfsbapi/v1/user/savings/instant`;

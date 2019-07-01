@@ -213,6 +213,7 @@ class PayNowModal extends Component {
         // set steady save to pay
         let form = {...this.state.form};
         form.steady_save_id = this.props.selectedSSave.id;
+        form.amount = this.props.totalFailed;
         this.setState({
             form
         });
@@ -252,8 +253,10 @@ class PayNowModal extends Component {
                                             type="number"
                                             name={'amount'}
                                             // className={'amount-input'}
-                                            defaultValue={this.state.form.amount}
-                                            onChange={this.changeHandler}/>
+                                            value={this.state.form.amount}
+                                            disabled={true}
+                                            onChange={this.changeHandler}
+                                        />
                                         {/*{this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
                                         {/*{this.validator.message('amount', amount, 'required|numeric')}*/}
                                         {this.validator.message('amount', this.state.form.amount, 'required|numeric')}

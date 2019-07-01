@@ -20,7 +20,7 @@ class Login extends Component {
                         </div>
                         <div className="container">
                             <div className="row  pt-md-1">
-                                <div className=" col-lg-6 offset-lg-6">
+                                <div className=" col-lg-5 offset-lg-6">
                                     {/*   header component */}
                                     <div className="px-md-2 py-md-2 header-shadow mb-md-5 bg-white">
                                         <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>

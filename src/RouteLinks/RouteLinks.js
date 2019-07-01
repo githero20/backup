@@ -17,6 +17,7 @@ export const ProfileSettingLink  = '/profile-setting';
 export const BankCardLink  = '/bank-card-setting';
 export const LoginLink  = '/login';
 export const SignUpLink  = '/sign-up';
+export const FaqLink  = '/faq';
 export const InviteLink  = '/invite/:ref';
 export const ResendActivationLink  = '/resend/email';
 export const HomeLink  = '/';

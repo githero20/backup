@@ -4,7 +4,7 @@ class ButtonLoader extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="loadingSpinner"></div>
+                <div className="loadingSpinner">&nbsp;</div>
             </React.Fragment>
         );
     }

@@ -2,8 +2,10 @@
 
 
 @media only screen and (max-width: 599px) {
-
-    /* mobile menu */
+    .faq-main .btn-link{
+        font-size: .8rem;
+    }
+        /* mobile menu */
     .header-navbar .navbar-header .navbar-brand {
         position: absolute;
         top: 0;

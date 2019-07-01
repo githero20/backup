@@ -77,6 +77,11 @@ button{
 }
 .loadingSpinner {
     border: 2px solid #FFF;
+    position: absolute;
+    z-index: 3000;
+    top:0;
+    left: 50%;
+    transform:translate(-50%,-50%);
     border-top-color: rgba(0, 0, 0, 0);
     border-left-color: rgba(0, 0, 0, 0);
     width: 20px;
@@ -1510,13 +1515,15 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .login-form h5 {
-    font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Circular Std Book", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    letter-spacing: -0.5px;
 }
 
 .blue-round-btn {
     background-color: #367BFF;
     padding: 1rem 4rem;
     border-radius: 3rem;
+    position: relative;
     color: white;
     font-size: 1.2rem;
     text-transform: capitalize;

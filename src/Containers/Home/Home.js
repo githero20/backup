@@ -23,7 +23,7 @@ import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../images/sfs.jpg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import {LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import {FaqLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -72,7 +72,7 @@ class Home extends Component {
                                      id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
                                         <li className="nav-item">
-                                            <a className="nav-link" href={'#'}>FAQs </a>
+                                            <a className="nav-link" href={FaqLink}>FAQs </a>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
@@ -116,7 +116,7 @@ class Home extends Component {
                                          className="ill-2x" width="100%"/>
                                 </div>
                                 <div className="offset-0 col-md-6 ">
-                                    <div data-aos={'fade-up'} data-aos-delay={400}
+                                    <div data-aos={'fade-up'} data-aos-delay={200}
                                          className="section-detail-card pl-md-5">
                                         <div className="yellow-icon-holder">
                                             <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
@@ -125,11 +125,11 @@ class Home extends Component {
                                         <h2 className="section-details-header text-center text-md-left mb-md-2">Watch
                                             Your Money
                                             Grow</h2>
-                                        <p className="section-details-paragraph mb-md-2  ">
+                                        <p className="section-details-paragraph text-center text-md-left mb-md-2  ">
                                             Backup Cash is a secure and innovative savings
                                             platform that allows you automate your savings
                                             and earn interest on your deposits. </p>
-                                        <p className="section-details-paragraph ">
+                                        <p className="section-details-paragraph text-center text-md-left ">
                                             Our platform is designed to help users cultivate a
                                             focused financial attitude by saving little amounts
                                             of money periodically towards a specific financial
@@ -139,7 +139,7 @@ class Home extends Component {
                             </div>
                         </div>
                     </section>
-                    <div className="security-section  deep-blue-bg-drop">
+                    <div className="security-section deep-blue-bg-drop">
                         <div className="container">
                             <div className="row text-center text-md-left">
                                 <div className=" col-md-8 offset-md-2 col-lg-6 offset-lg-3">
@@ -163,8 +163,8 @@ class Home extends Component {
                                     <div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">
                                         <div className="row pb-md-5">
                                             <div className="col-12">
-                                                <div className="d-flex justify-content-around align-items-center">
-                                                    <div className="security-img-wrapper">
+                                                <div className="d-flex flex-column flex-md-row justify-content-around align-items-center">
+                                                    <div className="security-img-wrapper mb-2 mb-md-0">
                                                         <img className="img-2x" src={securityIcon}
                                                              alt="security icon"/>
                                                     </div>
@@ -536,7 +536,7 @@ class Home extends Component {
                                         <div data-aos="fade-up"
                                              className="btn btn-whatsapp">+234
                                             818 545 4545
-                                            <img alt={''} src={pinIcon} className="ml-md-2 w-20"/>
+                                            <img alt={'pin icon'} src={pinIcon} className="ml-md-2 w-20"/>
                                         </div>
                                     </div>
                                 </div>
@@ -590,8 +590,7 @@ class Home extends Component {
                                                          <i className="fa fa-circle fa-stack-2x"></i>
                                                         <i className="fa fa-instagram fa-stack-1x fa-inverse"></i>
                                                     </a>
-
-                                                    </span>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -610,9 +609,9 @@ class Home extends Component {
                                 <div className=" col-sm-6 col-md-4 col-lg-3 ">
                                     <p className="footer-header">Company</p>
                                     <ul className="footer-list">
-                                        <li>
-                                            <a href={'#'}>About Us</a>
-                                        </li>
+                                        {/*<li>*/}
+                                        {/*    <a href={'#'}>About Us</a>*/}
+                                        {/*</li>*/}
                                         <li>
                                             <a href={'#'}>Testimonials</a>
                                         </li>
@@ -640,6 +639,7 @@ class Home extends Component {
 
                                     <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria
                                         Island 23401, Lagos</p>
+                                    <p className='gray-text footer-p'>Enquires: 08149460946, 07018567235 </p>
                                     {/*<ul className="footer-icon-list ">*/}
                                     {/*    <li>*/}
                                     {/*        <span className="fa-stack fa-sm">*/}

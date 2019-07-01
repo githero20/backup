@@ -613,10 +613,10 @@ class Home extends Component {
                                         {/*    <a href={'#'}>About Us</a>*/}
                                         {/*</li>*/}
                                         <li>
-                                            <a href={'#'}>Testimonials</a>
+                                            <a href={'#'} onClick={this.scrollIntoView}>Testimonials</a>
                                         </li>
                                         <li>
-                                            <a href={'#'}>FAQs</a>
+                                            <Link to={FaqLink} >FAQs</Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -624,13 +624,13 @@ class Home extends Component {
                                     <p className="footer-header">Quick Links</p>
                                     <ul className="footer-list ">
                                         <li>
-                                            <Link to={'/sign-up'}>Register</Link>
+                                            <Link to={SignUpLink}>Register</Link>
                                         </li>
                                         <li>
-                                            <Link to={'/log-in'}>Log in</Link>
+                                            <Link to={LoginLink}>Log in</Link>
                                         </li>
                                         <li>
-                                            <a href="#">How it works</a>
+                                            <Link to={FaqLink}>How it works</Link>
                                         </li>
                                     </ul>
                                 </div>

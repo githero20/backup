@@ -960,7 +960,10 @@ footer-logo {
     .section-transparent-card-icon img {
         margin: 0 auto;
     }
-
+    .faq-main .faq-header p{
+        font-size: 13px;
+        line-height: 1.5rem;
+    }
     .contact-row p{
         font-size: 12px;
     }

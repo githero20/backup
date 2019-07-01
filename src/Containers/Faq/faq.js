@@ -96,7 +96,7 @@ class Faq extends Component {
 
                             <div className="contact-row row mt-5">
                                 <div className="col-sm-4 text-center text-md-left">
-                                    <div className="mb-3 mb-md-5">
+                                    <div className="mb-3 mt-3 mt-md-0 mb-md-5">
                                         <h4 className='text-capitalize'>Whatsapp</h4>
                                         <p className='gray-text'>+234 803 791 3530</p>
                                     </div>
@@ -128,7 +128,7 @@ class Faq extends Component {
                                         </div>
                                         <h2 className="section-details-header text-center text-md-left mb-md-2">Frequently
                                             Asked Questions.</h2>
-                                        <p className='mb-3'>BackUp Cash is a savings platform designed to help you encourage a
+                                        <p className='mb-3 mt-3 mt-md-0'>BackUp Cash is a savings platform designed to help you encourage a
                                             disciplined
                                             financial lifestyle by automating your savings on daily, weekly or monthly
                                             basis. BackUp Cash is encrypted with bank grade level security that makes
@@ -556,14 +556,14 @@ class Faq extends Component {
                                 <div className=" col-sm-6 col-md-4 col-lg-3 ">
                                     <p className="footer-header">Company</p>
                                     <ul className="footer-list">
+                                        {/*<li>*/}
+                                        {/*    <a href={'#'}>About Us</a>*/}
+                                        {/*</li>*/}
                                         <li>
-                                            <a href={'#'}>About Us</a>
+                                            <Link to={HomeLink}>Testimonials</Link>
                                         </li>
                                         <li>
-                                            <a href={'#'}>Testimonials</a>
-                                        </li>
-                                        <li>
-                                            <a href={'#'}>FAQs</a>
+                                            <Link to={FaqLink} >FAQs</Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -571,13 +571,13 @@ class Faq extends Component {
                                     <p className="footer-header">Quick Links</p>
                                     <ul className="footer-list ">
                                         <li>
-                                            <Link to={'/sign-up'}>Register</Link>
+                                            <Link to={SignUpLink}>Register</Link>
                                         </li>
                                         <li>
-                                            <Link to={'/log-in'}>Log in</Link>
+                                            <Link to={LoginLink}>Log in</Link>
                                         </li>
                                         <li>
-                                            <a href="#">How it works</a>
+                                            <Link to={FaqLink}>How it works</Link>
                                         </li>
                                     </ul>
                                 </div>

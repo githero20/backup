@@ -23,7 +23,7 @@ import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../images/sfs.jpg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import {FaqLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import {FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -613,7 +613,7 @@ class Home extends Component {
                                         {/*    <a href={'#'}>About Us</a>*/}
                                         {/*</li>*/}
                                         <li>
-                                            <a href={'#'} onClick={this.scrollIntoView}>Testimonials</a>
+                                            <Link to={HomeLink}>Testimonials</Link>
                                         </li>
                                         <li>
                                             <Link to={FaqLink} >FAQs</Link>

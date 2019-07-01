@@ -4,9 +4,15 @@ import {
     ContinueSteadySave,
     CreateLockedSavings,
     EditSteadySave,
-    GetLockedSavings, getSteadySaveHistory, getSteadySaveTrans, NewSteadySaveEndpoint,
+    GetLockedSavings,
+    getSteadySaveHistory,
+    getSteadySaveTrans,
+    InitiateSSDuePayEndpoint,
+    InitiateTransactionEndpoint,
+    NewSteadySaveEndpoint,
     PauseSteadySave,
-    StopSteadySave
+    PayDueSSEndpoint,
+    StopSteadySave, VerifySSDuePayEndpoint, verifyTransactionEndpoint
 } from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 
@@ -44,6 +50,23 @@ export const createSteadySave = (payload, callback) =>{
             console.log(res);
             console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            // if(err.response){
+            //     callback(false, err.response.data.message || "AN Error Occurred");
+            // }
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};
+export const paySteadySaveDue = (payload, callback) =>{
+
+    _axios.post(`${PayDueSSEndpoint}`,payload,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            callback(true, res.data.data);
         })
         .catch(err => {
             console.log("Err", JSON.stringify(err));
@@ -94,9 +117,8 @@ export const getSteadySavHistory = (id, callback) =>{
         headers: _getHeader()
     })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
-            callback(res.data.status == "success", res.data.data);
+
+            callback(true, res.data.data);
         })
         .catch(err => {
             console.log("Err", JSON.stringify(err));
@@ -114,6 +136,44 @@ export const getSteadySavHistory = (id, callback) =>{
         })
 };
 
+export const initSSDuePay = (payload, callback) =>{
+    console.log("body", payload);
+    _axios.post(InitiateSSDuePayEndpoint,payload,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            console.log("Res",res);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err",err);
+            // if(err.response){
+            //     callback(false, err.response.data.message|| err.response.data.data);
+            // }
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};
+
+export const verifyPayDue = (payload, callback) =>{
+    _axios.post(VerifySSDuePayEndpoint,payload,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            console.log("Res",res);
+            callback(true, res.data.data);
+        })
+        .catch(err => {
+            console.log("Err",JSON.stringify(err));
+            console.log("Err",err);
+            // if(err.response){
+            //     callback(false, err.response.data.message|| err.response.data.data);
+            // }
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};
+
 export const getSteadySavTrans = (id, callback) =>{
     if(!id){
         callback(false,"Invalid Steady Save Identifier");
@@ -123,8 +183,6 @@ export const getSteadySavTrans = (id, callback) =>{
         headers: _getHeader()
     })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {

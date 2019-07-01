@@ -50,6 +50,7 @@ class CreateSteadySaveForm extends Component {
         this.validator = new SimpleReactValidator();
         this.changeHandler = this.changeHandler.bind(this);
     }
+
     componentDidMount() {
         // this.setState({form:this.props.steadySave});
         this.validateStartDate();

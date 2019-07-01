@@ -15,7 +15,9 @@
     font-family: "Circular Std Black";
     src: url("../../app-assets/fonts/app-fonts/CircularStd-Black.otf");
 }
-
+html {
+    scroll-behavior: smooth;
+}
 
 .homeBody {
     font-family: "Product Sans", "Segoe UI", Roboto,
@@ -866,13 +868,13 @@ footer-logo {
         border-radius: 4px;
         background-color: #000;
     }
-    #timeline-wrap {
-        position: absolute;
-        top: 24%;
-        left: 12%;
-        width: 200px;
-        height: 200px;
-    }
+    /*#timeline-wrap {*/
+    /*    position: absolute;*/
+    /*    top: 24%;*/
+    /*    left: 12%;*/
+    /*    width: 150px;*/
+    /*    height: 200px;*/
+    /*}*/
     .login-form {
         margin-top: 2rem;
         margin-bottom: 10rem;

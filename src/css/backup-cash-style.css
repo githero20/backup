@@ -759,13 +759,13 @@ footer-logo {
         border-radius: 4px;
         background-color: #000;
     }
-    #timeline-wrap {
-        position: absolute;
-        top: 24%;
-        left: 12%;
-        width: 200px;
-        height: 200px;
-    }
+    /*#timeline-wrap {*/
+    /*    position: absolute;*/
+    /*    top: 24%;*/
+    /*    left: 12%;*/
+    /*    width: 200px;*/
+    /*    height: 200px;*/
+    /*}*/
     .login-form{
         margin-top: 12rem;
         margin-bottom: 10rem;

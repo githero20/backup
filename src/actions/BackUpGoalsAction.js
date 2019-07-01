@@ -1,10 +1,18 @@
 import {_axios, _getHeader} from "../utils";
 import {
-    BASE_URL, continueBackupGoal,
-    createBackupGoals, editBackupGoal,
+    BASE_URL,
+    continueBackupGoal,
+    createBackupGoals,
+    editBackupGoal,
     GetBackUpGoals,
-    getBGoalHistory, getBGoalTrans,
-    getSteadySaveHistory, GetWithdrawalPenalty, pauseBackupGoal, stopBackupGoal
+    getBGoalHistory,
+    getBGoalTrans,
+    getSteadySaveHistory,
+    GetWithdrawalPenalty, InitiateBGDuePayEndpoint,
+    InitiateSSDuePayEndpoint,
+    pauseBackupGoal, PayDueBGEndpoint, PayDueSSEndpoint,
+    stopBackupGoal, VerifyBGDuePayEndpoint,
+    VerifySSDuePayEndpoint
 } from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 
@@ -44,7 +52,63 @@ export const getPenalty = (callback) =>{
             callback(false, err.response);
         })
 };
+export const payBGDue = (payload, callback) =>{
 
+    _axios.post(`${PayDueBGEndpoint}`,payload,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            callback(true, res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            // if(err.response){
+            //     callback(false, err.response.data.message || "AN Error Occurred");
+            // }
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};
+
+
+
+export const initBGDuePay = (payload, callback) =>{
+    console.log("body", payload);
+    _axios.post(InitiateBGDuePayEndpoint,payload,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            console.log("Res",res);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err",err);
+            // if(err.response){
+            //     callback(false, err.response.data.message|| err.response.data.data);
+            // }
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};
+
+export const verifyBGPayDue = (payload, callback) =>{
+    _axios.post(VerifyBGDuePayEndpoint,payload,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            console.log("Res",res);
+            callback(true, res.data.data);
+        })
+        .catch(err => {
+            console.log("Err",JSON.stringify(err));
+            console.log("Err",err);
+            // if(err.response){
+            //     callback(false, err.response.data.message|| err.response.data.data);
+            // }
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};
 
 export const getBackUpGoalAndHistory = (id, callback) =>{
     if(!id){

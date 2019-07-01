@@ -72,23 +72,34 @@ export function getTotal(transactions) {
 }
 
 export function getTotalSteadySave(transactions) {
-    if (transactions) {
-        if (transactions.length > 1) {
+    if (transactions && transactions.length > 0) {
             let credits;
             credits = transactions.filter((content) => (content.type === 'credit'));
             credits = credits.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
             return credits.amount;
         } else {
-            let sum = transactions.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
-            return sum.start_amount;
+            return 0;
         }
-    }
 }
+//
+// export function getTotalSteadySave(transactions) {
+//     if (transactions) {
+//         if (transactions.length > 0) {
+//             let credits;
+//             credits = transactions.filter((content) => (content.type === 'credit'));
+//             credits = credits.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
+//             return credits.amount;
+//         } else {
+//             let sum = transactions.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
+//             return sum.start_amount;
+//         }
+//     }
+// }
 
 
 export function getTotalSteadySaveDebit(transactions) {
     if (transactions) {
-        if (transactions.length > 1) {
+        if (transactions.length > 0) {
             let debits;
             debits = transactions.filter((content) => (content.type === 'debit'));
             debits = debits.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
@@ -99,6 +110,38 @@ export function getTotalSteadySaveDebit(transactions) {
         }
     }
 }
+
+export function getTotalSuccessfulSS(transactions) {
+    if (transactions && transactions.length > 0) {
+            let successful;
+            successful = transactions.filter((content) => (content.status === 'success'));
+            successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+            return successful.amount;
+    }else {
+        return 0;
+    }
+}
+export function getTotalSuccessfulBG(transactions) {
+    if (transactions && transactions.length > 0) {
+            let successful;
+            successful = transactions.filter((content) => (content.status === 'success'));
+            successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+            return successful.amount;
+    }else {
+        return 0;
+    }
+}
+// export function getTotalSuccessfulSS(transactions) {
+//     if (transactions && transactions.length > 0) {
+//             let successful;
+//             successful = transactions.filter((content) => (content.status === 'success'));
+//             successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+//             return successful.amount;
+//     }else {
+//         let sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+//         return sum.amount;
+//     }
+// }
 
 export function getPercentage(startValue, endValue) {
     if (Number(startValue) != 0 && Number(endValue) != 0) {
@@ -114,6 +157,14 @@ export function getPercentage(startValue, endValue) {
 //         return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
 //     };
 // };
+export function getCards(key,object){
+    const userInfo = getLocalStorage(key);
+    if (getLocalStorage(key)!=undefined) {
+        object.setState({
+            userCards: userInfo.authorization.data
+        })
+    }
+}
 export function capitalize(value) {
     let words = value.split(' ');
     if (words.length > 1) {

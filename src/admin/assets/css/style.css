@@ -1397,15 +1397,15 @@ button:focus, input:focus {
     position: relative;
 }
 
-.welcome-text {
-    color: #103366;
-    font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    letter-spacing: 0px;
-    font-size: 2.5rem;
-    position: absolute;
-    top: 26%;
-    left: 8%;
-}
+/*.welcome-text {*/
+/*    color: #103366;*/
+/*    font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+/*    letter-spacing: 0px;*/
+/*    font-size: 1.5rem;*/
+/*    position: absolute;*/
+/*    top: 26%;*/
+/*    left: 8%;*/
+/*}*/
 
 .header-shadow {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05);
@@ -1644,7 +1644,7 @@ input[type=number]::-webkit-outer-spin-button {
     position: absolute;
     top: 50%;
     left: 8%;
-    width: 200px;
+    width: 150px;
     height: 200px;
 
 }
@@ -1698,7 +1698,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .marker .circular-icon.active ~ label {
     color: #686868;
-    font-size: 1rem;
+    font-size: .8rem;
 }
 
 .marker label {
@@ -1750,7 +1750,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .mfirst .active ~ label {
     top: 31%;
-    left: -8%;
+    left: 0%;
 }
 
 
@@ -3630,7 +3630,7 @@ input[type="file"].cust-file-upload {
     color: #103366;
     font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     letter-spacing: 0px;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     position: absolute;
     top: 26%;
     left: 8%;
@@ -3877,7 +3877,7 @@ input:-webkit-autofill:active  {
     position: absolute;
     top: 50%;
     left: 8%;
-    width: 200px;
+    width: 150px;
     height: 200px;
 
 }
@@ -3931,12 +3931,13 @@ input:-webkit-autofill:active  {
 
 .marker .circular-icon.active ~ label {
     color: #686868;
-    font-size: 1rem;
+    font-size: .8rem;
 }
 
 .marker label {
     position: absolute;
     color: #C4C4C4;
+    font-size: .8rem;
     font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     letter-spacing: .1rem;
 }
@@ -3983,7 +3984,7 @@ input:-webkit-autofill:active  {
 
 .mfirst .active ~ label {
     top: 31%;
-    left: -8%;
+    left: 0%;
 }
 
 
@@ -3994,7 +3995,7 @@ input:-webkit-autofill:active  {
 
 .mlast label {
     top: 27%;
-    right: 47%;
+    right: 50%;
 }
 
 .mlast .active ~ label {

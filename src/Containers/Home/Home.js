@@ -45,6 +45,11 @@ class Home extends Component {
         mobileMenu.classList.toggle('show');
     };
 
+    scrollIntoView =()=>{
+        document.querySelector('.testimonial').scrollIntoView({
+            behavior: 'smooth'
+        });
+    };
 
     render() {
         return (
@@ -70,7 +75,7 @@ class Home extends Component {
                                             <a className="nav-link" href={'#'}>FAQs </a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" href={'#'}>Testimonials </a>
+                                            <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
                                         </li>
                                         <li className="nav-item">
                                             <Link to={LoginLink} className="nav-link" href={'#'}>Login </Link>
@@ -111,7 +116,7 @@ class Home extends Component {
                                          className="ill-2x" width="100%"/>
                                 </div>
                                 <div className="offset-0 col-md-6 ">
-                                    <div data-aos={'fade-up'} data-aos-delay={300}
+                                    <div data-aos={'fade-up'} data-aos-delay={400}
                                          className="section-detail-card pl-md-5">
                                         <div className="yellow-icon-holder">
                                             <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
@@ -163,7 +168,7 @@ class Home extends Component {
                                                         <img className="img-2x" src={securityIcon}
                                                              alt="security icon"/>
                                                     </div>
-                                                    <div className="">
+                                                    <div className="ml-md-2 ml-md-0">
                                                         <h2 className="text-white ">Your Security Is Our
                                                             Business</h2>
                                                         <h6>Safest Security Measures</h6>
@@ -199,7 +204,7 @@ class Home extends Component {
                                             </div>
                                             <p className="card-text mb-5">Create an account or login
                                                 in less than two minutes </p>
-                                            <div className="card mb-5" data-aos="fade-up">
+                                            <div className="card mb-5"  data-aos-delay={700} data-aos="fade-up">
                                                 <img className="card-1-img" src={cardIll1}
                                                      alt="illustration"/>
                                             </div>
@@ -214,7 +219,7 @@ class Home extends Component {
                                             </div>
                                             <p className="card-text mb-5">Choose a savings plan that
                                                 works for you </p>
-                                            <div className="card mb-5" data-aos-delay={500} data-aos="fade-down">
+                                            <div className="card mb-5" data-aos-delay={700} data-aos="fade-down">
                                                 <img className="card-1-img mt-3" src={cardIll2} alt="illustration"/>
                                             </div>
 
@@ -229,7 +234,7 @@ class Home extends Component {
                                             </div>
                                             <p className="card-text mb-5">Rest easy and watch
                                                 your money grow </p>
-                                            <div className="card mb-5" data-aos-delay={1000} data-aos="fade-up">
+                                            <div className="card mb-5" data-aos-delay={700} data-aos="fade-up">
                                                 <img className="card-2-img" src={cardIll3} alt="illustration"/>
                                             </div>
 
@@ -311,7 +316,7 @@ class Home extends Component {
                     </section>
 
 
-                    <section className="client-say-section pt-sm-0 pt-md-5 mb-5">
+                    <section className="client-say-section testimonial pt-sm-0 pt-md-5 mb-5">
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
@@ -633,7 +638,7 @@ class Home extends Component {
                                 <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-3 ">
                                     <p className="footer-header">Physical Address</p>
 
-                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun St, Victoria
+                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria
                                         Island 23401, Lagos</p>
                                     {/*<ul className="footer-icon-list ">*/}
                                     {/*    <li>*/}

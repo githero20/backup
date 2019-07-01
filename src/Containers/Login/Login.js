@@ -22,7 +22,7 @@ class Login extends Component {
                             <div className="row  pt-md-1">
                                 <div className=" col-lg-6 offset-lg-6">
                                     {/*   header component */}
-                                    <div className="px-md-2 py-md-2 header-shadow mt-2 mb-md-5 bg-white">
+                                    <div className="px-md-2 py-md-2 header-shadow mb-md-5 bg-white">
                                         <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>
                                     </div>
                                     <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>

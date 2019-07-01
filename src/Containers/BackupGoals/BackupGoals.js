@@ -6,8 +6,15 @@ import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUp
 import {getBackUpGoalAndHistory} from "../../actions/BackUpGoalsAction";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
-import {dateFormatter, formatNumber, moneyFormatter, statusFormatter} from "../../Helpers/Helper";
-import {withToastManager} from 'react-toast-notifications';
+import {
+    dateFormatter,
+    formatNumber, getTotalFailed,
+    getTotalSuccessful, getTotalSuccessfulBG,
+    getTotalSuccessfulSS,
+    moneyFormatter,
+    statusFormatter
+} from "../../Helpers/Helper";
+import {ToastProvider, withToastManager} from 'react-toast-notifications';
 import BGInfoCard from "./BGInfoCard";
 import BackupGoalQuickActions from "./BackupGoalQuickActions";
 import BGStartAmountCard from "./BGStartAmountCard";
@@ -15,10 +22,21 @@ import TransactionTable from "../../Components/Dashboard/TransactionTable/Transa
 import moment from 'moment';
 import {GetBackUpGoals} from "../../RouteLinks/RouteLinks";
 import {request} from "../../ApiUtils/ApiUtils";
+import PayNowModal from "../../Components/Dashboard/PayNowModal/PayNowModal";
+import BGPayNowModal from "../../Components/Dashboard/BGPayNowModal/BGPayNowModal";
+import {getSteadySavHistory, getSteadySavTrans} from "../../actions/SteadySaveAction";
 
 class BackupGoals extends Component {
 
     //get all back up goals
+
+    // get the total paid
+
+    // get total successful
+
+    //get due pay
+
+
 
     constructor(props) {
         super(props);
@@ -32,7 +50,13 @@ class BackupGoals extends Component {
             showBackupGoal: false,
             BackupGoalHistory: [],
             selectedBG: null,
-            selectedBGHistory: []
+            selectedBGHistory: [],
+            totalSuccessful: 0,
+            totalAttempts: 0,
+            totalFailed: 0,
+            totalBGSave:'0.00',
+            showPayModal:false
+
         };
         // this.handleBackUpGoals = this.handleBackUpGoals.bind(this);
         this.fetchBackUpGoals = this.fetchBackUpGoals.bind(this);
@@ -151,8 +175,23 @@ class BackupGoals extends Component {
     handleBGHistory(status, res) {
         if (status) {
                 //TODO bind response
+
+                // calc
+
+            let data = res.backup_goals_history.data;
+            const totalBGSave = getTotalSuccessfulBG(data);
+            console.log('total successful steady saves', totalBGSave);
+
+            const totalSuccessful = getTotalSuccessful(data);
+            const totalFailed = getTotalFailed(data);
+
+            console.log('back up goals', totalBGSave, 'successful', totalSuccessful, 'failed', totalFailed, 'res', res);
                 this.setState({
-                    selectedBGHistory: res.backup_goals_history.data
+                    selectedBGHistory: data,
+                    totalAttempts: data.length,
+                    totalSuccessful,
+                    totalFailed,
+                    totalBGSave: formatNumber(parseFloat(totalBGSave).toFixed(2))
                 });
         } else if(!status&&res) {
             this.toastMessage(res.message || 'An error occurred!!', 'error');
@@ -168,6 +207,25 @@ class BackupGoals extends Component {
             selectedBG: content
         })
     }
+    showPayModal = () => {
+        this.setState({
+            showPayModal: true
+        });
+    };
+    hidePayModal = () => {
+        this.setState({
+                showPayModal: false
+            }
+        );
+    };
+
+    getHistAndTrans =()=>{
+
+        // getSteadySavTrans(this.state.selectedBG.id, this.handleSSaveTrans);
+        getBackUpGoalAndHistory(this.state.selectedBG.id, this.handleBGHistory)
+
+    };
+
 
     render() {
 
@@ -220,7 +278,14 @@ class BackupGoals extends Component {
                         {/* show individual back up goal */}
 
                         {/* handle backup goal operations */}
+                        <ToastProvider>
+                            {this.state.showPayModal ? <BGPayNowModal show={this.state.showPayModal}
+                                                                    selectedBG={this.state.selectedBG}
+                                                                    getHistoryTrans={this.getHistAndTrans}
+                                                                    onHide={this.hidePayModal}
+                            /> : null}
 
+                        </ToastProvider>
                         <div className="app-content content">
                             <div className="content-wrapper">
                                 {/*<div className="row mb-4">*/}
@@ -274,12 +339,12 @@ class BackupGoals extends Component {
                                                             className="dot">.</span> Summary
 
                                                         </h3>
-                                                        <BGInfoCard bgInfo={this.state.selectedBG}/>
+                                                        <BGInfoCard bgInfo={this.state.selectedBG} selectedBGHistory={this.state.selectedBGHistory} />
                                                     </div>
                                                     <div className="col-lg-4 col-12">
                                                         <h3 className="gray-header-text fs-mb-1 mb-2 ">&nbsp;
                                                         </h3>
-                                                        <BGStartAmountCard bgInfo={this.state.selectedBG} selectedBGHistory={this.state.selectedBGHistory} />
+                                                        <BGStartAmountCard bgInfo={this.state.selectedBG} showPayModal={this.showPayModal} selectedBGHistory={this.state.selectedBGHistory} />
                                                     </div>
                                                     <BackupGoalQuickActions showBackUpHistory={this.showBackUpHistory}
                                                                             hideBG={this.hideBackupGoal}

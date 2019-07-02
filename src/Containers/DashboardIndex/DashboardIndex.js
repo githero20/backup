@@ -228,7 +228,6 @@ class DashboardIndex extends Component {
                 ActiveGoals: activeGoals.length
             });
 
-
             //filter when backup goals is pause is false
 
             // let CompletedGoals = backUpGoals.filter((content)=>{

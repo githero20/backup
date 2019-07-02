@@ -2285,8 +2285,8 @@ input[type=number]::-webkit-outer-spin-button {
     width: 4rem;
     /*margin: auto;*/
     background-color: transparent;
-    top: 50%;
-    left: 50%;
+    top: 15%;
+    left: 90%;
     /*transform: translate(-50%,-50%);*/
     border: .5rem solid;
     border-color: rgba(48, 110, 255, 0.75) transparent transparent transparent;
@@ -2296,7 +2296,7 @@ input[type=number]::-webkit-outer-spin-button {
 .loader-body{
     position: fixed;
     display: block;
-    z-index: 99999999;
+    z-index: 800;
     background-color: rgba(14, 99, 255, 0.03);
     top: 0;
     right: 0;

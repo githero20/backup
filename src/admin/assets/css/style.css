@@ -4661,9 +4661,10 @@ p{
 }
 .dash-card .dash-btn:hover .fa{
     transform: translateX(0);
+    transition: all .5s ease-in-out;
 }
 .dash-card .dash-btn:hover .fa{
-    transform: translateX(10px);
+    transform: translateX(5px);
 }
 .dash-card.blue-border-right .dash-btn:hover{
     color: #F9F9F9;

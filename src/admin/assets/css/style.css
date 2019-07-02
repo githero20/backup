@@ -4543,6 +4543,13 @@ input:-webkit-autofill:active {
     .navbar-dark .navbar-header .navbar-nav .nav-link, .navbar-semi-dark .navbar-header .navbar-nav .nav-link {
         color: #191033;
     }
+    .mobile-welcome-text {
+        color: #103366;
+        font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        letter-spacing: 0px;
+        margin: 2.5rem 0rem;
+        font-size: 2rem;
+    }
 
 }
 

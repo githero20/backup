@@ -16,9 +16,20 @@
     .mb-btn-wrapper{
         width: 100%;
     }
+    .modal-content h4 {
+        font-size: 15px;
+    }
+    .steady-save-modal .modal-content, .instant-save-modal .modal-content{
+        padding: 1.5rem .5rem;
+        border-radius: 2rem;
+    }
     .header-navbar .navbar-header .menu-toggle {
         position: relative;
         top: 58%;
+    }
+    .is-modal-form .btn-custom-blue{
+        flex-basis: 60%;
+        font-size: 1rem;
     }
 
     .menu-title {
@@ -48,7 +59,7 @@
         margin-bottom: 0;
     }
     .btn-custom-blue{
-        width:5rem;
+        /*width:5rem;*/
     }
 
     .ad-container-modal .modal-content{

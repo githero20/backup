@@ -6,14 +6,16 @@ import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySa
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
 import {
     activateUserEndpoint,
-    CentralVaultInterest, GetBackUpGoals,
-    getUserInfoEndpoint, LockedInterest,
-    lockedSavingEndpoint,
+    CentralVaultInterest,
+    GetBackUpGoals,
+    getUserInfoEndpoint,
+    LockedInterest,
     resendActEndpoint
 } from "../../RouteLinks/RouteLinks";
 import {api, getLocalStorage, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
 import {
-    BACKUP_GOALS_ACCOUNT, getCompletedGoals,
+    BACKUP_GOALS_ACCOUNT,
+    getCompletedGoals,
     INTEREST_ACCOUNT,
     LOCKED_ACCOUNT,
     STANDARD_ACCOUNT
@@ -24,7 +26,6 @@ import ActivationModal from "../../Components/Dashboard/ActivationModal/Activati
 import {ToastProvider} from 'react-toast-notifications';
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import StartNowModal from "../../Components/Dashboard/StartNowModal/StartNowModal";
-import {getBackUpSavings} from "../../actions/BackUpGoalsAction";
 import moment from "moment";
 
 
@@ -52,10 +53,10 @@ class DashboardIndex extends Component {
         CompletedGoals: 0,
         email: null,
         showLoader: true,
-        isActive:false,
-        showAdModal:false,
-        vaultInterest:0,
-        lockedSavingsInterest:0
+        isActive: false,
+        showAdModal: false,
+        vaultInterest: 0,
+        lockedSavingsInterest: 0
     };
 
     constructor(props) {
@@ -89,7 +90,7 @@ class DashboardIndex extends Component {
         this.setState({
             showStartModal: false
         });
-        setLocalStorage(SHOWAD,'dont_show');
+        setLocalStorage(SHOWAD, 'dont_show');
 
     };
 
@@ -114,22 +115,22 @@ class DashboardIndex extends Component {
     };
 
 
-    adModalController = ( ) =>{
+    adModalController = () => {
 
 
         //TODO setup popup for first user login
 
         //when user logs in for the first time
 
-        if(!localStorage.getItem(SHOWAD)){
-            setLocalStorage(SHOWAD,'show');
+        if (!localStorage.getItem(SHOWAD)) {
+            setLocalStorage(SHOWAD, 'show');
             // console.log(getLocalStorage(SHOWAD));
             // show the add
             this.setState({
                 showStartModal: true
             })
 
-        }else if(JSON.stringify(localStorage.getItem(SHOWAD))!=='show'){
+        } else if (JSON.stringify(localStorage.getItem(SHOWAD)) !== 'show') {
             // console.log('second run'+getLocalStorage(SHOWAD));
             this.setState({
                 showStartModal: false
@@ -158,17 +159,16 @@ class DashboardIndex extends Component {
         // modal should contain he links to each feature on the app back up goals , steady save , locked savings
 
 
-
-
-
     };
 
 
-    handleVaultInterest = (status,response) =>{
-        if(status){
-            if(response){
+    handleVaultInterest = (status, response) => {
+        console.log('Vault Interest response', status, response);
+
+        if (status) {
+            if (response) {
                 this.setState({
-                    vaultInterest:parseFloat(JSON.parse(response.data.data)).toFixed(2)
+                    vaultInterest: parseFloat(JSON.parse(response.data.data)).toFixed(2)
                 })
 
             }
@@ -176,64 +176,57 @@ class DashboardIndex extends Component {
     };
 
 
-    handleLockedInterest = (status,response) =>{
+    handleLockedInterest = (status, response) => {
+        console.log('Locked Interest response', status, response);
 
-        if(status){
-            if(response){
+        if (status) {
+            if (response) {
                 this.setState({
-                    lockedSavingsInterest:parseFloat(JSON.parse(response.data.data)).toFixed(2)
+                    lockedSavingsInterest: parseFloat(JSON.parse(response.data.data)).toFixed(2)
                 })
 
             }
         }
     };
-
 
 
     setupDashBoard = () => {
 
 
-
         //controls add display
         this.adModalController();
 
+        request(getUserInfoEndpoint, null, true, 'GET', this.analyseDashboardInfo);
 
+        request(CentralVaultInterest, null, true, 'GET', this.handleVaultInterest);
 
-            request(getUserInfoEndpoint, null, true, 'GET', this.analyseDashboardInfo);
+        request(LockedInterest, null, true, 'GET', this.handleLockedInterest);
 
-            request(CentralVaultInterest,null,true,'GET',this.handleVaultInterest);
+        // request(lockedSavingEndpoint,null,true,'GET',this.handleLockedSavings);
 
-
-            request(LockedInterest,null,true,'GET',this.handleLockedInterest);
-
-
-            // request(lockedSavingEndpoint,null,true,'GET',this.handleLockedSavings);
-
-
-            request(GetBackUpGoals,null,true,'GET',this.handleBackUpGoals);
+        request(GetBackUpGoals, null, true, 'GET', this.handleBackUpGoals);
 
 
     };
 
 
-
-    handleBackUpGoals = (status,response)=>{
-        if(status){
+    handleBackUpGoals = (status, response) => {
+        console.log('backup goals', status, response);
+        if (status) {
             const now = moment().format('YYYY-MM-DD');
             const backUpGoals = response.data.data;
 
             //active
 
             // //check  to  filter all goals where current data is greater than today
-            let activeGoals = backUpGoals.filter((content)=>{
-                return (moment(content.end_date).format('YYYY-MM-DD')>now && parseInt(content.is_pause) === 0 && parseInt(content.stop) ===0) ;
+            let activeGoals = backUpGoals.filter((content) => {
+                return (moment(content.end_date).format('YYYY-MM-DD') > now && parseInt(content.is_pause) === 0 && parseInt(content.stop) === 0);
             });
 
 
             this.setState({
-                ActiveGoals:activeGoals.length
+                ActiveGoals: activeGoals.length
             });
-
 
             //filter when backup goals is pause is false
 
@@ -248,14 +241,13 @@ class DashboardIndex extends Component {
             let CompletedGoals = getCompletedGoals(backUpGoals);
 
             this.setState({
-                CompletedGoals:CompletedGoals.length
+                CompletedGoals: CompletedGoals.length
             });
             //filter when is paused is true
-        }else {
+        } else {
 
         }
     };
-
 
 
     checkActiveUser = (status) => {
@@ -269,36 +261,36 @@ class DashboardIndex extends Component {
         if (parseInt(status)) {
             // console.log(JSON.parse(getLocalStorage(USERINFO)));
 
-                // const data = JSON.parse(getLocalStorage(USERINFO));
+            // const data = JSON.parse(getLocalStorage(USERINFO));
 
-                // if(parseInt(data.active)){
+            // if(parseInt(data.active)){
 
-                    console.log('user is activated')
-                // }else{
-                //     console.log('user is not activated');
-                // }
-        // if (getLocalStorage(USERACTIVATED)) {
-        //     let status = JSON.parse(getLocalStorage(USERACTIVATED));
-        //     // if (status === false) {
-        //     //     let userInfo = JSON.parse(getLocalStorage(USERINFO));
-        //     //     //show activation modal
-        //     //     // this.setUpActivation(true, userInfo.email);
-        //     // //TODO handle verification
-        //     // } else
-        //     //
-        //     console.log(status);
-        //
-        //     if (status === true || status === false ) {
-        //
-        //     }
-        // }
+            console.log('user is activated')
+            // }else{
+            //     console.log('user is not activated');
+            // }
+            // if (getLocalStorage(USERACTIVATED)) {
+            //     let status = JSON.parse(getLocalStorage(USERACTIVATED));
+            //     // if (status === false) {
+            //     //     let userInfo = JSON.parse(getLocalStorage(USERINFO));
+            //     //     //show activation modal
+            //     //     // this.setUpActivation(true, userInfo.email);
+            //     // //TODO handle verification
+            //     // } else
+            //     //
+            //     console.log(status);
+            //
+            //     if (status === true || status === false ) {
+            //
+            //     }
+            // }
 
 
         } else {
 
             this.setState({
-                error:true,
-                errorMessage:'Your Account is not Activated'
+                error: true,
+                errorMessage: 'Your Account is not Activated'
             })
             console.log('user is not active');
 
@@ -342,11 +334,11 @@ class DashboardIndex extends Component {
         request(url, null, true, "GET", callback);
 
     };
-     getBackUpSavings = (url, callback) => {
+    getBackUpSavings = (url, callback) => {
 
-            request(url, null, true, 'GET', callback);
+        request(url, null, true, 'GET', callback);
 
-     };
+    };
 
 
     handleLockedSavings = (state, res) => {
@@ -364,7 +356,7 @@ class DashboardIndex extends Component {
 
 
     analyseDashboardInfo = (status, res) => {
-
+        console.log('dashboard response', status, res);
         //
         // console.log('got here to retrieve it ');
         // let data = JSON.parse(getLocalStorage(USERINFO));
@@ -382,12 +374,11 @@ class DashboardIndex extends Component {
 
         if (status) {
 
-
             if (res) {
                 this.setState({
                     accountInfo: res.data.data.accounts,
                     userName: res.data.data.name,
-                    showLoader:false
+                    showLoader: false
                 });
 
                 // if(res.data.data.active){
@@ -404,7 +395,7 @@ class DashboardIndex extends Component {
                     let accounts = res.data.data.accounts.data;
 
                     let transactions = res.data.data.transactions.data;
-                    transactions = transactions.filter((content)=>content.status=='success');
+                    transactions = transactions.filter((content) => content.status == 'success');
 
                     this.setState({
                         transactions
@@ -438,7 +429,7 @@ class DashboardIndex extends Component {
 
             }
 
-        }else {
+        } else {
             console.log(res)
         }
 
@@ -548,8 +539,8 @@ class DashboardIndex extends Component {
 
     render() {
         const {
-            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount,lockedSavingsInterest,
-            transactions, userName, totalInterest,vaultInterest, CompletedGoals, ActiveGoals, totalSteadySave
+            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, lockedSavingsInterest,
+            transactions, userName, totalInterest, vaultInterest, CompletedGoals, ActiveGoals, totalSteadySave
         } = this.state;
 
         return (

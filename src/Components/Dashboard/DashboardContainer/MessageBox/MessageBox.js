@@ -125,7 +125,7 @@ class MessageBox extends Component {
 
         const kycInfo = (
             <React.Fragment>
-                <span>
+                <span className='mb-1 mb-md-0'>
                     <strong>Hello {this.state.userName}! </strong>
                     Your have currently saved up to ₦ {formatNumber(Number(this.state.balance).toFixed(2))},
                 </span>
@@ -155,7 +155,7 @@ class MessageBox extends Component {
                         <div className="row mb-1">
                             <div className="col-12">
                                 <div className={'bg-white shadow-sm dashboard-callout callout-border-right' +
-                                ' d-flex justify-content-between align-items-center callout-round callout-transparent ' +
+                                ' d-flex flex-column flex-md-row justify-content-between align-items-center callout-round callout-transparent ' +
                                 'mt-1 px-2 py-2 py-1'}>
                                     {/*<label className='d-flex justify-content-between flex-md-row'>*/}
                                     {kycInfo}
@@ -167,18 +167,17 @@ class MessageBox extends Component {
                                 </div>
                             </div>
                         </div>
-
                     ) : null}
                 <div className="row mb-2">
                     <div className="col-12">
                         <div className={'bg-white shadow-sm dashboard-callout callout-border-right' +
-                        ' d-flex justify-content-between align-items-center callout-round callout-transparent ' +
+                        ' d-flex flex-column flex-md-row flex-wrap justify-content-md-between align-items-center callout-round callout-transparent ' +
                         'mt-1 px-2 py-2 py-1'}>
-                            <label className='d-flex justify-content-center'>
+                            <label className='d-flex flex-column align-items-center flex-md-row justify-content-md-center'>
                                 {referralInfo}
                             </label>
-                            <label>
-                                <span className="mr-2"> copy referral code</span>
+                            <label className='d-flex flex-md-row align-items-center flex-column'>
+                                <span className="mr-2 mb-1 mb-md-0"> copy referral code</span>
                                 <span className="code-btn" onClick={this.copyToClipboard}>AEC45SF</span>
                             </label>
                         </div>

@@ -336,6 +336,10 @@ class BackupGoals extends Component {
                                                     {/*                newSteadySave={this.showNewSteadySaveModal}/>*/}
 
                                                     <div className="col-lg-4 col-12">
+                                                        <h3 className="gray-header-text d-md-none d-block text-right fs-mb-1 mb-2"><a href='#!' className='gray-text back-btn'
+                                                                                                                    onClick={this.hideBackupGoal}>
+                                                            <i className='fa fa-chevron-left'></i>&nbsp;Back to Goals</a>
+                                                        </h3>
                                                         <h3 className="gray-header-text fs-mb-1 mb-2 ">BackUpGoal <span
                                                             className="dot">.</span> Summary
 
@@ -531,7 +535,7 @@ class BackupGoals extends Component {
                                                                     <div className="col-12 text-center text-muted">
 
                                                                         <i className='fa fa-5x fa-briefcase'></i>
-                                                                        <h2>No Back Up Goals</h2>
+                                                                        <h2 className='mb-5 mb-md-0'>No Back Up Goals</h2>
                                                                     </div>
 
 

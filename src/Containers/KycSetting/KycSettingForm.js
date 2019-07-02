@@ -531,13 +531,14 @@ class KycSettingForm extends Component {
                                                                                                    name="identification_type_picture_url"
                                                                                                    required/>
 
-                                                                                            <input type="file"
-                                                                                                   id="file-upload"
-                                                                                                   className='cust-file-upload'
-                                                                                                    required/>
-                                                                                            <label
-                                                                                                htmlFor="file-upload">Upload
-                                                                                                file</label>
+                                                                                            {/*<input type="file"*/}
+                                                                                            {/*       id="file-upload"*/}
+                                                                                            {/*       className='cust-file-upload'*/}
+                                                                                            {/*       required*/}
+                                                                                            {/*/>*/}
+                                                                                            {/*<label*/}
+                                                                                            {/*    htmlFor="file-upload">Upload*/}
+                                                                                            {/*    file</label>*/}
                                                                                             {/*<div*/}
                                                                                             {/*    id="file-upload-filename">dsdflsfg</div>*/}
                                                                                            {/*<div className="custom-file1">*/}

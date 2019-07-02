@@ -2,7 +2,7 @@ import React from 'react';
 
 export const _createPaystackPopup = async (email, amount, transactionId, resolvePayment) => {
   let handler = await window.PaystackPop.setup({
-    key: 'pk_test_e35e9d7fbb05d3634556f8ace73823fc484de0a3',
+    key: process.env.REACT_APP_PAYSTACK_KEY,
     email,
     amount,
     currency: "NGN",

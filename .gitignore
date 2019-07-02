@@ -10,7 +10,10 @@
 
 # production
 #add /build later
-build
+
+# env
+.env
+
 
 # misc
 .DS_Store

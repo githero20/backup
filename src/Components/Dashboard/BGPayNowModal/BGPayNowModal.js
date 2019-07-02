@@ -12,8 +12,9 @@ import Col from "react-bootstrap/Col";
 import {initTransaction, verifyTransaction} from "../../../actions/CardAction";
 import {initSSDuePay, paySteadySaveDue, verifyPayDue} from "../../../actions/SteadySaveAction";
 import {USERINFO} from "../../Auth/HOC/authcontroller";
+import {initBGDuePay, payBGDue, verifyBGPayDue} from "../../../actions/BackUpGoalsAction";
 
-class PayNowModal extends Component {
+class BGPayNowModal extends Component {
 
 
     // TODO Handle update KYC
@@ -43,7 +44,7 @@ class PayNowModal extends Component {
             disableBtn: false,
             pinErr: false,
             form: {
-                steady_save_id: null,
+                backup_goal_id: null,
                 amount: '',
                 payment_auth: null,
             },
@@ -55,15 +56,11 @@ class PayNowModal extends Component {
 
     //Retrieves user inputs
     changeHandler =(event) =>{
-
-
         _handleFormChange(
             event.target.name,
             event,
             this
         );
-
-
         // const name = event.target.name;
         // let value = event.target.value;
         //
@@ -94,7 +91,7 @@ class PayNowModal extends Component {
     initiatePayStack = () => {
         //send api
         console.log(this.state.form);
-        initSSDuePay(this.state.form, (status, payload) => {
+        initBGDuePay(this.state.form, (status, payload) => {
             console.log("status", status, payload);
             this.setState({loading: false});
             if (status) {
@@ -127,7 +124,7 @@ class PayNowModal extends Component {
         // }
         let form = {...this.state.form};
         form.reference =  response.reference;
-        verifyPayDue(form, (status, payload) => {
+        verifyBGPayDue(form, (status, payload) => {
             console.log("status", status, payload);
             if (status) {
                 this.props.toastManager.add(`Successfully paid ₦ ${formatNumber(parseFloat(this.state.form.amount).toFixed(2))}`, {
@@ -168,7 +165,7 @@ class PayNowModal extends Component {
 
             } else {
 
-                paySteadySaveDue(this.state.form, this.handlePayResponse);
+                payBGDue(this.state.form, this.handlePayResponse);
                 // const id = this.props.id;
                 // request(`${EditSteadySave}${id}`, null, true, 'GET', this.handleResponse)
                 // }
@@ -212,7 +209,7 @@ class PayNowModal extends Component {
 
         // set steady save to pay
         let form = {...this.state.form};
-        form.steady_save_id = this.props.selectedSSave.id;
+        form.backup_goal_id = this.props.selectedBG.id;
         form.amount = this.props.totalFailed;
         this.setState({
             form
@@ -230,7 +227,7 @@ class PayNowModal extends Component {
 
                 <Modal.Header className={'px-md-3 py-md-3'} closeButton={this.props.onHide}>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        <h4>Pay Due Steady Save</h4>
+                        <h4>Pay Due Backup Goal</h4>
                     </Modal.Title>
                     {/*<a href='#' className="gray-text back-btn "*/}
                     {/*   onClick={()=>this.props.hideForm()}>Back to Withdrawals <i className='fa fa-chevron-right'></i>*/}
@@ -307,4 +304,4 @@ class PayNowModal extends Component {
 
 }
 
-export default withToastManager(PayNowModal);
+export default withToastManager(BGPayNowModal);

@@ -72,23 +72,35 @@ export function getTotal(transactions) {
 }
 
 export function getTotalSteadySave(transactions) {
-    if (transactions) {
-        if (transactions.length > 1) {
-            let credits;
-            credits = transactions.filter((content) => (content.type === 'credit'));
-            credits = credits.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
-            return credits.amount;
-        } else {
-            let sum = transactions.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
-            return sum.start_amount;
-        }
+    if (transactions && transactions.length > 0) {
+        let credits;
+        credits = transactions.filter((content) => (content.type === 'credit'));
+        credits = credits.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
+        return credits.amount;
+    } else {
+        return 0;
     }
 }
+
+//
+// export function getTotalSteadySave(transactions) {
+//     if (transactions) {
+//         if (transactions.length > 0) {
+//             let credits;
+//             credits = transactions.filter((content) => (content.type === 'credit'));
+//             credits = credits.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
+//             return credits.amount;
+//         } else {
+//             let sum = transactions.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
+//             return sum.start_amount;
+//         }
+//     }
+// }
 
 
 export function getTotalSteadySaveDebit(transactions) {
     if (transactions) {
-        if (transactions.length > 1) {
+        if (transactions.length > 0) {
             let debits;
             debits = transactions.filter((content) => (content.type === 'debit'));
             debits = debits.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
@@ -99,6 +111,40 @@ export function getTotalSteadySaveDebit(transactions) {
         }
     }
 }
+
+export function getTotalSuccessfulSS(transactions) {
+    if (transactions && transactions.length > 0) {
+        let successful;
+        successful = transactions.filter((content) => (content.status === 'success'));
+        successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+        return successful.amount;
+    } else {
+        return 0;
+    }
+}
+
+export function getTotalSuccessfulBG(transactions) {
+    if (transactions && transactions.length > 0) {
+        let successful;
+        successful = transactions.filter((content) => (content.status === 'success'));
+        successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+        return successful.amount;
+    } else {
+        return 0;
+    }
+}
+
+// export function getTotalSuccessfulSS(transactions) {
+//     if (transactions && transactions.length > 0) {
+//             let successful;
+//             successful = transactions.filter((content) => (content.status === 'success'));
+//             successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+//             return successful.amount;
+//     }else {
+//         let sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+//         return sum.amount;
+//     }
+// }
 
 export function getPercentage(startValue, endValue) {
     if (Number(startValue) != 0 && Number(endValue) != 0) {
@@ -114,6 +160,15 @@ export function getPercentage(startValue, endValue) {
 //         return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
 //     };
 // };
+export function getCards(key, object) {
+    const userInfo = getLocalStorage(key);
+    if (getLocalStorage(key) != undefined) {
+        object.setState({
+            userCards: userInfo.authorization.data
+        })
+    }
+}
+
 export function capitalize(value) {
     let words = value.split(' ');
     if (words.length > 1) {
@@ -196,6 +251,36 @@ export function getTotalFailed(transactions) {
             return 0;
         }
     }
+}
+
+export function getCompletedGoals(transactions) {
+    const now = moment().format('YYYY-MM-DD');
+    if (transactions.length > 0) {
+        let CompletedGoals = transactions.filter((content) => {
+            return ((moment(content.end_date).format('YYYY-MM-DD') < now
+                    && parseInt(content.is_pause) === 0
+                    && parseInt(content.stop) === 0) ||
+                (parseInt(content.stop) === 1)
+            );
+        });
+
+        return CompletedGoals;
+
+    }
+    return 0;
+
+}
+
+export function isGoalCompleted(goal) {
+    const now = moment().format('YYYY-MM-DD');
+    if (goal && ((moment(goal.end_date).format('YYYY-MM-DD') < now
+            && parseInt(goal.is_pause) === 0
+            && parseInt(goal.stop) === 0)
+    )) {
+        return true;
+    }
+    return false;
+
 }
 
 export function getTotalBGSuccessful(transactions) {

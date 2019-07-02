@@ -39,7 +39,7 @@ class WithdrawalForm extends Component {
             settingsOwner: "you",
             form: {
                 penalty_from: "central_vault",
-                withdraw_amount: "500",
+                withdraw_amount: "",
                 bank_account: "",
                 source: "central_vault",
                 pin_one: '',
@@ -84,9 +84,7 @@ class WithdrawalForm extends Component {
     };
 
     saveBalance = (state, res) => {
-
         if (state) {
-
             if (res.data.data.accounts) {
                 console.log(res.data.data.accounts);
                 let accounts = res.data.data.accounts.data;
@@ -113,7 +111,7 @@ class WithdrawalForm extends Component {
         getWithdrawalSettings((status, payload) => {
             this.setState({loading: false});
             if (status) {
-                console.log("Withdr", status, payload);
+                console.log("Withdrawal", status, payload);
                 this.setState({withdrawalSettings: payload.data, settingsOwner: payload.owner});
                 this.getNextWithdrawalDate(payload.data);
 
@@ -124,18 +122,10 @@ class WithdrawalForm extends Component {
                         this.setState({
                             userPin: payload.data,
                             showPinModal: true,
-                        })
-
-                    } else {
-
-
+                        });
                     }
-
                 });
-
-
                 // TODO if not popup a form for user to add pin
-
 
             } else {
                 this.props.toastManager.add("unable to get withdrawal settings", {
@@ -203,21 +193,27 @@ class WithdrawalForm extends Component {
 
     handleWithdrawFrom(e) {
 
-         let form = this.handleChange(e);
+        let form = this.handleChange(e);
+        console.log({form}, e);
+
         if (e.target.value == "backup_stash" || this.state.penaltyFreeDay) {
             // let form = {...this.state.form};
             // console.log(form);
+            console.log('before ', form);
             delete form.penalty_from;
+            console.log('after ', form);
+
             this.setState({hasPenalty: false, form});
         } else {
-            form.penalty_from="central_vault";
-            this.setState({hasPenalty: true,form});
+            form.penalty_from = "central_vault";
+            console.log('not free date ', form);
+            this.setState({hasPenalty: true, form});
         }
 
     }
 
     handleChange(e) {
-       let form = _handleFormChange(e.target.name, e, this);
+        let form = _handleFormChange(e.target.name, e, this);
         this.handlePinConcatenation(e.target.name, e);
         return form;
     }
@@ -255,7 +251,9 @@ class WithdrawalForm extends Component {
                 let d = moment(date.withdrawal_date, "MM/DD");
                 let diff = d.diff(now, "days");
                 if (diff == 0) {
-                    this.setState({hasPenalty: false, penaltyFreeDay: true, nextDate: d.format("LL")});
+                    const {form} = this.state;
+                    delete form.penalty_from;
+                    this.setState({form, hasPenalty: false, penaltyFreeDay: true, nextDate: d.format("LL")});
                 } else if (diff > 0) {
                     this.setState({nextDate: d.format("LL")});
                     break;
@@ -271,14 +269,14 @@ class WithdrawalForm extends Component {
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             this.forceUpdate();
-        } else if (!(this.state.form.withdrawal_pin.length >= 4)) {
+        } else if (this.state.form.withdrawal_pin.length != 4) {
             this.setState({
                 pinErr: true
             });
         } else {
-
+            console.log("all");
             const {form} = this.state;
-
+            console.log("Form", {form});
             swal("Are you sure you want to make a withdrawal ?", {
                 buttons: {
                     cancel: "no",
@@ -300,6 +298,18 @@ class WithdrawalForm extends Component {
                                         autoDismissTimeout: 5000
                                     });
                                     swal("Withdrawal Successful", "success");
+                                    const form = {
+                                        penalty_from: "central_vault",
+                                        withdraw_amount: "",
+                                        bank_account: "",
+                                        source: "central_vault",
+                                        pin_one: '',
+                                        pin_two: '',
+                                        pin_three: '',
+                                        pin_four: '',
+                                        withdrawal_pin: ''
+                                    };
+                                    this.setState({form});
                                     this.props.updateWithdrawalList();
                                 } else {
                                     this.toastMessage(payload, 'error')
@@ -425,7 +435,6 @@ class WithdrawalForm extends Component {
                                                                     );
                                                                 })
                                                             }
-                                                            {console.log('user banks', this.state.userBanks)}
                                                         </select>
                                                         {this.state.userBanks.length == 0 ?
                                                             <Link to={BankCardLink}>Click here to add a
@@ -440,6 +449,10 @@ class WithdrawalForm extends Component {
                                                     <div className="form-group">
                                                         <label htmlFor="name">How much do you want to withdraw
                                                             today?</label>
+                                                        <div className='amount-display round text-white px-1 mb-1'>
+                                                            ₦ {formatNumber(parseFloat(this.state.form.withdraw_amount ?
+                                                            this.state.form.withdraw_amount : 0).toFixed(2))}
+                                                        </div>
                                                         <input
                                                             type="number"
                                                             className="form-control mb-1"
@@ -456,7 +469,8 @@ class WithdrawalForm extends Component {
                                                     <div className="form-group">
                                                         <label>Where do you want to withdraw from?</label>
                                                         <select name="source" onChange={this.handleWithdrawFrom}
-                                                                defaultValue={this.state.form.source} className="form-control">
+                                                                defaultValue={this.state.form.source}
+                                                                className="form-control">
                                                             <option value="central_vault">Central Vault
                                                             </option>
                                                             <option value="backup_stash">Backup Stash
@@ -492,6 +506,7 @@ class WithdrawalForm extends Component {
                                                             <div className="col-3">
                                                                 <input id="pin_one" type="password" name={'pin_one'}
                                                                        className={'form-control pin-control'}
+                                                                       value={this.state.form.pin_one}
                                                                        onChange={this.handleChange}
                                                                        onKeyUp={this.validateInput}
                                                                        onKeyDown={this.validateInput}
@@ -501,6 +516,7 @@ class WithdrawalForm extends Component {
                                                             <div className="col-3">
                                                                 <input id="pin_two" type="password" name={'pin_two'}
                                                                        className={'form-control pin-control'}
+                                                                       value={this.state.form.pin_two}
                                                                        onChange={this.handleChange}
                                                                        onKeyUp={this.validateInput}
                                                                        onKeyDown={this.validateInput}
@@ -510,6 +526,7 @@ class WithdrawalForm extends Component {
                                                             <div className="col-3">
                                                                 <input id="pin_three" type="password" name={'pin_three'}
                                                                        className={'form-control pin-control'}
+                                                                       value={this.state.form.pin_three}
                                                                        onChange={this.handleChange}
                                                                        onKeyUp={this.validateInput}
                                                                        onKeyDown={this.validateInput}
@@ -519,6 +536,7 @@ class WithdrawalForm extends Component {
                                                             <div className="col-3">
                                                                 <input id="pin_four" type="password" name={'pin_four'}
                                                                        className={'form-control pin-control'}
+                                                                       value={this.state.form.pin_four}
                                                                        onChange={this.handleChange}
                                                                        onKeyUp={this.validateInput}
                                                                        onKeyDown={this.validateInput}
@@ -533,7 +551,7 @@ class WithdrawalForm extends Component {
 
                                         <div
                                             className="form-actions d-flex justify-content-center justify-content-md-end">
-                                            <button type="submit"
+                                            <button type="submit" disabled={this.state.loading}
                                                     className="btn  btn-bg-shade-2 px-3 py-1 round pull-right">
                                                 {this.state.loading ? <ButtonLoader/> : "Withdraw"}
 

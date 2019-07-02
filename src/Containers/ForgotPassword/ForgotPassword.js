@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
+import backUpCashLogo from "../../admin/app-assets/images/Newlogo-02.png";
 import ForgotPasswordForm from "../../Components/Auth/ForgotPasswordForm/ForgotPasswordForm";
 import { ToastProvider } from 'react-toast-notifications';
 import {Link} from 'react-router-dom';

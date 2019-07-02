@@ -2,8 +2,10 @@
 
 
 @media only screen and (max-width: 599px) {
-
-    /* mobile menu */
+    .faq-main .btn-link{
+        font-size: .8rem;
+    }
+        /* mobile menu */
     .header-navbar .navbar-header .navbar-brand {
         position: absolute;
         top: 0;
@@ -204,7 +206,7 @@
         color: #103366;
         font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         letter-spacing: 0px;
-        font-size: 2.5rem;
+        font-size: 1.5rem;
         position: absolute;
         top: 7%;
         left: 8%;

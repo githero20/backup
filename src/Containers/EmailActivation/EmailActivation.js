@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
+import backUpCashLogo from "../../admin/app-assets/images/Newlogo-02.png";
 import {ToastProvider} from "react-toast-notifications";
 import {ActivationRequest, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
 import {activateUserEndpoint, DashboardLink, HomeLink, LoginLink, resendActEndpoint} from "../../RouteLinks/RouteLinks";

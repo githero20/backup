@@ -103,6 +103,9 @@ button {
     transition: all .5s ease-in-out;
 }
 
+.contact-row p {
+    color: #7F7F7F;
+}
 .dash-cust-blue:hover {
     color: #2784F4;
     background-color: white;

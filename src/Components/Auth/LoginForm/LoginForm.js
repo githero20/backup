@@ -56,6 +56,10 @@ class LoginForm extends Component {
     processLogin(state, response) {
         if (state) {
             if (response != undefined) {
+
+                //handle admin login
+
+
                 localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
                 localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
                 setTimeout(() => {

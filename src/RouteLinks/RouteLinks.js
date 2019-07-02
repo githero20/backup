@@ -29,7 +29,6 @@ export const addWithdrawalLink  = '/add-bank';
 ////////////////////////// Endpoints /////////////////////////////////////////////
 // export const BASE_URL ='http://backupcash.atp-sevas.com/';
 export const BASE_URL = process.env.REACT_APP_BASE_URL;
-console.log('base url',BASE_URL);
 
 export const LoginEndpoint  = 'sfsbapi/v1/auth/login';
 export const RegisterEndpoint  = `sfsbapi/v1/auth/register`;

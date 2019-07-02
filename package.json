@@ -29,11 +29,12 @@
     "react-toast-notifications": "^1.4.0",
     "simple-react-validator": "^1.0.7",
     "styled-components": "^4.3.1",
+    "surge": "^0.21.3",
     "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build" : "react-scripts build && cp build/index.html build/404.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

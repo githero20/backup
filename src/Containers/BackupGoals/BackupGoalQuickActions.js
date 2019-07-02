@@ -340,18 +340,21 @@ class BackupGoalQuickActions extends React.Component {
     componentDidMount() {
 
         this.props.showBackUpHistory(this.props.selectedBG.id);
-        console.log('is completed',isGoalCompleted(this.props.selectedBG));
+        console.log('is completed', isGoalCompleted(this.props.selectedBG));
     }
 
 
     render() {
         return (
             <React.Fragment>
-                <div className="col-lg-3 col-12 order-lg-5">
-                    <h3 className="gray-header-text text-right fs-mb-1 mb-2"><a href='#!' className='gray-text back-btn'
-                                                                                onClick={() => this.props.hideBG()}> Back
-                        to Goals
-                        &nbsp;<i className='fa fa-arrow-right '></i></a></h3>
+                <div className="col-lg-4 col-12 order-lg-5">
+                    <h3 className="gray-header-text d-none d-md-block text-right fs-mb-1 mb-2">
+                        <a href='#!' className='gray-text back-btn'
+                           onClick={() => this.props.hideBG()}>
+                            <i className='fa fa-chevron-left'></i>
+                            &nbsp;Back to Goals
+                        </a>
+                    </h3>
                     <div className="mb-quick-actions d-flex flex-column flex-wrap ">
 
                         {/*show edit modal*/}

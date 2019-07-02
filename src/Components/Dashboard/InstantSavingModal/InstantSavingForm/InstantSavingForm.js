@@ -336,7 +336,7 @@ class InstantSavingForm extends Component {
         // }
         return (
             <React.Fragment>
-                <Form onSubmit={this.submitForm}>
+                <Form className={'is-modal-form'} onSubmit={this.submitForm}>
                     <Form.Row>
                         <Col>
                             <Form.Group className={'mt-md-1 mb-md-3'}>

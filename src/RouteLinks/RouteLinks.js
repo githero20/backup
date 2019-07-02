@@ -1,6 +1,6 @@
 
-////////////////////////// Route Links ///////////////////////////////////////
 
+////////////////////////// Route Links ///////////////////////////////////////
 
 export const ForgotPasswordLink  = '/forgot-password';
 export const ResetPasswordLink  = '/password/reset/:token';
@@ -17,6 +17,7 @@ export const ProfileSettingLink  = '/profile-setting';
 export const BankCardLink  = '/bank-card-setting';
 export const LoginLink  = '/login';
 export const SignUpLink  = '/sign-up';
+export const FaqLink  = '/faq';
 export const InviteLink  = '/invite/:ref';
 export const ResendActivationLink  = '/resend/email';
 export const HomeLink  = '/';
@@ -25,9 +26,9 @@ export const BackupStashLink  = '/backup-stash';
 export const addWithdrawalLink  = '/add-bank';
 
 
-
 ////////////////////////// Endpoints /////////////////////////////////////////////
-export const BASE_URL ='http://backupcash.atp-sevas.com/';
+// export const BASE_URL ='http://backupcash.atp-sevas.com/';
+export const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const LoginEndpoint  = 'sfsbapi/v1/auth/login';
 export const RegisterEndpoint  = `sfsbapi/v1/auth/register`;
@@ -35,6 +36,7 @@ export const initiateSteadySaveEndpoint  = `sfsbapi/v1/user/transaction/init/ste
 export const verifyTransactionEndpoint  = `sfsbapi/v1/user/transaction/verify`;
 export const passwordResetEndpoint  = `sfsbapi/v1/auth/password/email`;
 export const getUserInfoEndpoint  = `sfsbapi/v1/user`;
+export const getUserPointsEndpoint  = `sfsbapi/v1/user/point`;
 export const activateUserEndpoint  = `sfsbapi/v1/user/activate`;
 export const resendActEndpoint  = `sfsbapi/v1/auth/activate/resend`;
 export const instantSaveEndpoint  = `sfsbapi/v1/user/savings/instant`;
@@ -42,6 +44,8 @@ export const instantSaveTransEndpoint  = `/sfsbapi/v1/user/transaction/instant`;
 export const lockedSavingEndpoint  = `sfsbapi/v1/user/savings/locked`;
 export const getBackUpStashTransEndpoint  = `sfsbapi/v1/user/transaction/backupstash`;
 export const NewSteadySaveEndpoint  = `/sfsbapi/v1/user/savings/steady`;
+export const PayDueSSEndpoint  = `sfsbapi/v1/user/savings/steady/duepay`;
+export const PayDueBGEndpoint  = `sfsbapi/v1/user/goals/duepay`;
 export const getSteadySaveEndpoint  = `/sfsbapi/v1/user/savings/steady`;
 export const createBackupGoals  = `/sfsbapi/v1/user/goals`;
 export const getTransactionsApi  = `/sfsbapi/v1/user/transactions`;
@@ -72,6 +76,10 @@ export const StopSteadySave = `sfsbapi/v1/user/savings/steady/stop`;
 export const GetWithdrawal = `sfsbapi/v1/user/withdrawals`;
 export const UpdatePasswordEndpoint = `/sfsbapi/v1/user/update/password`;
 export const InitiateTransactionEndpoint  = `sfsbapi/v1/user/transaction/init`;
+export const InitiateSSDuePayEndpoint  = `sfsbapi/v1/user/savings/steady/init`;
+export const InitiateBGDuePayEndpoint  = `sfsbapi/v1/user/goals/init`;
+export const VerifySSDuePayEndpoint  = `sfsbapi/v1/user/savings/steady/verify`;
+export const VerifyBGDuePayEndpoint  = `sfsbapi/v1/user/goals/verify`;
 export const GetUsersCards  = `/sfsbapi/v1/user/cards`;
 export const GetUserKYC =`/sfsbapi/v1/user/profile/kyc`;
 export const GetWithdrawalPenalty = `sfsbapi/v1/user/withdrawals/penalty`;

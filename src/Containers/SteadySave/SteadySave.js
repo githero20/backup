@@ -7,13 +7,13 @@ import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySave
 import {
     dateFormatter,
     descriptionFormatter,
-    formatNumber,
+    formatNumber, getCards,
     getTodaysDate,
     getToken,
     getTotalFailed,
     getTotalSteadySave,
-    getTotalSteadySaveDebit,
     getTotalSuccessful,
+    getTotalSuccessfulSS,
     moneyFormatter,
     STANDARD_ACCOUNT,
     statusFormatter,
@@ -26,10 +26,11 @@ import DashboardLoader from "../../Components/Dashboard/DashboardLoader/Dashboar
 import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
 import CreateSteadySaveModal from "../../Components/Dashboard/CreateSteadySaveModal/CreateSteadySaveModal";
 import SSaveTransTable from "../../Components/Dashboard/SSaveTransTable/SSaveTransTable";
-import {getSteadySavTrans} from "../../actions/SteadySaveAction";
+import {getSteadySavHistory, getSteadySavTrans} from "../../actions/SteadySaveAction";
 import SteadyAmountCard from "./SteadyAmountCard";
 import PayNowModal from "../../Components/Dashboard/PayNowModal/PayNowModal";
-
+import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
+import {ToastProvider} from 'react-toast-notifications';
 class SteadySave extends Component {
     constructor(props) {
         super(props);
@@ -61,7 +62,8 @@ class SteadySave extends Component {
             },
             showSSaveTrans: false,
             selectedSteadySave: null,
-            steadySaveHistory: []
+            steadySaveHistory: [],
+            steadySaveTrans: []
         };
 
     }
@@ -103,32 +105,28 @@ class SteadySave extends Component {
         this.setState({
             showLoader: false
         });
-        if (state) {
-            if (res) {
-                const totalSteadySave = getTotalSteadySave(res.data.data);
-                this.setState({
-                    transactions: res.data.data,
-                    totalSteadySave: formatNumber(parseFloat(totalSteadySave).toFixed(2)),
-                    // steadySave: res.data.data.length == 0 ? {} : res.data.data[0]
-                });
-                const temp = res.data.data;
-                if (temp && temp.length > 0) {
+        if (state && res) {
+            // const totalSteadySave = getTotalSteadySave(res.data.data);
+            this.setState({
+                transactions: res.data.data,
+                // totalSteadySave: formatNumber(parseFloat(totalSteadySave).toFixed(2)),
+                // steadySave: res.data.data.length == 0 ? {} : res.data.data[0]
+            });
+            const temp = res.data.data;
+            if (temp && temp.length > 0) {
 
-                    let steadySave = {
-                        id: temp[0].id,
-                        contribution: temp[0].start_amount,
-                        frequency: temp[0].frequency,
-                        start_date: temp[0].start_date,
-                        hour_of_day: temp[0].hour_of_day,
-                        payment_auth: temp[0].gw_authorization_code,
-                        raw: temp[0]
-                    };
+                let steadySave = {
+                    id: temp[0].id,
+                    contribution: temp[0].start_amount,
+                    frequency: temp[0].frequency,
+                    start_date: temp[0].start_date,
+                    hour_of_day: temp[0].hour_of_day,
+                    payment_auth: temp[0].gw_authorization_code,
+                    raw: temp[0]
+                };
 
-                    this.setState({steadySave});
-                }
-
+                this.setState({steadySave});
             }
-
 
         } else {
             console.log(res);
@@ -160,7 +158,6 @@ class SteadySave extends Component {
     analyseSteadySaveInfo = (status, data) => {
 
         if (status) {
-
             //set name
             if (data) {
                 this.setState({
@@ -203,6 +200,7 @@ class SteadySave extends Component {
             this.setupSteadySave();
             this.GetBalance();
         });
+
     }
 
     showNewSteadySaveModal = () => {
@@ -218,24 +216,49 @@ class SteadySave extends Component {
     };
 
     handleSSaveTrans = (status, res) => {
-
         //TODO calc total steady save
         if (status && res) {
-            const totalSteadySave = getTotalSteadySaveDebit(res.data);
-            const totalSuccessful = getTotalSuccessful(res.data);
-            const totalFailed = getTotalFailed(res.data);
+            this.setState({
+                showLoader: false,
+                steadySaveTrans: res.data,
+            })
+
+        }
+    };
+
+    getHistAndTrans =()=>{
+
+        getSteadySavTrans(this.state.selectedSteadySave.id, this.handleSSaveTrans);
+        getSteadySavHistory(this.state.selectedSteadySave.id, this.handleSSaveHistory);
+
+    };
+
+    handleSSaveHistory = (status, res) => {
+        //TODO calc total steady save
+
+        if (status && res) {
+            console.log('got here ',res);
+
+            let data = res.savings_plan_history.data;
+            const totalSteadySave = getTotalSuccessfulSS(data);
+            console.log('total successful steady saves', totalSteadySave);
+
+            const totalSuccessful = getTotalSuccessful(data);
+            const totalFailed = getTotalFailed(data);
+
+            console.log('steady save', totalSteadySave, 'successful', totalSuccessful, 'failed', totalFailed, 'res', res);
             if (res) {
                 this.setState({
                     showLoader: false,
-                    steadySaveHistory: res.data,
-                    totalAttempts: res.data.length,
+                    steadySaveHistory: data,
+                    totalAttempts: data.length,
                     totalSuccessful,
                     totalFailed,
                     totalSteadySave: formatNumber(parseFloat(totalSteadySave).toFixed(2))
                 })
             }
         }
-    }
+    };
 
     hideTransactions = () => {
         this.setState({
@@ -289,6 +312,7 @@ class SteadySave extends Component {
 
                         // make request to get transaction
                         getSteadySavTrans(row.id, this.handleSSaveTrans);
+                        getSteadySavHistory(row.id, this.handleSSaveHistory);
 
                         //TODO Add history endpoint to get history of steady save
 
@@ -481,41 +505,43 @@ class SteadySave extends Component {
                                                                     Total Successful</p>
                                                             </div>
                                                         </span>
+
+                                                        {/* TODO due pay  */}
                                                         <span className="mb-details-container align-items-center ">
                                                             <div className="d-inline-block q-detail-img">
                                                                 <img src={uploadIcon}/>
                                                             </div>
                                                             <div className=" d-inline-block">
-                                                                <p className="gray-text circular-std mb-p-size">
+                                                                <div className="gray-text circular-std mb-p-size">
                                                                      <strong className="dark-brown font-size-1-16">
                                                                          ₦ {formatNumber(parseFloat(this.state.totalFailed).toFixed(2))} &nbsp;
                                                                      </strong>
                                                                      Due Pay
-                                                                    <div>
+                                                                    <p>
                                                                          {
                                                                              this.state.totalFailed > 0 ?
                                                                                  <a href='#' className=''
                                                                                     onClick={() => this.showPayModal()}>Pay
                                                                                      Now</a> :
-                                                                                 <a href='#' className=''
-                                                                                    onClick={() => this.showPayModal()}>Pay
-                                                                                     Now</a>
+                                                                                 null
                                                                          }
-                                                                    </div>
-
-
-
-                                                                </p>
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </span>
                                                     </div>
                                                 </div>
+                                                <ToastProvider>
+                                                    {this.state.showPayModal ? <PayNowModal show={this.state.showPayModal}
+                                                                                            selectedSSave={this.state.selectedSteadySave}
+                                                                                            totalFailed={this.state.totalFailed}
+                                                                                            getHistoryTrans={this.getHistAndTrans}
+                                                                                            onHide={this.hidePayModal}
+                                                    /> : null}
 
-                                                {this.state.showPayModal ? <PayNowModal show={this.state.showPayModal}
-                                                                                        selectedSSave={this.state.selectedSteadySave}
-                                                                                        onHide={this.hidePayModal}/> : null}
-
+                                                </ToastProvider>
                                                 {/*<BackupGoalQuickActions showBackUpHistory={this.showBackUpHistory}  hideBG={this.hideBackupGoal} fetchGoals={this.fetchBackUpGoals} selectedBG={this.state.selectedBG}/>*/}
+
                                             </div>
                                             <div className="row">
                                                 <div id="Back-up-goals" className="col-12 col-md-12">
@@ -536,10 +562,10 @@ class SteadySave extends Component {
                                                             {/*    /!*</ul>*!/*/}
 
                                                             {/*</div>*/}
-                                                            {/* table component */}
+                                                            {/* STEADY SAVE TABLE */}
                                                             <SSaveTransTable emptyMessage={'No Steady Saves Available'}
-                                                                             title={'Steady Save History'}
-                                                                             transactions={this.state.steadySaveHistory}
+                                                                             title={'Steady Save Transactions'}
+                                                                             transactions={this.state.steadySaveTrans}
                                                                              columns={historyColumns}
                                                             />
                                                             {/*<BackUpGoalsTable backupGoals={this.state.backupGoals} />*/}
@@ -701,7 +727,7 @@ class SteadySave extends Component {
                                             {/*<TransactionTable transactions={transactions} columns={columns}/>*/}
 
                                             {/* //TODO show steady save transactions */}
-                                            <SSaveTransTable title={'Steady Save'} transactions={transactions}
+                                            <SSaveTransTable title={'Steady Saves'} transactions={transactions}
                                                              columns={columns}/>
 
                                             {/*<SteadySaveTransTable transactions={transactions}/>*/}

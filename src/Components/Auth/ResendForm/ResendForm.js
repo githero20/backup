@@ -99,7 +99,7 @@ class ResendForm extends Component {
 
                                     <div className="col-12">
                                         <div>
-                                            <button type={'button'} onClick={this.resendActivationLink}
+                                            <button type={'button'} disabled={this.state.loading} onClick={this.resendActivationLink}
                                                     className="btn btn-round blue-round-btn auth-btn "
                                                     name="action">{this.state.loading ? <ButtonLoader/> :
                                                 <span>Click to Resend</span>}

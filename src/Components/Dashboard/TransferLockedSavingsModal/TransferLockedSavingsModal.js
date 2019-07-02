@@ -224,7 +224,7 @@ class TransferLockedSavingsModal extends React.Component {
                             <Form.Row className="d-flex justify-content-center justify-content-md-end  my-2">
 
                                 <div className={'d-flex justify-content-end'}>
-                                    <Button className="round btn-custom-blue modal-btn " type="submit">
+                                    <Button className="round btn-custom-blue modal-btn " disabled={this.state.loading} type="submit">
                                         {this.state.loading ? <ButtonLoader/> : "Start Saving"}
                                     </Button>
                                 </div>

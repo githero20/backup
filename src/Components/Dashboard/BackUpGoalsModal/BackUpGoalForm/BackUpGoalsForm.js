@@ -463,7 +463,7 @@ class BackUpGoalsForm extends Component {
                                 type="date"
                                 name={'maturity_date'}
                                 id={'maturity_date'}
-                                min={moment().format('YYYY-MM-DD')}
+                                min={moment(start_date).add(1,'days').format('YYYY-MM-DD')}
                                 value={maturity_date}
                                 onChange={this.changeHandler}/>
                             {this.validator.message('maturity_date', maturity_date, 'required|string')}
@@ -536,7 +536,7 @@ class BackUpGoalsForm extends Component {
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
 
-                        <Button className={'round btn-custom-blue modal-btn'} type="submit">
+                        <Button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading} type="submit">
                             {this.state.loading ? <ButtonLoader/> :
                                 <span>Start </span>}
 

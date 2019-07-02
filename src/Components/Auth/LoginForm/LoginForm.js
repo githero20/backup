@@ -242,7 +242,7 @@ class LoginForm extends Component {
                             <div
                                 className="d-flex  flex-column flex-md-row justify-content-end align-items-center">
 
-                                <button type={'submit'} className="btn btn-round blue-round-btn auth-btn order-md-12"
+                                <button type={'submit'} disabled={this.state.loading} className="btn btn-round blue-round-btn auth-btn order-md-12"
                                         name="action">{this.state.loading ? <ButtonLoader/> :
                                     <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
                                 </button>

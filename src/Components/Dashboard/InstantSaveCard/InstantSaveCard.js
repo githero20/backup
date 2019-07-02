@@ -29,6 +29,6 @@ const InstantSaveCard =(props)=> {
             </React.Fragment>
         );
 
-}
+};
 
 export default InstantSaveCard;

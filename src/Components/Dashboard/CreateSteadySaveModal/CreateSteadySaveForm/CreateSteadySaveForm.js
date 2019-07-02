@@ -50,6 +50,7 @@ class CreateSteadySaveForm extends Component {
         this.validator = new SimpleReactValidator();
         this.changeHandler = this.changeHandler.bind(this);
     }
+
     componentDidMount() {
         // this.setState({form:this.props.steadySave});
         this.validateStartDate();
@@ -426,7 +427,7 @@ class CreateSteadySaveForm extends Component {
 
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
                         <div className={'d-flex justify-content-end'}>
-                            <button className={'round modal-btn btn-custom-blue '} type="submit">
+                            <button className={'round modal-btn btn-custom-blue '} disabled={this.state.loading} type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Start"}
                             </button>
                         </div>

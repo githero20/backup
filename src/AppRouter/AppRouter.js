@@ -20,7 +20,7 @@ import {
     BackupStashLink,
     BankCardLink,
     DashboardLink,
-    EmailActivationLink,
+    EmailActivationLink, FaqLink,
     ForgotPasswordLink,
     HomeLink,
     InstantSaveLink, InviteLink,
@@ -45,6 +45,7 @@ import BackupStash from "../Containers/BackupStash/BackupStash";
 import {ToastProvider} from "react-toast-notifications";
 import SetupWithdrawal from "../Containers/SetupWithdrawal/SetupWithdrawal";
 import ErrorPage from "../Containers/ErrorPage/ErrorPage";
+import Faq from "../Containers/Faq/faq";
 
 class AppRouter extends Component {
 
@@ -80,7 +81,8 @@ class AppRouter extends Component {
                             <Route path={ForgotPasswordLink} component={ForgotPassword}/>
                             <Route path={ResetPasswordLink} component={ResetPassword}/>
                             <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
-                            <Route  component={ErrorPage}/>
+                            <Route path={FaqLink} component={Faq} />
+                            <Route component={ErrorPage}/>
                         </Switch>
 
                     </Router>

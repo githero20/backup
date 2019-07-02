@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
-import {ToastProvider, withToastManager} from 'react-toast-notifications';
+import EmailIcon from "../../images/svg/email-icon.svg";
+import {withToastManager} from 'react-toast-notifications';
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {request} from "../../ApiUtils/ApiUtils";
 import {HomeLink, resendActEndpoint} from "../../RouteLinks/RouteLinks";
@@ -12,17 +13,19 @@ class ResendActivation extends Component {
         loading: false,
     };
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        console.log("Email from other place", this.props.location.state.email);
+        console.log('props without email',this.props);
     }
 
 
     resendActivationLink = () => {
-        console.log("email",  this.props.location.state.email);
-        this.setState({loading:true});
-        const param = {email: this.props.location.state.email};
-        request(resendActEndpoint, param, false, "POST", this.handleResendActLink)
+
+        if (this.props.location.state) {
+            this.setState({loading: true});
+            const param = {email: this.props.location.state.email};
+            request(resendActEndpoint, param, false, "POST", this.handleResendActLink)
+        }
 
     };
 
@@ -31,8 +34,8 @@ class ResendActivation extends Component {
 
         const {toastManager} = this.props;
         this.setState({
-            loading:false
-        })
+            loading: false
+        });
 
         if (state) {
 
@@ -40,8 +43,8 @@ class ResendActivation extends Component {
 
             toastManager.add(`${response.data.message}`, {
                 appearance: 'success',
-                autoDismiss:true,
-                autoDismissTimeout:4000,
+                autoDismiss: true,
+                autoDismissTimeout: 4000,
             });
 
 
@@ -85,34 +88,36 @@ class ResendActivation extends Component {
                     {/*</div>*/}
 
                     <div className="container">
-                        <div className="row  pt-md-2">
-                            <div className=" col-md-6 offset-md-6">
+                        <div className="row">
+                            <div className=" col-md-5 offset-md-6">
                                 {/*   header component */}
-                                <div className=" py-md-1 px-md-1 px-md-5 py-md-5 header-shadow mt-2 mb-md-5 bg-white">
+                                <div className=" py-md-1 px-md-1 header-shadow mt-2 mb-md-5 bg-white">
                                     <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>
                                 </div>
                                 <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
-                                    <div className="login-form">
-                                        <div className="row text-center">
-                                            <div className="col-12">
-                                                {/*provide breadcrumb to go back*/}
-                                                <h1>Almost there...</h1>
-                                                <h3>Please check your email to confirm your account</h3>
-                                                <hr/>
-                                            </div>
+                                <div className="login-form">
+                                    <div className="row text-center">
+                                        <div className="col-12">
+                                            {/*provide breadcrumb to go back*/}
+                                            <img className='mb-lg-1' src={EmailIcon} alt="inbox icon"/>
+                                            <h1>Just one more step</h1>
+                                            <p className='gray-text mb-lg-3'>Please check your email to confirm your account</p>
+                                            <hr/>
+                                        </div>
 
-                                            <div className="col-12">
-                                                <div className={'mt-lg-2'}>
-                                                    <p className={'mb-lg-2 text-gray'}>No confirmation email received? Please check your spam folder or</p>
-                                                    <button type={'button'} onClick={this.resendActivationLink}
-                                                            className=" act-btn "
-                                                            name="action">{this.state.loading ? <ButtonLoader/> :
-                                                        <span>Request new confirmation email</span>}
-                                                    </button>
-                                                </div>
+                                        <div className="col-12">
+                                            <div className={'mt-lg-2'}>
+                                                <p>No confirmation email received?</p>
+                                                <p className={'mb-lg-2 gray-text'}>Please check your spam folder or click the button below.</p>
+                                                <button type={'button'} onClick={this.resendActivationLink}
+                                                        className="btn-custom-blue round auth-btn "
+                                                        name="action">{this.state.loading ? <ButtonLoader/> :
+                                                    <span>Resend email</span>}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>

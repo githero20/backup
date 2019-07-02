@@ -491,7 +491,7 @@ class SetupWithdrawalForm extends Component {
 
                         <div className="col-12 text-center text-md-right ">
                             <div>
-                                <button type={'submit'}
+                                <button type={'submit'} disabled={this.state.loading}
                                         className=" btn btn-round blue-round-btn auth-btn">
                                     {this.state.loading ? <ButtonLoader/> :
                                         <span>Add Bank<img alt="" className="img-2x ml-1" src={btnArrowRight}/></span>}

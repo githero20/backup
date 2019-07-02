@@ -13,7 +13,7 @@ import {
 } from "../../RouteLinks/RouteLinks";
 import {api, getLocalStorage, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
 import {
-    BACKUP_GOALS_ACCOUNT,
+    BACKUP_GOALS_ACCOUNT, getCompletedGoals,
     INTEREST_ACCOUNT,
     LOCKED_ACCOUNT,
     STANDARD_ACCOUNT
@@ -237,13 +237,15 @@ class DashboardIndex extends Component {
 
             //filter when backup goals is pause is false
 
-            let CompletedGoals = backUpGoals.filter((content)=>{
-                return ((moment(content.end_date).format('YYYY-MM-DD') < now
-                    && parseInt(content.is_pause) === 0
-                    && parseInt(content.stop) === 0) ||
-                    (parseInt(content.stop) === 1)
-                ) ;
-            });
+            // let CompletedGoals = backUpGoals.filter((content)=>{
+            //     return ((moment(content.end_date).format('YYYY-MM-DD') < now
+            //         && parseInt(content.is_pause) === 0
+            //         && parseInt(content.stop) === 0) ||
+            //         (parseInt(content.stop) === 1)
+            //     ) ;
+            // });
+
+            let CompletedGoals = getCompletedGoals(backUpGoals);
 
             this.setState({
                 CompletedGoals:CompletedGoals.length

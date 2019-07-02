@@ -222,7 +222,7 @@ class AddPinModal extends Component {
 
                             <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
                                 <button className={'round btn-custom-blue auth-btn modal-btn'} onClick={this.submit}
-                                        disabled={this.state.disableBtn} type="button">
+                                        disabled={this.state.loading} type="button">
                                     {this.state.loading ? <ButtonLoader/> :
                                         <span>Submit</span>}
                                 </button>

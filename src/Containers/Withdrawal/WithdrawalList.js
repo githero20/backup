@@ -17,14 +17,12 @@ class WithdrawalList extends Component {
         super(props);
     }
 
-
     state = {
         currentTransactions: [],
         currentPage: null,
         totalPages: null,
         sort:false,
         filter:false
-
     };
 
 

@@ -77,6 +77,11 @@ button{
 }
 .loadingSpinner {
     border: 2px solid #FFF;
+    position: absolute;
+    z-index: 3000;
+    top:0;
+    left: 50%;
+    transform:translate(-50%,-50%);
     border-top-color: rgba(0, 0, 0, 0);
     border-left-color: rgba(0, 0, 0, 0);
     width: 20px;
@@ -85,6 +90,17 @@ button{
     border-radius: 50%;
     animation: loadingSpinner 0.7s infinite linear;
     -webkit-animation: loadingSpinner 0.7s infinite linear;
+}
+.dash-cust-blue{
+    color:white;
+    background-color: #2784F4;
+    border: 1px solid transparent;
+    transition: all .5s ease-in-out;
+}
+.dash-cust-blue:hover{
+    color:#2784F4;
+    background-color: white;
+    border: 1px solid #2784F4;
 }
 .text-green{
     color: green;
@@ -1397,15 +1413,15 @@ button:focus, input:focus {
     position: relative;
 }
 
-.welcome-text {
-    color: #103366;
-    font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    letter-spacing: 0px;
-    font-size: 2.5rem;
-    position: absolute;
-    top: 26%;
-    left: 8%;
-}
+/*.welcome-text {*/
+/*    color: #103366;*/
+/*    font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+/*    letter-spacing: 0px;*/
+/*    font-size: 1.5rem;*/
+/*    position: absolute;*/
+/*    top: 26%;*/
+/*    left: 8%;*/
+/*}*/
 
 .header-shadow {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05);
@@ -1510,13 +1526,15 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .login-form h5 {
-    font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Circular Std Book", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    letter-spacing: -0.5px;
 }
 
 .blue-round-btn {
     background-color: #367BFF;
     padding: 1rem 4rem;
     border-radius: 3rem;
+    position: relative;
     color: white;
     font-size: 1.2rem;
     text-transform: capitalize;
@@ -1644,7 +1662,7 @@ input[type=number]::-webkit-outer-spin-button {
     position: absolute;
     top: 50%;
     left: 8%;
-    width: 200px;
+    width: 150px;
     height: 200px;
 
 }
@@ -1698,7 +1716,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .marker .circular-icon.active ~ label {
     color: #686868;
-    font-size: 1rem;
+    font-size: .8rem;
 }
 
 .marker label {
@@ -1750,7 +1768,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .mfirst .active ~ label {
     top: 31%;
-    left: -8%;
+    left: 0%;
 }
 
 
@@ -3630,7 +3648,7 @@ input[type="file"].cust-file-upload {
     color: #103366;
     font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     letter-spacing: 0px;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     position: absolute;
     top: 26%;
     left: 8%;
@@ -3877,7 +3895,7 @@ input:-webkit-autofill:active  {
     position: absolute;
     top: 50%;
     left: 8%;
-    width: 200px;
+    width: 150px;
     height: 200px;
 
 }
@@ -3931,12 +3949,13 @@ input:-webkit-autofill:active  {
 
 .marker .circular-icon.active ~ label {
     color: #686868;
-    font-size: 1rem;
+    font-size: .8rem;
 }
 
 .marker label {
     position: absolute;
     color: #C4C4C4;
+    font-size: .8rem;
     font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     letter-spacing: .1rem;
 }
@@ -3983,7 +4002,7 @@ input:-webkit-autofill:active  {
 
 .mfirst .active ~ label {
     top: 31%;
-    left: -8%;
+    left: 0%;
 }
 
 
@@ -3994,7 +4013,7 @@ input:-webkit-autofill:active  {
 
 .mlast label {
     top: 27%;
-    right: 47%;
+    right: 50%;
 }
 
 .mlast .active ~ label {
@@ -4635,9 +4654,33 @@ p{
 .dash-card .dash-btn{
     background-color: #F9F9F9;
     color:#2D2D2D;
-    padding: 10px 20px;
-    border-radius:10px;
+    padding: 5px 15px;
+    border-radius:2rem;
     margin: 10px 0px;
+    transition: all .5s ease-in-out;
+}
+.dash-card .dash-btn:hover .fa{
+    transform: translateX(0);
+    transition: all .5s ease-in-out;
+}
+.dash-card .dash-btn:hover .fa{
+    transform: translateX(5px);
+}
+.dash-card.blue-border-right .dash-btn:hover{
+    color: #F9F9F9;
+    background-color:#2567FF;
+}
+.dash-card.purple-border-right .dash-btn:hover{
+    color: #F9F9F9;
+    background-color:#BEABFF;
+}
+.dash-card.yellow-border-right .dash-btn:hover{
+    color: #F9F9F9;
+    background-color:#FBDA72;
+}
+.dash-card.orange-border-right .dash-btn:hover{
+    color: #F9F9F9;
+    background-color:#FFB658;
 }
 .dash-card .dash-card-img-cover{
     flex: 0 1 70px;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
+import backUpCashLogo from "../../admin/app-assets/images/Newlogo-02.png";
 import LoginForm from "../../Components/Auth/LoginForm/LoginForm";
 import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
 import {HomeLink} from "../../RouteLinks/RouteLinks";
@@ -20,9 +20,9 @@ class Login extends Component {
                         </div>
                         <div className="container">
                             <div className="row  pt-md-1">
-                                <div className=" col-lg-6 offset-lg-6">
+                                <div className=" col-lg-5 offset-lg-6">
                                     {/*   header component */}
-                                    <div className="px-md-2 py-md-2 header-shadow mt-2 mb-md-5 bg-white">
+                                    <div className="px-md-2 py-md-2 header-shadow mb-md-5 bg-white">
                                         <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>
                                     </div>
                                     <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>

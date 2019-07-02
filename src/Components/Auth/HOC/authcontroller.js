@@ -36,8 +36,7 @@ const AuthController = component => {
 
                 axios.get(verifyTokenURL, {headers: {Authorization: `Bearer ${JSON.parse(localStorage.getItem(USERTOKEN))}`}}).then(
                     res => {
-                        console.log('res',res);
-                        console.log('setitem',localStorage.setItem(USERINFO, JSON.stringify(res.data.data)));
+                        localStorage.setItem(USERINFO, JSON.stringify(res.data.data));
                         // console.log(JSON.stringify(res.data.data));
                         setFetching(false);
                     },

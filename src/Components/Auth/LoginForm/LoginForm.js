@@ -8,6 +8,7 @@ import {DashboardLink, ForgotPasswordLink, LoginEndpoint, ResendActivationLink} 
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
+import {getUserRole} from "../../../actions/UserAction";
 
 
 class LoginForm extends Component {
@@ -53,11 +54,30 @@ class LoginForm extends Component {
         })
     }
 
+    handleRole = (status,res)=>{
+            if(status){
+
+
+            }
+    };
+
+
     processLogin(state, response) {
         if (state) {
             if (response != undefined) {
 
-                //handle admin login
+                // handle admin login
+
+                // getUserRole(this.handleRole);
+
+
+                //get user role
+
+
+                // if the role is a customer process to dashboard
+
+
+                // else redirect user to admin login page
 
 
                 localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
@@ -223,7 +243,8 @@ class LoginForm extends Component {
                             <div className=" text-right pr-sm-0  mt-md-1 mb-1 pr-1 pr-md-3">
                                 <label className="font-size-1-1 mb-md-1">New User ? <Link to={'/sign-up'}
                                                                                           className="blue-link ">Sign
-                                    Up</Link> </label>
+                                    Up</Link>
+                                </label>
                             </div>
                         </div>
                         {/*<div className="col-12">*/}
@@ -246,7 +267,8 @@ class LoginForm extends Component {
                             <div
                                 className="d-flex  flex-column flex-md-row justify-content-end align-items-center">
 
-                                <button type={'submit'} disabled={this.state.loading} className="btn btn-round blue-round-btn auth-btn order-md-12"
+                                <button type={'submit'} disabled={this.state.loading}
+                                        className="btn btn-round blue-round-btn auth-btn order-md-12"
                                         name="action">{this.state.loading ? <ButtonLoader/> :
                                     <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
                                 </button>

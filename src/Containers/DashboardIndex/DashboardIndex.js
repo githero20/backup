@@ -178,7 +178,6 @@ class DashboardIndex extends Component {
 
     handleLockedInterest = (status, response) => {
         console.log('Locked Interest response', status, response);
-
         if (status) {
             if (response) {
                 this.setState({
@@ -357,10 +356,11 @@ class DashboardIndex extends Component {
         //     this.analyseDashboardInfo(status, data);
         // }
 
+        try{
 
-        if (status) {
+            if (status) {
 
-            if (res) {
+                // if (res) {
                 this.setState({
                     accountInfo: res.data.data.accounts,
                     userName: res.data.data.name,
@@ -413,11 +413,15 @@ class DashboardIndex extends Component {
                 }
 
 
+                // }
+
             }
 
-        } else {
-            console.log(res)
+
+        }catch (e) {
+            console.log('err',e);
         }
+
 
 
     };

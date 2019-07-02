@@ -412,7 +412,6 @@ class DashboardIndex extends Component {
 
                 }
 
-
                 // }
 
             }

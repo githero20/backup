@@ -4657,7 +4657,7 @@ p{
     padding: 5px 15px;
     border-radius:2rem;
     margin: 10px 0px;
-    transition: all .5s ease-in-out;
+    transition: background-color .3s ease-in-out;
 }
 .dash-card .dash-btn:hover .fa{
     transform: translateX(0);

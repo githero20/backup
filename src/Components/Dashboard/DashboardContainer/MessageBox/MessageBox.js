@@ -129,9 +129,9 @@ class MessageBox extends Component {
                     <strong>Hello {this.state.userName}! </strong>
                     Your have currently saved up to ₦ {formatNumber(Number(this.state.balance).toFixed(2))},
                 </span>
-                <span className="admin-purple">Kindly click this to
-                    <strong> <Link to={KycSettingLink}
-                                   className='purple-link text-uppercase'>update your kyc</Link></strong>.
+                <span className="admin-purple">
+                    <strong><Link to={KycSettingLink}
+                                   className='purple-link text-uppercase'>Kindly click this link to update your kyc</Link></strong>.
                 </span>
             </React.Fragment>
         );
@@ -143,7 +143,7 @@ class MessageBox extends Component {
                 {/*    You referred 5 persons from [ 1 -2-2019 to 5-2-2019 ] ,*/}
                 {/*</span>*/}
                 <div className="admin-purple d-block d-md-inline">Your referral points earned
-                    <strong className=" d-block d-md-inline ml-1">{this.state.userPoint} points</strong>
+                    <strong className=" d-block d-md-inline ml-1">{this.state.userPoint?this.state.userPoint:0} points</strong>
                 </div>
             </React.Fragment>
         );

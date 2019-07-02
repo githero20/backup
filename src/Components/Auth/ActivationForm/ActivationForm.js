@@ -536,7 +536,7 @@ class ActivationForm extends Component {
                         </div>
                         <div className="col-md-12 text-center text-md-right ">
                             <div>
-                                <button className="btn btn-round blue-round-btn auth-btn"  type={'button'} onClick={this.submitForm}>
+                                <button className="btn btn-round blue-round-btn auth-btn" disabled={this.state.loading} type={'button'} onClick={this.submitForm}>
                                    {this.state.loading?<ButtonLoader/>:
                                         <span>Activate <img className="img-2x ml-2" src={btnArrowRight} alt={'btn arrow right'}/></span>}
                                 </button>

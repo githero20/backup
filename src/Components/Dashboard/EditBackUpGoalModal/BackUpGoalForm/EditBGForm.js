@@ -458,7 +458,7 @@ class EditBGForm extends Component {
                             </Button> :
                             (
 
-                                <Button className={'round btn-custom-blue modal-btn'}  type="button"  onClick={this.submitForm}>
+                                <Button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading}  type="button"  onClick={this.submitForm}>
                                     {this.state.loading ? <ButtonLoader/> :
                                         <span>Update Goal </span>
                                     }

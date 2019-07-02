@@ -272,7 +272,7 @@ class UpdatePassword extends Component {
                                 {this.state.passErr? <div className={'srv-validation-message'}>Password Doesn't match</div> : null}
                             </div>
                             <div className="col-12 text-center mt-2  text-md-right">
-                                <button type="submit" onClick={this.submitForm} className="btn-withdraw round ">
+                                <button type="submit" onClick={this.submitForm} disabled={this.state.loading} className="btn-withdraw round ">
                                     {this.state.loading?<ButtonLoader/>:
                                         <span>Update Password</span>}
                                 </button>

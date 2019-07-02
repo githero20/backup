@@ -210,7 +210,7 @@ class ResetPasswordForm extends Component {
                         <div className="col-12">
                             <div className="d-flex mt-1  flex-md-row justify-content-end align-items-center">
                                 {/* submit button */}
-                                <button type="submit"  className="btn btn-round blue-round-btn auth-btn "
+                                <button type="submit" disabled={this.state.loading}  className="btn btn-round blue-round-btn auth-btn "
                                         name="action">{this.state.loading?<ButtonLoader/>:
                                     <span>Submit<img alt="" className="img-2x ml-2" src={signInIcon}/></span>}
                                 </button>

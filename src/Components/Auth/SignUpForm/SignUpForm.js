@@ -420,7 +420,7 @@ class SignUpForm extends Component {
 
                         <div className="col-12 text-center text-md-right ">
                             <div>
-                                <button type={'button'} onClick={this.submitForm}
+                                <button type={'button'} disabled={this.state.loading} onClick={this.submitForm}
                                         className=" btn btn-round blue-round-btn auth-btn">
                                     {this.state.loading ? <ButtonLoader/> :
                                         <span>Sign Up<img alt="" className="img-2x ml-1" src={btnArrowRight}/></span>}

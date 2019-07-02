@@ -26,7 +26,6 @@ export const BackupStashLink  = '/backup-stash';
 export const addWithdrawalLink  = '/add-bank';
 
 
-
 ////////////////////////// Endpoints /////////////////////////////////////////////
 export const BASE_URL ='http://backupcash.atp-sevas.com/';
 

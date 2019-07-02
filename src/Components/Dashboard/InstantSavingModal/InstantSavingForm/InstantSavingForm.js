@@ -402,7 +402,7 @@ class InstantSavingForm extends Component {
 
                     <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
                         <button className={'round btn-custom-blue modal-btn'}
-                                disabled={this.state.disableButton ? true : false} type="submit">
+                                disabled={this.state.loading} type="submit">
                             {this.state.loading ? <ButtonLoader/> :
                                 <span>Start Saving</span>}
                         </button>

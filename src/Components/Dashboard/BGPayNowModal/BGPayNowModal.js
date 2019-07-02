@@ -289,7 +289,7 @@ class BGPayNowModal extends Component {
                             </Form.Row>
                             <Form.Row className={'d-flex justify-content-end mt-2'}>
                                 <div className={'d-flex justify-content-end'}>
-                                    <button className={'round modal-btn btn-custom-blue '} type="submit">
+                                    <button className={'round modal-btn btn-custom-blue '} disabled={this.state.loading} type="submit">
                                         {this.state.loading ? <ButtonLoader/> : "Pay Now"}
                                     </button>
                                 </div>

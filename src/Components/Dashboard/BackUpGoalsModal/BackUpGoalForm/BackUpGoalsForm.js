@@ -536,7 +536,7 @@ class BackUpGoalsForm extends Component {
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
 
-                        <Button className={'round btn-custom-blue modal-btn'} type="submit">
+                        <Button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading} type="submit">
                             {this.state.loading ? <ButtonLoader/> :
                                 <span>Start </span>}
 

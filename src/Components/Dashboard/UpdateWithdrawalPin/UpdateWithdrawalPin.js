@@ -235,7 +235,7 @@ class UpdateWithdrawalPin extends Component {
                             </div>
                         </div>
                         <div className="col-12 text-center mt-2  text-md-right">
-                            <button type="submit" disabled={this.state.disable}
+                            <button type="submit" disabled={this.state.loading}
                                     className="btn-withdraw round ">
                                 {this.state.loading ? <ButtonLoader/> :
                                     <span>Update Pin</span>}

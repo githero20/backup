@@ -193,27 +193,27 @@ class WithdrawalForm extends Component {
 
     handleWithdrawFrom(e) {
 
-         let form = this.handleChange(e);
-         console.log({form}, e);
+        let form = this.handleChange(e);
+        console.log({form}, e);
 
         if (e.target.value == "backup_stash" || this.state.penaltyFreeDay) {
             // let form = {...this.state.form};
             // console.log(form);
-            console.log('before ',form);
+            console.log('before ', form);
             delete form.penalty_from;
-            console.log('after ',form);
+            console.log('after ', form);
 
             this.setState({hasPenalty: false, form});
         } else {
             form.penalty_from = "central_vault";
-            console.log('not free date ',form);
-            this.setState({hasPenalty: true,form});
+            console.log('not free date ', form);
+            this.setState({hasPenalty: true, form});
         }
 
     }
 
     handleChange(e) {
-       let form = _handleFormChange(e.target.name, e, this);
+        let form = _handleFormChange(e.target.name, e, this);
         this.handlePinConcatenation(e.target.name, e);
         return form;
     }
@@ -264,8 +264,8 @@ class WithdrawalForm extends Component {
         }
     }
 
-     onSubmit(e) {
-         e.preventDefault();
+    onSubmit(e) {
+        e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             this.forceUpdate();
@@ -283,50 +283,50 @@ class WithdrawalForm extends Component {
                     yes: "yes"
                 },
             })
-            .then((value) => {
-                switch (value) {
+                .then((value) => {
+                    switch (value) {
 
-                    case "yes":
-                        this.setState({loading: true});
-                        makeWithdrawal(form, (status, payload) => {
-                            console.log("response", status, payload);
-                            this.setState({loading: false});
-                            if (status) {
-                                this.props.toastManager.add("Withdrawal Successful", {
-                                    appearance: "success",
-                                    autoDismiss: true,
-                                    autoDismissTimeout: 5000
-                                });
-                                swal("Withdrawal Successful", "success");
-                                const form = {
-                                    penalty_from: "central_vault",
-                                    withdraw_amount: "",
-                                    bank_account: "",
-                                    source: "central_vault",
-                                    pin_one: '',
-                                    pin_two: '',
-                                    pin_three: '',
-                                    pin_four: '',
-                                    withdrawal_pin: ''
-                                };
-                                this.setState({form});
-                                this.props.updateWithdrawalList();
-                            } else {
-                                this.toastMessage(payload, 'error')
-                            }
-                        });
+                        case "yes":
+                            this.setState({loading: true});
+                            makeWithdrawal(form, (status, payload) => {
+                                console.log("response", status, payload);
+                                this.setState({loading: false});
+                                if (status) {
+                                    this.props.toastManager.add("Withdrawal Successful", {
+                                        appearance: "success",
+                                        autoDismiss: true,
+                                        autoDismissTimeout: 5000
+                                    });
+                                    swal("Withdrawal Successful", "success");
+                                    const form = {
+                                        penalty_from: "central_vault",
+                                        withdraw_amount: "",
+                                        bank_account: "",
+                                        source: "central_vault",
+                                        pin_one: '',
+                                        pin_two: '',
+                                        pin_three: '',
+                                        pin_four: '',
+                                        withdrawal_pin: ''
+                                    };
+                                    this.setState({form});
+                                    this.props.updateWithdrawalList();
+                                } else {
+                                    this.toastMessage(payload, 'error')
+                                }
+                            });
 
-                        swal("Processing Withdrawal....");
-                        break;
+                            swal("Processing Withdrawal....");
+                            break;
 
-                    case "no":
-                        swal("Withdrawal Cancelled");
-                        break;
+                        case "no":
+                            swal("Withdrawal Cancelled");
+                            break;
 
-                    default:
-                        swal("You Cancelled Your Withdrawal");
-                }
-            });
+                        default:
+                            swal("You Cancelled Your Withdrawal");
+                    }
+                });
         }
     }
 
@@ -449,6 +449,10 @@ class WithdrawalForm extends Component {
                                                     <div className="form-group">
                                                         <label htmlFor="name">How much do you want to withdraw
                                                             today?</label>
+                                                        <div className='amount-display round text-white px-1 mb-1'>
+                                                            ₦ {formatNumber(parseFloat(this.state.form.withdraw_amount ?
+                                                            this.state.form.withdraw_amount : 0).toFixed(2))}
+                                                        </div>
                                                         <input
                                                             type="number"
                                                             className="form-control mb-1"
@@ -465,7 +469,8 @@ class WithdrawalForm extends Component {
                                                     <div className="form-group">
                                                         <label>Where do you want to withdraw from?</label>
                                                         <select name="source" onChange={this.handleWithdrawFrom}
-                                                                defaultValue={this.state.form.source} className="form-control">
+                                                                defaultValue={this.state.form.source}
+                                                                className="form-control">
                                                             <option value="central_vault">Central Vault
                                                             </option>
                                                             <option value="backup_stash">Backup Stash
@@ -546,7 +551,7 @@ class WithdrawalForm extends Component {
 
                                         <div
                                             className="form-actions d-flex justify-content-center justify-content-md-end">
-                                            <button type="submit"
+                                            <button type="submit" disabled={this.state.loading}
                                                     className="btn  btn-bg-shade-2 px-3 py-1 round pull-right">
                                                 {this.state.loading ? <ButtonLoader/> : "Withdraw"}
 

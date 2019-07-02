@@ -2,20 +2,16 @@ import React, {Component} from 'react';
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
 import {Link, Redirect} from 'react-router-dom';
-import Axios from "axios";
 import {
     DashboardLink,
     initiateSteadySaveEndpoint,
     SignUpLink,
     verifyTransactionEndpoint
 } from "../../../RouteLinks/RouteLinks";
-import {PayStackKey} from "../../../Info/Info";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {api} from "../../../ApiUtils/ApiUtils";
 import {DASHBOARDINFO, USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {_handleFormChange} from "../../../utils";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
 
 class ActivationForm extends Component {
 
@@ -141,7 +137,7 @@ class ActivationForm extends Component {
             //start payment
             const {contribution,email} = this.state.activationData;
             console.log(response.data.reference);
-            this.payWithPaystack(email,contribution,PayStackKey,response.data.data.reference);
+            this.payWithPaystack(email,contribution,process.env.REACT_APP_PAYSTACK_KEY,response.data.data.reference);
 
         }else{
             console.log(`request failed: ${JSON.stringify(response.data)}`);

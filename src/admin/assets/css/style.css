@@ -4654,9 +4654,32 @@ p{
 .dash-card .dash-btn{
     background-color: #F9F9F9;
     color:#2D2D2D;
-    padding: 10px 20px;
-    border-radius:10px;
+    padding: 5px 15px;
+    border-radius:2rem;
     margin: 10px 0px;
+    transition: all .5s ease-in-out;
+}
+.dash-card .dash-btn:hover .fa{
+    transform: translateX(0);
+}
+.dash-card .dash-btn:hover .fa{
+    transform: translateX(10px);
+}
+.dash-card.blue-border-right .dash-btn:hover{
+    color: #F9F9F9;
+    background-color:#2567FF;
+}
+.dash-card.purple-border-right .dash-btn:hover{
+    color: #F9F9F9;
+    background-color:#BEABFF;
+}
+.dash-card.yellow-border-right .dash-btn:hover{
+    color: #F9F9F9;
+    background-color:#FBDA72;
+}
+.dash-card.orange-border-right .dash-btn:hover{
+    color: #F9F9F9;
+    background-color:#FFB658;
 }
 .dash-card .dash-card-img-cover{
     flex: 0 1 70px;

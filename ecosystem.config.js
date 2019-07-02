@@ -1,7 +1,7 @@
 module.exports = {
   apps : [
     {
-      name      : "Back Up Cash",
+      name      : "backup-cash",
       script    : "npx",
       interpreter: "none",
       args: "serve -p 3000 -s build"

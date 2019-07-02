@@ -20,8 +20,6 @@ class SignUp extends Component {
     // check if there is a referral
 
     getReferral = (props) =>{
-
-        console.log(props);
         if(props){
             this.setState({ referral_code:props.match.params.ref},()=>{console.log('just set state',this.state)})
         }

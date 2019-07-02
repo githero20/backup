@@ -53,7 +53,6 @@ class WithdrawalSettingsForm extends Component {
                 withdrawal_date: [moment(form.first_quarter).format("M/DD"), moment(form.second_quarter).format("M/DD"), moment(form.third_quarter).format("M/DD"), moment(form.fourth_quarter).format("M/DD")]
             };
 
-            console.log("Log", param);
 
             createWithdrawalSettings(param, (status, payload) => {
                 this.setState({loading: false});
@@ -77,7 +76,6 @@ class WithdrawalSettingsForm extends Component {
     };
 
     render() {
-        console.log('state',moment(this.state.lastDay).format('YYYY-MM-DD'));
         return (
             <React.Fragment>
                 <Fragment>

@@ -265,7 +265,6 @@ class DashboardIndex extends Component {
 
             // if(parseInt(data.active)){
 
-            console.log('user is activated')
             // }else{
             //     console.log('user is not activated');
             // }
@@ -292,7 +291,6 @@ class DashboardIndex extends Component {
                 error: true,
                 errorMessage: 'Your Account is not Activated'
             })
-            console.log('user is not active');
 
             //
             // this.setState({
@@ -341,18 +339,6 @@ class DashboardIndex extends Component {
     };
 
 
-    handleLockedSavings = (state, res) => {
-
-        if (state) {
-            console.log(res);
-
-        } else {
-
-            console.log(res);
-        }
-
-
-    };
 
 
     analyseDashboardInfo = (status, res) => {
@@ -472,7 +458,6 @@ class DashboardIndex extends Component {
 
     handleUserActivation = (state, res) => {
         if (state) {
-            console.log(res);
             this.setState({
                 activationSuccess: true,
                 error: false,
@@ -491,14 +476,9 @@ class DashboardIndex extends Component {
     handleResendActLink = (state, response) => {
 
         if (state) {
-
-            console.log(response);
-
             this.toastManager.add(`${response.data.success}`, {
                 appearance: 'success',
             });
-
-
         } else {
 
             if (response) {

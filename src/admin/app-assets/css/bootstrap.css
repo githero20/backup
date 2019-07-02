@@ -4897,6 +4897,7 @@ input[type='button'].btn-block
 {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    padding-left: 1rem;
 }
 .input-group > .form-control:not(:first-child),
 .input-group > .custom-select:not(:first-child)
@@ -7797,7 +7798,8 @@ button.close
     display: -ms-flexbox;
     display:         flex;
 
-    padding: 1rem;
+    padding: 2rem;
+
 
     border-bottom: 1px solid #98a4b8;
     border-top-left-radius: .35rem;

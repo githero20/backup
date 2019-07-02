@@ -90,7 +90,6 @@ class ActivationForm extends Component {
 
         if(ref!==null){
             localStorage.setItem('paystackRef',JSON.stringify(ref));
-            console.log(JSON.parse(localStorage.getItem('paystackRef')));
         }
 
     };
@@ -130,17 +129,14 @@ class ActivationForm extends Component {
             this.setState({
                 loading:false
             });
-            console.log(response);
             //save ref
             localStorage.setItem('refDetail',JSON.stringify(response.data.data));
 
             //start payment
             const {contribution,email} = this.state.activationData;
-            console.log(response.data.reference);
             this.payWithPaystack(email,contribution,process.env.REACT_APP_PAYSTACK_KEY,response.data.data.reference);
 
         }else{
-            console.log(`request failed: ${JSON.stringify(response.data)}`);
             this.setState({
                 error: true,
                 errorMessage: JSON.stringify(response.data),
@@ -193,7 +189,6 @@ class ActivationForm extends Component {
             this.redirectToDashBoard();
         }else {
 
-            console.log(`request failed: ${JSON.stringify(res.data)}`);
             this.setState({
                 error: true,
                 errorMessage: JSON.stringify(res.data),
@@ -240,7 +235,6 @@ class ActivationForm extends Component {
                         ref:response.reference
                     };
 
-                    console.log(response);
 
                 let token = localStorage.getItem(USERTOKEN);
 

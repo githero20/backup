@@ -46,12 +46,9 @@ class AddPinModal extends Component {
         if (name == 'pin_one' || name == 'pin_two' || name == 'pin_three' || name == 'pin_four') {
 
             form.withdrawal_pin = form.pin_one + form.pin_two + form.pin_three + form.pin_four;
-            console.log('form pin', form.withdrawal_pin);
             this.setState({form});
-            // console.log('withdrawal pin', form['withdrawal_pin']);
         }
 
-        console.log('length of pin ', form.withdrawal_pin.length);
         if (form.withdrawal_pin.length >= 4) {
             this.setState({
                 pinErr: false

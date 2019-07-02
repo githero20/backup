@@ -414,9 +414,8 @@ class SteadySave extends Component {
 
                                                 <div className="col-12">
                                                     <div className="text-right">
-                                                        <a href='#!' onClick={this.hideTransactions}
-                                                           className='gray-text back-btn'>Back to Steady Save <i
-                                                            className='fa fa-arrow-right'></i>
+                                                        <a href='#!' onClick={this.hideTransactions} className='gray-text back-btn'>
+                                                            <i className='fa fa-chevron-left'></i>&nbsp; Back to Steady Save
                                                         </a>
                                                     </div>
                                                 </div>
@@ -649,10 +648,10 @@ class SteadySave extends Component {
 
                                         <div className="row">
 
-                                            <div className="col-lg-4 col-12 order-lg-8">
+                                            <div className="col-lg-5 col-12 order-lg-8">
                                                 <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
                                                     <p>Start saving your money here automatically, daily, weekly or
-                                                        monthly.We want you to be disciplined, so we’ll charge you 5% if
+                                                        monthly.<br/>We want you to be disciplined, so we’ll charge you 5% if
                                                         you choose to withdraw outside of your set withdrawal days.</p>
                                                 </div>
                                             </div>
@@ -695,7 +694,7 @@ class SteadySave extends Component {
 
                                             <div className="col-lg-3 col-12 order-lg-5">
                                                 <h3 className="gray-header-text fs-mb-1 mb-2">&nbsp;</h3>
-                                                <div className="mb-quick-actions d-flex flex-column flex-wrap ">
+                                                <div className="mb-quick-actions d-flex flex-column flex-wrap mb-3 mb-md-0">
                                                     <span className="mb-btn-wrapper">
                                                         {/*<button type="button" onClick={this.showCreateSteadySaveModal} className=" btn-blue-gradient-2 round">*/}
                                                         {/*    <img src={whiteSaveMoreIcon}/>*/}

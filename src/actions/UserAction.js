@@ -7,7 +7,6 @@ export const getUserData =  callback =>{
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
             if(callback){
                 callback(true, res.data.data);
             }
@@ -27,7 +26,6 @@ export const getUserPoints =  callback =>{
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
             if(callback){
                 callback(true, res.data.data);
             }

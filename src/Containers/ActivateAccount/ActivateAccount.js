@@ -50,7 +50,6 @@ class ActivateAccount extends Component {
     storeRef = (ref) => {
         if(ref!==null){
             localStorage.setItem('paystackRef',JSON.stringify(ref));
-            console.log(JSON.parse(localStorage.getItem('paystackRef')));
         }
 
     };
@@ -59,7 +58,6 @@ class ActivateAccount extends Component {
 
     callback = (response) => {
 
-        console.log(response);
         // // card charged successfully, get reference here
         this.storeRef(response);
 
@@ -72,7 +70,6 @@ class ActivateAccount extends Component {
 
 
     close = () => {
-        console.log("Payment closed");
         this.setState({
             restart:true,
         })
@@ -138,7 +135,7 @@ class ActivateAccount extends Component {
 
     componentDidMount() {
 
-        console.log(localStorage.getItem('user'));
+        // console.log(localStorage.getItem('user'));
     }
 
     render(){

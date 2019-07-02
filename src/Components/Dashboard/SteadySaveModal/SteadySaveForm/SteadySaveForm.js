@@ -259,7 +259,7 @@ class SteadySaveForm extends Component {
                         </Form.Group>
                     </Form.Row>
 
-                    <Form.Row className={'d-flex justify-content-between mt-2'}>
+                    <Form.Row className={'d-flex align-items-center justify-content-between mt-2'}>
                         {/*<div className='d-flex justify-content-end'>*/}
                         {enableStart ? <button className='round btn-custom-blue modal-btn mr-1'
                                                onClick={this.handleStart}>

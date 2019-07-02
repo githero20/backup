@@ -54,9 +54,7 @@ class MessageBox extends Component {
                             updateKyc: true,
                             balance: content.balance
                         }, () => {
-                            console.log('state', this.state)
                         });
-                        console.log('state after', this.state);
                     }
                 }
             });
@@ -112,10 +110,9 @@ class MessageBox extends Component {
 
     handlePoints = (status, res) => {
         if (status) {
-            console.log('data in here', status, res);
             this.setState({userPoint: res})
         } else if (!status && res) {
-            console.log('error', status, res);
+            console.log('points error', status, res);
         }
 
     };

@@ -126,7 +126,7 @@ button .loadingSpinner {
 }
 
 .auth-btn {
-    width: 40%;
+    min-width: 150px;
     height: 50px;
 }
 
@@ -393,7 +393,6 @@ input[type="date"]::-webkit-clear-button {
     background-color: #110c21;
 
 }
-
 
 .main-menu.menu-dark .navigation > li .active > a {
     background-color: #0e0b1c;
@@ -718,10 +717,10 @@ input[type="date"]::-webkit-clear-button {
 
 .btn-custom-blue {
     color: #fff !Important;
-    border: none !important;
+    border: 1px solid transparent;
     background-color: #2784F4 !Important;
-    padding-top: .7rem;
-    padding-bottom: .7rem;
+    /*padding-top: .7rem;*/
+    /*padding-bottom: .7rem;*/
     transition: all .5s ease;
     cursor: pointer;
     box-shadow: 0px 5px 5px rgba(23, 96, 171, 0.2);
@@ -864,6 +863,7 @@ input[type="date"]::-webkit-clear-button {
 }
 
 @media all and (min-width: 1200px) {
+
     .main-menu.menu-dark .navigation {
         padding-top: 3rem;
 
@@ -1582,7 +1582,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .blue-round-btn {
     background-color: #367BFF;
-    padding: 1rem 4rem;
+    /*padding: 1rem 4rem;*/
     border-radius: 3rem;
     position: relative;
     color: white;
@@ -1916,11 +1916,15 @@ input[type=number]::-webkit-outer-spin-button {
         letter-spacing: 0.002rem;
     }
 
-    .auth-btn {
-        width: 13rem;
-        text-align: center;
-        padding: 0rem;
-        height: 50px;
+    /*.auth-btn {*/
+    /*    width: 13rem;*/
+    /*    text-align: center;*/
+    /*    padding: 0rem;*/
+    /*    height: 50px;*/
+    /*}*/
+    .modal-btn{
+        width:100px;
+        height:40px;
     }
 
     #timeline-wrap {
@@ -2274,19 +2278,30 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* Absolute Center Spinner */
 .loading {
-    position: fixed;
+    position: absolute;
     display: block;
     z-index: 9999999;
     height: 4rem;
     width: 4rem;
-    margin: auto;
+    /*margin: auto;*/
     background-color: transparent;
-    top: 10rem;
-    right: 6rem;
+    top: 50%;
+    left: 50%;
+    /*transform: translate(-50%,-50%);*/
     border: .5rem solid;
     border-color: rgba(48, 110, 255, 0.75) transparent transparent transparent;
     border-radius: 50%;
     animation: spinner infinite 1s;
+}
+.loader-body{
+    position: fixed;
+    display: block;
+    z-index: 99999999;
+    background-color: rgba(14, 99, 255, 0.03);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 }
 
 /* Animation */
@@ -2432,10 +2447,10 @@ button .loadingSpinner {
     left: 50%;
 }
 
-.auth-btn {
-    width: 40%;
-    height: 50px;
-}
+/*.auth-btn {*/
+/*    width: 40%;*/
+/*    height: 50px;*/
+/*}*/
 
 .btn-withdraw {
     min-width: 150px;
@@ -3092,16 +3107,7 @@ html body .content.app-content {
     cursor: pointer;
 }
 
-.modal-btn {
-    display: flex;
-    position: relative;
-    padding: 10px 20px;
-    text-align: center;
-    align-items: center;
-    /*width:150px;*/
-    /*height:40px;*/
-    cursor: pointer;
-}
+
 
 /*.btn-custom-blue:hover {*/
 /*    color: white !important;*/
@@ -3219,6 +3225,8 @@ html body .content.app-content {
     .vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
         width: 260px;
     }
+
+
 }
 
 /*header*/
@@ -3843,7 +3851,7 @@ input:-webkit-autofill:active {
 
 .blue-round-btn {
     background-color: #367BFF;
-    padding: 1rem 4rem;
+    /*padding: 1rem 4rem;*/
     border-radius: 3rem;
     color: white;
     font-size: 1.2rem;
@@ -4195,7 +4203,7 @@ input:-webkit-autofill:active {
     }
 
     .auth-btn {
-        width: 48%;
+        min-width: 150px;
         text-align: center;
         padding: 0rem;
         height: 50px;
@@ -4514,7 +4522,7 @@ input:-webkit-autofill:active {
         border-color: #2784F4;
         background-color: #2784F4;
         font-size: 1rem;
-        padding: 10px 20px;
+        /*padding: 10px 20px;*/
         transition: all .5s ease;
     }
 
@@ -4549,20 +4557,20 @@ input:-webkit-autofill:active {
 
 /*loader styles*/
 /* Absolute Center Spinner */
-.loading {
-    position: fixed;
-    z-index: 5000;
-    height: 3em;
-    width: 3em;
-    margin: auto;
-    border: .5rem solid;
-    border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;
-    top: 10rem;
-    right: 6rem;
-    display: block;
-    animation: spinner 1500ms infinite linear;
+/*.loading {*/
+/*    position: fixed;*/
+/*    z-index: 5000;*/
+/*    height: 3em;*/
+/*    width: 3em;*/
+/*    margin: auto;*/
+/*    border: .5rem solid;*/
+/*    border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;*/
+/*    top: 10rem;*/
+/*    right: 6rem;*/
+/*    display: block;*/
+/*    animation: spinner 1500ms infinite linear;*/
 
-}
+/*}*/
 
 
 /* Animation */
@@ -4876,4 +4884,18 @@ input[type=date]::-webkit-inner-spin-button {
 .react-bootstrap-table-page-btns-ul {
     float: right;
     margin-right: 1rem;
+}
+
+@media all and (min-width: 600px) {
+    .modal-btn {
+        /*display: flex;*/
+        /*position: relative;*/
+        /*padding: 10px 20px;*/
+        /*text-align: center;*/
+        /*align-items: center;*/
+        min-width:150px;
+        height:40px;
+        cursor: pointer;
+    }
+
 }

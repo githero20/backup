@@ -4,11 +4,17 @@ import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-ico
 import SimpleReactValidator from "simple-react-validator";
 import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
-import {DashboardLink, ForgotPasswordLink, LoginEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteLinks";
+import {
+    addWithdrawalLink,
+    DashboardLink,
+    ForgotPasswordLink,
+    LoginEndpoint,
+    ResendActivationLink
+} from "../../../RouteLinks/RouteLinks";
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {getUserRole} from "../../../actions/UserAction";
+import {ADMIN, ADMIN_LOGIN_URL, CUSTOMER} from "../../../Helpers/Helper";
 
 
 class LoginForm extends Component {
@@ -19,7 +25,10 @@ class LoginForm extends Component {
         error: false,
         errorMessage: '',
         loading: false,
-        resendActErr: false
+        resendActErr: false,
+        AddPin: false,
+        activateAcc: false,
+        token: null,
     };
 
     constructor(props) {
@@ -54,26 +63,26 @@ class LoginForm extends Component {
         })
     }
 
-    handleRole = (status,res)=>{
-            if(status){
+    handleRole = (status, res) => {
+        if (status) {
 
-                //get user role
-
-
-                // if the role is a customer process to dashboard
+            //get user role
 
 
-                // else redirect user to admin login page
-
-                if (res == 'admin'){
+            // if the role is a customer process to dashboard
 
 
-                } else if (res == 'customer') {
+            // else redirect user to admin login page
+
+            if (res == 'admin') {
 
 
-                }
+            } else if (res == 'customer') {
+
 
             }
+
+        }
     };
 
 
@@ -83,18 +92,67 @@ class LoginForm extends Component {
             if (response != undefined) {
 
                 // handle admin login
-                console.log('login res',response);
+                console.log('login res', response);
+                switch (response.data.role) {
+                    case ADMIN:
+                        window.location.replace(ADMIN_LOGIN_URL);
+                        break;
+                    case CUSTOMER:
+                        if (response.data.bank_withdrawal_pin==true) {
+                            localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
+                            localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
+                            setTimeout(() => {
+                                this.setState({
+                                    redirect: true,
+                                    loading: false
+                                });
+                            }, 3000);
+                        } else {
+                            // get user info and redirect to add withdrawal page
+                            this.setState({
+                                token: response.data.token,
+                                AddPin: true,
+                            });
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+                //Old Login Process
+
+                //
+                // if (response.data.role == ADMIN) {
+                //     //admin
+                //     window.location.replace(ADMIN_LOGIN_URL);
+                //
+                // } else if (response.data.role == CUSTOMER && response.data.bank_withdrawal_pin === true) {
+                //     // completely active user
+                //     localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
+                //     localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
+                //     setTimeout(() => {
+                //         this.setState({
+                //             redirect: true,
+                //             loading: false
+                //         });
+                //     }, 3000);
+                //
+                // }
+                //
+
+
                 // getUserRole(this.handleRole);
                 // getUserRole(response.data.token,this.handleRole);
-
-                localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
-                localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
-                setTimeout(() => {
-                    this.setState({
-                        redirect: true,
-                        loading: false
-                    });
-                }, 3000);
+                //
+                // localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
+                // localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
+                // setTimeout(() => {
+                //     this.setState({
+                //         redirect: true,
+                //         loading: false
+                //     });
+                // }, 3000);
             }
 
             // //Temporary get user details
@@ -127,11 +185,24 @@ class LoginForm extends Component {
             this.setState({loading: false});
 
             if (response) {
+                console.log('login error', response);
                 if (response.status == 401) {
                     if (response.data.message == "invalid_credentials") {
                         this.toastMessage(`Invalid Credentials`, 'error');
                     } else if (response.data.message == 'Incorrect email or password,Try again') {
                         this.toastMessage('Incorrect Email or Password', 'error');
+                    } else if (response.data.message == 'Account has not been activated, click on resend') {
+                        // send toast message
+                        this.toastMessage('Account has not been activated', 'error');
+
+                        setTimeout(() => {
+                            this.setState({
+                                activateAcc: true
+                            })
+                        }, 3000);
+
+                        // redirect user to the activation page
+
                     }
 
                 } else {
@@ -204,11 +275,23 @@ class LoginForm extends Component {
             );
         }
 
-        if (this.state.resendActErr) {
+        if (this.state.addPin) {
             return (
                 <React.Fragment>
                     <Redirect to={{
-                        pathname: `${ResendActivationLink}/${email}`,
+                        pathname: {addWithdrawalLink},
+                        state: {token: this.state.token}
+                    }} push
+                    />
+                </React.Fragment>
+            );
+        }
+
+        if (this.state.activateAcc) {
+            return (
+                <React.Fragment>
+                    <Redirect to={{
+                        pathname: `${ResendActivationLink}`,
                         state: {email: email}
                     }} push/>
                 </React.Fragment>

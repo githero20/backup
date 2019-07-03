@@ -11,6 +11,9 @@ export const LOCKED_ACCOUNT = 2;
 export const INTEREST_ACCOUNT = 3;
 export const BACKUP_GOALS_ACCOUNT = 4;
 export const ADD_CARD = '0';
+export const CUSTOMER = 'customer';
+export const ADMIN = 'administrator';
+export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
 
 export function animateCSS(element, animationName, callback) {
     const node = document.querySelector(element);

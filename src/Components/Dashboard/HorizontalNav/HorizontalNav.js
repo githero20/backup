@@ -5,42 +5,47 @@ import LogOutIcon from "../../../admin/app-assets/images/svg/logout-cion.svg";
 import KycIcon from "../../../admin/app-assets/images/svg/kyc-icon.svg";
 import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import {Link, Redirect} from "react-router-dom";
-import {DashboardLink, getUserInfoEndpoint, LoginLink} from "../../../RouteLinks/RouteLinks";
-import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
+import {DashboardLink, LoginLink} from "../../../RouteLinks/RouteLinks";
+import {getLocalStorage} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
-import {amountInput} from "../../../Helpers/Helper";
+import {getUserData} from "../../../actions/UserAction";
 
 class HorizontalNav extends Component {
 
     //state to display user menu when clicked
     state = {
-        show:'',
-        redirectLogin:false,
-        toggleMenu:false,
-        userName:null
-    };
-    //toggle profile menu
-    toggleSubMenu=()=>{
-        let toggle = (this.state.show ==='')?'show':'';
-        this.setState({show:toggle});
+        show: '',
+        redirectLogin: false,
+        toggleMenu: false,
+        userName: null
     };
 
+    //toggle profile menu
+    toggleSubMenu = () => {
+        let toggle = (this.state.show === '') ? 'show' : '';
+        this.setState({show: toggle});
+    };
 
     //display user info on the menu
     //check if user info is stored retrieve the info
     // look for a way to securely store and retrieve data from local storage
 
     logout = () => {
-
         localStorage.removeItem(USERTOKEN);
         localStorage.removeItem(USERINFO);
         this.setState({
-            redirectLogin:true,
+            redirectLogin: true,
         })
     };
 
-     componentDidMount() {
+    handleUserInfo = (status, response) => {
+        if(status){
+            this.setState({userName: response.name})
+        }
+    };
 
+
+    componentDidMount(){
         //get name from localStorage
         // if(getLocalStorage(USERINFO)){
         //     setTimeout(()=>{
@@ -49,13 +54,12 @@ class HorizontalNav extends Component {
         //
         //     },3000);
         // }
-                try{
-                    const user = getLocalStorage(USERINFO);
-                    this.setState({userName:user.name})
-                }catch (e) {
-                    console.log(e);
-                }
-
+        try {
+            // const user = getLocalStorage(USERINFO);
+            getUserData(this.handleUserInfo);
+        } catch (e) {
+            console.log(e);
+        }
 
     }
 
@@ -116,7 +120,7 @@ class HorizontalNav extends Component {
         // const {userName} = this.state;
 
 
-        if(this.state.redirectLogin){
+        if (this.state.redirectLogin) {
 
             return (
                 <React.Fragment>
@@ -136,7 +140,8 @@ class HorizontalNav extends Component {
                                 <li className="nav-item mobile-menu d-md-none ml-auto order-4">
                                     {/*<button className="nav-link nav-menu-main menu-toggle hidden-xs" >*/}
                                     {/*    <i className="ft-menu font-large-1"></i></button>*/}
-                                    <a onClick={this.showMobileMenu} className="hamburger hamburger--slider menu-toggle navbar-toggler"
+                                    <a onClick={this.showMobileMenu}
+                                       className="hamburger hamburger--slider menu-toggle navbar-toggler"
                                        data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                        aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="hamburger-box">
@@ -145,7 +150,7 @@ class HorizontalNav extends Component {
                                     </a>
                                 </li>
                                 <li className="nav-item mr-auto">
-                                    <Link to={DashboardLink} className="navbar-brand" >
+                                    <Link to={DashboardLink} className="navbar-brand">
                                         <img className="brand-logo" alt="Backup Cash"
                                              src={Logo}/>
                                     </Link>
@@ -155,7 +160,7 @@ class HorizontalNav extends Component {
                                 </li>
                                 <li className="nav-item d-none">
                                     <button className="nav-link open-navbar-container" data-toggle="collapse"
-                                       data-target="#navbar-mobile"><i className="la la-ellipsis-v"></i></button>
+                                            data-target="#navbar-mobile"><i className="la la-ellipsis-v"></i></button>
                                 </li>
                             </ul>
                         </div>
@@ -166,7 +171,8 @@ class HorizontalNav extends Component {
                                     <li className="dropdown nav-item mega-dropdown">
                                         <ul className="mega-dropdown-menu dropdown-menu row">
                                             <li className="col-md-3">
-                                                <h6 className="dropdown-menu-header text-uppercase"><i className="la la-list-ul"></i> Accordion
+                                                <h6 className="dropdown-menu-header text-uppercase"><i
+                                                    className="la la-list-ul"></i> Accordion
                                                 </h6>
                                                 <div id="accordionWrap" role="tablist" aria-multiselectable="true">
                                                     <div className="card">
@@ -179,7 +185,8 @@ class HorizontalNav extends Component {
                                                                 </h4>
                                                             </div>
 
-                                                            <button className="heading-elements-toggle"><i className="la la-ellipsis-v font-medium-3"></i></button>
+                                                            <button className="heading-elements-toggle"><i
+                                                                className="la la-ellipsis-v font-medium-3"></i></button>
                                                             <div className="heading-elements">
                                                                 <h4 className="text-center">
                                                                     <div>Total Interest</div>
@@ -223,9 +230,9 @@ class HorizontalNav extends Component {
                                                                     <input className="form-control" type="text"
                                                                            id="inputName1"
                                                                            placeholder="John Doe"/>
-                                                                        <div className="form-control-position pl-1">
-                                                                            <i className="la la-user"></i>
-                                                                        </div>
+                                                                    <div className="form-control-position pl-1">
+                                                                        <i className="la la-user"></i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -237,9 +244,9 @@ class HorizontalNav extends Component {
                                                                     <input className="form-control" type="email"
                                                                            id="inputEmail1"
                                                                            placeholder="john@example.com"/>
-                                                                        <div className="form-control-position pl-1">
-                                                                            <i className="la la-envelope-o"></i>
-                                                                        </div>
+                                                                    <div className="form-control-position pl-1">
+                                                                        <i className="la la-envelope-o"></i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -248,7 +255,9 @@ class HorizontalNav extends Component {
                                                                    htmlFor="inputMessage1">Message</label>
                                                             <div className="col-sm-9">
                                                                 <div className="position-relative has-icon-left">
-                                                    <textarea className="form-control" id="inputMessage1" rows="2" placeholder="Simple Textarea"></textarea>
+                                                                    <textarea className="form-control"
+                                                                              id="inputMessage1" rows="2"
+                                                                              placeholder="Simple Textarea"></textarea>
                                                                     <div className="form-control-position pl-1">
                                                                         <i className="la la-commenting-o"></i>
                                                                     </div>
@@ -275,29 +284,32 @@ class HorizontalNav extends Component {
                                     </li>
                                 </ul>
                                 <ul className="nav navbar-nav float-right">
-                                    <li className={'dropdown dropdown-user nav-item '+this.state.show}>
-                                        <a className={'dropdown-toggle nav-link dropdown-user-link'} onClick={this.toggleSubMenu}
+                                    <li className={'dropdown dropdown-user nav-item ' + this.state.show}>
+                                        <a className={'dropdown-toggle nav-link dropdown-user-link'}
+                                           onClick={this.toggleSubMenu}
                                            data-toggle="dropdown">
                                             <span className="avatar avatar-online">
-                                                <img src={AvatarImage} alt="avatar" onClick={this.toggleSubMenu} />
+                                                <img src={AvatarImage} alt="avatar" onClick={this.toggleSubMenu}/>
                                                 <i></i>
                                             </span>
                                             <span className="mr-1">
-                                                <span className="user-name text-bold-700 text-capitalize">{userName}</span>
+                                                <span
+                                                    className="user-name text-bold-700 text-capitalize">{userName}</span>
                                             </span>
                                         </a>
-                                        <div className={'dropdown-menu menu-custom-dropdown dropdown-menu-right '+this.state.show}>
+                                        <div
+                                            className={'dropdown-menu menu-custom-dropdown dropdown-menu-right ' + this.state.show}>
                                             <Link to={'/profile-setting'} className="dropdown-item" href="profile.html">
-                                                <img src={ProfileIcon} className="img-2x mr-1" alt={''} /> Profile
+                                                <img src={ProfileIcon} className="img-2x mr-1" alt={''}/> Profile
                                             </Link>
                                             <Link to={'/kyc-setting'} className="dropdown-item" href="kyc.html">
                                                 <img
-                                                src={KycIcon}
-                                                className="img-2x mr-1"alt={''}  /> KYC</Link>
+                                                    src={KycIcon}
+                                                    className="img-2x mr-1" alt={''}/> KYC</Link>
                                             <div className="dropdown-divider"></div>
-                                            <a className="dropdown-item" onClick={this.logout} ><img
+                                            <a className="dropdown-item" onClick={this.logout}><img
                                                 src={LogOutIcon}
-                                                className="img-2x mr-1" alt={''}  /> Log Out</a>
+                                                className="img-2x mr-1" alt={''}/> Log Out</a>
                                         </div>
                                     </li>
 

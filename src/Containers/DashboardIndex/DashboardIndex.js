@@ -163,7 +163,6 @@ class DashboardIndex extends Component {
 
 
     handleVaultInterest = (status, response) => {
-        console.log('Vault Interest response', status, response);
 
         if (status) {
             if (response) {
@@ -177,7 +176,6 @@ class DashboardIndex extends Component {
 
 
     handleLockedInterest = (status, response) => {
-        console.log('Locked Interest response', status, response);
         if (status) {
             if (response) {
                 this.setState({
@@ -190,7 +188,6 @@ class DashboardIndex extends Component {
 
 
     setupDashBoard = () => {
-
 
         //controls add display
         this.adModalController();
@@ -210,7 +207,6 @@ class DashboardIndex extends Component {
 
 
     handleBackUpGoals = (status, response) => {
-        console.log('backup goals', status, response);
         if (status) {
             const now = moment().format('YYYY-MM-DD');
             const backUpGoals = response.data.data;
@@ -361,14 +357,11 @@ class DashboardIndex extends Component {
             if (status) {
 
                 // if (res) {
-
-                console.log('response before state',res,this.state);
                 this.setState({
                     accountInfo: res.data.data.accounts,
                     userName: res.data.data.name,
                     showLoader: false
                 });
-                console.log('response after state',res,this.state);
 
                 // if(res.data.data.active){
                 //
@@ -390,7 +383,6 @@ class DashboardIndex extends Component {
                         transactions
                     });
 
-                    console.log('accounts in response and state before setting account',accounts,this.state);
                     accounts.map((content, idx) => {
                         if (content.account_type_id == STANDARD_ACCOUNT) {
                             this.setState({
@@ -412,9 +404,6 @@ class DashboardIndex extends Component {
                         }
 
                     });
-                    console.log('state after setting accounts',accounts,this.state);
-
-
 
                 }
 

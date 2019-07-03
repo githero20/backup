@@ -361,11 +361,14 @@ class DashboardIndex extends Component {
             if (status) {
 
                 // if (res) {
+
+                console.log('response before state',res,this.state);
                 this.setState({
                     accountInfo: res.data.data.accounts,
                     userName: res.data.data.name,
                     showLoader: false
                 });
+                console.log('response after state',res,this.state);
 
                 // if(res.data.data.active){
                 //
@@ -387,6 +390,7 @@ class DashboardIndex extends Component {
                         transactions
                     });
 
+                    console.log('accounts in response and state before setting account',accounts,this.state);
                     accounts.map((content, idx) => {
                         if (content.account_type_id === STANDARD_ACCOUNT) {
                             this.setState({

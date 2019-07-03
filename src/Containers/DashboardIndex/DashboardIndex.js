@@ -371,15 +371,81 @@ class DashboardIndex extends Component {
         //     this.analyseDashboardInfo(status, data);
         // }
 
+        //
+        // if (status) {
+        //
+        //     if (res) {
+        //         this.setState({
+        //             accountInfo: res.data.data.accounts,
+        //             userName: res.data.data.name,
+        //             showLoader: false
+        //         });
+        //
+        //         // if(res.data.data.active){
+        //         //
+        //         //     //check for activated user
+        //         //     this.checkActiveUser(res.data.data.active);
+        //         //
+        //         // }
+        //
+        //
+        //         if (res.data.data.accounts) {
+        //
+        //             // loop through data and set appropriate states
+        //             let accounts = res.data.data.accounts.data;
+        //
+        //             let transactions = res.data.data.transactions.data;
+        //             transactions = transactions.filter((content) => content.status == 'success');
+        //
+        //             this.setState({
+        //                 transactions
+        //             });
+        //
+        //             accounts.map((content, idx) => {
+        //                 if (content.account_type_id === STANDARD_ACCOUNT) {
+        //                     this.setState({
+        //                         vaultAmount: parseFloat(content.balance).toFixed(2)
+        //                     })
+        //                 } else if (content.account_type_id === BACKUP_GOALS_ACCOUNT) {
+        //                     this.setState({
+        //                         backupAmount: parseFloat(content.balance).toFixed(2)
+        //                     })
+        //                 } else if (content.account_type_id === LOCKED_ACCOUNT) {
+        //                     this.setState({
+        //                         lockedSavingsAmount: parseFloat(content.balance).toFixed(2)
+        //                     })
+        //                 } else if (content.account_type_id === INTEREST_ACCOUNT) {
+        //                     this.setState({
+        //                         stashAmount: parseFloat(content.balance).toFixed(2),
+        //                         totalInterest: parseFloat(content.balance).toFixed(2)
+        //                     })
+        //                 }
+        //
+        //             });
+        //
+        //
+        //         }
+        //
+        //
+        //     }
+        //
+        // } else {
+        //     console.log(res)
+        // }
 
-        if (status) {
+        try{
 
-            if (res) {
+            if (status) {
+
+                // if (res) {
+
+                console.log('response before state',res,this.state);
                 this.setState({
                     accountInfo: res.data.data.accounts,
                     userName: res.data.data.name,
                     showLoader: false
                 });
+                console.log('response after state',res,this.state);
 
                 // if(res.data.data.active){
                 //
@@ -401,6 +467,7 @@ class DashboardIndex extends Component {
                         transactions
                     });
 
+                    console.log('accounts in response and state before setting account',accounts,this.state);
                     accounts.map((content, idx) => {
                         if (content.account_type_id === STANDARD_ACCOUNT) {
                             this.setState({
@@ -426,11 +493,13 @@ class DashboardIndex extends Component {
 
                 }
 
+                // }
 
             }
 
-        } else {
-            console.log(res)
+
+        }catch (e) {
+            console.log('err',e);
         }
 
 

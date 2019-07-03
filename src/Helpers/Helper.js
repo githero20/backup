@@ -264,7 +264,7 @@ export function getCompletedGoals(transactions) {
             );
         });
 
-        return CompletedGoals;
+        return CompletedGoals.length;
 
     }
     return 0;

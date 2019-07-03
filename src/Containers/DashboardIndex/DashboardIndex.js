@@ -240,7 +240,7 @@ class DashboardIndex extends Component {
             let CompletedGoals = getCompletedGoals(backUpGoals);
 
             this.setState({
-                CompletedGoals: CompletedGoals.length
+                CompletedGoals: CompletedGoals
             });
             //filter when is paused is true
         } else {
@@ -392,19 +392,19 @@ class DashboardIndex extends Component {
 
                     console.log('accounts in response and state before setting account',accounts,this.state);
                     accounts.map((content, idx) => {
-                        if (content.account_type_id === STANDARD_ACCOUNT) {
+                        if (content.account_type_id == STANDARD_ACCOUNT) {
                             this.setState({
                                 vaultAmount: parseFloat(content.balance).toFixed(2)
                             })
-                        } else if (content.account_type_id === BACKUP_GOALS_ACCOUNT) {
+                        } else if (content.account_type_id == BACKUP_GOALS_ACCOUNT) {
                             this.setState({
                                 backupAmount: parseFloat(content.balance).toFixed(2)
                             })
-                        } else if (content.account_type_id === LOCKED_ACCOUNT) {
+                        } else if (content.account_type_id == LOCKED_ACCOUNT) {
                             this.setState({
                                 lockedSavingsAmount: parseFloat(content.balance).toFixed(2)
                             })
-                        } else if (content.account_type_id === INTEREST_ACCOUNT) {
+                        } else if (content.account_type_id == INTEREST_ACCOUNT) {
                             this.setState({
                                 stashAmount: parseFloat(content.balance).toFixed(2),
                                 totalInterest: parseFloat(content.balance).toFixed(2)
@@ -412,6 +412,8 @@ class DashboardIndex extends Component {
                         }
 
                     });
+                    console.log('state after setting accounts',accounts,this.state);
+
 
 
                 }

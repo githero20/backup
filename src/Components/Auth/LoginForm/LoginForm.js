@@ -57,20 +57,6 @@ class LoginForm extends Component {
     handleRole = (status,res)=>{
             if(status){
 
-
-            }
-    };
-
-
-    processLogin(state, response) {
-        if (state) {
-            if (response != undefined) {
-
-                // handle admin login
-
-                // getUserRole(this.handleRole);
-
-
                 //get user role
 
 
@@ -79,15 +65,37 @@ class LoginForm extends Component {
 
                 // else redirect user to admin login page
 
+                if (res == 'admin'){
 
-                localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
-                localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
-                setTimeout(() => {
-                    this.setState({
-                        redirect: true,
-                        loading: false
-                    });
-                }, 3000);
+
+                } else if (res == 'customer') {
+
+
+                }
+
+            }
+    };
+
+
+    processLogin(state, response) {
+        if (state) {
+
+            if (response != undefined) {
+
+                // handle admin login
+                console.log('login res',response);
+                // getUserRole(this.handleRole);
+
+                // getUserRole(response.data.token,this.handleRole);
+                //
+                // localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
+                // localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
+                // setTimeout(() => {
+                //     this.setState({
+                //         redirect: true,
+                //         loading: false
+                //     });
+                // }, 3000);
             }
 
             // //Temporary get user details
@@ -121,7 +129,6 @@ class LoginForm extends Component {
 
             if (response) {
                 if (response.status == 401) {
-
                     if (response.data.message == "invalid_credentials") {
                         this.toastMessage(`Invalid Credentials`, 'error');
                     } else if (response.data.message == 'Incorrect email or password,Try again') {
@@ -131,8 +138,6 @@ class LoginForm extends Component {
                 } else {
                     this.toastMessage(`${JSON.stringify(response.data.message)}`, 'error');
                 }
-            } else {
-                this.toastMessage(`${JSON.stringify("Poor Connectivity!!")}`, 'error');
             }
         }
     };

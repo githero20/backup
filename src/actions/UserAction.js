@@ -1,6 +1,7 @@
 import {_axios, _getHeader, _getUser, _setUser} from "../utils";
-import {getUserInfoEndpoint, getUserPointsEndpoint, getUserRoleEndpoint} from "../RouteLinks/RouteLinks";
+import {BASE_URL, getUserInfoEndpoint, getUserPointsEndpoint, getUserRoleEndpoint} from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
+import axios from "axios";
 
 export const getUserData =  callback =>{
     _axios.get(getUserInfoEndpoint,{
@@ -40,21 +41,41 @@ export const getUserPoints =  callback =>{
         })
 };
 
-export const getUserRole =  callback =>{
-    _axios.get(getUserRoleEndpoint,{
-        headers: _getHeader()
-    })
-        .then(res => {
-            if(callback){
-                callback(true, res.data.data);
-            }
-        })
-        .catch(err => {
-            console.log("Err",JSON.stringify(err));
-            checkResponse(err);
-            callback(false, err.response);
-            // if(err.response) {callback(false, err.response.data.data || err.response.data.message);
-            //
-            // }
-        })
-};
+// export const getUserRole =  callback =>{
+//     _axios.get(getUserRoleEndpoint,{
+//         headers: _getHeader()
+//     })
+//         .then(res => {
+//             if(callback){
+//                 callback(true, res.data.data);
+//             }
+//         })
+//         .catch(err => {
+//             console.log("Err",JSON.stringify(err));
+//             checkResponse(err);
+//             callback(false, err.response);
+//             // if(err.response) {callback(false, err.response.data.data || err.response.data.message);
+//             //
+//             // }
+//         })
+// };
+
+export function getUserRole(token=null, callback) {
+
+
+    let url = `${BASE_URL}${getUserRoleEndpoint}`;
+
+    let header = {
+        headers: {
+            "Content-Type": "Application/json",
+            "credentials": 'same-origin',
+        }
+    };
+
+    if (token !== null) {
+        header.headers['Authorization'] = 'Bearer ' + token;
+    }
+
+     axios.get(url, header).then(res => callback(true, res))
+        .catch(err => callback(false, err.response))
+}

@@ -85,17 +85,16 @@ class LoginForm extends Component {
                 // handle admin login
                 console.log('login res',response);
                 // getUserRole(this.handleRole);
-
                 // getUserRole(response.data.token,this.handleRole);
-                //
-                // localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
-                // localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
-                // setTimeout(() => {
-                //     this.setState({
-                //         redirect: true,
-                //         loading: false
-                //     });
-                // }, 3000);
+
+                localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
+                localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
+                setTimeout(() => {
+                    this.setState({
+                        redirect: true,
+                        loading: false
+                    });
+                }, 3000);
             }
 
             // //Temporary get user details

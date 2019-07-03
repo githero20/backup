@@ -275,11 +275,11 @@ class LoginForm extends Component {
             );
         }
 
-        if (this.state.addPin) {
+        if (this.state.AddPin) {
             return (
                 <React.Fragment>
                     <Redirect to={{
-                        pathname: {addWithdrawalLink},
+                        pathname: addWithdrawalLink,
                         state: {token: this.state.token}
                     }} push
                     />

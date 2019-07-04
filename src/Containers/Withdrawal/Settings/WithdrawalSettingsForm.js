@@ -6,6 +6,7 @@ import {withToastManager} from 'react-toast-notifications';
 import ButtonLoader from "../../../Components/Auth/Buttonloader/ButtonLoader";
 import {createWithdrawalSettings} from "../../../actions/WithdrawalAction";
 import moment from "moment";
+import {disableKey} from "../../../Helpers/Helper";
 
 class WithdrawalSettingsForm extends Component {
 
@@ -94,6 +95,8 @@ class WithdrawalSettingsForm extends Component {
                                     <div className="form-group">
                                         <label htmlFor="first_quarter" className=" col-form-label">First Quarter</label>
                                         <input type="date"
+                                               onKeyDown={disableKey}
+                                               onKeyUp={disableKey}
                                                required={true}
                                                className="form-control"
                                                onChange={this.handleChange}
@@ -111,6 +114,8 @@ class WithdrawalSettingsForm extends Component {
                                         <label htmlFor="second_quarter" className=" col-form-label">Second
                                             Quarter</label>
                                         <input type="date"
+                                               onKeyDown={disableKey}
+                                               onKeyUp={disableKey}
                                                className="form-control"
                                                onChange={this.handleChange}
                                                id="second_quarter"
@@ -133,6 +138,8 @@ class WithdrawalSettingsForm extends Component {
 
                                         <input type="date"
                                                required={true}
+                                               onKeyDown={disableKey}
+                                               onKeyUp={disableKey}
                                                className="form-control"
                                                onChange={this.handleChange}
                                                id="third_quarter"
@@ -149,6 +156,8 @@ class WithdrawalSettingsForm extends Component {
                                         <label htmlFor="fourth_quarter" className=" col-form-label">Fourth Quarter</label>
                                         <input type="date"
                                                required={true}
+                                               onKeyDown={disableKey}
+                                               onKeyUp={disableKey}
                                                className="form-control"
                                                onChange={this.handleChange}
                                                id="fourth_quarter"

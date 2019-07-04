@@ -337,7 +337,6 @@ class DashboardIndex extends Component {
 
 
     analyseDashboardInfo = (status, res) => {
-        console.log('dashboard response', status, res);
         //
         // console.log('got here to retrieve it ');
         // let data = JSON.parse(getLocalStorage(USERINFO));

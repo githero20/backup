@@ -1,65 +1,84 @@
 import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
-import BigTransactionTable from "../../Components/Dashboard/BigTransactionTable/BigTransactionTable";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
-import {getTransactionsApi} from "../../RouteLinks/RouteLinks";
+import {getEachTransApi, getTransactionsApi} from "../../RouteLinks/RouteLinks";
 import {request} from "../../ApiUtils/ApiUtils";
 import {
     amountFormatter,
     balanceFormatter,
     dateFormatter,
-    descriptionFormatter, sourceFormatter,
+    descriptionFormatter,
+    detailFormatter,
+    sourceFormatter,
     statusFormatter
 } from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
-import {getUserData} from "../../actions/UserAction";
 import {withToastManager} from 'react-toast-notifications';
+import {getSteadySavTrans} from "../../actions/SteadySaveAction";
+import TransactionReceipt from "../../Components/Dashboard/TransactionReceipt/TransactionReceipt";
 
 class Transactions extends Component {
 
-    state={
-        transactions:[],
+    state = {
+        transactions: [],
         showLoader: false,
-        userName:null
+        userName: null,
+        selectedTransID: null,
+        showTransDetail: false,
     };
 
     //when the component mounts
 
     // load all the user transactions
 
-    loadTransactions(){
+    loadTransactions() {
 
         //get transactions from api
         this.setState({
-            showLoader:true
-        })
+            showLoader: true
+        });
 
-        request(getTransactionsApi,null,true,'GET',this.handleTransactions);
+        request(getTransactionsApi, null, true, 'GET', this.handleTransactions);
     }
 
 
     // display all transactions when its loaded
 
-    handleTransactions = (state,res) => {
+    handleTransactions = (state, res) => {
         this.setState({
-            showLoader:false
+            showLoader: false
         });
 
-        if(state&&res){
-                this.setState({
-                    transactions:res.data.data
-                });
-        }else if(!state&&res){
-            this.toastMessage(res.data.message,'error');
-        }else{
-            this.toastMessage('No Internet','error');
+        if (state && res) {
+            this.setState({
+                transactions: res.data.data
+            });
+        } else if (!state && res) {
+            this.toastMessage(res.data.message, 'error');
+        } else {
+            this.toastMessage('No Internet', 'error');
         }
 
     };
 
-    toastMessage=(message, status) =>{
+    handleEachTrans = (state, res) => {
+        console.log('Each transactions', res);
+        this.setState({
+            showLoader: false
+        });
+
+        if (state && res) {
+            this.setState({
+                selectedTrans: res.data.data
+            });
+        } else if (!state && res) {
+            this.toastMessage(res.data.message, 'error');
+        }
+
+    };
+
+    toastMessage = (message, status) => {
         const {toastManager} = this.props;
         toastManager.add(message, {
             appearance: status,
@@ -74,7 +93,7 @@ class Transactions extends Component {
 
 
         this.setState({
-            showLoader:true,
+            showLoader: true,
         });
 
         // getUserData(this.handleUserInfo);
@@ -83,80 +102,103 @@ class Transactions extends Component {
     }
 
 
-    handleUserInfo = (status,res)=>{
+    handleUserInfo = (status, res) => {
         this.setState({
-            showLoader:false,
+            showLoader: false,
         });
 
-        if(status){
+        if (status) {
 
             this.setState({
-                userName:res.name
+                userName: res.name
             })
 
         }
 
+    };
 
-    }
+    hideDetails = ()=>{
+        this.setState({
+            showTransDetail: false
+        });
+    };
 
 
     render() {
 
-        console.log('transaction state',this.state.transactions);
         const columns = [
             {
-                text: 'Date',
-                dataField: 'created_at' ,
-                formatter:dateFormatter,
-                sort:true,
+                text: 'Description',
+                dataField: 'sourcetypes',
+                formatter: sourceFormatter,
+                sort: true,
+
             },
             {
                 text: 'Phase',
                 dataField: 'type',
-                formatter:descriptionFormatter,
-                sort:true,
-
-            },
-            {
-                text: 'Description',
-                dataField: 'sourcetypes',
-                formatter:sourceFormatter,
-                sort:true,
+                formatter: descriptionFormatter,
+                sort: true,
 
             },
             {
                 text: 'Amount',
                 dataField: 'amount',
-                formatter:amountFormatter,
-                sort:true,
+                formatter: amountFormatter,
+                sort: true,
 
-            },{
+            }, {
                 text: 'Balance',
                 dataField: 'balance',
-                formatter:balanceFormatter,
-                sort:true,
+                formatter: balanceFormatter,
+                sort: true,
 
             },
             {
                 text: 'Status',
                 dataField: 'status',
-                formatter:statusFormatter,
-                sort:true,
+                formatter: statusFormatter,
+                sort: true,
+            },
+            {
+                text: 'transactions',
+                dataField: 'id',
+                formatter: detailFormatter,
+                events: {
+                    onClick: (e, column, columnIndex, row, rowIndex) => {
+                        this.setState({
+                            showTransDetail: true,
+                            selectedTransID:row.id
+                        });
+                        //set appropriate state to change view
+
+                        // make request to get transaction
+
+                        // get transaction detail
+                        // request(`${getEachTransApi}${row.id}`, null, true, 'GET', this.handleEachTrans);
+                    }
+                }
+            },
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
             },
             {
                 text: 'Reference',
                 dataField: 'reference',
-                sort:true,
+                sort: true,
 
             }];
 
         return (
             <React.Fragment>
-                {this.state.showLoader? <DashboardLoader /> :null}
+                {this.state.showLoader ? <DashboardLoader/> : null}
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={this.state.userName}/>
-                    <VerticalNav userName={this.state.userName} />
+                    <VerticalNav userName={this.state.userName}/>
                     <div className="app-content content">
                         <div className="content-wrapper">
                             <div className="row mb-4">
@@ -168,34 +210,48 @@ class Transactions extends Component {
                                 </div>
                             </div>
 
-                            <div className="content-header row">
-                            </div>
-                            <div className="content-body">
-                                <div className="row">
-                                    <div className="col-lg-4 col-12">
-                                        <h3 className="gray-header-text mb-2 ">Transactions
-                                        </h3>
-                                    </div>
+                            {
+                                this.state.showTransDetail ?
+                                    (
+                                        <TransactionReceipt hideDetails={this.hideDetails}  selectedTransID={this.state.selectedTransID} />
+                                    ) :
 
-                                </div>
+                                    <React.Fragment>
+                                        <div className="content-header row">
+                                        </div>
+                                        <div className="content-body">
+                                            <div className="row">
+                                                <div className="col-lg-4 col-12">
+                                                    <h3 className="gray-header-text mb-2 ">Transactions
+                                                    </h3>
+                                                </div>
 
-                                <div className="row">
-                                    {/*<BigTransactionTable transactions={this.state.transactions} /> */}
+                                            </div>
 
-                                    <TransactionTable transactions={this.state.transactions} columns={columns} />
-                                </div>
+                                            <div className="row">
+                                                {/*<BigTransactionTable transactions={this.state.transactions} /> */}
+
+                                                <TransactionTable transactions={this.state.transactions}
+                                                                  columns={columns}/>
+                                            </div>
 
 
-
-                                <div className="row">
-                                    <div className="col-12">
-                                        <div className="card box-shadow-0">
-                                            <div className="card-content">
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <div className="card box-shadow-0">
+                                                        <div className="card-content">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+
+
+                                    </React.Fragment>
+
+
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -203,4 +259,5 @@ class Transactions extends Component {
         );
     }
 }
+
 export default withToastManager(Transactions);

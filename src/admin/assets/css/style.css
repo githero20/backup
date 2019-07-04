@@ -606,9 +606,7 @@ input[type="date"]::-webkit-clear-button {
     font-family: "Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
 }
 
-.navigation .nav-item:hover img {
-    filter: grayscale(100%) brightness(200%) saturate(104%);
-}
+
 
 .bg-light-green {
     background-color: #E8F9D7;
@@ -1703,9 +1701,6 @@ input[type=number]::-webkit-outer-spin-button {
     font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.gray-text {
-    color: #9B9B9B;
-}
 
 
 /*timeline */
@@ -3004,9 +2999,6 @@ html body .content.app-content {
     font-family: "Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
 }
 
-.navigation .nav-item:hover img {
-    filter: grayscale(100%) brightness(200%) saturate(104%);
-}
 
 .bg-light-green {
     background-color: #E8F9D7;
@@ -4842,7 +4834,7 @@ p {
 }
 
 .back-btn {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .back-btn i {
@@ -4850,7 +4842,6 @@ p {
 }
 
 .back-btn:hover {
-    font-size: 12px;
     color: #2497FF;
 }
 
@@ -4908,4 +4899,65 @@ input[type=date]::-webkit-inner-spin-button {
         cursor: pointer;
     }
 
+}
+
+@media all and (min-width: 768px) {
+    .navbar-expand-lg .mobile {
+        display: none !important;
+    }
+}
+
+.receipt-body h5 {
+    font-family: "Circular Std Medium","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+    color: rgba(16,51,102,0.6);
+    font-size: 13px;
+}
+.receipt-body h2 {
+    font-family: "Circular Std Medium","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+    color: rgba(16,51,102,1);
+    font-weight: bold;
+    font-size: 17px;
+}
+.receipt-body .receipt-bottom h2 {
+    font-size: 23px;
+}
+.receipt-body .amount {
+    color: #1F75FF;
+}
+
+.receipt-body h4{
+    font-family: "Circular Std Book","Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+}
+.receipt-top{
+    font-family: "Circular Std Book","Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color:#F8F8F8;
+}
+.zig-zag:after{
+    background: linear-gradient(-45deg, transparent 16px, #F8F8F8 0), linear-gradient(45deg, transparent 16px, #F8F8F8 0);
+    background-repeat: repeat-x;
+    background-position: left bottom;
+    background-size: 22px 32px;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 32px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+.receipt-top p{
+    color: #7085A3;
+    letter-spacing: 5px;
+}
+.receipt-top h4{
+    font-weight: bold;
+    font-family: "Circular Std Book","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+}
+.receipt-header{
+    font-weight: bold;
+    color:#180F33;
+    letter-spacing: 1px;
+    font-size: 18px;
 }

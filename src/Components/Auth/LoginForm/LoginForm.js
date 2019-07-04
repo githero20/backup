@@ -90,9 +90,7 @@ class LoginForm extends Component {
         if (state) {
 
             if (response != undefined) {
-
                 // handle admin login
-                console.log('login res', response);
                 switch (response.data.role) {
                     case ADMIN:
                         window.location.replace(ADMIN_LOGIN_URL);

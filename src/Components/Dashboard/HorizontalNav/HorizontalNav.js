@@ -6,7 +6,6 @@ import KycIcon from "../../../admin/app-assets/images/svg/kyc-icon.svg";
 import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import {Link, Redirect} from "react-router-dom";
 import {DashboardLink, LoginLink} from "../../../RouteLinks/RouteLinks";
-import {getLocalStorage} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
 import {getUserData} from "../../../actions/UserAction";
 
@@ -39,24 +38,25 @@ class HorizontalNav extends Component {
     };
 
     handleUserInfo = (status, response) => {
-        if(status){
+        if (status) {
             this.setState({userName: response.name})
         }
     };
 
 
-    componentDidMount(){
-        //get name from localStorage
-        // if(getLocalStorage(USERINFO)){
-        //     setTimeout(()=>{
-        //         const user = JSON.parse(getLocalStorage(USERINFO));
-        //         this.setState({userName:user.name})
-        //
-        //     },3000);
-        // }
+    componentDidMount() {
+
         try {
+            //get name from localStorage
+            const user = localStorage.getItem(USERINFO);
+            if (user != null) {
+                let userInfo = JSON.parse(user);
+                this.setState({userName:userInfo.name});
+            } else {
+                getUserData(this.handleUserInfo);
+            }
             // const user = getLocalStorage(USERINFO);
-            getUserData(this.handleUserInfo);
+
         } catch (e) {
             console.log(e);
         }

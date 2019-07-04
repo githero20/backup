@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {withToastManager} from 'react-toast-notifications';
-import {capitalize, formatNumber, STANDARD_ACCOUNT} from "../../../../Helpers/Helper";
+import {capitalize, formatNumber, STANDARD_ACCOUNT, toastMessage} from "../../../../Helpers/Helper";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {KycSettingLink} from "../../../../RouteLinks/RouteLinks";
@@ -84,7 +84,7 @@ class MessageBox extends Component {
         textField.select();
         document.execCommand('copy');
         textField.remove();
-        this.toastMessage('Copied!', 'success');
+        toastMessage('Copied!', 'success',this);
         //
         // document.getElementById('referral_code').value();
         // document.execCommand('copy');
@@ -94,15 +94,6 @@ class MessageBox extends Component {
         this.setState({copySuccess: true});
     };
 
-    toastMessage = (message, status) => {
-        const {toastManager} = this.props;
-        toastManager.add(message, {
-            appearance: status,
-            autoDismiss: true,
-            autoDismissTimeout: 4000,
-            pauseOnHover: false,
-        })
-    };
 
     componentDidMount() {
         getUserPoints(this.handlePoints);
@@ -124,7 +115,7 @@ class MessageBox extends Component {
             <React.Fragment>
                 <span className='mb-1 mb-md-0'>
                     <strong>Hello {this.state.userName}! </strong>
-                    Your have currently saved up to ₦ {formatNumber(Number(this.state.balance).toFixed(2))},
+                    Your have currently saved up to ₦ {formatNumber(Number(this.state.balance).toFixed(2))}
                 </span>
                 <span className="admin-purple">
                     <strong><Link to={KycSettingLink}

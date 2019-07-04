@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {formatNumber, initializeAmountInput, transformHour} from "../../../../Helpers/Helper";
+import {disableKey, formatNumber, initializeAmountInput, transformHour} from "../../../../Helpers/Helper";
 import {
     continueSteadySave, createSteadySave,
     pauseSteadySave,
@@ -14,7 +14,6 @@ import {
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
 import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../../../utils";
-import {initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
@@ -411,7 +410,10 @@ class CreateSteadySaveForm extends Component {
                         <Form.Group as={Col} sm={6} >
                             <div className={'text-muted secondary-text'}>Start Date</div>
                             <React.Fragment>
-                                <Form.Control type="date"  min={moment().add(1,'days').format("YYYY-MM-DD")}  defaultValue={this.state.form.start_date} name={'start_date'}
+                                <Form.Control type="date"
+                                              onKeyDown={disableKey}
+                                              onKeyUp={disableKey}
+                                              min={moment().add(1,'days').format("YYYY-MM-DD")}  defaultValue={this.state.form.start_date} name={'start_date'}
                                               id={'start_date'}
                                               disabled={this.state.disableStartDate}
                                               onChange={this.changeHandler}/>

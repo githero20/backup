@@ -13,6 +13,9 @@ export const BACKUP_GOALS_ACCOUNT = 4;
 export const ADD_CARD = '0';
 export const CUSTOMER = 'customer';
 export const ADMIN = 'administrator';
+export const WITHDRAWAL_SOURCE = 'withdrawal';
+export const INTEREST_ON_VAULT = 'STANDARD_INTEREST_CRON_';
+export const INTEREST_ON_BACKUP_GOAL = 'STANDARD_BACKUP_GOAL_INTEREST_CRON_';
 export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
 
 export function animateCSS(element, animationName, callback) {
@@ -67,7 +70,6 @@ export function Paginator(items, page, per_page) {
 }
 
 export function getTotal(transactions) {
-    console.log(transactions);
     if (transactions) {
         const sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
         return sum.amount;
@@ -363,6 +365,10 @@ export function transformHour(hour) {
 export function dateFormatter(cell) {
     return <p style={{minWidth: '150px'}}>{moment(cell).format('LLL')}</p>
 }
+export function disableKey(e) {
+    e.preventDefault();
+    // return false;
+}
 
 export function confirmedFormatter(cell) {
     return <label>{cell ? <span className='text-success'>Completed </span> :
@@ -374,9 +380,32 @@ export function descriptionFormatter(cell) {
         className={cell === 'credit' ? 'text-green text-capitalize' : 'text-red text-capitalize'}>{cell}</span>
 }
 
-export function sourceFormatter(cell) {
-    return <p style={{minWidth: '150px'}}
-              className={'text-secondary text-capitalize'}>{`${cell.data.name.replace(/_/g, ' ')} savings`}</p>
+export function sourceFormatter(cell,row) {
+    let content;
+
+    if(row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)){
+        content = `${cell.data.name.replace(/_/g, ' ')}`+
+            '<br/><span className="text-muted">(interest on backup goal)</span>';
+        return sourceMarkup(content);
+    }
+
+    if(row.gw_authorization_code.includes(INTEREST_ON_VAULT)){
+        content = `${cell.data.name.replace(/_/g, ' ')}`+
+            '<br/><span className="text-muted">(interest on central vault)</span>';
+        return sourceMarkup(content);
+    }
+
+    if (cell.data.name==WITHDRAWAL_SOURCE){
+        content = `${cell.data.name.replace(/_/g, ' ')}`;
+        return sourceMarkup(content);
+    }
+
+    content = `${cell.data.name.replace(/_/g, ' ')} savings`;
+    return sourceMarkup(content);
+}
+
+function sourceMarkup(content){
+    return <p style={{minWidth: '150px'}} className={'text-secondary text-capitalize'}>{content}</p>;
 }
 
 export function withdrawSourceFormatter(cell) {
@@ -392,6 +421,9 @@ export function amountFormatter(cell, row) {
         </p>
     )
 }
+export function parseAndFormatNum(num){
+    return formatNumber(parseFloat(num).toFixed(2));
+}
 
 export function moneyFormatter(cell) {
     return (
@@ -399,6 +431,20 @@ export function moneyFormatter(cell) {
            className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
     )
 }
+export function removeUnderscore(data) {
+    return data.replace(/_/g, ' ');
+}
+
+export function toastMessage (message, status,context){
+    const {toastManager} = context.props;
+    toastManager.add(message, {
+        appearance: status,
+        autoDismiss: true,
+        autoDismissTimeout: 4000,
+        pauseOnHover: false,
+    });
+}
+
 
 export function steadyStatusFormatter(cell, row) {
     if (parseInt(row.is_pause)) {
@@ -420,6 +466,10 @@ export function interestFormatter(cell) {
 
 export function viewFormatter(cell) {
     return <button className={'btn round btn-custom-blue btn-block'}>View History</button>
+
+}
+export function detailFormatter(cell) {
+    return <button className={'btn round btn-custom-blue btn-block'}>View Details</button>
 
 }
 
@@ -498,5 +548,4 @@ export function initializeAmountInput() {
     // initialize inputs with commas
     const isAmount = amountInput('.amount-input');
 
-    console.log(isAmount);
 }

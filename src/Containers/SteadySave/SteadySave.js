@@ -7,11 +7,10 @@ import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySave
 import {
     dateFormatter,
     descriptionFormatter,
-    formatNumber, getCards,
+    formatNumber,
     getTodaysDate,
     getToken,
     getTotalFailed,
-    getTotalSteadySave,
     getTotalSuccessful,
     getTotalSuccessfulSS,
     moneyFormatter,
@@ -29,8 +28,8 @@ import SSaveTransTable from "../../Components/Dashboard/SSaveTransTable/SSaveTra
 import {getSteadySavHistory, getSteadySavTrans} from "../../actions/SteadySaveAction";
 import SteadyAmountCard from "./SteadyAmountCard";
 import PayNowModal from "../../Components/Dashboard/PayNowModal/PayNowModal";
-import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {ToastProvider} from 'react-toast-notifications';
+
 class SteadySave extends Component {
     constructor(props) {
         super(props);
@@ -226,7 +225,7 @@ class SteadySave extends Component {
         }
     };
 
-    getHistAndTrans =()=>{
+    getHistAndTrans = () => {
 
         getSteadySavTrans(this.state.selectedSteadySave.id, this.handleSSaveTrans);
         getSteadySavHistory(this.state.selectedSteadySave.id, this.handleSSaveHistory);
@@ -237,16 +236,13 @@ class SteadySave extends Component {
         //TODO calc total steady save
 
         if (status && res) {
-            console.log('got here ',res);
 
             let data = res.savings_plan_history.data;
             const totalSteadySave = getTotalSuccessfulSS(data);
-            console.log('total successful steady saves', totalSteadySave);
 
             const totalSuccessful = getTotalSuccessful(data);
             const totalFailed = getTotalFailed(data);
 
-            console.log('steady save', totalSteadySave, 'successful', totalSuccessful, 'failed', totalFailed, 'res', res);
             if (res) {
                 this.setState({
                     showLoader: false,
@@ -274,16 +270,14 @@ class SteadySave extends Component {
         //table header and columns
         const columns = [
             {
-                text: 'Date',
-                dataField: 'created_at',
-                formatter: dateFormatter,
+                text: 'Description',
+                dataField: 'title',
                 sort: true
             },
             {
                 text: 'Frequency',
                 dataField: 'frequency',
                 sort: true
-
             },
             {
                 text: 'Contribution',
@@ -297,6 +291,7 @@ class SteadySave extends Component {
                 formatter: steadyStatusFormatter,
                 sort: true
             },
+
             {
                 text: 'transactions',
                 dataField: 'id',
@@ -319,6 +314,12 @@ class SteadySave extends Component {
 
                     }
                 }
+            },
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true
             }
 
         ]; //table header and columns
@@ -414,8 +415,10 @@ class SteadySave extends Component {
 
                                                 <div className="col-12">
                                                     <div className="text-right">
-                                                        <a href='#!' onClick={this.hideTransactions} className='gray-text back-btn'>
-                                                            <i className='fa fa-chevron-left'></i>&nbsp; Back to Steady Save
+                                                        <a href='#!' onClick={this.hideTransactions}
+                                                           className='gray-text back-btn'>
+                                                            <i className='fa fa-chevron-left'></i>&nbsp; Back to Steady
+                                                            Save
                                                         </a>
                                                     </div>
                                                 </div>
@@ -531,12 +534,13 @@ class SteadySave extends Component {
                                                     </div>
                                                 </div>
                                                 <ToastProvider>
-                                                    {this.state.showPayModal ? <PayNowModal show={this.state.showPayModal}
-                                                                                            selectedSSave={this.state.selectedSteadySave}
-                                                                                            totalFailed={this.state.totalFailed}
-                                                                                            getHistoryTrans={this.getHistAndTrans}
-                                                                                            onHide={this.hidePayModal}
-                                                    /> : null}
+                                                    {this.state.showPayModal ?
+                                                        <PayNowModal show={this.state.showPayModal}
+                                                                     selectedSSave={this.state.selectedSteadySave}
+                                                                     totalFailed={this.state.totalFailed}
+                                                                     getHistoryTrans={this.getHistAndTrans}
+                                                                     onHide={this.hidePayModal}
+                                                        /> : null}
 
                                                 </ToastProvider>
                                                 {/*<BackupGoalQuickActions showBackUpHistory={this.showBackUpHistory}  hideBG={this.hideBackupGoal} fetchGoals={this.fetchBackUpGoals} selectedBG={this.state.selectedBG}/>*/}
@@ -651,7 +655,8 @@ class SteadySave extends Component {
                                             <div className="col-lg-5 col-12 order-lg-8">
                                                 <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
                                                     <p>Start saving your money here automatically, daily, weekly or
-                                                        monthly.<br/>We want you to be disciplined, so we’ll charge you 5% if
+                                                        monthly.<br/>We want you to be disciplined, so we’ll charge you
+                                                        5% if
                                                         you choose to withdraw outside of your set withdrawal days.</p>
                                                 </div>
                                             </div>
@@ -694,7 +699,8 @@ class SteadySave extends Component {
 
                                             <div className="col-lg-3 col-12 order-lg-5">
                                                 <h3 className="gray-header-text fs-mb-1 mb-2">&nbsp;</h3>
-                                                <div className="mb-quick-actions d-flex flex-column flex-wrap mb-3 mb-md-0">
+                                                <div
+                                                    className="mb-quick-actions d-flex flex-column flex-wrap mb-3 mb-md-0">
                                                     <span className="mb-btn-wrapper">
                                                         {/*<button type="button" onClick={this.showCreateSteadySaveModal} className=" btn-blue-gradient-2 round">*/}
                                                         {/*    <img src={whiteSaveMoreIcon}/>*/}

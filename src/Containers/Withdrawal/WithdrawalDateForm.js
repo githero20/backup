@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import totalBalanceIcon from "../../admin/app-assets/images/svg/total-balance-icon.svg";
+import {disableKey} from "../../Helpers/Helper";
 
 class WithdrawalDateForm extends Component {
     render() {
@@ -20,7 +20,10 @@ class WithdrawalDateForm extends Component {
                                         <label htmlFor="first_quarter"
                                                className="col-sm-2 col-form-label">First Quarter</label>
                                         <div className="col-sm-10">
-                                            <input type="date" className="form-control"
+                                            <input type="date"
+                                                   onKeyDown={disableKey}
+                                                   onKeyUp={disableKey}
+                                                   className="form-control"
                                                    id="first_quarter"
                                             />
                                         </div>
@@ -29,7 +32,10 @@ class WithdrawalDateForm extends Component {
                                         <label htmlFor="second_quarter"
                                                className="col-sm-2 col-form-label">Second Quarter</label>
                                         <div className="col-sm-10">
-                                            <input type="date" className="form-control"
+                                            <input type="date"
+                                                   onKeyDown={disableKey}
+                                                   onKeyUp={disableKey}
+                                                   className="form-control"
                                                    id="second_quarter"
                                                    placeholder="Email"/>
                                         </div>
@@ -39,6 +45,8 @@ class WithdrawalDateForm extends Component {
                                                className="col-sm-2 col-form-label">Third Quarter</label>
                                         <div className="col-sm-10">
                                             <input type="date"
+                                                   onKeyDown={disableKey}
+                                                   onKeyUp={disableKey}
                                                    className="form-control"
                                                    id="third_quarter"
                                             />
@@ -49,6 +57,8 @@ class WithdrawalDateForm extends Component {
                                                className="col-sm-2 col-form-label">Fourth Quarter</label>
                                         <div className="col-sm-10">
                                             <input type="date"
+                                                   onKeyDown={disableKey}
+                                                   onKeyUp={disableKey}
                                                    className="form-control"
                                                    id="fourth_quarter"
                                             />

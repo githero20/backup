@@ -4,7 +4,9 @@ class DashboardLoader extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="loading">&nbsp;</div>
+                <div className="loader-body">
+                    <div className="loading">&nbsp;</div>
+                </div>
             </React.Fragment>
         );
     }

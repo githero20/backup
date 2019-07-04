@@ -12,6 +12,7 @@ import {ToastProvider, withToastManager} from "react-toast-notifications";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
 import moment from "moment";
+import {disableKey} from "../../Helpers/Helper";
 
 let formData = new FormData();
 
@@ -404,6 +405,8 @@ class KycSettingForm extends Component {
                                                                                             of
                                                                                             Birth</label>
                                                                                         <input type="date"
+                                                                                               onKeyDown={disableKey}
+                                                                                               onKeyUp={disableKey}
                                                                                                id="dateofbirth"
                                                                                                className="form-control"
                                                                                                placeholder=""
@@ -573,6 +576,8 @@ class KycSettingForm extends Component {
                                                                                                    id="issuedate"
                                                                                                    className="form-control"
                                                                                                    placeholder=""
+                                                                                                   onKeyDown={disableKey}
+                                                                                                   onKeyUp={disableKey}
                                                                                                    max={moment().format('YYYY-MM-DD')}
                                                                                                    value={this.state.form.issue_date}
                                                                                                    onChange={this.handleChange}
@@ -587,6 +592,8 @@ class KycSettingForm extends Component {
                                                                                             <label htmlFor="expirydate">Id
                                                                                                 Expiry Date</label>
                                                                                             <input type="date"
+                                                                                                   onKeyDown={disableKey}
+                                                                                                   onKeyUp={disableKey}
                                                                                                    id="expirydate"
                                                                                                    value={this.state.form.expiry_date}
                                                                                                    onChange={this.handleChange}

@@ -48,11 +48,9 @@ class BankForm extends Component {
                 amount: this.state.form.amount,
                 source: "quick",
             },(status, payload) => {
-                console.log("status", status,payload);
                 this.setState({loading:false});
                 if(status){
                     const user = _getUser();
-                    console.log(user);
                     _payWithPaystack(payload.reference, payload.amount,this.props.onResolve)
                 }else{
                     this.props.toastManager.add(payload,{

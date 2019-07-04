@@ -9,7 +9,7 @@ import {withToastManager} from "react-toast-notifications";
 import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
 import {createBackUpGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
+import {disableKey, formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
@@ -449,6 +449,8 @@ class BackUpGoalsForm extends Component {
                         <Form.Group as={Col}>
                             <Form.Label>Start Date</Form.Label>
                             <Form.Control type="date" name={'start_date'}
+                                          onKeyDown={disableKey}
+                                          onKeyUp={disableKey}
                                           id={'start_date'}
                                           min={moment().add(1, 'days').format('YYYY-MM-DD')}
                                           value={start_date}
@@ -463,6 +465,8 @@ class BackUpGoalsForm extends Component {
                                 type="date"
                                 name={'maturity_date'}
                                 id={'maturity_date'}
+                                onKeyDown={disableKey}
+                                onKeyUp={disableKey}
                                 min={moment(start_date).add(1,'days').format('YYYY-MM-DD')}
                                 value={maturity_date}
                                 onChange={this.changeHandler}/>

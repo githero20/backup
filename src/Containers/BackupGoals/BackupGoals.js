@@ -431,7 +431,7 @@ class BackupGoals extends Component {
                                             <div className="row">
                                                 <div id="Back-up-goals" className="col-12 col-md-12">
                                                     <div className="card">
-                                                        <div className="card-content mt-1 px-2 px-md-5 py-md-3">
+                                                        <div className="card-content mt-1 px-2 py-3 px-md-5 ">
                                                             <div
                                                                 className="table-header d-flex justify-content-between align-items-md-center px-md-2  mb-3">
                                                                 <h4 className="table-title">
@@ -535,7 +535,7 @@ class BackupGoals extends Component {
                                                                     <div className="col-12 text-center text-muted">
 
                                                                         <i className='fa fa-5x fa-briefcase'></i>
-                                                                        <h2 className='mb-5 mb-md-0'>No Back Up Goals</h2>
+                                                                        <h2 className='table-status mb-5 mb-md-0'>No Back Up Goals</h2>
                                                                     </div>
 
 

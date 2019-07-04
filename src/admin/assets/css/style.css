@@ -103,6 +103,9 @@ button {
     transition: all .5s ease-in-out;
 }
 
+.contact-row p {
+    color: #7F7F7F;
+}
 .dash-cust-blue:hover {
     color: #2784F4;
     background-color: white;
@@ -126,7 +129,7 @@ button .loadingSpinner {
 }
 
 .auth-btn {
-    width: 40%;
+    min-width: 150px;
     height: 50px;
 }
 
@@ -394,7 +397,6 @@ input[type="date"]::-webkit-clear-button {
 
 }
 
-
 .main-menu.menu-dark .navigation > li .active > a {
     background-color: #0e0b1c;
 
@@ -604,9 +606,7 @@ input[type="date"]::-webkit-clear-button {
     font-family: "Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
 }
 
-.navigation .nav-item:hover img {
-    filter: grayscale(100%) brightness(200%) saturate(104%);
-}
+
 
 .bg-light-green {
     background-color: #E8F9D7;
@@ -718,10 +718,10 @@ input[type="date"]::-webkit-clear-button {
 
 .btn-custom-blue {
     color: #fff !Important;
-    border: none !important;
+    border: 1px solid transparent;
     background-color: #2784F4 !Important;
-    padding-top: .7rem;
-    padding-bottom: .7rem;
+    /*padding-top: .7rem;*/
+    /*padding-bottom: .7rem;*/
     transition: all .5s ease;
     cursor: pointer;
     box-shadow: 0px 5px 5px rgba(23, 96, 171, 0.2);
@@ -864,6 +864,7 @@ input[type="date"]::-webkit-clear-button {
 }
 
 @media all and (min-width: 1200px) {
+
     .main-menu.menu-dark .navigation {
         padding-top: 3rem;
 
@@ -1582,7 +1583,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .blue-round-btn {
     background-color: #367BFF;
-    padding: 1rem 4rem;
+    /*padding: 1rem 4rem;*/
     border-radius: 3rem;
     position: relative;
     color: white;
@@ -1700,9 +1701,6 @@ input[type=number]::-webkit-outer-spin-button {
     font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.gray-text {
-    color: #9B9B9B;
-}
 
 
 /*timeline */
@@ -1916,11 +1914,15 @@ input[type=number]::-webkit-outer-spin-button {
         letter-spacing: 0.002rem;
     }
 
-    .auth-btn {
-        width: 13rem;
-        text-align: center;
-        padding: 0rem;
-        height: 50px;
+    /*.auth-btn {*/
+    /*    width: 13rem;*/
+    /*    text-align: center;*/
+    /*    padding: 0rem;*/
+    /*    height: 50px;*/
+    /*}*/
+    .modal-btn{
+        width:100px;
+        height:40px;
     }
 
     #timeline-wrap {
@@ -2274,19 +2276,30 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* Absolute Center Spinner */
 .loading {
-    position: fixed;
+    position: absolute;
     display: block;
     z-index: 9999999;
     height: 4rem;
     width: 4rem;
-    margin: auto;
+    /*margin: auto;*/
     background-color: transparent;
-    top: 10rem;
-    right: 6rem;
+    top: 15%;
+    left: 90%;
+    /*transform: translate(-50%,-50%);*/
     border: .5rem solid;
     border-color: rgba(48, 110, 255, 0.75) transparent transparent transparent;
     border-radius: 50%;
     animation: spinner infinite 1s;
+}
+.loader-body{
+    position: fixed;
+    display: block;
+    z-index: 800;
+    background-color: rgba(14, 99, 255, 0.03);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 }
 
 /* Animation */
@@ -2432,10 +2445,10 @@ button .loadingSpinner {
     left: 50%;
 }
 
-.auth-btn {
-    width: 40%;
-    height: 50px;
-}
+/*.auth-btn {*/
+/*    width: 40%;*/
+/*    height: 50px;*/
+/*}*/
 
 .btn-withdraw {
     min-width: 150px;
@@ -2986,9 +2999,6 @@ html body .content.app-content {
     font-family: "Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
 }
 
-.navigation .nav-item:hover img {
-    filter: grayscale(100%) brightness(200%) saturate(104%);
-}
 
 .bg-light-green {
     background-color: #E8F9D7;
@@ -3092,16 +3102,7 @@ html body .content.app-content {
     cursor: pointer;
 }
 
-.modal-btn {
-    display: flex;
-    position: relative;
-    padding: 10px 20px;
-    text-align: center;
-    align-items: center;
-    /*width:150px;*/
-    /*height:40px;*/
-    cursor: pointer;
-}
+
 
 /*.btn-custom-blue:hover {*/
 /*    color: white !important;*/
@@ -3219,6 +3220,8 @@ html body .content.app-content {
     .vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
         width: 260px;
     }
+
+
 }
 
 /*header*/
@@ -3843,7 +3846,7 @@ input:-webkit-autofill:active {
 
 .blue-round-btn {
     background-color: #367BFF;
-    padding: 1rem 4rem;
+    /*padding: 1rem 4rem;*/
     border-radius: 3rem;
     color: white;
     font-size: 1.2rem;
@@ -4195,7 +4198,7 @@ input:-webkit-autofill:active {
     }
 
     .auth-btn {
-        width: 48%;
+        min-width: 150px;
         text-align: center;
         padding: 0rem;
         height: 50px;
@@ -4514,7 +4517,7 @@ input:-webkit-autofill:active {
         border-color: #2784F4;
         background-color: #2784F4;
         font-size: 1rem;
-        padding: 10px 20px;
+        /*padding: 10px 20px;*/
         transition: all .5s ease;
     }
 
@@ -4535,6 +4538,13 @@ input:-webkit-autofill:active {
     .navbar-dark .navbar-header .navbar-nav .nav-link, .navbar-semi-dark .navbar-header .navbar-nav .nav-link {
         color: #191033;
     }
+    .mobile-welcome-text {
+        color: #103366;
+        font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        letter-spacing: 0px;
+        margin: 2.5rem 0rem;
+        font-size: 2rem;
+    }
 
 }
 
@@ -4549,20 +4559,20 @@ input:-webkit-autofill:active {
 
 /*loader styles*/
 /* Absolute Center Spinner */
-.loading {
-    position: fixed;
-    z-index: 5000;
-    height: 3em;
-    width: 3em;
-    margin: auto;
-    border: .5rem solid;
-    border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;
-    top: 10rem;
-    right: 6rem;
-    display: block;
-    animation: spinner 1500ms infinite linear;
+/*.loading {*/
+/*    position: fixed;*/
+/*    z-index: 5000;*/
+/*    height: 3em;*/
+/*    width: 3em;*/
+/*    margin: auto;*/
+/*    border: .5rem solid;*/
+/*    border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;*/
+/*    top: 10rem;*/
+/*    right: 6rem;*/
+/*    display: block;*/
+/*    animation: spinner 1500ms infinite linear;*/
 
-}
+/*}*/
 
 
 /* Animation */
@@ -4824,7 +4834,7 @@ p {
 }
 
 .back-btn {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .back-btn i {
@@ -4832,7 +4842,6 @@ p {
 }
 
 .back-btn:hover {
-    font-size: 12px;
     color: #2497FF;
 }
 
@@ -4876,4 +4885,79 @@ input[type=date]::-webkit-inner-spin-button {
 .react-bootstrap-table-page-btns-ul {
     float: right;
     margin-right: 1rem;
+}
+
+@media all and (min-width: 600px) {
+    .modal-btn {
+        /*display: flex;*/
+        /*position: relative;*/
+        /*padding: 10px 20px;*/
+        /*text-align: center;*/
+        /*align-items: center;*/
+        min-width:150px;
+        height:40px;
+        cursor: pointer;
+    }
+
+}
+
+@media all and (min-width: 768px) {
+    .navbar-expand-lg .mobile {
+        display: none !important;
+    }
+}
+
+.receipt-body h5 {
+    font-family: "Circular Std Medium","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+    color: rgba(16,51,102,0.6);
+    font-size: 13px;
+}
+.receipt-body h2 {
+    font-family: "Circular Std Medium","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+    color: rgba(16,51,102,1);
+    font-weight: bold;
+    font-size: 17px;
+}
+.receipt-body .receipt-bottom h2 {
+    font-size: 23px;
+}
+.receipt-body .amount {
+    color: #1F75FF;
+}
+
+.receipt-body h4{
+    font-family: "Circular Std Book","Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+}
+.receipt-top{
+    font-family: "Circular Std Book","Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color:#F8F8F8;
+}
+.zig-zag:after{
+    background: linear-gradient(-45deg, transparent 16px, #F8F8F8 0), linear-gradient(45deg, transparent 16px, #F8F8F8 0);
+    background-repeat: repeat-x;
+    background-position: left bottom;
+    background-size: 22px 32px;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 32px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+.receipt-top p{
+    color: #7085A3;
+    letter-spacing: 5px;
+}
+.receipt-top h4{
+    font-weight: bold;
+    font-family: "Circular Std Book","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+}
+.receipt-header{
+    font-weight: bold;
+    color:#180F33;
+    letter-spacing: 1px;
+    font-size: 18px;
 }

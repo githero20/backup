@@ -163,7 +163,6 @@ class DashboardIndex extends Component {
 
 
     handleVaultInterest = (status, response) => {
-        console.log('Vault Interest response', status, response);
 
         if (status) {
             if (response) {
@@ -177,8 +176,6 @@ class DashboardIndex extends Component {
 
 
     handleLockedInterest = (status, response) => {
-        console.log('Locked Interest response', status, response);
-
         if (status) {
             if (response) {
                 this.setState({
@@ -191,7 +188,6 @@ class DashboardIndex extends Component {
 
 
     setupDashBoard = () => {
-
 
         //controls add display
         this.adModalController();
@@ -211,7 +207,6 @@ class DashboardIndex extends Component {
 
 
     handleBackUpGoals = (status, response) => {
-        console.log('backup goals', status, response);
         if (status) {
             const now = moment().format('YYYY-MM-DD');
             const backUpGoals = response.data.data;
@@ -241,7 +236,7 @@ class DashboardIndex extends Component {
             let CompletedGoals = getCompletedGoals(backUpGoals);
 
             this.setState({
-                CompletedGoals: CompletedGoals.length
+                CompletedGoals: CompletedGoals
             });
             //filter when is paused is true
         } else {
@@ -265,7 +260,6 @@ class DashboardIndex extends Component {
 
             // if(parseInt(data.active)){
 
-            console.log('user is activated')
             // }else{
             //     console.log('user is not activated');
             // }
@@ -292,7 +286,6 @@ class DashboardIndex extends Component {
                 error: true,
                 errorMessage: 'Your Account is not Activated'
             })
-            console.log('user is not active');
 
             //
             // this.setState({
@@ -341,22 +334,9 @@ class DashboardIndex extends Component {
     };
 
 
-    handleLockedSavings = (state, res) => {
-
-        if (state) {
-            console.log(res);
-
-        } else {
-
-            console.log(res);
-        }
-
-
-    };
 
 
     analyseDashboardInfo = (status, res) => {
-        console.log('dashboard response', status, res);
         //
         // console.log('got here to retrieve it ');
         // let data = JSON.parse(getLocalStorage(USERINFO));
@@ -371,75 +351,12 @@ class DashboardIndex extends Component {
         //     this.analyseDashboardInfo(status, data);
         // }
 
-        //
-        // if (status) {
-        //
-        //     if (res) {
-        //         this.setState({
-        //             accountInfo: res.data.data.accounts,
-        //             userName: res.data.data.name,
-        //             showLoader: false
-        //         });
-        //
-        //         // if(res.data.data.active){
-        //         //
-        //         //     //check for activated user
-        //         //     this.checkActiveUser(res.data.data.active);
-        //         //
-        //         // }
-        //
-        //
-        //         if (res.data.data.accounts) {
-        //
-        //             // loop through data and set appropriate states
-        //             let accounts = res.data.data.accounts.data;
-        //
-        //             let transactions = res.data.data.transactions.data;
-        //             transactions = transactions.filter((content) => content.status == 'success');
-        //
-        //             this.setState({
-        //                 transactions
-        //             });
-        //
-        //             accounts.map((content, idx) => {
-        //                 if (content.account_type_id === STANDARD_ACCOUNT) {
-        //                     this.setState({
-        //                         vaultAmount: parseFloat(content.balance).toFixed(2)
-        //                     })
-        //                 } else if (content.account_type_id === BACKUP_GOALS_ACCOUNT) {
-        //                     this.setState({
-        //                         backupAmount: parseFloat(content.balance).toFixed(2)
-        //                     })
-        //                 } else if (content.account_type_id === LOCKED_ACCOUNT) {
-        //                     this.setState({
-        //                         lockedSavingsAmount: parseFloat(content.balance).toFixed(2)
-        //                     })
-        //                 } else if (content.account_type_id === INTEREST_ACCOUNT) {
-        //                     this.setState({
-        //                         stashAmount: parseFloat(content.balance).toFixed(2),
-        //                         totalInterest: parseFloat(content.balance).toFixed(2)
-        //                     })
-        //                 }
-        //
-        //             });
-        //
-        //
-        //         }
-        //
-        //
-        //     }
-        //
-        // } else {
-        //     console.log(res)
-        // }
-
         try{
 
             if (status) {
 
                 // if (res) {
 
-                console.log('response before state',res,this.state);
                 this.setState({
                     accountInfo: res.data.data.accounts,
                     userName: res.data.data.name,
@@ -469,19 +386,19 @@ class DashboardIndex extends Component {
 
                     console.log('accounts in response and state before setting account',accounts,this.state);
                     accounts.map((content, idx) => {
-                        if (content.account_type_id === STANDARD_ACCOUNT) {
+                        if (content.account_type_id == STANDARD_ACCOUNT) {
                             this.setState({
                                 vaultAmount: parseFloat(content.balance).toFixed(2)
                             })
-                        } else if (content.account_type_id === BACKUP_GOALS_ACCOUNT) {
+                        } else if (content.account_type_id == BACKUP_GOALS_ACCOUNT) {
                             this.setState({
                                 backupAmount: parseFloat(content.balance).toFixed(2)
                             })
-                        } else if (content.account_type_id === LOCKED_ACCOUNT) {
+                        } else if (content.account_type_id == LOCKED_ACCOUNT) {
                             this.setState({
                                 lockedSavingsAmount: parseFloat(content.balance).toFixed(2)
                             })
-                        } else if (content.account_type_id === INTEREST_ACCOUNT) {
+                        } else if (content.account_type_id == INTEREST_ACCOUNT) {
                             this.setState({
                                 stashAmount: parseFloat(content.balance).toFixed(2),
                                 totalInterest: parseFloat(content.balance).toFixed(2)
@@ -489,7 +406,6 @@ class DashboardIndex extends Component {
                         }
 
                     });
-
 
                 }
 
@@ -501,6 +417,7 @@ class DashboardIndex extends Component {
         }catch (e) {
             console.log('err',e);
         }
+
 
 
     };
@@ -541,7 +458,6 @@ class DashboardIndex extends Component {
 
     handleUserActivation = (state, res) => {
         if (state) {
-            console.log(res);
             this.setState({
                 activationSuccess: true,
                 error: false,
@@ -560,14 +476,9 @@ class DashboardIndex extends Component {
     handleResendActLink = (state, response) => {
 
         if (state) {
-
-            console.log(response);
-
             this.toastManager.add(`${response.data.success}`, {
                 appearance: 'success',
             });
-
-
         } else {
 
             if (response) {

@@ -8,12 +8,10 @@ import {checkResponse} from "../ApiUtils/ApiUtils";
 
 
 export const initTransaction = (payload, callback) =>{
-    console.log("body", payload);
     _axios.post(InitiateTransactionEndpoint,payload,{
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
@@ -32,7 +30,6 @@ export const verifyTransaction = (payload, callback) =>{
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
             callback(true, res.data.data);
         })
         .catch(err => {

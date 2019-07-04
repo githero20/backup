@@ -93,9 +93,7 @@ class PayNowModal extends Component {
     //Init Paystack
     initiatePayStack = () => {
         //send api
-        console.log(this.state.form);
         initSSDuePay(this.state.form, (status, payload) => {
-            console.log("status", status, payload);
             this.setState({loading: false});
             if (status) {
                 // const user = _getUser();
@@ -120,7 +118,6 @@ class PayNowModal extends Component {
         this.setState({
             loading: false,
         });
-        console.log("Paystack Response", response);
         // {
         //     ref: response.reference,
         //         type: "instant"
@@ -128,7 +125,6 @@ class PayNowModal extends Component {
         let form = {...this.state.form};
         form.reference =  response.reference;
         verifyPayDue(form, (status, payload) => {
-            console.log("status", status, payload);
             if (status) {
                 this.props.toastManager.add(`Successfully paid ₦ ${formatNumber(parseFloat(this.state.form.amount).toFixed(2))}`, {
                     appearance: "success",
@@ -152,18 +148,15 @@ class PayNowModal extends Component {
     submitForm = (e) => {
         e.preventDefault();
         if (!this.validator.allValid()) {
-            console.log("hererererer", this, this.validator, this.validator.errorMessages);
             this.validator.showMessages();
             this.forceUpdate();
         } else {
-            console.log("here", this.state.form);
             this.setState({loading: true});
 
 
             //if add bank is selected
             if (parseInt(this.state.form.payment_auth) === 0) {
                 //initiate paystack
-                console.log('got here to initiate paystack');
                 this.initiatePayStack();
 
             } else {
@@ -180,7 +173,6 @@ class PayNowModal extends Component {
     handlePayResponse = (status, payload) => {
         this.setState({loading: false});
         if (!status) {
-            console.log(payload);
             this.props.toastManager.add("Payment Failed", {
                 appearance: "error",
                 autoDismissTimeout: 5000,
@@ -200,7 +192,6 @@ class PayNowModal extends Component {
 
             //set timeout
         }
-        console.log("res", status, payload);
     };
 
 

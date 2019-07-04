@@ -104,7 +104,7 @@ class TransferToCentralVaultModal extends Component {
             }
         } else {
             if (res) {
-                console.log(JSON.stringify(res));
+                console.log('error',JSON.stringify(res));
                 toastManager.add(`${JSON.stringify(res.data.message)}`, {
                     appearance: 'error',
                     autoDismiss: true,

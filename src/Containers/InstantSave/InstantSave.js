@@ -330,9 +330,9 @@ class InstantSave extends Component {
                         </div>
                             <div className="content-body">
                                 <div className="row">
-                                    <div className="col-lg-4 col-12 order-lg-8">
+                                    <div className="col-lg-5 col-12 order-lg-8">
                                         <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
-                                            <p>Start saving your money here whenever you want!
+                                            <p>Start saving your money here whenever you want!<br/>
                                                 We want you to be disciplined, so we’ll charge you 5% if you choose
                                                 to withdraw outside of your set withdrawal days.</p>
                                         </div>
@@ -345,7 +345,7 @@ class InstantSave extends Component {
                                     </div>
                                     <div className="col-lg-3 col-12 order-lg-5">
                                         <h3 className="gray-header-text fs-mb-1 mb-2 mt-7px">Quick Actions</h3>
-                                        <div className="mb-quick-actions d-flex flex-md-column flex-wrap ">
+                                        <div className="mb-quick-actions d-flex flex-md-column flex-wrap mb-3 mb-md-0 ">
                                             <span className="mb-btn-wrapper">
                                                 <button type="button" data-toggle="modal" data-target="#large" onClick={this.showModal}
                                                     className=" btn-blue-gradient-2 round">

@@ -23,15 +23,17 @@ import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../images/sfs.jpg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import {FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import {DashboardLink, FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 
 class Home extends Component {
 
     state = {
         showMobileMenu: false,
+        isLoggedIn: false,
     };
 
 
@@ -45,11 +47,25 @@ class Home extends Component {
         mobileMenu.classList.toggle('show');
     };
 
-    scrollIntoView =()=>{
+    scrollIntoView = () => {
         document.querySelector('.testimonial').scrollIntoView({
             behavior: 'smooth'
         });
     };
+
+    checkUser = () => {
+        if (localStorage.getItem(USERINFO) != null) {
+            this.setState({
+                isLoggedIn: !this.state.isLoggedIn
+            })
+        }
+    };
+
+    componentDidMount() {
+
+        this.checkUser();
+
+    }
 
     render() {
         return (
@@ -68,7 +84,7 @@ class Home extends Component {
                                         <span className="hamburger-inner"></span>
                                     </span>
                                 </a>
-                                <div className="collapse navbar-collapse animated slideInLeft faster"
+                                <div className="collapse navbar-collapse mobile d-md-none animated slideInLeft faster"
                                      id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
                                         <li className="nav-item">
@@ -77,9 +93,50 @@ class Home extends Component {
                                         <li className="nav-item">
                                             <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
                                         </li>
-                                        <li className="nav-item">
-                                            <Link to={LoginLink} className="nav-link" href={'#'}>Login </Link>
+                                        {
+                                            this.state.isLoggedIn ? (
+                                                <li className="nav-item">
+                                                    <Link to={DashboardLink} className="nav-link">Dashboard </Link>
+                                                </li>
+                                            ) : (
+                                                <li className="nav-item">
+                                                    <Link to={LoginLink} className="nav-link">Login </Link>
+                                                </li>
+                                            )
+                                        }
+                                    </ul>
+                                    <ul className="cta-link">
+                                        <li>
+                                            <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
+                                                Sign Up
+                                            </Link>
                                         </li>
+                                    </ul>
+                                </div>
+                                <div className="collapse navbar-collapse desktop "
+                                     id="navbarSupportedContent">
+                                    <ul className="navbar-nav ml-auto">
+                                        <li className="nav-item">
+                                            <a className="nav-link" href={FaqLink}>FAQs </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
+                                        </li>
+                                        {
+                                            this.state.isLoggedIn ? (
+                                                <li className="nav-item">
+                                                    <Link to={DashboardLink} className="nav-link">Dashboard </Link>
+                                                </li>
+                                            ) : (
+                                                <li className="nav-item">
+                                                    <Link to={LoginLink} className="nav-link">Login </Link>
+                                                </li>
+                                            )
+                                        }
+
+                                        {/*<li className="nav-item">*/}
+                                        {/*    <Link to={LoginLink} className="nav-link" href={'#'}>Login </Link>*/}
+                                        {/*</li>*/}
                                     </ul>
                                     <ul className="cta-link">
                                         <li>
@@ -163,7 +220,8 @@ class Home extends Component {
                                     <div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">
                                         <div className="row pb-md-5">
                                             <div className="col-12">
-                                                <div className="d-flex flex-column flex-md-row justify-content-around align-items-center">
+                                                <div
+                                                    className="d-flex flex-column flex-md-row justify-content-around align-items-center">
                                                     <div className="security-img-wrapper mb-2 mb-md-0">
                                                         <img className="img-2x" src={securityIcon}
                                                              alt="security icon"/>
@@ -204,7 +262,7 @@ class Home extends Component {
                                             </div>
                                             <p className="card-text mb-5">Create an account or login
                                                 in less than two minutes </p>
-                                            <div className="card mb-5"  data-aos-delay={700} data-aos="fade-up">
+                                            <div className="card mb-5" data-aos-delay={700} data-aos="fade-up">
                                                 <img className="card-1-img" src={cardIll1}
                                                      alt="illustration"/>
                                             </div>
@@ -616,7 +674,7 @@ class Home extends Component {
                                             <Link to={HomeLink}>Testimonials</Link>
                                         </li>
                                         <li>
-                                            <Link to={FaqLink} >FAQs</Link>
+                                            <Link to={FaqLink}>FAQs</Link>
                                         </li>
                                     </ul>
                                 </div>

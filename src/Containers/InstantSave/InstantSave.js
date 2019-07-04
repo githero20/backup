@@ -99,7 +99,7 @@ class InstantSave extends Component {
 
                 //display total balance
                 accounts.map((content, idx) => {
-                    if (content.account_type_id === STANDARD_ACCOUNT) {
+                    if (content.account_type_id == STANDARD_ACCOUNT) {
                         // console.log(content.balance);
                         this.setState({
                             totalBalance: content.balance
@@ -135,7 +135,7 @@ class InstantSave extends Component {
     getTotalInstantSave(transactions) {
         if (transactions) {
             //filter credits
-            let instantSaves = transactions.filter((content) => (content.status === 'success' && content.type === 'credit'));
+            let instantSaves = transactions.filter((content) => (content.status == 'success' && content.type == 'credit'));
             //get sum of credits
             const sum = instantSaves.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
             // console.log('sum'+sum);
@@ -204,7 +204,7 @@ class InstantSave extends Component {
         if (status) {
             if (payload) {
                 // console.log(JSON.parse(JSON.stringify(payload)));
-                let transactions = payload.data.data.transactions.data.filter((content) => content.status === 'success');
+                let transactions = payload.data.data.transactions.data.filter((content) => content.status == 'success');
                 this.setState({
                     transactions
                 });

@@ -26,8 +26,10 @@ class MessageBox extends Component {
         const data = getLocalStorage(USERINFO);
         this.checkBalance(data);
 
+        let name = `${data.name} ${data.last_name!= null ? data.last_name:''}`;
+
         this.setState({
-            userName: data.name + ' ' + data.last_name,
+            userName: name,
             userReferralLink: data.referral_link,
             userCode: data.referral_code,
 

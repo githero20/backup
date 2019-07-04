@@ -170,7 +170,7 @@ class SteadySave extends Component {
                 let accounts = data.data.data.accounts.data;
                 //display total balance
                 accounts.map((content, idx) => {
-                    if (content.account_type_id === STANDARD_ACCOUNT) {
+                    if (content.account_type_id == STANDARD_ACCOUNT) {
                         this.setState({
                             totalBalance: formatNumber(parseFloat(content.balance).toFixed(2))
                         })

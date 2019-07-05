@@ -29,6 +29,10 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     font-family: "Circular Std Medium";
     src: url("../../app-assets/fonts/app-fonts/CircularStd-Medium.otf");
 }
+@font-face {
+    font-family: "Poppins Regular";
+    src: url("../../app-assets/fonts/app-fonts/Poppins-Regular.otf");
+}
 
 body {
 
@@ -133,6 +137,14 @@ button .loadingSpinner {
     height: 50px;
 }
 
+.dash-card h3{
+    font-family: "Circular Std Black",'Product Sans', Quicksand, Georgia, 'Times New Roman', Times, serif;
+    /*font-weight: bold;*/
+}
+.dash-card-analysis .dash-card-total-details {
+    font-family: 'Poppins Regular',"Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+    letter-spacing: .5px;
+}
 .btn-withdraw {
     min-width: 150px;
     height: 40px;
@@ -622,6 +634,9 @@ input[type="date"]::-webkit-clear-button {
 .dashboard-callout {
     border-radius: 3rem;
 }
+.dashboard-callout label {
+    margin:10px 0px !important;
+}
 
 .admin-purple {
     color: #736CC4;
@@ -629,7 +644,7 @@ input[type="date"]::-webkit-clear-button {
 
 .code-btn {
     border: 1px solid gray;
-    padding: .5rem 3rem;
+    padding: .5rem 1rem;
     border-radius: 3rem;
     color: gray;
     cursor: pointer;
@@ -639,7 +654,6 @@ input[type="date"]::-webkit-clear-button {
 .code-btn:hover {
     border: 1px solid transparent;
     background-color: #736CC4;
-    padding: .5rem 3rem;
     border-radius: 3rem;
     color: white;
 }
@@ -865,6 +879,13 @@ input[type="date"]::-webkit-clear-button {
 
 @media all and (min-width: 1200px) {
 
+    .dash-card-total-details h6{
+        width: 90px;
+    }
+
+    .back-up-detail h6{
+        width:100px
+    }
     .main-menu.menu-dark .navigation {
         padding-top: 3rem;
 
@@ -4728,28 +4749,35 @@ p {
     padding: 2rem 1rem;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.05);
     margin-bottom: 2rem;
-    min-height: 200px;
     font-family: "Circular Std", "Product Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-
+/*.card-item i {*/
+/*    margin: 0px 3px;*/
+/*}*/
+.card-item .dash-card-analysis i {
+    color: #BDD2EB;
+}
+.stash-card{
+    min-height: 150px;
+}
 .withdrawal .card {
     overflow: auto;
 }
 
 .blue-border-right {
-    border-right: 5px solid #2567FF;
+    border-right: 10px solid #2567FF;
 }
 
 .purple-border-right {
-    border-right: 5px solid #BEABFF;
+    border-right: 10px solid #BEABFF;
 }
 
 .yellow-border-right {
-    border-right: 5px solid #FBDA72;
+    border-right: 10px solid #FBDA72;
 }
 
 .orange-border-right {
-    border-right: 5px solid #FFB658;
+    border-right: 10px solid #FFB658;
 }
 
 .dash-card-img {
@@ -4770,6 +4798,7 @@ p {
     background-color: #F9F9F9;
     color: #2D2D2D;
     padding: 5px 15px;
+    font-size:.8rem;
     border-radius: 2rem;
     margin: 10px 0px;
     transition: background-color .3s ease-in-out;

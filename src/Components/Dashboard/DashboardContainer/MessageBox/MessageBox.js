@@ -160,15 +160,16 @@ class MessageBox extends Component {
                     ) : null}
                 <div className="row mb-2">
                     <div className="col-12">
-                        <div className={'bg-white shadow-sm dashboard-callout callout-border-right' +
-                        ' d-flex flex-column flex-md-row flex-wrap justify-content-md-between align-items-center callout-round callout-transparent ' +
-                        'mt-1 px-2 py-2 py-1'}>
+                        <div className='bg-white shadow-sm dashboard-callout callout-border-right d-flex flex-column
+                        flex-md-row flex-wrap justify-content-md-between align-items-center
+                         callout-round callout-transparent px-2'>
                             <label className='d-flex flex-column align-items-center flex-md-row justify-content-md-center'>
                                 {referralInfo}
                             </label>
                             <label className='d-flex flex-md-row align-items-center flex-column'>
                                 <span className="mr-2 mb-1 mb-md-0"> copy referral code</span>
                                 <span className="code-btn" onClick={this.copyToClipboard}>AEC45SF</span>
+                                {/*<span className="code-btn" onClick={this.copyToClipboard}>Share Code</span>*/}
                             </label>
                         </div>
                     </div>

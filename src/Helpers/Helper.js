@@ -365,6 +365,7 @@ export function transformHour(hour) {
 export function dateFormatter(cell) {
     return <p style={{minWidth: '150px'}}>{moment(cell).format('LLL')}</p>
 }
+
 export function disableKey(e) {
     e.preventDefault();
     // return false;
@@ -380,22 +381,22 @@ export function descriptionFormatter(cell) {
         className={cell === 'credit' ? 'text-green text-capitalize' : 'text-red text-capitalize'}>{cell}</span>
 }
 
-export function sourceFormatter(cell,row) {
+export function sourceFormatter(cell, row) {
     let content;
 
-    if(row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)){
-        content = `${cell.data.name.replace(/_/g, ' ')}`+
+    if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
+        content = `${cell.data.name.replace(/_/g, ' ')}` +
             '<br/><span className="text-muted">(interest on backup goal)</span>';
         return sourceMarkup(content);
     }
 
-    if(row.gw_authorization_code.includes(INTEREST_ON_VAULT)){
-        content = `${cell.data.name.replace(/_/g, ' ')}`+
+    if (row.gw_authorization_code.includes(INTEREST_ON_VAULT)) {
+        content = `${cell.data.name.replace(/_/g, ' ')}` +
             '<br/><span className="text-muted">(interest on central vault)</span>';
         return sourceMarkup(content);
     }
 
-    if (cell.data.name==WITHDRAWAL_SOURCE){
+    if (cell.data.name == WITHDRAWAL_SOURCE) {
         content = `${cell.data.name.replace(/_/g, ' ')}`;
         return sourceMarkup(content);
     }
@@ -404,7 +405,7 @@ export function sourceFormatter(cell,row) {
     return sourceMarkup(content);
 }
 
-function sourceMarkup(content){
+function sourceMarkup(content) {
     return <p style={{minWidth: '150px'}} className={'text-secondary text-capitalize'}>{content}</p>;
 }
 
@@ -421,7 +422,8 @@ export function amountFormatter(cell, row) {
         </p>
     )
 }
-export function parseAndFormatNum(num){
+
+export function parseAndFormatNum(num) {
     return formatNumber(parseFloat(num).toFixed(2));
 }
 
@@ -431,11 +433,12 @@ export function moneyFormatter(cell) {
            className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
     )
 }
+
 export function removeUnderscore(data) {
     return data.replace(/_/g, ' ');
 }
 
-export function toastMessage (message, status,context){
+export function toastMessage(message, status, context) {
     const {toastManager} = context.props;
     toastManager.add(message, {
         appearance: status,
@@ -468,6 +471,7 @@ export function viewFormatter(cell) {
     return <button className={'btn round btn-custom-blue btn-block'}>View History</button>
 
 }
+
 export function detailFormatter(cell) {
     return <button className={'btn round btn-custom-blue btn-block'}>View Details</button>
 
@@ -547,5 +551,43 @@ export function amountInput(selector) {
 export function initializeAmountInput() {
     // initialize inputs with commas
     const isAmount = amountInput('.amount-input');
+
+}
+
+export function Support(el=true) {
+
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/5d14844953d10a56bd7c1937/default';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+    Tawk_API = Tawk_API || {};
+    Tawk_API.onBeforeLoad = function(){
+        //place your code here
+    };
+    Tawk_API.onLoad = function() {
+        console.log('works on load');
+        Tawk_API.hideWidget();
+        window.showTawk = function() {
+            var pages = ['','faq'];
+            pages.forEach(function(elem) {
+                if (window.location.pathname.endsWith("/" + elem)) {
+                    Tawk_API.showWidget();
+                }
+            });
+        };
+    };
+
+    // Tawk_API.hideWidget();
+    // }else {
+    //     Tawk_API.onLoad = function () {
+    //         Tawk_API.hideWidget();
+    //     };
+    // }
+
 
 }

@@ -1,7 +1,7 @@
+"use strict";
 import React, {Component} from 'react';
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from "simple-react-validator";
-import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import { passwordResetEndpoint} from "../../../RouteLinks/RouteLinks";
 import {request} from "../../../ApiUtils/ApiUtils";
@@ -98,12 +98,7 @@ class ForgotPasswordForm extends Component {
             toastManager.add(`${response.data.error}`, {
                 appearance: 'error',
             });
-
-
         }
-
-
-
 
     };
 

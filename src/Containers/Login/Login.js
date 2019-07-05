@@ -8,9 +8,18 @@ import {Link} from 'react-router-dom';
 class Login extends Component {
 
 
+    componentWillMount() {
+        let element = document.getElementById('tawkchat-minified-box');
+        let elementContainer = document.getElementById('tawkchat-container');
+
+        console.log('element',element);
+        console.log('element Container',elementContainer);
+    }
+
     render() {
         return (
             <React.Fragment>
+                {/*{hideSupport()}*/}
                     <section className="login-background login-section">
                         <h3 className="welcome-text d-none d-lg-block">Welcome <br/>Back</h3>
 

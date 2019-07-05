@@ -113,7 +113,9 @@
     .mb-details-container, .mb-btn-wrapper {
         width: 100%;
     }
-
+    .dash-card{
+        min-height: 200px;
+    }
     .dash-card-img{
         width: 30%;
     }

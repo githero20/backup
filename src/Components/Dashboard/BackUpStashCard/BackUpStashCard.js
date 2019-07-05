@@ -36,13 +36,13 @@ class BackUpStashCard extends Component {
 
                 <div className="col-12 col-lg-6">
                     <h2 className={'dash-header'}>Backup Stash</h2>
-                    <div className="d-flex flex-column flex-md-row align-items-lg-center dash-card orange-border-right pull-up" >
+                    <div className="d-flex stash-card flex-column flex-md-row align-items-lg-center dash-card orange-border-right pull-up" >
                         <div className="card-item dash-card-img-cover">
                             <img src={yellowIcon} className={'dash-card-img'}/>
                         </div>
                         <div className="card-item flex-grow-1">
-                            <p>Balance</p>
-                            <h3 className='my-2 my-md-0'>&#8358; {formatNumber(stashAmount)}</h3>
+                            <p className='mt-2 mt-md-0'>Balance</p>
+                            <h3 className=' my-md-0'>&#8358; {formatNumber(stashAmount)}</h3>
                             {/*<div className="dash-card-analysis d-flex">*/}
                             {/*    <div className='d-flex flex-md-column'>*/}
                             {/*        <div*/}

@@ -73,14 +73,16 @@ class BackUpGoalCard extends Component {
                             <div className="dash-card-analysis d-flex fs-12">
                                 <div className='d-flex flex-column'>
                                     <div
-                                        className='d-flex dash-card-total-details justify-content-between'>
-                                        <h6>Active Goals</h6><strong><i
-                                        className='fa fa-arrow-right '></i>{ActiveGoals!==0?ActiveGoals:0}</strong>
+                                        className='d-flex dash-card-total-details back-up-detail justify-content-between'>
+                                        <h6>Active Goals</h6>
+                                        <i className='fa fa-arrow-right'></i>
+                                        <strong className='flex-grow-1'>{ActiveGoals!==0?ActiveGoals:0}</strong>
                                     </div>
                                     <div
-                                        className='d-flex dash-card-total-details justify-content-between'>
-                                        <h6>Completed Goals</h6><strong><i
-                                        className='fa fa-arrow-right '></i>{CompletedGoals!==0?CompletedGoals:0}</strong>
+                                        className='d-flex dash-card-total-details back-up-detail justify-content-between'>
+                                        <h6>Completed Goals</h6>
+                                        <i className='fa fa-arrow-right'></i>
+                                        <strong className='flex-grow-1'>{CompletedGoals!==0?CompletedGoals:0}</strong>
                                     </div>
                                 </div>
                                 {/*<div className='d-flex'>*/}

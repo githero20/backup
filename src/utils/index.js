@@ -9,7 +9,7 @@ import {getToken} from "../Helpers/Helper";
 
 export const GOOGLE_PLACE_API_KEY = "AIzaSyBMe9I7kVgdErGjrHStl34d3RLk5rfi0gw";
 
-export const PAYSTACK_PUBLIC_KEY = "pk_test_a59d1204944c01bf05330ab59fb1abe607eb36a6";
+export const PAYSTACK_PUBLIC_KEY = process.env.REACT_APP_PAYSTACK_KEY;
 
 export const _setState = (prop, val, el = this) => el.setState({[prop]: val});
 

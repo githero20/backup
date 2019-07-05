@@ -7,10 +7,13 @@
     }
     .main-menu{
         z-index: 2999999999;
-        width: 80%;
+        width: 230px;
+    }
+    .vertical-layout.vertical-menu-modern.menu-flipped .main-menu{
+        left: -30px;
     }
     .main-menu.menu-dark, .main-menu.menu-dark .navigation, .main-menu.menu-dark .navigation > li > ul{
-        right: 80px;
+        left: 0px;
     }
         /* mobile menu */
     .header-navbar .navbar-header .navbar-brand {

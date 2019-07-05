@@ -84,6 +84,7 @@ class Home extends Component {
         return (
             <React.Fragment>
                 <div className={'homeBody'}>
+                    {Support()}
                     <header className="header header-background">
                         <div className="container">
                             <nav className="home-nav navbar navbar-expand-lg ">

@@ -107,7 +107,7 @@ class VerticalNav extends Component {
                                     </span>
                                     <span className="menu-title text-capitalize">{userName}</span>
                                 </a>
-                                <ul className="menu-content">
+                                <ul className="menu-content mobile-profile-nav">
                                     <li className="is-shown"><Link className="menu-item" to={ProfileSettingLink}>Profile</Link>
                                     </li>
                                     <li className="is-shown"><Link className="menu-item" to={KycSettingLink}>Kyc</Link>

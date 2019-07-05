@@ -133,7 +133,7 @@ class MessageBox extends Component {
                 {/*    You referred 5 persons from [ 1 -2-2019 to 5-2-2019 ] ,*/}
                 {/*</span>*/}
                 <div className="admin-purple d-block d-md-inline">Your referral points earned
-                    <strong className=" d-block d-md-inline ml-1">{this.state.userPoint?this.state.userPoint:0} points</strong>
+                    <strong className="d-md-inline ml-1">{this.state.userPoint?this.state.userPoint:0} points</strong>
                 </div>
             </React.Fragment>
         );
@@ -166,8 +166,8 @@ class MessageBox extends Component {
                             <label className='d-flex flex-column align-items-center flex-md-row justify-content-md-center'>
                                 {referralInfo}
                             </label>
-                            <label className='d-flex flex-md-row align-items-center flex-column'>
-                                <span className="mr-2 mb-1 mb-md-0"> copy referral code</span>
+                            <label className='d-flex flex-md-row align-items-center'>
+                                <span className="mr-2 mb-md-1 mb-md-0"> copy referral code</span>
                                 <span className="code-btn" onClick={this.copyToClipboard}>AEC45SF</span>
                                 {/*<span className="code-btn" onClick={this.copyToClipboard}>Share Code</span>*/}
                             </label>

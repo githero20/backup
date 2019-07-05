@@ -9,6 +9,9 @@
         z-index: 2999999999;
         width: 80%;
     }
+    .main-menu.menu-dark, .main-menu.menu-dark .navigation, .main-menu.menu-dark .navigation > li > ul{
+        right: 80px;
+    }
         /* mobile menu */
     .header-navbar .navbar-header .navbar-brand {
         position: absolute;
@@ -16,6 +19,18 @@
         left: 10px;
         padding-top: 0.6rem;
         transform: translate(0);
+    }
+    .dashboard-callout{
+        padding: 10px;
+    }
+    .avatar img {
+        margin-bottom: 3px;
+    }
+    .main-menu.menu-dark .navigation > li:first-of-type {
+        border-bottom: 1px solid #c2c2c2;
+    }
+    .mobile-profile-nav{
+        padding-bottom: 30px !important;
     }
     .table-status{
         font-size: 1.2rem;

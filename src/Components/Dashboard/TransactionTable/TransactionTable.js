@@ -157,7 +157,7 @@ class TransactionTable extends Component {
                                             {/*    </span>Date Filter*/}
                                             {/*</div>*/}
 
-                                            <ExportCSVButton className="btn-green flex-shrink-1"  {...props.csvProps}>Export
+                                            <ExportCSVButton className="btn-green flex-shrink-1 d-none d-md-inline-block"  {...props.csvProps}>Export
                                                 CSV</ExportCSVButton>
                                         </div>
 

@@ -880,11 +880,11 @@ input[type="date"]::-webkit-clear-button {
 @media all and (min-width: 1200px) {
 
     .dash-card-total-details h6{
-        width: 90px;
+        width: 95px;
     }
 
     .back-up-detail h6{
-        width:100px
+        width:105px
     }
     .main-menu.menu-dark .navigation {
         padding-top: 3rem;
@@ -2695,7 +2695,7 @@ html body .content.app-content {
     /*content:"\f061";*/
     font-size: 1rem;
     position: absolute;
-    top: 14px;
+    top: 11px;
     right: 20px;
     display: inline-block;
     transition: transform .2s ease-in-out;

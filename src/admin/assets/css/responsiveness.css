@@ -5,6 +5,10 @@
     .faq-main .btn-link{
         font-size: .8rem;
     }
+    .main-menu{
+        z-index: 2999999999;
+        width: 80%;
+    }
         /* mobile menu */
     .header-navbar .navbar-header .navbar-brand {
         position: absolute;
@@ -16,7 +20,9 @@
     .table-status{
         font-size: 1.2rem;
     }
-
+    .dash-card-analysis h6{
+        width: 105px;
+    }
     .modal{
         z-index: 20000000000;
     }
@@ -101,7 +107,7 @@
     }
 
     .header-navbar .navbar-header .navbar-brand .brand-logo {
-        width: 44%;
+        width: 40%;
     }
 
     .loading {

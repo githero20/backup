@@ -11,7 +11,6 @@ export const GOOGLE_PLACE_API_KEY = "AIzaSyBMe9I7kVgdErGjrHStl34d3RLk5rfi0gw";
 
 export const PAYSTACK_PUBLIC_KEY = process.env.REACT_APP_PAYSTACK_KEY;
 
-console.log(PAYSTACK_PUBLIC_KEY);
 export const _setState = (prop, val, el = this) => el.setState({[prop]: val});
 
 export const _handleFormChange = (name, event, el = this, callback = null) => {

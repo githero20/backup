@@ -46,16 +46,13 @@ class InstantSavingForm extends Component {
     initiatePayStack = () => {
 
         //send api
-        console.log(this.state.form);
         initTransaction({
             amount: parseFloat(this.state.form.amount),
             source: 'quick',
         }, (status, payload) => {
-            console.log("status", status, payload);
             this.setState({loading: false});
             if (status) {
                 const user = _getUser();
-                console.log(user);
                 _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
             } else {
                 console.log(payload);
@@ -77,12 +74,10 @@ class InstantSavingForm extends Component {
         this.setState({
             loading: false,
         });
-        console.log("Paystack Response", response);
         verifyTransaction({
             ref: response.reference,
             type: "instant"
         }, (status, payload) => {
-            console.log("status", status, payload);
             if (status) {
                 this.props.toastManager.add("Card Added Successfully", {
                     appearance: "success",
@@ -110,7 +105,6 @@ class InstantSavingForm extends Component {
 
     getUserCards() {
         getUserCards((status, payload) => {
-            console.log("Cards", status, payload);
             if (status) {
                 this.setState({cards: payload});
             } else {
@@ -136,11 +130,9 @@ class InstantSavingForm extends Component {
             //if add bank is selected
             if (parseInt(this.state.form.payment_auth) === 0) {
                 //initiate paystack
-                console.log('got here to initiate paystack');
                 this.initiatePayStack();
 
             } else {
-                console.log('going without initiating');
                 request(instantSaveEndpoint, this.state.form, true, 'POST', this.HandleInstantSave);
             }
 
@@ -208,7 +200,6 @@ class InstantSavingForm extends Component {
         //Paystack add Card
         if (name === 'payment_auth' && value === 0) {
             //initiate paystack
-            console.log('got here to initiate paystack');
             this.initiatePayStack();
         }
 
@@ -225,13 +216,11 @@ class InstantSavingForm extends Component {
         let name = event.target.name;
         let value = event.target.value;
 
-        console.log(name, value);
         // check if the value exist
         if (value !== "") {
             if (parseFloat(value).toFixed(2) !== 0.00) {
                 let strippedVal = value.replace(/,/g, '').replace('₦', '')
                 const rawValue = parseFloat(strippedVal);
-                console.log(name, strippedVal);
                 let data = {...this.state.form};
                 data[name] = rawValue;
                 this.setState({
@@ -250,7 +239,6 @@ class InstantSavingForm extends Component {
     componentDidMount() {
         //get pay auths
         const userInfo = getLocalStorage(USERINFO);
-        console.log('instant save info' + userInfo);
         if (getLocalStorage(USERINFO) != undefined) {
             this.setState({
                 userCards: userInfo.authorization.data
@@ -336,7 +324,7 @@ class InstantSavingForm extends Component {
         // }
         return (
             <React.Fragment>
-                <Form onSubmit={this.submitForm}>
+                <Form className={'is-modal-form'} onSubmit={this.submitForm}>
                     <Form.Row>
                         <Col>
                             <Form.Group className={'mt-md-1 mb-md-3'}>

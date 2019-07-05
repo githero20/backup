@@ -213,7 +213,7 @@ class SetupWithdrawalForm extends Component {
                     // this.props.showOtp(payload);
 
                     // save user withdrawal info
-                    localStorage.setItem(USERWITHDRAWAL,JSON.stringify(payload.data) );
+                    // localStorage.setItem(USERWITHDRAWAL,JSON.stringify(payload.data) );
                     localStorage.setItem(USERTOKEN, JSON.stringify(this.state.token));
 
 

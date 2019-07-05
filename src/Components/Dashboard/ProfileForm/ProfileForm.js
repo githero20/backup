@@ -69,7 +69,6 @@ class ProfileForm extends Component {
     copyToClipboard = (e) => {
 
         // let text = document.getElementById("referral_code").value;
-        console.log(this.props.userProfile);
 
         let textField = document.createElement('textarea');
 

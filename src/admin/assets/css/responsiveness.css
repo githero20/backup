@@ -13,12 +13,28 @@
         padding-top: 0.6rem;
         transform: translate(0);
     }
+    .table-status{
+        font-size: 1.2rem;
+    }
+
+
     .mb-btn-wrapper{
         width: 100%;
+    }
+    .modal-content h4 {
+        font-size: 15px;
+    }
+    .steady-save-modal .modal-content, .instant-save-modal .modal-content{
+        padding: 1.5rem .5rem;
+        border-radius: 2rem;
     }
     .header-navbar .navbar-header .menu-toggle {
         position: relative;
         top: 58%;
+    }
+    .is-modal-form .btn-custom-blue{
+        flex-basis: 60%;
+        font-size: 1rem;
     }
 
     .menu-title {
@@ -48,7 +64,7 @@
         margin-bottom: 0;
     }
     .btn-custom-blue{
-        width:5rem;
+        /*width:5rem;*/
     }
 
     .ad-container-modal .modal-content{
@@ -78,20 +94,20 @@
     }
 
     .loading {
-        position: fixed;
-        display: block;
-        z-index: 9999999;
-        height: 5rem;
-        width: 5rem;
-        margin: auto;
-        background-color: transparent;
+        /*position: fixed;*/
+        /*display: block;*/
+        /*z-index: 9999999;*/
+        /*height: 5rem;*/
+        /*width: 5rem;*/
+        /*margin: auto;*/
+        /*background-color: transparent;*/
         top: 50%;
-        left: 29%;
-        transform: translate(-50%, -50%);
-        border: 1rem solid;
-        border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;
-        border-radius: 50%;
-        animation: spinner infinite 1s;
+        left: 50%;
+        /*transform: translate(-50%, -50%);*/
+        /*border: 1rem solid;*/
+        /*border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;*/
+        /*border-radius: 50%;*/
+        /*animation: spinner infinite 1s;*/
     }
 
     .mb-details-container, .mb-btn-wrapper {

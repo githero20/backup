@@ -98,7 +98,7 @@ class Faq extends Component {
                                 <div className="col-sm-4 text-center text-md-left">
                                     <div className="mb-3 mt-3 mt-md-0 mb-md-5">
                                         <h4 className='text-capitalize'>Whatsapp</h4>
-                                        <p className='gray-text'>+234 803 791 3530</p>
+                                        <p className='gray-text '>+234 803 791 3530</p>
                                     </div>
                                 </div>
                                 <div className="col-sm-4 text-center text-md-left">

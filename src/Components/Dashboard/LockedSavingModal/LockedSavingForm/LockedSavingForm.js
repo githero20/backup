@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
-import Button from "react-bootstrap/Button";
 import {_calculateDateDifference, _handleFormChange} from "../../../../utils/index";
 import SimpleReactValidator from "simple-react-validator";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import {withToastManager} from 'react-toast-notifications';
 import {createLockedSavings, getLockedInterestSavings} from "../../../../actions/LockedSavingsAction";
 import moment from 'moment';
-import {formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
+import {disableKey, formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
 import {request} from "../../../../ApiUtils/ApiUtils";
 import {getAdminInterest} from "../../../../RouteLinks/RouteLinks";
 
@@ -202,8 +201,11 @@ class LockedSavingForm extends Component {
                             <Form.Control
                                 onChange={this.handleDateInput}
                                 type="date"
+                                onKeyDown={disableKey}
+                                onKeyUp={disableKey}
                                 format="YYYY-MM-DD"
                                 min={moment().add('1', 'days').format('YYYY-MM-DD')}
+                                max={moment().add('1', 'years').format('YYYY-MM-DD')}
                                 name="end_date"
                                 value={this.state.form.end_date}
                             />
@@ -276,13 +278,10 @@ class LockedSavingForm extends Component {
 
                         </Form.Group>
                     </Form.Row>
-                    <Form.Row className="d-flex justify-content-center justify-content-md-end  my-2">
-
-                        <div className={'d-flex justify-content-end'}>
-                            <Button className="round btn-custom-blue modal-btn " disabled={this.state.loading} type="submit">
+                    <Form.Row className="d-flex justify-content-end  my-2">
+                            <button className="round btn-custom-blue modal-btn " disabled={this.state.loading} type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Start Saving"}
-                            </Button>
-                        </div>
+                            </button>
                     </Form.Row>
 
                 </Form>

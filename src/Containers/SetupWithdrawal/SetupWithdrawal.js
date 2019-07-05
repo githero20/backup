@@ -16,7 +16,7 @@ class SetupWithdrawal extends Component {
     state={
         banks:[],
         token:'',
-    }
+    };
 
     componentDidMount() {
         getListOfBanks((status, payload) =>{
@@ -36,6 +36,13 @@ class SetupWithdrawal extends Component {
         this.setState({
             token:search.token
         });
+
+        //retreive token from redirect
+        if(this.props.location.state){
+            this.setState({
+                token:this.props.location.state.token
+            })
+        }
 
 
     };

@@ -90,16 +90,10 @@ class ForgotPasswordForm extends Component {
         //handle response
 
         if(state){
-
-            console.log(response);
-
             toastManager.add(`${response.data.success}`, {
                 appearance: 'success',
             });
-
-
         }else{
-
             console.log(response);
             toastManager.add(`${response.data.error}`, {
                 appearance: 'error',

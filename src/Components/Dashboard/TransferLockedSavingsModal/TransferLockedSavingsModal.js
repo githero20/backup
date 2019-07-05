@@ -10,6 +10,7 @@ import SimpleReactValidator from "simple-react-validator";
 import {createLockedSavings, getLockedInterestSavings} from "../../../actions/LockedSavingsAction";
 import {withToastManager} from "react-toast-notifications";
 import moment from "moment";
+import {disableKey} from "../../../Helpers/Helper";
 
 
 class TransferLockedSavingsModal extends React.Component {
@@ -161,6 +162,8 @@ class TransferLockedSavingsModal extends React.Component {
                                     <Form.Control
                                         onChange={this.handleDateInput}
                                         type="date"
+                                        onKeyDown={disableKey}
+                                        onKeyUp={disableKey}
                                         format="YYYY-MM-DD"
                                         name="end_date"
                                         min={moment().format('YYYY-MM-DD')}

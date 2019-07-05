@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {withToastManager} from 'react-toast-notifications';
-import {capitalize, formatNumber, STANDARD_ACCOUNT} from "../../../../Helpers/Helper";
+import {capitalize, formatNumber, STANDARD_ACCOUNT, toastMessage} from "../../../../Helpers/Helper";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {KycSettingLink} from "../../../../RouteLinks/RouteLinks";
@@ -54,9 +54,7 @@ class MessageBox extends Component {
                             updateKyc: true,
                             balance: content.balance
                         }, () => {
-                            console.log('state', this.state)
                         });
-                        console.log('state after', this.state);
                     }
                 }
             });
@@ -86,7 +84,7 @@ class MessageBox extends Component {
         textField.select();
         document.execCommand('copy');
         textField.remove();
-        this.toastMessage('Copied!', 'success');
+        toastMessage('Copied!', 'success',this);
         //
         // document.getElementById('referral_code').value();
         // document.execCommand('copy');
@@ -96,15 +94,6 @@ class MessageBox extends Component {
         this.setState({copySuccess: true});
     };
 
-    toastMessage = (message, status) => {
-        const {toastManager} = this.props;
-        toastManager.add(message, {
-            appearance: status,
-            autoDismiss: true,
-            autoDismissTimeout: 4000,
-            pauseOnHover: false,
-        })
-    };
 
     componentDidMount() {
         getUserPoints(this.handlePoints);
@@ -112,10 +101,9 @@ class MessageBox extends Component {
 
     handlePoints = (status, res) => {
         if (status) {
-            console.log('data in here', status, res);
             this.setState({userPoint: res})
         } else if (!status && res) {
-            console.log('error', status, res);
+            console.log('points error', status, res);
         }
 
     };
@@ -125,9 +113,9 @@ class MessageBox extends Component {
 
         const kycInfo = (
             <React.Fragment>
-                <span>
+                <span className='mb-1 mb-md-0'>
                     <strong>Hello {this.state.userName}! </strong>
-                    Your have currently saved up to ₦ {formatNumber(Number(this.state.balance).toFixed(2))},
+                    Your have currently saved up to ₦ {formatNumber(Number(this.state.balance).toFixed(2))}
                 </span>
                 <span className="admin-purple">
                     <strong><Link to={KycSettingLink}
@@ -155,7 +143,7 @@ class MessageBox extends Component {
                         <div className="row mb-1">
                             <div className="col-12">
                                 <div className={'bg-white shadow-sm dashboard-callout callout-border-right' +
-                                ' d-flex justify-content-between align-items-center callout-round callout-transparent ' +
+                                ' d-flex flex-column flex-md-row justify-content-between align-items-center callout-round callout-transparent ' +
                                 'mt-1 px-2 py-2 py-1'}>
                                     {/*<label className='d-flex justify-content-between flex-md-row'>*/}
                                     {kycInfo}
@@ -167,18 +155,17 @@ class MessageBox extends Component {
                                 </div>
                             </div>
                         </div>
-
                     ) : null}
                 <div className="row mb-2">
                     <div className="col-12">
                         <div className={'bg-white shadow-sm dashboard-callout callout-border-right' +
-                        ' d-flex justify-content-between align-items-center callout-round callout-transparent ' +
+                        ' d-flex flex-column flex-md-row flex-wrap justify-content-md-between align-items-center callout-round callout-transparent ' +
                         'mt-1 px-2 py-2 py-1'}>
-                            <label className='d-flex justify-content-center'>
+                            <label className='d-flex flex-column align-items-center flex-md-row justify-content-md-center'>
                                 {referralInfo}
                             </label>
-                            <label>
-                                <span className="mr-2"> copy referral code</span>
+                            <label className='d-flex flex-md-row align-items-center flex-column'>
+                                <span className="mr-2 mb-1 mb-md-0"> copy referral code</span>
                                 <span className="code-btn" onClick={this.copyToClipboard}>AEC45SF</span>
                             </label>
                         </div>

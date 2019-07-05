@@ -9,8 +9,7 @@ import {withToastManager} from "react-toast-notifications";
 import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../../../utils";
 import {createBackUpGoal, editBGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {initTransaction, verifyTransaction} from "../../../../actions/CardAction";
-import {formatNumber, getTodaysDate} from "../../../../Helpers/Helper";
+import {disableKey, formatNumber, getTodaysDate} from "../../../../Helpers/Helper";
 import moment from "moment";
 
 
@@ -410,6 +409,8 @@ class EditBGForm extends Component {
                                 type="date"
                                 name={'maturity_date'}
                                 id={'maturity_date'}
+                                onKeyDown={disableKey}
+                                onKeyUp={disableKey}
                                 min={moment(maturity_date).format('YYYY-MM-DD')}
                                 value={maturity_date}
                                 disabled={this.state.disabled}

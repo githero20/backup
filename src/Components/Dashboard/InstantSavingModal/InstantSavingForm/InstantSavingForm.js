@@ -7,7 +7,7 @@ import {instantSaveEndpoint} from "../../../../RouteLinks/RouteLinks";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
+import {formatNumber, initializeAmountInput, toastMessage} from "../../../../Helpers/Helper";
 import {getUserCards, initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {_getUser, _payWithPaystack} from "../../../../utils";
 
@@ -244,7 +244,7 @@ class InstantSavingForm extends Component {
                 userCards: userInfo.authorization.data
             })
         }
-        initializeAmountInput();
+
     }
 
 

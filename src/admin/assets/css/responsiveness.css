@@ -17,7 +17,18 @@
         font-size: 1.2rem;
     }
 
+    .modal{
+        z-index: 20000000000;
+    }
 
+    .modal-backdrop{
+        z-index: 2000000000;
+    }
+    .css-e110bw {
+        z-index: 20000000000000 !Important;
+        top: 0 !important;
+        left: 0 !important;
+    }
     .mb-btn-wrapper{
         width: 100%;
     }

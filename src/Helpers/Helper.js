@@ -565,22 +565,22 @@ export function Support(el=true) {
         s1.setAttribute('crossorigin', '*');
         s0.parentNode.insertBefore(s1, s0);
     })();
-    Tawk_API = Tawk_API || {};
-    Tawk_API.onBeforeLoad = function(){
-        //place your code here
-    };
-    Tawk_API.onLoad = function() {
-        console.log('works on load');
-        Tawk_API.hideWidget();
-        window.showTawk = function() {
-            var pages = ['','faq'];
-            pages.forEach(function(elem) {
-                if (window.location.pathname.endsWith("/" + elem)) {
-                    Tawk_API.showWidget();
-                }
-            });
-        };
-    };
+    // Tawk_API = Tawk_API || {};
+    // Tawk_API.onBeforeLoad = function(){
+    //     //place your code here
+    // };
+    // Tawk_API.onLoad = function() {
+    //     console.log('works on load');
+    //     Tawk_API.hideWidget();
+    //     window.showTawk = function() {
+    //         var pages = ['','faq'];
+    //         pages.forEach(function(elem) {
+    //             if (window.location.pathname.endsWith("/" + elem)) {
+    //                 Tawk_API.showWidget();
+    //             }
+    //         });
+    //     };
+    // };
 
     // Tawk_API.hideWidget();
     // }else {

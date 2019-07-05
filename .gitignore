@@ -10,7 +10,7 @@
 
 # production
 #add /build later
-
+/build
 # env
 .env
 

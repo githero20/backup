@@ -25,8 +25,16 @@ export function api(url, params, token, method, callback) {
 
     }
     if (method) {
-        return axios.post(url, params, header).then(res => callback(true, res))
-            .catch(err => callback(false, err.response))
+        return axios.post(url, params, header).then(res => {
+            console.log("rea", res);
+            console.log("rea", JSON.stringify(res));
+            callback(true, res)
+        })
+            .catch(err =>{
+                console.log("rea", err);
+                console.log("rea", JSON.stringify(err));
+                callback(false, err.response)
+            })
     }
 
     return axios.get(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));

@@ -142,7 +142,15 @@ class TransactionTable extends Component {
                                 props => (
                                     <div>
                                         <div
-                                            className={'d-flex justify-content-end flex-md-row align-items-center mb-1 mx-1'}>
+                                            className={'d-none d-md-flex justify-content-between flex-md-row align-items-center mb-1 mx-1 mx-md-2'}>
+                                            <div className=' d-flex justify-content-between align-items-center'>
+                                                <span className="form-group mr-md-1">
+                                                    <label className='mr-md-1'>From</label><input type='date' className='from input-field' />
+                                                </span>
+                                                <span className="form-group">
+                                                    <label className='mr-md-1'>To</label><input type='date' className='to input-field' />
+                                                </span>
+                                            </div>
                                             {/*<SearchBar {...props.searchProps} placeholder="Date Filter" className={'flex-shrink-1'} />*/}
 
                                             {/*date filter*/}
@@ -157,7 +165,7 @@ class TransactionTable extends Component {
                                             {/*    </span>Date Filter*/}
                                             {/*</div>*/}
 
-                                            <ExportCSVButton className="btn-green flex-shrink-1"  {...props.csvProps}>Export
+                                            <ExportCSVButton className="btn-green d-none d-md-inline-block"  {...props.csvProps}>Export
                                                 CSV</ExportCSVButton>
                                         </div>
 
@@ -226,7 +234,7 @@ class TransactionTable extends Component {
                                                             prePageText: 'Prev',
                                                             nextPageText: 'Next',
                                                         })}
-                                                        filter={filterFactory()}
+                                                        filter={this.props.filter}
                                         />
                                     </div>
 

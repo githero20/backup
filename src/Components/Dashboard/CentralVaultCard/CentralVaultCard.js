@@ -82,20 +82,20 @@ class CentralVaultCard extends Component {
                             <img src={blueIcon} className={'dash-card-img'}/>
                         </div>
                         <div className="card-item flex-grow-1 flex-column flex-md-row">
-                            <h3 className='my-2 my-md-1'>&#8358;{formatNumber((Number(vaultAmount)+ Number(vaultInterest)).toFixed(2)) }</h3>
+                            <h3 className='my-2 my-md-1'>&#8358; {formatNumber((Number(vaultAmount)+ Number(vaultInterest)).toFixed(2)) }</h3>
                             <div className="dash-card-analysis flex-column flex-md-row d-flex fs-12">
                                 <div className='d-flex flex-column '>
                                     <div
                                         className='d-flex dash-card-total-details justify-content-between '>
                                         <h6 className='fs-12'>Total Savings</h6>
                                         <i className='fa fa-arrow-right '></i>
-                                        <strong className='flex-grow-1'>&#8358;{vaultAmount!==0?formatNumber(vaultAmount):0.00}</strong>
+                                        <strong className='flex-grow-1'>&#8358;{vaultAmount!==0?formatNumber(vaultAmount):'0.00'}</strong>
                                     </div>
                                     <div
                                         className='d-flex dash-card-total-details justify-content-between'>
                                         <h6 className='fs-12'>Total Interest</h6>
                                         <i className='fa fa-arrow-right '></i>
-                                        <strong className='flex-grow-1'>&#8358;{vaultInterest!==0?formatNumber(vaultInterest):0.00}</strong>
+                                        <strong className='flex-grow-1'>&#8358;{vaultInterest!==0?formatNumber(vaultInterest):'0.00'}</strong>
                                     </div>
                                 </div>
                                 {/*<div className='d-flex'>*/}

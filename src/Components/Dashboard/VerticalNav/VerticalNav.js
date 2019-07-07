@@ -10,28 +10,33 @@ import WithdrawalIcon from "../../../admin/app-assets/images/svg/withdrawals.svg
 import SettingsIcon from "../../../admin/app-assets/images/svg/settings.svg";
 import {Link, NavLink, Redirect, withRouter} from 'react-router-dom';
 import {
-    BackupGoalsLink, BackupStashLink,
-    BankCardLink, DashboardLink,
-    HomeLink, InstantSaveLink,
-    KycSettingLink, LockedSavingsLink,
-    ProfileSettingLink, SteadySaveLink, TransactionsLink,
+    BackupGoalsLink,
+    BankCardLink,
+    DashboardLink,
+    HomeLink,
+    InstantSaveLink,
+    KycSettingLink,
+    LockedSavingsLink,
+    ProfileSettingLink,
+    SteadySaveLink,
+    TransactionsLink,
     WithdrawalLink
 } from "../../../RouteLinks/RouteLinks";
+import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
+import {getUserName} from "../../../Helpers/Helper";
 
-function logout (){
-    if(localStorage.clear()){
-        return true;
-    }else {
-        return false;
-    }
+function logout() {
+    localStorage.removeItem(USERTOKEN);
+    localStorage.removeItem(USERINFO);
+    return true;
 }
 
 class VerticalNav extends Component {
 
     //state to show inner nav when click and display active nav
     state = {
-        open:'',
-        redirect:false
+        open: '',
+        redirect: false
     };
 
     showActiveMenu = () => {
@@ -54,47 +59,58 @@ class VerticalNav extends Component {
 
 
     //toggle sub menu
-    toggleNav=()=>{
-        let toggle = (this.state.open ==='')?'open':'';
-         this.setState({open:toggle});
+    toggleNav = () => {
+        let toggle = (this.state.open === '') ? 'open' : '';
+        this.setState({open: toggle});
     };
 
 
     //show active class
     getNavLinkClass = (path) => {
-        return this.props.location.pathname === path ? 'active' : '';
+        return this.props.location.pathname === path ? ' active' : '';
     };
 
-    showUserMenu = () =>{
-
-
+    showUserMenu = () => {
         //show toggle menu
         let mobileMenu = document.querySelector('.mobile-user');
         mobileMenu.classList.toggle('open');
     }
 
 
-    DoLogOut =()=>{
+    DoLogOut = () => {
 
-        if(logout()){
+        if (logout()) {
             this.setState({
-                redirect:true
+                redirect: true
             })
         }
+    };
+
+
+    handleUserName = (status, response) => {
+        if (status) {
+            this.setState({userName: response.name})
+        }
+    };
+
+
+    componentWillMount() {
+        getUserName(this,this.handleUserName)
     }
 
-
     render() {
-        const {userName}= this.props;
+
+        const {userName} = this.state;
 
 
-        if(this.state.redirect){
+        if (this.state.redirect) {
 
             return (
                 <Redirect to={HomeLink}/>
             )
 
         }
+
         return (
             <React.Fragment>
                 <div className="main-menu menu-fixed menu-dark menu-accordion menu-shadow">
@@ -103,17 +119,18 @@ class VerticalNav extends Component {
                             <li className="nav-item has-sub mobile-user d-md-none " onClick={this.showUserMenu}>
                                 <a>
                                     <span className="avatar avatar-online">
-                                        <img src={avatar} alt="avatar"/><i></i>
+                                        <img src={avatar} alt="avatar"/>
                                     </span>
                                     <span className="menu-title text-capitalize">{userName}</span>
                                 </a>
-                                <ul className="menu-content">
-                                    <li className="is-shown"><Link className="menu-item" to={ProfileSettingLink}>Profile</Link>
+                                <ul className="menu-content mobile-profile-nav">
+                                    <li className="is-shown"><Link className="menu-item"
+                                                                   to={ProfileSettingLink}>Profile</Link>
                                     </li>
-                                    <li className="is-shown"><Link className="menu-item" to={KycSettingLink}>Kyc</Link>
+                                    <li className="is-shown"><Link className="menu-item" to={KycSettingLink}>KYC</Link>
                                     </li>
-                                    <li className="is-shown"><a onClick={this.DoLogOut} className="menu-item" >log
-                                        Out</a>
+                                    <li className="is-shown"><Link to='#' onClick={this.DoLogOut} className="menu-item">log
+                                        Out</Link>
                                     </li>
                                 </ul>
                             </li>
@@ -132,47 +149,47 @@ class VerticalNav extends Component {
                                     className="menu-title"
                                     data-i18n="">Instant Save</span></NavLink>
                             </li>
-                            <li className={' nav-item ' + this.getNavLinkClass(SteadySaveLink)}>
+                            <li className={'nav-item ' + this.getNavLinkClass(SteadySaveLink)}>
                                 <NavLink to={SteadySaveLink}><img src={SteadySaveIcon}/><span
                                     className="menu-title"
                                     data-i18n="">Steady Save</span></NavLink>
                             </li>
 
-                            <li className=" navigation-header d-none d-md-inline">
+                            <li className="navigation-header d-none d-md-inline">
                                 <span data-i18n="nav.category.apps">Investments</span>
                                 {/*<i className="la la-ellipsis-h ft-minus"></i>*/}
                             </li>
-                            <li className={' nav-item ' + this.getNavLinkClass(LockedSavingsLink)}>
-                                <NavLink to={LockedSavingsLink} >
+                            <li className={'nav-item ' + this.getNavLinkClass(LockedSavingsLink)}>
+                                <NavLink to={LockedSavingsLink}>
                                     <img src={LockedSavings}/>
                                     <span className="menu-title">Locked Savings</span>
                                 </NavLink>
                             </li>
-                            <li className={' nav-item ' + this.getNavLinkClass(BackupGoalsLink)}>
-                                <NavLink to={BackupGoalsLink} >
+                            <li className={'nav-item ' + this.getNavLinkClass(BackupGoalsLink)}>
+                                <NavLink to={BackupGoalsLink}>
                                     <img src={BackUpGoalsIcon}/>
                                     <span className="menu-title">Backup Goals</span>
                                 </NavLink>
                             </li>
 
 
-                            <li className=" navigation-header d-none d-md-inline">
+                            <li className="navigation-header d-none d-md-inline">
                                 <span>Others</span>
                                 {/*<i className="la la-ellipsis-h ft-minus" ></i>*/}
                             </li>
-                            <li className={' nav-item ' + this.getNavLinkClass(TransactionsLink)}>
-                                <NavLink to={TransactionsLink} >
+                            <li className={'nav-item ' + this.getNavLinkClass(TransactionsLink)}>
+                                <NavLink to={TransactionsLink}>
                                     <img src={transactionIcon}/>
                                     <span className="menu-title">Transactions</span>
                                 </NavLink>
                             </li>
-                            <li className={' nav-item ' + this.getNavLinkClass(WithdrawalLink)}>
-                                <NavLink to={WithdrawalLink} >
+                            <li className={'nav-item ' + this.getNavLinkClass(WithdrawalLink)}>
+                                <NavLink to={WithdrawalLink}>
                                     <img src={WithdrawalIcon}/>
                                     <span className="menu-title">Withdrawal</span>
                                 </NavLink>
                             </li>
-                            <li className={'nav-item has-sub '+ this.state.open} onClick={this.toggleNav}>
+                            <li className={'nav-item has-sub ' + this.state.open} onClick={this.toggleNav}>
                                 <a>
                                     <img src={SettingsIcon}/>
                                     <span className="menu-title">Settings</span>
@@ -184,11 +201,11 @@ class VerticalNav extends Component {
                                     </li>
                                     <li className={' is-shown ' + this.getNavLinkClass(BankCardLink)}>
                                         <NavLink to={BankCardLink} className={' menu-item '}
-                                              >Bank/Cards</NavLink>
+                                        >Bank/Cards</NavLink>
                                     </li>
                                     <li className={' is-shown ' + this.getNavLinkClass(KycSettingLink)}>
                                         <NavLink to={KycSettingLink} className={' menu-item '}
-                                              >Kyc Settings</NavLink>
+                                        >Kyc Settings</NavLink>
                                     </li>
                                 </ul>
                             </li>

@@ -7,6 +7,14 @@
     }
 }
 
+@media (max-width: 576px)
+{
+    body.vertical-layout.vertical-menu-modern.menu-flipped .main-menu
+    {
+        right: 0;
+    }
+}
+
 body.vertical-layout.vertical-menu-modern .navbar .navbar-brand
 {
     white-space: nowrap;
@@ -350,11 +358,11 @@ div.vertical-layout.vertical-menu-modern.menu-collapsed.menu-flipped .content
     }
     body.vertical-layout.vertical-menu-modern.menu-collapsed.menu-flipped .main-menu span.menu-title
     {
-        right: 60px;
+        right: 0px;
     }
     body.vertical-layout.vertical-menu-modern.menu-collapsed.menu-flipped .main-menu ul.menu-content
     {
-        right: 60px;
+        right: 0px;
         left: inherit;
     }
 }

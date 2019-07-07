@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import addButton from "../../admin/app-assets/images/svg/plus-btn.svg";
 import menuIcon from "../../admin/app-assets/images/svg/three-dot-icon.svg";
 import visaImage from "../../admin/app-assets/images/svg/visa.svg";
 import masterCardImage from "../../admin/app-assets/images/svg/mastercard.svg";
@@ -126,7 +125,6 @@ class BankCardSetting extends Component {
     }
 
 
-
     toastMessage = (message, status) => {
         const {toastManager} = this.props;
         toastManager.add(message, {
@@ -205,16 +203,17 @@ class BankCardSetting extends Component {
                                             <div className="card round px-md-3">
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
-                                                        <div className=" d-flex justify-content-between align-items-center light-gray setting-header">
+                                                        <div
+                                                            className=" d-flex justify-content-between align-items-center light-gray setting-header">
                                                             <h5>My Banks</h5>
                                                             <span
                                                                 className="pull-right right-btn-holder"
                                                                 onClick={this.showBankModal}>
-                                                            <button
-                                                                type="button"
+                                                            <span
                                                                 className="btn-custom-round-blue plus-btn-shadow mr-1">
-                                                                <img  src={addButton}/>
-                                                            </button>Add Bank</span>
+                                                                {/*<img  src={addButton}/>*/}
+                                                                <i className='fa fa-plus text-white'></i>
+                                                            </span>Add Bank</span>
                                                         </div>
 
 
@@ -291,15 +290,16 @@ class BankCardSetting extends Component {
                                             <div className="card round px-md-3">
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
-                                                        <div className=" d-flex justify-content-between align-items-center light-gray setting-header">
+                                                        <div
+                                                            className=" d-flex justify-content-between align-items-center light-gray setting-header">
                                                             <h5>Debit/Credit</h5>
                                                             <span className="pull-right right-btn-holder"
                                                                   onClick={this.showCardModal}>
-                                                                <button
-                                                                    type="button"
+                                                                <span
                                                                     className="btn-custom-round-blue plus-btn-shadow mr-1">
-                                                                    <img src={addButton}/>
-                                                            </button>Add Card</span>
+                                                                    {/*<img src={addButton}/>*/}
+                                                                    <i className="fa fa-plus"></i>
+                                                            </span>Add Card</span>
                                                         </div>
                                                         <div
                                                             className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">

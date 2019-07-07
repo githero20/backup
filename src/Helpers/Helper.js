@@ -4,6 +4,7 @@ import {_isDateAfterToday} from "../utils";
 import {getLocalStorage, setLocalStorage} from "../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../Components/Auth/HOC/authcontroller";
 import AutoNumeric from "autonumeric";
+import {getUserData} from "../actions/UserAction";
 
 
 export const STANDARD_ACCOUNT = 1;
@@ -554,7 +555,25 @@ export function initializeAmountInput() {
 
 }
 
-export function Support(el=true) {
+export function getUserName(context,callback) {
+    //content must have state userName
+    try {
+        //get name from localStorage
+        const user = localStorage.getItem(USERINFO);
+        if (user != null) {
+            let userInfo = JSON.parse(user);
+            context.setState({userName:userInfo.name});
+        } else {
+            getUserData(callback);
+        }
+        // const user = getLocalStorage(USERINFO);
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export function Support() {
 
     var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
     (function () {

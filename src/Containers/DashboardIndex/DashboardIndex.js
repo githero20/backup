@@ -14,11 +14,12 @@ import {
 } from "../../RouteLinks/RouteLinks";
 import {api, getLocalStorage, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
 import {
-    BACKUP_GOALS_ACCOUNT,
+    amountFormatter,
+    BACKUP_GOALS_ACCOUNT, balanceFormatter, dateFormatter, descriptionFormatter,
     getCompletedGoals,
     INTEREST_ACCOUNT,
-    LOCKED_ACCOUNT,
-    STANDARD_ACCOUNT
+    LOCKED_ACCOUNT, sourceFormatter,
+    STANDARD_ACCOUNT, statusFormatter
 } from "../../Helpers/Helper";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
 import {SHOWAD, USERINFO, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
@@ -27,6 +28,7 @@ import {ToastProvider} from 'react-toast-notifications';
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import StartNowModal from "../../Components/Dashboard/StartNowModal/StartNowModal";
 import moment from "moment";
+import {dateFilter} from "react-bootstrap-table2-filter";
 
 
 class DashboardIndex extends Component {
@@ -124,14 +126,12 @@ class DashboardIndex extends Component {
 
         if (!localStorage.getItem(SHOWAD)) {
             setLocalStorage(SHOWAD, 'show');
-            // console.log(getLocalStorage(SHOWAD));
             // show the add
             this.setState({
                 showStartModal: true
             })
 
         } else if (JSON.stringify(localStorage.getItem(SHOWAD)) !== 'show') {
-            // console.log('second run'+getLocalStorage(SHOWAD));
             this.setState({
                 showStartModal: false
             })
@@ -362,7 +362,6 @@ class DashboardIndex extends Component {
                     userName: res.data.data.name,
                     showLoader: false
                 });
-                console.log('response after state',res,this.state);
 
                 // if(res.data.data.active){
                 //
@@ -384,7 +383,6 @@ class DashboardIndex extends Component {
                         transactions
                     });
 
-                    console.log('accounts in response and state before setting account',accounts,this.state);
                     accounts.map((content, idx) => {
                         if (content.account_type_id == STANDARD_ACCOUNT) {
                             this.setState({
@@ -482,7 +480,6 @@ class DashboardIndex extends Component {
         } else {
 
             if (response) {
-                console.log(response);
                 this.toastManager.add(`${response.data.error}`, {
                     appearance: 'error',
                 });
@@ -505,13 +502,59 @@ class DashboardIndex extends Component {
         //setup dashboard
 
         //get token if token isset
+        //
         let token = this.getToken();
         token.then(() => {
             this.setupDashBoard()
         });
+
+
         // if(token){
         //     this.setupDashBoard();
         // }
+
+        // this.setState({
+        //     showLoader:false,
+        //     transactions:[
+        //         {
+        //             id:1,
+        //             created_at:'10-06-2019',
+        //             type:'credit',
+        //             sourcetypes:'source',
+        //             amount:500000,
+        //             balance:403405830,
+        //             status:'success',
+        //             reference:324389342404,
+        //         },{
+        //             id:2,
+        //             created_at:'10-05-2019',
+        //             type:'credit',
+        //             sourcetypes:'source',
+        //             amount:500000,
+        //             balance:403405830,
+        //             status:'success',
+        //             reference:324389342404,
+        //         },{
+        //             id:3,
+        //             created_at:'10-06-2019',
+        //             type:'credit',
+        //             sourcetypes:'source',
+        //             amount:500000,
+        //             balance:403405830,
+        //             status:'success',
+        //             reference:324389342404,
+        //         },{
+        //             id:4,
+        //             created_at:'10-06-2019',
+        //             type:'credit',
+        //             sourcetypes:'source',
+        //             amount:500000,
+        //             balance:403405830,
+        //             status:'success',
+        //             reference:324389342404,
+        //         },
+        //     ]
+        // })
 
 
     }

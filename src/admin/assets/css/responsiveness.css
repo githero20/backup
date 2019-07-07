@@ -5,6 +5,19 @@
     .faq-main .btn-link{
         font-size: .8rem;
     }
+    .main-menu{
+        z-index: 2999999999;
+        width: 230px;
+    }
+    .table th, .table td{
+        padding: .5rem;
+    }
+    .vertical-layout.vertical-menu-modern.menu-flipped .main-menu{
+        left: -30px;
+    }
+    .main-menu.menu-dark, .main-menu.menu-dark .navigation, .main-menu.menu-dark .navigation > li > ul{
+        left: 0px;
+    }
         /* mobile menu */
     .header-navbar .navbar-header .navbar-brand {
         position: absolute;
@@ -13,14 +26,42 @@
         padding-top: 0.6rem;
         transform: translate(0);
     }
+    .dashboard-callout{
+        padding: 10px;
+    }
+    .mb-btn-wrapper.steady-btn-wrapper{
+        width: 100%;
+    }
+    .avatar img {
+        margin-bottom: 3px;
+    }
+    .main-menu.menu-dark .navigation > li:first-of-type {
+        border-bottom: 1px solid #c2c2c2;
+    }
+    .mobile-profile-nav{
+        padding-bottom: 30px !important;
+    }
     .table-status{
         font-size: 1.2rem;
     }
-
-
-    .mb-btn-wrapper{
-        width: 100%;
+    .dash-card-analysis h6{
+        width: 105px;
     }
+    .modal{
+        z-index: 20000000000;
+    }
+
+    .modal-backdrop{
+        z-index: 2000000000;
+    }
+    .css-e110bw {
+        z-index: 20000000000000 !Important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+    /*.mb-btn-wrapper{*/
+    /*    width: 100%;*/
+    /*}*/
     .modal-content h4 {
         font-size: 15px;
     }
@@ -90,7 +131,7 @@
     }
 
     .header-navbar .navbar-header .navbar-brand .brand-logo {
-        width: 44%;
+        width: 40%;
     }
 
     .loading {
@@ -102,7 +143,7 @@
         /*margin: auto;*/
         /*background-color: transparent;*/
         top: 50%;
-        left: 50%;
+        left: 40%;
         /*transform: translate(-50%, -50%);*/
         /*border: 1rem solid;*/
         /*border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;*/
@@ -110,9 +151,9 @@
         /*animation: spinner infinite 1s;*/
     }
 
-    .mb-details-container, .mb-btn-wrapper {
-        width: 100%;
-    }
+    /*.mb-details-container, .mb-btn-wrapper {*/
+    /*    width: 100%;*/
+    /*}*/
     .dash-card{
         min-height: 200px;
     }
@@ -125,7 +166,7 @@
         line-height: 2em;
     }
     .dash-action h5{
-        font-size: 12px;
+        font-size: 10px;
     }
     .dash-ads .dash-action a{
         font-size: 8px;

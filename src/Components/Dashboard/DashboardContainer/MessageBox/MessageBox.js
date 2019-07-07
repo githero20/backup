@@ -10,7 +10,6 @@ import {getUserPoints} from "../../../../actions/UserAction";
 class MessageBox extends Component {
 
     state = {
-        copySuccess: false,
         userName: '',
         userReferralLink: '',
         userCode: '',
@@ -27,7 +26,6 @@ class MessageBox extends Component {
         this.checkBalance(data);
 
         let name = `${data.name} ${data.last_name!= null ? data.last_name:''}`;
-
         this.setState({
             userName: name,
             userReferralLink: data.referral_link,
@@ -71,7 +69,6 @@ class MessageBox extends Component {
     copyToClipboard = (e) => {
 
         // let text = document.getElementById("referral_code").value;
-        console.log(this.state.userName);
 
         let textField = document.createElement('textarea');
 
@@ -87,13 +84,16 @@ class MessageBox extends Component {
         document.execCommand('copy');
         textField.remove();
         toastMessage('Copied!', 'success',this);
-        //
-        // document.getElementById('referral_code').value();
-        // document.execCommand('copy');
-        // // This is just personal preference.
-        // // I prefer to not show the the whole text area selected.
-        // e.target.focus();
-        this.setState({copySuccess: true});
+    };
+
+    copyLink = (e) => {
+        let textField = document.createElement('textarea');
+        textField.innerText = this.state.userReferralLink;
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
+        toastMessage('Copied!', 'success',this);
     };
 
 
@@ -133,7 +133,7 @@ class MessageBox extends Component {
                 {/*    You referred 5 persons from [ 1 -2-2019 to 5-2-2019 ] ,*/}
                 {/*</span>*/}
                 <div className="admin-purple d-block d-md-inline">Your referral points earned
-                    <strong className=" d-block d-md-inline ml-1">{this.state.userPoint?this.state.userPoint:0} points</strong>
+                    <strong className="d-md-inline ml-1">{this.state.userPoint?this.state.userPoint:0} points</strong>
                 </div>
             </React.Fragment>
         );
@@ -166,10 +166,10 @@ class MessageBox extends Component {
                             <label className='d-flex flex-column align-items-center flex-md-row justify-content-md-center'>
                                 {referralInfo}
                             </label>
-                            <label className='d-flex flex-md-row align-items-center flex-column'>
-                                <span className="mr-2 mb-1 mb-md-0"> copy referral code</span>
-                                <span className="code-btn" onClick={this.copyToClipboard}>AEC45SF</span>
-                                {/*<span className="code-btn" onClick={this.copyToClipboard}>Share Code</span>*/}
+                            <label className='d-flex flex-md-row flex-wrap  align-items-center'>
+                                <span className="mr-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"> copy referral code</span>
+                                <span className="code-btn mr-2 mb-md-0 " onClick={this.copyLink}>AEC45SF</span>
+                                <span className="code-btn" onClick={this.copyToClipboard}>Share Code</span>
                             </label>
                         </div>
                     </div>

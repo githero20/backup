@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Route} from "react-router";
 import Login from "../Containers/Login/Login";
 import SignUp from "../Containers/SignUp/SignUp";
-import {BrowserRouter as Router,Switch} from "react-router-dom";
+import {BrowserRouter as Router, Switch} from "react-router-dom";
 import Home from "../Containers/Home/Home";
 import DashboardIndex from "../Containers/DashboardIndex/DashboardIndex";
 import InstantSave from "../Containers/InstantSave/InstantSave";
@@ -15,15 +15,18 @@ import ProfileSetting from "../Containers/ProfileSetting/ProfileSetting";
 import BankCardSetting from "../Containers/BankCardSetting/BankCardSetting";
 import ActivateAccount from "../Containers/ActivateAccount/ActivateAccount";
 import {
-    ActivateAccountLink, addWithdrawalLink,
+    ActivateAccountLink,
+    addWithdrawalLink,
     BackupGoalsLink,
     BackupStashLink,
     BankCardLink,
     DashboardLink,
-    EmailActivationLink, FaqLink,
+    EmailActivationLink,
+    FaqLink,
     ForgotPasswordLink,
     HomeLink,
-    InstantSaveLink, InviteLink,
+    InstantSaveLink,
+    InviteLink,
     KycSettingLink,
     LockedSavingsLink,
     LoginLink,
@@ -81,15 +84,15 @@ class AppRouter extends Component {
                             <Route path={ForgotPasswordLink} component={ForgotPassword}/>
                             <Route path={ResetPasswordLink} component={ResetPassword}/>
                             <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
-                            <Route path={FaqLink} component={Faq} />
+                            <Route path={FaqLink} component={Faq}/>
                             <Route component={ErrorPage}/>
                         </Switch>
 
                     </Router>
                 </ToastProvider>
             </React.Fragment>
-    );
+        );
     }
-    }
+}
 
-    export default AppRouter;
+export default AppRouter;

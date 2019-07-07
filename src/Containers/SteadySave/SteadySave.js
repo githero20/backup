@@ -698,10 +698,10 @@ class SteadySave extends Component {
 
 
                                             <div className="col-lg-3 col-12 order-lg-5">
-                                                <h3 className="gray-header-text fs-mb-1 mb-2">&nbsp;</h3>
+                                                <h3 className="gray-header-text d-none d-md-block fs-mb-1 mb-md-2">&nbsp;</h3>
                                                 <div
-                                                    className="mb-quick-actions d-flex flex-column flex-wrap mb-3 mb-md-0">
-                                                    <span className="mb-btn-wrapper">
+                                                    className="mb-quick-actions d-flex flex-column flex-wrap mb-1 mb-md-0">
+                                                    <span className="mb-btn-wrapper steady-btn-wrapper">
                                                         {/*<button type="button" onClick={this.showCreateSteadySaveModal} className=" btn-blue-gradient-2 round">*/}
                                                         {/*    <img src={whiteSaveMoreIcon}/>*/}
                                                         {/*    Create Steady Save*/}

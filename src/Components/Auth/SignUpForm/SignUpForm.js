@@ -32,18 +32,18 @@ class SignUpForm extends Component {
                 name: 'Please fill in your first name.',
                 last_name: 'Please fill in your last name.',
                 phone: 'The phone number must match the required pattern (080********)',
-                password: 'Password must contain at least one lowercase letter, one uppercase letter , one number and must be a minimum of 8 characters',
+                password: 'Password combination must have a lowercase letter, uppercase letter, number, special character and must be a minimum of 8 characters',
             },
-            // validators: {
-            //     password: {  // name the rule
-            //         message: 'The :attribute must be a valid IP address and must be :values.',
-            //         rule: (val, params, validator) => {
-            //             return validator.helpers.testRegex(val,/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/)
-            //         },
-            //         messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
-            //         required: true  // optional
-            //     }
-            // }
+            validators: {
+                password: {  // name the rule
+                    message: 'The :attribute must be a strong password and must have :values.',
+                    rule: (val, params, validator) => {
+                        return validator.helpers.testRegex(val,/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
+                    },
+                    messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
+                    required: true  // optional
+                }
+            }
 
         });
 
@@ -160,7 +160,7 @@ class SignUpForm extends Component {
         } else {
             this.setState({
                 passwordError: true,
-            })
+            });
             return false;
 
         }
@@ -368,15 +368,17 @@ class SignUpForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="password">Password</label>
                                 <input id="password" type="password" name={'password'} className={'form-control'}
-                                       onChange={this.changeHandler} onBlur={this.validatePassword}/>
-                                {/*{this.validator.message('password', password, `required|string|min:8`)}*/}
+                                       onChange={this.changeHandler}
+                                       // onBlur={this.validatePassword}
+                                />
+                                {this.validator.message('password', password, `required|string|min:8|password`)}
                                 {/*^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})*/}
-                                {this.state.passwordError ?
-                                    <label className={'srv-validation-message'}>Password must contain at least one
-                                        lowercase letter,
-                                        one uppercase letter , one number ,one special character and must be a minimum
-                                        of 8 characters
-                                    </label> : null}
+                                {/*{this.state.passwordError ?*/}
+                                {/*    <label className={'srv-validation-message'}>Password must contain at least one*/}
+                                {/*        lowercase letter,*/}
+                                {/*        one uppercase letter , one number ,one special character and must be a minimum*/}
+                                {/*        of 8 characters*/}
+                                {/*    </label> : null}*/}
                             </div>
                         </div>
                         <div className="col-12 col-lg-6">

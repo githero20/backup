@@ -63,21 +63,21 @@ class LockedSavingsCard extends Component {
                             <img src={purpleIcon} className={'dash-card-img'}/>
                         </div>
                         <div className="card-item flex-grow-1">
-                            <h3 className='my-2 my-md-1'>&#8358; {lockedSavingsAmount!==0?formatNumber(lockedSavingsAmount):0.00}</h3>
+                            <h3 className='my-2 my-md-1'>&#8358; {lockedSavingsAmount!==0?formatNumber(lockedSavingsAmount):'0.00'}</h3>
                             <div className="dash-card-analysis d-flex">
                                 <div className='d-flex flex-column'>
                                     <div
                                         className='d-flex dash-card-total-details justify-content-between'>
                                         <h6> Locked Savings</h6>
                                         <i className='fa fa-arrow-right'></i>
-                                        <strong className='flex-grow-1'>&#8358;{lockedSavingsAmount!==0?formatNumber(lockedSavingsAmount):0.00}</strong>
+                                        <strong className='flex-grow-1'>&#8358;{lockedSavingsAmount!==0?formatNumber(lockedSavingsAmount):'0.00'}</strong>
                                     </div>
                                     {/*locked savings interest */}
 
                                     <div
                                         className='d-flex dash-card-total-details justify-content-between'>
                                         <h6>Total Interest</h6><i className='fa fa-arrow-right '></i>
-                                        <strong className='flex-grow-1'>&#8358;{lockedSavingsInterest!==0?formatNumber(lockedSavingsInterest):0.00}</strong>
+                                        <strong className='flex-grow-1'>&#8358;{lockedSavingsInterest!==0?formatNumber(lockedSavingsInterest):'0.00'}</strong>
                                     </div>
 
                                 </div>

@@ -64,7 +64,6 @@ class HorizontalNav extends Component {
     }
 
     showMobileMenu = () => {
-
         //add is-active on
         let nav = document.querySelector('.navbar-toggler');
         nav.classList.toggle('is-active');

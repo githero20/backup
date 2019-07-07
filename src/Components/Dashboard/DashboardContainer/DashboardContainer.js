@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import TransactionTable from "../TransactionTable/TransactionTable";
 import CentralVaultCard from "../CentralVaultCard/CentralVaultCard";
 import BackUpGoalCard from "../BackUpGoalCard/BackUpGoalCard";
@@ -6,7 +6,7 @@ import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";
 import LockedSavingsCard from "../LockedSavingCard/LockedSavingsCard";
 import {
     amountFormatter,
-    balanceFormatter,
+    balanceFormatter, dateFormatter,
     descriptionFormatter,
     sourceFormatter,
     statusFormatter
@@ -15,12 +15,17 @@ import MessageBox from "./MessageBox/MessageBox";
 import adImg from '../../../admin/app-assets/images/svg/adtwo.svg';
 import adImgTwo from '../../../admin/app-assets/images/svg/adone.svg';
 // import { dateFilter, Comparator } from 'react-bootstrap-table-next';
+import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
+import moment from "moment";
 
 
-const DashboardContainer = (props) => {
+class DashboardContainer extends Component{
 
 
+    constructor(props){
+        super(props);
+    }
     //validate there is data
 
     // set the appropiate props
@@ -28,196 +33,210 @@ const DashboardContainer = (props) => {
     // send the the children components
 
 
-    const runFilter = () => {
-
-        //take the value of select
-        const filterValue = document.getElementById('filter-param').value;
-
-        //setup table for filter
-
-        // use value to filter table
-
-    };
-
-
-    let {error, activateAccount} = props;
-
-    //set appropriate data for vault cards
-    let createdDateFilter;
-
-    const {
-        vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
-        transactions, totalInterest, ActiveGoals, CompletedGoals, vaultInterest, lockedSavingsInterest
-    } = props;
-
-
-
-    const columns = [
-        {
-            text: 'Date',
-            dataField: 'created_at',
-            // formatter: dateFormatter,
-            sort: true,
-            filter: dateFilter({
-                getFilter: (filter) => {
-                    createdDateFilter = filter;
-                }
-            })
-        },
-        {
-            text: 'Phase',
-            dataField: 'type',
-            formatter: descriptionFormatter,
-            sort: true,
-
-        }, {
-            text: 'Description',
-            dataField: 'sourcetypes',
-            formatter: sourceFormatter,
-            sort: true,
-
-        },
-        {
-            text: 'Amount',
-            dataField: 'amount',
-            formatter: amountFormatter,
-            sort: true,
-
-        }, {
-            text: 'Balance',
-            dataField: 'balance',
-            formatter: balanceFormatter,
-            sort: true,
-
-        },
-        {
-            text: 'Status',
-            dataField: 'status',
-            formatter: statusFormatter,
-            sort: true,
-            sortCaret: (order, column) => {
-                if (!order) return (<span>&nbsp;&nbsp;</span>);
-                else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-up'></i></span>);
-                else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-down'></i></span>);
-                return null;
-            }
-        },
-        {
-            text: 'Reference',
-            dataField: 'reference',
-            sort: true,
-
-        }];
-
-    const handleFilter = () => {
-        createdDateFilter({
-            date: new Date(2019, 6, 30),
-            comparator: Comparator.GT
+    handleFilter = () => {
+        this.createdDateFilter({
+            date: new Date('10-06-2019'),
+            comparator: Comparator.EQ
         });
     };
 
-    const {isActive} = props;
-
-    return (
 
 
-        <React.Fragment>
-            <div className="app-content content">
-                <div className="content-wrapper">
-                    {/* notification component */}
+    render(){
+        const columns = [
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                // formatter: dateFormatter,
+                // sort: true,
+                filter: dateFilter({
+                    // defaultValue: { date: moment('10-06-2019').format('MM-DD-YYYY'), comparator: Comparator.GT },
+                    getFilter: (filter) => {
+                        this.createdDateFilter = filter;
+                        console.log('after assignment',typeof this.createdDateFilter , this.createdDateFilter);
+                    }
+                })
+            },
+            {
+                text: 'Phase',
+                dataField: 'type',
+                formatter: descriptionFormatter,
+                sort: true,
 
-                    {/*{*/}
-                    {/*    !isActive?*/}
-                    <MessageBox/>
-                    {/*    :null*/}
-                    {/*}*/}
+            }, {
+                text: 'Description',
+                dataField: 'sourcetypes',
+                // formatter: sourceFormatter,
+                sort: true,
 
-                    {/*Vault Card */}
+            },
+            {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter: amountFormatter,
+                sort: true,
 
-                    <div className="content-body">
-                        <div className="row">
+            }, {
+                text: 'Balance',
+                dataField: 'balance',
+                formatter: balanceFormatter,
+                sort: true,
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter: statusFormatter,
+                sort: true,
+                sortCaret: (order, column) => {
+                    if (!order) return (<span>&nbsp;&nbsp;</span>);
+                    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-up'></i></span>);
+                    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-down'></i></span>);
+                    return null;
+                }
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort: true,
+
+            }];
+        const runFilter = () => {
+
+            //take the value of select
+            const filterValue = document.getElementById('filter-param').value;
+
+            //setup table for filter
+
+            // use value to filter table
+
+        };
 
 
-                            <CentralVaultCard
-                                vaultAmount={vaultAmount}
-                                totalSteadySave={totalSteadySave}
-                                vaultInterest={vaultInterest}
-                            />
-                            {/*    TODO  ADD STEADY SAVE  */}
+        let {error, activateAccount} = this.props;
+
+        //set appropriate data for vault cards
+        let createdDateFilter;
+
+        const {
+            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
+            transactions, totalInterest, ActiveGoals, CompletedGoals, vaultInterest, lockedSavingsInterest
+        } = this.props;
 
 
-                            <BackUpGoalCard
-                                backupAmount={backupAmount}
-                                ActiveGoals={ActiveGoals}
-                                CompletedGoals={CompletedGoals}
-                                onHide={props.hideAGModal}
-                                showModal={props.showAGModal}
-                            />
 
-                            <LockedSavingsCard
-                                lockedSavingsAmount={lockedSavingsAmount}
-                                lockedSavingsInterest={lockedSavingsInterest}
-                                onHide={props.hideLSModal}
-                                showModal={props.showLSModal}
-                            />
-
-                            <BackUpStashCard stashAmount={stashAmount}/>
+        console.log('created date filter outside columns ',typeof createdDateFilter , createdDateFilter);
 
 
-                            <div className="col-12 col-lg-6">
-                                <div className="dash-ads mb-3">
-                                    <img src={adImg} className='dash-ad-img' alt="advert one "/>
-                                    <div className={'dash-action left-action'}>
-                                        <h5>New Investment
-                                            Opportunities</h5>
-                                        <a className={'ad-gray-link'}>Know more <i
-                                            className='fa fa-arrow-right'></i></a>
+        const {isActive} = this.props;
+
+        return (
+            <React.Fragment>
+                <div className="app-content content">
+                    <div className="content-wrapper">
+                        {/* notification component */}
+
+                        {/*{*/}
+                        {/*    !isActive?*/}
+                        <MessageBox/>
+                        {/*    :null*/}
+                        {/*}*/}
+
+                        {/*Vault Card */}
+
+                        <div className="content-body">
+                            <div className="row">
+
+
+                                <CentralVaultCard
+                                    vaultAmount={vaultAmount}
+                                    totalSteadySave={totalSteadySave}
+                                    vaultInterest={vaultInterest}
+                                />
+                                {/*    TODO  ADD STEADY SAVE  */}
+
+
+                                <BackUpGoalCard
+                                    backupAmount={backupAmount}
+                                    ActiveGoals={ActiveGoals}
+                                    CompletedGoals={CompletedGoals}
+                                    onHide={this.props.hideAGModal}
+                                    showModal={this.props.showAGModal}
+                                />
+
+                                <LockedSavingsCard
+                                    lockedSavingsAmount={lockedSavingsAmount}
+                                    lockedSavingsInterest={lockedSavingsInterest}
+                                    onHide={this.props.hideLSModal}
+                                    showModal={this.props.showLSModal}
+                                />
+
+                                <BackUpStashCard stashAmount={stashAmount}/>
+
+
+                                <div className="col-12 col-lg-6">
+                                    <div className="dash-ads mb-3">
+                                        <img src={adImg} className='dash-ad-img' alt="advert one "/>
+                                        <div className={'dash-action left-action'}>
+                                            <h5>New Investment
+                                                Opportunities</h5>
+                                            <a className={'ad-gray-link'}>Know more <i
+                                                className='fa fa-arrow-right'></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col-12 col-lg-6">
-                                <div className="dash-ads mb-3">
-                                    <img src={adImgTwo} className='dash-ad-img' alt="advert two"/>
-                                    <div className={'dash-action right-action'}>
-                                        <a className={'ad-link-white'}>Know more <i
-                                            className='fa fa-arrow-right'></i></a>
+                                <div className="col-12 col-lg-6">
+                                    <div className="dash-ads mb-3">
+                                        <img src={adImgTwo} className='dash-ad-img' alt="advert two"/>
+                                        <div className={'dash-action right-action'}>
+                                            <a className={'ad-link-white'}>Know more <i
+                                                className='fa fa-arrow-right'></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            {/*adverts*/}
+                                {/*adverts*/}
+
+
+                            </div>
+                            {/*<div className="row">*/}
+                            {/*    <div className="col-md-6  col-12 ">*/}
+                            {/*        <TotalSavingsBlueCard totalSavings={vaultAmount}/>*/}
+
+                            {/*    </div>*/}
+                            {/*    <div className="col-md-6  col-12 ">*/}
+                            {/*        <TotalInterestCard totalInterest={totalInterest}/>*/}
+
+                            {/*    </div>*/}
+
+                            {/*</div>*/}
+
+                            <div className="row">
+                                <button className={'btn'} onClick={this.handleFilter}>filter</button>
+                                {/*<div>*/}
+                                {/*    <BootstrapTable keyField='id' data={ transactions } columns={ columns } filter={ filterFactory() } />*/}
+                                {/*</div>*/}
+
+
+                                <TransactionTable filter={filterFactory()} runFilter={runFilter}
+                                                  transactions={transactions.reverse()}
+                                                  columns={columns}/>
+
+                            </div>
 
 
                         </div>
-                        {/*<div className="row">*/}
-                        {/*    <div className="col-md-6  col-12 ">*/}
-                        {/*        <TotalSavingsBlueCard totalSavings={vaultAmount}/>*/}
-
-                        {/*    </div>*/}
-                        {/*    <div className="col-md-6  col-12 ">*/}
-                        {/*        <TotalInterestCard totalInterest={totalInterest}/>*/}
-
-                        {/*    </div>*/}
-
-                        {/*</div>*/}
-
-                        <div className="row">
-                            {/*<button className={'btn'} onClick={handleFilter}>filter</button>*/}
-
-                            <TransactionTable filter={filterFactory()} runFilter={runFilter}
-                                              transactions={transactions.reverse()}
-                                              columns={columns}/>
-
-                        </div>
-
 
                     </div>
-
                 </div>
-            </div>
 
-        </React.Fragment>
-    );
+            </React.Fragment>
+        );
+
+
+
+    }
+
 };
 
 export default DashboardContainer;

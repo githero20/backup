@@ -84,7 +84,7 @@ class KycSettingForm extends Component {
             // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
             var fileName = input.files[0].name;
             // use fileName however fits your app best, i.e. add it into a div
-            infoArea.textContent = 'File name: ' + fileName;
+            // infoArea.textContent = 'File name: ' + fileName;
         }
 
     }
@@ -506,8 +506,6 @@ class KycSettingForm extends Component {
                                                                                         </div>
                                                                                     </div>
                                                                                     <div className=" col-md-12">
-
-
                                                                                         <div className="form-group">
                                                                                             <Form.Label>Identification
                                                                                                 File</Form.Label>
@@ -526,7 +524,7 @@ class KycSettingForm extends Component {
                                                                                             {/*<label*/}
                                                                                             {/*    htmlFor="file-upload">Upload*/}
                                                                                             {/*    file</label>*/}
-                                                                                            {/*<div id="file-upload-filename">dsdflsfg</div>*/}
+                                                                                            {/*<div id="file-upload-filename"></div>*/}
                                                                                             {/*<div className="custom-file1">*/}
                                                                                             {/*    <label*/}
                                                                                             {/*        className="custom-file-label"*/}
@@ -535,7 +533,6 @@ class KycSettingForm extends Component {
                                                                                             {/*        Browse*/}
                                                                                             {/*    </label>*/}
                                                                                             {/*     <input type="file"*/}
-
                                                                                             {/*             onChange={this.handleFileChange}*/}
                                                                                             {/*             className="custom-file-input"*/}
                                                                                             {/*             name = "identification_type_picture_url"*/}

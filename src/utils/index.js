@@ -17,7 +17,7 @@ export const _handleFormChange = (name, event, el = this, callback = null) => {
     let form = {...el.state.form};
     form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     el.setState({form});
-    console.log(name, event.target.value, form);
+    // console.log(name, event.target.value, form);
     if(callback != null){
         callback();
     }

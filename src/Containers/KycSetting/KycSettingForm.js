@@ -58,7 +58,6 @@ class KycSettingForm extends Component {
 
     validateForm(e) {
         e.preventDefault();
-
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             // this.props.toastManager("An Error Occured");
@@ -76,12 +75,12 @@ class KycSettingForm extends Component {
         _handleFormChange(e.target.name, e, this);
 
 
-        var input = document.getElementById( 'file-upload' );
-        var infoArea = document.getElementById( 'file-upload-filename' );
+        var input = document.getElementById('file-upload');
+        var infoArea = document.getElementById('file-upload-filename');
 
-        input.addEventListener( 'change', showFileName );
+        input.addEventListener('change', showFileName);
 
-        function showFileName( event ) {
+        function showFileName(event) {
 
             // the change event gives us the input it occurred in
             var input = event.srcElement;
@@ -417,7 +416,6 @@ class KycSettingForm extends Component {
                                                                                                required
                                                                                         />
                                                                                     </div>
-
                                                                                 </div>
                                                                                 <div className="col-md-12">
                                                                                     <div className="form-group">
@@ -532,34 +530,42 @@ class KycSettingForm extends Component {
                                                                                             <input type="file"
                                                                                                    onChange={this.handleFileChange}
                                                                                                    name="identification_type_picture_url"
-                                                                                                   required/>
+                                                                                                   // required
+                                                                                            />
 
+                                                                                            <input type="file"
+                                                                                                   id="file-upload"
+                                                                                                   name='file-upload'
+                                                                                                   onChange={this.handleFileChange}
+                                                                                                   className='cust-file-upload'
+                                                                                                   // required
+                                                                                            />
                                                                                             {/*<input type="file"*/}
                                                                                             {/*       id="file-upload"*/}
+                                                                                            {/*       onChange={this.handleFileChange}*/}
                                                                                             {/*       className='cust-file-upload'*/}
                                                                                             {/*       required*/}
                                                                                             {/*/>*/}
                                                                                             {/*<label*/}
                                                                                             {/*    htmlFor="file-upload">Upload*/}
                                                                                             {/*    file</label>*/}
-                                                                                            {/*<div*/}
-                                                                                            {/*    id="file-upload-filename">dsdflsfg</div>*/}
-                                                                                           {/*<div className="custom-file1">*/}
-                                                                                           {/*    <label*/}
-                                                                                           {/*        className="custom-file-label"*/}
-                                                                                           {/*        id='file-upload-filename'*/}
-                                                                                           {/*        htmlFor="inputGroupFile01">*/}
-                                                                                           {/*        Browse*/}
-                                                                                           {/*    </label>*/}
-                                                                                           {/*     <input type="file"*/}
+                                                                                            <div id="file-upload-filename"></div>
+                                                                                            {/*<div className="custom-file1">*/}
+                                                                                            {/*    <label*/}
+                                                                                            {/*        className="custom-file-label"*/}
+                                                                                            {/*        id='file-upload-filename'*/}
+                                                                                            {/*        htmlFor="inputGroupFile01">*/}
+                                                                                            {/*        Browse*/}
+                                                                                            {/*    </label>*/}
+                                                                                            {/*     <input type="file"*/}
 
-                                                                                           {/*             onChange={this.handleFileChange}*/}
-                                                                                           {/*             className="custom-file-input"*/}
-                                                                                           {/*             name = "identification_type_picture_url"*/}
-                                                                                           {/*             required*/}
-                                                                                           {/*     />*/}
-                                                                                           {/*    */}
-                                                                                           {/*</div>*/}
+                                                                                            {/*             onChange={this.handleFileChange}*/}
+                                                                                            {/*             className="custom-file-input"*/}
+                                                                                            {/*             name = "identification_type_picture_url"*/}
+                                                                                            {/*             required*/}
+                                                                                            {/*     />*/}
+                                                                                            {/*    */}
+                                                                                            {/*</div>*/}
 
                                                                                         </div>
 
@@ -621,7 +627,8 @@ class KycSettingForm extends Component {
                                                                                                     value={this.state.form.password}
                                                                                                     onChange={this.handleChange}
                                                                                                     type="password"
-                                                                                                    placeholder="******"/>
+                                                                                                    placeholder="******"
+                                                                                                />
                                                                                             </Form.Group>
                                                                                             {this.validator.message("password", this.state.form.password, "required")}
 

@@ -21,13 +21,11 @@ export function api(url, params, token, method, callback) {
         if (token !== null) {
             header.headers['Authorization'] = 'Bearer ' + token;
         }
-
-
     }
     if (method) {
         return axios.post(url, params, header).then(res => {
-            console.log("rea", res);
-            console.log("rea", JSON.stringify(res));
+            // console.log("rea", res);
+            // console.log("rea", JSON.stringify(res));
             callback(true, res)
         })
             .catch(err =>{
@@ -60,8 +58,7 @@ export function request(url, params, token, method, callback) {
         }
     }
     if (method === 'POST') {
-        axios.post(url, params, header).
-        then(res => callback(true, res))
+        axios.post(url, params, header).then(res => callback(true, res))
             .catch(err => {
                 checkResponse(err);
                 callback(false, err.response);
@@ -139,21 +136,16 @@ export function request(url, params, token, method, callback) {
 
 
 export function ActivationRequest(url, token, callback) {
-
-
     url = `${BASE_URL}${url}`;
-
     let header = {
         headers: {
             "Content-Type": "Application/json",
             "credentials": 'same-origin',
         }
     };
-
     if (token !== null) {
         header.headers['Authorization'] = 'Bearer ' + token;
     }
-
     return axios.get(url, header).then(res => callback(true, res))
         .catch(err => callback(false, err.response))
 }

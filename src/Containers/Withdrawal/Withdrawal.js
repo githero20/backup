@@ -132,7 +132,7 @@ class Withdrawal extends Component {
                 formatter: withdrawSourceFormatter,
                 sort: true,
             },{
-                text: 'Balance',
+                text: 'Last Amount',
                 dataField: 'last_amount',
                 formatter: balanceFormatter,
                 sort: true,

@@ -38,7 +38,7 @@
     .dashboard-callout{
         padding: 10px;
     }
-    .mb-btn-wrapper.steady-btn-wrapper{
+    .mb-btn-wrapper.steady-btn-wrapper,.mb-btn-wrapper.bg-btn-wrapper{
         width: 100%;
     }
     .avatar img {

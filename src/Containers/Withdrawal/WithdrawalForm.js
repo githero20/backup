@@ -91,11 +91,11 @@ class WithdrawalForm extends Component {
 
                 //get th balance
                 accounts.map((content, idx) => {
-                    if (content.account_type_id === STANDARD_ACCOUNT) {
+                    if (content.account_type_id == STANDARD_ACCOUNT) {
                         this.setState({
                             userBalance: content.balance
                         });
-                    } else if (content.account_type_id === INTEREST_ACCOUNT) {
+                    } else if (content.account_type_id == INTEREST_ACCOUNT) {
                         this.setState({
                             stashBalance: content.balance
                         });
@@ -285,7 +285,6 @@ class WithdrawalForm extends Component {
             })
                 .then((value) => {
                     switch (value) {
-
                         case "yes":
                             this.setState({loading: true});
                             makeWithdrawal(form, (status, payload) => {

@@ -213,7 +213,7 @@ class BackUpGoalsForm extends Component {
     //                 autoDismissTimeout:3000
     //             });
     //
-    //             this.getUserCards();
+    //             this.filterUserCards();
     //         }else{
     //             this.props.toastManager.add("Unable to add card at this moment",{
     //                 appearance:"error",

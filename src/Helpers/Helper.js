@@ -15,6 +15,7 @@ export const ADD_CARD = '0';
 export const CUSTOMER = 'customer';
 export const ADMIN = 'administrator';
 export const WITHDRAWAL_SOURCE = 'withdrawal';
+export const STEADY_SAVE = 'auto save';
 export const INTEREST_ON_VAULT = 'STANDARD_INTEREST_CRON_';
 export const INTEREST_ON_BACKUP_GOAL = 'STANDARD_BACKUP_GOAL_INTEREST_CRON_';
 export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
@@ -365,7 +366,7 @@ export function transformHour(hour) {
 
 export function dateFormatter(cell) {
     let format =
-        <span>
+        <span className='d-flex flex-column'>
             <span style={{minWidth: '100px'}}>{moment(cell).format('MMM Do YYYY')}&nbsp;</span>
             <small className='text-muted'>{moment(cell).format('h:mm a')}</small>
         </span>;
@@ -376,6 +377,18 @@ export function disableKey(e) {
     e.preventDefault();
     // return false;
 }
+
+export function filterUserCards(array) {
+    return array.authorization.data.filter((content) => content.channel == 'card');
+}
+// export function getAndSetCards(array,context) {
+//     const userInfo = getLocalStorage(USERINFO);
+//     if (getLocalStorage(USERINFO) != undefined) {
+//         context.setState({
+//             userCards: userInfo.authorization.data
+//         })
+//     }
+// }
 
 export function showMobileMenu() {
     //add is-active on
@@ -413,12 +426,12 @@ export function descriptionFormatter(cell) {
 
 export function sourceFormatter(cell, row) {
     let content;
-
+    console.log('cell data',cell);
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
         return (
-            <p style={{minWidth: '130px'}}
+            <p style={{minWidth: '140px'}}
                    className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
-                <small className='text-muted'>interest on backup goals</small>
+                <small className='text-muted'>(interest on backup goals)</small>
             </p>
         );
         //
@@ -427,15 +440,19 @@ export function sourceFormatter(cell, row) {
 
     if (row.gw_authorization_code.includes(INTEREST_ON_VAULT)) {
         return (
-            <p style={{minWidth: '130px'}}
+            <p style={{minWidth: '140px'}}
                    className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
-                <small className='text-muted'>interest on central vault</small>
+                <small className='text-muted'>(interest on central vault)</small>
             </p>
         );
     }
 
     if (cell.data.name == WITHDRAWAL_SOURCE) {
         content = `${cell.data.name.replace(/_/g, ' ')}`;
+        return sourceMarkup(content);
+    }
+    if (cell.data.name == STEADY_SAVE) {
+        content = `Steady Savings`;
         return sourceMarkup(content);
     }
 
@@ -510,24 +527,19 @@ export function interestFormatter(cell) {
 
 export function viewFormatter(cell) {
     return <button className={'btn round btn-sm btn-custom-blue btn-block'}>View History</button>
-
 }
 
 export function detailFormatter(cell) {
     return <button className={'btn round btn-sm btn-custom-blue btn-block'}>View Details</button>
-
 }
 
 export function balanceFormatter(cell) {
-    return <label style={{minWidth: '100px'}}
-                  className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
+    return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
 
 }
 
 export function sourceTypeFormatter(cell) {
-    return <label style={{minWidth: '100px'}}
-                  className={'text-info'}>{cell != null ? `₦ ${cell.data.name}` : 'N/A'}</label>
-
+    return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `₦ ${cell.data.name}` : 'N/A'}</label>
 }
 
 export function lockedStatusFormatter(cell) {
@@ -547,7 +559,6 @@ export function getTodaysDate() {
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     let yyyy = today.getFullYear();
-
     return yyyy + '-' + mm + '-' + dd;
 }
 
@@ -583,9 +594,7 @@ export function amountInput(selector) {
         decimalPlacesShownOnBlur: 0,
         outputFormat: 'number'
     });
-
     return isAmount;
-
 }
 
 
@@ -612,6 +621,7 @@ export function getUserName(context, callback) {
         console.log(e);
     }
 }
+
 
 export function Support() {
 

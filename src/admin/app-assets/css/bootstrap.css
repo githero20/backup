@@ -6777,15 +6777,11 @@ input[type='button'].btn-block
 
 .page-link
 {
-    line-height: 1.25;
-
+    line-height: 1;
     position: relative;
-
     display: block;
-
     margin-left: -1px;
     padding: .5rem .75rem;
-
     color: #5059e5;
     border: 1px solid #626e82; 
     background-color: #fff;

@@ -10,7 +10,7 @@ import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {updateSteadySave} from "../../actions/SteadySaveAction";
 import {initTransaction, verifyTransaction} from "../../actions/CardAction";
 import moment from "moment";
-import {disableKey, formatNumber, getToken, initializeAmountInput} from "../../Helpers/Helper";
+import {disableKey, formatNumber, getToken, filterUserCards, initializeAmountInput} from "../../Helpers/Helper";
 import {Link} from 'react-router-dom';
 import {BankCardLink} from "../../RouteLinks/RouteLinks";
 
@@ -44,7 +44,7 @@ class SteadySaveForm extends Component {
         const userInfo = getLocalStorage(USERINFO);
         if (getLocalStorage(USERINFO)!=undefined) {
             this.setState({
-                userCards: userInfo.authorization.data
+                userCards: filterUserCards(userInfo)
             })
         }
         initializeAmountInput();
@@ -158,7 +158,7 @@ class SteadySaveForm extends Component {
                     autoDismissTimeout: 3000
                 });
 
-                this.getUserCards();
+                this.filterUserCards();
             } else {
                 this.props.toastManager.add("Unable to add card at this moment", {
                     appearance: "error",

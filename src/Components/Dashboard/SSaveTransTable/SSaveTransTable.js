@@ -158,8 +158,8 @@ class SSaveTransTable extends Component {
                                             props => (
                                                 <div>
                                                     <div
-                                                        className={'d-md-flex d-none justify-content-between flex-md-row align-items-center mb-1 mx-1'}>
-                                                        <SearchBar {...props.searchProps} placeholder="Date Filter" className={'flex-shrink-1'} />
+                                                        className={'d-md-flex d-none justify-content-end flex-md-row align-items-center mb-1 mx-1'}>
+                                                        {/*<SearchBar {...props.searchProps} placeholder="Date Filter" className={'flex-shrink-1'} />*/}
                                                         {/*<div onClick={this.toggleSort} className="table-sort-display d-block d-md-inline">*/}
                                                         {/*    <span><img className=" img-2x " src={sortIcon}/></span>Sort*/}
                                                         {/*</div>*/}

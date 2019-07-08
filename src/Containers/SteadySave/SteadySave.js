@@ -17,7 +17,7 @@ import {
     moneyFormatter,
     STANDARD_ACCOUNT,
     statusFormatter,
-    steadyStatusFormatter,
+    steadyStatusFormatter, titleFormatter,
     viewFormatter
 } from "../../Helpers/Helper";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
@@ -271,9 +271,10 @@ class SteadySave extends Component {
         //table header and columns
         const columns = [
             {
-                text: 'Description',
+                text: 'Title',
                 dataField: 'title',
-                sort: true
+                sort: true,
+                formatter:titleFormatter
             },
             {
                 text: 'Frequency',

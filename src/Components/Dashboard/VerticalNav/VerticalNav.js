@@ -78,12 +78,16 @@ class VerticalNav extends Component {
 
 
     DoLogOut = () => {
-
-        if (logout()) {
+        try {
+            localStorage.removeItem(USERTOKEN);
+            localStorage.removeItem(USERINFO);
             this.setState({
                 redirect: true
-            })
+            });
+        } catch (e) {
+            console.log('error during mobile logout ', e);
         }
+
     };
 
 
@@ -95,7 +99,7 @@ class VerticalNav extends Component {
 
 
     componentWillMount() {
-        getUserName(this,this.handleUserName)
+        getUserName(this, this.handleUserName)
     }
 
     render() {

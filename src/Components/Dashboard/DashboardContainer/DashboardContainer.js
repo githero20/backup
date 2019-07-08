@@ -53,7 +53,7 @@ class DashboardContainer extends Component{
                 formatter: dateFormatter,
                 sort: true,
                 filter: dateFilter({
-                    defaultValue: { date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL },
+                    defaultValue: { date: moment().format('DD-MM-YYYY'), comparator: Comparator.LEQUAL },
                     getFilter: (filter) => {
                         this.createdDateFilter = filter;
                     }
@@ -90,17 +90,18 @@ class DashboardContainer extends Component{
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
-                sortCaret: (order, column) => {
-                    if (!order) return (<span>&nbsp;&nbsp;</span>);
-                    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-up'></i></span>);
-                    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-down'></i></span>);
-                    return null;
-                }
+                // sortCaret: (order, column) => {
+                //     if (!order) return (<span>&nbsp;&nbsp;</span>);
+                //     else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-up'></i></span>);
+                //     else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-down'></i></span>);
+                //     return null;
+                // }
             },
             {
                 text: 'Reference',
                 dataField: 'reference',
                 sort: true,
+                classes:'d-none d-md-inline-block'
 
             }];
         const runFilter = () => {

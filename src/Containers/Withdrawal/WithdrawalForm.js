@@ -382,10 +382,38 @@ class WithdrawalForm extends Component {
                                     <form className="form lock-form" onSubmit={this.onSubmit}>
                                         <div className="form-body">
                                             <div className="row mb-4">
-                                                <div className="col-lg-12">
+                                                <div className="col-12 d-md-none">
+                                                    <div className='blue-banner round mb-3'>
+                                                        <p>Your next free withdrawal Date is </p>
+                                                        <strong>{
+                                                            this.state.penaltyFreeDay ? "Today" : moment(this.state.nextDate).format('dddd, MMMM Do')
+                                                        }</strong>
+                                                        <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
+                                                        <ul>
+                                                            {
+
+                                                                this.state.withdrawalSettings.map((settings, index) => {
+                                                                    const split = settings.withdrawal_date.split("/");
+                                                                    const month = (moment(`${year} ${split[0]}`, "YYYY MM").format("MMMM"));
+                                                                    const day = (moment(`${year} ${month} ${split[1]}`, "YYYY MMMM DD").format("Do"));
+                                                                    return (
+                                                                        <li key={index}>Every {day} of {month}</li>
+                                                                    );
+                                                                })
+                                                            }
+                                                        </ul>
+
+                                                        {
+                                                            this.state.settingsOwner == "you" ? "" :
+                                                                <button className='btn btn-custom-blue btn-block'
+                                                                        onClick={this.showWithdrawalSettings}>Change Settings</button>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div className="col-lg-12 ">
                                                     <h5>Central Vault balance</h5>
                                                 </div>
-                                                <div className="col-12">
+                                                <div className="col-12 mb-2 mb-md-0">
                                                     <div className="media d-flex pb-2 pb-md-5">
                                                         <div className="align-self-center">
                                                             <img className="blue-card-icon" src={totalBalanceIcon}/>
@@ -396,6 +424,25 @@ class WithdrawalForm extends Component {
                                                                     <strong>₦</strong> {formatNumber(parseFloat(this.state.userBalance).toFixed(2))}
                                                                 </strong>
                                                             </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='d-md-none mb-2 mb-md-0'>
+                                                    <div className="col-lg-12">
+                                                        <h5>Backup Stash balance</h5>
+                                                    </div>
+                                                    <div className="col-12">
+                                                        <div className="media d-flex pb-2 pb-md-5">
+                                                            <div className="align-self-center">
+                                                                <img className="blue-card-icon" src={totalBalanceIcon}/>
+                                                            </div>
+                                                            <div className="media-body text-left pt-1 ">
+                                                                <h3 className=" ">
+                                                                    <strong className="blue-card-price fs-1-5 ml-1 mr-2">
+                                                                        <strong>₦</strong> {formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}
+                                                                    </strong>
+                                                                </h3>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -564,7 +611,7 @@ class WithdrawalForm extends Component {
 
                     </Fragment>
                 </div>
-                <div className="col-lg-5">
+                <div className="col-lg-5 d-none d-md-block">
                     <div className="col-lg-12">
                         <h5>Backup Stash balance</h5>
                     </div>

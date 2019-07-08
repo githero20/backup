@@ -57,7 +57,7 @@ class WithdrawalList extends Component {
                                     {/*                                                 src={filterIcon}/></span>Filter*/}
                                     {/*</div>*/}
 
-                                    <ExportCSVButton className="btn-green flex-shrink-1"  {...props.csvProps}>Export
+                                    <ExportCSVButton className="d-none d-md-inline-block btn-green flex-shrink-1"  {...props.csvProps}>Export
                                         CSV</ExportCSVButton>
                                 </div>
 

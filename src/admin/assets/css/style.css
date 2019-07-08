@@ -154,7 +154,12 @@ button .loadingSpinner {
     color: #5059e5;
 
 }
+.pagination .page-link:hover{
+    z-index: 2;
+    text-decoration: none;
+    background-color: none;
 
+}
 .purple-link:hover {
     color: #474fc8;
 
@@ -704,12 +709,12 @@ input[type="date"]::-webkit-clear-button {
     color: #2784F4;
 }
 
-.page-item.active .page-link {
+/*.page-item.active .page-link {*/
 
-    color: #fff;
-    border-color: #8ee2d5;
-    background-color: #8ee2d5;
-}
+/*    color: #fff;*/
+/*    border-color: #8ee2d5;*/
+/*    background-color: #8ee2d5;*/
+/*}*/
 
 .main-menu.menu-dark .navigation > li > a {
     padding: .5rem 2rem;
@@ -814,6 +819,7 @@ input[type="date"]::-webkit-clear-button {
     color: #fff;
     border-color: #2784F4;
     background-color: #2784F4;
+    border-radius: 50%;
 }
 
 .custom-pagination li a {
@@ -842,7 +848,7 @@ input[type="date"]::-webkit-clear-button {
 
 .spaced-table.table.table-xl th, .spaced-table.table.table-xl td {
     vertical-align: middle;
-    padding: .8rem 2rem;
+    padding: .5rem .5rem;
 }
 
 .notification-icon {
@@ -2114,7 +2120,7 @@ input[type=number]::-webkit-outer-spin-button {
 
     .spaced-table.table.table-xl th, .spaced-table.table.table-xl td {
         vertical-align: middle;
-        padding: .8rem .5rem;
+        padding: .5rem .5rem;
     }
 
     .mb-details-container, .mb-btn-wrapper {
@@ -2396,6 +2402,14 @@ input[type=number]::-webkit-outer-spin-button {
     position: absolute;
     right: 5rem;
     top: 10em;
+}
+.blue-banner {
+    background: #2784F4;
+    color: white;
+    padding: 3rem;
+    /*position: absolute;*/
+    /*right: 5rem;*/
+    /*top: 10em;*/
 }
 
 /*================================================================================
@@ -3116,12 +3130,12 @@ html body .content.app-content {
     color: #2784F4;
 }
 
-.page-item.active .page-link {
+/*.page-item.active .page-link {*/
 
-    color: #fff;
-    border-color: #8ee2d5;
-    background-color: #8ee2d5;
-}
+/*    color: #fff;*/
+/*    border-color: #8ee2d5;*/
+/*    background-color: #8ee2d5;*/
+/*}*/
 
 .main-menu.menu-dark .navigation > li > a {
     padding: .5rem 2rem;
@@ -3197,6 +3211,7 @@ html body .content.app-content {
     color: #fff;
     border-color: #2784F4;
     background-color: #2784F4;
+    border-radius: 50%;
 }
 
 .custom-pagination.pagination-round.pagination-flat li a {
@@ -3221,7 +3236,7 @@ html body .content.app-content {
 
 .spaced-table.table.table-xl th, .spaced-table.table.table-xl td {
     vertical-align: middle;
-    padding: .8rem 2rem;
+    padding: .5rem .5rem;
 }
 
 .notification-icon {

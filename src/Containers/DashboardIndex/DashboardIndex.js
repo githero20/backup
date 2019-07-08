@@ -497,6 +497,8 @@ class DashboardIndex extends Component {
 
         //get token if token isset
         //
+
+
         let token = this.getToken();
         token.then(() => {
             this.setupDashBoard()

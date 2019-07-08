@@ -131,7 +131,6 @@ class Withdrawal extends Component {
                 dataField: 'source',
                 formatter: withdrawSourceFormatter,
                 sort: true,
-
             },{
                 text: 'Balance',
                 dataField: 'last_amount',
@@ -142,14 +141,8 @@ class Withdrawal extends Component {
             {
                 text: 'Account',
                 dataField: 'account_type',
-                // formatter: statusFormatter,
+                formatter: withdrawSourceFormatter,
                 sort: true,
-            },
-            {
-                text: 'Reference',
-                dataField: 'reference',
-                sort: true,
-
             }];
 
         return (
@@ -185,7 +178,7 @@ class Withdrawal extends Component {
                                     <div  className="withdrawal col-12 col-md-12">
                                         <div className="card">
                                             <div className="card-content mt-1 px-1 px-md-2 py-1">
-                                                <div className="table-header d-flex flex-column flex-md-row justify-content-start mb-3">
+                                                <div className="table-header d-flex flex-md-row justify-content-start mb-3">
                                                     {/*<span className="table-button-container mb-2 mb-md-0">*/}
                                                     {/*    <span className="mr-1 table-grid-view-icon img-2x active">*/}
                                                     {/*        <img src={listIcon} className=" img-2x "/>*/}
@@ -202,12 +195,12 @@ class Withdrawal extends Component {
                                                     {
                                                         !this.state.showWithdrawalForm
                                                         ?
-                                                            <button className="round white btn-withdraw flex-grow-0 "
+                                                            <button className="round white btn-withdraw "
                                                                     onClick={this.showForm}>Withdraw
                                                             </button>
                                                             :
                                                             <a href='#' className="gray-text back-btn "
-                                                                    onClick={this.hideForm}>Back to Withdrawals <i className='fa fa-chevron-right'></i>
+                                                                    onClick={this.hideForm}><i className='fa fa-chevron-left'></i>Back
                                                             </a>
                                                     }
 

@@ -86,7 +86,7 @@ class TransactionTable extends Component {
         return (
             <React.Fragment>
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">
-                    <div className="card table-card">
+                    <div className="card table-card pl-md-2">
                         <div className="card-header">
                             <div className="d-flex justify-content-start">
                                 <h4 className="card-title table-title">Recent Transactions </h4>

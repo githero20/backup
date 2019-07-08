@@ -5,17 +5,17 @@ import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import lockedSavingIcon from "../../admin/app-assets/images/svg/add-lock-saving.svg";
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
 import {ToastProvider, withToastManager} from "react-toast-notifications";
-import {_getToken, _isDateAfter, _isDateAfterToday, _transformDate} from "../../utils";
+import {_getToken} from "../../utils";
 import {getLockedSavings} from "../../actions/LockedSavingsAction";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
 import {
     dateFormatter, balanceFormatter,
-    interestFormatter, moneyFormatter,
+    interestFormatter, moneyFormatter, handleFiltering,
 } from "../../Helpers/Helper";
-import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
 import LockedTransactionTable from "../../Components/Dashboard/LockedTransactionTable/LockedTransactionTable";
+import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
+import moment from "moment";
 
 
 class LockedSavings extends Component {
@@ -77,9 +77,13 @@ class LockedSavings extends Component {
             })
 
         }
+    };
 
 
-    }
+    handleFilter = (date,comparator) => {
+        handleFiltering(date,comparator,this);
+    };
+
 
     showLSModal(){
         this.setState({
@@ -114,6 +118,12 @@ class LockedSavings extends Component {
                 dataField: 'created_at',
                 formatter:dateFormatter,
                 sort:true,
+                filter: dateFilter({
+                    defaultValue: { date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL },
+                    getFilter: (filter) => {
+                        this.createdDateFilter = filter;
+                    }
+                })
             },
             {
                 text: 'Name',
@@ -186,9 +196,9 @@ class LockedSavings extends Component {
                                 <div className="row">
                                     <div id="locked-savings" className="col-12 col-md-12">
                                         <div className="card">
-                                            <div className="card-content mt-1 px-2 px-md-5 py-md-3">
+                                            <div className="card-content mt-1 px-2 py-md-3">
                                                 <div
-                                                    className="table-header d-flex justify-content-between align-items-md-center px-md-2  mb-3">
+                                                    className="table-header d-flex justify-content-between align-items-md-center px-md-2 mb-1">
                                                     <h4 className="table-title">
                                                         <button
                                                             className=" right-btn-holder deep-blue-bg white "
@@ -223,7 +233,7 @@ class LockedSavings extends Component {
                                                 </div>
                                                 <div className="row">
                                                     {/*<TransactionTable transactions={this.state.lockedSavings} columns={columns} />*/}
-                                                    <LockedTransactionTable transactions={this.state.lockedSavings||[]} columns={columns} />
+                                                    <LockedTransactionTable handleFilter={this.handleFilter} transactions={this.state.lockedSavings||[]} columns={columns} />
                                                 </div>
 
                                                 {/*<div className="box-grid-container  light-blue-bg px-md-3 py-md-3">*/}

@@ -3,8 +3,10 @@ import 'react-table/react-table.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, {CSVExport, Search} from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory from 'react-bootstrap-table2-filter'
-import filterIcon from '../../../admin/app-assets/images/svg/filter-filled-tool-symbol.svg';
+import filterFactory, {Comparator} from 'react-bootstrap-table2-filter'
+import moment from "moment";
+import {changeHandler} from "../../../Helpers/Helper";
+
 const {SearchBar, ClearSearchButton} = Search;
 const {ExportCSVButton} = CSVExport;
 
@@ -16,9 +18,14 @@ class TransactionTable extends Component {
         currentPage: null,
         totalPages: null,
         sort: false,
-        filter: false
-
+        filter: false,
+        date: moment().format('MM-DD-YYYY'),
+        comparator: Comparator.LEQUAL
     };
+
+    constructor(props) {
+        super(props);
+    }
 
 
     onPageChanged = data => {
@@ -32,21 +39,9 @@ class TransactionTable extends Component {
     };
 
 
-    // sort function
-
-    sort = () => {
-
-
-    }
-
-
-    //do search function
-
-
-    search = () => {
-
-
-    }
+    handleChange = (e) => {
+        changeHandler(e, this);
+    };
 
     changeSort = () => {
         this.setState({
@@ -62,24 +57,21 @@ class TransactionTable extends Component {
 
 
     toggleSort = () => {
-
-
         this.changeSort();
-
-
     };
 
+
     toggleFilter = () => {
-
+        document.querySelector('.filter-icon').classList.toggle('active');
         this.changeFilter();
-
-    }
+    };
 
 
     runSort = (e) => {
         const field = e.target.value;
         const sortDirection = 'ASC';
-    }
+    };
+
     // on select perform actions either sort or filter based on column selected
 
 
@@ -89,13 +81,12 @@ class TransactionTable extends Component {
 
 
     render() {
-
         const {transactions, columns} = this.props;
-
+        const {date, comparator} = this.state;
         return (
             <React.Fragment>
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">
-                    <div className="card table-card">
+                    <div className="card table-card pl-md-2">
                         <div className="card-header">
                             <div className="d-flex justify-content-start">
                                 <h4 className="card-title table-title">Recent Transactions </h4>
@@ -142,7 +133,15 @@ class TransactionTable extends Component {
                                 props => (
                                     <div>
                                         <div
-                                            className={'d-flex justify-content-end flex-md-row align-items-center mb-1 mx-1'}>
+                                            className={'d-none d-md-flex justify-content-between flex-md-row align-items-center mb-1 mx-1 mx-md-2'}>
+                                            {/*<div className=' d-flex justify-content-between align-items-center'>*/}
+                                            {/*    <span className="form-group mr-md-1">*/}
+                                            {/*        <label className='mr-md-1'>From</label><input type='date' className='from input-field' />*/}
+                                            {/*    </span>*/}
+                                            {/*    <span className="form-group">*/}
+                                            {/*        <label className='mr-md-1'>To</label><input type='date' className='to input-field' />*/}
+                                            {/*    </span>*/}
+                                            {/*</div>*/}
                                             {/*<SearchBar {...props.searchProps} placeholder="Date Filter" className={'flex-shrink-1'} />*/}
 
                                             {/*date filter*/}
@@ -151,13 +150,15 @@ class TransactionTable extends Component {
                                             {/*    <span><img className=" img-2x " src={sortIcon}/></span>Sort*/}
                                             {/*</div>*/}
 
-                                            {/*<div onClick={this.toggleFilter} className="table-sort-display d-block d-md-inline sort-icon">*/}
-                                            {/*    <span data-toggle="modal" data-target="#sort">*/}
-                                            {/*        <img className=" img-2x" src={filterIcon}/>*/}
-                                            {/*    </span>Date Filter*/}
-                                            {/*</div>*/}
+                                            <div onClick={this.toggleFilter}
+                                                 className="filter-icon table-sort-display d-block d-md-inline sort-icon">
+                                                {/*<span data-toggle="modal" data-target="#sort">*/}
+                                                {/*    /!*<img className=" img-2x" src={filterIcon}/>*!/*/}
+                                                {/*</span>*/}
+                                            </div>
 
-                                            <ExportCSVButton className="btn-green flex-shrink-1 d-none d-md-inline-block"  {...props.csvProps}>Export
+                                            <ExportCSVButton
+                                                className="btn-green d-none d-md-inline-block"  {...props.csvProps}>Export
                                                 CSV</ExportCSVButton>
                                         </div>
 
@@ -172,7 +173,9 @@ class TransactionTable extends Component {
                                                             <option value={content.dataField}>{content.text}</option>))}
                                                     </select>
                                                 </div>
-                                                <button className='btn btn-block btn-custom-blue'>Sort</button>
+                                                <div>
+                                                    <button className='btn btn-block btn-custom-blue'>Sort</button>
+                                                </div>
                                             </div> : null
 
                                         }
@@ -181,32 +184,40 @@ class TransactionTable extends Component {
 
 
                                             <div className='filter-box round shadow'>
-                                                <div className="filter date-filter">
-                                                    <div className="filter-label" >
+                                                <div className="custom-filter date-filter">
+                                                    <div className="filter-label">
                                                         <span className="sr-only">Filter comparator</span>
                                                         <select id="date-filter-comparator-InStock Date"
-                                                                className="date-filter-comparator form-control ">
-                                                            <option selected="">Filter</option>
-                                                            <option value="=">Equal To</option>
-                                                            {/*<option value="!=">!=</option>*/}
-                                                            <option value=">">Greater Than</option>
-                                                            <option value=">=">Greater Than or Equal</option>
-                                                            <option value="<">Less Than</option>
-                                                            <option value="<=">Less Than or Equal</option>
+                                                                name='comparator'
+                                                                className="date-filter-comparator form-control "
+                                                                onChange={this.handleChange} defaultValue={comparator}>
+                                                            <option>Date Filter</option>
+                                                            <option value={Comparator.EQ}>Equal To</option>
+                                                            <option value={Comparator.NE}>Not Equal To</option>
+                                                            <option value={Comparator.GT}>Greater Than</option>
+                                                            <option value={Comparator.GEQUAL}>Greater Than or Equal
+                                                            </option>
+                                                            <option value={Comparator.LT}>Less Than</option>
+                                                            <option value={Comparator.LEQUAL}>Less Than or Equal
+                                                            </option>
                                                         </select>
                                                     </div>
                                                     <div>
                                                         <span className="sr-only">Date Filter</span>
                                                         <input
-                                                            id="date-filter"
-                                                            name="date-filter"
-                                                            className="filter date-filter-input form-control " type="date"
-                                                            placeholder="Enter Date..." />
+                                                            id="date"
+                                                            name="date"
+                                                            onChange={this.handleChange}
+                                                            className="filter date-filter-input form-control "
+                                                            type="date"
+                                                            placeholder="Enter Date..."/>
                                                     </div>
                                                 </div>
-                                                {/*<button className={'btn btn-custom-blue'}*/}
-                                                {/*        onClick={this.props.runFilter}>Filter*/}
-                                                {/*</button>*/}
+
+                                                <button className={'btn btn-block mt-1 btn-custom-blue'}
+                                                        onClick={() => this.props.handleFilter(date, comparator)}>Filter
+                                                </button>
+
                                             </div>
                                             : null
 
@@ -233,7 +244,6 @@ class TransactionTable extends Component {
                                 )
                             }
                         </ToolkitProvider>
-
 
 
                         <div className="card-content mt-1 light-table-bg">

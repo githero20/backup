@@ -347,7 +347,7 @@ class BackupGoalQuickActions extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="col-lg-4 col-12 order-lg-5">
+                <div className="col-lg-4 col-12 order-lg-5 mb-2  ">
                     <h3 className="gray-header-text d-none d-md-block text-right fs-mb-1 mb-2">
                         <a href='#!' className='gray-text back-btn'
                            onClick={() => this.props.hideBG()}>
@@ -363,7 +363,7 @@ class BackupGoalQuickActions extends React.Component {
                             !Number(this.props.selectedBG.stop) && !isGoalCompleted(this.props.selectedBG) ?
                                 (
                                     <React.Fragment>
-                                        <span className="mb-btn-wrapper">
+                                        <span className="bg-btn-wrapper mb-btn-wrapper">
                                             <button type="button"
                                                     onClick={() => this.handleEdit(this.props.selectedBG.id)}
                                                     className=" btn-blue-gradient-2 round">
@@ -392,7 +392,7 @@ class BackupGoalQuickActions extends React.Component {
                                             Number(this.props.selectedBG.is_pause) ?
 
                                                 (
-                                                    <span className="mb-btn-wrapper">
+                                                    <span className="bg-btn-wrapper mb-btn-wrapper">
                                                     <button type="button"
                                                             onClick={() => this.handleContinue(this.props.selectedBG.id)}
                                                             className=" btn-blue-gradient-2 round">
@@ -403,7 +403,7 @@ class BackupGoalQuickActions extends React.Component {
 
                                                 ) :
                                                 (
-                                                    <span className="mb-btn-wrapper">
+                                                    <span className="bg-btn-wrapper mb-btn-wrapper">
                                                     <button type="button"
                                                             onClick={() => this.handlePause(this.props.selectedBG.id)}
                                                             className=" btn-blue-gradient-2 round">

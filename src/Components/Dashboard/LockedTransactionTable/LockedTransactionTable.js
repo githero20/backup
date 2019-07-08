@@ -14,7 +14,8 @@ import DataTable from 'react-data-table-component';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, {Search, CSVExport} from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory, {selectFilter} from 'react-bootstrap-table2-filter'
+import filterFactory, {Comparator, selectFilter} from 'react-bootstrap-table2-filter'
+import {changeHandler} from "../../../Helpers/Helper";
 
 const {SearchBar, ClearSearchButton} = Search;
 const {ExportCSVButton} = CSVExport;
@@ -27,7 +28,9 @@ class LockedTransactionTable extends Component {
         currentPage: null,
         totalPages: null,
         sort:false,
-        filter:false
+        filter:false,
+        date: moment().format('MM-DD-YYYY'),
+        comparator: Comparator.LEQUAL
 
     };
 
@@ -35,29 +38,13 @@ class LockedTransactionTable extends Component {
     onPageChanged = data => {
         const {transactions} = this.props;
         const {currentPage, totalPages, pageLimit} = data;
-
         const offset = (currentPage - 1) * pageLimit;
         const currentTransactions = transactions.slice(offset, offset + pageLimit);
-
         this.setState({currentPage, currentTransactions, totalPages});
     };
 
 
-    // sort function
 
-    sort = () => {
-
-
-    }
-
-
-    //do search function
-
-
-    search = () => {
-
-
-    }
 
     changeSort = () =>{
         this.setState({
@@ -73,26 +60,24 @@ class LockedTransactionTable extends Component {
 
 
     toggleSort=()=>{
-
-
        this.changeSort();
-
-
-
-
     };
 
     toggleFilter=()=>{
-
         this.changeFilter();
+    };
 
-    }
+
+    handleChange = (e) => {
+        changeHandler(e, this);
+    };
 
 
     runSort = (e) => {
         const field = e.target.value;
         const sortDirection = 'ASC';
-    }
+    };
+
     // on select perform actions either sort or filter based on column selected
 
 
@@ -104,6 +89,7 @@ class LockedTransactionTable extends Component {
     render() {
 
         const {transactions, columns} = this.props;
+        const {date, comparator} = this.state;
 
         return (
             <React.Fragment>
@@ -155,16 +141,17 @@ class LockedTransactionTable extends Component {
                                 props => (
                                     <div>
                                         <div
-                                            className={'d-flex justify-content-between flex-md-row align-items-center mb-1 mx-1'}>
-                                            <SearchBar {...props.searchProps} placeholder="Date Filter" className={'flex-shrink-1'} />
+                                            className={'d-none d-md-flex justify-content-between flex-md-row align-items-center mb-1 mx-2'}>
+                                            {/*<SearchBar {...props.searchProps} placeholder="Date Filter" className={'flex-shrink-1'} />*/}
                                             {/*<div onClick={this.toggleSort} className="table-sort-display d-block d-md-inline">*/}
                                             {/*    <span><img className=" img-2x " src={sortIcon}/></span>Sort*/}
                                             {/*</div>*/}
 
-                                            {/*<div onClick={this.toggleFilter} className="table-sort-display d-block d-md-inline"><span*/}
-                                            {/*    data-toggle="modal" data-target="#sort"><img className=" img-2x "*/}
-                                            {/*                                                 src={filterIcon}/></span>Filter*/}
-                                            {/*</div>*/}
+                                            <div onClick={this.toggleFilter} className="filter-icon table-sort-display d-block d-md-inline">
+                                                {/*<span data-toggle="modal" data-target="#sort">*/}
+                                                {/*    <img className=" img-2x " src={filterIcon}/>*/}
+                                                {/*</span>Filter*/}
+                                            </div>
                                             <ExportCSVButton className="btn-green flex-shrink-1"  {...props.csvProps}>Export
                                                 CSV</ExportCSVButton>
                                         </div>
@@ -185,12 +172,40 @@ class LockedTransactionTable extends Component {
                                         }
 
                                         {this.state.filter?
+                                            <div className='filter-box round shadow'>
+                                                <div className="custom-filter date-filter">
+                                                    <div className="filter-label">
+                                                        <span className="sr-only">Filter comparator</span>
+                                                        <select id="date-filter-comparator-InStock Date"
+                                                                name='comparator'
+                                                                className="date-filter-comparator form-control "
+                                                                onChange={this.handleChange} defaultValue={comparator}>
+                                                            <option>Date Filter</option>
+                                                            <option value={Comparator.EQ}>Equal To</option>
+                                                            <option value={Comparator.NE}>Not Equal To</option>
+                                                            <option value={Comparator.GT}>Greater Than</option>
+                                                            <option value={Comparator.GEQUAL}>Greater Than or Equal</option>
+                                                            <option value={Comparator.LT}>Less Than</option>
+                                                            <option value={Comparator.LEQUAL}>Less Than or Equal
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <span className="sr-only">Date Filter</span>
+                                                        <input
+                                                            id="date"
+                                                            name="date"
+                                                            onChange={this.handleChange}
+                                                            className="filter date-filter-input form-control "
+                                                            type="date"
+                                                            placeholder="Enter Date..."/>
+                                                    </div>
+                                                </div>
 
+                                                <button className={'btn btn-block mt-1 btn-custom-blue'}
+                                                        onClick={() => this.props.handleFilter(date, comparator)}>Filter
+                                                </button>
 
-                                            <div className='filter-box round shadow-sm'>
-                                                <p>Filter Table </p>
-                                                <input type={'text'}  id={'filter-param'} name={'filter-param'}/>
-                                                <button className={'btn btn-custom-blue'} onClick={this.props.runFilter}>Filter</button>
                                             </div>
                                             :null
 

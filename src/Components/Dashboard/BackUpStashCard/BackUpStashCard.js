@@ -42,7 +42,7 @@ class BackUpStashCard extends Component {
                         </div>
                         <div className="card-item flex-grow-1">
                             <p className='d-md-block d-none mt-2 mt-md-0'>Balance</p>
-                            <h3 className='my-2 my-md-0'>&#8358; {formatNumber(stashAmount)}</h3>
+                            <h3 className='my-2 my-md-0'>&#8358; {formatNumber(parseFloat(stashAmount).toFixed(2))}</h3>
                             {/*<div className="dash-card-analysis d-flex">*/}
                             {/*    <div className='d-flex flex-md-column'>*/}
                             {/*        <div*/}

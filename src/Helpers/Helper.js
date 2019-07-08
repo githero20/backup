@@ -4,6 +4,7 @@ import {_isDateAfterToday} from "../utils";
 import {getLocalStorage, setLocalStorage} from "../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../Components/Auth/HOC/authcontroller";
 import AutoNumeric from "autonumeric";
+import {getUserData} from "../actions/UserAction";
 
 
 export const STANDARD_ACCOUNT = 1;
@@ -14,6 +15,7 @@ export const ADD_CARD = '0';
 export const CUSTOMER = 'customer';
 export const ADMIN = 'administrator';
 export const WITHDRAWAL_SOURCE = 'withdrawal';
+export const STEADY_SAVE = 'auto save';
 export const INTEREST_ON_VAULT = 'STANDARD_INTEREST_CRON_';
 export const INTEREST_ON_BACKUP_GOAL = 'STANDARD_BACKUP_GOAL_INTEREST_CRON_';
 export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
@@ -363,12 +365,53 @@ export function transformHour(hour) {
 
 
 export function dateFormatter(cell) {
-    return <p style={{minWidth: '150px'}}>{moment(cell).format('LLL')}</p>
+    let format =
+        <span className='d-flex flex-column'>
+            <span style={{minWidth: '100px'}}>{moment(cell).format('MMM Do YYYY')}&nbsp;</span>
+            <small className='text-muted'>{moment(cell).format('h:mm a')}</small>
+        </span>;
+    return format;
 }
 
 export function disableKey(e) {
     e.preventDefault();
     // return false;
+}
+
+export function filterUserCards(array) {
+    return array.authorization.data.filter((content) => content.channel == 'card');
+}
+// export function getAndSetCards(array,context) {
+//     const userInfo = getLocalStorage(USERINFO);
+//     if (getLocalStorage(USERINFO) != undefined) {
+//         context.setState({
+//             userCards: userInfo.authorization.data
+//         })
+//     }
+// }
+
+export function showMobileMenu() {
+    //add is-active on
+    let nav = document.querySelector('.navbar-toggler');
+    nav.classList.toggle('is-active');
+
+    //show toggle menu
+    let mobileMenu = document.querySelector('.vertical-menu-modern');
+    mobileMenu.classList.toggle('menu-open');
+}
+
+export function hideMobileMenu() {
+    //add is-active on
+    let nav = document.querySelector('.navbar-toggler');
+    nav.classList.remove('is-active');
+
+    //show toggle menu
+    let mobileMenu = document.querySelector('.vertical-menu-modern');
+    mobileMenu.classList.remove('menu-open');
+
+    // hide bg
+    let bg = document.querySelector('.mobile-bg');
+    bg.classList.add('d-none');
 }
 
 export function confirmedFormatter(cell) {
@@ -383,21 +426,33 @@ export function descriptionFormatter(cell) {
 
 export function sourceFormatter(cell, row) {
     let content;
-
+    console.log('cell data',cell);
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
-        content = `${cell.data.name.replace(/_/g, ' ')}` +
-            '<br/><span className="text-muted">(interest on backup goal)</span>';
-        return sourceMarkup(content);
+        return (
+            <p style={{minWidth: '140px'}}
+                   className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+                <small className='text-muted'>(interest on backup goals)</small>
+            </p>
+        );
+        //
+        // return sourceMarkup(content);
     }
 
     if (row.gw_authorization_code.includes(INTEREST_ON_VAULT)) {
-        content = `${cell.data.name.replace(/_/g, ' ')}` +
-            '<br/><span className="text-muted">(interest on central vault)</span>';
-        return sourceMarkup(content);
+        return (
+            <p style={{minWidth: '140px'}}
+                   className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+                <small className='text-muted'>(interest on central vault)</small>
+            </p>
+        );
     }
 
     if (cell.data.name == WITHDRAWAL_SOURCE) {
         content = `${cell.data.name.replace(/_/g, ' ')}`;
+        return sourceMarkup(content);
+    }
+    if (cell.data.name == STEADY_SAVE) {
+        content = `Steady Savings`;
         return sourceMarkup(content);
     }
 
@@ -406,7 +461,10 @@ export function sourceFormatter(cell, row) {
 }
 
 function sourceMarkup(content) {
-    return <p style={{minWidth: '150px'}} className={'text-secondary text-capitalize'}>{content}</p>;
+    return <p style={{minWidth: '130px'}} className={'text-secondary text-capitalize'}>{content}</p>;
+}
+export function titleFormatter(cell) {
+    return <p style={{minWidth: '100px'}} className={'text-secondary text-capitalize'}>{cell}</p>;
 }
 
 export function withdrawSourceFormatter(cell) {
@@ -451,9 +509,9 @@ export function toastMessage(message, status, context) {
 
 export function steadyStatusFormatter(cell, row) {
     if (parseInt(row.is_pause)) {
-        return <button className={'btn round btn-warning'}>Paused</button>
+        return <button className={'btn btn-sm round btn-warning'}>Paused</button>
     } else {
-        return <button className={'btn round btn-success'}>Ongoing</button>
+        return <button className={'btn btn-sm round btn-success'}>Ongoing</button>
     }
 }
 
@@ -468,36 +526,31 @@ export function interestFormatter(cell) {
 }
 
 export function viewFormatter(cell) {
-    return <button className={'btn round btn-custom-blue btn-block'}>View History</button>
-
+    return <button className={'btn round btn-sm btn-custom-blue btn-block'}>View History</button>
 }
 
 export function detailFormatter(cell) {
-    return <button className={'btn round btn-custom-blue btn-block'}>View Details</button>
-
+    return <button className={'btn round btn-sm btn-custom-blue btn-block'}>View Details</button>
 }
 
 export function balanceFormatter(cell) {
-    return <label style={{minWidth: '100px'}}
-                  className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
+    return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
 
 }
 
 export function sourceTypeFormatter(cell) {
-    return <label style={{minWidth: '100px'}}
-                  className={'text-info'}>{cell != null ? `₦ ${cell.data.name}` : 'N/A'}</label>
-
+    return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `₦ ${cell.data.name}` : 'N/A'}</label>
 }
 
 export function lockedStatusFormatter(cell) {
     return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> :
-        <button className={'btn btn-warning'}>Ongoing</button>)
+        <button className={'btn btn-sm btn-warning'}>Ongoing</button>)
 
 }
 
 export function frequencyFormatter(cell) {
     return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> :
-        <button className={'btn btn-warning'}>Ongoing</button>)
+        <button className={'btn btn-sm btn-warning'}>Ongoing</button>)
 
 }
 
@@ -506,7 +559,6 @@ export function getTodaysDate() {
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     let yyyy = today.getFullYear();
-
     return yyyy + '-' + mm + '-' + dd;
 }
 
@@ -542,9 +594,7 @@ export function amountInput(selector) {
         decimalPlacesShownOnBlur: 0,
         outputFormat: 'number'
     });
-
     return isAmount;
-
 }
 
 
@@ -553,6 +603,25 @@ export function initializeAmountInput() {
     const isAmount = amountInput('.amount-input');
 
 }
+
+export function getUserName(context, callback) {
+    //content must have state userName
+    try {
+        //get name from localStorage
+        const user = localStorage.getItem(USERINFO);
+        if (user != null) {
+            let userInfo = JSON.parse(user);
+            context.setState({userName: userInfo.name});
+        } else {
+            getUserData(callback);
+        }
+        // const user = getLocalStorage(USERINFO);
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 
 export function Support() {
 
@@ -566,15 +635,15 @@ export function Support() {
         s0.parentNode.insertBefore(s1, s0);
     })();
     Tawk_API = Tawk_API || {};
-    Tawk_API.onBeforeLoad = function(){
+    Tawk_API.onBeforeLoad = function () {
         //place your code here
     };
-    Tawk_API.onLoad = function() {
+    Tawk_API.onLoad = function () {
         console.log('works on load');
         Tawk_API.hideWidget();
-        window.showTawk = function() {
-            var pages = ['','faq'];
-            pages.forEach(function(elem) {
+        window.showTawk = function () {
+            var pages = ['', 'faq'];
+            pages.forEach(function (elem) {
                 if (window.location.pathname.endsWith("/" + elem)) {
                     Tawk_API.showWidget();
                 }
@@ -589,5 +658,21 @@ export function Support() {
     //     };
     // }
 
-
 }
+
+//Retrieves user inputs
+export function changeHandler(event, context) {
+    const name = event.target.name;
+    const value = event.target.value;
+    context.setState({
+        [name]: value
+    });
+}
+
+
+export function handleFiltering(date, comparator, context) {
+    context.createdDateFilter({
+        date: new Date(date),
+        comparator: comparator
+    });
+};

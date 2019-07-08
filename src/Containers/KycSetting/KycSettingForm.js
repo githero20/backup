@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import Form from "react-bootstrap/Form";
-import Col from 'react-bootstrap/Col';
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
 import {_handleFormChange} from "../../utils/index";
@@ -31,7 +30,7 @@ class KycSettingForm extends Component {
                 employment_status: "student",
                 end_year_amount: "less_than50000",
                 id: "",
-                date_of_birth: null,
+                date_of_birth: '',
                 identification_type: "InternationalPassport",
                 identification_type_number: "",
                 issue_date: this.getTodayDate(),
@@ -51,8 +50,8 @@ class KycSettingForm extends Component {
     }
 
     getTodayDate() {
-        var today = new Date();
-        var date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
+        let today = new Date();
+        let date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
         return date;
     }
 
@@ -73,31 +72,28 @@ class KycSettingForm extends Component {
 
     handleChange(e) {
         _handleFormChange(e.target.name, e, this);
-
-
         var input = document.getElementById('file-upload');
         var infoArea = document.getElementById('file-upload-filename');
 
         input.addEventListener('change', showFileName);
 
+
         function showFileName(event) {
 
             // the change event gives us the input it occurred in
             var input = event.srcElement;
-
             // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
             var fileName = input.files[0].name;
-
             // use fileName however fits your app best, i.e. add it into a div
-            infoArea.textContent = 'File name: ' + fileName;
+            // infoArea.textContent = 'File name: ' + fileName;
         }
 
     }
 
 
     handleFileChange(e) {
-        console.log("files");
-        console.log(e);
+        // console.log("files");
+        // console.log(e);
         const file = e.target.files[0];
         formData.append("identification_type_picture_url", file)
 
@@ -116,17 +112,12 @@ class KycSettingForm extends Component {
         this.setState({
             showLoader: false,
         });
-
         if (status) {
-
             this.setState({
                 userName: res.name
             })
-
         }
-
-
-    }
+    };
 
 
     toastMessage(message, status) {
@@ -154,7 +145,6 @@ class KycSettingForm extends Component {
     }
 
     handleKyc(status, result) {
-
         if (status) {
             try {
                 if (result.data.edit == "1") {
@@ -176,8 +166,8 @@ class KycSettingForm extends Component {
     }
 
     handleStoreKyc(status, result) {
-        console.log(status);
-        console.log(result);
+        // console.log(status);
+        // console.log(result);
         if (status) {
             this.toastMessage("Kyc Updated", "success")
         } else {
@@ -239,7 +229,7 @@ class KycSettingForm extends Component {
                                                                     </div>
                                                                 </div>
                                                                 <div className="card-content kyc-form collapse show">
-                                                                    <div className="card-body px-5">
+                                                                    <div className="card-body px-md-5">
 
 
                                                                         <div className="form-body">
@@ -372,32 +362,32 @@ class KycSettingForm extends Component {
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <div className="col-md-6">
+                                                                                <div className="col-md-12">
 
                                                                                     <div className="form-group">
 
-                                                                                        <Form.Row>
-                                                                                            <Form.Group as={Col}
-                                                                                                        controlId="kycForm.maiden_name">
-                                                                                                <Form.Label>Mothers
-                                                                                                    maiden
-                                                                                                    Name: </Form.Label>
-                                                                                                <Form.Control
-                                                                                                    name="maiden_name"
-                                                                                                    type="text"
-                                                                                                    onChange={this.handleChange}
-                                                                                                    value={this.state.form.maiden_name}
+                                                                                        {/*<Form.Row>*/}
+                                                                                        {/*    <Form.Group as={Col}*/}
+                                                                                        {/*                controlId="kycForm.maiden_name">*/}
+                                                                                        <Form.Label>
+                                                                                            Mothers maiden Name:
+                                                                                        </Form.Label>
+                                                                                        <Form.Control
+                                                                                            name="maiden_name"
+                                                                                            type="text"
+                                                                                            onChange={this.handleChange}
+                                                                                            value={this.state.form.maiden_name}
 
-                                                                                                />
-                                                                                            </Form.Group>
+                                                                                        />
+                                                                                        {/*</Form.Group>*/}
 
-                                                                                            {/* <Form.Text>Mother maiden name.</Form.Text> */}
-                                                                                            {this.validator.message("maiden_name", this.state.form.maiden_name, "required")}
-                                                                                        </Form.Row>
+                                                                                        {/* <Form.Text>Mother maiden name.</Form.Text> */}
+                                                                                        {this.validator.message("maiden_name", this.state.form.maiden_name, "required")}
+                                                                                        {/*</Form.Row>*/}
                                                                                     </div>
 
                                                                                 </div>
-                                                                                <div className="col-md-6">
+                                                                                <div className="col-md-12">
 
                                                                                     <div className="form-group">
                                                                                         <label htmlFor="companyName">Date
@@ -407,7 +397,7 @@ class KycSettingForm extends Component {
                                                                                                onKeyDown={disableKey}
                                                                                                onKeyUp={disableKey}
                                                                                                id="dateofbirth"
-                                                                                               className="form-control"
+                                                                                               className="form-control text-lowercase"
                                                                                                placeholder=""
                                                                                                value={this.state.form.date_of_birth}
                                                                                                max={moment('december 31 2001').format('YYYY-MM-DD')}
@@ -450,21 +440,20 @@ class KycSettingForm extends Component {
                                                                     <h4 className="card-title"
                                                                         id="basic-layout-colored-form-control">
                                                                         Identification</h4>
-                                                                    <a className="heading-elements-toggle"><i
-                                                                        className="la la-ellipsis-v font-medium-3"></i></a>
+                                                                    <a className="heading-elements-toggle"><i className="la la-ellipsis-v font-medium-3"></i></a>
                                                                     <div className="heading-elements">
                                                                         <ul className="list-inline mb-0">
-                                                                            <li><a data-action="collapse"><i
-                                                                                className="ft-plus"></i></a></li>
+                                                                            <li>
+                                                                                <a data-action="collapse"><i className="ft-plus"></i></a>
+                                                                            </li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
                                                                 <div className="card-content kyc-form ">
-                                                                    <div className="card-body px-5">
-                                                                        <form className="form lock-form">
+                                                                    <div className="card-body px-md-5">
+                                                                        <div className="form lock-form">
                                                                             <div className="form-body">
                                                                                 <div className="row">
-
                                                                                     <div className="col-md-12">
                                                                                         <div className="form-group">
                                                                                             <Form.Group
@@ -496,7 +485,6 @@ class KycSettingForm extends Component {
                                                                                                     </option>
                                                                                                 </Form.Control>
                                                                                             </Form.Group>
-
                                                                                         </div>
                                                                                     </div>
 
@@ -518,19 +506,14 @@ class KycSettingForm extends Component {
                                                                                         </div>
                                                                                     </div>
                                                                                     <div className=" col-md-12">
-
-
                                                                                         <div className="form-group">
-                                                                                            <Form.Group
-                                                                                                controlId="kycForm.password">
-                                                                                                <Form.Label>Identification
-                                                                                                    File</Form.Label>
-
-                                                                                            </Form.Group>
+                                                                                            <Form.Label>Identification
+                                                                                                File</Form.Label>
                                                                                             <input type="file"
                                                                                                    onChange={this.handleFileChange}
+                                                                                                   id="file-upload"
                                                                                                    name="identification_type_picture_url"
-                                                                                                   // required
+
                                                                                             />
 
                                                                                             <input type="file"
@@ -550,6 +533,7 @@ class KycSettingForm extends Component {
                                                                                             {/*    htmlFor="file-upload">Upload*/}
                                                                                             {/*    file</label>*/}
                                                                                             <div id="file-upload-filename"></div>
+
                                                                                             {/*<div className="custom-file1">*/}
                                                                                             {/*    <label*/}
                                                                                             {/*        className="custom-file-label"*/}
@@ -564,7 +548,7 @@ class KycSettingForm extends Component {
                                                                                             {/*             name = "identification_type_picture_url"*/}
                                                                                             {/*             required*/}
                                                                                             {/*     />*/}
-                                                                                            {/*    */}
+
                                                                                             {/*</div>*/}
 
                                                                                         </div>
@@ -572,7 +556,7 @@ class KycSettingForm extends Component {
                                                                                     </div>
                                                                                 </div>
                                                                                 <div className="row">
-                                                                                    <div className="col-md-6">
+                                                                                    <div className="col-md-12">
 
                                                                                         <div className="form-group">
                                                                                             <label htmlFor="issuedate">Id
@@ -580,7 +564,7 @@ class KycSettingForm extends Component {
                                                                                                 Date</label>
                                                                                             <input type="date"
                                                                                                    id="issuedate"
-                                                                                                   className="form-control"
+                                                                                                   className="form-control text-lowercase"
                                                                                                    placeholder=""
                                                                                                    onKeyDown={disableKey}
                                                                                                    onKeyUp={disableKey}
@@ -592,7 +576,7 @@ class KycSettingForm extends Component {
                                                                                         </div>
 
                                                                                     </div>
-                                                                                    <div className="col-md-6">
+                                                                                    <div className="col-md-12">
 
                                                                                         <div className="form-group">
                                                                                             <label htmlFor="expirydate">Id
@@ -603,7 +587,7 @@ class KycSettingForm extends Component {
                                                                                                    id="expirydate"
                                                                                                    value={this.state.form.expiry_date}
                                                                                                    onChange={this.handleChange}
-                                                                                                   className="form-control"
+                                                                                                   className="form-control text-lowercase"
                                                                                                    placeholder=""
                                                                                                    min={moment().format('YYYY-MM-DD')}
                                                                                                    name="expiry_date"
@@ -638,25 +622,16 @@ class KycSettingForm extends Component {
 
 
                                                                             </div>
-                                                                            <Form.Row
-                                                                                className={'d-flex justify-content-end mt-2'}>
-
-
+                                                                            <Form.Row className={'d-flex justify-content-end'}>
                                                                                 <button
                                                                                     className={'btn btn-custom-blue round '}
                                                                                     type="submit">
                                                                                     {this.state.loading ?
                                                                                         <ButtonLoader/> : "Update"}
                                                                                 </button>
-
-
                                                                             </Form.Row>
 
-                                                                            <div className="form-actions left">
-
-
-                                                                            </div>
-                                                                        </form>
+                                                                        </div>
 
                                                                     </div>
                                                                 </div>

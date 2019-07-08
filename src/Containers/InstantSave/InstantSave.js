@@ -12,6 +12,7 @@ import {
     dateFormatter,
     descriptionFormatter,
     formatNumber,
+    handleFiltering,
     STANDARD_ACCOUNT,
     statusFormatter
 } from "../../Helpers/Helper";
@@ -34,7 +35,9 @@ class InstantSave extends Component {
         email: null,
         showSavingModal: false,
         showLoader: true,
-        newInstantSave: false
+        newInstantSave: false,
+        date: moment().format('MM-DD-YYYY'),
+        comparator: Comparator.EQ
     };
 
     constructor(props) {
@@ -75,7 +78,6 @@ class InstantSave extends Component {
 
 
     // send request
-
 
 
     analyseInstantSaveInfo = (status, data) => {
@@ -165,18 +167,15 @@ class InstantSave extends Component {
 
 
     handleTransactions = (state, res) => {
-
         if (state) {
             let transactions = res.data.data
                 .filter(content => content.status == 'success' && content.type == 'credit');
-                this.setState({
-                    transactions,
-                    showLoader:false,
-                    totalInstantSave: transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount || 0
-                });
-
+            this.setState({
+                transactions,
+                showLoader: false,
+                totalInstantSave: transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount || 0
+            });
         }
-
     };
 
     //
@@ -192,6 +191,11 @@ class InstantSave extends Component {
     //
     //
     // }
+
+
+    handleFilter = (date, comparator) => {
+        handleFiltering(date, comparator, this);
+    };
 
 
     loadInstantSaveTable = (status, payload) => {
@@ -254,9 +258,12 @@ class InstantSave extends Component {
                 formatter: dateFormatter,
                 sort: true,
                 searchable: true,
-                // filter: dateFilter({
-                //     defaultValue: { date: moment().format('YYYY-MM-DD'),comparator: Comparator.LT}
-                // })
+                filter: dateFilter({
+                    defaultValue: {date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL},
+                    getFilter: (filter) => {
+                        this.createdDateFilter = filter;
+                    }
+                })
             },
             {
                 text: 'Description',
@@ -296,7 +303,6 @@ class InstantSave extends Component {
         const balance = parseFloat(this.state.totalBalance).toFixed(2);
 
         return (
-
             <div
                 className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done instant-save"
                 data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
@@ -328,31 +334,33 @@ class InstantSave extends Component {
                         {this.state.showLoader ? <DashboardLoader/> : null}
                         <div className="content-header row">
                         </div>
-                            <div className="content-body">
-                                <div className="row">
-                                    <div className="col-lg-5 col-12 order-lg-8">
-                                        <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
-                                            <p>Start saving your money here whenever you want!<br/>
-                                                We want you to be disciplined, so we’ll charge you 5% if you choose
-                                                to withdraw outside of your set withdrawal days.</p>
-                                        </div>
+                        <div className="content-body">
+                            <div className="row">
+                                <div className="col-lg-5 col-12 order-lg-8">
+                                    <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
+                                        <p>Start saving your money here whenever you want!<br/>
+                                            We want you to be disciplined, so we’ll charge you 5% if you choose
+                                            to withdraw outside of your set withdrawal days.</p>
                                     </div>
-                                    <div className="col-lg-4 col-12 order-lg-1">
-                                        <h3 className="gray-header-text fs-mb-1 mb-2 ">Instant Save <span
-                                            className="dot">.</span> Summary
-                                        </h3>
-                                        <InstantSaveCard balance={formatNumber(parseFloat(this.state.totalBalance).toFixed(2))}/>
-                                    </div>
-                                    <div className="col-lg-3 col-12 order-lg-5">
-                                        <h3 className="gray-header-text fs-mb-1 mb-2 mt-7px">Quick Actions</h3>
-                                        <div className="mb-quick-actions d-flex flex-md-column flex-wrap mb-3 mb-md-0 ">
+                                </div>
+                                <div className="col-lg-4 col-12 order-lg-1">
+                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">Instant Save <span
+                                        className="dot">.</span> Summary
+                                    </h3>
+                                    <InstantSaveCard
+                                        balance={formatNumber(parseFloat(this.state.totalBalance).toFixed(2))}/>
+                                </div>
+                                <div className="col-lg-3 col-12 order-lg-5">
+                                    <h3 className="gray-header-text fs-mb-1 mb-2 mt-7px">Quick Actions</h3>
+                                    <div className="mb-quick-actions d-flex flex-md-column flex-wrap mb-3 mb-md-0 ">
                                             <span className="mb-btn-wrapper">
-                                                <button type="button" data-toggle="modal" data-target="#large" onClick={this.showModal}
-                                                    className=" btn-blue-gradient-2 round">
+                                                <button type="button" data-toggle="modal" data-target="#large"
+                                                        onClick={this.showModal}
+                                                        className=" btn-blue-gradient-2 round">
                                                     <img src={whiteSaveMoreIcon}/>Save More
                                                 </button>
                                             </span>
-                                            <span className="mb-details-container ">
+                                        <span className="mb-details-container ">
                                                 <div className="d-inline-block q-detail-img">
                                                     <img src={instantSaveIcon}/>
                                                 </div>
@@ -362,13 +370,13 @@ class InstantSave extends Component {
                                                     <p className="gray-text circular-std mb-p-size">Total Instant Save</p>
                                                 </div>
                                             </span>
-                                        </div>
                                     </div>
+                                </div>
                             </div>
 
                             <div className="row">
                                 {/*transaction table */}
-                                <TransactionTable transactions={this.state.transactions} columns={columns}/>
+                                <TransactionTable handleFilter={this.handleFilter} transactions={this.state.transactions} columns={columns}/>
 
                             </div>
 

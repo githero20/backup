@@ -21,6 +21,7 @@ class LoginForm extends Component {
     state = {
         email: '',
         password: '',
+        source: 'web',
         redirect: false,
         error: false,
         errorMessage: '',
@@ -308,10 +309,10 @@ class LoginForm extends Component {
                         </div>
                         <div className="col-12">
                             <div className="input-field">
-                                <input id="email" name={'email'} onChange={this.changeHandler} type="email"
+                                <input id="email" name={'email'} onChange={this.changeHandler} type="text"
                                        className="validate"/>
-                                <label htmlFor="email" className="">Email</label>
-                                {this.validator.message('email', email, 'required|email')}
+                                <label htmlFor="email" className="">Email or Phone Number</label>
+                                {this.validator.message('email', email, 'required')}
 
                             </div>
                         </div>

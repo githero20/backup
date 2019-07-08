@@ -7,7 +7,7 @@ import {instantSaveEndpoint} from "../../../../RouteLinks/RouteLinks";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {formatNumber, initializeAmountInput, toastMessage} from "../../../../Helpers/Helper";
+import {filterUserCards, formatNumber} from "../../../../Helpers/Helper";
 import {getUserCards, initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {_getUser, _payWithPaystack} from "../../../../utils";
 
@@ -106,6 +106,7 @@ class InstantSavingForm extends Component {
     getUserCards() {
         getUserCards((status, payload) => {
             if (status) {
+                console.log('cards', payload);
                 this.setState({cards: payload});
             } else {
                 this.props.toastManager.add("Unable to fetch Cards", {
@@ -148,7 +149,6 @@ class InstantSavingForm extends Component {
 
     //handle response
     HandleInstantSave = (state, response) => {
-
         this.setState({
             loading: false,
             disableButton: false,
@@ -240,11 +240,11 @@ class InstantSavingForm extends Component {
         //get pay auths
         const userInfo = getLocalStorage(USERINFO);
         if (getLocalStorage(USERINFO) != undefined) {
+            let userCards = filterUserCards(userInfo);
             this.setState({
-                userCards: userInfo.authorization.data
-            })
+                userCards: userCards
+            });
         }
-
     }
 
 

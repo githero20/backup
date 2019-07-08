@@ -21,6 +21,7 @@ class LoginForm extends Component {
     state = {
         email: '',
         password: '',
+        source: 'web',
         redirect: false,
         error: false,
         errorMessage: '',

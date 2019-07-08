@@ -167,9 +167,12 @@ class MessageBox extends Component {
                                 {referralInfo}
                             </label>
                             <label className='d-flex flex-md-row flex-wrap  align-items-center'>
-                                <span className="mr-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"> copy referral code</span>
-                                <span className="code-btn mr-2 mb-md-0 " onClick={this.copyLink}>AEC45SF</span>
-                                <span className="code-btn" onClick={this.copyToClipboard}>Share Code</span>
+                                <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"> copy referral code</span>
+                                <div className='d-flex justify-content-between  d-md-inline-block flex-grow-1'>
+                                    <span className="code-btn mr-2 mb-md-0 " onClick={this.copyLink}>AEC45SF</span>
+                                    <span className="code-btn" onClick={this.copyToClipboard}>Share Code</span>
+                                </div>
+
                             </label>
                         </div>
                     </div>

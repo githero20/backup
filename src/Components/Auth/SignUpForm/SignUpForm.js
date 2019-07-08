@@ -51,6 +51,7 @@ class SignUpForm extends Component {
             showReferralInput: false,
             email: '',
             name: '',
+            source: 'web',
             last_name: '',
             phone: '',
             password: '',

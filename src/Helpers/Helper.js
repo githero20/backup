@@ -364,12 +364,40 @@ export function transformHour(hour) {
 
 
 export function dateFormatter(cell) {
-    return <p style={{minWidth: '150px'}}>{moment(cell).format('LLL')}</p>
+    let format = <span>
+        <p style={{minWidth:'100px'}}>{moment(cell).format('MMM Do YYYY')}
+            &nbsp;<span className='text-muted'>{moment(cell).format('h:mm a')}</span>
+        </p>
+    </span>;
+    return format ;
 }
 
 export function disableKey(e) {
     e.preventDefault();
     // return false;
+}
+
+export function showMobileMenu () {
+    //add is-active on
+    let nav = document.querySelector('.navbar-toggler');
+    nav.classList.toggle('is-active');
+
+    //show toggle menu
+    let mobileMenu = document.querySelector('.vertical-menu-modern');
+    mobileMenu.classList.toggle('menu-open');
+}
+export function hideMobileMenu () {
+    //add is-active on
+    let nav = document.querySelector('.navbar-toggler');
+    nav.classList.remove('is-active');
+
+    //show toggle menu
+    let mobileMenu = document.querySelector('.vertical-menu-modern');
+    mobileMenu.classList.remove('menu-open');
+
+    // hide bg
+    let bg = document.querySelector('.mobile-bg');
+    bg.classList.add('d-none');
 }
 
 export function confirmedFormatter(cell) {
@@ -407,7 +435,7 @@ export function sourceFormatter(cell, row) {
 }
 
 function sourceMarkup(content) {
-    return <p style={{minWidth: '150px'}} className={'text-secondary text-capitalize'}>{content}</p>;
+    return <p style={{minWidth: '130px'}} className={'text-secondary text-capitalize'}>{content}</p>;
 }
 
 export function withdrawSourceFormatter(cell) {
@@ -452,9 +480,9 @@ export function toastMessage(message, status, context) {
 
 export function steadyStatusFormatter(cell, row) {
     if (parseInt(row.is_pause)) {
-        return <button className={'btn round btn-warning'}>Paused</button>
+        return <button className={'btn btn-sm round btn-warning'}>Paused</button>
     } else {
-        return <button className={'btn round btn-success'}>Ongoing</button>
+        return <button className={'btn btn-sm round btn-success'}>Ongoing</button>
     }
 }
 
@@ -469,12 +497,12 @@ export function interestFormatter(cell) {
 }
 
 export function viewFormatter(cell) {
-    return <button className={'btn round btn-custom-blue btn-block'}>View History</button>
+    return <button className={'btn round btn-sm btn-custom-blue btn-block'}>View History</button>
 
 }
 
 export function detailFormatter(cell) {
-    return <button className={'btn round btn-custom-blue btn-block'}>View Details</button>
+    return <button className={'btn round btn-sm btn-custom-blue btn-block'}>View Details</button>
 
 }
 
@@ -492,13 +520,13 @@ export function sourceTypeFormatter(cell) {
 
 export function lockedStatusFormatter(cell) {
     return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> :
-        <button className={'btn btn-warning'}>Ongoing</button>)
+        <button className={'btn btn-sm btn-warning'}>Ongoing</button>)
 
 }
 
 export function frequencyFormatter(cell) {
     return (_isDateAfterToday(cell) ? <button className={'btn btn-success'}>Completed</button> :
-        <button className={'btn btn-warning'}>Ongoing</button>)
+        <button className={'btn btn-sm btn-warning'}>Ongoing</button>)
 
 }
 
@@ -608,5 +636,21 @@ export function Support() {
     //     };
     // }
 
-
 }
+
+//Retrieves user inputs
+export function changeHandler (event,context)   {
+    const name = event.target.name;
+    const value = event.target.value;
+    context.setState({
+        [name]: value
+    });
+}
+
+
+export function handleFiltering (date,comparator,context) {
+    context.createdDateFilter({
+        date: new Date(date),
+        comparator: comparator
+    });
+};

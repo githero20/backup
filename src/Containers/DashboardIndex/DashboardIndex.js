@@ -363,12 +363,6 @@ class DashboardIndex extends Component {
                     showLoader: false
                 });
 
-                // if(res.data.data.active){
-                //
-                //     //check for activated user
-                //     this.checkActiveUser(res.data.data.active);
-                //
-                // }
 
 
                 if (res.data.data.accounts) {
@@ -382,7 +376,7 @@ class DashboardIndex extends Component {
                     this.setState({
                         transactions
                     });
-
+                    //
                     accounts.map((content, idx) => {
                         if (content.account_type_id == STANDARD_ACCOUNT) {
                             this.setState({
@@ -508,53 +502,6 @@ class DashboardIndex extends Component {
             this.setupDashBoard()
         });
 
-
-        // if(token){
-        //     this.setupDashBoard();
-        // }
-
-        // this.setState({
-        //     showLoader:false,
-        //     transactions:[
-        //         {
-        //             id:1,
-        //             created_at:'10-06-2019',
-        //             type:'credit',
-        //             sourcetypes:'source',
-        //             amount:500000,
-        //             balance:403405830,
-        //             status:'success',
-        //             reference:324389342404,
-        //         },{
-        //             id:2,
-        //             created_at:'10-05-2019',
-        //             type:'credit',
-        //             sourcetypes:'source',
-        //             amount:500000,
-        //             balance:403405830,
-        //             status:'success',
-        //             reference:324389342404,
-        //         },{
-        //             id:3,
-        //             created_at:'10-06-2019',
-        //             type:'credit',
-        //             sourcetypes:'source',
-        //             amount:500000,
-        //             balance:403405830,
-        //             status:'success',
-        //             reference:324389342404,
-        //         },{
-        //             id:4,
-        //             created_at:'10-06-2019',
-        //             type:'credit',
-        //             sourcetypes:'source',
-        //             amount:500000,
-        //             balance:403405830,
-        //             status:'success',
-        //             reference:324389342404,
-        //         },
-        //     ]
-        // })
 
 
     }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import uploadIcon from "../../admin/app-assets/images/svg/red-upload-icon.svg";
+import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-icon.svg";
 import {request} from "../../ApiUtils/ApiUtils";
 import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySaveCard";
 import {
@@ -434,9 +435,9 @@ class SteadySave extends Component {
                                                 {/*</div>*/}
 
                                                 <div className="col-lg-4 col-12 order-lg-5">
-                                                    <h3 className="gray-header-text fs-mb-1 mb-2">&nbsp;</h3>
-                                                    <div className="mb-quick-actions d-flex flex-column flex-wrap ">
-                                                        <span className="mb-details-container ">
+                                                    <h3 className="gray-header-text d-none d-md-block fs-mb-1 mb-2">&nbsp;</h3>
+                                                    <div className="mb-quick-actions d-flex flex-md-column flex-wrap ">
+                                                        <span className="ss-action-details mb-details-container ">
                                                             <div className="d-inline-block q-detail-img">
                                                                 <img src={uploadIcon}/>
                                                             </div>
@@ -447,9 +448,9 @@ class SteadySave extends Component {
 
                                                             </div>
                                                         </span>
-                                                        <span className="mb-details-container align-items-center">
+                                                        <span className="ss-action-details mb-details-container align-items-md-center">
                                                             <div className="d-inline-block q-detail-img">
-                                                                <img src={uploadIcon}/>
+                                                                <img src={instantSaveIcon}/>
                                                             </div>
                                                             <div className="d-inline-block ">
                                                                 <p className="gray-text circular-std mb-p-size">
@@ -472,9 +473,9 @@ class SteadySave extends Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="col-lg-4 col-12 order-lg-5">
-                                                    <h3 className="gray-header-text fs-mb-1 mb-2">&nbsp;</h3>
-                                                    <div className="mb-quick-actions d-flex flex-column flex-wrap ">
+                                                <div className="col-lg-4 col-12 order-lg-5 mb-1 mb-md-0">
+                                                    <h3 className="gray-header-text d-none d-md-block fs-mb-1 mb-2">&nbsp;</h3>
+                                                    <div className="mb-quick-actions d-flex flex-md-column flex-wrap ">
                                                         {/*<span className="mb-details-container ">*/}
                                                         {/*    <div className="d-inline-block q-detail-img">*/}
                                                         {/*        <img src={uploadIcon}/>*/}
@@ -495,9 +496,9 @@ class SteadySave extends Component {
                                                         {/*            Total Attempts</p>*/}
                                                         {/*    </div>*/}
                                                         {/*</span>*/}
-                                                        <span className="mb-details-container align-items-center ">
+                                                        <span className="ss-action-details mb-details-container align-items-md-center ">
                                                             <div className="d-inline-block q-detail-img">
-                                                                <img src={uploadIcon}/>
+                                                                <img src={instantSaveIcon}/>
                                                             </div>
                                                             <div className=" d-inline-block">
 
@@ -509,7 +510,7 @@ class SteadySave extends Component {
                                                         </span>
 
                                                         {/* TODO due pay  */}
-                                                        <span className="mb-details-container align-items-center ">
+                                                        <span className="ss-action-details mb-details-container align-items-md-center ">
                                                             <div className="d-inline-block q-detail-img">
                                                                 <img src={uploadIcon}/>
                                                             </div>
@@ -549,7 +550,7 @@ class SteadySave extends Component {
                                             <div className="row">
                                                 <div id="Back-up-goals" className="col-12 col-md-12">
                                                     <div className="card">
-                                                        <div className="card-content mt-1 px-2 px-md-5 py-md-3">
+                                                        <div className="card-content mt-1 px-0 px-md-2 py-md-3">
                                                             {/*<div*/}
                                                             {/*    className="table-header d-flex justify-content-between align-items-md-center px-md-2  mb-3">*/}
                                                             {/*    <h4 className="table-title">*/}

@@ -2,21 +2,22 @@ import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
-import {getEachTransApi, getTransactionsApi} from "../../RouteLinks/RouteLinks";
+import {getTransactionsApi} from "../../RouteLinks/RouteLinks";
 import {request} from "../../ApiUtils/ApiUtils";
 import {
     amountFormatter,
     balanceFormatter,
     dateFormatter,
     descriptionFormatter,
-    detailFormatter,
+    detailFormatter, handleFiltering,
     sourceFormatter,
     statusFormatter
 } from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {withToastManager} from 'react-toast-notifications';
-import {getSteadySavTrans} from "../../actions/SteadySaveAction";
 import TransactionReceipt from "../../Components/Dashboard/TransactionReceipt/TransactionReceipt";
+import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
+import moment from 'moment';
 
 class Transactions extends Component {
 
@@ -123,6 +124,11 @@ class Transactions extends Component {
         });
     };
 
+    handleFilter = (date, comparator) => {
+        handleFiltering(date, comparator, this);
+    };
+
+
 
     render() {
 
@@ -184,6 +190,12 @@ class Transactions extends Component {
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
+                filter: dateFilter({
+                    defaultValue: {date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL},
+                    getFilter: (filter) => {
+                        this.createdDateFilter = filter;
+                    }
+                })
             },
             {
                 text: 'Reference',
@@ -231,7 +243,7 @@ class Transactions extends Component {
                                             <div className="row">
                                                 {/*<BigTransactionTable transactions={this.state.transactions} /> */}
 
-                                                <TransactionTable transactions={this.state.transactions}
+                                                <TransactionTable handleFilter={this.handleFilter} transactions={this.state.transactions}
                                                                   columns={columns}/>
                                             </div>
 

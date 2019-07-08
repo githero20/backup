@@ -67,7 +67,9 @@ class HorizontalNav extends Component {
         //add is-active on
         let nav = document.querySelector('.navbar-toggler');
         nav.classList.toggle('is-active');
-
+        // show dark background
+        let bg = document.querySelector('.mobile-bg');
+        bg.classList.toggle('d-none');
         //show toggle menu
         let mobileMenu = document.querySelector('.vertical-menu-modern');
         mobileMenu.classList.toggle('menu-open');

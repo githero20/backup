@@ -159,7 +159,9 @@ button .loadingSpinner {
     color: #474fc8;
 
 }
-
+.filter.date-filter{
+    display: none;
+}
 .alert-warning {
     color: #ef0000 !important;
     background-color: white !important;
@@ -634,9 +636,10 @@ input[type="date"]::-webkit-clear-button {
 
 .dashboard-callout {
     border-radius: 3rem;
+    padding:5px;
 }
 .dashboard-callout label {
-    margin:10px 0px !important;
+    margin:10px 0px ;
 }
 
 .admin-purple {
@@ -1199,12 +1202,24 @@ input[type="date"]::-webkit-clear-button {
     padding: 2rem 2rem;
     background-color: #ffffff;
     position: absolute;
+    z-index: 100000;
     top: 7rem;
     left: 4%;
 }
 
 .border-top-red {
     border-top-color: red;
+}
+.filter-icon{
+    background-image: url("../../../admin/app-assets/images/svg/filter-outline.svg");
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+.filter-icon:hover,.filter-icon:focus,.filter-icon.active{
+    background-image: url("../../../admin/app-assets/images/svg/filter-filled-tool-symbol.svg");
 }
 
 .table-button-container .active, .table-sort-display span {
@@ -1269,7 +1284,7 @@ input[type="date"]::-webkit-clear-button {
 }
 
 .kyc-form {
-    min-height: 607px;
+    min-height: 620px;
 }
 
 .lock-form .form-actions {
@@ -2102,6 +2117,10 @@ input[type=number]::-webkit-outer-spin-button {
 
     .mb-details-container, .mb-btn-wrapper {
         width: 50%;
+    }
+    .ss-action-details {
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     .mb-details-container img {
@@ -4394,6 +4413,10 @@ input:-webkit-autofill:active {
     .mb-details-container, .mb-btn-wrapper {
         width: 50%;
     }
+    .ss-action-details {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 
     .mb-details-container img {
         margin-right: .3rem;
@@ -4726,7 +4749,9 @@ input:-webkit-autofill:active {
 }
 
 .table-card {
-    overflow: auto;
+    overflow-y: visible;
+    overflow-x: auto;
+    min-height: 350px;
 }
 
 .descriptive-info {

@@ -23,7 +23,7 @@ import {
     WithdrawalLink
 } from "../../../RouteLinks/RouteLinks";
 import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
-import {getUserName} from "../../../Helpers/Helper";
+import {getUserName, hideMobileMenu} from "../../../Helpers/Helper";
 
 function logout() {
     localStorage.removeItem(USERTOKEN);
@@ -74,7 +74,7 @@ class VerticalNav extends Component {
         //show toggle menu
         let mobileMenu = document.querySelector('.mobile-user');
         mobileMenu.classList.toggle('open');
-    }
+    };
 
 
     DoLogOut = () => {
@@ -113,6 +113,7 @@ class VerticalNav extends Component {
 
         return (
             <React.Fragment>
+                <div className='mobile-bg d-none' onClick={hideMobileMenu}></div>
                 <div className="main-menu menu-fixed menu-dark menu-accordion menu-shadow">
                     <div className="main-menu-content">
                         <ul className="navigation navigation-main" id="main-menu-navigation">

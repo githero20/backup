@@ -7,7 +7,7 @@ import LockedSavingsCard from "../LockedSavingCard/LockedSavingsCard";
 import {
     amountFormatter,
     balanceFormatter, dateFormatter,
-    descriptionFormatter,
+    descriptionFormatter, handleFiltering,
     sourceFormatter,
     statusFormatter
 } from "../../../Helpers/Helper";
@@ -25,20 +25,23 @@ class DashboardContainer extends Component{
 
     constructor(props){
         super(props);
+        this.state = {
+            date:moment().format('MM-DD-YYYY'),
+            comparator:Comparator.EQ
+        }
     }
     //validate there is data
 
-    // set the appropiate props
+    // set the appropriate props
 
     // send the the children components
 
 
-    handleFilter = () => {
-        this.createdDateFilter({
-            date: new Date('10-06-2019'),
-            comparator: Comparator.EQ
-        });
+
+    handleFilter = (date,comparator) => {
+       handleFiltering(date,comparator,this);
     };
+
 
 
 
@@ -47,13 +50,12 @@ class DashboardContainer extends Component{
             {
                 text: 'Date',
                 dataField: 'created_at',
-                // formatter: dateFormatter,
-                // sort: true,
+                formatter: dateFormatter,
+                sort: true,
                 filter: dateFilter({
-                    // defaultValue: { date: moment('10-06-2019').format('MM-DD-YYYY'), comparator: Comparator.GT },
+                    defaultValue: { date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL },
                     getFilter: (filter) => {
                         this.createdDateFilter = filter;
-                        console.log('after assignment',typeof this.createdDateFilter , this.createdDateFilter);
                     }
                 })
             },
@@ -66,7 +68,7 @@ class DashboardContainer extends Component{
             }, {
                 text: 'Description',
                 dataField: 'sourcetypes',
-                // formatter: sourceFormatter,
+                formatter: sourceFormatter,
                 sort: true,
 
             },
@@ -125,7 +127,6 @@ class DashboardContainer extends Component{
 
 
 
-        console.log('created date filter outside columns ',typeof createdDateFilter , createdDateFilter);
 
 
         const {isActive} = this.props;
@@ -212,13 +213,13 @@ class DashboardContainer extends Component{
                             {/*</div>*/}
 
                             <div className="row">
-                                <button className={'btn'} onClick={this.handleFilter}>filter</button>
+                                {/*<button className={'btn'} onClick={this.handleFilter}>filter</button>*/}
                                 {/*<div>*/}
                                 {/*    <BootstrapTable keyField='id' data={ transactions } columns={ columns } filter={ filterFactory() } />*/}
                                 {/*</div>*/}
 
 
-                                <TransactionTable filter={filterFactory()} runFilter={runFilter}
+                                <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()} runFilter={runFilter}
                                                   transactions={transactions.reverse()}
                                                   columns={columns}/>
 

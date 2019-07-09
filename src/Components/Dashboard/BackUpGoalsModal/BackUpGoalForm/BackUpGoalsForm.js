@@ -9,7 +9,7 @@ import {withToastManager} from "react-toast-notifications";
 import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
 import {createBackUpGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {disableKey, formatNumber, initializeAmountInput} from "../../../../Helpers/Helper";
+import {disableKey, formatNumber, getCardsFromStorage, initializeAmountInput} from "../../../../Helpers/Helper";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
@@ -306,13 +306,13 @@ class BackUpGoalsForm extends Component {
 
         //get pay auths
         //TODO(dont save card details to local storage, if you will be saving it, encrypt it)
-        const userInfo = getLocalStorage(USERINFO);
-        if (getLocalStorage(USERINFO) != undefined) {
-            this.setState({
-                userCards: userInfo.authorization.data
-            })
-        }
-
+        // const userInfo = getLocalStorage(USERINFO);
+        // if (getLocalStorage(USERINFO) != undefined) {
+        //     this.setState({
+        //         userCards: userInfo.authorization.data
+        //     })
+        // }
+        getCardsFromStorage(USERINFO,this);
         initializeAmountInput();
 
     }

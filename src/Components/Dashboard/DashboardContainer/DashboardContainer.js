@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import TransactionTable from "../TransactionTable/TransactionTable";
 import CentralVaultCard from "../CentralVaultCard/CentralVaultCard";
 import BackUpGoalCard from "../BackUpGoalCard/BackUpGoalCard";
@@ -6,8 +6,10 @@ import BackUpStashCard from "../BackUpStashCard/BackUpStashCard";
 import LockedSavingsCard from "../LockedSavingCard/LockedSavingsCard";
 import {
     amountFormatter,
-    balanceFormatter, dateFormatter,
-    descriptionFormatter, handleFiltering,
+    balanceFormatter,
+    dateFormatter,
+    descriptionFormatter,
+    handleFiltering,
     sourceFormatter,
     statusFormatter
 } from "../../../Helpers/Helper";
@@ -15,21 +17,21 @@ import MessageBox from "./MessageBox/MessageBox";
 import adImg from '../../../admin/app-assets/images/svg/adtwo.svg';
 import adImgTwo from '../../../admin/app-assets/images/svg/adone.svg';
 // import { dateFilter, Comparator } from 'react-bootstrap-table-next';
-import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
 import moment from "moment";
 
 
-class DashboardContainer extends Component{
+class DashboardContainer extends Component {
 
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            date:moment().format('MM-DD-YYYY'),
-            comparator:Comparator.EQ
+            date: moment().format('MM-DD-YYYY'),
+            comparator: Comparator.EQ
         }
     }
+
     //validate there is data
 
     // set the appropriate props
@@ -37,15 +39,12 @@ class DashboardContainer extends Component{
     // send the the children components
 
 
-
-    handleFilter = (date,comparator) => {
-       handleFiltering(date,comparator,this);
+    handleFilter = (date, comparator) => {
+        handleFiltering(date, comparator, this);
     };
 
 
-
-
-    render(){
+    render() {
         const columns = [
             {
                 text: 'Date',
@@ -53,7 +52,7 @@ class DashboardContainer extends Component{
                 formatter: dateFormatter,
                 sort: true,
                 filter: dateFilter({
-                    defaultValue: { date: moment().format('DD-MM-YYYY'), comparator: Comparator.LEQUAL },
+                    defaultValue: {date: moment().format('DD-MM-YYYY'), comparator: Comparator.LEQUAL},
                     getFilter: (filter) => {
                         this.createdDateFilter = filter;
                     }
@@ -64,6 +63,8 @@ class DashboardContainer extends Component{
                 dataField: 'type',
                 formatter: descriptionFormatter,
                 sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
 
             }, {
                 text: 'Description',
@@ -90,6 +91,8 @@ class DashboardContainer extends Component{
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
                 // sortCaret: (order, column) => {
                 //     if (!order) return (<span>&nbsp;&nbsp;</span>);
                 //     else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-up'></i></span>);
@@ -101,9 +104,11 @@ class DashboardContainer extends Component{
                 text: 'Reference',
                 dataField: 'reference',
                 sort: true,
-                classes:'d-none d-md-inline-block'
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block'
 
             }];
+
         const runFilter = () => {
 
             //take the value of select
@@ -125,9 +130,6 @@ class DashboardContainer extends Component{
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
             transactions, totalInterest, ActiveGoals, CompletedGoals, vaultInterest, lockedSavingsInterest
         } = this.props;
-
-
-
 
 
         const {isActive} = this.props;
@@ -220,7 +222,8 @@ class DashboardContainer extends Component{
                                 {/*</div>*/}
 
 
-                                <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()} runFilter={runFilter}
+                                <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
+                                                  runFilter={runFilter}
                                                   transactions={transactions.reverse()}
                                                   columns={columns}/>
 
@@ -234,7 +237,6 @@ class DashboardContainer extends Component{
 
             </React.Fragment>
         );
-
 
 
     }

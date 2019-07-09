@@ -116,6 +116,23 @@ button {
     border: 1px solid #2784F4;
 }
 
+.swal-button.swal-button--confirm {
+
+}
+.swal-text{
+    text-align: center;
+}
+.swal-title{
+    color: #2b335e;
+}
+.swal-button.swal-button--yes{
+    background-color: #2b335e;
+    color:white;
+}
+
+.swal-button.swal-button--cancel{
+
+}
 .text-green {
     color: green;
 }

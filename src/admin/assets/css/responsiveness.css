@@ -7,7 +7,7 @@
     }
     .main-menu{
         z-index: 2999999999;
-        width: 230px;
+        width: 260px;
     }
     .table th, .table td{
         padding: .5rem;
@@ -25,6 +25,9 @@
         left: -30px;
     }
     .main-menu.menu-dark, .main-menu.menu-dark .navigation, .main-menu.menu-dark .navigation > li > ul{
+        left: -30px;
+    }
+    .fixed-navbar.menu-expanded.menu-open .main-menu.menu-dark, .fixed-navbar.menu-expanded.menu-open .main-menu.menu-dark .navigation,.fixed-navbar.menu-expanded.menu-open .main-menu.menu-dark .navigation > li > ul{
         left: 0px;
     }
         /* mobile menu */

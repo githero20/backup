@@ -269,7 +269,9 @@ class InstantSave extends Component {
                 text: 'Description',
                 dataField: 'type',
                 formatter: descriptionFormatter,
-                sort: true
+                sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
 
             },
             {
@@ -289,12 +291,16 @@ class InstantSave extends Component {
                 text: 'Status',
                 dataField: 'status',
                 formatter: statusFormatter,
-                sort: true
+                sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
             },
             {
                 text: 'Reference',
                 dataField: 'reference',
-                sort: true
+                sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
 
             }];
 

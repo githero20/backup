@@ -6,6 +6,7 @@ import SimpleReactValidator from "simple-react-validator";
 import {ToastProvider} from "react-toast-notifications";
 import {Link} from "react-router-dom";
 import {HomeLink} from "../../RouteLinks/RouteLinks";
+import {hideLoader, showHomeLoader} from "../../Helpers/Helper";
 
 
 class SignUp extends Component {
@@ -29,10 +30,13 @@ class SignUp extends Component {
 
 
 
-
+    componentWillMount() {
+        showHomeLoader();
+    }
 
     componentDidMount() {
         this.getReferral(this.props);
+        hideLoader();
     }
 
     render() {

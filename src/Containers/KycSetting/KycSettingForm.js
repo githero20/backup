@@ -510,8 +510,8 @@ class KycSettingForm extends Component {
                                                                                             <Form.Label>Identification
                                                                                                 File</Form.Label>
                                                                                             <input type="file"
-                                                                                                   onChange={this.handleFileChange}
-                                                                                                   id="file-upload"
+                                                                                                   // onChange={this.handleFileChange}
+                                                                                                   // id="file-upload"
                                                                                                    name="identification_type_picture_url"
 
                                                                                             />
@@ -519,6 +519,7 @@ class KycSettingForm extends Component {
                                                                                             <input type="file"
                                                                                                    id="file-upload"
                                                                                                    name='file-upload'
+                                                                                                   accept="image/x-png,image/jpeg"
                                                                                                    onChange={this.handleFileChange}
                                                                                                    className='cust-file-upload'
                                                                                                    // required

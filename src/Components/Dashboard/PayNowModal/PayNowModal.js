@@ -6,7 +6,7 @@ import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
 import {BankCardLink} from "../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
-import {formatNumber, getCards} from "../../../Helpers/Helper";
+import {formatNumber, getCards, getCardsFromStorage} from "../../../Helpers/Helper";
 import {_getUser, _handleFormChange, _payWithPaystack} from "../../../utils";
 import Col from "react-bootstrap/Col";
 import {initTransaction, verifyTransaction} from "../../../actions/CardAction";
@@ -198,7 +198,8 @@ class PayNowModal extends Component {
     componentDidMount() {
         //get card info and set state
 
-        getCards(USERINFO, this);
+        // getCards(USERINFO, this);
+        getCardsFromStorage(USERINFO,this);
 
 
         // set steady save to pay

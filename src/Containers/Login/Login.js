@@ -5,15 +5,22 @@ import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
 import {HomeLink} from "../../RouteLinks/RouteLinks";
 import {ToastProvider} from 'react-toast-notifications';
 import {Link} from 'react-router-dom';
+import {hideLoader, showHomeLoader} from "../../Helpers/Helper";
 class Login extends Component {
 
 
     componentWillMount() {
-        let element = document.getElementById('tawkchat-minified-box');
-        let elementContainer = document.getElementById('tawkchat-container');
+        // let element = document.getElementById('tawkchat-minified-box');
+        // let elementContainer = document.getElementById('tawkchat-container');
+        //
+        // console.log('element',element);
+        // console.log('element Container',elementContainer);
+        showHomeLoader();
+    }
 
-        console.log('element',element);
-        console.log('element Container',elementContainer);
+
+    componentDidMount() {
+        hideLoader();
     }
 
     render() {

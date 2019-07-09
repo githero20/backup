@@ -4,7 +4,13 @@ import Col from 'react-bootstrap/Col';
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {disableKey, formatNumber, initializeAmountInput, transformHour} from "../../../../Helpers/Helper";
+import {
+    disableKey,
+    formatNumber,
+    getCardsFromStorage,
+    initializeAmountInput,
+    transformHour
+} from "../../../../Helpers/Helper";
 import {
     continueSteadySave, createSteadySave,
     pauseSteadySave,
@@ -54,13 +60,13 @@ class CreateSteadySaveForm extends Component {
         // this.setState({form:this.props.steadySave});
         this.validateStartDate();
         this.handleFrequencySelect(this.state.form);
-        const userInfo = getLocalStorage(USERINFO);
-        if (getLocalStorage(USERINFO)!=undefined) {
-            this.setState({
-                userCards: userInfo.authorization.data
-            })
-        }
-
+        // const userInfo = getLocalStorage(USERINFO);
+        // if (getLocalStorage(USERINFO)!=undefined) {
+        //     this.setState({
+        //         userCards: userInfo.authorization.data
+        //     })
+        // }
+        getCardsFromStorage(USERINFO,this);
         initializeAmountInput();
     }
 

@@ -28,7 +28,7 @@ import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
-import { Support} from "../../Helpers/Helper";
+import {hideLoader, showHomeLoader, Support} from "../../Helpers/Helper";
 
 class Home extends Component {
 
@@ -62,21 +62,17 @@ class Home extends Component {
         }
     };
 
+    componentWillMount() {
+        showHomeLoader();
+    }
+
 
     componentDidMount() {
-
         this.checkUser();
-
+        hideLoader();
     }
 
 
-    componentDidMount() {
-        let element = document.getElementById('tawkchat-minified-box');
-        let elementContainer = document.getElementById('tawkchat-container');
-
-        console.log('element',element);
-        console.log('element Container',elementContainer);
-    }
 
 
 

@@ -279,7 +279,9 @@ class SteadySave extends Component {
             {
                 text: 'Frequency',
                 dataField: 'frequency',
-                sort: true
+                sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
             },
             {
                 text: 'Contribution',
@@ -304,7 +306,7 @@ class SteadySave extends Component {
                             showSSaveTrans: true,
                             selectedSteadySave: row,
                             showLoader: true
-                        })
+                        });
                         //set appropriate state to change view
 
                         // make request to get transaction
@@ -321,7 +323,9 @@ class SteadySave extends Component {
                 text: 'Date',
                 dataField: 'created_at',
                 formatter: dateFormatter,
-                sort: true
+                sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
             }
 
         ]; //table header and columns
@@ -336,14 +340,18 @@ class SteadySave extends Component {
                 text: 'Phase',
                 dataField: 'type',
                 formatter: descriptionFormatter,
-                sort: true
+                sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
 
             },
             {
                 text: 'Balance',
                 dataField: 'balance',
                 formatter: moneyFormatter,
-                sort: true
+                sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
             }, {
                 text: 'Amount',
                 dataField: 'amount',
@@ -354,7 +362,7 @@ class SteadySave extends Component {
                 text: 'Status',
                 dataField: 'status',
                 formatter: statusFormatter,
-                sort: true
+                sort: true,
             }
 
         ];

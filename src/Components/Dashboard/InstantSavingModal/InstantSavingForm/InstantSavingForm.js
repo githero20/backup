@@ -7,7 +7,7 @@ import {instantSaveEndpoint} from "../../../../RouteLinks/RouteLinks";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {filterUserCards, formatNumber} from "../../../../Helpers/Helper";
+import {filterUserCards, formatNumber, getCardsFromStorage} from "../../../../Helpers/Helper";
 import {getUserCards, initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {_getUser, _payWithPaystack} from "../../../../utils";
 
@@ -238,13 +238,15 @@ class InstantSavingForm extends Component {
 
     componentDidMount() {
         //get pay auths
-        const userInfo = getLocalStorage(USERINFO);
-        if (getLocalStorage(USERINFO) != undefined) {
-            let userCards = filterUserCards(userInfo);
-            this.setState({
-                userCards: userCards
-            });
-        }
+        // const userInfo = getLocalStorage(USERINFO);
+        // if (getLocalStorage(USERINFO) != undefined) {
+        //     let userCards = filterUserCards(userInfo);
+        //     this.setState({
+        //         userCards: userCards
+        //     });
+        // }\
+        // get cards from local storage
+        getCardsFromStorage(USERINFO,this);
     }
 
 

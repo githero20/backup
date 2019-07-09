@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import listIcon from "../../admin/app-assets/images/svg/list-icon.svg";
-import gridIcon from "../../admin/app-assets/images/svg/grid-icon.svg";
-import tableArrowLeft from "../../admin/app-assets/images/svg/table-arrow-left.svg";
 import {ToastProvider, withToastManager} from "react-toast-notifications";
 import {getWithdrawalList} from "../../actions/WithdrawalAction";
 import WithdrawalList from "./WithdrawalList";
@@ -12,12 +9,11 @@ import {getUserData} from "../../actions/UserAction";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {
     amountFormatter,
-    balanceFormatter, confirmedFormatter,
+    balanceFormatter,
+    confirmedFormatter,
     dateFormatter,
-    descriptionFormatter, sourceFormatter,
-    statusFormatter, withdrawSourceFormatter
+    withdrawSourceFormatter
 } from "../../Helpers/Helper";
-import ErrorBoundary from "../../Components/Auth/HOC/ErrorBoundary";
 
 class Withdrawal extends Component {
 
@@ -26,8 +22,8 @@ class Withdrawal extends Component {
         this.state = {
             showWithdrawalForm: false,
             withdrawals: [],
-            userName:null,
-            showLoader:false
+            userName: null,
+            showLoader: false
         };
 
         this.showForm = this.showForm.bind(this);
@@ -37,10 +33,8 @@ class Withdrawal extends Component {
 
 
     componentWillMount() {
-
-
         this.setState({
-            showLoader:true,
+            showLoader: true,
         });
 
         // check if a user has a pin
@@ -58,15 +52,14 @@ class Withdrawal extends Component {
     }
 
 
-
-    handleUserInfo = (status,res)=>{
+    handleUserInfo = (status, res) => {
         this.setState({
-            showLoader:false,
+            showLoader: false,
         });
-        if(status){
+        if (status) {
 
             this.setState({
-                userName:res.name
+                userName: res.name
             })
         }
     };
@@ -76,7 +69,7 @@ class Withdrawal extends Component {
         getWithdrawalList((status, payload) => {
             if (status && payload.data.length > 0) {
                 this.setState({withdrawals: payload.data});
-            } else if(!status && payload){
+            } else if (!status && payload) {
                 console.log(payload.data.message);
                 // this.props.toastManager.add(payload, {
                 //     appearance: "error",
@@ -87,20 +80,21 @@ class Withdrawal extends Component {
         //TODO    display No withdrawal on table
 
     }
+
     showForm() {
         this.setState({showWithdrawalForm: true});
     }
 
-    hideForm(status){
+    hideForm(status) {
         this.setState({showWithdrawalForm: false});
         if (status)
             this.getWithdrawalList();
     }
 
 
-    activateLoader=()=>{
+    activateLoader = () => {
         this.setState({
-            loading:!this.state.loading
+            loading: !this.state.loading
         });
     }
 
@@ -114,10 +108,18 @@ class Withdrawal extends Component {
                 sort: true,
             },
             {
+                text: 'Account',
+                dataField: 'account_type',
+                formatter: withdrawSourceFormatter,
+                sort: true,
+            },
+            {
                 text: 'Status',
                 dataField: 'is_confirmed',
                 formatter: confirmedFormatter,
                 sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
 
             },
             {
@@ -126,34 +128,31 @@ class Withdrawal extends Component {
                 formatter: amountFormatter,
                 sort: true,
 
-            },{
-                text: 'Description',
-                dataField: 'source',
-                formatter: withdrawSourceFormatter,
-                sort: true,
-            },{
+            }, {
                 text: 'Last Amount',
                 dataField: 'last_amount',
                 formatter: balanceFormatter,
                 sort: true,
 
-            },
-            {
-                text: 'Account',
-                dataField: 'account_type',
+            }, {
+                text: 'Description',
+                dataField: 'source',
                 formatter: withdrawSourceFormatter,
                 sort: true,
-            }];
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
+            }
+        ];
 
         return (
             <React.Fragment>
-                    <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
+                <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav userName={this.state.userName} />
-                    <VerticalNav userName={this.state.userName} />
+                    <HorizontalNav userName={this.state.userName}/>
+                    <VerticalNav userName={this.state.userName}/>
                     <div className="app-content content">
                         <div className="content-wrapper">
-                            {this.state.showLoader?<DashboardLoader/>:null}
+                            {this.state.showLoader ? <DashboardLoader/> : null}
                             {/*<div className="row mb-4">*/}
                             {/*    <div className="col-12">*/}
                             {/*       /!* message box *!/*/}
@@ -164,7 +163,8 @@ class Withdrawal extends Component {
                                 <div className="row">
                                     <div className="col-12 ">
                                         <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
-                                            <p>To make a withdrawal, you need to add a bank. If you have no bank added yet, kindly go to Settings, then click Bank/Card.</p>
+                                            <p>To make a withdrawal, you need to add a bank. If you have no bank added
+                                                yet, kindly go to Settings, then click Bank/Card.</p>
                                         </div>
                                     </div>
                                     <div className="col-lg-4 col-12">
@@ -175,10 +175,11 @@ class Withdrawal extends Component {
                                 </div>
 
                                 <div className="row">
-                                    <div  className="withdrawal col-12 col-md-12">
+                                    <div className="withdrawal col-12 col-md-12">
                                         <div className="card">
                                             <div className="card-content mt-1 px-1 px-md-2 py-1">
-                                                <div className="table-header d-flex flex-md-row justify-content-start mb-3">
+                                                <div
+                                                    className="table-header d-flex flex-md-row justify-content-start mb-3">
                                                     {/*<span className="table-button-container mb-2 mb-md-0">*/}
                                                     {/*    <span className="mr-1 table-grid-view-icon img-2x active">*/}
                                                     {/*        <img src={listIcon} className=" img-2x "/>*/}
@@ -194,13 +195,14 @@ class Withdrawal extends Component {
 
                                                     {
                                                         !this.state.showWithdrawalForm
-                                                        ?
+                                                            ?
                                                             <button className="round white btn-withdraw "
                                                                     onClick={this.showForm}>Withdraw
                                                             </button>
                                                             :
                                                             <a href='#' className="gray-text back-btn "
-                                                                    onClick={this.hideForm}><i className='fa fa-chevron-left'></i>Back
+                                                               onClick={this.hideForm}><i
+                                                                className='fa fa-chevron-left'></i>Back
                                                             </a>
                                                     }
 
@@ -220,8 +222,13 @@ class Withdrawal extends Component {
                                                 <ToastProvider>
                                                     {
                                                         !this.state.showWithdrawalForm
-                                                            ? <WithdrawalList showForm={this.showForm} withdrawals={this.state.withdrawals} columns={columns} transactions={this.state.withdrawals}/>
-                                                            : <WithdrawalForm activateLoader={this.activateLoader} hideForm={this.hideForm} updateWithdrawalList={this.getWithdrawalList}/>
+                                                            ? <WithdrawalList showForm={this.showForm}
+                                                                              withdrawals={this.state.withdrawals}
+                                                                              columns={columns}
+                                                                              transactions={this.state.withdrawals}/>
+                                                            : <WithdrawalForm activateLoader={this.activateLoader}
+                                                                              hideForm={this.hideForm}
+                                                                              updateWithdrawalList={this.getWithdrawalList}/>
                                                     }
                                                 </ToastProvider>
                                             </div>

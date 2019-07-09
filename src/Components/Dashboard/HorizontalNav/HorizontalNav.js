@@ -8,6 +8,7 @@ import {Link, Redirect} from "react-router-dom";
 import {DashboardLink, LoginLink} from "../../../RouteLinks/RouteLinks";
 import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
 import {getUserData} from "../../../actions/UserAction";
+import {hideLoader} from "../../../Helpers/Helper";
 
 class HorizontalNav extends Component {
 
@@ -42,6 +43,10 @@ class HorizontalNav extends Component {
             this.setState({userName: response.name})
         }
     };
+
+    componentWillMount() {
+        hideLoader();
+    }
 
 
     componentDidMount() {

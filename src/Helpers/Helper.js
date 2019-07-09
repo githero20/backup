@@ -19,6 +19,8 @@ export const STEADY_SAVE = 'auto save';
 export const INTEREST_ON_VAULT = 'STANDARD_INTEREST_CRON_';
 export const INTEREST_ON_BACKUP_GOAL = 'STANDARD_BACKUP_GOAL_INTEREST_CRON_';
 export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
+export const CENTRAL_VAULT = 'central_vault';
+export const BACKUP_STASH = 'backup_stash';
 
 export function animateCSS(element, animationName, callback) {
     const node = document.querySelector(element);
@@ -175,6 +177,22 @@ export function getCards(key, object) {
         })
     }
 }
+export function getCardsFromStorage(key, object) {
+    const userInfo = getLocalStorage(key);
+    if (userInfo!= undefined) {
+        object.setState({
+            userCards: filterUserCards(userInfo)
+        })
+    }
+}
+export function hideLoader() {
+    const loader = document.querySelector('.lds-loader-bg');
+    setTimeout(()=>{ console.log('loader',loader.style.display='none');},3000);
+}
+export function showHomeLoader() {
+    const loader = document.querySelector('.lds-loader-bg');
+    loader.style.display='block';
+}
 
 export function capitalize(value) {
     let words = value.split(' ');
@@ -211,6 +229,8 @@ export function shiftFocus(e) {
             }
         }
     }
+
+    //handle delete button
 }
 
 export function validateLength(e) {
@@ -504,6 +524,10 @@ export function toastMessage(message, status, context) {
         autoDismissTimeout: 4000,
         pauseOnHover: false,
     });
+}
+export function calcPenalty(balance, penalty) {
+    console.log('cal penalty',balance,penalty);
+    return Number(Number(balance).toFixed(2) * (Number(penalty).toFixed(2)/100)).toFixed(2);
 }
 
 

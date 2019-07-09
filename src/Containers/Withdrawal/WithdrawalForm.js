@@ -15,7 +15,16 @@ import {_handleFormChange} from "../../utils";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {request} from "../../ApiUtils/ApiUtils";
 import {BankCardLink, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
-import {formatNumber, INTEREST_ACCOUNT, STANDARD_ACCOUNT, validateInputEntry} from "../../Helpers/Helper";
+import {
+    BACKUP_STASH,
+    calcPenalty,
+    CENTRAL_VAULT,
+    formatNumber,
+    INTEREST_ACCOUNT,
+    STANDARD_ACCOUNT,
+    toastMessage,
+    validateInputEntry
+} from "../../Helpers/Helper";
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import AddPinModal from "../../Components/Dashboard/AddPinModal/AddPinModal";
@@ -138,12 +147,15 @@ class WithdrawalForm extends Component {
     }
 
 
-    getWithdrawalPenalty() {
+    getWithdrawalPenalty(callback) {
         // e.preventDefault();
         getWithdrawalPenalty((status, payload) => {
+            console.log('penalty:', status, payload);
             if (status) {
-                this.setState({penalty: payload});
-                console.log('penalty:' + JSON.parse(payload));
+                console.log('penalty success:', status, payload.withdraw_penalty);
+                let penalty = calcPenalty(this.state.form.withdraw_amount, payload.withdraw_penalty);
+                console.log('penalty value', penalty);
+                this.setState({penalty}, () => callback());
             } else {
                 this.props.toastManager.add("unable to get withdrawal penalty", {
                     appearance: "error",
@@ -189,14 +201,14 @@ class WithdrawalForm extends Component {
 
     hidePinModal = () => {
         this.setState({showPinModal: false})
-    }
+    };
 
     handleWithdrawFrom(e) {
 
         let form = this.handleChange(e);
         console.log({form}, e);
 
-        if (e.target.value == "backup_stash" || this.state.penaltyFreeDay) {
+        if (e.target.value == BACKUP_STASH || this.state.penaltyFreeDay) {
             // let form = {...this.state.form};
             // console.log(form);
             console.log('before ', form);
@@ -205,7 +217,7 @@ class WithdrawalForm extends Component {
 
             this.setState({hasPenalty: false, form});
         } else {
-            form.penalty_from = "central_vault";
+            form.penalty_from = CENTRAL_VAULT;
             console.log('not free date ', form);
             this.setState({hasPenalty: true, form});
         }
@@ -223,20 +235,17 @@ class WithdrawalForm extends Component {
         form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
 
         if (name == 'pin_one' || name == 'pin_two' || name == 'pin_three' || name == 'pin_four') {
-
             form.withdrawal_pin = form.pin_one + form.pin_two + form.pin_three + form.pin_four;
             console.log('form pin', form.withdrawal_pin);
             this.setState({form});
             // console.log('withdrawal pin', form['withdrawal_pin']);
         }
-
         console.log('length of pin ', form.withdrawal_pin.length);
         if (form.withdrawal_pin.length >= 4) {
             this.setState({
                 pinErr: false
             })
         }
-
         if (callback != null) {
             callback();
         }
@@ -266,68 +275,121 @@ class WithdrawalForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+
+
         if (!this.validator.allValid()) {
+            //validate fields
             this.validator.showMessages();
             this.forceUpdate();
         } else if (this.state.form.withdrawal_pin.length != 4) {
+            //validate pin
             this.setState({
                 pinErr: true
             });
         } else {
             console.log("all");
-            const {form} = this.state;
+            const {form, stashBalance, penalty, userBalance} = this.state;
+            console.log('withdrawal amount', typeof Number(form.withdraw_amount));
+            console.log('withdrawal amount', typeof Number(stashBalance));
             console.log("Form", {form});
-            swal("Are you sure you want to make a withdrawal ?", {
+            //check if the user is withdrawing from back up stash or central vault and then check if their is enough balance
+            if (form.source == CENTRAL_VAULT && form.penalty_from != '') {
+                //get penalty
+                this.getWithdrawalPenalty(this.handleBalance);
+                //check balance
+            } else if (form.source == BACKUP_STASH && Number(form.withdraw_amount) <= Number(stashBalance)) {
+                this.doWithdrawal();
+            } else {
+                toastMessage('Insufficient Balance', 'error', this);
+            }
+
+
+        }
+    }
+
+    handleBalance = () => {
+        const {withdraw_amount, penalty_from} = this.state.form;
+        const {userBalance} = this.state;
+        const penalty = this.state.penalty;
+        const penaltySource = (penalty_from == CENTRAL_VAULT) ? 'central vault' : 'withdrawal amount';
+        const withdrawAmount = Number(withdraw_amount);
+        const penaltyAmount = Number(penalty);
+        if ((withdrawAmount + penaltyAmount) <= userBalance) {
+            //handle penalty
+            swal('Withdrawal', `Penalty of ₦ ${Number(penalty).toFixed(2)} would be deducted from your ${penaltySource}`, 'info', {
                 buttons: {
                     cancel: "no",
                     yes: "yes"
                 },
-            })
-                .then((value) => {
-                    switch (value) {
-                        case "yes":
-                            this.setState({loading: true});
-                            makeWithdrawal(form, (status, payload) => {
-                                console.log("response", status, payload);
-                                this.setState({loading: false});
-                                if (status) {
-                                    this.props.toastManager.add("Withdrawal Successful", {
-                                        appearance: "success",
-                                        autoDismiss: true,
-                                        autoDismissTimeout: 5000
-                                    });
-                                    swal("Withdrawal Successful", "success");
-                                    const form = {
-                                        penalty_from: "central_vault",
-                                        withdraw_amount: "",
-                                        bank_account: "",
-                                        source: "central_vault",
-                                        pin_one: '',
-                                        pin_two: '',
-                                        pin_three: '',
-                                        pin_four: '',
-                                        withdrawal_pin: ''
-                                    };
-                                    this.setState({form});
-                                    this.props.updateWithdrawalList();
-                                } else {
-                                    this.toastMessage(payload, 'error')
-                                }
-                            });
-
-                            swal("Processing Withdrawal....");
-                            break;
-
-                        case "no":
-                            swal("Withdrawal Cancelled");
-                            break;
-
-                        default:
-                            swal("You Cancelled Your Withdrawal");
-                    }
-                });
+            }).then((value) => {
+                switch (value) {
+                    case "yes":
+                        this.initiateWithdrawal();
+                        break;
+                    case "no":
+                        swal("Withdrawal Cancelled");
+                        break;
+                }
+            });
+        } else {
+            toastMessage('Insufficient Balance', 'error', this);
         }
-    }
+    };
+
+    doWithdrawal = () => {
+        swal("Are you sure you want to make a withdrawal ?", {
+            buttons: {
+                cancel: "no",
+                yes: "yes"
+            },
+        }).then((value) => {
+            switch (value) {
+                case "yes":
+                    swal("Processing Withdrawal....","success",{button:false});
+                    this.initiateWithdrawal();
+                    break;
+                case "no":
+                    swal("Withdrawal Cancelled",{button:false});
+                    break;
+                default:
+                    swal("You Cancelled Your Withdrawal",{button:false});
+                    break;
+            }
+        });
+
+    };
+
+    initiateWithdrawal = () =>{
+        const {form} = this.state;
+        this.setState({loading: true});
+        makeWithdrawal(form, (status, payload) => {
+            console.log("response", status, payload);
+            this.setState({loading: false});
+            if (status) {
+                this.props.toastManager.add("Withdrawal Successful", {
+                    appearance: "success",
+                    autoDismiss: true,
+                    autoDismissTimeout: 5000
+                });
+                swal("Withdrawal successful","success",{button: false});
+                const form = {
+                    penalty_from: "central_vault",
+                    withdraw_amount: "",
+                    bank_account: "",
+                    source: "central_vault",
+                    pin_one: '',
+                    pin_two: '',
+                    pin_three: '',
+                    pin_four: '',
+                    withdrawal_pin: ''
+                };
+                this.setState({form});
+                this.props.updateWithdrawalList();
+            } else {
+                this.toastMessage(payload, 'error')
+            }
+        });
+    };
 
     toastMessage = (message, status) => {
         const {toastManager} = this.props;
@@ -405,7 +467,8 @@ class WithdrawalForm extends Component {
                                                         {
                                                             this.state.settingsOwner == "you" ? "" :
                                                                 <button className='btn btn-custom-blue btn-block'
-                                                                        onClick={this.showWithdrawalSettings}>Change Settings</button>
+                                                                        onClick={this.showWithdrawalSettings}>Change
+                                                                    Settings</button>
                                                         }
                                                     </div>
                                                 </div>
@@ -437,7 +500,8 @@ class WithdrawalForm extends Component {
                                                             </div>
                                                             <div className="media-body text-left pt-1 ">
                                                                 <h3 className=" ">
-                                                                    <strong className="blue-card-price fs-1-5 ml-1 mr-2">
+                                                                    <strong
+                                                                        className="blue-card-price fs-1-5 ml-1 mr-2">
                                                                         <strong>₦</strong> {formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}
                                                                     </strong>
                                                                 </h3>

@@ -10,7 +10,14 @@ import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {updateSteadySave} from "../../actions/SteadySaveAction";
 import {initTransaction, verifyTransaction} from "../../actions/CardAction";
 import moment from "moment";
-import {disableKey, formatNumber, getToken, filterUserCards, initializeAmountInput} from "../../Helpers/Helper";
+import {
+    disableKey,
+    formatNumber,
+    getToken,
+    filterUserCards,
+    initializeAmountInput,
+    getCardsFromStorage
+} from "../../Helpers/Helper";
 import {Link} from 'react-router-dom';
 import {BankCardLink} from "../../RouteLinks/RouteLinks";
 
@@ -41,12 +48,14 @@ class SteadySaveForm extends Component {
         this.setState({form: this.props.steadySave});
         this.validateStartDate();
         this.handleFrequencySelect(this.props.steadySave);
-        const userInfo = getLocalStorage(USERINFO);
-        if (getLocalStorage(USERINFO)!=undefined) {
-            this.setState({
-                userCards: filterUserCards(userInfo)
-            })
-        }
+        // const userInfo = getLocalStorage(USERINFO);
+        // if (getLocalStorage(USERINFO)!=undefined) {
+        //     this.setState({
+        //         userCards: filterUserCards(userInfo)
+        //     })
+        // }
+
+        getCardsFromStorage(USERINFO,this);
         initializeAmountInput();
     }
 
@@ -175,11 +184,9 @@ class SteadySaveForm extends Component {
     submitForm = (e) => {
         e.preventDefault();
         if (!this.validator.allValid()) {
-            console.log("hererererer", this, this.validator, this.validator.errorMessages);
             this.validator.showMessages();
             this.forceUpdate();
         } else {
-            console.log("here", this.state.form);
             this.setState({loading: true});
 
 

@@ -134,6 +134,17 @@ class Transactions extends Component {
 
         const columns = [
             {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
+                filter: dateFilter({
+                    defaultValue: {date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL},
+                    getFilter: (filter) => {
+                        this.createdDateFilter = filter;
+                    }
+                })
+            },{
                 text: 'Description',
                 dataField: 'sourcetypes',
                 formatter: sourceFormatter,
@@ -145,6 +156,8 @@ class Transactions extends Component {
                 dataField: 'type',
                 formatter: descriptionFormatter,
                 sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
 
             },
             {
@@ -165,6 +178,8 @@ class Transactions extends Component {
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
             },
             {
                 text: 'transactions',
@@ -186,21 +201,11 @@ class Transactions extends Component {
                 }
             },
             {
-                text: 'Date',
-                dataField: 'created_at',
-                formatter: dateFormatter,
-                sort: true,
-                filter: dateFilter({
-                    defaultValue: {date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL},
-                    getFilter: (filter) => {
-                        this.createdDateFilter = filter;
-                    }
-                })
-            },
-            {
                 text: 'Reference',
                 dataField: 'reference',
                 sort: true,
+                classes: 'd-none d-md-inline-block',
+                headerClasses: 'd-none d-md-inline-block',
 
             }];
 

@@ -63,8 +63,8 @@ class DashboardContainer extends Component {
                 dataField: 'type',
                 formatter: descriptionFormatter,
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             }, {
                 text: 'Description',
@@ -91,21 +91,15 @@ class DashboardContainer extends Component {
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
-                // sortCaret: (order, column) => {
-                //     if (!order) return (<span>&nbsp;&nbsp;</span>);
-                //     else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-up'></i></span>);
-                //     else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className='fa fa-arrow-down'></i></span>);
-                //     return null;
-                // }
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
             },
             {
                 text: 'Reference',
                 dataField: 'reference',
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block'
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
 
             }];
 

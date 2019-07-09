@@ -324,8 +324,8 @@ class SteadySave extends Component {
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             }
 
         ]; //table header and columns
@@ -341,8 +341,8 @@ class SteadySave extends Component {
                 dataField: 'type',
                 formatter: descriptionFormatter,
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             },
             {
@@ -350,8 +350,8 @@ class SteadySave extends Component {
                 dataField: 'balance',
                 formatter: moneyFormatter,
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             }, {
                 text: 'Amount',
                 dataField: 'amount',

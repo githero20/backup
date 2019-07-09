@@ -118,8 +118,8 @@ class Withdrawal extends Component {
                 dataField: 'is_confirmed',
                 formatter: confirmedFormatter,
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             },
             {
@@ -139,8 +139,8 @@ class Withdrawal extends Component {
                 dataField: 'source',
                 formatter: withdrawSourceFormatter,
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             }
         ];
 

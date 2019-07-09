@@ -1021,7 +1021,7 @@ footer-logo {
     }
 
     header {
-        min-height: 100vh;
+        min-height: 800px;
         padding: 3rem 10rem 5rem 10rem;
     }
     .faq-main{

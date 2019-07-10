@@ -177,21 +177,26 @@ export function getCards(key, object) {
         })
     }
 }
+
 export function getCardsFromStorage(key, object) {
     const userInfo = getLocalStorage(key);
-    if (userInfo!= undefined) {
+    if (userInfo != undefined) {
         object.setState({
             userCards: filterUserCards(userInfo)
         })
     }
 }
+
 export function hideLoader() {
     const loader = document.querySelector('.lds-loader-bg');
-    setTimeout(()=>{ console.log('loader',loader.style.display='none');},3000);
+    setTimeout(() => {
+        console.log('loader', loader.style.display = 'none');
+    }, 3000);
 }
+
 export function showHomeLoader() {
     const loader = document.querySelector('.lds-loader-bg');
-    loader.style.display='block';
+    loader.style.display = 'block';
 }
 
 export function capitalize(value) {
@@ -214,7 +219,7 @@ export function validateInputEntry(e) {
 }
 
 export function shiftFocus(e) {
-    if (e.type == 'keyup' && e.keyCode !== 46 && e.keyCode !== 8) {
+    if (e.type == 'keyup' && e.keyCode !== 46 && e.keyCode !== 8 && e.keyCode > 47 && e.keyCode <= 58) {
 
         if (e.target.parentElement.nextElementSibling) {
             // && e.target.parentElement.nextElementSibling.firstChild.length>0
@@ -228,9 +233,18 @@ export function shiftFocus(e) {
                 // console.log('siblling element', e.target.parentElement.nextElementSibling.firstChild.value);
             }
         }
+
     }
 
     //handle delete button
+
+    if (e.type == 'keyup' && e.keyCode == 8) {
+        if (e.target.parentElement.previousElementSibling) {
+            if (e.target.parentElement.previousElementSibling.firstChild.value !== '') {
+                e.target.parentElement.previousElementSibling.firstChild.focus();
+            }
+        }
+    }
 }
 
 export function validateLength(e) {
@@ -401,6 +415,7 @@ export function disableKey(e) {
 export function filterUserCards(array) {
     return array.authorization.data.filter((content) => content.channel == 'card');
 }
+
 // export function getAndSetCards(array,context) {
 //     const userInfo = getLocalStorage(USERINFO);
 //     if (getLocalStorage(USERINFO) != undefined) {
@@ -446,11 +461,11 @@ export function descriptionFormatter(cell) {
 
 export function sourceFormatter(cell, row) {
     let content;
-    console.log('cell data',cell);
+    console.log('cell data', cell);
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
         return (
             <p style={{minWidth: '140px'}}
-                   className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
                 <small className='text-muted'>(interest on backup goals)</small>
             </p>
         );
@@ -461,7 +476,7 @@ export function sourceFormatter(cell, row) {
     if (row.gw_authorization_code.includes(INTEREST_ON_VAULT)) {
         return (
             <p style={{minWidth: '140px'}}
-                   className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
                 <small className='text-muted'>(interest on central vault)</small>
             </p>
         );
@@ -483,6 +498,7 @@ export function sourceFormatter(cell, row) {
 function sourceMarkup(content) {
     return <p style={{minWidth: '130px'}} className={'text-secondary text-capitalize'}>{content}</p>;
 }
+
 export function titleFormatter(cell) {
     return <p style={{minWidth: '100px'}} className={'text-secondary text-capitalize'}>{cell}</p>;
 }
@@ -525,9 +541,10 @@ export function toastMessage(message, status, context) {
         pauseOnHover: false,
     });
 }
+
 export function calcPenalty(balance, penalty) {
-    console.log('cal penalty',balance,penalty);
-    return Number(Number(balance).toFixed(2) * (Number(penalty).toFixed(2)/100)).toFixed(2);
+    console.log('cal penalty', balance, penalty);
+    return Number(Number(balance).toFixed(2) * (Number(penalty).toFixed(2) / 100)).toFixed(2);
 }
 
 
@@ -558,12 +575,14 @@ export function detailFormatter(cell) {
 }
 
 export function balanceFormatter(cell) {
-    return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
+    return <label style={{minWidth: '100px'}}
+                  className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
 
 }
 
 export function sourceTypeFormatter(cell) {
-    return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `₦ ${cell.data.name}` : 'N/A'}</label>
+    return <label style={{minWidth: '100px'}}
+                  className={'text-info'}>{cell != null ? `₦ ${cell.data.name}` : 'N/A'}</label>
 }
 
 export function lockedStatusFormatter(cell) {

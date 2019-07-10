@@ -123,9 +123,14 @@ section {
     border: 2px solid red;
 }
 
+/*.header-background {*/
+/*    background-image: url("../../app-assets/images/svg/header-background.svg");*/
+/*    background-size: cover;*/
+/*}*/
 .header-background {
-    background-image: url("../../app-assets/images/svg/header-background.svg");
-    background-size: cover;
+    background-image: url("../../app-assets/images/header-bg@2x.png");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .faq-bg {

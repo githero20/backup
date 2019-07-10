@@ -17,24 +17,29 @@
     font-family: "Circular Std Black";
     src: url("../../app-assets/fonts/app-fonts/CircularStd-Black.otf");
 }
+@font-face {
+    font-family: "Circular Std Book";
+    src: url("../../app-assets/fonts/app-fonts/CircularStd-Book.otf");
+}
 
 /* home page loader*/
-.lds-loader-bg{
+.lds-loader-bg {
     position: fixed;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 500000000000;
     background: #0A3560;
 }
+
 .lds-ellipsis {
     display: inline-block;
     position: absolute;
     z-index: 500000000000000;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 64px;
     height: 64px;
 }
@@ -48,22 +53,27 @@
     background: #fff;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
+
 .lds-ellipsis div:nth-child(1) {
     left: 6px;
     animation: lds-ellipsis1 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(2) {
     left: 6px;
     animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(3) {
     left: 26px;
     animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(4) {
     left: 45px;
     animation: lds-ellipsis3 0.6s infinite;
 }
+
 @keyframes lds-ellipsis1 {
     0% {
         transform: scale(0);
@@ -72,6 +82,7 @@
         transform: scale(1);
     }
 }
+
 @keyframes lds-ellipsis3 {
     0% {
         transform: scale(1);
@@ -80,6 +91,7 @@
         transform: scale(0);
     }
 }
+
 @keyframes lds-ellipsis2 {
     0% {
         transform: translate(0, 0);
@@ -90,12 +102,11 @@
 }
 
 
-
-
 html {
     scroll-behavior: smooth;
 }
-body{
+
+body {
     position: relative;
 }
 
@@ -128,8 +139,9 @@ section {
 /*    background-size: cover;*/
 /*}*/
 .header-background {
-    background-image: url("../../app-assets/images/header-bg@2x.png");
-    background-size: contain;
+    background-image: url("../../app-assets/images/svg/header-bg.svg");
+    background-size: 100%;
+    min-height: 100vh;
     background-repeat: no-repeat;
 }
 
@@ -141,13 +153,15 @@ section {
 
 }
 
-.faq-main .faq-header p{
+.faq-main .faq-header p {
     font-size: 15px;
     color: #7F7F7F;
 }
-.faq-main card{
+
+.faq-main card {
     overflow: auto;
 }
+
 .faq-main .btn-link {
     color: #0A3560;
     font-family: "Gilroy Bold", Quicksand, Georgia, Times New Roman, Times, serif;
@@ -175,8 +189,8 @@ section {
 }
 
 .btn-custom-border {
-    border-top-left-radius: 2.5rem;
-    border-bottom-right-radius: 2.5rem;
+    border-top-left-radius: 2.8rem;
+    border-bottom-right-radius: 2.8rem;
     border-top-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
@@ -185,15 +199,17 @@ section {
     /*background: #103366;*/
     background: rgb(16, 51, 102);
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
-    color: white;
+    color: rgba(242,242,242,0.9);
     font-size: 1.2rem;
     cursor: pointer;
     transition: all .3s ease-in-out;
+    box-shadow: 0px 15px 30px 5px rgba(2, 43, 105, 0.25);
+    /*box-shadow: 0px 15px 10px 5px rgba(2, 34, 81, 0.25);*/
 }
 
 .btn-dark-blue:hover {
-    color: white;
-    box-shadow: 0 2px 10px 0px rgba(2, 43, 105, 0.28);
+    color: #F2F2F2;
+    box-shadow: 0px 15px 30px 5px rgba(2, 43, 105, 0.35);
     transform: translateY(-5px);
 }
 
@@ -306,17 +322,15 @@ section {
 }
 
 .btn-gradient-blue {
-    background: rgb(2, 54, 139);
-    background: linear-gradient(298deg, rgba(2, 54, 139, 1) 0%, rgba(2, 54, 139, 1) 100%);
-    /*background: rgb(54,123,255);*/
-    /*background: linear-gradient(90deg, rgba(54,123,255,1) 0%, rgba(0,80,147,1) 100%);*/
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    color: white;
+    background: #103366;
+    background: rgb(16, 51, 102);
+    position: relative;
+    box-shadow: 0px 15px 30px 8px rgba(0,0,0,0.20);
+    background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
+    color: rgba(242,242,242,0.9);
     font-size: 1rem;
     transform: translateY(0);
-    transition: 1s ease;
-    -webkit-transition: 1s ease;
-    -moz-transition: 1s ease;
+    transition: all 1s ease;
 }
 
 .btn-white-shadow {
@@ -335,14 +349,19 @@ section {
 
 .btn-gradient-blue:hover {
     text-decoration: none;
-    color: white;
-    transform: translateY(-5px);
+    color: #F2F2F2;
+    transform: translateY(-15px);
 }
 
 .cta-link {
     list-style-type: none;
     padding-left: 0px;
     margin: 2px 0px 0px 0px;
+    transform: translateY(0px);
+    transition: transform .5s ease-in-out;
+}
+.cta-link:hover {
+    transform: translateY(-5px);
 }
 
 .cta-link li {
@@ -369,9 +388,10 @@ section {
 
 .header-title {
     margin-top: 5rem !important;
-    font-family: Gilroy bold;
+    font-family: "Gilroy bold";
     font-size: 2.5rem;
     color: #103366;
+    letter-spacing: -1px;
 }
 
 .header-img {
@@ -630,9 +650,10 @@ section {
 }
 
 .security-info-wrapper h2 {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
+    color: rgba(242,242,242,0.9);
     font-family: "Circular Std Black", Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
 }
 
@@ -649,7 +670,7 @@ section {
 }
 
 .security-img-wrapper img {
-    width: 200px;
+    /*width: 200px;*/
 }
 
 .section-transparent-card-right p {
@@ -665,8 +686,7 @@ section {
 }
 
 .nav-link {
-    /*color: #8A8A8A;*/
-    color: #494949;
+    color: #3D5A84;
     font-size: 1rem;
     letter-spacing: .5px;
     margin-right: 2.5rem;
@@ -710,7 +730,8 @@ section {
 
 .header-sub-title {
     /*color: #7F7F7F;*/
-    color: rgba(0, 0, 0, 0.7);
+    color: #243C5E;
+    font-family: "Circular Std Book";
     margin-bottom: 0rem;
     font-size: 1.3rem;
 }
@@ -815,9 +836,9 @@ section {
 }
 
 .header .btn {
-    padding: 1.3rem 2rem;
+    padding: 1.8rem 2rem;
     font-size: 1rem;
-    letter-spacing: .5px;
+    letter-spacing: 1px;
 }
 
 .whatsapp .btn-whatsapp {
@@ -1029,7 +1050,8 @@ footer-logo {
         min-height: 800px;
         padding: 3rem 10rem 5rem 10rem;
     }
-    .faq-main{
+
+    .faq-main {
         padding: 3rem 10rem 5rem 10rem;
     }
 
@@ -1043,13 +1065,16 @@ footer-logo {
     .section-transparent-card-icon img {
         margin: 0 auto;
     }
-    .faq-main .faq-header p{
+
+    .faq-main .faq-header p {
         font-size: 13px;
         line-height: 1.5rem;
     }
-    .contact-row p{
+
+    .contact-row p {
         font-size: 12px;
     }
+
     .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before {
         position: absolute;
         width: 30px;

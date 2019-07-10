@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
-import backupCashLogo from "../../admin/app-assets/images/Newlogo-02.png";
+import backupCashLogo from "../../admin/app-assets/images/svg/logo.svg";
 import illustration1 from "../../admin/app-assets/images/wymg@2x.png";
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
 import securityIcon from "../../admin/app-assets/images/svg/security-icon.svg";
@@ -161,11 +161,11 @@ class Home extends Component {
                             <div className="row pt-lg-1">
                                 <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
                                     <div className="header-words-container pt-lg-5 pr-lg-3">
-                                        <h1 className="header-title mt-5 mt-lg-1 mb-2 mt-md-0  px-2 px-sm-0 ">
+                                        <h1 className="animated fadeInDown delay-3s header-title mt-5 mt-lg-1 mb-2 mt-md-0  px-2 px-sm-0 ">
                                             Protecting your <br/> interest is our business.</h1>
                                         <p className="header-sub-title mb-0 ">
                                             Save as little as <strong>₦500 </strong></p>
-                                        <p className="header-sub-title mb-2">
+                                        <p className="header-sub-title mb-3">
                                             Earn up to <strong>13% </strong> interest on Savings. </p>
                                         <Link to={'/sign-up'}
                                               className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow"> Create
@@ -233,11 +233,11 @@ class Home extends Component {
                                                 <div
                                                     className="d-flex flex-column flex-md-row justify-content-around align-items-center">
                                                     <div className="security-img-wrapper mb-2 mb-md-0">
-                                                        <img className="img-2x" src={securityIcon}
+                                                        <img  src={securityIcon}
                                                              alt="security icon"/>
                                                     </div>
                                                     <div className="ml-md-2 ml-md-0">
-                                                        <h2 className="text-white ">Your Security Is Our
+                                                        <h2>Your Security Is Our
                                                             Business</h2>
                                                         <h6>Safest Security Measures</h6>
                                                     </div>

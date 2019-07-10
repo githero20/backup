@@ -153,7 +153,7 @@
     }
 
     .header-navbar .navbar-header .navbar-brand .brand-logo {
-        width: 40%;
+        width: 130px;
     }
 
     .loading {
@@ -180,7 +180,7 @@
         min-height: 200px;
     }
     .dash-card-img{
-        width: 30%;
+        width: 5rem;
     }
     .dash-btn{
         padding: 5px 10px;
@@ -216,7 +216,14 @@
     .blue-round-btn {
         padding: 0px;
     }
-
+    .dash-card-img {
+        width: 11%;
+        margin: 0 auto;
+    }
+    .header-navbar .navbar-header .navbar-brand .brand-logo {
+        padding-top: 0px;
+        width: 45%;
+    }
     .login-background {
         background-image: none;
     }
@@ -235,7 +242,7 @@
     }
 
     html body .content.app-content{
-        margin-left: 24%;
+        margin-left: 0%;
     }
 }
 

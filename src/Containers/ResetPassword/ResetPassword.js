@@ -4,6 +4,7 @@ import { ToastProvider } from 'react-toast-notifications';
 import ResetPasswordForm from "../../Components/Auth/ResetPasswordForm/ResetPasswordForm";
 import {HomeLink} from "../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
+import {hideLoader} from "../../Helpers/Helper";
 
 class ResetPassword extends Component {
 
@@ -23,7 +24,7 @@ class ResetPassword extends Component {
     };
 
     componentDidMount() {
-
+        hideLoader();
         this.retreiveToken();
 
     }

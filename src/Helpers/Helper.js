@@ -5,6 +5,7 @@ import {getLocalStorage, setLocalStorage} from "../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../Components/Auth/HOC/authcontroller";
 import AutoNumeric from "autonumeric";
 import {getUserData} from "../actions/UserAction";
+import SimpleReactValidator from "simple-react-validator";
 
 
 export const STANDARD_ACCOUNT = 1;
@@ -21,6 +22,7 @@ export const INTEREST_ON_BACKUP_GOAL = 'STANDARD_BACKUP_GOAL_INTEREST_CRON_';
 export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
 export const CENTRAL_VAULT = 'central_vault';
 export const BACKUP_STASH = 'backup_stash';
+export const KYC = 'kyc';
 
 export function animateCSS(element, animationName, callback) {
     const node = document.querySelector(element);
@@ -120,6 +122,10 @@ export function getTotalSteadySaveDebit(transactions) {
         }
     }
 }
+export function validatePasswords(password, password_confirmation) {
+    // perform all neccassary validations
+    return (password === password_confirmation)? true: false;
+}
 
 export function getTotalSuccessfulSS(transactions) {
     if (transactions && transactions.length > 0) {
@@ -190,7 +196,7 @@ export function getCardsFromStorage(key, object) {
 export function hideLoader() {
     const loader = document.querySelector('.lds-loader-bg');
     setTimeout(() => {
-        console.log('loader', loader.style.display = 'none');
+       loader.style.display = 'none';
     }, 3000);
 }
 
@@ -396,6 +402,41 @@ export function transformHour(hour) {
             return 'none';
     }
 }
+export const passwordValidator = new SimpleReactValidator({
+    messages: {
+        password: 'Password combination must have a lowercase letter, uppercase letter, number, special character and must be a minimum of 8 characters',
+    },
+    validators: {
+        password: {  // name the rule
+            message: 'The :attribute must be a strong password and must have :values.',
+            rule: (val, params, validator) => {
+                return validator.helpers.testRegex(val,/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
+            },
+            messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
+            required: true  // optional
+        }
+    }
+});
+
+// export function validatePasswords (value,context) {
+//
+//     const {password} = context.state;
+//     // perform all neccassary validations
+//     if (password !== value) {
+//         context.setState({
+//             ConfirmPassError: true,
+//         });
+//         return false;
+//     } else {
+//         context.setState({
+//             ConfirmPassError: false,
+//         });
+//         return true;
+//
+//     }
+//
+// };
+
 
 
 export function dateFormatter(cell) {
@@ -461,7 +502,6 @@ export function descriptionFormatter(cell) {
 
 export function sourceFormatter(cell, row) {
     let content;
-    console.log('cell data', cell);
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
         return (
             <p style={{minWidth: '140px'}}

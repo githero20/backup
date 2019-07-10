@@ -270,8 +270,8 @@ class InstantSave extends Component {
                 dataField: 'type',
                 formatter: descriptionFormatter,
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             },
             {
@@ -292,15 +292,15 @@ class InstantSave extends Component {
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Reference',
                 dataField: 'reference',
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             }];
 

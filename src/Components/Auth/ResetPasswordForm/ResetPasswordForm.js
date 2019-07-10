@@ -6,6 +6,7 @@ import {withToastManager} from 'react-toast-notifications';
 import {LoginLink, ResetPasswordEndpoint} from "../../../RouteLinks/RouteLinks";
 import {request} from "../../../ApiUtils/ApiUtils";
 import {Redirect} from "react-router";
+import {passwordValidator, validatePasswords} from "../../../Helpers/Helper";
 
 
 class ResetPasswordForm extends Component {
@@ -15,7 +16,7 @@ class ResetPasswordForm extends Component {
         token:'',
         password_confirmation:'',
         email:'',
-        ConfirmPassError:false,
+        passErr:false,
         loading:false,
         redirect:false,
 
@@ -26,7 +27,7 @@ class ResetPasswordForm extends Component {
 
         super(props);
 
-        this.validator = new SimpleReactValidator();
+        this.validator = passwordValidator;
 
 
     }
@@ -38,6 +39,9 @@ class ResetPasswordForm extends Component {
         this.setState({
             [name]: value
         });
+        if (name == 'password_confirmation') {
+            (!validatePasswords(this.state.password, value)) ? this.setState({passErr: true}) : this.setState({passErr: false});
+        }
     };
 
 
@@ -75,16 +79,9 @@ class ResetPasswordForm extends Component {
                     toastManager.add(`${response.data.error}`, {
                         appearance: 'error',
                     })
-
                 }
-
-
-
             }
-
         }
-
-
     };
 
 
@@ -95,58 +92,36 @@ class ResetPasswordForm extends Component {
         e.preventDefault();
 
         if (this.validator.allValid()) {
-
-
-            if( this.validatePasswords()){
-
+            if( validatePasswords(this.state.password, this.state.password_confirmation)){
                 this.setState({
                     loading:true,
                     token:this.props.token
                 },()=>{
                     request(ResetPasswordEndpoint,this.state,false,'POST',this.handleResetResponse)
                 });
-
-
-
-
             }
-
-
         } else {
-
             // rerender to show messages for the first time
             this.validator.showMessages();
             // you can use the autoForceUpdate option to do this automatically`
             this.forceUpdate();
         }
-
-
     };
 
 
 
     validatePasswords = () => {
-
-
         const {password, password_confirmation} = this.state;
-
         // perform all neccassary validations
-
         if (password !== password_confirmation) {
-
             this.setState({
-                ConfirmPassError: true,
+                passErr: true,
             })
-
         } else {
-
             this.setState({
-                ConfirmPassError: false,
+                passErr: false,
             });
-
-            return true;
         }
-
     };
 
 
@@ -154,20 +129,15 @@ class ResetPasswordForm extends Component {
 
 
     render() {
-
         const {password,email}=this.state;
-
         if(this.state.redirect){
-
-
             return (
                 <Redirect to={LoginLink} />
             )
         }
-
         return (
             <React.Fragment>
-                <form className="login-form reset-form" onClick={this.submitForm}>
+                <form className="login-form reset-form" onSubmit={this.submitForm}>
                     <div className="row">
 
                         <div className="col-12">
@@ -176,33 +146,33 @@ class ResetPasswordForm extends Component {
                         </div>
 
                         <div className="col-12">
-                            <div className="input-field">
-                                <input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="validate" />
+                            <div className="form-group">
                                 <label htmlFor="email" className="">Email Address</label>
+                                <input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="form-control text-capitalize" />
+                                {this.validator.message('email', email, 'required|email')}
                             </div>
-                            {this.validator.message('email', email, 'required|email')}
 
                         </div>
 
 
                         <div className="col-12">
-                            <div className="input-field">
-                                <input id="password" name={'password'}  onChange={this.changeHandler} type="password" className="validate" />
+                            <div className="form-group">
                                 <label htmlFor="password" className="">New Password</label>
+                                <input id="password" name={'password'}  onChange={this.changeHandler} type="password" className="form-control text-capitalize" />
+                                {this.validator.message('password', password, 'required|string|min:8|password')}
                             </div>
-                            {this.validator.message('password', password, 'required|string|min:8')}
                         </div>
 
 
                         <div className="col-12 ">
-                            <div className="input-field">
+                            <div className="form-group">
                                 <label htmlFor="password_confirmation">Confirm New Password</label>
                                 <input id="password_confirmation" name={'password_confirmation'} type="password"
-                                       className="validate" onChange={this.changeHandler}
+                                       className="form-control text-capitalize" onChange={this.changeHandler}
                                        onBlur={this.validatePasswords}/>
 
                             </div>
-                            {this.state.ConfirmPassError ?
+                            {this.state.passErr ?
                                 <label className={'srv-validation-message'}>Password Doesn't match</label> : null}
                         </div>
 

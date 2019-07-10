@@ -176,7 +176,7 @@ class WithdrawalSettingsForm extends Component {
 
                         <div className="form-actions d-flex justify-content-center justify-content-md-end">
                             <button type="button"
-                                    className="btn  btn-custom-border px-3 py-1 round pull-left"
+                                    className="btn mr-1 px-3 py-1 round pull-left"
                                     onClick={this.props.onHide}>Cancel
                             </button>
                             <button type="submit"

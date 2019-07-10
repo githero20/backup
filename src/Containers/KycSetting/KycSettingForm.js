@@ -11,7 +11,7 @@ import {ToastProvider, withToastManager} from "react-toast-notifications";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
 import moment from "moment";
-import {disableKey} from "../../Helpers/Helper";
+import {disableKey, KYC} from "../../Helpers/Helper";
 
 let formData = new FormData();
 
@@ -169,7 +169,8 @@ class KycSettingForm extends Component {
         // console.log(status);
         // console.log(result);
         if (status) {
-            this.toastMessage("Kyc Updated", "success")
+            this.toastMessage("Kyc Updated", "success");
+            localStorage.setItem(KYC,'updated');
         } else {
             if (result.data.status == "failed") {
                 //password mismatch

@@ -110,12 +110,12 @@ class BackupStash extends Component {
 
                 //display total balance
                 accounts.map((content, idx) => {
-                    if (content.account_type_id === INTEREST_ACCOUNT) {
+                    if (content.account_type_id == INTEREST_ACCOUNT) {
                         console.log(content.balance);
                         this.setState({
                             totalStash: formatNumber(content.balance)
                         })
-                    }else if (content.account_type_id === STANDARD_ACCOUNT) {
+                    }else if (content.account_type_id == STANDARD_ACCOUNT) {
                         console.log(content.balance);
                         this.setState({
                             vaultBalance:content.balance,

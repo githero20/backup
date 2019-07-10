@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {withToastManager} from 'react-toast-notifications';
-import {capitalize, formatNumber, STANDARD_ACCOUNT, toastMessage} from "../../../../Helpers/Helper";
+import {capitalize, formatNumber, toastMessage} from "../../../../Helpers/Helper";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {KycSettingLink} from "../../../../RouteLinks/RouteLinks";
@@ -23,9 +23,8 @@ class MessageBox extends Component {
 
         //get item from local storage
         const data = getLocalStorage(USERINFO);
-        this.checkBalance(data);
 
-        let name = `${data.name} ${data.last_name!= null ? data.last_name:''}`;
+        let name = `${data.name} ${data.last_name != null ? data.last_name : ''}`;
         this.setState({
             userName: name,
             userReferralLink: data.referral_link,
@@ -39,31 +38,6 @@ class MessageBox extends Component {
         // display info to link use ot kyc
 
     }
-
-    checkBalance = (data) => {
-        if (data.accounts) {
-
-            // loop through data and set appropriate states
-            let accounts = data.accounts.data;
-
-            accounts.map((content, idx) => {
-                if (content.account_type_id === STANDARD_ACCOUNT) {
-                    if (parseFloat(content.balance).toFixed(2) >= 1000000) {
-
-                        this.setState({
-                            updateKyc: true,
-                            balance: content.balance
-                        }, () => {
-                        });
-                    }
-                }
-            });
-
-
-        }
-
-
-    };
 
 
     copyToClipboard = (e) => {
@@ -83,7 +57,7 @@ class MessageBox extends Component {
         textField.select();
         document.execCommand('copy');
         textField.remove();
-        toastMessage('Copied!', 'success',this);
+        toastMessage('Copied!', 'success', this);
     };
 
     copyLink = (e) => {
@@ -93,12 +67,13 @@ class MessageBox extends Component {
         textField.select();
         document.execCommand('copy');
         textField.remove();
-        toastMessage('Copied!', 'success',this);
+        toastMessage('Copied!', 'success', this);
     };
 
 
     componentDidMount() {
         getUserPoints(this.handlePoints);
+        //get
     }
 
     handlePoints = (status, res) => {
@@ -117,11 +92,11 @@ class MessageBox extends Component {
             <React.Fragment>
                 <span className='mb-1 mb-md-0'>
                     <strong>Hello {this.state.userName}! </strong>
-                    Your have currently saved up to ₦ {formatNumber(Number(this.state.balance).toFixed(2))}
+                    Your have currently saved up to ₦ {formatNumber(Number(this.props.balance).toFixed(2))}
                 </span>
                 <span className="admin-purple">
                     <strong><Link to={KycSettingLink}
-                                   className='purple-link text-uppercase'>Kindly click this link to update your kyc</Link></strong>.
+                                  className='purple-link text-uppercase'>Kindly click this link to update your kyc</Link></strong>.
                 </span>
             </React.Fragment>
         );
@@ -133,7 +108,8 @@ class MessageBox extends Component {
                 {/*    You referred 5 persons from [ 1 -2-2019 to 5-2-2019 ] ,*/}
                 {/*</span>*/}
                 <div className="admin-purple d-block d-md-inline">Your referral points earned
-                    <strong className="d-md-inline ml-1">{this.state.userPoint?this.state.userPoint:0} points</strong>
+                    <strong
+                        className="d-md-inline ml-1">{this.state.userPoint ? this.state.userPoint : 0} points</strong>
                 </div>
             </React.Fragment>
         );
@@ -141,7 +117,7 @@ class MessageBox extends Component {
         return (
             <React.Fragment>
                 {
-                    this.state.updateKyc ? (
+                    this.props.updateKyc ? (
                         <div className="row mb-1">
                             <div className="col-12">
                                 <div className={'bg-white shadow-sm dashboard-callout callout-border-right' +
@@ -163,7 +139,8 @@ class MessageBox extends Component {
                         <div className='bg-white shadow-sm dashboard-callout callout-border-right d-flex flex-column
                         flex-md-row flex-wrap justify-content-md-between align-items-center
                          callout-round callout-transparent px-2'>
-                            <label className='d-flex flex-column align-items-center flex-md-row justify-content-md-center'>
+                            <label
+                                className='d-flex flex-column align-items-center flex-md-row justify-content-md-center'>
                                 {referralInfo}
                             </label>
                             <label className='d-flex flex-md-row flex-wrap  align-items-center'>

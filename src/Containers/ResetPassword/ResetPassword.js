@@ -13,14 +13,10 @@ class ResetPassword extends Component {
     };
 
     retreiveToken =()=>{
-
         const token = this.props.match.params.token;
-        console.log(token);
         this.setState({
             token:token
         });
-
-
     };
 
     componentDidMount() {

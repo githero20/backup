@@ -1,41 +1,27 @@
 import React, {Component} from 'react';
-import SimpleReactValidator from "simple-react-validator";
 import {getLocalStorage, request} from "../../../ApiUtils/ApiUtils";
 import {UpdatePasswordEndpoint} from "../../../RouteLinks/RouteLinks";
 import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
+import {passwordValidator, validatePasswords} from "../../../Helpers/Helper";
 
 
-function validatePasswords (password, password_confirmation){
 
-
-    // perform all neccassary validations
-
-    if (password === password_confirmation) {
-
-        return true
-
-    } else {
-
-        return false
-    }
-
-}
 
 class UpdatePassword extends Component {
 
 
     //fetch user info
     state = {
-        token:null,
-        email:null,
-        password:null,
-        old_password:null,
-        password_confirmation:null,
-        loading:false,
-        passErr:false,
-        passwordError:false
+        token: null,
+        email: null,
+        password: null,
+        old_password: null,
+        password_confirmation: null,
+        loading: false,
+        passErr: false,
+        // passwordError:false
     };
 
     // get and validate password
@@ -45,7 +31,7 @@ class UpdatePassword extends Component {
 
         super(props);
 
-        this.validator = new SimpleReactValidator();
+        this.validator = passwordValidator;
 
 
     }
@@ -64,40 +50,34 @@ class UpdatePassword extends Component {
     changeHandler = event => {
         const name = event.target.name;
         const value = event.target.value;
-
-        console.log(value);
-
-        //validate password
-        if (name === 'password') {
-            this.validatePassword();
+        if (name == 'password_confirmation') {
+            (!validatePasswords(this.state.password, value)) ? this.setState({passErr: true}) : this.setState({passErr: false});
         }
-
         this.setState({
             [name]: value
         });
-        // this.validatePasswords();
     };
 
 
-    validatePassword = () => {
-        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
-        //^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})
+    // validatePassword = () => {
+    //     let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+    //     //^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})
+    //
+    //     const {password} = this.state;
+    //
+    //     if (strongRegex.exec(password)) {
+    //         this.setState({
+    //             passwordError: false,
+    //         })
+    //     } else {
+    //         this.setState({
+    //             passwordError: true,
+    //         })
+    //     }
+    //
+    // };
 
-        const {password} = this.state;
-
-        if (strongRegex.exec(password)) {
-            this.setState({
-                passwordError: false,
-            })
-        } else {
-            this.setState({
-                passwordError: true,
-            })
-        }
-
-    };
-
-    handleUpdateResponse = (state,response)=> {
+    handleUpdateResponse = (state, response) => {
 
         const {toastManager} = this.props;
 
@@ -110,8 +90,8 @@ class UpdatePassword extends Component {
             console.log(response.data.message);
             toastManager.add(`${response.data.message}`, {
                 appearance: 'success',
-                autoDismiss:true,
-                autoDismissTimeout:3000,
+                autoDismiss: true,
+                autoDismissTimeout: 3000,
             });
 
             setTimeout(() => {
@@ -119,15 +99,15 @@ class UpdatePassword extends Component {
             }, 2500);
 
         } else {
-            console.log("error"+JSON.stringify(response));
+            console.log("error" + JSON.stringify(response));
             if (response) {
                 if (response.data.errors) {
                     console.log(response.data.errors);
                 } else {
                     toastManager.add(`${response.data.error}`, {
                         appearance: 'error',
-                        autoDismiss:true,
-                        autoDismissTimeout:3000,
+                        autoDismiss: true,
+                        autoDismissTimeout: 3000,
                     })
 
                 }
@@ -140,8 +120,6 @@ class UpdatePassword extends Component {
     };
 
 
-
-
     // update password
 
     submitForm = (e) => {
@@ -151,18 +129,18 @@ class UpdatePassword extends Component {
         if (this.validator.allValid()) {
 
 
-            if( validatePasswords(this.state.password,this.state.password_confirmation)){
+            if (validatePasswords(this.state.password, this.state.password_confirmation)) {
 
                 this.setState({
-                    loading:true,
-                },()=>{
-                    request(UpdatePasswordEndpoint,this.state,true,'POST',this.handleUpdateResponse)
+                    loading: true,
+                }, () => {
+                    request(UpdatePasswordEndpoint, this.state, true, 'POST', this.handleUpdateResponse)
                 });
 
-            }else{
+            } else {
 
                 this.setState({
-                    passErr:true
+                    passErr: true
                 })
             }
 
@@ -178,32 +156,30 @@ class UpdatePassword extends Component {
     };
 
 
-    validatePass = ()=> {
-        const {password,password_confirmation}=this.state;
-        if(validatePasswords(password,password_confirmation)){
+    validatePass = () => {
+        const {password, password_confirmation} = this.state;
+        if (validatePasswords(password, password_confirmation)) {
             this.setState({
-                passErr:false,
+                passErr: false,
             })
-        }else {
+        } else {
             this.setState({
-                passErr:true,
+                passErr: true,
             })
         }
     };
 
 
-
-
-    componentDidMount(){
+    componentDidMount() {
 
         const token = getLocalStorage(USERTOKEN);
         const data = getLocalStorage(USERINFO);
 
-        if(data){
+        if (data) {
             this.setState({
                 token,
-                email:data.email
-            },()=>{
+                email: data.email
+            }, () => {
                 console.log(this.state);
             })
         }
@@ -211,73 +187,74 @@ class UpdatePassword extends Component {
     }
 
 
-
     render() {
-        const {password} = this.state;
+        const {password, old_password} = this.state;
         return (
             <React.Fragment>
                 <div>
-                        <div className="row my-5">
-                            <div className='col-12'>
-                                <h4 className=''>Update Password</h4>
-                                <div className='line'></div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="form-group">
-                                    <label htmlFor="password">Old Password</label>
-                                    <input
-                                        type="password"
-                                        id="old_password"
-                                        onChange={this.changeHandler}
-                                        className="form-control mb-1"
-                                        name="old_password"
-                                    />
-
-                                    {/*{this.validator.message('Old password', password, 'required|string|min:8')}*/}
-                                    {this.state.passwordError ?
-                                        <label className={'srv-validation-message'}>Password must contain at least one
-                                            lowercase letter,
-                                            one uppercase letter , one number ,one special character and must be a minimum
-                                            of 8 characters
-                                        </label> : null}
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="form-group">
-                                    <label htmlFor="password">New Password</label>
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        onChange={this.changeHandler}
-                                        className="form-control mb-1"
-                                        name="password"
-                                    />
-
-                                    {this.validator.message('Password', password, 'required|string|min:8')}
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="form-group">
-                                    <label htmlFor="password_confirmation">Confirm Password</label>
-                                    <input
-                                        type="password"
-                                        id="password_confirmation"
-                                        onChange={this.changeHandler}
-                                        onBlur={this.validatePass}
-                                        className="form-control mb-1"
-                                        name="password_confirmation"
-                                    />
-
-                                </div>
-                                {this.state.passErr? <div className={'srv-validation-message'}>Password Doesn't match</div> : null}
-                            </div>
-                            <div className="col-12 text-center mt-2  text-md-right">
-                                <button type="submit" onClick={this.submitForm} disabled={this.state.loading} className="btn-withdraw round ">
-                                    {this.state.loading?<ButtonLoader/>:
-                                        <span>Update Password</span>}
-                                </button>
+                    <div className="row my-5">
+                        <div className='col-12'>
+                            <h4 className=''>Update Password</h4>
+                            <div className='line'></div>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="form-group">
+                                <label htmlFor="password">Old Password</label>
+                                <input
+                                    type="password"
+                                    id="old_password"
+                                    onChange={this.changeHandler}
+                                    className="form-control mb-1"
+                                    name="old_password"
+                                />
+                                {this.validator.message('old password', old_password, `required|string|min:8|password`)}
+                                {/*{this.validator.message('Old password', password, 'required|string|min:8')}*/}
+                                {/*{this.state.passwordError ?*/}
+                                {/*    <label className={'srv-validation-message'}>Password must contain at least one*/}
+                                {/*        lowercase letter,*/}
+                                {/*        one uppercase letter , one number ,one special character and must be a minimum*/}
+                                {/*        of 8 characters*/}
+                                {/*    </label> : null}*/}
                             </div>
                         </div>
+                        <div className="col-md-4">
+                            <div className="form-group">
+                                <label htmlFor="password">New Password</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    onChange={this.changeHandler}
+                                    className="form-control mb-1"
+                                    name="password"
+                                />
+                                {this.validator.message('password', password, `required|string|min:8|password`)}
+                                {/*{this.validator.message('Password', password, 'required|string|min:8')}*/}
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="form-group">
+                                <label htmlFor="password_confirmation">Confirm Password</label>
+                                <input
+                                    type="password"
+                                    id="password_confirmation"
+                                    onChange={this.changeHandler}
+                                    onBlur={this.validatePass}
+                                    className="form-control mb-1"
+                                    name="password_confirmation"
+                                />
+
+                            </div>
+                            {this.state.passErr ?
+                                <div className={'srv-validation-message'}>Password Doesn't match</div> : null}
+                        </div>
+                        <div className="col-12 text-center mt-2  text-md-right">
+                            <button type="submit" onClick={this.submitForm} disabled={this.state.loading}
+                                    className="btn-withdraw round ">
+                                {this.state.loading ? <ButtonLoader/> :
+                                    <span>Update Password</span>}
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
             </React.Fragment>

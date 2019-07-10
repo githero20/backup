@@ -2,35 +2,42 @@
 
 
 @media only screen and (max-width: 599px) {
-    .faq-main .btn-link{
+    .faq-main .btn-link {
         font-size: .8rem;
     }
-    .main-menu{
+
+    .main-menu {
         z-index: 2999999999;
         width: 260px;
     }
-    .table th, .table td{
+
+    .table th, .table td {
         padding: .5rem;
     }
-    .mobile-bg{
+
+    .mobile-bg {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         z-index: 1000;
-        background-color: rgba(0,0,0,0.6);
+        background-color: rgba(0, 0, 0, 0.6);
     }
-    .vertical-layout.vertical-menu-modern.menu-flipped .main-menu{
+
+    .vertical-layout.vertical-menu-modern.menu-flipped .main-menu {
         left: -30px;
     }
-    .main-menu.menu-dark, .main-menu.menu-dark .navigation, .main-menu.menu-dark .navigation > li > ul{
+
+    .main-menu.menu-dark, .main-menu.menu-dark .navigation, .main-menu.menu-dark .navigation > li > ul {
         left: -30px;
     }
-    .fixed-navbar.menu-expanded.menu-open .main-menu.menu-dark, .fixed-navbar.menu-expanded.menu-open .main-menu.menu-dark .navigation,.fixed-navbar.menu-expanded.menu-open .main-menu.menu-dark .navigation > li > ul{
+
+    .fixed-navbar.menu-expanded.menu-open .main-menu.menu-dark, .fixed-navbar.menu-expanded.menu-open .main-menu.menu-dark .navigation, .fixed-navbar.menu-expanded.menu-open .main-menu.menu-dark .navigation > li > ul {
         left: 0px;
     }
-        /* mobile menu */
+
+    /* mobile menu */
     .header-navbar .navbar-header .navbar-brand {
         position: absolute;
         top: 0;
@@ -38,54 +45,67 @@
         padding-top: 0.6rem;
         transform: translate(0);
     }
-    .dashboard-callout{
+
+    .dashboard-callout {
         padding: 10px;
     }
-    .mb-btn-wrapper.steady-btn-wrapper,.mb-btn-wrapper.bg-btn-wrapper{
+
+    .mb-btn-wrapper.steady-btn-wrapper, .mb-btn-wrapper.bg-btn-wrapper {
         width: 100%;
     }
+
     .avatar img {
         margin-bottom: 3px;
     }
+
     .main-menu.menu-dark .navigation > li:first-of-type {
         border-bottom: 1px solid #c2c2c2;
     }
-    .mobile-profile-nav{
+
+    .mobile-profile-nav {
         padding-bottom: 30px !important;
     }
-    .table-status{
+
+    .table-status {
         font-size: 1.2rem;
     }
-    .dash-card-analysis h6{
+
+    .dash-card-analysis h6 {
         width: 105px;
     }
-    .modal{
+
+    .modal {
         z-index: 20000000000;
     }
 
-    .modal-backdrop{
+    .modal-backdrop {
         z-index: 2000000000;
     }
+
     .css-e110bw {
         z-index: 20000000000000 !Important;
         top: 0 !important;
         left: 0 !important;
     }
+
     /*.mb-btn-wrapper{*/
     /*    width: 100%;*/
     /*}*/
     .modal-content h4 {
         font-size: 15px;
     }
-    .steady-save-modal .modal-content, .instant-save-modal .modal-content{
+
+    .steady-save-modal .modal-content, .instant-save-modal .modal-content {
         padding: 1.5rem .5rem;
         border-radius: 2rem;
     }
+
     .header-navbar .navbar-header .menu-toggle {
         position: relative;
         top: 58%;
     }
-    .is-modal-form .btn-custom-blue{
+
+    .is-modal-form .btn-custom-blue {
         flex-basis: 60%;
         font-size: 1rem;
     }
@@ -109,38 +129,44 @@
         text-align: center;
         border-radius: .8rem;
         margin-bottom: 4rem;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
         cursor: pointer;
         transition: all .5s ease-in-out;
     }
+
     .ad-container .ad-placeholder:hover {
         transform: scale(1.1);
     }
+
     .ad-container .ad-placeholder.active {
         transform: scale(1.1);
     }
 
-    .ad-container .ad-desc-placeholder{
+    .ad-container .ad-desc-placeholder {
         margin-bottom: 0;
     }
-    .btn-custom-blue{
+
+    .btn-custom-blue {
         /*width:5rem;*/
     }
 
-    .dashboard-callout label{
-        margin:0px 0px;
+    .dashboard-callout label {
+        margin: 0px 0px;
     }
-    .ad-container-modal .modal-content{
-        padding-top:2rem;
+
+    .ad-container-modal .modal-content {
+        padding-top: 2rem;
         background-color: white;
         background-image: none;
         border-radius: 1rem;
     }
+
     /*whatsapp section*/
-    .whatsapp .btn-whatsapp{
+    .whatsapp .btn-whatsapp {
 
         padding: 1.5rem 2rem;
     }
+
     /*bank card */
     .bank-card {
         border-radius: 1rem;
@@ -153,7 +179,7 @@
     }
 
     .header-navbar .navbar-header .navbar-brand .brand-logo {
-        width: 40%;
+        width: 130px;
     }
 
     .loading {
@@ -176,37 +202,44 @@
     /*.mb-details-container, .mb-btn-wrapper {*/
     /*    width: 100%;*/
     /*}*/
-    .dash-card{
+    .dash-card {
         min-height: 200px;
     }
-    .dash-card-img{
-        width: 30%;
+
+    .dash-card-img {
+        width: 5rem;
     }
-    .dash-btn{
+
+    .dash-btn {
         padding: 5px 10px;
         font-size: 12px;
         line-height: 2em;
     }
-    .dash-action h5{
+
+    .dash-action h5 {
         font-size: 10px;
     }
-    .dash-ads .dash-action a{
+
+    .dash-ads .dash-action a {
         font-size: 8px;
     }
+
     .dash-action {
         width: 100px;
     }
-    .right-action{
-        left:40%;
+
+    .right-action {
+        left: 40%;
     }
 
-    .error-section .error-header{
+    .error-section .error-header {
         font-size: 2rem;
     }
-    .error-section .error-btn{
-            /*padding: .5rem 1.5rem;*/
-            font-size: 1rem;
-        }
+
+    .error-section .error-btn {
+        /*padding: .5rem 1.5rem;*/
+        font-size: 1rem;
+    }
 
 }
 
@@ -215,6 +248,29 @@
 
     .blue-round-btn {
         padding: 0px;
+    }
+    .header-navbar .navbar-header .navbar-brand{
+        left:12%;
+    }
+    .navbar-semi-dark .navbar-nav .mobile-menu{
+        margin-top: 13px;
+    }
+    .dash-card-img {
+        width: 11%;
+        margin: 0 auto;
+    }
+    .mb-details-container, .mb-btn-wrapper{
+        margin-right: 15px;
+    }
+    .modal-body{
+        padding: 3rem;
+    }
+    .ss-action-details{
+        min-width: 200px;
+    }
+    .header-navbar .navbar-header .navbar-brand .brand-logo {
+        padding-top: 0px;
+        width: 150px;
     }
 
     .login-background {
@@ -234,16 +290,17 @@
         width: 2rem;
     }
 
-    html body .content.app-content{
-        margin-left: 24%;
+    html body .content.app-content {
+        margin-left: 0%;
     }
 }
 
 @media only screen and (min-width: 900px) and (max-width: 1200px) {
-    html body .content.app-content{
+    html body .content.app-content {
         margin-left: 18%;
         background-color: #F7FBFF;
     }
+
     /*.mb-btn-wrapper button {*/
     /*    padding: 1rem 2rem 1rem 3rem;*/
     /*    font-size: .7rem;*/
@@ -253,7 +310,6 @@
     /*    cursor: pointer;*/
     /*    transition: all .5s ease;*/
     /*}*/
-
     /*.mb-details-container p{*/
     /*    font-size: .8rem;*/
     /*}*/
@@ -315,10 +371,12 @@
         margin-left: 18%;
     }
 
-    html body .content .content-wrapper{
-        padding-top: 0rem;
+    html body .content .content-wrapper {
+        padding-top: 3rem;
     }
-
+    .dash-card h3{
+        font-size: 1.2rem;
+    }
     .mb-btn-wrapper button {
         padding: 1rem 1rem 1rem 2.5rem;
         font-size: 1rem;
@@ -328,11 +386,13 @@
         cursor: pointer;
         transition: all .5s ease;
     }
+
     .btn-blue-gradient-2 img {
         position: absolute;
         top: 0.7rem;
         left: .4rem;
     }
+
     .blue-card-heading {
         font-size: 1rem;
         margin-bottom: 1rem;
@@ -349,12 +409,12 @@
         width: 100%;
     }
 
-    html body .content.app-content{
+    html body .content.app-content {
         margin-left: 18%;
         background-color: #F7FBFF;
     }
 
-    html body .content .content-wrapper{
+    html body .content .content-wrapper {
         padding-top: 0rem;
 
     }

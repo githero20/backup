@@ -4,6 +4,7 @@ import { ToastProvider } from 'react-toast-notifications';
 import ResetPasswordForm from "../../Components/Auth/ResetPasswordForm/ResetPasswordForm";
 import {HomeLink} from "../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
+import {hideLoader} from "../../Helpers/Helper";
 
 class ResetPassword extends Component {
 
@@ -12,18 +13,14 @@ class ResetPassword extends Component {
     };
 
     retreiveToken =()=>{
-
         const token = this.props.match.params.token;
-        console.log(token);
         this.setState({
             token:token
         });
-
-
     };
 
     componentDidMount() {
-
+        hideLoader();
         this.retreiveToken();
 
     }
@@ -38,7 +35,7 @@ class ResetPassword extends Component {
                             <div className="row  pt-md-2">
                                 <div className=" col-md-6 offset-md-6">
                                     {/*   header component */}
-                                    <div className=" py-md-1 px-md-1 px-md-5 py-md-5 header-shadow mt-2 mb-md-5 bg-white">
+                                    <div className=" py-md-1 px-md-1 px-md-2 py-md-2 header-shadow mt-2 mb-md-5 bg-white">
                                         <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>
                                     </div>
                                     <ToastProvider>

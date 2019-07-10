@@ -17,7 +17,7 @@ import {
     amountFormatter,
     BACKUP_GOALS_ACCOUNT, balanceFormatter, dateFormatter, descriptionFormatter,
     getCompletedGoals,
-    INTEREST_ACCOUNT,
+    INTEREST_ACCOUNT, KYC,
     LOCKED_ACCOUNT, sourceFormatter,
     STANDARD_ACCOUNT, statusFormatter
 } from "../../Helpers/Helper";
@@ -58,6 +58,7 @@ class DashboardIndex extends Component {
         isActive: false,
         showAdModal: false,
         vaultInterest: 0,
+        updateKyc:false,
         lockedSavingsInterest: 0
     };
 
@@ -310,7 +311,7 @@ class DashboardIndex extends Component {
 
 
         }
-    }
+    };
 
     setUpActivation = (status, userInfo) => {
 
@@ -362,7 +363,7 @@ class DashboardIndex extends Component {
                     userName: res.data.data.name,
                     showLoader: false
                 });
-
+                this.showUpdateKYC(res.data.data);
 
 
                 if (res.data.data.accounts) {
@@ -441,7 +442,6 @@ class DashboardIndex extends Component {
 
 
     activateAccount = () => {
-
         const url = activateUserEndpoint;
         api(url, null, true, false, this.handleUserActivation)
 
@@ -456,6 +456,29 @@ class DashboardIndex extends Component {
             })
         }
 
+    };
+
+    showUpdateKYC = (data) => {
+        const update = localStorage.getItem(KYC);
+        console.log('update value',update);
+        if(update==null){
+            console.log('user data',data);
+            if (data.accounts) {
+                // loop through data and set appropriate states
+                let accounts = data.accounts.data;
+
+                accounts.map((content, idx) => {
+                    if (content.account_type_id === STANDARD_ACCOUNT) {
+                        if (parseFloat(content.balance).toFixed(2) >= 1000000) {
+                            console.log('here to update kyc',content.balance);
+                            this.setState({
+                                updateKyc: true,
+                            });
+                        }
+                    }
+                });
+            }
+        }
     };
 
 
@@ -524,6 +547,7 @@ class DashboardIndex extends Component {
                     {this.state.showLoader ? <DashboardLoader/> : null}
                     <DashboardContainer
                         isActive={this.state.isActive}
+                        updateKyc={this.state.updateKyc}
                         vaultAmount={vaultAmount}
                         vaultInterest={vaultInterest}
                         backupAmount={backupAmount}

@@ -136,7 +136,7 @@ class DashboardContainer extends Component {
 
                         {/*{*/}
                         {/*    !isActive?*/}
-                        <MessageBox/>
+                        <MessageBox updateKyc={this.props.updateKyc} balance={vaultAmount}/>
                         {/*    :null*/}
                         {/*}*/}
 

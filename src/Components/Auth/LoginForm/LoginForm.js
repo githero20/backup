@@ -97,7 +97,7 @@ class LoginForm extends Component {
                         window.location.replace(ADMIN_LOGIN_URL);
                         break;
                     case CUSTOMER:
-                        if (response.data.bank_withdrawal_pin==true) {
+                        if (response.data.bank_withdrawal_pin == true) {
                             localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
                             localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
                             setTimeout(() => {
@@ -199,11 +199,10 @@ class LoginForm extends Component {
                                 activateAcc: true
                             })
                         }, 3000);
-
                         // redirect user to the activation page
-
+                    } else {
+                        this.toastMessage(`${JSON.stringify(response.data.message)}`, 'error');
                     }
-
                 } else {
                     this.toastMessage(`${JSON.stringify(response.data.message)}`, 'error');
                 }

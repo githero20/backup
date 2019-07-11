@@ -249,9 +249,9 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
-                    <section className="start-now yellow-gradient">
-                        <div className="container">
-                            <div className="row">
+                    <section className="start-now ">
+                        <div className="container ">
+                            <div className="row ">
                                 <div className="col-md-12">
                                     <div className="section-header mt-md-5 ">
                                         <img className="mb-5 mb-md-3 yellow-icon-2" src={yellowIcon} alt=""/>
@@ -262,47 +262,45 @@ class Home extends Component {
                         </div>
                         <div className=" pb-5 pb-md-0 height-100vh ">
                             {/*<img className="yellow-svg" src={yellowBg} alt=''/>*/}
-                            <div className="container ">
-                                <div className="row ">
-                                    <div className="col-md-4">
+                            <div className="container px-md-5">
+                                <div className="row mx-md-5">
+                                    <div className="col-md-4 px-md-0">
 
                                         <div className="card-container text-center mb-xs-5">
                                             <div className="pt-5 mb-5  mb-md-3 pt-md-3">
-                                                <button className="rounded-btn btn-dark-blue">1</button>
+                                                <button className="rounded-btn round-btn-dark-blue">1</button>
                                             </div>
                                             <p className="card-text mb-5">Create an account or login
                                                 in less than two minutes </p>
-                                            <div className="card mb-5" data-aos-delay={700} data-aos="fade-up">
+                                            <div className="card mb-5">
                                                 <img className="card-1-img" src={cardIll1}
                                                      alt="illustration"/>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <div className="col-md-4">
+                                    <div className="col-md-4 px-md-0">
 
                                         <div className="card-container text-center">
                                             <div className="pt-5 mb-5 mb-md-3 pt-md-3">
-                                                <button className="rounded-btn btn-dark-blue">2</button>
+                                                <button className="rounded-btn round-btn-dark-blue">2</button>
                                             </div>
                                             <p className="card-text mb-5">Choose a savings plan that
                                                 works for you </p>
-                                            <div className="card mb-5" data-aos-delay={700} data-aos="fade-down">
+                                            <div className="card mb-5" >
                                                 <img className="card-1-img mt-3" src={cardIll2} alt="illustration"/>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <div className="col-md-4">
-
-
+                                    <div className="col-md-4 px-md-0">
                                         <div className="card-container text-center">
                                             <div className="pt-5 mb-5 mb-md-3 pt-md-3">
-                                                <button className="rounded-btn btn-dark-blue">3</button>
+                                                <button className="rounded-btn round-btn-dark-blue">3</button>
                                             </div>
                                             <p className="card-text mb-5">Rest easy and watch
                                                 your money grow </p>
-                                            <div className="card mb-5" data-aos-delay={700} data-aos="fade-up">
+                                            <div className="card mb-5" >
                                                 <img className="card-2-img" src={cardIll3} alt="illustration"/>
                                             </div>
 
@@ -322,9 +320,9 @@ class Home extends Component {
                             </div>
                         </div>
                     </section>
-                    <section className="mb-5">
+                    <section className="pb-5 app-features home-blue-bg">
                         <div className="container">
-                            <div className="row mt-0 mt-md-5 mb-md-5">
+                            <div className="row mt-0 pt-md-5 mb-md-5">
                                 <div className="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
                                     <div className="section-header mt-5 mb-5">
                                         <img className="mb-4 yellow-icon" src={yellowIcon} alt=""/>
@@ -397,7 +395,7 @@ class Home extends Component {
                         </div>
 
 
-                        <div className="light-yellow-backdrop">
+                        <div>
                             <div className="container">
                                 <div className="row pt-5 px-lg-5 mx-lg-5">
                                     <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
@@ -666,7 +664,7 @@ class Home extends Component {
                             </div>
                         </div>
                     </section>
-                    <footer className="light-yellow-bg home-footer footer">
+                    <footer className="home-footer footer">
                         <div className="container my-0 my-lg-5">
                             <div className="row px-lg-5 mx-lg-5">
                                 <div className="col-md-2 offset-md-2 d-none d-lg-block offset-lg-0 col-lg-3">

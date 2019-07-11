@@ -169,6 +169,20 @@ export function getPercentage(startValue, endValue) {
 
 }
 
+export function readURL(input,context) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            console.log('image url',e.target.result);
+            console.log('previewer', document.querySelector('#img-previewer'));
+            context.setState({
+                fileUpload:e.target.result
+            });
+            // document.querySelector('#img-previewer').setAttribute('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 //
 // export function capitalize (value) {
 //     value.prototype.capitalize = function() {

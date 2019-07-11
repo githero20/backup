@@ -9,6 +9,7 @@ import {HomeLink} from "../../RouteLinks/RouteLinks";
 import SetupWithdrawalForm from "../../Components/Auth/SetupWithdrawalForm/SetupWithdrawalForm";
 import {getListOfBanks} from "../../actions/BankAction";
 import queryString from "query-string";
+import {hideLoader} from "../../Helpers/Helper";
 
 
 class SetupWithdrawal extends Component {
@@ -19,6 +20,7 @@ class SetupWithdrawal extends Component {
     };
 
     componentDidMount() {
+        hideLoader();
         getListOfBanks((status, payload) =>{
             if(status){
                 this.setState({banks:payload});

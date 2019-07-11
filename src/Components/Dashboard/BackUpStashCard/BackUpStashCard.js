@@ -35,7 +35,10 @@ class BackUpStashCard extends Component {
 
 
                 <div className="col-12 col-lg-6">
-                    <h2 className={'dash-header'}>Backup Stash</h2>
+                    <div className='d-flex align-items-center mb-2'>
+                        <h2 className={'dash-header mb-0'}>Backup Stash - </h2>
+                        <small className='text-muted'>Your gained interest</small>
+                    </div>
                     <div className="d-flex stash-card flex-column flex-md-row align-items-lg-center dash-card orange-border-right pull-up" >
                         <div className="card-item dash-card-img-cover">
                             <img src={yellowIcon} className={'dash-card-img'}/>
@@ -61,7 +64,7 @@ class BackUpStashCard extends Component {
                         </div>
                         <div
                             className="card-item d-flex flex-column justify-content-between align-content-between">
-                            <Link to={BackupStashLink}  className={'btn btn-gray dash-btn'}>See All <i
+                            <Link to={BackupStashLink}  className={'btn btn-gray dash-btn stash-btn'}>See All <i
                                 className='fa fa-arrow-right'></i></Link>
                         </div>
 

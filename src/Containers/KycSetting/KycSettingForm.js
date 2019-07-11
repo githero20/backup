@@ -11,7 +11,8 @@ import {ToastProvider, withToastManager} from "react-toast-notifications";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
 import moment from "moment";
-import {disableKey, KYC} from "../../Helpers/Helper";
+import {disableKey, KYC, readURL} from "../../Helpers/Helper";
+import PreviewModal from "../../Components/Dashboard/PreviewModal/PreviewModal";
 
 let formData = new FormData();
 
@@ -22,6 +23,8 @@ class KycSettingForm extends Component {
 
         this.state = {
             loading: false,
+            fileUpload: '',
+            showPreview: false,
             form: {
                 maiden_name: "",
                 password: "",
@@ -39,12 +42,14 @@ class KycSettingForm extends Component {
                 gender: "male"
             },
             showLoader: false,
+            showModal: false,
             userName: null,
         };
         this.validator = new SimpleReactValidator();
 
         this.validateForm = this.validateForm.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleFileChange = this.handleFileChange.bind(this);
         this.handleKyc = this.handleKyc.bind(this);
         this.handleStoreKyc = this.handleStoreKyc.bind(this);
     }
@@ -54,6 +59,19 @@ class KycSettingForm extends Component {
         let date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
         return date;
     }
+
+    hideModal = () => {
+        this.setState({
+            showModal: false,
+
+        });
+    };
+
+    showModal = () => {
+        this.setState({
+            showModal: true,
+        });
+    };
 
     validateForm(e) {
         e.preventDefault();
@@ -94,8 +112,13 @@ class KycSettingForm extends Component {
     handleFileChange(e) {
         // console.log("files");
         // console.log(e);
+        console.log('name', e.target.name);
         const file = e.target.files[0];
-        formData.append("identification_type_picture_url", file)
+        formData.append("identification_type_picture_url", file);
+        readURL(e.target, this);
+        this.setState({
+            showPreview: true
+        })
 
     }
 
@@ -170,7 +193,7 @@ class KycSettingForm extends Component {
         // console.log(result);
         if (status) {
             this.toastMessage("Kyc Updated", "success");
-            localStorage.setItem(KYC,'updated');
+            localStorage.setItem(KYC, 'updated');
         } else {
             if (result.data.status == "failed") {
                 //password mismatch
@@ -180,6 +203,7 @@ class KycSettingForm extends Component {
         this.setState({loading: false});
 
     }
+
 
     render() {
         return (
@@ -441,11 +465,13 @@ class KycSettingForm extends Component {
                                                                     <h4 className="card-title"
                                                                         id="basic-layout-colored-form-control">
                                                                         Identification</h4>
-                                                                    <a className="heading-elements-toggle"><i className="la la-ellipsis-v font-medium-3"></i></a>
+                                                                    <a className="heading-elements-toggle"><i
+                                                                        className="la la-ellipsis-v font-medium-3"></i></a>
                                                                     <div className="heading-elements">
                                                                         <ul className="list-inline mb-0">
                                                                             <li>
-                                                                                <a data-action="collapse"><i className="ft-plus"></i></a>
+                                                                                <a data-action="collapse"><i
+                                                                                    className="ft-plus"></i></a>
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -506,35 +532,40 @@ class KycSettingForm extends Component {
 
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div className=" col-md-12">
+                                                                                    <div className="col-md-12">
                                                                                         <div className="form-group">
                                                                                             <Form.Label>Identification
                                                                                                 File</Form.Label>
-                                                                                            <input type="file"
-                                                                                                   // onChange={this.handleFileChange}
-                                                                                                   // id="file-upload"
-                                                                                                   name="identification_type_picture_url"
 
-                                                                                            />
 
                                                                                             <input type="file"
-                                                                                                   id="file-upload"
-                                                                                                   name='file-upload'
-                                                                                                   accept="image/x-png,image/jpeg"
+                                                                                                   className='mb-1 form-control'
                                                                                                    onChange={this.handleFileChange}
-                                                                                                   className='cust-file-upload'
-                                                                                                   // required
+                                                                                                   id="file-upload"
+                                                                                                   name="identification_type_picture_url"
+                                                                                                   accept="image/x-png,image/jpeg"
                                                                                             />
-                                                                                            {/*<input type="file"*/}
-                                                                                            {/*       id="file-upload"*/}
-                                                                                            {/*       onChange={this.handleFileChange}*/}
-                                                                                            {/*       className='cust-file-upload'*/}
-                                                                                            {/*       required*/}
-                                                                                            {/*/>*/}
-                                                                                            {/*<label*/}
-                                                                                            {/*    htmlFor="file-upload">Upload*/}
-                                                                                            {/*    file</label>*/}
-                                                                                            <div id="file-upload-filename"></div>
+
+                                                                                            {this.state.showPreview ?
+                                                                                                <div
+                                                                                                    className='text-right'>
+                                                                                                    <button
+                                                                                                        type='button'
+                                                                                                        onClick={this.showModal}
+                                                                                                        className='btn-info round btn-sm'>Preview
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                                : null}
+
+                                                                                            <div
+                                                                                                id="file-upload-filename"></div>
+
+
+                                                                                            <PreviewModal
+                                                                                                show={this.state.showModal}
+                                                                                                image={this.state.fileUpload}
+                                                                                                onHide={this.hideModal}
+                                                                                            />
 
                                                                                             {/*<div className="custom-file1">*/}
                                                                                             {/*    <label*/}
@@ -621,10 +652,9 @@ class KycSettingForm extends Component {
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-
-
                                                                             </div>
-                                                                            <Form.Row className={'d-flex justify-content-end'}>
+                                                                            <Form.Row
+                                                                                className={'d-flex justify-content-end'}>
                                                                                 <button
                                                                                     className={'btn btn-custom-blue round '}
                                                                                     type="submit">
@@ -643,10 +673,7 @@ class KycSettingForm extends Component {
                                                 </section>
                                             </Form>
                                         </div>
-
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>

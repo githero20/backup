@@ -15,6 +15,12 @@
         padding: .5rem;
     }
 
+    .dash-card-analysis h6, .dash-card-analysis strong{
+        width: 120px;
+    }
+    .stash-btn{
+        max-width: 100px;
+    }
     .mobile-bg {
         position: fixed;
         top: 0;
@@ -256,7 +262,7 @@
         margin-top: 13px;
     }
     .dash-card-img {
-        width: 11%;
+        width: 60px;
         margin: 0 auto;
     }
     .mb-details-container, .mb-btn-wrapper{
@@ -269,7 +275,7 @@
         min-width: 200px;
     }
     .header-navbar .navbar-header .navbar-brand .brand-logo {
-        padding-top: 0px;
+        padding-top: 3px;
         width: 150px;
     }
 
@@ -417,5 +423,45 @@
     html body .content .content-wrapper {
         padding-top: 0rem;
 
+    }
+}
+
+@media all and (min-width: 768px){
+    .header-navbar .navbar-container ul.nav li a.menu-toggle{
+        padding: 0px;
+    }
+    .navbar-semi-dark .navbar-nav li.nav-item{
+        display:flex;
+        align-items: center;
+    }
+    .header-navbar .navbar-container ul.nav li a.dropdown-user-link{
+        margin-right: 0px;
+    }
+    .nav .nav-item .nav-link{
+        display:flex;
+        align-items: center;
+    }
+    .navbar-nav .nav-link{
+        margin-bottom: 0px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 900px) {
+
+    .main-menu {
+        transform: translate3d(-240px, 0, 0);
+        transition: all .3s ease-in-out;
+        /*-webkit-backface-visibility: hidden;*/
+        /*backface-visibility: hidden;*/
+    }
+    .main-menu.active {
+        transform: translate3d(0, 0, 0);
+        /*-webkit-backface-visibility: hidden;*/
+        /*backface-visibility: hidden;*/
+    }
+}
+
+@media all and (min-width:900px) {
+    .tab-toggler{
+        display: none !important;
     }
 }

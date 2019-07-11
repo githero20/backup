@@ -3375,10 +3375,10 @@ select.form-control
 {
     margin-top: -1rem;
 }
-.nav .nav-item .nav-link
-{
-    display: block;
-}
+/*.nav .nav-item .nav-link*/
+/*{*/
+/*    display: block;*/
+/*}*/
 .nav .dropdown-divider
 {
     margin: .5rem 0;

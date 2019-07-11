@@ -81,8 +81,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 div.fixed-navbar {
     padding-top: 5rem;
 }
-
-button {
+.page-item.active .page-link button {
     position: relative;
 }
 
@@ -177,7 +176,7 @@ button .loadingSpinner {
 .pagination .page-link:hover{
     z-index: 2;
     text-decoration: none;
-    background-color: none;
+    background-color: transparent;
 
 }
 .purple-link:hover {
@@ -840,6 +839,10 @@ input[type="date"]::-webkit-clear-button {
     border-color: #2784F4;
     background-color: #2784F4;
     border-radius: 50%;
+    min-width: 27px;
+    /*min-width: 25px;*/
+    padding:.5rem .5rem;
+    text-align: center;
 }
 
 .custom-pagination li a {
@@ -1227,12 +1230,23 @@ input[type="date"]::-webkit-clear-button {
 }
 
 .filter-box {
-    padding: 2rem 2rem;
+    padding: 1rem 1.5rem;
     background-color: #ffffff;
     position: absolute;
     z-index: 100000;
-    top: 7rem;
-    left: 4%;
+    display: flex;
+    align-items: center;
+    top: 2rem;
+    left: 24%;
+}
+.filter-box .custom-filter{
+    display: flex;
+}
+.filter-box .custom-filter .filter-label{
+    width: 150px;
+    margin-right: 10px;
+}.filter-box .custom-filter .filter-label ~ div{
+    margin-right: 10px;
 }
 
 .border-top-red {
@@ -3227,12 +3241,15 @@ html body .content.app-content {
     line-height: 1rem;
 }
 
-.page-item.active .page-link {
-    color: #fff;
-    border-color: #2784F4;
-    background-color: #2784F4;
-    border-radius: 50%;
-}
+/*.page-item.active .page-link {*/
+/*    color: #fff;*/
+/*    border-color: #2784F4;*/
+/*    background-color: #2784F4;*/
+/*    border-radius: 50%;*/
+/*    width: 25px;*/
+/*    text-align: center;*/
+/*    height: 25px;*/
+/*}*/
 
 .custom-pagination.pagination-round.pagination-flat li a {
     padding: .5rem .75rem;
@@ -4877,6 +4894,7 @@ p {
 
 .dash-header {
     font-size: 16px;
+    margin-right: 5px;
     font-family: "Circular Std Medium", "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 

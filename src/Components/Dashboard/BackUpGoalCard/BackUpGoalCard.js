@@ -63,7 +63,10 @@ class BackUpGoalCard extends Component {
                 {/*</div>*/}
 
                 <div className="col-12 col-lg-6">
-                    <h2 className={'dash-header '}>Backup Goals</h2>
+                    <div className='d-flex align-items-center mb-2'>
+                        <h2 className={'dash-header mb-0'}>Backup Goals - </h2>
+                        <small className='text-muted'>Start a new savings plan</small>
+                    </div>
                     <div className="d-flex flex-column flex-md-row align-items-lg-center dash-card yellow-border-right pull-up">
                         <div className="card-item dash-card-img-cover">
                             <img src={orangeIcon} className={'dash-card-img'}/>

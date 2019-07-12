@@ -6,6 +6,7 @@ import ButtonLoader from "../Buttonloader/ButtonLoader";
 import { passwordResetEndpoint} from "../../../RouteLinks/RouteLinks";
 import {request} from "../../../ApiUtils/ApiUtils";
 import {withToastManager} from 'react-toast-notifications';
+import {hideLoader} from "../../../Helpers/Helper";
 
 class ForgotPasswordForm extends Component {
 
@@ -113,7 +114,9 @@ class ForgotPasswordForm extends Component {
 
 
 
-
+    componentDidMount() {
+        hideLoader();
+    }
 
     render() {
 
@@ -128,14 +131,13 @@ class ForgotPasswordForm extends Component {
                             <div className="col-12">
                                 {/*provide breadcrumb to go back*/}
                                 <h5 className="form-header-purple mb-1">Forgot Password</h5>
-                                <p className='mb-1'>Get a password reset email</p>
+                                <p className='mb-1'>Do a password reset</p>
                             </div>
                             <div className="col-12">
-                                <div className="input-field">
-                                    <input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="validate" />
+                                <div className="form-group">
                                     <label htmlFor="email" className="">Your Email</label>
+                                    <input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="form-control" />
                                     {this.validator.message('email', email, 'required|email')}
-
                                 </div>
                             </div>
 

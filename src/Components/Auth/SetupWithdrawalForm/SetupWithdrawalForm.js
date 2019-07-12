@@ -369,6 +369,9 @@ class SetupWithdrawalForm extends Component {
         });
     }
 
+    componentDidMount() {
+        hideLoader();
+    }
 
     render() {
 

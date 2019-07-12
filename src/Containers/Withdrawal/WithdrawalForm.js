@@ -39,8 +39,8 @@ class WithdrawalForm extends Component {
             userBanks: [],
             hasPenalty: true,
             nextDate: "",
-            userBalance: 0.00,
-            stashBalance: 0.00,
+            userBalance:'',
+            stashBalance: '',
             penaltyFreeDay: false,
             userPin: false,
             showPinModal: false,
@@ -430,7 +430,7 @@ class WithdrawalForm extends Component {
                 {/*/>*/}
 
                 <WithdrawalSettingsModal show={this.state.showWithdrawalSetting} onHide={this.hideWithdrawalSettings}/>
-                <div className="col-lg-7">
+                <div className="col-lg-6">
                     {/* withdrawal form component */}
                     <Fragment>
                         {/*
@@ -442,12 +442,12 @@ class WithdrawalForm extends Component {
                                 <div>
                                     <form className="form lock-form" onSubmit={this.onSubmit}>
                                         <div className="form-body">
-                                            <div className="row mb-4">
-                                                <div className="col-12 d-md-none">
+                                            <div className="row mb-2">
+                                                <div className="col-12 d-lg-none">
                                                     <div className='blue-banner round mb-3'>
                                                         <p>Your next free withdrawal Date is </p>
                                                         <strong>{
-                                                            this.state.penaltyFreeDay ? "Today" : moment(this.state.nextDate).format('dddd, MMMM Do')
+                                                            this.state.penaltyFreeDay ? "Today" :(this.state.nextDate!=''?moment(this.state.nextDate).format('dddd, MMMM Do'):"Retrieving Date...")
                                                         }</strong>
                                                         <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
                                                         <ul>
@@ -472,62 +472,81 @@ class WithdrawalForm extends Component {
                                                         }
                                                     </div>
                                                 </div>
-                                                <div className="col-lg-12 ">
-                                                    <h5>Central Vault balance</h5>
-                                                </div>
-                                                <div className="col-12 mb-2 mb-md-0">
-                                                    <div className="media d-flex pb-2 pb-md-5">
-                                                        <div className="align-self-center">
-                                                            <img className="blue-card-icon" src={totalBalanceIcon}/>
-                                                        </div>
-                                                        <div className="media-body text-left pt-1 ">
-                                                            <h3 className=" ">
-                                                                <strong className="blue-card-price fs-1-5 ml-1 mr-2">
-                                                                    <strong>₦</strong> {formatNumber(parseFloat(this.state.userBalance).toFixed(2))}
-                                                                </strong>
-                                                            </h3>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className='d-md-none mb-2 mb-md-0'>
-                                                    <div className="col-lg-12">
-                                                        <h5>Backup Stash balance</h5>
-                                                    </div>
-                                                    <div className="col-12">
-                                                        <div className="media d-flex pb-2 pb-md-5">
-                                                            <div className="align-self-center">
-                                                                <img className="blue-card-icon" src={totalBalanceIcon}/>
-                                                            </div>
-                                                            <div className="media-body text-left pt-1 ">
-                                                                <h3 className=" ">
-                                                                    <strong
-                                                                        className="blue-card-price fs-1-5 ml-1 mr-2">
-                                                                        <strong>₦</strong> {formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}
-                                                                    </strong>
-                                                                </h3>
+                                                <div className="col-12">
+                                                    <div className="row">
+                                                        <div className="col-md-6 col-lg-12">
+                                                            <div className="row">
+                                                                <div className="col-lg-12">
+                                                                    <h5>Central Vault balance</h5>
+                                                                </div>
+                                                                <div className="col-12 mb-2 mb-md-0">
+                                                                    <div className="media d-flex pb-2 pb-md-5">
+                                                                        <div className="align-self-center">
+                                                                            <img className="blue-card-icon" src={totalBalanceIcon}/>
+                                                                        </div>
+                                                                        <div className="media-body text-left pt-1 ">
+                                                                            <h3 className=" ">
+                                                                                <strong className="blue-card-price fs-1-5 ml-1 mr-2">
+                                                                                   {this.state.userBalance!='' ?
+                                                                                    `₦ ${formatNumber(parseFloat(this.state.userBalance).toFixed(2))}` :
+                                                                                "Loading..."}
+                                                                                </strong>
+                                                                            </h3>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
+
+                                                        <div className="col-md-6 col-lg-12">
+                                                            <div className="row">
+                                                                <div className='d-lg-none mb-2 mb-md-0'>
+                                                                    <div className="col-lg-12">
+                                                                        <h5>Backup Stash balance</h5>
+                                                                    </div>
+                                                                    <div className="col-12">
+                                                                        <div className="media d-flex pb-2 pb-md-5">
+                                                                            <div className="align-self-center">
+                                                                                <img className="blue-card-icon" src={totalBalanceIcon}/>
+                                                                            </div>
+                                                                            <div className="media-body text-left pt-1 ">
+                                                                                <h3 className=" ">
+                                                                                    <strong className="blue-card-price fs-1-5 ml-1 mr-2">
+                                                                                        {this.state.stashBalance!='' ?
+                                                                                            `₦ ${formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}`:
+                                                                                            "Loading..."
+                                                                                        }
+                                                                                    </strong>
+                                                                                </h3>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
+
                                                 <div className="col-md-12">
                                                     <div className="form-group">
 
                                                         {/*<button className={'btn btn-withdraw round mb-2 '}>See withdrawal Days</button>*/}
                                                         <p className={'text-gray'}>Next free withdrawal day</p>
                                                         <h4 className={'text-black'}>{
-                                                            this.state.penaltyFreeDay ? "Today" : moment(this.state.nextDate).format('dddd, MMMM Do')
+                                                            this.state.penaltyFreeDay ? "Today" :(this.state.nextDate!=''?moment(this.state.nextDate).format('dddd, MMMM Do'):"Retrieving Date...")
                                                         }</h4>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="row mb-3">
+                                            <div className="row mb-2">
                                                 <div className="col-lg-12">
-                                                    <h5>Withdrawal Form</h5>
+                                                    <h3 className='font-weight-bold'>Withdrawal Form</h3>
+                                                    {/*<hr/>*/}
                                                 </div>
-
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="annualincome">Select Bank</label>
+                                                        {/*<label htmlFor="annualincome">Withdrawal Form</label>*/}
                                                         <select name="bank_account"
                                                                 onChange={this.handleChange}
                                                                 value={this.state.form.bank_account}
@@ -674,7 +693,7 @@ class WithdrawalForm extends Component {
 
                     </Fragment>
                 </div>
-                <div className="col-lg-5 d-none d-md-block">
+                <div className="col-lg-5 offset-lg-1 d-none d-md-block">
                     <div className="col-lg-12">
                         <h5>Backup Stash balance</h5>
                     </div>
@@ -686,7 +705,10 @@ class WithdrawalForm extends Component {
                             <div className="media-body text-left pt-1 ">
                                 <h3 className=" ">
                                     <strong className="blue-card-price fs-1-5 ml-1 mr-2">
-                                        <strong>₦</strong> {formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}
+                                        {this.state.stashBalance!='' ?
+                                            `₦ ${formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}`:
+                                            "Loading..."
+                                        }
                                     </strong>
                                 </h3>
                             </div>
@@ -697,7 +719,7 @@ class WithdrawalForm extends Component {
                         <div className='banner round '>
                             <p>Your next free withdrawal Date is </p>
                             <strong>{
-                                this.state.penaltyFreeDay ? "Today" : moment(this.state.nextDate).format('dddd, MMMM Do')
+                                this.state.penaltyFreeDay ? "Today" : (this.state.nextDate!=''?moment(this.state.nextDate).format('dddd, MMMM Do'):"Retrieving Date...")
                             }</strong>
                             <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
                             <ul>

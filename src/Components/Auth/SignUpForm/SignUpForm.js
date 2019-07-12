@@ -8,6 +8,7 @@ import {RegisterEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteL
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
+import {hideLoader, showHomeLoader} from "../../../Helpers/Helper";
 
 class SignUpForm extends Component {
 
@@ -176,6 +177,7 @@ class SignUpForm extends Component {
         this.setState({
             loading: false
         });
+        hideLoader();
 
         if (!state) {
             if (response) {
@@ -237,6 +239,7 @@ class SignUpForm extends Component {
                 this.setState({
                     loading: true
                 });
+                showHomeLoader();
 
                 this.signUp(RegisterEndpoint, this.state, this.getSignUpInfo);
 

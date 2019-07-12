@@ -15,7 +15,7 @@ import featureImage2 from "../../admin/app-assets/images/svg/feature-img-2.svg";
 import featureImage3 from "../../admin/app-assets/images/svg/feature-img-3.svg";
 import featureImage4 from "../../admin/app-assets/images/svg/feature-img-4.svg";
 import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
-import pinIcon from "../../admin/app-assets/images/svg/pin-icon.svg";
+import whatsAppIcon from "../../admin/app-assets/images/whatsapp-ico@2x.png";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
 import polarisBank from "../../admin/app-assets/images/polaris-bank.png";
 import CommentImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
@@ -71,9 +71,6 @@ class Home extends Component {
         this.checkUser();
         hideLoader();
     }
-
-
-
 
 
     render() {
@@ -233,7 +230,7 @@ class Home extends Component {
                                                 <div
                                                     className="d-flex flex-column flex-md-row justify-content-around align-items-center">
                                                     <div className="security-img-wrapper mb-2 mb-md-0">
-                                                        <img  src={securityIcon}
+                                                        <img src={securityIcon}
                                                              alt="security icon"/>
                                                     </div>
                                                     <div className="ml-md-2 ml-md-0">
@@ -287,7 +284,7 @@ class Home extends Component {
                                             </div>
                                             <p className="card-text mb-5">Choose a savings plan that
                                                 works for you </p>
-                                            <div className="card mb-5" >
+                                            <div className="card mb-5">
                                                 <img className="card-1-img mt-3" src={cardIll2} alt="illustration"/>
                                             </div>
 
@@ -300,7 +297,7 @@ class Home extends Component {
                                             </div>
                                             <p className="card-text mb-5">Rest easy and watch
                                                 your money grow </p>
-                                            <div className="card mb-5" >
+                                            <div className="card mb-5">
                                                 <img className="card-2-img" src={cardIll3} alt="illustration"/>
                                             </div>
 
@@ -309,7 +306,7 @@ class Home extends Component {
                                 </div>
                                 <div className="row pb-md-5">
                                     <div className="col-md-4 offset-md-4 text-center">
-                                        <div className="mt-5 mb-5">
+                                        <div className="pb-4 pt-2">
                                             <Link to={'/sign-up'} className="btn-rounded-corner mb-5 btn-light-blue">Start
                                                 Now
                                                 {/*<img alt="step-3" src={arrowRight} className=" ml-2"/>*/}
@@ -320,7 +317,7 @@ class Home extends Component {
                             </div>
                         </div>
                     </section>
-                    <section className="pb-5 app-features home-blue-bg">
+                    <section className="pb-3 app-features home-blue-bg">
                         <div className="container">
                             <div className="row mt-0 pt-md-5 mb-md-5">
                                 <div className="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
@@ -382,7 +379,7 @@ class Home extends Component {
                     </section>
 
 
-                    <section className="client-say-section testimonial pt-sm-0 pt-md-5 mb-5">
+                    <section className="client-say-section testimonial pt-sm-0 pt-md-5 mb-3">
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
@@ -504,7 +501,7 @@ class Home extends Component {
 
                     </section>
                     {/*partners section*/}
-                    <section className="partner-section pt-0  pt-md-5 pb-md-5 pt-lg-0">
+                    <section className="partner-section pt-0  pt-md-5 pb-md-3 pt-lg-0">
                         <div className="container ">
                             <div className="row  pt-sm-0 pt-md-5 text-center mb-5 pb-5">
                                 <div className="col-md-12 mb-md-5">
@@ -588,52 +585,23 @@ class Home extends Component {
                         </div>
                     </section>
                     {/*whats app section*/}
-                    <section className="chat-bg whatsapp pt-3 pt-md-5 mb-5 mb-md-0">
+                    <section className="whatsapp pt-3 pt-md-0 mb-5 mb-md-0">
                         <div className="container">
                             <div className="row ">
                                 <div className="col-md-6">
-                                    {/*<div className="contact-detail-placeholder text-center pt-5 pt-md-0">*/}
-                                    {/*    <img className="mb-5 chat-whatsapp-img" src={whatsAppImage}*/}
-                                    {/*         alt="chat with us"/>*/}
-                                    {/*</div>*/}
                                     <div className="contact-detail-placeholder text-center pt-md-5">
                                         <p className="deep-blue-color pt-md-5 chat-title">Chat with us on
                                             Whatsapp</p>
-                                        <div data-aos="fade-up"
-                                             className="btn btn-whatsapp">+234
+                                        <div className="btn btn-whatsapp">+234
                                             818 545 4545
-                                            <img alt={'pin icon'} src={pinIcon} className="ml-md-2 w-20"/>
+                                            <img alt={'pin icon'} src={whatsAppIcon} className="ml-md-2 w-20"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
                                     <div className="contact-detail-placeholder pt-3 text-center pt-md-5">
                                         <p className="deep-blue-color pt-md-5 chat-title">Connect with social media</p>
-                                        {/*<button type="button" data-aos="fade-up"*/}
-                                        {/*        className="btn btn-whatsapp">*/}
-                                        {/*    <ul className="footer-icon-list ">*/}
-                                        {/*        <li>*/}
-                                        {/*    <span className="fa-stack fa-sm">*/}
-                                        {/*        <i className="fa fa-circle fa-stack-2x"></i><i*/}
-                                        {/*        className="fa fa-facebook fa-stack-1x fa-inverse"></i>*/}
-                                        {/*    </span>*/}
-                                        {/*        </li>*/}
-                                        {/*        <li>*/}
-                                        {/*    <span className="fa-stack fa-sm">*/}
-                                        {/*        <i className="fa fa-circle fa-stack-2x"></i><i*/}
-                                        {/*        className="fa fa-twitter fa-stack-1x fa-inverse"></i>*/}
-                                        {/*    </span>*/}
-                                        {/*        </li>*/}
-                                        {/*        <li>*/}
-                                        {/*    <span className="fa-stack fa-sm">*/}
-                                        {/*        <i className="fa fa-circle fa-stack-2x"></i><i*/}
-                                        {/*        className="fa fa-instagram fa-stack-1x fa-inverse"></i>*/}
-                                        {/*    </span>*/}
-                                        {/*        </li>*/}
-                                        {/*    </ul>*/}
-
-                                        {/*</button>*/}
-                                        <div data-aos="fade-up" className="btn btn-whatsapp social-media">
+                                        <div className="btn btn-whatsapp social-media">
                                             <div className="footer-icon-list d-flex justify-content-between">
                                                     <span className="fa-stack fa-sm">
                                                         <a href='http://www.facebook.com/sfsbackupcash' rel='noreferrer'
@@ -642,9 +610,8 @@ class Home extends Component {
                                                             className="fa fa-facebook fa-stack-1x fa-inverse"></i>
                                                         </a>
                                                     </span>
-
                                                 <span className="fa-stack fa-sm">
-                                                        <a href='' target='_blank'>
+                                                        <a href='http://www.twitter.com/sfsbackupcash' rel='noreferrer' target='_blank'>
                                                             <i className="fa fa-circle fa-stack-2x"></i>
                                                             <i className="fa fa-twitter fa-stack-1x fa-inverse"></i>
                                                         </a>
@@ -672,61 +639,49 @@ class Home extends Component {
                                         <img src={sfsFooterLogo} alt="sfs footer logo"/>
                                     </div>
                                 </div>
-                                <div className=" col-sm-6 col-md-4 col-lg-3 ">
-                                    <p className="footer-header">Company</p>
-                                    <ul className="footer-list">
-                                        {/*<li>*/}
-                                        {/*    <a href={'#'}>About Us</a>*/}
-                                        {/*</li>*/}
-                                        <li>
-                                            <Link to={HomeLink}>Testimonials</Link>
-                                        </li>
-                                        <li>
-                                            <Link to={FaqLink}>FAQs</Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="col-sm-6 col-md-4 col-lg-3 ">
-                                    <p className="footer-header">Quick Links</p>
-                                    <ul className="footer-list ">
-                                        <li>
-                                            <Link to={SignUpLink}>Register</Link>
-                                        </li>
-                                        <li>
-                                            <Link to={LoginLink}>Log in</Link>
-                                        </li>
-                                        <li>
-                                            <Link to={FaqLink}>How it works</Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-3 ">
-                                    <p className="footer-header">Physical Address</p>
 
-                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria
-                                        Island 23401, Lagos</p>
-                                    <p className='gray-text footer-p'>Enquires: 08149460946, 07018567235 </p>
-                                    {/*<ul className="footer-icon-list ">*/}
-                                    {/*    <li>*/}
-                                    {/*        <span className="fa-stack fa-sm">*/}
-                                    {/*            <i className="fa fa-circle fa-stack-2x"></i><i*/}
-                                    {/*            className="fa fa-facebook fa-stack-1x fa-inverse"></i>*/}
-                                    {/*        </span>*/}
-                                    {/*    </li>*/}
-                                    {/*    <li>*/}
-                                    {/*        <span className="fa-stack fa-sm">*/}
-                                    {/*            <i className="fa fa-circle fa-stack-2x"></i><i*/}
-                                    {/*            className="fa fa-twitter fa-stack-1x fa-inverse"></i>*/}
-                                    {/*        </span>*/}
-                                    {/*    </li>*/}
-                                    {/*    <li>*/}
-                                    {/*        <span className="fa-stack fa-sm">*/}
-                                    {/*            <i className="fa fa-circle fa-stack-2x"></i><i*/}
-                                    {/*            className="fa fa-instagram fa-stack-1x fa-inverse"></i>*/}
-                                    {/*        </span>*/}
-                                    {/*    </li>*/}
-                                    {/*</ul>*/}
+                                <div className="col-md-2 offset-md-2 d-none d-lg-block offset-lg-1 col-lg-8">
+                                    <div className="row">
+                                        <div className=" col-sm-6 col-md-4 col-lg-4 ">
+                                            <p className="footer-header">Company</p>
+                                            <ul className="footer-list">
+                                                {/*<li>*/}
+                                                {/*    <a href={'#'}>About Us</a>*/}
+                                                {/*</li>*/}
+                                                <li>
+                                                    <Link to={HomeLink}>Testimonials</Link>
+                                                </li>
+                                                <li>
+                                                    <Link to={FaqLink}>FAQs</Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className="col-sm-6 col-md-4 col-lg-4 ">
+                                            <p className="footer-header">Quick Links</p>
+                                            <ul className="footer-list ">
+                                                <li>
+                                                    <Link to={SignUpLink}>Register</Link>
+                                                </li>
+                                                <li>
+                                                    <Link to={LoginLink}>Log in</Link>
+                                                </li>
+                                                <li>
+                                                    <Link to={FaqLink}>How it works</Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-4 ">
+                                            <p className="footer-header">Physical Address</p>
+
+                                            <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria
+                                                Island 23401, Lagos</p>
+                                            <p className='gray-text footer-p'>Enquires: 08149460946, 07018567235 </p>
+
+                                        </div>
+
+                                    </div>
                                 </div>
+
                                 <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
                                     <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All RIghts
                                         Reserved</p>

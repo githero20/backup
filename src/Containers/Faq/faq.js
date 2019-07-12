@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
-import backupCashLogo from "../../admin/app-assets/images/Newlogo-02.png";
+import backupCashLogo from "../../admin/app-assets/images/svg/logo.svg";
 import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
 import {FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
+import {hideLoader} from "../../Helpers/Helper";
 
 class Faq extends Component {
 
@@ -32,6 +33,10 @@ class Faq extends Component {
         });
     };
 
+    componentDidMount() {
+        hideLoader();
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -39,9 +44,9 @@ class Faq extends Component {
                     <header className="header faq-bg">
                         <div className="container">
                             <nav className="home-nav navbar navbar-expand-lg ">
-                                <a className="navbar-brand">
+                                <Link to={HomeLink} className="navbar-brand">
                                     <img src={backupCashLogo} alt="logo" width="180px"/>
-                                </a>
+                                </Link>
                                 <a onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
                                    data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                    aria-expanded="false" aria-label="Toggle navigation">

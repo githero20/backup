@@ -10,7 +10,7 @@ import {resolveBankName} from "../../../actions/BankAction";
 import {_handleFormChange} from "../../../utils";
 import {resolveBank, setupWithdrawal} from "../../../actions/setupWithdrawalAction";
 import DashboardLoader from "../../Dashboard/DashboardLoader/DashboardLoader";
-import {handleFocus, validateInputEntry} from "../../../Helpers/Helper";
+import {handleFocus, hideLoader, showHomeLoader, validateInputEntry} from "../../../Helpers/Helper";
 
 class SetupWithdrawalForm extends Component {
 
@@ -216,7 +216,8 @@ class SetupWithdrawalForm extends Component {
                     // localStorage.setItem(USERWITHDRAWAL,JSON.stringify(payload.data) );
                     localStorage.setItem(USERTOKEN, JSON.stringify(this.state.token));
 
-
+                    showHomeLoader();
+                    setTimeout(hideLoader,3000);
                     setTimeout(() => {
                         this.setState({
                             redirect: true
@@ -313,21 +314,15 @@ class SetupWithdrawalForm extends Component {
                     });
 
                 }
-
             }
-            // else{
-            //     toastManager.add("No Internet Connection.", {
-            //         appearance: 'error',
-            //         autoDismiss:true,
-            //         autoDismissTimeout:3000,
-            //     })
-            // }
         } else {
             if (response) {
                 const serverResponse = response.data;
                 const token = serverResponse.token;
                 const user = serverResponse.user;
                 this.saveToLocalStorage(user, token);
+                showHomeLoader();
+                hideLoader();
                 this.setState({
                     redirect: true
                 });

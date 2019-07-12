@@ -177,7 +177,6 @@ class SignUpForm extends Component {
         this.setState({
             loading: false
         });
-        hideLoader();
 
         if (!state) {
             if (response) {
@@ -216,7 +215,9 @@ class SignUpForm extends Component {
                 const serverResponse = response.data;
                 const token = serverResponse.token;
                 const user = serverResponse.user;
-                this.saveToLocalStorage(user, token);
+                // this.saveToLocalStorage(user, token);
+                showHomeLoader();
+                hideLoader();
                 this.setState({
                     redirect: true
                 });
@@ -239,7 +240,6 @@ class SignUpForm extends Component {
                 this.setState({
                     loading: true
                 });
-                showHomeLoader();
 
                 this.signUp(RegisterEndpoint, this.state, this.getSignUpInfo);
 

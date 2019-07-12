@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import backUpCashLogo from "../../admin/app-assets/images/Logo.png";
+import backUpCashLogo from "../../admin/app-assets/images/svg/logo.svg";
 import EmailIcon from "../../images/svg/email-icon.svg";
 import {withToastManager} from 'react-toast-notifications';
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {request} from "../../ApiUtils/ApiUtils";
 import {HomeLink, resendActEndpoint} from "../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
+import {hideLoader} from "../../Helpers/Helper";
 
 class ResendActivation extends Component {
 
@@ -61,6 +62,9 @@ class ResendActivation extends Component {
 
     };
 
+    componentDidMount() {
+        hideLoader();
+    }
 
     render() {
 

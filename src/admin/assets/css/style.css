@@ -764,6 +764,7 @@ input[type="date"]::-webkit-clear-button {
     background-color: #2784F4 !Important;
     /*padding-top: .7rem;*/
     /*padding-bottom: .7rem;*/
+    padding: 0 30px;
     min-width: 100px;
     height: 40px;
     transition: all .5s ease;

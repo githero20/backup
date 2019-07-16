@@ -117,7 +117,9 @@ div.fixed-navbar {
     background-color: white;
     border: 1px solid #2784F4;
 }
-
+.form-control{
+    padding:0rem;
+}
 .swal-button.swal-button--confirm {
 
 }
@@ -1234,7 +1236,7 @@ input[type="date"]::-webkit-clear-button {
     padding: 1rem 1.5rem;
     background-color: #ffffff;
     position: absolute;
-    z-index: 100000;
+    z-index: 1000;
     display: flex;
     align-items: center;
     top: 2rem;

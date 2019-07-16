@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {Link, Redirect} from "react-router-dom";
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
-import SimpleReactValidator from "simple-react-validator";
-import Alert from "../../Alert/Alert";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {
     addWithdrawalLink,
@@ -14,7 +12,7 @@ import {
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {ADMIN, ADMIN_LOGIN_URL, CUSTOMER} from "../../../Helpers/Helper";
+import {ADMIN, ADMIN_LOGIN_URL, CUSTOMER, EmailPhoneValidator} from "../../../Helpers/Helper";
 
 
 class LoginForm extends Component {
@@ -34,7 +32,7 @@ class LoginForm extends Component {
 
     constructor(props) {
         super(props);
-        this.validator = new SimpleReactValidator();
+        this.validator = EmailPhoneValidator;
         this.processLogin = this.processLogin.bind(this);
         this.toastMessage = this.toastMessage.bind(this);
     }
@@ -218,13 +216,16 @@ class LoginForm extends Component {
         api(url, param, false, true, login);
     };
 
-
     //submit ResetPassword form
     submitForm = (e) => {
         e.preventDefault();
-        this.Login(LoginEndpoint, this.state, this.processLogin);
+        if (this.validator.allValid()) {
+            this.Login(LoginEndpoint, this.state, this.processLogin);
+        } else {
+            this.validator.showMessages();
+            this.forceUpdate();
+        }
     };
-
 
     //hides error display
     hideError = () => {
@@ -232,7 +233,6 @@ class LoginForm extends Component {
             error: false
         });
     };
-
 
     componentDidMount() {
         localStorage.removeItem(USERTOKEN);
@@ -263,7 +263,7 @@ class LoginForm extends Component {
 
     render() {
 
-        const {email} = this.state;
+        const {email, password} = this.state;
 
         if (this.state.redirect) {
             return (
@@ -298,40 +298,41 @@ class LoginForm extends Component {
 
         return (
             <React.Fragment>
-                {/*<Toast content={'oshey baddest'} status={"error"} />*/}
-                <form className="login-form " onSubmit={this.submitForm}>
+                <form className="login-form" onSubmit={this.submitForm}>
                     <div className="row">
                         <div className="col-12">
-                            <h5 className="form-header-purple mb-5">Please Log In</h5>
-                            {this.state.error ?
-                                <Alert message={this.state.errorMessage} hideError={this.hideError}/> : null}
+                            <h5 className="form-header-purple mb-3">Please Log In</h5>
                         </div>
                         <div className="col-12">
-                            <div className="input-field">
+                            <div className="form-group">
+                                <label htmlFor="email">Email or Phone Number</label>
                                 <input id="email" name={'email'} onChange={this.changeHandler} type="text"
-                                       className="validate"/>
-                                <label htmlFor="email" className="">Email or Phone Number</label>
-                                {this.validator.message('email', email, 'required')}
+                                       className="form-control"/>
+                                {this.validator.message('email or phone', email, 'required|emailPhone')}
 
                             </div>
                         </div>
                         <div className="col-12">
-                            <div className="input-field ">
+                            <div className="form-group">
+                                <div className="d-flex justify-content-between">
+                                    <label htmlFor="password" className="">Password</label>
+                                    <Link className={'blue-link'} to={ForgotPasswordLink}>Forgot Password ?</Link>
+                                </div>
                                 <input id="password" name={'password'} type="password" onChange={this.changeHandler}
-                                       className="validate"/>
-                                <label htmlFor="password" className="">Password</label>
+                                       className="form-control"
+                                />
 
-                                <Link className={'dark-link'} to={ForgotPasswordLink}>Forgot Password ?</Link>
                             </div>
                         </div>
                         <div className="col-12">
-                            <div className=" text-right pr-sm-0  mt-md-1 mb-1 pr-1 pr-md-3">
+                            <div className=" text-right pr-sm-0  mt-md-1 mb-1 pr-1 pr-md-1">
                                 <label className="font-size-1-1 mb-md-1">New User ? <Link to={'/sign-up'}
                                                                                           className="blue-link ">Sign
                                     Up</Link>
                                 </label>
                             </div>
                         </div>
+
                         {/*<div className="col-12">*/}
                         {/*    <div*/}
                         {/*        className="d-flex  flex-column flex-md-row justify-content-between align-items-center">*/}
@@ -348,6 +349,7 @@ class LoginForm extends Component {
                         {/*        </label>*/}
                         {/*    </div>*/}
                         {/*</div> */}
+
                         <div className="col-12">
                             <div
                                 className="d-flex  flex-column flex-md-row justify-content-end align-items-center">

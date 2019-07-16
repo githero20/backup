@@ -214,7 +214,7 @@ class TransactionTable extends Component {
                                                     </div>
                                                 </div>
 
-                                                <button className={'btn btn-block mt-1 btn-custom-blue'}
+                                                <button className={'btn btn-block round mt-1 btn-custom-blue'}
                                                         onClick={() => this.props.handleFilter(date, comparator)}>Filter
                                                 </button>
 

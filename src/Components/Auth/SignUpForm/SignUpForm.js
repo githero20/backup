@@ -8,7 +8,6 @@ import {RegisterEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteL
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {hideLoader, showHomeLoader} from "../../../Helpers/Helper";
 
 class SignUpForm extends Component {
 
@@ -39,7 +38,7 @@ class SignUpForm extends Component {
                 password: {  // name the rule
                     message: 'The :attribute must be a strong password and must have :values.',
                     rule: (val, params, validator) => {
-                        return validator.helpers.testRegex(val,/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
+                        return validator.helpers.testRegex(val, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
                     },
                     messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
                     required: true  // optional
@@ -58,7 +57,7 @@ class SignUpForm extends Component {
             password: '',
             password_confirmation: '',
             referral_code_userid: '',
-            disableReferral:false,
+            disableReferral: false,
             submitted: false,
             ConfirmPassError: false,
             passwordError: false,
@@ -177,8 +176,6 @@ class SignUpForm extends Component {
         this.setState({
             loading: false
         });
-        hideLoader();
-
         if (!state) {
             if (response) {
                 this.setState({
@@ -230,7 +227,6 @@ class SignUpForm extends Component {
     submitForm = () => {
         if (this.validator.allValid()) {
             //validate confirm password
-
             // perform all necessary validation
             const ConfPassValid = this.validatePasswords(this.state.password_confirmation);
             const PassVal = this.validatePassword();
@@ -239,8 +235,6 @@ class SignUpForm extends Component {
                 this.setState({
                     loading: true
                 });
-                showHomeLoader();
-
                 this.signUp(RegisterEndpoint, this.state, this.getSignUpInfo);
 
             }
@@ -273,26 +267,23 @@ class SignUpForm extends Component {
 
         // add to the referral input
         const {referralCode} = newProps;
-        if(referralCode){
-            let code  = referralCode.split('/');
+        if (referralCode) {
+            let code = referralCode.split('/');
             code = code[0];
             this.setState({
                 referral_code_userid: code,
                 showReferralInput: true,
-                disableReferral:true
+                disableReferral: true
             });
         }
-
-
 
 
     }
 
 
-
     render() {
 
-        const {name, email, referral_code_userid, password, password_confirmation,disableReferral, last_name, phone} = this.state;
+        const {name, email, referral_code_userid, password, password_confirmation, disableReferral, last_name, phone} = this.state;
 
         const {referralCode} = this.props;
 
@@ -373,7 +364,7 @@ class SignUpForm extends Component {
                                 <label htmlFor="password">Password</label>
                                 <input id="password" type="password" name={'password'} className={'form-control'}
                                        onChange={this.changeHandler}
-                                       // onBlur={this.validatePassword}
+                                    // onBlur={this.validatePassword}
                                 />
                                 {this.validator.message('password', password, `required|string|min:8|password`)}
                                 {/*^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})*/}

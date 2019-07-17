@@ -672,6 +672,7 @@ a.carousel-btn {
 
 .comment-box p {
     color: #3D5A84;
+    min-height: 60px;
     font-size: 1rem;
     margin-top: 2rem;
     letter-spacing: .5px;

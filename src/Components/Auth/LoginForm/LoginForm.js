@@ -298,30 +298,28 @@ class LoginForm extends Component {
 
         return (
             <React.Fragment>
-                {/*<Toast content={'oshey baddest'} status={"error"} />*/}
                 <form className="login-form " onSubmit={this.submitForm}>
                     <div className="row">
                         <div className="col-12">
                             <h5 className="form-header-purple mb-5">Please Log In</h5>
-                            {this.state.error ?
-                                <Alert message={this.state.errorMessage} hideError={this.hideError}/> : null}
                         </div>
                         <div className="col-12">
-                            <div className="input-field">
-                                <input id="email" name={'email'} onChange={this.changeHandler} type="text"
-                                       className="validate"/>
+                            <div className="form-group">
                                 <label htmlFor="email" className="">Email or Phone Number</label>
+                                <input id="email" name={'email'} onChange={this.changeHandler} type="text"
+                                       className="form-control"/>
                                 {this.validator.message('email', email, 'required')}
 
                             </div>
                         </div>
                         <div className="col-12">
-                            <div className="input-field ">
+                            <div className="form-group">
+                                <div className="d-flex justify-content-between">
+                                    <label htmlFor="password" className="">Password</label>
+                                    <Link className={'dark-link'} to={ForgotPasswordLink}>Forgot Password ?</Link>
+                                </div>
                                 <input id="password" name={'password'} type="password" onChange={this.changeHandler}
-                                       className="validate"/>
-                                <label htmlFor="password" className="">Password</label>
-
-                                <Link className={'dark-link'} to={ForgotPasswordLink}>Forgot Password ?</Link>
+                                       className="form-control"/>
                             </div>
                         </div>
                         <div className="col-12">

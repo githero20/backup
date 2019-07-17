@@ -597,7 +597,22 @@ input[type="date"]::-webkit-clear-button {
     font-size: .8rem;
     color: rgba(138, 138, 178, 0.5);
 }
-
+.green-dot{
+    width: 5px;
+    height: 5px;
+    margin-top: 5px;
+    border-radius: 50%;
+    background-color: #39FF89;
+    margin-right: 5px;
+}
+.red-dot{
+    width: 5px;
+    height: 5px;
+    margin-top: 5px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: #FF693B;
+}
 .spaced-table {
     border-collapse: separate;
     border-spacing: 0 .5rem;
@@ -3078,7 +3093,7 @@ html body .content.app-content {
 }
 
 .spaced-table tbody tr {
-    box-shadow: 0rem 0.5rem 0.5rem rgba(0, 0, 0, 0.01);
+    box-shadow: 0rem 0.5rem 0.5rem rgba(0, 0, 0, 0.02);
     background-color: white;
     padding-top: 1rem;
     padding-bottom: 1rem;

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
-import backupCashLogo from "../../admin/app-assets/images/svg/logo.svg";
+import backupCashLogo from "../../admin/app-assets/images/Logo@2x.png";
 import illustration1 from "../../admin/app-assets/images/wymg@2x.png";
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
 import securityIcon from "../../admin/app-assets/images/svg/security-icon.svg";
@@ -14,7 +14,7 @@ import featureImage1 from "../../admin/app-assets/images/svg/feature-image-1.svg
 import featureImage2 from "../../admin/app-assets/images/svg/feature-img-2.svg";
 import featureImage3 from "../../admin/app-assets/images/svg/feature-img-3.svg";
 import featureImage4 from "../../admin/app-assets/images/svg/feature-img-4.svg";
-import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
+import sfsFooterLogo from "../../admin/app-assets/images/Logo@2x.png";
 import whatsAppIcon from "../../admin/app-assets/images/whatsapp-ico@2x.png";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
 import polarisBank from "../../admin/app-assets/images/polaris-bank.png";

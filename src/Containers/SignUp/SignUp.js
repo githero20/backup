@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
-import backUpCashLogo from "../../admin/app-assets/images/svg/logo.svg";
+import backUpCashLogo from "../../admin/app-assets/images/Logo@2x.png";
 import SignUpForm from "../../Components/Auth/SignUpForm/SignUpForm";
 import SimpleReactValidator from "simple-react-validator";
 import {ToastProvider} from "react-toast-notifications";

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
-import backUpCashLogo from "../../admin/app-assets/images/svg/logo.svg";
+import backUpCashLogo from "../../admin/app-assets/images/Logo@2x.png";
 import {ToastProvider} from "react-toast-notifications";
 import {Link} from "react-router-dom";
 import {HomeLink} from "../../RouteLinks/RouteLinks";

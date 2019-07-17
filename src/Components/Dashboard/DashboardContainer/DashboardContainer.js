@@ -9,7 +9,7 @@ import {
     balanceFormatter,
     dateFormatter,
     descriptionFormatter,
-    handleFiltering,
+    handleFiltering, mobileDescFormatter,
     sourceFormatter,
     statusFormatter
 } from "../../../Helpers/Helper";
@@ -51,6 +51,8 @@ class DashboardContainer extends Component {
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
                 filter: dateFilter({
                     defaultValue: {date: moment().format('DD-MM-YYYY'), comparator: Comparator.LEQUAL},
                     getFilter: (filter) => {
@@ -71,9 +73,19 @@ class DashboardContainer extends Component {
                 dataField: 'sourcetypes',
                 formatter: sourceFormatter,
                 sort: true,
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
 
             },
             {
+                text: 'Description',
+                dataField: 'type',
+                formatter: mobileDescFormatter,
+                sort: true,
+                classes:' d-table-cell d-md-none',
+                headerClasses:'d-table-cell d-md-none',
+
+            }, {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter: amountFormatter,

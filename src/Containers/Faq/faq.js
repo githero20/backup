@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
-import backupCashLogo from "../../admin/app-assets/images/svg/logo.svg";
+import backupCashLogo from "../../admin/app-assets/images/Logo@2x.png";
 import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
 import {FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import 'owl.carousel/dist/assets/owl.carousel.css';

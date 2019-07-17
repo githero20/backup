@@ -13,8 +13,8 @@ import {
     getToken,
     getTotalFailed,
     getTotalSuccessful,
-    getTotalSuccessfulSS,
-    moneyFormatter,
+    getTotalSuccessfulSS, mobileDescFormatter, mobileSSMoneyFormatter,
+    moneyFormatter, ssMobileDescFormatter,
     STANDARD_ACCOUNT,
     statusFormatter,
     steadyStatusFormatter, titleFormatter,
@@ -274,26 +274,40 @@ class SteadySave extends Component {
                 text: 'Title',
                 dataField: 'title',
                 sort: true,
-                formatter:titleFormatter
+                formatter:titleFormatter,
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
             },
             {
                 text: 'Frequency',
                 dataField: 'frequency',
                 sort: true,
-                classes: 'd-none d-md-inline-block',
-                headerClasses: 'd-none d-md-inline-block',
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
             },
             {
                 text: 'Contribution',
                 dataField: 'start_amount',
                 formatter: moneyFormatter,
-                sort: true
+                sort: true,
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
+            }, {
+                text: 'Description',
+                dataField: 'start_amount',
+                formatter: ssMobileDescFormatter,
+                sort: true,
+                classes:' d-table-cell d-md-none',
+                headerClasses:'d-table-cell d-md-none',
             },
             {
                 text: 'Status',
                 dataField: 'status',
                 formatter: steadyStatusFormatter,
-                sort: true
+                sort: true,
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
+
             },
 
             {
@@ -334,7 +348,9 @@ class SteadySave extends Component {
                 text: 'Date',
                 dataField: 'created_at',
                 formatter: dateFormatter,
-                sort: true
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Phase',
@@ -344,6 +360,13 @@ class SteadySave extends Component {
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
 
+            },{
+                text: 'Description',
+                dataField: 'type',
+                formatter: mobileDescFormatter,
+                sort: true,
+                classes:' d-table-cell d-md-none',
+                headerClasses:'d-table-cell d-md-none',
             },
             {
                 text: 'Balance',
@@ -352,17 +375,30 @@ class SteadySave extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-            }, {
+            },
+            {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter: moneyFormatter,
-                sort: true
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },{
+                text: 'Amount',
+                dataField: 'amount',
+                formatter: mobileSSMoneyFormatter,
+                sort: true,
+                classes:' d-table-cell d-md-none',
+                headerClasses:'d-table-cell d-md-none',
             },
             {
                 text: 'Status',
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+
             }
 
         ];
@@ -427,8 +463,7 @@ class SteadySave extends Component {
                                                     <div className="text-right">
                                                         <a href='#!' onClick={this.hideTransactions}
                                                            className='gray-text back-btn'>
-                                                            <i className='fa fa-chevron-left'></i>&nbsp; Back to Steady
-                                                            Save
+                                                            <i className='fa fa-chevron-left'></i>&nbsp; Back
                                                         </a>
                                                     </div>
                                                 </div>

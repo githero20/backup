@@ -7,6 +7,7 @@ import {getBackUpGoalAndHistory} from "../../actions/BackUpGoalsAction";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
 import {
+    amountCurrentStatusFormatter,
     dateFormatter,
     formatNumber, getTotalFailed,
     getTotalSuccessful, getTotalSuccessfulBG,
@@ -232,7 +233,7 @@ class BackupGoals extends Component {
         const columns = [
 
             {
-                text: 'Date Created',
+                text: 'Date',
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
@@ -242,24 +243,39 @@ class BackupGoals extends Component {
                 dataField: 'amount',
                 formatter: moneyFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Current Amount',
                 dataField: 'current_amount',
                 formatter: moneyFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },{
+                text: 'Description',
+                dataField: 'amount',
+                formatter: amountCurrentStatusFormatter,
+                sort: true,
+                classes:' d-table-cell d-md-none',
+                headerClasses:'d-table-cell d-md-none',
             },
             {
                 text: 'Pay Date',
                 dataField: 'pay_date',
                 formatter: dateFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Status',
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             }
 
 
@@ -362,7 +378,7 @@ class BackupGoals extends Component {
                                                 <div className="row">
                                                     <div id="Back-up-goals" className="col-12 col-md-12">
                                                         <div className="card">
-                                                            <div className="card-content mt-1 px-1 py-md-2">
+                                                            <div className="card-content mt-1 py-md-2">
                                                                 {/*<div*/}
                                                                 {/*    className="table-header d-flex justify-content-between align-items-md-center px-md-2  mb-3">*/}
                                                                 {/*    <h4 className="table-title">*/}
@@ -397,13 +413,6 @@ class BackupGoals extends Component {
                                                                         </div>
 
                                                                 }
-
-
-                                                                {/* Grid component    */}
-
-                                                                <div className="row">
-
-                                                                </div>
                                                             </div>
 
                                                         </div>
@@ -433,7 +442,7 @@ class BackupGoals extends Component {
                                                     <div className="card">
                                                         <div className="card-content mt-1 px-1 py-3 px-md-2 ">
                                                             <div
-                                                                className="table-header d-flex justify-content-between align-items-md-center px-md-2  mb-3">
+                                                                className="table-header d-flex justify-content-between align-items-md-center mb-3">
                                                                 <h4 className="table-title">
                                                                     <button onClick={this.showBackUpModal}
                                                                             className=" right-btn-holder deep-blue-bg white "
@@ -535,7 +544,7 @@ class BackupGoals extends Component {
                                                                     <div className="col-12 text-center text-muted">
 
                                                                         <i className='fa fa-5x fa-briefcase'></i>
-                                                                        <h2 className='table-status mb-5 mb-md-0'>No Back Up Goals</h2>
+                                                                        <h2 className='table-status mb-5 mb-md-0'>No BackUp Goal</h2>
                                                                     </div>
 
 
@@ -589,24 +598,6 @@ class BackupGoals extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div className="row">
-                                                <div className="col-12">
-                                                    <div className="card box-shadow-0">
-                                                        <div className="card-content">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-12">
-                                                    <div className="card box-shadow-0">
-                                                        <div className="card-content">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                         </div>
 
                                     )

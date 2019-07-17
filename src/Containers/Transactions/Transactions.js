@@ -5,6 +5,7 @@ import DashboardLoader from "../../Components/Dashboard/DashboardLoader/Dashboar
 import {getTransactionsApi} from "../../RouteLinks/RouteLinks";
 import {request} from "../../ApiUtils/ApiUtils";
 import {
+    amountBalanceFormatter,
     amountFormatter,
     balanceFormatter,
     dateFormatter,
@@ -138,6 +139,8 @@ class Transactions extends Component {
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
                 filter: dateFilter({
                     defaultValue: {date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL},
                     getFilter: (filter) => {
@@ -156,8 +159,8 @@ class Transactions extends Component {
                 dataField: 'type',
                 formatter: descriptionFormatter,
                 sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                classes: 'd-none',
+                headerClasses: 'd-none',
 
             },
             {
@@ -165,12 +168,24 @@ class Transactions extends Component {
                 dataField: 'amount',
                 formatter: amountFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+
+            }, {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter: amountBalanceFormatter,
+                sort: true,
+                classes:' d-table-cell d-md-none',
+                headerClasses:'d-table-cell d-md-none',
 
             }, {
                 text: 'Balance',
                 dataField: 'balance',
                 formatter: balanceFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             },
             {
@@ -178,8 +193,8 @@ class Transactions extends Component {
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                classes: 'd-none',
+                headerClasses: 'd-none',
             },
             {
                 text: 'transactions',
@@ -204,8 +219,8 @@ class Transactions extends Component {
                 text: 'Reference',
                 dataField: 'reference',
                 sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                classes: 'd-none',
+                headerClasses: 'd-none ',
 
             }];
 

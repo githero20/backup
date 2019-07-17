@@ -12,7 +12,7 @@ import {
     dateFormatter,
     descriptionFormatter,
     formatNumber,
-    handleFiltering,
+    handleFiltering, mobileDescFormatter,
     STANDARD_ACCOUNT,
     statusFormatter
 } from "../../Helpers/Helper";
@@ -258,6 +258,8 @@ class InstantSave extends Component {
                 formatter: dateFormatter,
                 sort: true,
                 searchable: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
                 filter: dateFilter({
                     defaultValue: {date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL},
                     getFilter: (filter) => {
@@ -275,12 +277,21 @@ class InstantSave extends Component {
 
             },
             {
+                text: 'Description',
+                dataField: 'type',
+                formatter: mobileDescFormatter,
+                sort: true,
+                classes:' d-table-cell d-md-none',
+                headerClasses:'d-table-cell d-md-none',
+
+            },
+            {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter: amountFormatter,
                 sort: true
 
-            }, {
+            },{
                 text: 'Balance',
                 dataField: 'balance',
                 formatter: balanceFormatter,

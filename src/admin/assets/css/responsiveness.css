@@ -21,6 +21,10 @@
     .stash-btn{
         max-width: 100px;
     }
+    .spaced-table tbody tr {
+        box-shadow: 0rem 0.5rem 0.5rem rgba(0, 0, 0, 0.05);
+    }
+
     .mobile-bg {
         position: fixed;
         top: 0;
@@ -30,7 +34,9 @@
         z-index: 1000;
         background-color: rgba(0, 0, 0, 0.6);
     }
-
+    .react-bootstrap-table-page-btns-ul{
+        margin-right: 0px;
+    }
     .vertical-layout.vertical-menu-modern.menu-flipped .main-menu {
         left: -30px;
     }
@@ -153,7 +159,7 @@
     }
 
     .btn-custom-blue {
-        /*width:5rem;*/
+        padding: 0px;
     }
 
     .dashboard-callout label {

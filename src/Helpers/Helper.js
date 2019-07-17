@@ -122,9 +122,10 @@ export function getTotalSteadySaveDebit(transactions) {
         }
     }
 }
+
 export function validatePasswords(password, password_confirmation) {
     // perform all neccassary validations
-    return (password === password_confirmation)? true: false;
+    return (password === password_confirmation) ? true : false;
 }
 
 export function getTotalSuccessfulSS(transactions) {
@@ -169,20 +170,21 @@ export function getPercentage(startValue, endValue) {
 
 }
 
-export function readURL(input,context) {
+export function readURL(input, context) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            console.log('image url',e.target.result);
+            console.log('image url', e.target.result);
             console.log('previewer', document.querySelector('#img-previewer'));
             context.setState({
-                fileUpload:e.target.result
+                fileUpload: e.target.result
             });
             // document.querySelector('#img-previewer').setAttribute('src', e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
     }
 }
+
 //
 // export function capitalize (value) {
 //     value.prototype.capitalize = function() {
@@ -210,7 +212,7 @@ export function getCardsFromStorage(key, object) {
 export function hideLoader() {
     const loader = document.querySelector('.lds-loader-bg');
     setTimeout(() => {
-       loader.style.display = 'none';
+        loader.style.display = 'none';
     }, 3000);
 }
 
@@ -416,6 +418,7 @@ export function transformHour(hour) {
             return 'none';
     }
 }
+
 export const passwordValidator = new SimpleReactValidator({
     messages: {
         password: 'Password combination must have a lowercase letter, uppercase letter, number, special character and must be a minimum of 8 characters',
@@ -424,7 +427,7 @@ export const passwordValidator = new SimpleReactValidator({
         password: {  // name the rule
             message: 'The :attribute must be a strong password and must have :values.',
             rule: (val, params, validator) => {
-                return validator.helpers.testRegex(val,/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
+                return validator.helpers.testRegex(val, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
             },
             messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
             required: true  // optional
@@ -452,11 +455,10 @@ export const passwordValidator = new SimpleReactValidator({
 // };
 
 
-
 export function dateFormatter(cell) {
     let format =
         <span className='d-flex flex-column'>
-            <span style={{minWidth: '100px'}}>{moment(cell).format('MMM Do YYYY')}&nbsp;</span>
+            <span style={{minWidth: '90px'}}>{moment(cell).format('MMM Do YYYY')}&nbsp;</span>
             <small className='text-muted'>{moment(cell).format('h:mm a')}</small>
         </span>;
     return format;
@@ -514,6 +516,34 @@ export function descriptionFormatter(cell) {
         className={cell === 'credit' ? 'text-green text-capitalize' : 'text-red text-capitalize'}>{cell}</span>
 }
 
+export function mobileDescFormatter(cell, row) {
+    const date = moment(row.created_at).format('Do MMM YY');
+
+    return (
+        <div className="d-flex align-items-start">
+            {
+                cell == 'credit' ? <div className="green-dot"></div> : <div className="red-dot"></div>
+            }
+            <div className='d-flex flex-column'>
+                <span className={'text-capitalize'}>{cell}</span>
+                <small className='text-muted'>{date}</small>
+            </div>
+        </div>
+
+    );
+}
+
+export function mobileTransDescFormatter(cell, row) {
+    const date = moment(row.created_at).format('Do MMM YY');
+
+    return (
+        <div className='d-flex flex-column'>
+            <span className={'text-capitalize'}>{cell}</span>
+            <small className='text-muted'>{date}</small>
+        </div>
+    );
+}
+
 export function sourceFormatter(cell, row) {
     let content;
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
@@ -558,7 +588,7 @@ export function titleFormatter(cell) {
 }
 
 export function withdrawSourceFormatter(cell) {
-    return <p style={{minWidth: '150px'}}
+    return <p style={{minWidth: '100px'}}
               className={'text-secondary text-capitalize'}>{`${cell.replace(/_/g, ' ')}`}</p>
 }
 
@@ -570,6 +600,36 @@ export function amountFormatter(cell, row) {
         </p>
     )
 }
+export function amountLastAmountFormatter(cell, row) {
+    return (
+        <div className="d-flex flex-column">
+            <p style={{minWidth: '100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
+                {row.type === 'credit' ? '+' : '-'}
+                {cell != null ? (`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`) : 'N/A'}
+            </p>
+            <small  className='text-muted'>Last Amount</small>
+            <small> {row.last_amount != null ? (`₦ ${formatNumber(parseFloat(row.last_amount).toFixed(2))}`) : 'N/A'}</small>
+            <small  className='text-muted'>Date</small>
+            <small> {moment(row.created_at).format('Do MMM YY')}</small>
+        </div>
+
+    )
+}
+export function amountBalanceFormatter(cell, row) {
+    return (
+        <div className="d-flex flex-column">
+            <p style={{minWidth: '100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
+                {row.type === 'credit' ? '+' : '-'}
+                {cell != null ? (`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`) : 'N/A'}
+            </p>
+            <small>Balance</small>
+            <small className='text-muted'> {row.balance != null ? (`₦ ${formatNumber(parseFloat(row.balance).toFixed(2))}`) : 'N/A'}</small>
+            <small  className='text-muted'>Date</small>
+            <small> {moment(row.created_at).format('Do MMM YY')}</small>
+        </div>
+
+    )
+}
 
 export function parseAndFormatNum(num) {
     return formatNumber(parseFloat(num).toFixed(2));
@@ -579,6 +639,56 @@ export function moneyFormatter(cell) {
     return (
         <p style={{minWidth: '150px'}}
            className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+    )
+}
+export function amountCurrentStatusFormatter(cell,row) {
+    return (
+        <div className="d-flex flex-column">
+
+            <p style={{minWidth: '100px'}}
+               className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+            <label
+                className={
+                    row.status == 'success' ? 'bg-light-green round px-1 ' :
+                        'bg-light-red px-1 round '}>{row.status}
+            </label>
+            <small className='text-muted'>current amount</small>
+            <small>
+                {row.current_amount != null ? `+ ₦ ${formatNumber(parseFloat(row.current_amount).toFixed(2))}` : "N/A"}
+            </small>
+
+        </div>
+
+    )
+}
+
+export function mobileSSMoneyFormatter(cell, row) {
+    return (
+        <div className="d-flex flex-column">
+            <p style={{minWidth: '100px'}}
+               className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+            <label
+                className={
+                    row.status == 'success' ? 'bg-light-green round px-1 ' :
+                        'bg-light-red px-1 round '}>{row.status}</label>
+        </div>
+
+    )
+}
+
+export function ssMobileDescFormatter(cell, row) {
+    let status;
+    if (parseInt(row.is_pause)) {
+        status = <small className={'text-warning'}>Paused</small>
+    } else {
+        status = <small className={'text-green'}>Ongoing</small>
+    }
+    return (
+        <div className="d-flex flex-column">
+            <small className='text-muted'>{row.title}</small>
+            <p style={{minWidth: '100px'}}
+               className={'text-gray'}> {cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+        </div>
     )
 }
 
@@ -616,7 +726,21 @@ export function statusFormatter(cell) {
 }
 
 export function interestFormatter(cell) {
-    return (<label style={{minWidth: '100px'}}>+ {`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`}</label>)
+    return (<label style={{minWidth: '60px'}}>+ {`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`}</label>)
+
+}
+
+export function amountInterestFormatter(cell, row) {
+
+    return (
+        <div className="d-flex flex-column">
+            <p style={{minWidth: '100px'}}
+               className={'text-info'}> {row.amount != null ? `₦ ${formatNumber(parseFloat(row.amount).toFixed(2))}` : "N/A"}</p>
+            <small className='text-muted'>Interest</small>
+            <small className='text-green'>+ {`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`}</small>
+            <small style={{fontSize:'9px'}} className='text-muted'> {moment(row.start_date).format('Do MMM YY')} - {moment(row.end_date).format('Do MMM YY')}</small>
+        </div>
+    )
 
 }
 

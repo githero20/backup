@@ -8,7 +8,7 @@ import WithdrawalForm from "./WithdrawalForm";
 import {getUserData} from "../../actions/UserAction";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {
-    amountFormatter,
+    amountFormatter, amountLastAmountFormatter,
     balanceFormatter,
     confirmedFormatter,
     dateFormatter,
@@ -106,6 +106,8 @@ class Withdrawal extends Component {
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Account',
@@ -127,12 +129,24 @@ class Withdrawal extends Component {
                 dataField: 'amount',
                 formatter: amountFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },{
+                text: 'Amount',
+                dataField: 'amount',
+                formatter: amountLastAmountFormatter,
+                sort: true,
+                classes:' d-table-cell d-md-none',
+                headerClasses:'d-table-cell d-md-none',
 
             }, {
                 text: 'Last Amount',
                 dataField: 'last_amount',
                 formatter: balanceFormatter,
                 sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+
 
             }, {
                 text: 'Description',
@@ -177,7 +191,7 @@ class Withdrawal extends Component {
                                 <div className="row">
                                     <div className="withdrawal col-12 col-md-12">
                                         <div className="card">
-                                            <div className="card-content mt-1 px-1 px-md-3 py-1">
+                                            <div className="card-content mt-1 px-1 px-md-2 py-1">
                                                 <div
                                                     className="table-header d-flex flex-md-row justify-content-start mb-3">
                                                     {/*<span className="table-button-container mb-2 mb-md-0">*/}

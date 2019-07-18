@@ -204,19 +204,12 @@ class SignUpForm extends Component {
                 }
 
             }
-            // else{
-            //     toastManager.add("No Internet Connection.", {
-            //         appearance: 'error',
-            //         autoDismiss:true,
-            //         autoDismissTimeout:3000,
-            //     })
-            // }
         } else {
             if (response) {
-                const serverResponse = response.data;
-                const token = serverResponse.token;
-                const user = serverResponse.user;
-                this.saveToLocalStorage(user, token);
+                // const serverResponse = response.data;
+                // const token = serverResponse.token;
+                // const user = serverResponse.user;
+                // this.saveToLocalStorage(user, token);
                 this.setState({
                     redirect: true
                 });

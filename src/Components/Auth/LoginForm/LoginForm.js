@@ -316,7 +316,7 @@ class LoginForm extends Component {
                             <div className="form-group">
                                 <div className="d-flex justify-content-between">
                                     <label htmlFor="password" className="">Password</label>
-                                    <Link className={'dark-link'} to={ForgotPasswordLink}>Forgot Password ?</Link>
+                                    <Link className={'blue-link'} to={ForgotPasswordLink}>Forgot Password ?</Link>
                                 </div>
                                 <input id="password" name={'password'} type="password" onChange={this.changeHandler}
                                        className="form-control"/>

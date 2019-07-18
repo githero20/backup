@@ -69,6 +69,10 @@ class Home extends Component {
 
     componentDidMount() {
         this.checkUser();
+        // document.getElementById('root').onload = function(){
+        //     console.log('got here');
+        //     hideLoader()
+        // };
         hideLoader();
     }
 

@@ -15,6 +15,9 @@
         padding: .5rem;
     }
 
+    .table td .btn-custom-blue {
+        padding: 0px;
+    }
     .dash-card-analysis h6, .dash-card-analysis strong{
         width: 120px;
     }

@@ -253,7 +253,7 @@ section {
 }
 
 .section-details-paragraph {
-    color: rgba(0, 0, 0, 0.7);
+    color: #3D5A84;
     font-size: 1.2rem;
     line-height: 28px;
     padding-right: 1rem;
@@ -669,6 +669,7 @@ a.carousel-btn {
 
 .comment-box p {
     color: #3D5A84;
+    min-height: 60px;
     font-size: 1rem;
     margin-top: 2rem;
     letter-spacing: .5px;
@@ -726,7 +727,8 @@ a.carousel-btn {
 
 .section-transparent-card-right p {
     font-size: 1.3rem;
-    font-family: "Circular Std Book", Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
+    font-weight: normal;
+    font-family: "Circular Std", Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
     /*color: #bdbdbd;*/
     color: rgba(0, 0, 0, 0.7);
 }
@@ -1355,7 +1357,7 @@ footer-logo {
     }
 
     .section-details-paragraph {
-        color: rgba(67, 67, 67, 0.6);
+        color: #3D5A84;
         font-size: 1.1rem;
         line-height: 2.0rem;
     }
@@ -1486,7 +1488,7 @@ footer-logo {
     }
 
     .section-details-paragraph {
-        color: #9B9B9B;
+        color:#3D5A84;
         font-size: 1rem;
         line-height: 1.6rem;
     }
@@ -1579,7 +1581,7 @@ footer-logo {
     }
 
     .section-details-paragraph {
-        color: #9B9B9B;
+        color: #3D5A84;
         font-size: 1rem;
         line-height: 1.7rem;
     }

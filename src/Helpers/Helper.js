@@ -19,6 +19,7 @@ export const WITHDRAWAL_SOURCE = 'withdrawal';
 export const STEADY_SAVE = 'auto save';
 export const INTEREST_ON_VAULT = 'STANDARD_INTEREST_CRON_';
 export const INTEREST_ON_BACKUP_GOAL = 'STANDARD_BACKUP_GOAL_INTEREST_CRON_';
+export const MATURED_LOCKED_SAVINGS = 'STANDARD_LOCKED_CRON_';
 export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
 export const CENTRAL_VAULT = 'central_vault';
 export const BACKUP_STASH = 'backup_stash';
@@ -125,7 +126,7 @@ export function getTotalSteadySaveDebit(transactions) {
 
 export function validatePasswords(password, password_confirmation) {
     // perform all neccassary validations
-    return (password === password_confirmation) ? true : false;
+    return (password == password_confirmation)? true: false;
 }
 
 export function getTotalSuccessfulSS(transactions) {
@@ -435,6 +436,32 @@ export const passwordValidator = new SimpleReactValidator({
     }
 });
 
+export const EmailPhoneValidator = new SimpleReactValidator({
+    messages: {
+        password: 'Password combination must have a lowercase letter, uppercase letter, number, special character and must be a minimum of 8 characters',
+        emailPhone: 'Please provide a valid email or phone number',
+    },
+    validators: {
+        password: {  // name the rule
+            message: 'The :attribute must be a strong password and must have :values.',
+            rule: (val, params, validator) => {
+                return validator.helpers.testRegex(val,/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
+            },
+            messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
+            required: true  // optional
+        },
+        emailPhone: {  // name the rule
+            message: 'The :attribute must be a valid email or phone number :values.',
+            rule: (val, params, validator) => {
+                return validator.helpers.testRegex(val,/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|^[0]\d{10}$/)
+            },
+            messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
+            required: true  // optional
+        }
+    }
+});
+// ^[0]\d{10}$
+// ([0-9]{10})+$
 // export function validatePasswords (value,context) {
 //
 //     const {password} = context.state;
@@ -553,7 +580,17 @@ export function sourceFormatter(cell, row) {
         return (
             <p style={{minWidth: '140px'}}
                className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
-                <small className='text-muted'>(interest on backup goals)</small>
+                <small className='text-muted'>(Interest on backup goals)</small>
+            </p>
+        );
+        //
+        // return sourceMarkup(content);
+    }
+    if (row.gw_authorization_code.includes(MATURED_LOCKED_SAVINGS)) {
+        return (
+            <p style={{minWidth: '140px'}}
+               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+                <small className='text-muted'>(Matured locked savings)</small>
             </p>
         );
         //
@@ -564,7 +601,7 @@ export function sourceFormatter(cell, row) {
         return (
             <p style={{minWidth: '140px'}}
                className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
-                <small className='text-muted'>(interest on central vault)</small>
+                <small className='text-muted'>(Interest on central vault)</small>
             </p>
         );
     }
@@ -900,3 +937,32 @@ export function handleFiltering(date, comparator, context) {
         comparator: comparator
     });
 };
+
+export function handlePinConcatenation (name , event, context = this, callback = null) {
+    let form = {...context.state.form};
+    form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    if (name == 'pin_one' || name == 'pin_two' || name == 'pin_three' || name == 'pin_four') {
+        form.withdrawal_pin = form.pin_one + form.pin_two + form.pin_three + form.pin_four;
+        context.setState({form});
+    }
+    if (form.withdrawal_pin.length >= 4) {
+        context.setState({
+            pinErr: false
+        })
+    }
+    if (callback != null) {
+        callback();
+    }
+    return form;
+};
+
+export function validatePin(context=this) {
+    if (context.state.form.withdrawal_pin.length != 4) {
+        //validate pin
+        context.setState({
+            pinErr: true
+        });
+        return false;
+    }
+    return true;
+}

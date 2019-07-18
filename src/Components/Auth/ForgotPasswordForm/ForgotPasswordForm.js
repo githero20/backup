@@ -3,32 +3,33 @@ import React, {Component} from 'react';
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from "simple-react-validator";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
-import { passwordResetEndpoint} from "../../../RouteLinks/RouteLinks";
+import {passwordResetEndpoint} from "../../../RouteLinks/RouteLinks";
 import {request} from "../../../ApiUtils/ApiUtils";
 import {withToastManager} from 'react-toast-notifications';
-import {hideLoader} from "../../../Helpers/Helper";
+import {EmailPhoneValidator, hideLoader, toastMessage} from "../../../Helpers/Helper";
 
 class ForgotPasswordForm extends Component {
 
+
+    // validate email or password
+
+    // get input if phone number and response is valid
+
+    // display input email , password , new password and withdrawal pin
 
     constructor(props) {
 
         super(props);
 
-        this.validator = new SimpleReactValidator({
-            messages: {
-                email: 'Input a valid Email',
-
-            },
-        });
+        this.validator = EmailPhoneValidator;
 
         this.state = {
             email: '',
-            userData:null,
-            error:false,
-            errorMessage:'',
-            loading:false,
-            message:'',
+            userData: null,
+            error: false,
+            errorMessage: '',
+            loading: false,
+            message: '',
         }
 
     }
@@ -44,7 +45,6 @@ class ForgotPasswordForm extends Component {
     };
 
 
-
     // validate forgot password
 
     submitForm = () => {
@@ -53,13 +53,12 @@ class ForgotPasswordForm extends Component {
         if (this.validator.allValid()) {
 
 
-                //    make api call
-                this.setState({
-                    loading: true
-                });
+            //    make api call
+            this.setState({
+                loading: true
+            });
 
-
-                request(passwordResetEndpoint,this.state,false,"POST",this.submitEmailResponse);
+            request(passwordResetEndpoint, this.state, false, "POST", this.submitEmailResponse);
 
         } else {
 
@@ -73,32 +72,34 @@ class ForgotPasswordForm extends Component {
     };
 
 
-
-
     //handle response
 
     // if response is successful render a input password form
 
-    submitEmailResponse = (state,response) => {
-
-        const { toastManager } = this.props;
+    submitEmailResponse = (state, response) => {
 
         this.setState({
-            loading:false
+            loading: false
         });
-
-
         //handle response
+        if (state) {
 
-        if(state){
-            toastManager.add(`${response.data.success}`, {
-                appearance: 'success',
-            });
-        }else{
-            console.log(response);
-            toastManager.add(`${response.data.error}`, {
-                appearance: 'error',
-            });
+            toastMessage(`${response.data.success}`, 'success', this);
+        } else {
+            console.log('err',response);
+            if (response) {
+                if (response.data.error.toLowerCase() == "user not found") {
+                    toastMessage(`${response.data.error}`, 'error', this);
+                }else if (response.data.error.toLowerCase() == "unable to get user's email") {
+                    toastMessage('Your phone number has been detected, kindly update your email', 'success', this);
+                    this.props.setPhone(this.state.email);
+                    setTimeout(() => {
+                        this.props.showPhoneResetForm();
+                    }, 3000);
+                }else {
+                    toastMessage(`${response.data.message}`, 'error', this);
+                }
+            }
         }
 
     };
@@ -113,50 +114,51 @@ class ForgotPasswordForm extends Component {
     //user input password and confirmation password
 
 
-
     componentDidMount() {
         hideLoader();
     }
 
     render() {
 
-        const { email} = this.state;
-
+        const {email} = this.state;
 
 
         return (
             <React.Fragment>
-                    <form className="login-form">
-                        <div className="row">
-                            <div className="col-12">
-                                {/*provide breadcrumb to go back*/}
-                                <h5 className="form-header-purple mb-1">Forgot Password</h5>
-                                <p className='mb-1'>Do a password reset</p>
-                            </div>
-                            <div className="col-12">
-                                <div className="form-group">
-                                    <label htmlFor="email" className="">Your Email</label>
-                                    <input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="form-control" />
-                                    {this.validator.message('email', email, 'required|email')}
-                                </div>
-                            </div>
-
-                            <div className="col-12">
-                                <div
-                                    className="d-flex flex-column flex-md-row justify-content-end align-items-center">
-                                    <button type={'button'} disabled={this.state.loading} onClick={this.submitForm} className="btn btn-round blue-round-btn auth-btn "
-                                            name="action">{this.state.loading?<ButtonLoader/>:
-                                        <span>Send Email<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
-                                    </button>
-                                </div>
+                <form className="login-form">
+                    <div className="row">
+                        <div className="col-12">
+                            {/*provide breadcrumb to go back*/}
+                            <h5 className="form-header-purple mb-1">Forgot Password</h5>
+                            {/*<p className='mb-1'>Get a password reset</p>*/}
+                        </div>
+                        <div className="col-12">
+                            <div className="form-group">
+                                <label htmlFor="email" className="">Your Email or Phone Number</label>
+                                {/*<input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="form-control" />*/}
+                                <input id="email" name={'email'} onChange={this.changeHandler} type="text"
+                                       className="form-control"/>
+                                {this.validator.message('email or phone ', email, 'required|emailPhone')}
                             </div>
                         </div>
-                    </form>
+
+                        <div className="col-12">
+                            <div
+                                className="d-flex flex-column flex-md-row justify-content-end align-items-center">
+                                <button type={'button'} disabled={this.state.loading} onClick={this.submitForm}
+                                        className="btn btn-round blue-round-btn auth-btn "
+                                        name="action">{this.state.loading ? <ButtonLoader/> :
+                                    <span>Submit <img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </React.Fragment>
         );
     }
 }
 
-const FPWithToast  = withToastManager(ForgotPasswordForm);
+const FPWithToast = withToastManager(ForgotPasswordForm);
 
 export default FPWithToast;

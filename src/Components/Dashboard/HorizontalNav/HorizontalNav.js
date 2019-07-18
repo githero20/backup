@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Logo from "../../../admin/app-assets/images/Logo@2x.png";
+
 import ProfileIcon from "../../../admin/app-assets/images/svg/profile-icon.svg";
 import LogOutIcon from "../../../admin/app-assets/images/svg/logout-cion.svg";
 import KycIcon from "../../../admin/app-assets/images/svg/kyc-icon.svg";

@@ -177,7 +177,7 @@ class SignUpForm extends Component {
         this.setState({
             loading: false
         });
-        hideLoader();
+        // hideLoader();
 
         if (!state) {
             if (response) {
@@ -239,7 +239,7 @@ class SignUpForm extends Component {
                 this.setState({
                     loading: true
                 });
-                showHomeLoader();
+                // showHomeLoader();
 
                 this.signUp(RegisterEndpoint, this.state, this.getSignUpInfo);
 
@@ -298,15 +298,6 @@ class SignUpForm extends Component {
 
         if (this.state.redirect) {
 
-
-            // Activate account with paystack
-
-            // return (
-            //     <React.Fragment>
-            //         <Redirect to={ActivateAccountLink} push/>
-            //     </React.Fragment>
-            // );
-            //
             return (
                 <React.Fragment>
                     {/*<Redirect to={ResendActivationLink} />*/}

@@ -11,7 +11,7 @@ import {
     descriptionFormatter,
     handleFiltering, mobileDescFormatter,
     sourceFormatter,
-    statusFormatter
+    statusFormatter, todaysDateForTable
 } from "../../../Helpers/Helper";
 import MessageBox from "./MessageBox/MessageBox";
 import adImg from '../../../admin/app-assets/images/svg/adtwo.svg';
@@ -46,6 +46,7 @@ class DashboardContainer extends Component {
 
     render() {
         const columns = [
+
             {
                 text: 'Date',
                 dataField: 'created_at',
@@ -54,7 +55,7 @@ class DashboardContainer extends Component {
                 classes:'d-none d-md-table-cell',
                 headerClasses:'d-none d-md-table-cell',
                 filter: dateFilter({
-                    defaultValue: {date: moment().format('DD-MM-YYYY'), comparator: Comparator.LEQUAL},
+                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
                     getFilter: (filter) => {
                         this.createdDateFilter = filter;
                     }

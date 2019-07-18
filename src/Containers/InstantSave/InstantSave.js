@@ -14,7 +14,7 @@ import {
     formatNumber,
     handleFiltering, mobileDescFormatter,
     STANDARD_ACCOUNT,
-    statusFormatter
+    statusFormatter, todaysDateForTable
 } from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
 import {getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
@@ -261,7 +261,7 @@ class InstantSave extends Component {
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
                 filter: dateFilter({
-                    defaultValue: {date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL},
+                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
                     getFilter: (filter) => {
                         this.createdDateFilter = filter;
                     }

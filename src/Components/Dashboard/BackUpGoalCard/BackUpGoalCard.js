@@ -72,7 +72,7 @@ class BackUpGoalCard extends Component {
                             <img src={orangeIcon} className={'dash-card-img'}/>
                         </div>
                         <div className="card-item flex-grow-1">
-                            <h3 className='my-2 my-md-1'>&#8358; {backupAmount!==0?formatNumber(backupAmount):'0.00'}</h3>
+                            <h3 className='my-2 my-md-1'><strong>&#8358;</strong> {backupAmount!==0?formatNumber(backupAmount):'0.00'}</h3>
                             <div className="dash-card-analysis d-flex fs-12">
                                 <div className='d-flex flex-column'>
                                     <div

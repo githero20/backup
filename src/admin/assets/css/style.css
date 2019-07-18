@@ -36,19 +36,15 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 
 body {
 
-    font-family: 'Product Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: "Product Sans","Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: 'Product Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: 'Product Sans','Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-/************************** animation *************8*/
+/************************** animation **************/
 @keyframes loadingSpinner {
     from {
         transform: rotate(0deg);
@@ -157,11 +153,10 @@ button .loadingSpinner {
 }
 
 .dash-card h3{
-    font-family: "Circular Std Black",'Product Sans', Quicksand, Georgia, 'Times New Roman', Times, serif;
-    /*font-weight: bold;*/
+    font-family: "Circular Std Black","Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .dash-card-analysis .dash-card-total-details {
-    font-family: 'Poppins Regular',"Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Poppins Regular',"Product Sans","Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     letter-spacing: .5px;
 }
 .btn-withdraw {
@@ -640,7 +635,6 @@ input[type="date"]::-webkit-clear-button {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
-
 
 .spaced-table tbody {
     padding: 1rem;
@@ -1569,15 +1563,6 @@ button:focus, input:focus {
     position: relative;
 }
 
-/*.welcome-text {*/
-/*    color: #103366;*/
-/*    font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
-/*    letter-spacing: 0px;*/
-/*    font-size: 1.5rem;*/
-/*    position: absolute;*/
-/*    top: 26%;*/
-/*    left: 8%;*/
-/*}*/
 
 .header-shadow {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05);
@@ -2462,70 +2447,26 @@ input[type=number]::-webkit-outer-spin-button {
     /*top: 10em;*/
 }
 
-/*================================================================================
-	Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
-	Version: 1.0
-	Author: PIXINVENT
-	Author URL: http://www.themeforest.net/user/pixinvent
-================================================================================
 
-NOTE:
-------
-PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
-WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 
-@font-face {
-    font-family: "Gilroy Bold";
-    src: url("../../app-assets/fonts/app-fonts/gilroy-extrabold.otf");
-}
+/*!************************** animation *************8*!*/
+/*@keyframes loadingSpinner {*/
+/*    from {*/
+/*        transform: rotate(0deg);*/
+/*    }*/
+/*    to {*/
+/*        transform: rotate(360deg);*/
+/*    }*/
+/*}*/
 
-@font-face {
-    font-family: "Product Sans";
-    src: url("../../app-assets/fonts/app-fonts/productsans-regular-webfont.woff");
-}
-
-@font-face {
-    font-family: "Circular Std";
-    src: url("../../app-assets/fonts/app-fonts/CircularStd-Book.otf");
-}
-
-@font-face {
-    font-family: "Circular Std Medium";
-    src: url("../../app-assets/fonts/app-fonts/CircularStd-Medium.otf");
-}
-
-body {
-
-    font-family: 'Product Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
-
-}
-
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: 'Product Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-/************************** animation *************8*/
-@keyframes loadingSpinner {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@-webkit-keyframes loadingSpinner {
-    from {
-        -webkit-transform: rotate(0deg);
-    }
-    to {
-        -webkit-transform: rotate(360deg);
-    }
-}
+/*@-webkit-keyframes loadingSpinner {*/
+/*    from {*/
+/*        -webkit-transform: rotate(0deg);*/
+/*    }*/
+/*    to {*/
+/*        -webkit-transform: rotate(360deg);*/
+/*    }*/
+/*}*/
 
 .fs-xs {
     font-size: 1.2rem;

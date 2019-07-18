@@ -543,6 +543,9 @@ export function mobileTransDescFormatter(cell, row) {
         </div>
     );
 }
+export function todaysDateForTable() {
+    return new Date(moment().format('MM-DD-YYYY'))
+}
 
 export function sourceFormatter(cell, row) {
     let content;

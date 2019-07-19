@@ -9,15 +9,6 @@ import {hideLoader, showHomeLoader} from "../../Helpers/Helper";
 class Login extends Component {
 
 
-    componentWillMount() {
-        // let element = document.getElementById('tawkchat-minified-box');
-        // let elementContainer = document.getElementById('tawkchat-container');
-        //
-        // console.log('element',element);
-        // console.log('element Container',elementContainer);
-        showHomeLoader();
-    }
-
 
     componentDidMount() {
         hideLoader();
@@ -26,7 +17,6 @@ class Login extends Component {
     render() {
         return (
             <React.Fragment>
-                {/*{hideSupport()}*/}
                     <section className="login-background login-section">
                         <h3 className="welcome-text d-none d-lg-block">Welcome <br/>Back</h3>
 

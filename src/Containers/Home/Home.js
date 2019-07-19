@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
 import backupCashLogo from "../../admin/app-assets/images/Logo@2x.png";
+import sfsFooterLogo from "../../admin/app-assets/images/Logo@2x.png";
 import illustration1 from "../../admin/app-assets/images/wymg@2x.png";
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
 import securityIcon from "../../admin/app-assets/images/svg/security-icon.svg";
@@ -14,7 +15,6 @@ import featureImage1 from "../../admin/app-assets/images/svg/feature-image-1.svg
 import featureImage2 from "../../admin/app-assets/images/svg/feature-img-2.svg";
 import featureImage3 from "../../admin/app-assets/images/svg/feature-img-3.svg";
 import featureImage4 from "../../admin/app-assets/images/svg/feature-img-4.svg";
-import sfsFooterLogo from "../../admin/app-assets/images/Logo@2x.png";
 import whatsAppIcon from "../../admin/app-assets/images/whatsapp-ico@2x.png";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
 import polarisBank from "../../admin/app-assets/images/polaris-bank.png";
@@ -69,10 +69,6 @@ class Home extends Component {
 
     componentDidMount() {
         this.checkUser();
-        // document.getElementById('root').onload = function(){
-        //     console.log('got here');
-        //     hideLoader()
-        // };
         hideLoader();
     }
 
@@ -99,7 +95,7 @@ class Home extends Component {
                                      id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
                                         <li className="nav-item">
-                                            <a className="nav-link" href={FaqLink}>FAQs </a>
+                                            <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
@@ -128,7 +124,7 @@ class Home extends Component {
                                      id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
                                         <li className="nav-item">
-                                            <a className="nav-link" href={FaqLink}>FAQs </a>
+                                            <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
@@ -144,10 +140,6 @@ class Home extends Component {
                                                 </li>
                                             )
                                         }
-
-                                        {/*<li className="nav-item">*/}
-                                        {/*    <Link to={LoginLink} className="nav-link" href={'#'}>Login </Link>*/}
-                                        {/*</li>*/}
                                     </ul>
                                     <ul className="cta-link">
                                         <li>
@@ -162,15 +154,16 @@ class Home extends Component {
                             <div className="row pt-lg-1">
                                 <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
                                     <div className="header-words-container pt-lg-5 pr-lg-3">
-                                        <h1 className="animated fadeInDown delay-3s header-title mt-5 mt-lg-1 mb-2 mt-md-0  px-2 px-sm-0 ">
+                                        <h1 className="animated fadeInDown delay-3s header-title mt-5 mt-lg-1 mb-2
+                                        mt-md-0  px-2 px-sm-0 ">
                                             Protecting your <br/> interest is our business.</h1>
                                         <p className="header-sub-title mb-0 ">
                                             Save as little as <strong>₦500 </strong></p>
                                         <p className="header-sub-title mb-3">
                                             Earn up to <strong>13% </strong> interest on Savings. </p>
                                         <Link to={'/sign-up'}
-                                              className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow"> Create
-                                            free account</Link>
+                                              className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow">
+                                            Create free account</Link>
                                     </div>
                                 </div>
                             </div>
@@ -211,28 +204,11 @@ class Home extends Component {
                         <div className="container">
                             <div className="row text-center text-md-left">
                                 <div className=" col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                                    {/*<div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">*/}
-                                    {/*    <div className="row pb-md-5">*/}
-                                    {/*        <div className="col-md-12 col-lg-12">*/}
-                                    {/*            <div className="security-img-wrapper mb-5 mb-md-0 pt-md-2">*/}
-                                    {/*                <img className="img-2x" src={securityIcon}*/}
-                                    {/*                     alt="security icon"/>*/}
-                                    {/*            </div>*/}
-                                    {/*        </div>*/}
-                                    {/*        <div className="col-md-6 col-lg-8">*/}
-                                    {/*            <div className="mt-md-3">*/}
-                                    {/*                <h2 className="text-white pt-md-5">Your Security Is Our*/}
-                                    {/*                    Business</h2>*/}
-                                    {/*                <h6>Safest Security Measures</h6>*/}
-                                    {/*            </div>*/}
-                                    {/*        </div>*/}
-                                    {/*    </div>*/}
-                                    {/*</div>*/}
                                     <div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">
                                         <div className="row pb-md-5">
                                             <div className="col-12">
-                                                <div
-                                                    className="d-flex flex-column flex-md-row justify-content-around align-items-center">
+                                                <div className="d-flex flex-column flex-md-row justify-content-around
+                                                 align-items-center">
                                                     <div className="security-img-wrapper mb-2 mb-md-0">
                                                         <img src={securityIcon}
                                                              alt="security icon"/>
@@ -262,7 +238,6 @@ class Home extends Component {
                             </div>
                         </div>
                         <div className=" pb-5 pb-md-0 height-100vh ">
-                            {/*<img className="yellow-svg" src={yellowBg} alt=''/>*/}
                             <div className="container px-md-5">
                                 <div className="row mx-md-5">
                                     <div className="col-md-4 px-md-0">
@@ -311,9 +286,8 @@ class Home extends Component {
                                 <div className="row pb-md-5">
                                     <div className="col-md-4 offset-md-4 text-center">
                                         <div className="pb-4 pt-2">
-                                            <Link to={'/sign-up'} className="btn-rounded-corner mb-5 btn-light-blue">Start
-                                                Now
-                                                {/*<img alt="step-3" src={arrowRight} className=" ml-2"/>*/}
+                                            <Link to={'/sign-up'} className="btn-rounded-corner mb-5 btn-light-blue">
+                                                Start Now
                                             </Link>
                                         </div>
                                     </div>
@@ -528,7 +502,6 @@ class Home extends Component {
                                         responsiveClass={true}
 
                                     >
-
                                         <div className="partner-img-container">
                                             <a href={'http://www.paystack.com'} rel={'noopener noreferrer'}
                                                target='_blank'><img className="partner-img " src={paystackImage}
@@ -541,15 +514,6 @@ class Home extends Component {
                                                                     alt="sfs"/></a>
 
                                         </div>
-                                        {/*<div className="partner-img-container">*/}
-                                        {/*    <img src={accentureImage} alt="accenture" className="partner-img"/>*/}
-
-
-                                        {/*</div>*/}
-                                        {/*<div className="partner-img-container">*/}
-                                        {/*    <img className="partner-img" src={horizonImage} alt="horizon"/>*/}
-
-                                        {/*</div>*/}
                                         <div className="partner-img-container">
                                             <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
                                                target='_blank'> <img className="partner-img-50 tm-30" src={tm30}
@@ -610,12 +574,13 @@ class Home extends Component {
                                                     <span className="fa-stack fa-sm">
                                                         <a href='http://www.facebook.com/sfsbackupcash' rel='noreferrer'
                                                            target='_blank'>
-                                                            <i className="fa fa-circle fa-stack-2x"></i><i
-                                                            className="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                                            <i className="fa fa-circle fa-stack-2x"></i>
+                                                            <i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
                                                         </a>
                                                     </span>
                                                 <span className="fa-stack fa-sm">
-                                                        <a href='http://www.twitter.com/sfsbackupcash' rel='noreferrer' target='_blank'>
+                                                        <a href='http://www.twitter.com/sfsbackupcash' rel='noreferrer'
+                                                           target='_blank'>
                                                             <i className="fa fa-circle fa-stack-2x"></i>
                                                             <i className="fa fa-twitter fa-stack-1x fa-inverse"></i>
                                                         </a>
@@ -649,9 +614,6 @@ class Home extends Component {
                                         <div className=" col-sm-6 col-md-4 col-lg-4 ">
                                             <p className="footer-header">Company</p>
                                             <ul className="footer-list">
-                                                {/*<li>*/}
-                                                {/*    <a href={'#'}>About Us</a>*/}
-                                                {/*</li>*/}
                                                 <li>
                                                     <Link to={HomeLink}>Testimonials</Link>
                                                 </li>
@@ -685,9 +647,8 @@ class Home extends Component {
 
                                     </div>
                                 </div>
-
                                 <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
-                                    <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All RIghts
+                                    <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All Rights
                                         Reserved</p>
                                     <p className="footer-sub-text text-center mr-lg-3">Powered by
                                         <a href='http://www.tm30.net' rel='noreferrer' className='footer-brand-link'
@@ -699,7 +660,6 @@ class Home extends Component {
                         </div>
                     </footer>
                 </div>
-
             </React.Fragment>
         );
     }

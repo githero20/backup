@@ -20,31 +20,20 @@ class SetupWithdrawal extends Component {
     componentDidMount() {
         hideLoader();
         getListOfBanks((status, payload) =>{
-            if(status){
-                this.setState({banks:payload});
-            }else {
-               console.log('err',payload);
-            }
+            if(status){this.setState({banks:payload});
+            }else{console.log('err',payload);}
         });
-
         // retreive token from url
         this.retreiveToken();
     }
 
     retreiveToken = () =>{
         const search = queryString.parse(this.props.location.search);
-        this.setState({
-            token:search.token
-        });
-
+        this.setState({token:search.token});
         //retreive token from redirect
         if(this.props.location.state){
-            this.setState({
-                token:this.props.location.state.token
-            })
+            this.setState({token:this.props.location.state.token})
         }
-
-
     };
 
 
@@ -54,24 +43,10 @@ class SetupWithdrawal extends Component {
             <React.Fragment>
                         <section className="sign-up-background login-section">
                                 <h3 className="welcome-text d-none d-md-block">Welcome! </h3>
-                                {/*<div id="timeline-wrap">*/}
-                                {/*    <div id="timeline">*/}
-                                {/*    </div>*/}
-                                {/*    <div className="marker mfirst timeline-icon  text-center">*/}
-                                {/*        <div className="circular-icon active">1</div>*/}
-                                {/*        <label>Create <br/> Account</label>*/}
-                                {/*    </div>*/}
-                                {/*    <div className="marker mlast timeline-icon  text-center">*/}
-                                {/*        <div className="circular-icon">2</div>*/}
-                                {/*        <label>Activate Account</label>*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-
                                 <div className="secure-section">
                                     <img src={secureIcon} /> &nbsp;
                                     <span>Your Sign Up is Secure</span>
                                 </div>
-
                                 <div className="container px-2 px-md-0">
                                     <div className="row pt-md-1">
                                         <div className="col-md-6 offset-md-6">
@@ -86,8 +61,6 @@ class SetupWithdrawal extends Component {
                                         </div>
                                     </div>
                                 </div>
-
-
                         </section>
             </React.Fragment>
         );

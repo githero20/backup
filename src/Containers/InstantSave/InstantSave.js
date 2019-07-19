@@ -12,9 +12,12 @@ import {
     dateFormatter,
     descriptionFormatter,
     formatNumber,
-    handleFiltering, mobileDescFormatter,
+    handleFiltering,
+    mobileDescFormatter,
     STANDARD_ACCOUNT,
-    statusFormatter, todaysDateForTable
+    statusFormatter,
+    todaysDateForTable,
+    toggleTable
 } from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
 import {getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
@@ -37,7 +40,8 @@ class InstantSave extends Component {
         showLoader: true,
         newInstantSave: false,
         date: moment().format('MM-DD-YYYY'),
-        comparator: Comparator.EQ
+        comparator: Comparator.EQ,
+        mobileTable: true,
     };
 
     constructor(props) {
@@ -67,19 +71,6 @@ class InstantSave extends Component {
         });
     };
 
-
-    //add the input package
-
-    //change event handler
-
-    //set appropriate state
-
-    //validate format
-
-
-    // send request
-
-
     analyseInstantSaveInfo = (status, data) => {
 
         if (status) {
@@ -92,13 +83,10 @@ class InstantSave extends Component {
                 });
             }
 
-
             //set proper account
             if (data.data.data.accounts) {
-
                 // loop through data and set appropriate states
                 let accounts = data.data.data.accounts.data;
-
                 //display total balance
                 accounts.map((content, idx) => {
                     if (content.account_type_id == STANDARD_ACCOUNT) {
@@ -108,20 +96,6 @@ class InstantSave extends Component {
                         })
                     }
                 });
-
-
-                // //TODO loop through transactions and add up only credits
-                //
-                // let transactions = data.data.data.transactions.data;
-                // transactions = transactions.filter((content)=>content.status=='success');
-                // let totalInstantSave = this.getTotalInstantSave(transactions);
-                // console.log("transactions"+transactions);
-                // console.log('totalInstant save'+totalInstantSave);
-                // this.setState({
-                //     // transactions: transactions,
-                //     totalInstantSave: totalInstantSave
-                // });
-
 
             } else {
                 return null;
@@ -178,21 +152,6 @@ class InstantSave extends Component {
         }
     };
 
-    //
-    //
-    // componentDidMount() {
-    //
-    //     //get instant save transactions
-    //     this.loadInstantSaves();
-    //
-    //     //get user instant saves
-    //     this.setupInstantSave();
-    //
-    //
-    //
-    // }
-
-
     handleFilter = (date, comparator) => {
         handleFiltering(date, comparator, this);
     };
@@ -223,17 +182,12 @@ class InstantSave extends Component {
 
         //get user instant saves
         this.setupInstantSave();
-
         this.loadInstantSaves();
-        //update tables
-        // this.updateInstantSave();
-
     }
 
     updateInstantSave = () => {
         //TODO Add Table Loader
-        //call get user info
-        // request(instantSaveTransEndpoint, null, true, 'GET', this.handleTransactions);
+        //get user info
         request(getUserInfoEndpoint, null, true, 'GET', this.loadInstantSaveTable)
     };
 
@@ -244,12 +198,11 @@ class InstantSave extends Component {
         })
     };
 
+    componentDidMount() {
+        toggleTable(this);
+    }
 
     render() {
-
-
-        //table  setup
-
 
         const columns = [
             {
@@ -277,12 +230,58 @@ class InstantSave extends Component {
 
             },
             {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter: amountFormatter,
+                sort: true
+
+            }, {
+                text: 'Balance',
+                dataField: 'balance',
+                formatter: balanceFormatter,
+                sort: true
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter: statusFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+
+            }];
+
+        const mobileColumn = [
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
+                searchable: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+                filter: dateFilter({
+                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
+                    getFilter: (filter) => {
+                        this.createdDateFilter = filter;
+                    }
+                })
+            },
+            {
                 text: 'Description',
                 dataField: 'type',
                 formatter: mobileDescFormatter,
                 sort: true,
-                classes:' d-table-cell d-md-none',
-                headerClasses:'d-table-cell d-md-none',
+                classes: ' d-table-cell d-md-none',
+                headerClasses: 'd-table-cell d-md-none',
 
             },
             {
@@ -291,7 +290,7 @@ class InstantSave extends Component {
                 formatter: amountFormatter,
                 sort: true
 
-            },{
+            }, {
                 text: 'Balance',
                 dataField: 'balance',
                 formatter: balanceFormatter,
@@ -393,7 +392,18 @@ class InstantSave extends Component {
 
                             <div className="row">
                                 {/*transaction table */}
-                                <TransactionTable handleFilter={this.handleFilter} transactions={this.state.transactions} columns={columns}/>
+                                {
+                                    this.state.mobileTable ?
+                                        (
+                                            <TransactionTable handleFilter={this.handleFilter}
+                                                              transactions={this.state.transactions}
+                                                              columns={mobileColumn}/>
+                                        ) :
+                                        (
+                                            <TransactionTable handleFilter={this.handleFilter}
+                                                              transactions={this.state.transactions} columns={columns}/>
+                                        )
+                                }
 
                             </div>
 

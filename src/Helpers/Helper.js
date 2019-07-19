@@ -150,6 +150,10 @@ export function getTotalSuccessfulBG(transactions) {
         return 0;
     }
 }
+export function  toggleTable (context){
+    window.addEventListener('resize',()=>{context.setState({mobileTable:window.innerWidth<=599})});
+}
+
 
 // export function getTotalSuccessfulSS(transactions) {
 //     if (transactions && transactions.length > 0) {
@@ -664,7 +668,6 @@ export function amountBalanceFormatter(cell, row) {
             </p>
             <small>Balance</small>
             <small className='text-muted'> {row.balance != null ? (`₦ ${formatNumber(parseFloat(row.balance).toFixed(2))}`) : 'N/A'}</small>
-            <small  className='text-muted'>Date</small>
             <small> {moment(row.created_at).format('Do MMM YY')}</small>
         </div>
 
@@ -689,8 +692,8 @@ export function amountCurrentStatusFormatter(cell,row) {
                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
             <label
                 className={
-                    row.status == 'success' ? 'bg-light-green round px-1 ' :
-                        'bg-light-red px-1 round '}>{row.status}
+                    row.status == 'success' ? 'bg-light-green text-center round px-1 ' :
+                        'bg-light-red text-center px-1 round '}>{row.status}
             </label>
             <small className='text-muted'>current amount</small>
             <small>
@@ -707,12 +710,8 @@ export function mobileSSMoneyFormatter(cell, row) {
         <div className="d-flex flex-column">
             <p style={{minWidth: '100px'}}
                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
-            <label
-                className={
-                    row.status == 'success' ? 'bg-light-green round px-1 ' :
-                        'bg-light-red px-1 round '}>{row.status}</label>
+            <label className={row.status == 'success' ? 'bg-light-green text-center round px-1 ' : 'bg-light-red text-center px-1 round '}>{row.status}</label>
         </div>
-
     )
 }
 

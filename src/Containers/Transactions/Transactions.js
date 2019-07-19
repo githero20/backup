@@ -12,7 +12,7 @@ import {
     descriptionFormatter,
     detailFormatter, handleFiltering,
     sourceFormatter,
-    statusFormatter
+    statusFormatter, todaysDateForTable, toggleTable
 } from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {withToastManager} from 'react-toast-notifications';
@@ -28,6 +28,7 @@ class Transactions extends Component {
         userName: null,
         selectedTransID: null,
         showTransDetail: false,
+        mobileTable:true
     };
 
     //when the component mounts
@@ -98,9 +99,8 @@ class Transactions extends Component {
             showLoader: true,
         });
 
-        // getUserData(this.handleUserInfo);
-
         this.loadTransactions();
+        toggleTable(this);
     }
 
 
@@ -142,7 +142,7 @@ class Transactions extends Component {
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
                 filter: dateFilter({
-                    defaultValue: {date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL},
+                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
                     getFilter: (filter) => {
                         this.createdDateFilter = filter;
                     }
@@ -171,7 +171,74 @@ class Transactions extends Component {
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
 
-            }, {
+            },{
+                text: 'Balance',
+                dataField: 'balance',
+                formatter: balanceFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter: statusFormatter,
+                sort: true,
+                classes: 'd-none',
+                headerClasses: 'd-none',
+            },
+            {
+                text: 'transactions',
+                dataField: 'id',
+                formatter: detailFormatter,
+                events: {
+                    onClick: (e, column, columnIndex, row, rowIndex) => {
+                        this.setState({
+                            showTransDetail: true,
+                            selectedTransID:row.id
+                        });
+                    }
+                }
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort: true,
+                classes: 'd-none',
+                headerClasses: 'd-none ',
+
+            }];
+        const mobileColumns = [
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+                filter: dateFilter({
+                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
+                    getFilter: (filter) => {
+                        this.createdDateFilter = filter;
+                    }
+                })
+            },{
+                text: 'Description',
+                dataField: 'sourcetypes',
+                formatter: sourceFormatter,
+                sort: true,
+
+            },
+            {
+                text: 'Phase',
+                dataField: 'type',
+                formatter: descriptionFormatter,
+                sort: true,
+                classes: 'd-none',
+                headerClasses: 'd-none',
+
+            },{
                 text: 'Amount',
                 dataField: 'amount',
                 formatter: amountBalanceFormatter,
@@ -206,12 +273,6 @@ class Transactions extends Component {
                             showTransDetail: true,
                             selectedTransID:row.id
                         });
-                        //set appropriate state to change view
-
-                        // make request to get transaction
-
-                        // get transaction detail
-                        // request(`${getEachTransApi}${row.id}`, null, true, 'GET', this.handleEachTrans);
                     }
                 }
             },
@@ -235,17 +296,14 @@ class Transactions extends Component {
                         <div className="content-wrapper">
                             <div className="row mb-4">
                                 <div className="col-12">
-
-                                    {/*messgae box*/}
-                                    {/*<MessageBox/>*/}
-
                                 </div>
                             </div>
 
                             {
                                 this.state.showTransDetail ?
                                     (
-                                        <TransactionReceipt hideDetails={this.hideDetails}  selectedTransID={this.state.selectedTransID} />
+                                        <TransactionReceipt hideDetails={this.hideDetails}
+                                                            selectedTransID={this.state.selectedTransID} />
                                     ) :
 
                                     <React.Fragment>
@@ -259,31 +317,22 @@ class Transactions extends Component {
                                                 </div>
 
                                             </div>
-
                                             <div className="row">
-                                                {/*<BigTransactionTable transactions={this.state.transactions} /> */}
-
-                                                <TransactionTable handleFilter={this.handleFilter} transactions={this.state.transactions}
-                                                                  columns={columns}/>
-                                            </div>
-
-
-                                            <div className="row">
-                                                <div className="col-12">
-                                                    <div className="card box-shadow-0">
-                                                        <div className="card-content">
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {
+                                                    this.state.mobileTable ?
+                                                        ( <TransactionTable handleFilter={this.handleFilter}
+                                                                            transactions={this.state.transactions}
+                                                                            columns={mobileColumns}/>):
+                                                        (
+                                                            <TransactionTable handleFilter={this.handleFilter}
+                                                                              transactions={this.state.transactions}
+                                                                              columns={columns}/>
+                                                        )
+                                                }
                                             </div>
                                         </div>
-
-
                                     </React.Fragment>
-
-
                             }
-
                         </div>
                     </div>
                 </div>

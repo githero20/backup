@@ -8,10 +8,11 @@ import WithdrawalForm from "./WithdrawalForm";
 import {getUserData} from "../../actions/UserAction";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {
-    amountFormatter, amountLastAmountFormatter,
+    amountFormatter,
+    amountLastAmountFormatter,
     balanceFormatter,
     confirmedFormatter,
-    dateFormatter,
+    dateFormatter, toggleTable,
     withdrawSourceFormatter
 } from "../../Helpers/Helper";
 
@@ -23,7 +24,8 @@ class Withdrawal extends Component {
             showWithdrawalForm: false,
             withdrawals: [],
             userName: null,
-            showLoader: false
+            showLoader: false,
+            mobileTable:true
         };
 
         this.showForm = this.showForm.bind(this);
@@ -36,19 +38,8 @@ class Withdrawal extends Component {
         this.setState({
             showLoader: true,
         });
-
-        // check if a user has a pin
-
-        // withdrawal pin
-
-
-        // if not prompt user to add a new withdrawal pin
-
-
         getUserData(this.handleUserInfo);
-
         this.getWithdrawalList();
-
     }
 
 
@@ -71,14 +62,8 @@ class Withdrawal extends Component {
                 this.setState({withdrawals: payload.data});
             } else if (!status && payload) {
                 console.log(payload.data.message);
-                // this.props.toastManager.add(payload, {
-                //     appearance: "error",
-                //     autoDismiss: true
-                // })
             }
         })
-        //TODO    display No withdrawal on table
-
     }
 
     showForm() {
@@ -96,6 +81,10 @@ class Withdrawal extends Component {
         this.setState({
             loading: !this.state.loading
         });
+    };
+
+    componentDidMount() {
+        toggleTable(this);
     }
 
 
@@ -122,7 +111,6 @@ class Withdrawal extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-
             },
             {
                 text: 'Amount',
@@ -131,13 +119,54 @@ class Withdrawal extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-            },{
+            },
+            {
+                text: 'Last Amount',
+                dataField: 'last_amount',
+                formatter: balanceFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },
+            {
+                text: 'Description',
+                dataField: 'source',
+                formatter: withdrawSourceFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            }
+        ];
+        const mobileColumns = [
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },
+            {
+                text: 'Account',
+                dataField: 'account_type',
+                formatter: withdrawSourceFormatter,
+                sort: true,
+            },
+            {
+                text: 'Status',
+                dataField: 'is_confirmed',
+                formatter: confirmedFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+
+            }, {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter: amountLastAmountFormatter,
                 sort: true,
-                classes:' d-table-cell d-md-none',
-                headerClasses:'d-table-cell d-md-none',
+                classes: ' d-table-cell d-md-none',
+                headerClasses: 'd-table-cell d-md-none',
 
             }, {
                 text: 'Last Amount',
@@ -167,12 +196,6 @@ class Withdrawal extends Component {
                     <div className="app-content content">
                         <div className="content-wrapper">
                             {this.state.showLoader ? <DashboardLoader/> : null}
-                            {/*<div className="row mb-4">*/}
-                            {/*    <div className="col-12">*/}
-                            {/*       /!* message box *!/*/}
-                            {/*       /!*<MessageBox/>*!/*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
                             <div className="content-body">
                                 <div className="row">
                                     <div className="col-12 ">
@@ -194,19 +217,6 @@ class Withdrawal extends Component {
                                             <div className="card-content mt-1 px-1 px-md-2 py-1">
                                                 <div
                                                     className="table-header d-flex flex-md-row justify-content-start mb-3">
-                                                    {/*<span className="table-button-container mb-2 mb-md-0">*/}
-                                                    {/*    <span className="mr-1 table-grid-view-icon img-2x active">*/}
-                                                    {/*        <img src={listIcon} className=" img-2x "/>*/}
-                                                    {/*     </span>*/}
-                                                    {/*    <span className="mr-1 table-grid-view-icon img-2x ">*/}
-                                                    {/*        <img src={gridIcon} className=" img-2x "/>*/}
-                                                    {/*    </span>*/}
-                                                    {/*    <span className="table-view-display">*/}
-                                                    {/*        <img src={tableArrowLeft}*/}
-                                                    {/*             className="mr-1 img-1x"/> table view*/}
-                                                    {/*    </span>*/}
-                                                    {/*</span>*/}
-
                                                     {
                                                         !this.state.showWithdrawalForm
                                                             ?
@@ -219,27 +229,25 @@ class Withdrawal extends Component {
                                                                 className='fa fa-chevron-left'></i>Back
                                                             </a>
                                                     }
-
-
-                                                    {/*{*/}
-                                                    {/*    !this.state.showWithdrawalForm*/}
-                                                    {/*    ?*/}
-                                                    {/*        <button className="round white btn-withdraw flex-grow-0 "*/}
-                                                    {/*                onClick={this.showForm}>Withdraw*/}
-                                                    {/*        </button>*/}
-                                                    {/*        :*/}
-                                                    {/*        <button className="round white btn-withdraw flex-grow-0 "*/}
-                                                    {/*                onClick={this.hideForm}>Go Back*/}
-                                                    {/*        </button>*/}
-                                                    {/*}*/}
                                                 </div>
                                                 <ToastProvider>
                                                     {
                                                         !this.state.showWithdrawalForm
-                                                            ? <WithdrawalList showForm={this.showForm}
-                                                                              withdrawals={this.state.withdrawals}
-                                                                              columns={columns}
-                                                                              transactions={this.state.withdrawals}/>
+                                                            ? (
+
+                                                                this.state.mobileTable ? (
+                                                                        <WithdrawalList showForm={this.showForm}
+                                                                                        withdrawals={this.state.withdrawals}
+                                                                                        columns={mobileColumns}
+                                                                                        transactions={this.state.withdrawals}/>
+                                                                    ) :
+                                                                    (
+                                                                        <WithdrawalList showForm={this.showForm}
+                                                                                        withdrawals={this.state.withdrawals}
+                                                                                        columns={columns}
+                                                                                        transactions={this.state.withdrawals}/>
+                                                                    )
+                                                            )
                                                             : <WithdrawalForm activateLoader={this.activateLoader}
                                                                               hideForm={this.hideForm}
                                                                               updateWithdrawalList={this.getWithdrawalList}/>

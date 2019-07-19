@@ -14,9 +14,7 @@ class ResetPassword extends Component {
 
     retreiveToken =()=>{
         const token = this.props.match.params.token;
-        this.setState({
-            token:token
-        });
+        this.setState({token:token});
     };
 
     componentDidMount() {

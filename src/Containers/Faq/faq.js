@@ -4,7 +4,7 @@ import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
 import backupCashLogo from "../../admin/app-assets/images/Logo@2x.png";
 import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
-import {FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import {DashboardLink, FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
@@ -54,18 +54,56 @@ class Faq extends Component {
                                         <span className="hamburger-inner"></span>
                                     </span>
                                 </a>
-                                <div className="collapse navbar-collapse animated slideInLeft faster"
+
+                                <div className="collapse navbar-collapse mobile d-md-none animated slideInLeft faster"
                                      id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
                                         <li className="nav-item">
                                             <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                         </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={HomeLink}>Testimonials </Link>
+                                        {/*<li className="nav-item">*/}
+                                        {/*    <Link className="nav-link" to={HomeLink}>Testimonials </Link>*/}
+                                        {/*</li>*/}
+                                        {
+                                            this.state.isLoggedIn ? (
+                                                <li className="nav-item">
+                                                    <Link to={DashboardLink} className="nav-link">Dashboard </Link>
+                                                </li>
+                                            ) : (
+                                                <li className="nav-item">
+                                                    <Link to={LoginLink} className="nav-link">Login </Link>
+                                                </li>
+                                            )
+                                        }
+                                    </ul>
+                                    <ul className="cta-link">
+                                        <li>
+                                            <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
+                                                Sign Up
+                                            </Link>
                                         </li>
+                                    </ul>
+                                </div>
+                                <div className="collapse navbar-collapse desktop "
+                                     id="navbarSupportedContent">
+                                    <ul className="navbar-nav ml-auto">
                                         <li className="nav-item">
-                                            <Link to={LoginLink} className="nav-link">Login </Link>
+                                            <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                         </li>
+                                        {/*<li className="nav-item">*/}
+                                        {/*    <Link className="nav-link" to={HomeLink}>Testimonials </Link>*/}
+                                        {/*</li>*/}
+                                        {
+                                            this.state.isLoggedIn ? (
+                                                <li className="nav-item">
+                                                    <Link to={DashboardLink} className="nav-link">Dashboard </Link>
+                                                </li>
+                                            ) : (
+                                                <li className="nav-item">
+                                                    <Link to={LoginLink} className="nav-link">Login </Link>
+                                                </li>
+                                            )
+                                        }
                                     </ul>
                                     <ul className="cta-link">
                                         <li>
@@ -115,7 +153,8 @@ class Faq extends Component {
                                 <div className="col-sm-4 text-center text-md-left">
                                     <div className="mb-3 mb-md-5 ">
                                         <h4 className='text-capitalize'>Phone</h4>
-                                        <p className='gray-text text-capitalize'>+234 814 946 0946 | +234 701 856 7235</p>
+                                        <p className='gray-text text-capitalize'>+234 814 946 0946 | +234 701 856 7235
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -131,10 +170,10 @@ class Faq extends Component {
                                             <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
                                                  alt="yellow icon"/>
                                         </div>
-                                        <h2 className="section-details-header text-center text-md-left mb-md-2">Frequently
-                                            Asked Questions.</h2>
-                                        <p className='mb-3 mt-3 mt-md-0'>BackUp Cash is a savings platform designed to help you encourage a
-                                            disciplined
+                                        <h2 className="section-details-header text-center text-md-left mb-md-2">
+                                            Frequently Asked Questions.</h2>
+                                        <p className='mb-3 mt-3 mt-md-0'>BackUp Cash is a savings platform designed to
+                                            help you encourage a disciplined
                                             financial lifestyle by automating your savings on daily, weekly or monthly
                                             basis. BackUp Cash is encrypted with bank grade level security that makes
                                             saving quick,
@@ -145,7 +184,6 @@ class Faq extends Component {
 
                                 <div className="col-12">
                                     <div className="faq-title">
-                                        {/*<h2 className="section-details-header text-center text-md-left mb-md-2">Savings</h2>*/}
                                     </div>
                                     <div id="accordion">
                                         <div className="card">
@@ -300,7 +338,8 @@ class Faq extends Component {
                                                     - “Steady save” allows you to reach your goal by helping you save
                                                     automatically.<br/>
                                                     - You have the option of setting a specific amount that is to be
-                                                    deducted from your debit card on a daily, weekly or monthly basis.<br/>
+                                                    deducted from your debit card on a daily, weekly or monthly basis.
+                                                    <br/>
                                                     - You can also choose what time of the day you want the deductions
                                                     made and the date you want to start.<br/>
                                                 </div>
@@ -320,7 +359,8 @@ class Faq extends Component {
                                             <div id="collapseSeven" className="collapse" aria-labelledby="headingSeven"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - To get your account activated, you can save a minimum of ₦500.<br/>
+                                                    - To get your account activated, you can save a minimum of ₦500.
+                                                    <br/>
                                                     - To set up your savings plan, you can save a minimum of ₦500 daily,
                                                     weekly or monthly.<br/>
                                                     - When using the “InstantSave” option which allows you add more
@@ -390,9 +430,13 @@ class Faq extends Component {
                                             <div id="collapseNine" className="collapse" aria-labelledby="headingNine"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Yes, savings are done automatically, and you are not required to login every time you want to save except when you want to use the “Instant save” option.<br/>
-                                                    - All transactions on your debit card will be visible in your dashboard.<br/>
-                                                    - We will send an email receipt to you every single time you save with your debit card and your bank will also send you an alert.<br/>
+                                                    - Yes, savings are done automatically, and you are not required to
+                                                    login every time you want to save except when you want to use the
+                                                    “Instant save” option.<br/>
+                                                    - All transactions on your debit card will be visible in your
+                                                    dashboard.<br/>
+                                                    - We will send an email receipt to you every single time you save
+                                                    with your debit card and your bank will also send you an alert.<br/>
                                                 </div>
                                             </div>
                                         </div>
@@ -404,16 +448,22 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseTen" aria-expanded="false"
                                                             aria-controls="collapseTen">
-                                                        What happens if I don't have funds in my bank account/debit card?
+                                                        What happens if I don't have funds in my bank
+                                                        account/debit card?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseTen" className="collapse" aria-labelledby="headingTen"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Yes, savings are done automatically, and you are not required to login every time you want to save except when you want to use the “Instant save” option.<br/>
-                                                    - All transactions on your debit card will be visible in your dashboard.<br/>
-                                                    - We will send an email receipt to you every single time you save with your debit card and your bank will also send you an alert.<br/>
+                                                    - Yes, savings are done automatically, and you are not required
+                                                    to login every time you want to save except when you want to use
+                                                    the “Instant save” option.<br/>
+                                                    - All transactions on your debit card will be visible in
+                                                    your dashboard.<br/>
+                                                    - We will send an email receipt to you every single time you save
+                                                    with your debit card and your bank will also send you an alert.
+                                                    <br/>
                                                 </div>
                                             </div>
                                         </div>
@@ -429,12 +479,21 @@ class Faq extends Component {
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="collapseEleven" className="collapse" aria-labelledby="headingEleven"
-                                                 data-parent="#accordion">
+                                            <div id="collapseEleven" className="collapse"
+                                                 aria-labelledby="headingEleven" data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - “Locked Savings” is our short-term investment product that allows you earn up to 13% per annum. We typically encourage a minimum of 90days.<br/>
-                                                    - This acts as your sub account which allows you transfer funds from your “Central Vault” balance for a fixed period of time (you can choose between 10 and 1000 days) without having any access until maturity.<br/>
-                                                    - The “Locked Savings” feature is a step further in curbing your spending urge. We help you ensure your savings are kept to meet your personal goals and needs. “Locked savings” attracts an upfront interest payment into your central vault immediately you lock funds for a specified period.<br/>
+                                                    - “Locked Savings” is our short-term investment product that allows
+                                                    you earn up to 13% per annum. We typically encourage
+                                                    a minimum of 90days.<br/>
+                                                    - This acts as your sub account which allows you transfer funds
+                                                    from your “Central Vault” balance for a fixed period of time
+                                                    (you can choose between 10 and 1000 days) without having any
+                                                    access until maturity.<br/>
+                                                    - The “Locked Savings” feature is a step further in curbing
+                                                    your spending urge. We help you ensure your savings are kept
+                                                    to meet your personal goals and needs. “Locked savings” attracts
+                                                    an upfront interest payment into your central vault immediately
+                                                    you lock funds for a specified period.<br/>
                                                 </div>
                                             </div>
                                         </div>
@@ -450,10 +509,13 @@ class Faq extends Component {
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="collapseTwelve" className="collapse" aria-labelledby="headingTwelve"
-                                                 data-parent="#accordion">
+                                            <div id="collapseTwelve" className="collapse"
+                                                 aria-labelledby="headingTwelve" data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - BackupCash is promoted by SFS Capital Nigeria Limited (SFS). SFS is a registered and regulated by Securities & Exchange Commission (SEC) to do Investment Management and has an Investment Management Rating of 'A'.
+                                                    - BackupCash is promoted by SFS Capital Nigeria Limited (SFS).
+                                                    SFS is a registered and regulated by Securities & Exchange
+                                                    Commission (SEC) to do Investment Management and has an Investment
+                                                    Management Rating of 'A'.
                                                 </div>
                                             </div>
                                         </div>
@@ -469,11 +531,16 @@ class Faq extends Component {
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="collapseThirteen" className="collapse" aria-labelledby="headingThirteen"
-                                                 data-parent="#accordion">
+                                            <div id="collapseThirteen" className="collapse"
+                                                 aria-labelledby="headingThirteen" data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Backup Cash is investment primarily in the 'AA' rated SFS Fixed Income Fund which is Invested mainly in CBN Treasury Bills and FGN Bonds.<br/>
-                                                    - SFS Fixed Income Fund is also listed on the Nigerian Stock Exchange and has a 'AAA' rated Custodian to hold its investments and a SEC regulated Trustee to monitor compliance and investment decisions.<br/>
+                                                    - Backup Cash is investment primarily in the 'AA' rated SFS
+                                                    Fixed Income Fund which is Invested mainly in CBN Treasury Bills
+                                                    and FGN Bonds.<br/>
+                                                    - SFS Fixed Income Fund is also listed on the Nigerian Stock
+                                                    Exchange and has a 'AAA' rated Custodian to hold its investments
+                                                    and a SEC regulated Trustee to monitor compliance and investment
+                                                    decisions.<br/>
                                                 </div>
                                             </div>
                                         </div>
@@ -489,14 +556,15 @@ class Faq extends Component {
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="collapseFourteen" className="collapse" aria-labelledby="headingFourteen"
-                                                 data-parent="#accordion">
+                                            <div id="collapseFourteen" className="collapse"
+                                                 aria-labelledby="headingFourteen" data-parent="#accordion">
                                                 <div className="card-body">
                                                     - Yes you can effect a Bank transfer to:<br/>
                                                     - Bank Name: Stanbic IBTC Bank:<br/>
                                                     - Account Name: SFS BACKUP CASH<br/>
                                                     - Account Number: 0032263465<br/>
-                                                    - Please ensure you quote your registered Mobile Number in full in the reference section<br/>
+                                                    - Please ensure you quote your registered Mobile Number
+                                                    in full in the reference section<br/>
                                                 </div>
                                             </div>
                                         </div>
@@ -511,14 +579,15 @@ class Faq extends Component {
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="collapseFifteen" className="collapse" aria-labelledby="headingFifteen"
-                                                 data-parent="#accordion">
+                                            <div id="collapseFifteen" className="collapse"
+                                                 aria-labelledby="headingFifteen" data-parent="#accordion">
                                                 <div className="card-body">
                                                     - Yes you can effect a Bank transfer to:<br/>
                                                     - Bank Name: Stanbic IBTC Bank:<br/>
                                                     - Account Name: SFS BACKUP CASH<br/>
                                                     - Account Number: 0032263465<br/>
-                                                    - Please ensure you quote your registered Mobile Number in full in the reference section<br/>
+                                                    - Please ensure you quote your registered Mobile Number in full
+                                                    in the reference section<br/>
                                                 </div>
                                             </div>
                                         </div>
@@ -537,7 +606,8 @@ class Faq extends Component {
                                                  aria-labelledby="headingSixteen"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Dial *372*Amount# to Invest, Dail *372*1*Amount# to withdraw. Always use your registered mobile number <br/>
+                                                    - Dial *372*Amount# to Invest, Dail *372*1*Amount# to withdraw.
+                                                    Always use your registered mobile number <br/>
                                                 </div>
                                             </div>
                                         </div>
@@ -546,10 +616,7 @@ class Faq extends Component {
                                 </div>
                             </div>
                         </div>
-
-
                     </section>
-
                     <footer className="light-yellow-bg home-footer footer">
                         <div className="container my-0 my-lg-5">
                             <div className="row px-lg-5 mx-lg-5">
@@ -561,9 +628,6 @@ class Faq extends Component {
                                 <div className=" col-sm-6 col-md-4 col-lg-3 ">
                                     <p className="footer-header">Company</p>
                                     <ul className="footer-list">
-                                        {/*<li>*/}
-                                        {/*    <a href={'#'}>About Us</a>*/}
-                                        {/*</li>*/}
                                         <li>
                                             <Link to={HomeLink}>Testimonials</Link>
                                         </li>
@@ -592,27 +656,6 @@ class Faq extends Component {
                                     <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria
                                         Island 23401, Lagos</p>
                                     <p className='gray-text footer-p'>Enquires: 08149460946, 07018567235 </p>
-
-                                    {/*<ul className="footer-icon-list ">*/}
-                                    {/*    <li>*/}
-                                    {/*        <span className="fa-stack fa-sm">*/}
-                                    {/*            <i className="fa fa-circle fa-stack-2x"></i><i*/}
-                                    {/*            className="fa fa-facebook fa-stack-1x fa-inverse"></i>*/}
-                                    {/*        </span>*/}
-                                    {/*    </li>*/}
-                                    {/*    <li>*/}
-                                    {/*        <span className="fa-stack fa-sm">*/}
-                                    {/*            <i className="fa fa-circle fa-stack-2x"></i><i*/}
-                                    {/*            className="fa fa-twitter fa-stack-1x fa-inverse"></i>*/}
-                                    {/*        </span>*/}
-                                    {/*    </li>*/}
-                                    {/*    <li>*/}
-                                    {/*        <span className="fa-stack fa-sm">*/}
-                                    {/*            <i className="fa fa-circle fa-stack-2x"></i><i*/}
-                                    {/*            className="fa fa-instagram fa-stack-1x fa-inverse"></i>*/}
-                                    {/*        </span>*/}
-                                    {/*    </li>*/}
-                                    {/*</ul>*/}
                                 </div>
                                 <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
                                     <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All RIghts

@@ -12,13 +12,12 @@ import {
     dateFormatter,
     handleFiltering,
     interestFormatter,
-    moneyFormatter,
+    moneyFormatter, todaysDateForTable, toggleTable,
 } from "../../Helpers/Helper";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
 import LockedTransactionTable from "../../Components/Dashboard/LockedTransactionTable/LockedTransactionTable";
 import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
-import moment from "moment";
 
 
 class LockedSavings extends Component {
@@ -26,7 +25,8 @@ class LockedSavings extends Component {
     state = {
         showLockedSavingsModal: false,
         lockedSavings: [],
-        showLoader: false
+        showLoader: false,
+        mobileTable:true
     };
 
     constructor(props) {
@@ -48,13 +48,13 @@ class LockedSavings extends Component {
         getUserData(this.handleUserInfo);
 
         getLockedSavings((status, payload) => {
-            console.log("payload", status, payload);
             if (status) {
                 //TODO(work on making this merging this payload.data.to lockedSavings[])
                 this.setState({lockedSavings: payload});
 
             }
-        })
+        });
+        toggleTable(this);
     }
 
     updateLockedSaving = () => {
@@ -99,15 +99,6 @@ class LockedSavings extends Component {
         this.setState({
             showLockedSavingsModal: false
         });
-        // if(status){
-        //     getLockedSavings((status, payload) => {
-        //         console.log("payload", status, payload);
-        //         if(status){
-        //             this.setState({lockedSavings: payload.data});
-        //         }
-        //     })
-        // }
-
     };
 
 
@@ -123,7 +114,7 @@ class LockedSavings extends Component {
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
                 filter: dateFilter({
-                    defaultValue: {date: moment().format('MM-DD-YYYY'), comparator: Comparator.LEQUAL},
+                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
                     getFilter: (filter) => {
                         this.createdDateFilter = filter;
                     }
@@ -147,6 +138,52 @@ class LockedSavings extends Component {
                 text: 'Interest',
                 dataField: 'interest',
                 formatter: interestFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },
+            {
+                text: 'Start Date',
+                dataField: 'start_date',
+                formatter: dateFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },
+            {
+                text: 'End Date',
+                dataField: 'end_date',
+                formatter: dateFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },
+        ];
+        const mobileColumns = [
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+                filter: dateFilter({
+                    defaultValue: {date:todaysDateForTable(), comparator: Comparator.LEQUAL},
+                    getFilter: (filter) => {
+                        this.createdDateFilter = filter;
+                    }
+                })
+            },
+            {
+                text: 'Name',
+                dataField: 'title',
+                sort: true,
+
+            },
+            {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter: moneyFormatter,
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
@@ -191,11 +228,6 @@ class LockedSavings extends Component {
                     <div className="app-content content">
                         <div className="content-wrapper">
                             {this.state.showLoader ? <DashboardLoader/> : null}
-                            {/*<MessageBox />*/}
-                            {/*<div className="row mb-4">*/}
-                            {/*    <div className="col-12"></div>*/}
-                            {/*</div>*/}
-
                             <div className="content-body">
                                 <div className="row">
                                     <div className="col-12 ">
@@ -208,7 +240,6 @@ class LockedSavings extends Component {
                                     <div className="col-lg-4 col-12">
                                         <h3 className="gray-header-text mb-2 ">Locked Savings</h3>
                                     </div>
-
                                 </div>
 
                                 <div className="row">
@@ -232,130 +263,15 @@ class LockedSavings extends Component {
                                                         </li>
 
                                                     </ul>
-                                                    {/*<div className="table-button-container d-none d-md-inline-block">*/}
-                                                    {/* <span*/}
-                                                    {/*     className="mr-md-1 table-grid-view-icon img-2x list-btn active d-block d-md-inline">*/}
-                                                    {/*     <img src={listIcon} className=" img-2x "/>*/}
-                                                    {/* </span>*/}
-                                                    {/*    <span*/}
-                                                    {/*        className="mr-md-1 table-grid-view-icon img-2x  grid-btn d-block d-md-inline">*/}
-                                                    {/*            <img src={gridIcon} className=" img-2x "/>*/}
-                                                    {/*    </span>*/}
-                                                    {/*    <span className="table-view-display d-block d-md-inline">*/}
-                                                    {/*        <img src={tableArrowLeft} className="mr-1 img-1x"/> grid view*/}
-                                                    {/*    </span>*/}
-                                                    {/*</div>*/}
-                                                    {/*<div className="table-sort-display d-block d-md-inline">*/}
-                                                    {/*    <span>*/}
-                                                    {/*        <img className=" img-2x " src={sortIcon}/>*/}
-                                                    {/*    </span>sort*/}
-                                                    {/*</div>*/}
                                                 </div>
                                                 <div className="row">
-                                                    {/*<TransactionTable transactions={this.state.lockedSavings} columns={columns} />*/}
-                                                    <LockedTransactionTable handleFilter={this.handleFilter}
-                                                                            transactions={this.state.lockedSavings || []}
-                                                                            columns={columns}/>
+                                                    {this.state.mobileTable?
+                                                        (<LockedTransactionTable handleFilter={this.handleFilter} transactions={this.state.lockedSavings || []} columns={mobileColumns}/>):
+                                                        (<LockedTransactionTable handleFilter={this.handleFilter} transactions={this.state.lockedSavings || []} columns={columns}/>)
+                                                    }
+
                                                 </div>
 
-                                                {/*<div className="box-grid-container  light-blue-bg px-md-3 py-md-3">*/}
-
-
-                                                {/*former locked savings table */}
-
-                                                {/*{*/}
-                                                {/*    this.state.lockedSavings.length!==0? (*/}
-
-                                                {/*            <div className="table-view table-responsive mb-5">*/}
-                                                {/*                <table id="recent-orders"*/}
-                                                {/*                       className="table table-hover table-xl mb-0 spaced-table text-center">*/}
-                                                {/*                    <thead>*/}
-                                                {/*                    <tr>*/}
-                                                {/*                        <th>#</th>*/}
-                                                {/*                        <th>Name</th>*/}
-                                                {/*                        <th>Amount</th>*/}
-                                                {/*                        <th>Interest</th>*/}
-                                                {/*                        <th>Start Date</th>*/}
-                                                {/*                        <th>End Date</th>*/}
-                                                {/*                        <th>Status</th>*/}
-                                                {/*                    </tr>*/}
-                                                {/*                    </thead>*/}
-                                                {/*                    <tbody>*/}
-                                                {/*                        {*/}
-
-                                                {/*                            this.state.lockedSavings.map(ls => {*/}
-                                                {/*                                console.log("Index", ls);*/}
-                                                {/*                                return (*/}
-                                                {/*                                    <tr>*/}
-                                                {/*                                        <td>*/}
-                                                {/*                                            {ls.id}*/}
-                                                {/*                                        </td>*/}
-                                                {/*                                        <td>*/}
-                                                {/*                                            {ls.title}*/}
-                                                {/*                                        </td>*/}
-                                                {/*                                        <td>*/}
-                                                {/*                                            {ls.amount}*/}
-                                                {/*                                        </td>*/}
-                                                {/*                                        <td>*/}
-                                                {/*                                            <label>+{parseFloat(ls.interest).toFixed(2)}%</label>*/}
-                                                {/*                                        </td>*/}
-                                                {/*                                        <td>*/}
-                                                {/*                                            {_transformDate(ls.start_date)}*/}
-                                                {/*                                        </td>*/}
-                                                {/*                                        <td>{_transformDate(ls.end_date)}</td>*/}
-                                                {/*                                        <td>{*/}
-                                                {/*                                            _isDateAfterToday(ls.end_date) ? "Completed" : "Ongoing"*/}
-                                                {/*                                        }</td>*/}
-
-                                                {/*                                    </tr>*/}
-                                                {/*                                );*/}
-
-
-                                                {/*                            })*/}
-
-                                                {/*                        }*/}
-                                                {/*                    </tbody>*/}
-                                                {/*                </table>*/}
-                                                {/*            </div>*/}
-                                                {/*    ):*/}
-                                                {/*        <div className='text-center'>*/}
-                                                {/*            <i className='fa fa-5x fa-briefcase'></i>*/}
-                                                {/*            <p>No locked Savings at the moment</p>*/}
-                                                {/*        </div>*/}
-                                                {/*}*/}
-
-
-                                                {/*pagination */}
-
-                                                {/*<nav aria-label="Page navigation">*/}
-                                                {/*    <ul className=" custom-pagination pagination justify-content-center pagination-separate pagination-round pagination-flat pagination-lg mb-1">*/}
-                                                {/*        <li className="page-item">*/}
-                                                {/*            <a className="page-link" href="#" aria-label="Previous">*/}
-                                                {/*                <span aria-hidden="true"><span*/}
-                                                {/*                    className="d-none d-md-inline">«</span> Prev</span>*/}
-                                                {/*                <span className="sr-only">Previous</span>*/}
-                                                {/*            </a>*/}
-                                                {/*        </li>*/}
-                                                {/*        <li className="page-item"><a className="page-link"*/}
-                                                {/*                                     href="#">1</a></li>*/}
-                                                {/*        <li className="page-item"><a className="page-link"*/}
-                                                {/*                                     href="#">2</a></li>*/}
-                                                {/*        <li className="page-item active"><a className="page-link"*/}
-                                                {/*                                            href="#">3</a></li>*/}
-                                                {/*        <li className="page-item"><a className="page-link"*/}
-                                                {/*                                     href="#">4</a></li>*/}
-                                                {/*        <li className="page-item"><a className="page-link"*/}
-                                                {/*                                     href="#">5</a></li>*/}
-                                                {/*        <li className="page-item">*/}
-                                                {/*            <a className="page-link" href="#" aria-label="Next">*/}
-                                                {/*                <span aria-hidden="true">Next <span*/}
-                                                {/*                    className="d-none d-md-inline">»</span></span>*/}
-                                                {/*                <span className="sr-only">Next</span>*/}
-                                                {/*            </a>*/}
-                                                {/*        </li>*/}
-                                                {/*    </ul>*/}
-                                                {/*</nav>*/}
-                                                {/*</div>*/}
                                             </div>
                                         </div>
                                     </div>

@@ -11,7 +11,7 @@ import {
     descriptionFormatter,
     handleFiltering, mobileDescFormatter,
     sourceFormatter,
-    statusFormatter, todaysDateForTable
+    statusFormatter, todaysDateForTable, toggleTable
 } from "../../../Helpers/Helper";
 import MessageBox from "./MessageBox/MessageBox";
 import adImg from '../../../admin/app-assets/images/svg/adtwo.svg';
@@ -28,7 +28,8 @@ class DashboardContainer extends Component {
         super(props);
         this.state = {
             date: moment().format('MM-DD-YYYY'),
-            comparator: Comparator.EQ
+            comparator: Comparator.EQ,
+            mobileTable:true,
         }
     }
 
@@ -43,6 +44,10 @@ class DashboardContainer extends Component {
         handleFiltering(date, comparator, this);
     };
 
+
+    componentDidMount() {
+        toggleTable(this);
+    }
 
     render() {
         const columns = [
@@ -70,6 +75,61 @@ class DashboardContainer extends Component {
                 headerClasses: 'd-none d-md-table-cell',
 
             }, {
+                text: 'Description',
+                dataField: 'sourcetypes',
+                formatter: sourceFormatter,
+                sort: true,
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
+
+            },
+            {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter: amountFormatter,
+                sort: true,
+
+            }, {
+                text: 'Balance',
+                dataField: 'balance',
+                formatter: balanceFormatter,
+                sort: true,
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter: statusFormatter,
+                sort: true,
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort: true,
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
+
+            }];
+
+        const mobileColumns = [
+
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
+                classes:'d-none d-md-table-cell',
+                headerClasses:'d-none d-md-table-cell',
+                filter: dateFilter({
+                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
+                    getFilter: (filter) => {
+                        this.createdDateFilter = filter;
+                    }
+                })
+            },
+             {
                 text: 'Description',
                 dataField: 'sourcetypes',
                 formatter: sourceFormatter,
@@ -115,7 +175,6 @@ class DashboardContainer extends Component {
                 headerClasses:'d-none d-md-table-cell',
 
             }];
-
         const runFilter = () => {
 
             //take the value of select
@@ -228,11 +287,21 @@ class DashboardContainer extends Component {
                                 {/*    <BootstrapTable keyField='id' data={ transactions } columns={ columns } filter={ filterFactory() } />*/}
                                 {/*</div>*/}
 
+                                {
+                                    !this.state.mobileTable ?(
+                                    <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
+                                                      runFilter={runFilter}
+                                                      transactions={transactions.reverse()}
+                                                      columns={columns}/>
 
-                                <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
-                                                  runFilter={runFilter}
-                                                  transactions={transactions.reverse()}
-                                                  columns={columns}/>
+                                ):(
+                                    <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
+                                                      runFilter={runFilter}
+                                                      transactions={transactions.reverse()}
+                                                      columns={mobileColumns}/>
+                                )}
+
+
 
                             </div>
 

@@ -426,6 +426,10 @@ export function transformHour(hour) {
 
 export const passwordValidator = new SimpleReactValidator({
     messages: {
+        email: 'Please provide a valid Email.',
+        name: 'Please fill in your first name.',
+        last_name: 'Please fill in your last name.',
+        phone: 'The phone number must match the required pattern (080********)',
         password: 'Password combination must have a lowercase letter, uppercase letter, number, special character and must be a minimum of 8 characters',
     },
     validators: {

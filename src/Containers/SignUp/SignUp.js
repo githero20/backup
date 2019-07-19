@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import secureIcon from "../../admin/app-assets/images/svg/secure-sign-icon.svg";
 import backUpCashLogo from "../../admin/app-assets/images/Logo@2x.png";
 import SignUpForm from "../../Components/Auth/SignUpForm/SignUpForm";
-import SimpleReactValidator from "simple-react-validator";
 import {ToastProvider} from "react-toast-notifications";
 import {Link} from "react-router-dom";
 import {HomeLink} from "../../RouteLinks/RouteLinks";
-import {hideLoader, showHomeLoader} from "../../Helpers/Helper";
 
 
 class SignUp extends Component {
@@ -60,7 +58,7 @@ class SignUp extends Component {
 
                                 <div className="container px-2 px-md-0">
                                     <div className="row pt-md-1">
-                                        <div className="col-md-5 offset-md-6">
+                                        <div className="col-md-6 offset-md-6">
                                             {/*header component */}
                                             <div className="px-md-2 py-md-2 header-shadow mb-md-5 bg-white">
                                                 <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>

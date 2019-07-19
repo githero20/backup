@@ -292,9 +292,10 @@ html body .content.app-content {
     input[type=date]:not(.browser-default) {
         background-color: transparent;
         border: none;
-        border-bottom: 1px solid #9e9e9e;
+        border-bottom: 1px solid #C9C9C9;
         border-radius: 0;
         outline: none;
+        color: #7C7C7C;
         font-size: 1.2rem;
         -webkit-box-shadow: none;
         box-shadow: none;
@@ -2573,7 +2574,7 @@ html body .content.app-content {
 }
 
 /*error class*/
-.srv-validation-message {
+.login-form .srv-validation-message {
     color: #8b0000;
     font-size: 12px;
 }
@@ -2654,32 +2655,6 @@ html body .content.app-content {
         transition: box-shadow .3s, border .3s;
         transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
     }
-
-    /*input[type=text]:not(.browser-default):disabled {*/
-    /*    color: rgba(0, 0, 0, 0.42);*/
-    /*    border-bottom: 1px dotted rgba(0, 0, 0, 0.42);*/
-    /*}*/
-    /*input[type=text]:not(.browser-default):disabled + label {*/
-    /*    color: rgba(0, 0, 0, 0.42);*/
-    /*}*/
-    /*input[type=text]:not(.browser-default):focus:not([readonly]) {*/
-    /*    border-bottom: 1px solid #1e9ff2;*/
-    /*    -webkit-box-shadow: 0 1px 0 0 #1e9ff2;*/
-    /*    box-shadow: 0 1px 0 0 #1e9ff2;*/
-    /*}*/
-    /*input[type=text]:not(.browser-default):focus:not([readonly]) + label {*/
-    /*    color: #1e9ff2;*/
-    /*}*/
-    /*input[type=text]:not(.browser-default) + label:after {*/
-    /*    display: block;*/
-    /*    content: "";*/
-    /*    position: absolute;*/
-    /*    top: 100%;*/
-    /*    left: 0;*/
-    /*    opacity: 0;*/
-    /*    -webkit-transition: .2s opacity ease-out, .2s color ease-out;*/
-    /*    transition: .2s opacity ease-out, .2s color ease-out;*/
-    /*}*/
     .input-field {
         position: relative;
         margin-top: 1rem;
@@ -2746,10 +2721,17 @@ html body .content.app-content {
     transform: rotate(90deg);
 }
 
-.login-form .input-field .dark-link {
+.login-form .input-field .dark-link ,.dark-link{
     color: #333333;
 }
 
+.login-form label.dark-link{
+    color: #939393;
+}
+.login-form label{
+    font-family: "Circular Std Book","Product Sans",'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+}
 .reset-form .input-field > input {
     margin-top: 1.5rem;
     margin-bottom: 0rem;

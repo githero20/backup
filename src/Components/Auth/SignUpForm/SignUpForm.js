@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import blueHeadArrow from "../../../admin/app-assets/images/svg/blue-head-arrow.svg";
 import {Link, Redirect} from "react-router-dom";
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
-import SimpleReactValidator from 'simple-react-validator';
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {RegisterEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteLinks";
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
+import {passwordValidator} from "../../../Helpers/Helper";
 
 class SignUpForm extends Component {
 
@@ -26,26 +26,7 @@ class SignUpForm extends Component {
     constructor(props) {
         super(props);
 
-        this.validator = new SimpleReactValidator({
-            messages: {
-                email: 'Please provide a valid Email.',
-                name: 'Please fill in your first name.',
-                last_name: 'Please fill in your last name.',
-                phone: 'The phone number must match the required pattern (080********)',
-                password: 'Password combination must have a lowercase letter, uppercase letter, number, special character and must be a minimum of 8 characters',
-            },
-            validators: {
-                password: {  // name the rule
-                    message: 'The :attribute must be a strong password and must have :values.',
-                    rule: (val, params, validator) => {
-                        return validator.helpers.testRegex(val, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
-                    },
-                    messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
-                    required: true  // optional
-                }
-            }
-
-        });
+        this.validator = passwordValidator;
 
         this.state = {
             showReferralInput: false,
@@ -84,14 +65,15 @@ class SignUpForm extends Component {
         const value = event.target.value;
 
         //validate password
-        if (name === 'password') {
-            this.validatePassword();
-        }
+        // if (name === 'password') {
+        //     this.validatePassword();
+        // }
 
-        //validate confirm password
-        if (name === 'password_confirmation') {
-            this.validatePasswords(value);
-        }
+        // //validate confirm password
+        // if (name === 'password_confirmation') {
+        //     this.validatePasswords(value);
+        // }
+
         this.setState({
             [name]: value
         });
@@ -300,10 +282,10 @@ class SignUpForm extends Component {
 
         return (
             <React.Fragment>
-                <form className="login-form ">
+                <form className="login-form">
                     <div className="row">
                         <div className="col-12">
-                            <h5 className="form-header-purple mb-5">Create Free Account</h5>
+                            <h5 className="form-header-purple mb-3">Create Free Account</h5>
                             {/*{this.state.error ?*/}
                             {/*    <Alert message={this.state.errorMessage} hideError={this.hideError}/> : null}*/}
                         </div>
@@ -395,7 +377,7 @@ class SignUpForm extends Component {
                         </div>
                         <div className="col-md-6 text-center text-md-right mb-md-0">
                             <div className="text-md-right mb-md-2 pr-md-2">
-                                <label className="font-size-1-1 mb-3 mb-md-1">Returning User ?
+                                <label className="font-size-1-1 mb-3 mb-md-1 dark-link">Returning User ?
                                     <Link to={'/login'} className="blue-link "> &nbsp; Sign In</Link>
                                 </label>
                             </div>

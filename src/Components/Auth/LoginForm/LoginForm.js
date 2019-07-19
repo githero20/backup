@@ -302,7 +302,7 @@ class LoginForm extends Component {
                 <form className="login-form" onSubmit={this.submitForm}>
                     <div className="row">
                         <div className="col-12">
-                            <h5 className="form-header-purple mb-3">Please Log In</h5>
+                            <h5 className="form-header-purple mb-2">Log In</h5>
                         </div>
                         <div className="col-12">
                             <div className="form-group">
@@ -315,9 +315,9 @@ class LoginForm extends Component {
                         </div>
                         <div className="col-12">
                             <div className="form-group">
-                                <div className="d-flex justify-content-between">
+                                <div className="d-flex justify-content-between align-items-center">
                                     <label htmlFor="password" className="">Password</label>
-                                    <Link className={'blue-link'} to={ForgotPasswordLink}>Forgot Password ?</Link>
+                                    <Link className='dark-link' to={ForgotPasswordLink}>Forgot Password ?</Link>
                                 </div>
                                 <input id="password" name={'password'} type="password" onChange={this.changeHandler}
                                        className="form-control"/>
@@ -326,30 +326,11 @@ class LoginForm extends Component {
                         </div>
                         <div className="col-12">
                             <div className=" text-right pr-sm-0  mt-md-1 mb-1 pr-1 pr-md-1">
-                                <label className="font-size-1-1 mb-md-1">New User ? <Link to={'/sign-up'}
-                                                                                          className="blue-link ">Sign
-                                    Up</Link>
+                                <label className="font-size-1-1 mb-md-1 dark-link">New User ?
+                                    &nbsp;<Link to={'/sign-up'} className="blue-link ">Sign Up</Link>
                                 </label>
                             </div>
                         </div>
-
-                        {/*<div className="col-12">*/}
-                        {/*    <div*/}
-                        {/*        className="d-flex  flex-column flex-md-row justify-content-between align-items-center">*/}
-
-                        {/*        <button type={'submit'} className="btn btn-round blue-round-btn auth-btn order-md-12"*/}
-                        {/*                name="action">{this.state.loading ? <ButtonLoader/> :*/}
-                        {/*            <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}*/}
-                        {/*        </button>*/}
-                        {/*        <label className=" mt-3 mt-md-0 label-container d-flex align-items-center ">*/}
-                        {/*            <input type="checkbox" className="login-check-box order-md-1"*/}
-                        {/*                   defaultChecked={false}/>*/}
-                        {/*            <span className='checkmark'></span>*/}
-                        {/*            <span className='fs-xs'>Always stay signed In</span>*/}
-                        {/*        </label>*/}
-                        {/*    </div>*/}
-                        {/*</div> */}
-
                         <div className="col-12">
                             <div
                                 className="d-flex  flex-column flex-md-row justify-content-end align-items-center">

@@ -30,7 +30,7 @@ class ResetPassword extends Component {
                     <section className="login-background login-section">
                         <h3 className="welcome-text d-none d-md-block">Welcome <br/>Back</h3>
                         <div className="container">
-                            <div className="row  pt-md-2">
+                            <div className="row  pt-2">
                                 <div className=" col-md-6 offset-md-6">
                                     {/*   header component */}
                                     <div className=" py-md-1 px-md-1 px-md-2 py-md-2 header-shadow mt-2 mb-md-5 bg-white">

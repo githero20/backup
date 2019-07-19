@@ -25,7 +25,7 @@ class Login extends Component {
                             <span>Your Sign Up is Secure</span>
                         </div>
                         <div className="container">
-                            <div className="row  pt-md-1">
+                            <div className="row  pt-1">
                                 <div className=" col-lg-5 offset-lg-6">
                                     {/*   header component */}
                                     <div className="px-md-2 py-md-2 header-shadow mb-md-5 bg-white">

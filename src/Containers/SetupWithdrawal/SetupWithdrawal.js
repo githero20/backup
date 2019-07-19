@@ -48,7 +48,7 @@ class SetupWithdrawal extends Component {
                                     <span>Your Sign Up is Secure</span>
                                 </div>
                                 <div className="container px-2 px-md-0">
-                                    <div className="row pt-md-1">
+                                    <div className="row pt-1">
                                         <div className="col-md-6 offset-md-6">
                                             {/*header component */}
                                             <div className="px-md-2 py-md-2 header-shadow mt-2 mb-md-5 bg-white">

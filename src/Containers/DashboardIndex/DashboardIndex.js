@@ -28,6 +28,7 @@ import DashboardLoader from "../../Components/Dashboard/DashboardLoader/Dashboar
 import StartNowModal from "../../Components/Dashboard/StartNowModal/StartNowModal";
 import moment from "moment";
 import {_axios, _getHeader} from "../../utils";
+import {getFirstTimeUser, storeFirstTimeLogin} from "../../actions/UserAction";
 
 
 class DashboardIndex extends Component {
@@ -36,7 +37,7 @@ class DashboardIndex extends Component {
         showSteadySavingModal: false,
         showActiveGoalModal: false,
         showlockedSavingsModal: false,
-        showStartModal: true,
+        showStartModal: false,
         error: false,
         errorMessage: '',
         showActivationModal: false,
@@ -93,8 +94,17 @@ class DashboardIndex extends Component {
         this.setState({
             showStartModal: false
         });
-        setLocalStorage(SHOWAD, 'dont_show');
 
+        storeFirstTimeLogin(this.handleFirstTimeLogin);
+        // setLocalStorage(SHOWAD, 'dont_show');
+
+    };
+
+    handleFirstTimeLogin = (status,response) =>{
+        console.log('res',status,response);
+        if(status && response){
+            console.log('res',response);
+        }
     };
 
     closeSteadySaveModal = () => {
@@ -122,22 +132,29 @@ class DashboardIndex extends Component {
         //TODO setup popup for first user login
 
         //when user logs in for the first time
+        getFirstTimeUser(this.handleFirstTimeUSer);
+        // if (!localStorage.getItem(SHOWAD)) {
+        //     setLocalStorage(SHOWAD, 'show');
+        //     // show the add
+        //     this.setState({
+        //         showStartModal: true
+        //     })
+        //
+        // } else if (JSON.stringify(localStorage.getItem(SHOWAD)) !== 'show') {
+        //     this.setState({
+        //         showStartModal: false
+        //     })
+        //
+        // }
+    };
 
-        if (!localStorage.getItem(SHOWAD)) {
-            setLocalStorage(SHOWAD, 'show');
-            // show the add
+    handleFirstTimeUSer=(status,response)=>{
+        if(status && response == null){
             this.setState({
                 showStartModal: true
             })
-
-        } else if (JSON.stringify(localStorage.getItem(SHOWAD)) !== 'show') {
-            this.setState({
-                showStartModal: false
-            })
-
         }
     };
-
 
     async setupDashBoard (){
 
@@ -147,6 +164,7 @@ class DashboardIndex extends Component {
         };
 
         this.adModalController();
+
         try {
             const [UserInfoRes, CentralVaultIntRes,LockedIntRes,BackUpRes] = await Promise.all([
                 _axios.get(getUserInfoEndpoint,config),
@@ -203,7 +221,7 @@ class DashboardIndex extends Component {
             this.setState({
                 showLoader: false,
             });
-            toastMessage('unable to get Info at the moment','error',this);
+            toastMessage('unable to get user information at the moment','error',this);
         }
 
     };

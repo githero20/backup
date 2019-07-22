@@ -90,9 +90,7 @@ class BGPayNowModal extends Component {
     //Init Paystack
     initiatePayStack = () => {
         //send api
-        console.log(this.state.form);
         initBGDuePay(this.state.form, (status, payload) => {
-            console.log("status", status, payload);
             this.setState({loading: false});
             if (status) {
                 // const user = _getUser();
@@ -117,7 +115,6 @@ class BGPayNowModal extends Component {
         this.setState({
             loading: false,
         });
-        console.log("Paystack Response", response);
         // {
         //     ref: response.reference,
         //         type: "instant"
@@ -125,7 +122,6 @@ class BGPayNowModal extends Component {
         let form = {...this.state.form};
         form.reference =  response.reference;
         verifyBGPayDue(form, (status, payload) => {
-            console.log("status", status, payload);
             if (status) {
                 this.props.toastManager.add(`Successfully paid ₦ ${formatNumber(parseFloat(this.state.form.amount).toFixed(2))}`, {
                     appearance: "success",
@@ -149,18 +145,15 @@ class BGPayNowModal extends Component {
     submitForm = (e) => {
         e.preventDefault();
         if (!this.validator.allValid()) {
-            console.log("hererererer", this, this.validator, this.validator.errorMessages);
             this.validator.showMessages();
             this.forceUpdate();
         } else {
-            console.log("here", this.state.form);
             this.setState({loading: true});
 
 
             //if add bank is selected
             if (parseInt(this.state.form.payment_auth) === 0) {
                 //initiate paystack
-                console.log('got here to initiate paystack');
                 this.initiatePayStack();
 
             } else {
@@ -177,7 +170,6 @@ class BGPayNowModal extends Component {
     handlePayResponse = (status, payload) => {
         this.setState({loading: false});
         if (!status) {
-            console.log(payload);
             this.props.toastManager.add("Payment Failed", {
                 appearance: "error",
                 autoDismissTimeout: 5000,
@@ -189,7 +181,6 @@ class BGPayNowModal extends Component {
                 autoDismissTimeout: 3000,
                 autoDismiss: true
             });
-            console.log(payload);
             setTimeout(() => {
                 this.props.onHide()
             }, 2000);

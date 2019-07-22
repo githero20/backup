@@ -1,5 +1,11 @@
 import {_axios, _getHeader, _getUser, _setUser} from "../utils";
-import {BASE_URL, getUserInfoEndpoint, getUserPointsEndpoint, getUserRoleEndpoint} from "../RouteLinks/RouteLinks";
+import {
+    BASE_URL,
+    getFirstTimeUserEndpoint,
+    getUserInfoEndpoint,
+    getUserPointsEndpoint,
+    getUserRoleEndpoint, storeFirstTimeLoginEndpoint
+} from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 import axios from "axios";
 
@@ -16,9 +22,36 @@ export const getUserData =  callback =>{
             console.log("Err",JSON.stringify(err));
             checkResponse(err);
             callback(false, err.response);
-            // if(err.response) {callback(false, err.response.data.data || err.response.data.message);
-            //
-            // }
+        })
+};
+export const getFirstTimeUser =  callback =>{
+    _axios.get(getFirstTimeUserEndpoint,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            if(callback){
+                callback(true, res.data.data);
+            }
+        })
+        .catch(err => {
+            console.log("Err",JSON.stringify(err));
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};
+export const storeFirstTimeLogin =  callback =>{
+    _axios.get(storeFirstTimeLoginEndpoint,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            if(callback){
+                callback(true, res.data.data);
+            }
+        })
+        .catch(err => {
+            console.log("Err",JSON.stringify(err));
+            checkResponse(err);
+            callback(false, err.response);
         })
 };
 

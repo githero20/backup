@@ -10,11 +10,19 @@
         z-index: 2999999999;
         width: 260px;
     }
+    .home-footer .footer-logo img{
+        width: 60%;
+    }
+    .footer-p{
+        text-align: center;
+    }
 
     .table th, .table td {
         padding: .5rem;
     }
-
+    .ad-links .btn-custom-blue{
+        line-height: 40px;
+    }
     .table td .btn-custom-blue {
         padding: 0px;
     }

@@ -520,12 +520,12 @@ class Home extends Component {
                                                                      alt="aa"/></a>
 
                                         </div>
-                                        <div className="partner-img-container">
-                                            <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
-                                               target='_blank'> <img className="partner-img-50 polaris"
-                                                                     src={polarisBank} alt="aa"/></a>
+                                        {/*<div className="partner-img-container">*/}
+                                        {/*    <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}*/}
+                                        {/*       target='_blank'> <img className="partner-img-50 polaris"*/}
+                                        {/*                             src={polarisBank} alt="aa"/></a>*/}
 
-                                        </div>
+                                        {/*</div>*/}
 
 
                                     </ReactOwlCarousel>
@@ -603,13 +603,12 @@ class Home extends Component {
                     <footer className="home-footer footer">
                         <div className="container my-0 my-lg-5">
                             <div className="row px-lg-5 mx-lg-5">
-                                <div className="col-md-2 offset-md-2 d-none d-lg-block offset-lg-0 col-lg-3">
+                                <div className="col-md-3 offset-md-0 d-lg-block offset-lg-0 col-lg-3">
                                     <div className="footer-logo">
                                         <img src={sfsFooterLogo} alt="sfs footer logo"/>
                                     </div>
                                 </div>
-
-                                <div className="col-md-2 offset-md-2 d-none d-lg-block offset-lg-1 col-lg-8">
+                                <div className="col-md-9 offset-md-0 col-sm-12 offset-sm-0 d-lg-block offset-lg-1 col-lg-8">
                                     <div className="row">
                                         <div className=" col-sm-6 col-md-4 col-lg-4 ">
                                             <p className="footer-header">Company</p>

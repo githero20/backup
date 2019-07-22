@@ -8,6 +8,7 @@ import SSIcon from "../../../admin/app-assets/images/svg/steady-save.svg";
 import LSIcon from "../../../admin/app-assets/images/svg/locked-save.svg";
 import BGIcon from "../../../admin/app-assets/images/svg/backup-goal.svg";
 import markSelected from "../../../admin/app-assets/images/svg/mark-selected.svg";
+import {storeFirstTimeLogin} from "../../../actions/UserAction";
 
 class StartNowModal extends React.Component {
     constructor(props) {
@@ -25,6 +26,11 @@ class StartNowModal extends React.Component {
 
     }
 
+    handleFirstTimeLogin = (status,response) =>{
+        if(status && response){
+            console.log('res',response);
+        }
+    };
 
     instantHandler = () => {
         this.setState({
@@ -37,7 +43,8 @@ class StartNowModal extends React.Component {
                 'We want you to be disciplined, so we’ll charge you 5% if you choose\n' +
                 ' to withdraw outside of your set withdrawal days.'
         })
-        localStorage.setItem(SHOWAD, 'dont_show');
+        // localStorage.setItem(SHOWAD, 'dont_show');
+        storeFirstTimeLogin(this.handleFirstTimeLogin);
     }
 
     lockedHandler = () => {
@@ -51,7 +58,8 @@ class StartNowModal extends React.Component {
                 'us for a period set by you. You can withdraw at the \n' +
                 'end of the period you have set.'
         })
-        localStorage.setItem(SHOWAD, 'dont_show');
+        // localStorage.setItem(SHOWAD, 'dont_show');
+        storeFirstTimeLogin(this.handleFirstTimeLogin);
 
     }
 
@@ -66,8 +74,11 @@ class StartNowModal extends React.Component {
                 'Setup a savings goal and be on your way to greatness.'
         });
 
-        localStorage.setItem(SHOWAD, 'dont_show');
+        // localStorage.setItem(SHOWAD, 'dont_show');
+        storeFirstTimeLogin(this.handleFirstTimeLogin);
+
     }
+
 
 
     steadyHandler = () => {
@@ -82,7 +93,8 @@ class StartNowModal extends React.Component {
                 'We want you to be disciplined, so we’ll charge you 5% if you choose\n' +
                 ' to withdraw outside of your set withdrawal days.'
         });
-        localStorage.setItem(SHOWAD, 'dont_show');
+        // localStorage.setItem(SHOWAD, 'dont_show');
+        storeFirstTimeLogin(this.handleFirstTimeLogin);
     }
 
 

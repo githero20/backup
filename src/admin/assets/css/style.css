@@ -314,10 +314,12 @@ html body .content.app-content {
         color: rgba(0, 0, 0, 0.42);
     }
 
-    input[type=text]:not(.browser-default):focus:not([readonly]) {
-        border-bottom: 1px solid #1e9ff2;
-        -webkit-box-shadow: 0 1px 0 0 #1e9ff2;
-        box-shadow: 0 1px 0 0 #1e9ff2;
+    input[type=text]:not(.browser-default):focus:not([readonly]),
+    input[type=email]:not(.browser-default):focus:not([readonly]),
+    input[type=password]:not(.browser-default):focus:not([readonly]){
+        border-bottom: 1px solid #88b6ff;
+        -webkit-box-shadow: 0 1px 0 0 #88b6ff;
+        box-shadow: 0 1px 0 0 #88b6ff;
     }
 
     input[type=text]:not(.browser-default):focus:not([readonly]) + label {
@@ -2723,6 +2725,10 @@ html body .content.app-content {
 
 .login-form .input-field .dark-link ,.dark-link{
     color: #333333;
+    transition: all .5s ease-in-out;
+}
+.dark-link:hover{
+    color: #8db9ff;
 }
 
 .login-form label.dark-link{

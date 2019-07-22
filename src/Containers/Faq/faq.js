@@ -172,10 +172,10 @@ class Faq extends Component {
                                         </div>
                                         <h2 className="section-details-header text-center text-md-left mb-md-2">
                                             Frequently Asked Questions.</h2>
-                                        <p className='mb-3 mt-3 mt-md-0'>BackUp Cash is a savings platform designed to
+                                        <p className='mb-3 mt-3 mt-md-0'>Backup Cash is a savings platform designed to
                                             help you encourage a disciplined
                                             financial lifestyle by automating your savings on daily, weekly or monthly
-                                            basis. BackUp Cash is encrypted with bank grade level security that makes
+                                            basis. Backup Cash is encrypted with bank grade level security that makes
                                             saving quick,
                                             simple, flexible and convenient.
                                         </p>
@@ -193,7 +193,7 @@ class Faq extends Component {
                                                     <button className="btn btn-link" data-toggle="collapse"
                                                             data-target="#collapseOne" aria-expanded="true"
                                                             aria-controls="collapseOne">
-                                                        How do I start saving on BackUpCash?
+                                                        How do I start saving on Backup Cash?
                                                     </button>
                                                 </h5>
                                             </div>
@@ -217,7 +217,7 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseTwo" aria-expanded="false"
                                                             aria-controls="collapseTwo">
-                                                        Does BackUpCash charge me any fees?
+                                                        Does Backup Cash charge me any fees?
                                                     </button>
                                                 </h5>
                                             </div>
@@ -225,7 +225,7 @@ class Faq extends Component {
                                                  data-parent="#accordion">
                                                 <div className="card-body">
                                                     - No, It's completely FREE. There are no charges for transferring
-                                                    money to your BackUpCash account.<br/>
+                                                    money to your Backup Cash account.<br/>
                                                 </div>
                                             </div>
                                         </div>
@@ -246,7 +246,7 @@ class Faq extends Component {
                                                 <div className="card-body">
                                                     - Your security is our priority.<br/>
                                                     - Your card details are extremely safe as they are never stored on
-                                                    BackUpCash.<br/>
+                                                    Backup Cash.<br/>
                                                     - We work with a PCIDSS-compliant payment
                                                     processor,<strong>Paystack</strong> to handle your card transactions
                                                     and details.<br/>
@@ -377,14 +377,14 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseEight" aria-expanded="false"
                                                             aria-controls="collapseEight">
-                                                        How safe is BackUpCash?
+                                                        How safe is Backup Cash?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseEight" className="collapse" aria-labelledby="headingEight"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - BackUpCash is encrypted with a high level of security.<br/>
+                                                    - Backup Cash is encrypted with a high level of security.<br/>
                                                     - All financial information is encrypted and stored to PCI DSS Level
                                                     1 compliance standards.<br/>
                                                     - PCI DSS Level 1 compliance is a set of rules stated by credit card
@@ -411,7 +411,7 @@ class Faq extends Component {
                                             <div id="collapseEight0" className="collapse" aria-labelledby="headingEight0"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - We are backed by the license of SFS Financial Services.<br/>
+                                                    - We are backed by the license of SFS Capital.<br/>
                                                 </div>
                                             </div>
                                         </div>
@@ -456,13 +456,11 @@ class Faq extends Component {
                                             <div id="collapseTen" className="collapse" aria-labelledby="headingTen"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Yes, savings are done automatically, and you are not required
-                                                    to login every time you want to save except when you want to use
-                                                    the “Instant save” option.<br/>
-                                                    - All transactions on your debit card will be visible in
-                                                    your dashboard.<br/>
-                                                    - We will send an email receipt to you every single time you save
-                                                    with your debit card and your bank will also send you an alert.
+                                                    - You won’t be able to automatically save for that day, week or month.<br/>
+                                                    - We can only help you save when you have funds in your account.<br/>
+                                                    - However, you have options of using <strong>Instant Save</strong> once your account is
+                                                    funded by saving manually or <strong>Steady Save</strong> that automatically debits your
+                                                    registered account towards your targeted goal.
                                                     <br/>
                                                 </div>
                                             </div>
@@ -512,7 +510,7 @@ class Faq extends Component {
                                             <div id="collapseTwelve" className="collapse"
                                                  aria-labelledby="headingTwelve" data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - BackupCash is promoted by SFS Capital Nigeria Limited (SFS).
+                                                    - Backup Cash is promoted by SFS Capital Nigeria Limited (SFS).
                                                     SFS is a registered and regulated by Securities & Exchange
                                                     Commission (SEC) to do Investment Management and has an Investment
                                                     Management Rating of 'A'.
@@ -527,7 +525,7 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseThirteen" aria-expanded="false"
                                                             aria-controls="collapseThirteen">
-                                                        Where is BackupCash Invested?
+                                                        Where is Backup Cash Invested?
                                                     </button>
                                                 </h5>
                                             </div>
@@ -552,7 +550,7 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseFourteen" aria-expanded="false"
                                                             aria-controls="collapseFourteen">
-                                                        Can I effect a Bank Transfer to BackupCash?
+                                                        Can I effect a Bank Transfer to Backup Cash?
                                                     </button>
                                                 </h5>
                                             </div>
@@ -568,29 +566,7 @@ class Faq extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="card">
-                                            <div className="card-header" id="headingFifteen">
-                                                <h5 className="mb-0 d-flex align-items-center">
-                                                    <span><i className='fa fa-plus'> </i></span>
-                                                    <button className="btn btn-link collapsed" data-toggle="collapse"
-                                                            data-target="#collapseFifteen" aria-expanded="false"
-                                                            aria-controls="collapseFifteen">
-                                                        Can I effect a Bank Transfer to BackupCash?
-                                                    </button>
-                                                </h5>
-                                            </div>
-                                            <div id="collapseFifteen" className="collapse"
-                                                 aria-labelledby="headingFifteen" data-parent="#accordion">
-                                                <div className="card-body">
-                                                    - Yes you can effect a Bank transfer to:<br/>
-                                                    - Bank Name: Stanbic IBTC Bank:<br/>
-                                                    - Account Name: SFS BACKUP CASH<br/>
-                                                    - Account Number: 0032263465<br/>
-                                                    - Please ensure you quote your registered Mobile Number in full
-                                                    in the reference section<br/>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div className="card">
                                             <div className="card-header" id="headingSixteen">
                                                 <h5 className="mb-0 d-flex align-items-center">
@@ -606,8 +582,9 @@ class Faq extends Component {
                                                  aria-labelledby="headingSixteen"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Dial *372*Amount# to Invest, Dail *372*1*Amount# to withdraw.
-                                                    Always use your registered mobile number <br/>
+                                                    - Dial *372*Amount# to Invest.<br/>
+                                                    - Dail *372*1*Amount# to withdraw.<br/>
+                                                    - Always use your registered mobile number.<br/>
                                                 </div>
                                             </div>
                                         </div>

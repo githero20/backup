@@ -78,499 +78,501 @@ class Home extends Component {
             <React.Fragment>
                 <div className={'homeBody'}>
                     {Support()}
-                    <header className="header header-background">
-                        <div className="container">
-                            <nav className="home-nav navbar navbar-expand-lg ">
-                                <a className="navbar-brand">
-                                    <img src={backupCashLogo} alt="logo" width="180px"/>
-                                </a>
-                                <a onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
-                                   data-toggle="collapse" data-aria-controls="navbarSupportedContent"
-                                   aria-expanded="false" aria-label="Toggle navigation">
+                    <div className="home-content">
+                        <div className="home-content--inner">
+                            <header className="header header-background">
+                                <div className="container">
+                                    <nav className="home-nav navbar navbar-expand-lg ">
+                                        <a className="navbar-brand">
+                                            <img src={backupCashLogo} alt="logo" width="180px"/>
+                                        </a>
+                                        <a onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
+                                           data-toggle="collapse" data-aria-controls="navbarSupportedContent"
+                                           aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="hamburger-box">
                                         <span className="hamburger-inner"></span>
                                     </span>
-                                </a>
-                                <div className="collapse navbar-collapse mobile d-md-none animated slideInLeft faster"
-                                     id="navbarSupportedContent">
-                                    <ul className="navbar-nav ml-auto">
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={FaqLink}>FAQs </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
-                                        </li>
-                                        {
-                                            this.state.isLoggedIn ? (
+                                        </a>
+                                        <div className="collapse navbar-collapse mobile d-md-none animated slideInLeft faster"
+                                             id="navbarSupportedContent">
+                                            <ul className="navbar-nav ml-auto">
                                                 <li className="nav-item">
-                                                    <Link to={DashboardLink} className="nav-link">Dashboard </Link>
+                                                    <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                                 </li>
-                                            ) : (
                                                 <li className="nav-item">
-                                                    <Link to={LoginLink} className="nav-link">Login </Link>
+                                                    <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
                                                 </li>
-                                            )
-                                        }
-                                    </ul>
-                                    <ul className="cta-link">
-                                        <li>
-                                            <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
-                                                Sign Up
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="collapse navbar-collapse desktop "
-                                     id="navbarSupportedContent">
-                                    <ul className="navbar-nav ml-auto">
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={FaqLink}>FAQs </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
-                                        </li>
-                                        {
-                                            this.state.isLoggedIn ? (
+                                                {
+                                                    this.state.isLoggedIn ? (
+                                                        <li className="nav-item">
+                                                            <Link to={DashboardLink} className="nav-link">Dashboard </Link>
+                                                        </li>
+                                                    ) : (
+                                                        <li className="nav-item">
+                                                            <Link to={LoginLink} className="nav-link">Login </Link>
+                                                        </li>
+                                                    )
+                                                }
+                                            </ul>
+                                            <ul className="cta-link">
+                                                <li>
+                                                    <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
+                                                        Sign Up
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className="collapse navbar-collapse desktop "
+                                             id="navbarSupportedContent">
+                                            <ul className="navbar-nav ml-auto">
                                                 <li className="nav-item">
-                                                    <Link to={DashboardLink} className="nav-link">Dashboard </Link>
+                                                    <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                                 </li>
-                                            ) : (
                                                 <li className="nav-item">
-                                                    <Link to={LoginLink} className="nav-link">Login </Link>
+                                                    <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
                                                 </li>
-                                            )
-                                        }
-                                    </ul>
-                                    <ul className="cta-link">
-                                        <li>
-                                            <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
-                                                Sign Up
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </nav>
-                            {/*row and two columns */}
-                            <div className="row pt-lg-1">
-                                <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
-                                    <div className="header-words-container pt-lg-5 pr-lg-3">
-                                        <h1 className="animated fadeInDown delay-3s header-title mt-5 mt-lg-1 mb-2
+                                                {
+                                                    this.state.isLoggedIn ? (
+                                                        <li className="nav-item">
+                                                            <Link to={DashboardLink} className="nav-link">Dashboard </Link>
+                                                        </li>
+                                                    ) : (
+                                                        <li className="nav-item">
+                                                            <Link to={LoginLink} className="nav-link">Login </Link>
+                                                        </li>
+                                                    )
+                                                }
+                                            </ul>
+                                            <ul className="cta-link">
+                                                <li>
+                                                    <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
+                                                        Sign Up
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </nav>
+                                    {/*row and two columns */}
+                                    <div className="row pt-lg-1">
+                                        <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
+                                            <div className="header-words-container pt-lg-5 pr-lg-3">
+                                                <h1 className="animated fadeInDown delay-3s header-title mt-5 mt-lg-1 mb-2
                                         mt-md-0  px-2 px-sm-0 ">
-                                            Protecting your <br/> interest is our business.</h1>
-                                        <p className="header-sub-title mb-0 ">
-                                            Save as little as <strong>₦500 </strong></p>
-                                        <p className="header-sub-title mb-3">
-                                            Earn up to <strong>13% </strong> interest on Savings. </p>
-                                        <Link to={'/sign-up'}
-                                              className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow">
-                                            Create free account</Link>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-                    <section className="pb-sm-0  mb-md-5 pt-md-5">
-                        <div className="container">
-                            <div className="row  mb-5 mb-md-0">
-                                <div className="col-md-6 text-center text-md-left">
-                                    <img src={illustration1} alt="backup cash illustration"
-                                         className="ill-2x" width="100%"/>
-                                </div>
-                                <div className="offset-0 col-md-6 ">
-                                    <div data-aos={'fade-up'} data-aos-delay={200}
-                                         className="section-detail-card pl-md-5">
-                                        <div className="yellow-icon-holder">
-                                            <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
-                                                 alt="yellow icon"/>
+                                                    Protecting your <br/> interest is our business.</h1>
+                                                <p className="header-sub-title mb-0 ">
+                                                    Save as little as <strong>₦500 </strong></p>
+                                                <p className="header-sub-title mb-3">
+                                                    Earn up to <strong>13% </strong> interest on Savings. </p>
+                                                <Link to={'/sign-up'}
+                                                      className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow">
+                                                    Create free account</Link>
+                                            </div>
                                         </div>
-                                        <h2 className="section-details-header text-center text-md-left mb-md-2">Watch
-                                            Your Money
-                                            Grow</h2>
-                                        <p className="section-details-paragraph text-center text-md-left mb-md-2  ">
-                                            Backup Cash is a secure and innovative savings
-                                            platform that allows you automate your savings
-                                            and earn interest on your deposits. </p>
-                                        <p className="section-details-paragraph text-center text-md-left ">
-                                            Our platform is designed to help users cultivate a
-                                            focused financial attitude by saving little amounts
-                                            of money periodically towards a specific financial
-                                            goal and limiting withdrawals until a set date. </p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </section>
-                    <div className="security-section deep-blue-bg-drop">
-                        <div className="container">
-                            <div className="row text-center text-md-left">
-                                <div className=" col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                                    <div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">
-                                        <div className="row pb-md-5">
-                                            <div className="col-12">
-                                                <div className="d-flex flex-column flex-md-row justify-content-around
+                            </header>
+                            <section className="pb-sm-0  mb-md-5 pt-md-5">
+                                <div className="container">
+                                    <div className="row  mb-5 mb-md-0">
+                                        <div className="col-md-6 text-center text-md-left">
+                                            <img src={illustration1} alt="backup cash illustration"
+                                                 className="ill-2x" width="100%"/>
+                                        </div>
+                                        <div className="offset-0 col-md-6 ">
+                                            <div data-aos={'fade-up'} data-aos-delay={200}
+                                                 className="section-detail-card pl-md-5">
+                                                <div className="yellow-icon-holder">
+                                                    <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
+                                                         alt="yellow icon"/>
+                                                </div>
+                                                <h2 className="section-details-header text-center text-md-left mb-md-2">Watch
+                                                    Your Money
+                                                    Grow</h2>
+                                                <p className="section-details-paragraph text-center text-md-left mb-md-2  ">
+                                                    Backup Cash is a secure and innovative savings
+                                                    platform that allows you automate your savings
+                                                    and earn interest on your deposits. </p>
+                                                <p className="section-details-paragraph text-center text-md-left ">
+                                                    Our platform is designed to help users cultivate a
+                                                    focused financial attitude by saving little amounts
+                                                    of money periodically towards a specific financial
+                                                    goal and limiting withdrawals until a set date. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <div className="security-section deep-blue-bg-drop">
+                                <div className="container">
+                                    <div className="row text-center text-md-left">
+                                        <div className=" col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                                            <div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">
+                                                <div className="row pb-md-5">
+                                                    <div className="col-12">
+                                                        <div className="d-flex flex-column flex-md-row justify-content-around
                                                  align-items-center">
-                                                    <div className="security-img-wrapper mb-2 mb-md-0">
-                                                        <img src={securityIcon}
-                                                             alt="security icon"/>
+                                                            <div className="security-img-wrapper mb-2 mb-md-0">
+                                                                <img src={securityIcon}
+                                                                     alt="security icon"/>
+                                                            </div>
+                                                            <div className="ml-md-2 ml-md-0">
+                                                                <h2>Your Security Is Our
+                                                                    Business</h2>
+                                                                <h6>Safest Security Measures</h6>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="ml-md-2 ml-md-0">
-                                                        <h2>Your Security Is Our
-                                                            Business</h2>
-                                                        <h6>Safest Security Measures</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <section className="start-now ">
+                                <div className="container ">
+                                    <div className="row ">
+                                        <div className="col-md-12">
+                                            <div className="section-header mt-md-5 ">
+                                                <img className="mb-5 mb-md-3 yellow-icon-2" src={yellowIcon} alt=""/>
+                                                <p>It’s Easy To Start With Backup Cash</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className=" pb-5 pb-md-0 height-100vh ">
+                                    <div className="container px-md-5">
+                                        <div className="row mx-md-5">
+                                            <div className="col-md-4 px-md-0">
+
+                                                <div className="card-container text-center mb-xs-5">
+                                                    <div className="pt-5 mb-5  mb-md-3 pt-md-3">
+                                                        <button className="rounded-btn round-btn-dark-blue">1</button>
+                                                    </div>
+                                                    <p className="card-text mb-5">Create an account or login
+                                                        in less than two minutes </p>
+                                                    <div className="card mb-5">
+                                                        <img className="card-1-img" src={cardIll1}
+                                                             alt="illustration"/>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div className="col-md-4 px-md-0">
+
+                                                <div className="card-container text-center">
+                                                    <div className="pt-5 mb-5 mb-md-3 pt-md-3">
+                                                        <button className="rounded-btn round-btn-dark-blue">2</button>
+                                                    </div>
+                                                    <p className="card-text mb-5">Choose a savings plan that
+                                                        works for you </p>
+                                                    <div className="card mb-5">
+                                                        <img className="card-1-img mt-3" src={cardIll2} alt="illustration"/>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div className="col-md-4 px-md-0">
+                                                <div className="card-container text-center">
+                                                    <div className="pt-5 mb-5 mb-md-3 pt-md-3">
+                                                        <button className="rounded-btn round-btn-dark-blue">3</button>
+                                                    </div>
+                                                    <p className="card-text mb-5">Rest easy and watch
+                                                        your money grow </p>
+                                                    <div className="card mb-5">
+                                                        <img className="card-2-img" src={cardIll3} alt="illustration"/>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row pb-md-5">
+                                            <div className="col-md-4 offset-md-4 text-center">
+                                                <div className="pb-4 pt-2">
+                                                    <Link to={'/sign-up'} className="btn-rounded-corner mb-5 btn-light-blue">
+                                                        Start Now
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section className="pb-3 app-features home-blue-bg">
+                                <div className="container">
+                                    <div className="row mt-0 pt-md-5 mb-md-5">
+                                        <div className="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                                            <div className="section-header mt-5 mb-5">
+                                                <img className="mb-4 yellow-icon" src={yellowIcon} alt=""/>
+                                                <p>Reach your savings goal the simple and
+                                                    reliable way</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="section-transparent-card reduced-section-transparent-card mb-5 ">
+                                                <div className="section-transparent-card-icon">
+                                                    <img src={featureImage1} alt={""}/>
+                                                </div>
+                                                <div className="section-transparent-card-right text-center text-md-left">
+                                                    <h5>Stay focused, Earn more</h5>
+                                                    <p>Earn high interest upfront when you
+                                                        choose the option of saving for a
+                                                        specified period.</p>
+                                                </div>
+                                            </div>
+                                            <div className="section-transparent-card mb-5">
+                                                <div className="section-transparent-card-icon">
+                                                    <img src={featureImage2} alt={""}/>
+                                                </div>
+                                                <div className="section-transparent-card-right text-center text-md-left">
+                                                    <h5>Steady savings your way</h5>
+                                                    <p>Automate exactly how you
+                                                        want to save whether its daily,
+                                                        weekly or monthly.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="section-transparent-card mb-5">
+                                                <div className="section-transparent-card-icon ">
+                                                    <img src={featureImage3} alt={""}/>
+                                                </div>
+                                                <div className="section-transparent-card-right text-center text-md-left">
+                                                    <h5>Flexible funding options</h5>
+                                                    <p>Start making deposits with
+                                                        your atm card or direct debit.</p>
+                                                </div>
+                                            </div>
+                                            <div className="section-transparent-card mb-5">
+                                                <div className="section-transparent-card-icon">
+                                                    <img src={featureImage4} alt={""}/>
+                                                </div>
+                                                <div className="section-transparent-card-right text-center text-md-left">
+                                                    <h5>Trusted partner</h5>
+                                                    <p>Our partner, SFS capital has 30+
+                                                        years of fund management
+                                                        experience.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+
+                            <section className="client-say-section testimonial pt-sm-0 pt-md-5 mb-3">
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <div className="section-header text-center">
+                                                <img className="mb-4 yellow-icon" src={yellowIcon} alt=""/>
+                                                <p>What People are saying</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <div className="container">
+                                        <div className="row pt-5 px-lg-5 mx-lg-5">
+                                            <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
+                                                <div className="carousel-inner">
+                                                    <div className="carousel-item">
+                                                        <div className="comment-box">
+                                                            <div className="thumbnail"><img className="user-image"
+                                                                                            src={CommentImage}
+                                                                                            alt="First slide"/></div>
+
+                                                            <p>I was a bit skeptical about using Backup Cash given the large of
+                                                                savings apps out there. In just 3 weeks of using this service,
+                                                                I am definitely hooked.
+                                                            </p>
+                                                            <h4>Ambrose Clark</h4>
+                                                            <span>Builder</span>
+                                                            <img src={commentIcon} alt="comment" className="comment"/>
+                                                        </div>
+                                                    </div>
+                                                    <div className="carousel-item active">
+                                                        <div className="comment-box">
+                                                            <div className="thumbnail">
+                                                                <img className="user-image" src={CommentImage}
+                                                                     alt="First slide"/>
+                                                            </div>
+                                                            <p>I love that they have a USSD channel that works seamlessly.</p>
+                                                            <h4 className="comment-name">Emeka Udoji</h4>
+                                                            <span>Student</span>
+                                                            <img className="comment" src={commentIcon} alt="comment"/>
+                                                        </div>
+                                                    </div>
+                                                    <div className="carousel-item">
+                                                        <div className="comment-box">
+                                                            <div className="thumbnail">
+                                                                <img className="user-image" src={CommentImage}
+                                                                     alt="First slide"/></div>
+
+                                                            <p>Cool app. I signed up and made my 1st savings deposit via
+                                                                Facebook messenger.</p>
+                                                            <h4>Tomi Falade </h4>
+                                                            <span className="comment-job-title">Voiceover Artist</span>
+                                                            <img className="comment" src={commentIcon} alt="comment"/>
+                                                        </div>
+                                                    </div>
+                                                    <div className="carousel-item">
+                                                        <div className="comment-box">
+                                                            <div className="thumbnail">
+                                                                <img className="user-image" src={CommentImage}
+                                                                     alt="First slide"/></div>
+
+                                                            <p>As an accountant, the daily interest growth calculation is a
+                                                                feature that I love. </p>
+                                                            <h4>Ikujenyo Olubunmi </h4>
+                                                            <span className="comment-job-title">Finance Expert</span>
+                                                            <img className="comment" src={commentIcon} alt="comment"/>
+                                                        </div>
+                                                    </div>
+                                                    <div className="carousel-item">
+                                                        <div className="comment-box">
+                                                            <div className="thumbnail">
+                                                                <img className="user-image" src={CommentImage}
+                                                                     alt="First slide"/></div>
+
+                                                            <p>Being able to concurrently save for the office rent and my end of
+                                                                year
+                                                                vacation on one platform even though I am using two different
+                                                                cards is so convenient.
+                                                            </p>
+                                                            <h4>Ope Craig </h4>
+                                                            <span className="comment-job-title">Business Owner</span>
+                                                            <img className="comment" src={commentIcon} alt="comment"/>
+                                                        </div>
+                                                    </div>
+                                                    <div className="carousel-item">
+                                                        <div className="comment-box">
+                                                            <div className="thumbnail">
+                                                                <img className="user-image" src={CommentImage}
+                                                                     alt="First slide"/></div>
+
+                                                            <p>Last December, I couldn’t attend all my favorite shows because of
+                                                                the costs.
+                                                                Right now, I have saved enough for at least 3 shows and a nice
+                                                                outfit.
+                                                            </p>
+                                                            <h4>Tobi Oladele </h4>
+                                                            <span className="comment-job-title">Intern</span>
+                                                            <img className="comment" src={commentIcon} alt="comment"/>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <a className="carousel-control-prev carousel-btn"
+                                                   href="#carouselExampleControls"
+                                                   role="button" data-slide="prev">
+                                                    <img src={carouselLeftArrow} width="60%" alt={''}/>
+                                                    <span className="sr-only">Previous</span>
+                                                </a>
+                                                <a className="carousel-btn carousel-control-next"
+                                                   href="#carouselExampleControls" role="button" data-slide="next">
+                                                    <img src={carouselRightArrow} width="60%" alt={''}/>
+                                                    <span className="sr-only">Next</span>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <section className="start-now ">
-                        <div className="container ">
-                            <div className="row ">
-                                <div className="col-md-12">
-                                    <div className="section-header mt-md-5 ">
-                                        <img className="mb-5 mb-md-3 yellow-icon-2" src={yellowIcon} alt=""/>
-                                        <p>It’s Easy To Start With Backup Cash</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=" pb-5 pb-md-0 height-100vh ">
-                            <div className="container px-md-5">
-                                <div className="row mx-md-5">
-                                    <div className="col-md-4 px-md-0">
 
-                                        <div className="card-container text-center mb-xs-5">
-                                            <div className="pt-5 mb-5  mb-md-3 pt-md-3">
-                                                <button className="rounded-btn round-btn-dark-blue">1</button>
+                            </section>
+                            {/*partners section*/}
+                            <section className="partner-section pt-0  pt-md-5 pb-md-3 pt-lg-0">
+                                <div className="container ">
+                                    <div className="row  pt-sm-0 pt-md-5 text-center mb-5 pb-5">
+                                        <div className="col-md-12 mb-md-5">
+                                            <div className="section-header">
+                                                <img className="mb-4 yellow-icon" src={yellowIcon}
+                                                     alt="yellow icon"/>
+                                                <p>Our Partners</p>
+                                                <span>You are in safe hands</span>
                                             </div>
-                                            <p className="card-text mb-5">Create an account or login
-                                                in less than two minutes </p>
-                                            <div className="card mb-5">
-                                                <img className="card-1-img" src={cardIll1}
-                                                     alt="illustration"/>
-                                            </div>
+                                        </div>
+                                        <div className="col-12">
 
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 px-md-0">
+                                            <ReactOwlCarousel
+                                                className="owl-theme"
+                                                loop
+                                                margin={10}
+                                                autoplay={1000}
+                                                autoplayTimeout={5000}
+                                                dots={false}
+                                                responsiveClass={true}
 
-                                        <div className="card-container text-center">
-                                            <div className="pt-5 mb-5 mb-md-3 pt-md-3">
-                                                <button className="rounded-btn round-btn-dark-blue">2</button>
-                                            </div>
-                                            <p className="card-text mb-5">Choose a savings plan that
-                                                works for you </p>
-                                            <div className="card mb-5">
-                                                <img className="card-1-img mt-3" src={cardIll2} alt="illustration"/>
-                                            </div>
+                                            >
+                                                <div className="partner-img-container">
+                                                    <a href={'http://www.paystack.com'} rel={'noopener noreferrer'}
+                                                       target='_blank'><img className="partner-img " src={paystackImage}
+                                                                            alt="paystack"/></a>
 
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 px-md-0">
-                                        <div className="card-container text-center">
-                                            <div className="pt-5 mb-5 mb-md-3 pt-md-3">
-                                                <button className="rounded-btn round-btn-dark-blue">3</button>
-                                            </div>
-                                            <p className="card-text mb-5">Rest easy and watch
-                                                your money grow </p>
-                                            <div className="card mb-5">
-                                                <img className="card-2-img" src={cardIll3} alt="illustration"/>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row pb-md-5">
-                                    <div className="col-md-4 offset-md-4 text-center">
-                                        <div className="pb-4 pt-2">
-                                            <Link to={'/sign-up'} className="btn-rounded-corner mb-5 btn-light-blue">
-                                                Start Now
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section className="pb-3 app-features home-blue-bg">
-                        <div className="container">
-                            <div className="row mt-0 pt-md-5 mb-md-5">
-                                <div className="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                                    <div className="section-header mt-5 mb-5">
-                                        <img className="mb-4 yellow-icon" src={yellowIcon} alt=""/>
-                                        <p>Reach your savings goal the simple and
-                                            reliable way</p>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="section-transparent-card reduced-section-transparent-card mb-5 ">
-                                        <div className="section-transparent-card-icon">
-                                            <img src={featureImage1} alt={""}/>
-                                        </div>
-                                        <div className="section-transparent-card-right text-center text-md-left">
-                                            <h5>Stay focused, Earn more</h5>
-                                            <p>Earn high interest upfront when you
-                                                choose the option of saving for a
-                                                specified period.</p>
-                                        </div>
-                                    </div>
-                                    <div className="section-transparent-card mb-5">
-                                        <div className="section-transparent-card-icon">
-                                            <img src={featureImage2} alt={""}/>
-                                        </div>
-                                        <div className="section-transparent-card-right text-center text-md-left">
-                                            <h5>Steady savings your way</h5>
-                                            <p>Automate exactly how you
-                                                want to save whether its daily,
-                                                weekly or monthly.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="section-transparent-card mb-5">
-                                        <div className="section-transparent-card-icon ">
-                                            <img src={featureImage3} alt={""}/>
-                                        </div>
-                                        <div className="section-transparent-card-right text-center text-md-left">
-                                            <h5>Flexible funding options</h5>
-                                            <p>Start making deposits with
-                                                your atm card or direct debit.</p>
-                                        </div>
-                                    </div>
-                                    <div className="section-transparent-card mb-5">
-                                        <div className="section-transparent-card-icon">
-                                            <img src={featureImage4} alt={""}/>
-                                        </div>
-                                        <div className="section-transparent-card-right text-center text-md-left">
-                                            <h5>Trusted partner</h5>
-                                            <p>Our partner, SFS capital has 30+
-                                                years of fund management
-                                                experience.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-
-                    <section className="client-say-section testimonial pt-sm-0 pt-md-5 mb-3">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <div className="section-header text-center">
-                                        <img className="mb-4 yellow-icon" src={yellowIcon} alt=""/>
-                                        <p>What People are saying</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <div className="container">
-                                <div className="row pt-5 px-lg-5 mx-lg-5">
-                                    <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
-                                        <div className="carousel-inner">
-                                            <div className="carousel-item">
-                                                <div className="comment-box">
-                                                    <div className="thumbnail"><img className="user-image"
-                                                                                    src={CommentImage}
-                                                                                    alt="First slide"/></div>
-
-                                                    <p>I was a bit skeptical about using Backup Cash given the large of
-                                                        savings apps out there. In just 3 weeks of using this service,
-                                                        I am definitely hooked.
-                                                    </p>
-                                                    <h4>Ambrose Clark</h4>
-                                                    <span>Builder</span>
-                                                    <img src={commentIcon} alt="comment" className="comment"/>
                                                 </div>
-                                            </div>
-                                            <div className="carousel-item active">
-                                                <div className="comment-box">
-                                                    <div className="thumbnail">
-                                                        <img className="user-image" src={CommentImage}
-                                                             alt="First slide"/>
-                                                    </div>
-                                                    <p>I love that they have a USSD channel that works seamlessly.</p>
-                                                    <h4 className="comment-name">Emeka Udoji</h4>
-                                                    <span>Student</span>
-                                                    <img className="comment" src={commentIcon} alt="comment"/>
-                                                </div>
-                                            </div>
-                                            <div className="carousel-item">
-                                                <div className="comment-box">
-                                                    <div className="thumbnail">
-                                                        <img className="user-image" src={CommentImage}
-                                                             alt="First slide"/></div>
+                                                <div className="partner-img-container">
+                                                    <a href={'https://www.sfsnigeria.com/'} rel={'noopenner noreferrer'}
+                                                       target='_blank'><img className="partner-img-50 sfs-image" src={sfsImage}
+                                                                            alt="sfs"/></a>
 
-                                                    <p>Cool app. I signed up and made my 1st savings deposit via
-                                                        Facebook messenger.</p>
-                                                    <h4>Tomi Falade </h4>
-                                                    <span className="comment-job-title">Voiceover Artist</span>
-                                                    <img className="comment" src={commentIcon} alt="comment"/>
                                                 </div>
-                                            </div>
-                                            <div className="carousel-item">
-                                                <div className="comment-box">
-                                                    <div className="thumbnail">
-                                                        <img className="user-image" src={CommentImage}
-                                                             alt="First slide"/></div>
+                                                <div className="partner-img-container">
+                                                    <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
+                                                       target='_blank'> <img className="partner-img-50 tm-30" src={tm30}
+                                                                             alt="aa"/></a>
 
-                                                    <p>As an accountant, the daily interest growth calculation is a
-                                                        feature that I love. </p>
-                                                    <h4>Ikujenyo Olubunmi </h4>
-                                                    <span className="comment-job-title">Finance Expert</span>
-                                                    <img className="comment" src={commentIcon} alt="comment"/>
                                                 </div>
-                                            </div>
-                                            <div className="carousel-item">
-                                                <div className="comment-box">
-                                                    <div className="thumbnail">
-                                                        <img className="user-image" src={CommentImage}
-                                                             alt="First slide"/></div>
+                                                {/*<div className="partner-img-container">*/}
+                                                {/*    <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}*/}
+                                                {/*       target='_blank'> <img className="partner-img-50 polaris"*/}
+                                                {/*                             src={polarisBank} alt="aa"/></a>*/}
 
-                                                    <p>Being able to concurrently save for the office rent and my end of
-                                                        year
-                                                        vacation on one platform even though I am using two different
-                                                        cards is so convenient.
-                                                    </p>
-                                                    <h4>Ope Craig </h4>
-                                                    <span className="comment-job-title">Business Owner</span>
-                                                    <img className="comment" src={commentIcon} alt="comment"/>
-                                                </div>
-                                            </div>
-                                            <div className="carousel-item">
-                                                <div className="comment-box">
-                                                    <div className="thumbnail">
-                                                        <img className="user-image" src={CommentImage}
-                                                             alt="First slide"/></div>
+                                                {/*</div>*/}
 
-                                                    <p>Last December, I couldn’t attend all my favorite shows because of
-                                                        the costs.
-                                                        Right now, I have saved enough for at least 3 shows and a nice
-                                                        outfit.
-                                                    </p>
-                                                    <h4>Tobi Oladele </h4>
-                                                    <span className="comment-job-title">Intern</span>
-                                                    <img className="comment" src={commentIcon} alt="comment"/>
+
+                                            </ReactOwlCarousel>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </section>
+                            {/*call to action*/}
+                            <section className="call-action-section cta pt-5">
+                                <div className="container">
+                                    <div className="row px-lg-5 mx-lg-5">
+                                        <div className="col-md-6">
+                                            <div className="action-placeholder ">
+                                                <h2 className="mb-3 mt-5 pr-lg-5 text-white cas-title">Protect your interest
+                                                    with SFS
+                                                    Backup Cash</h2>
+                                                <Link to={'/sign-up'}
+                                                      className="btn btn-yellow-outline btn-custom-border cas-btn">Start
+                                                    Now</Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            {/*whats app section*/}
+                            <section className="whatsapp pt-3 pt-md-0 mb-5 mb-md-0">
+                                <div className="container">
+                                    <div className="row ">
+                                        <div className="col-md-6">
+                                            <div className="contact-detail-placeholder text-center pt-md-5">
+                                                <p className="deep-blue-color pt-md-5 chat-title">Chat with us on
+                                                    Whatsapp</p>
+                                                <div className="btn btn-whatsapp">+234
+                                                    818 545 4545
+                                                    <img alt={'pin icon'} src={whatsAppIcon} className="ml-md-2 w-20"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <a className="carousel-control-prev carousel-btn"
-                                           href="#carouselExampleControls"
-                                           role="button" data-slide="prev">
-                                            <img src={carouselLeftArrow} width="60%" alt={''}/>
-                                            <span className="sr-only">Previous</span>
-                                        </a>
-                                        <a className="carousel-btn carousel-control-next"
-                                           href="#carouselExampleControls" role="button" data-slide="next">
-                                            <img src={carouselRightArrow} width="60%" alt={''}/>
-                                            <span className="sr-only">Next</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </section>
-                    {/*partners section*/}
-                    <section className="partner-section pt-0  pt-md-5 pb-md-3 pt-lg-0">
-                        <div className="container ">
-                            <div className="row  pt-sm-0 pt-md-5 text-center mb-5 pb-5">
-                                <div className="col-md-12 mb-md-5">
-                                    <div className="section-header">
-                                        <img className="mb-4 yellow-icon" src={yellowIcon}
-                                             alt="yellow icon"/>
-                                        <p>Our Partners</p>
-                                        <span>You are in safe hands</span>
-                                    </div>
-                                </div>
-                                <div className="col-12">
-
-                                    <ReactOwlCarousel
-                                        className="owl-theme"
-                                        loop
-                                        margin={10}
-                                        autoplay={1000}
-                                        autoplayTimeout={5000}
-                                        dots={false}
-                                        responsiveClass={true}
-
-                                    >
-                                        <div className="partner-img-container">
-                                            <a href={'http://www.paystack.com'} rel={'noopener noreferrer'}
-                                               target='_blank'><img className="partner-img " src={paystackImage}
-                                                                    alt="paystack"/></a>
-
-                                        </div>
-                                        <div className="partner-img-container">
-                                            <a href={'https://www.sfsnigeria.com/'} rel={'noopenner noreferrer'}
-                                               target='_blank'><img className="partner-img-50 sfs-image" src={sfsImage}
-                                                                    alt="sfs"/></a>
-
-                                        </div>
-                                        <div className="partner-img-container">
-                                            <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
-                                               target='_blank'> <img className="partner-img-50 tm-30" src={tm30}
-                                                                     alt="aa"/></a>
-
-                                        </div>
-                                        {/*<div className="partner-img-container">*/}
-                                        {/*    <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}*/}
-                                        {/*       target='_blank'> <img className="partner-img-50 polaris"*/}
-                                        {/*                             src={polarisBank} alt="aa"/></a>*/}
-
-                                        {/*</div>*/}
-
-
-                                    </ReactOwlCarousel>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </section>
-                    {/*call to action*/}
-                    <section className="call-action-section cta pt-5">
-                        <div className="container">
-                            <div className="row px-lg-5 mx-lg-5">
-                                <div className="col-md-6">
-                                    <div className="action-placeholder ">
-                                        <h2 className="mb-3 mt-5 pr-lg-5 text-white cas-title">Protect your interest
-                                            with SFS
-                                            Backup Cash</h2>
-                                        <Link to={'/sign-up'}
-                                              className="btn btn-yellow-outline btn-custom-border cas-btn">Start
-                                            Now</Link>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    {/*whats app section*/}
-                    <section className="whatsapp pt-3 pt-md-0 mb-5 mb-md-0">
-                        <div className="container">
-                            <div className="row ">
-                                <div className="col-md-6">
-                                    <div className="contact-detail-placeholder text-center pt-md-5">
-                                        <p className="deep-blue-color pt-md-5 chat-title">Chat with us on
-                                            Whatsapp</p>
-                                        <div className="btn btn-whatsapp">+234
-                                            818 545 4545
-                                            <img alt={'pin icon'} src={whatsAppIcon} className="ml-md-2 w-20"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="contact-detail-placeholder pt-3 text-center pt-md-5">
-                                        <p className="deep-blue-color pt-md-5 chat-title">Connect with social media</p>
-                                        <div className="btn btn-whatsapp social-media">
-                                            <div className="footer-icon-list d-flex justify-content-between">
+                                        <div className="col-md-6">
+                                            <div className="contact-detail-placeholder pt-3 text-center pt-md-5">
+                                                <p className="deep-blue-color pt-md-5 chat-title">Connect with social media</p>
+                                                <div className="btn btn-whatsapp social-media">
+                                                    <div className="footer-icon-list d-flex justify-content-between">
                                                     <span className="fa-stack fa-sm">
                                                         <a href='http://www.facebook.com/sfsbackupcash' rel='noreferrer'
                                                            target='_blank'>
@@ -578,7 +580,7 @@ class Home extends Component {
                                                             <i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
                                                         </a>
                                                     </span>
-                                                <span className="fa-stack fa-sm">
+                                                        <span className="fa-stack fa-sm">
                                                         <a href='http://www.twitter.com/sfsbackupcash' rel='noreferrer'
                                                            target='_blank'>
                                                             <i className="fa fa-circle fa-stack-2x"></i>
@@ -586,78 +588,82 @@ class Home extends Component {
                                                         </a>
                                                     </span>
 
-                                                <span className="fa-stack fa-sm">
+                                                        <span className="fa-stack fa-sm">
                                                     <a href="http://www.instagram.com/sfsbackupcash" rel='noreferrer'
                                                        target='_blank'>
                                                          <i className="fa fa-circle fa-stack-2x"></i>
                                                         <i className="fa fa-instagram fa-stack-1x fa-inverse"></i>
                                                     </a>
                                                 </span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </section>
-                    <footer className="home-footer footer">
-                        <div className="container my-0 my-lg-5">
-                            <div className="row px-lg-5 mx-lg-5">
-                                <div className="col-md-3 offset-md-0 d-lg-block offset-lg-0 col-lg-3">
-                                    <div className="footer-logo">
-                                        <img src={sfsFooterLogo} alt="sfs footer logo"/>
+                            </section>
+                            <footer className="home-footer footer">
+                                <div className="container my-0 my-lg-5">
+                                    <div className="row px-lg-5 mx-lg-5">
+                                        <div className="col-md-3 offset-md-0 d-lg-block offset-lg-0 col-lg-3">
+                                            <div className="footer-logo">
+                                                <img src={sfsFooterLogo} alt="sfs footer logo"/>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-9 offset-md-0 col-sm-12 offset-sm-0 d-lg-block offset-lg-1 col-lg-8">
+                                            <div className="row">
+                                                <div className=" col-sm-6 col-md-4 col-lg-4 ">
+                                                    <p className="footer-header">Company</p>
+                                                    <ul className="footer-list">
+                                                        <li>
+                                                            <Link to={HomeLink}>Testimonials</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to={FaqLink}>FAQs</Link>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div className="col-sm-6 col-md-4 col-lg-4 ">
+                                                    <p className="footer-header">Quick Links</p>
+                                                    <ul className="footer-list ">
+                                                        <li>
+                                                            <Link to={SignUpLink}>Register</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to={LoginLink}>Log in</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to={FaqLink}>How it works</Link>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-4 ">
+                                                    <p className="footer-header">Physical Address</p>
+
+                                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria
+                                                        Island 23401, Lagos</p>
+                                                    <p className='gray-text footer-p'>Enquires: 08149460946, 07018567235 </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
+                                            <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All Rights
+                                                Reserved</p>
+                                            <p className="footer-sub-text text-center mr-lg-3">Powered by
+                                                <a href='http://www.tm30.net' rel='noreferrer' className='footer-brand-link'
+                                                   target='_blank'> TM30
+                                                </a>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="col-md-9 offset-md-0 col-sm-12 offset-sm-0 d-lg-block offset-lg-1 col-lg-8">
-                                    <div className="row">
-                                        <div className=" col-sm-6 col-md-4 col-lg-4 ">
-                                            <p className="footer-header">Company</p>
-                                            <ul className="footer-list">
-                                                <li>
-                                                    <Link to={HomeLink}>Testimonials</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to={FaqLink}>FAQs</Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-sm-6 col-md-4 col-lg-4 ">
-                                            <p className="footer-header">Quick Links</p>
-                                            <ul className="footer-list ">
-                                                <li>
-                                                    <Link to={SignUpLink}>Register</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to={LoginLink}>Log in</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to={FaqLink}>How it works</Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-4 ">
-                                            <p className="footer-header">Physical Address</p>
-
-                                            <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria
-                                                Island 23401, Lagos</p>
-                                            <p className='gray-text footer-p'>Enquires: 08149460946, 07018567235 </p>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
-                                    <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All Rights
-                                        Reserved</p>
-                                    <p className="footer-sub-text text-center mr-lg-3">Powered by
-                                        <a href='http://www.tm30.net' rel='noreferrer' className='footer-brand-link'
-                                           target='_blank'> TM30
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
+                            </footer>
                         </div>
-                    </footer>
+
+                    </div>
+
                 </div>
             </React.Fragment>
         );

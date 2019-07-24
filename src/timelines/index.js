@@ -30,7 +30,6 @@ const getLoginTimeline = (node, delay) => {
 }
 
 const getHomeTimeline = (node, delay) => {
-    console.log('home timeline',node,delay);
     const timeline = new Timeline({ paused: true });
     // const texts = node.querySelectorAll('h1 > div');
     timeline.from(node, 0, {
@@ -41,7 +40,6 @@ const getHomeTimeline = (node, delay) => {
 };
 
 export const play = (pathname, node, appears) => {
-    console.log('transition',pathname,node,appears);
     let loginUrls = [LoginLink,SignUpLink,ForgotPasswordLink,InviteLink,ResetPasswordLink];
     const delay = appears ? 0 : 0.5;
     let timeline;
@@ -56,7 +54,6 @@ export const play = (pathname, node, appears) => {
 
 export const exit = (node) => {
     const timeline = new Timeline({ paused: true });
-
     timeline.to(node, 0.15, { autoAlpha: 0, ease: Power1.easeOut });
     timeline.play();
 }

@@ -918,7 +918,9 @@ export function Support() {
     Tawk_API = Tawk_API || {};
     Tawk_API.onBeforeLoad = function () {
         //place your code here
+        console.log('got here before load');
     };
+
     Tawk_API.onLoad = function () {
         console.log('works on load');
         Tawk_API.hideWidget();
@@ -930,6 +932,43 @@ export function Support() {
                 }
             });
         };
+    };
+
+    // Tawk_API.hideWidget();
+    // }else {
+    //     Tawk_API.onLoad = function () {
+    //         Tawk_API.hideWidget();
+    //     };
+    // }
+
+}
+
+export function hideSupport() {
+
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/5d14844953d10a56bd7c1937/default';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+    Tawk_API = Tawk_API || {};
+    Tawk_API.onBeforeLoad = function () {
+        //place your code here
+    };
+    Tawk_API.onLoad = function () {
+        console.log('works on load');
+        Tawk_API.hideWidget();
+        // window.showTawk = function () {
+        //     var pages = ['', 'faq'];
+        //     pages.forEach(function (elem) {
+        //         if (window.location.pathname.endsWith("/" + elem)) {
+        //             Tawk_API.showWidget();
+        //         }
+        //     });
+        // };
     };
 
     // Tawk_API.hideWidget();

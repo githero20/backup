@@ -12,11 +12,23 @@
         z-index: 2999999999;
         width: 260px;
     }
+    .faq-bg{
+        padding: 1rem;
+    }
+    .home-footer.footer{
+        padding-bottom: 5rem;
+    }
     .mb-7{
         margin-bottom: 7rem !important;
     }
+    .faq-main .card .card-header {
+        overflow-x: auto;
+    }
     .home-footer .footer-logo img{
         width: 60%;
+    }
+    .login-section{
+        margin-bottom: 5rem;
     }
     .footer-p{
         text-align: center;

@@ -28,7 +28,7 @@ import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
-import {hideLoader, showHomeLoader, Support} from "../../Helpers/Helper";
+import {hideLoader, hideSupport, showHomeLoader, Support} from "../../Helpers/Helper";
 
 class Home extends Component {
 
@@ -70,6 +70,11 @@ class Home extends Component {
     componentDidMount() {
         this.checkUser();
         hideLoader();
+        Support();
+    }
+
+    componentWillUnmount() {
+        hideSupport();
     }
 
 
@@ -77,7 +82,6 @@ class Home extends Component {
         return (
             <React.Fragment>
                 <div className={'homeBody'}>
-                    {Support()}
                     <div className="home-content">
                         <div className="home-content--inner">
                             <header className="header header-background">

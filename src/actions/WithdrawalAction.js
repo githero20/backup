@@ -15,7 +15,7 @@ export const getWithdrawalList = (callback) =>{
         headers: _getHeader()
     })
         .then(res => {
-            callback(res.data.status == "success", res.data.data);
+            callback(true, res.data.data);
         })
         .catch(err => {
             console.log("Err", JSON.stringify(err));

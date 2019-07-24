@@ -757,8 +757,8 @@ export function toastReloadMessage(status, context,callback) {
     );
     toastManager.add(message, {
         appearance: status,
-        autoDismiss: false,
-        autoDismissTimeout: 4000,
+        autoDismiss: true,
+        autoDismissTimeout: 5000,
         pauseOnHover: true,
     });
 }

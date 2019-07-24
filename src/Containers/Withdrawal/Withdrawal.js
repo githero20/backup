@@ -66,7 +66,8 @@ class Withdrawal extends Component {
                 this.setState({withdrawals: payload.data});
             } else if (!status && payload) {
                 console.log(payload.data.message);
-            } 
+                toastReloadMessage('error',this,this.LoadWithdrawals);
+            }
         })
     }
 

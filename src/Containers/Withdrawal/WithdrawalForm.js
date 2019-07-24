@@ -95,9 +95,7 @@ class WithdrawalForm extends Component {
     saveBalance = (state, res) => {
         if (state) {
             if (res.data.data.accounts) {
-                console.log(res.data.data.accounts);
                 let accounts = res.data.data.accounts.data;
-
                 //get th balance
                 accounts.map((content, idx) => {
                     if (content.account_type_id == STANDARD_ACCOUNT) {
@@ -111,7 +109,6 @@ class WithdrawalForm extends Component {
                     }
                 });
             }
-
         }else {
             toastReloadMessage('error',this,this.getBalance);
         }
@@ -123,13 +120,10 @@ class WithdrawalForm extends Component {
         getWithdrawalSettings((status, payload) => {
             this.setState({loading: false});
             if (status) {
-                console.log("Withdrawal", status, payload);
                 this.setState({withdrawalSettings: payload.data, settingsOwner: payload.owner});
                 this.getNextWithdrawalDate(payload.data);
-
                 //TODO call endpoint to check if user has a pin
                 getWithdrawalPin((status, payload) => {
-                    console.log('user pin', payload);
                     if (status) {
                         this.setState({
                             userPin: payload.data,
@@ -138,7 +132,6 @@ class WithdrawalForm extends Component {
                     }
                 });
                 // TODO if not popup a form for user to add pin
-
             } else {
                 this.props.toastManager.add("unable to get withdrawal settings", {
                     appearance: "error",
@@ -153,11 +146,8 @@ class WithdrawalForm extends Component {
     getWithdrawalPenalty(callback) {
         // e.preventDefault();
         getWithdrawalPenalty((status, payload) => {
-            console.log('penalty:', status, payload);
             if (status) {
-                console.log('penalty success:', status, payload.withdraw_penalty);
                 let penalty = calcPenalty(this.state.form.withdraw_amount, payload.withdraw_penalty);
-                console.log('penalty value', penalty);
                 this.setState({penalty}, () => callback());
             } else {
                 this.props.toastManager.add("unable to get withdrawal penalty", {
@@ -175,7 +165,6 @@ class WithdrawalForm extends Component {
                 if (payload && payload.length > 0) {
                     this.setState({userBanks: payload});
                 } else {
-                    console.log("Props", this.props, this.props.history)
                     // this.props.history.push("/bank-card-setting");
                     //TODO(Find another way to redirect to bank histort)
                 }
@@ -209,8 +198,6 @@ class WithdrawalForm extends Component {
     handleWithdrawFrom(e) {
 
         let form = this.handleChange(e);
-        console.log({form}, e);
-
         if (e.target.value == BACKUP_STASH || this.state.penaltyFreeDay) {
             delete form.penalty_from;
             this.setState({hasPenalty: false, form});

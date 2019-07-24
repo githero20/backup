@@ -120,7 +120,7 @@ class MessageBox extends Component {
                     this.props.updateKyc ? (
                         <div className="row mb-1">
                             <div className="col-12">
-                                <div className={'bg-white shadow-sm dashboard-callout callout-border-right' +
+                                <div className={'bg-white shadow-sm dashboard-callout text-center text-md-left callout-border-right' +
                                 ' d-flex flex-column flex-md-row justify-content-between align-items-center callout-round callout-transparent ' +
                                 'mt-1 px-2 py-2 py-1'}>
                                     {/*<label className='d-flex justify-content-between flex-md-row'>*/}

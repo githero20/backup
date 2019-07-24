@@ -8,26 +8,23 @@ const getDashboardTimeline = (node, delay) => {
     const contentInner = node.querySelector('.content-wrapper');
 
     timeline
-        .from(node, 0.3, {
-            // display: 'none',
-            autoAlpha: 1, delay, ease: Power1.easeIn })
+        .from(node, 0.3, {autoAlpha: 1, delay, ease: Power1.easeIn })
         .from(content, 0.15, { autoAlpha: .5, ease: Power1.easeInOut })
-        .from(contentInner, 0.15, { autoAlpha: .5, delay: 0.15, ease: Power1.easeIn });
+        .staggerFrom(contentInner, 0.15, { autoAlpha: .5,y:-10, delay: 0.15, ease: Power1.easeIn });
 
     return timeline;
 }
 const getLoginTimeline = (node, delay) => {
     const timeline = new Timeline({ paused: true });
     // const content = node;
-    const content = node;
+    // const content = node;
     const contentInner = node.querySelector('.login-form');
-
     timeline
         .from(node, 0.3, {
             // display: 'none',
-            autoAlpha: 1, delay, ease: Power1.easeIn })
-        .from(content, 0.15, { autoAlpha: .5, ease: Power1.easeInOut })
-        .from(contentInner, 0.15, { autoAlpha: .5, delay: 0.15, ease: Power1.easeIn });
+            autoAlpha: 0.5, delay, ease: Power1.easeIn })
+        // .from(content, 0.3, {autoAlpha:0,ease: Power1.easeInOut })
+        .staggerFrom(contentInner, 0.15, { autoAlpha: .5,y:-10, delay: 0.15, ease: Power1.easeIn });
 
     return timeline;
 }

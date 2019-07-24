@@ -15,7 +15,7 @@ import {
     handleFiltering,
     mobileDescFormatter,
     STANDARD_ACCOUNT,
-    statusFormatter,
+    statusFormatter, toastReloadMessage,
     todaysDateForTable,
     toggleTable
 } from "../../Helpers/Helper";
@@ -24,6 +24,7 @@ import {getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/Ro
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
 import moment from "moment";
+import {withToastManager} from 'react-toast-notifications';
 
 class InstantSave extends Component {
 
@@ -46,7 +47,6 @@ class InstantSave extends Component {
 
     constructor(props) {
         super(props);
-
         this.hideModal = this.hideModal.bind(this);
     }
 
@@ -57,11 +57,7 @@ class InstantSave extends Component {
         });
 
         if (status) {
-            //get user instant saves
-            this.setupInstantSave();
-
-            //get instant save transactions
-            this.loadInstantSaves();
+            this.getInstantSaves();
         }
     };
 
@@ -72,16 +68,11 @@ class InstantSave extends Component {
     };
 
     analyseInstantSaveInfo = (status, data) => {
-
+        console.log(this.props);
+        console.log('res',status,data);
         if (status) {
-
-
             //set name
-            if (data) {
-                this.setState({
-                    userName: data.data.data.name
-                });
-            }
+            if (data) { this.setState({ userName: data.data.data.name });}
 
             //set proper account
             if (data.data.data.accounts) {
@@ -97,11 +88,12 @@ class InstantSave extends Component {
                     }
                 });
 
-            } else {
-                return null;
             }
 
 
+        }else {
+            if(data) { console.log('err',data); }
+            toastReloadMessage('error',this,this.getInstantSaves);
         }
 
 
@@ -121,22 +113,12 @@ class InstantSave extends Component {
 
 
     setupInstantSave = () => {
-
-        // console.log('setting up instant Save');
-        //call get user info
         request(getUserInfoEndpoint, null, true, 'GET', this.analyseInstantSaveInfo)
-
-
     };
 
 
     loadInstantSaves = () => {
-
-        //get transactions from api
-        // console.log(this.state.transactions);
         request(instantSaveTransEndpoint, null, true, 'GET', this.handleTransactions);
-
-
     };
 
 
@@ -178,11 +160,15 @@ class InstantSave extends Component {
 
     };
 
-    componentWillMount() {
-
+    getInstantSaves = () =>{
         //get user instant saves
         this.setupInstantSave();
         this.loadInstantSaves();
+    };
+
+    componentWillMount() {
+
+        this.getInstantSaves();
     }
 
     updateInstantSave = () => {
@@ -415,4 +401,4 @@ class InstantSave extends Component {
     }
 }
 
-export default InstantSave;
+export default withToastManager(InstantSave);

@@ -12,7 +12,7 @@ import {
     amountLastAmountFormatter,
     balanceFormatter,
     confirmedFormatter,
-    dateFormatter, toggleTable,
+    dateFormatter, toastReloadMessage, toggleTable,
     withdrawSourceFormatter
 } from "../../Helpers/Helper";
 
@@ -38,10 +38,14 @@ class Withdrawal extends Component {
         this.setState({
             showLoader: true,
         });
-        getUserData(this.handleUserInfo);
-        this.getWithdrawalList();
+        this.LoadWithdrawals();
+
     }
 
+    LoadWithdrawals = () =>{
+        getUserData(this.handleUserInfo);
+        this.getWithdrawalList();
+    };
 
     handleUserInfo = (status, res) => {
         this.setState({
@@ -62,7 +66,7 @@ class Withdrawal extends Component {
                 this.setState({withdrawals: payload.data});
             } else if (!status && payload) {
                 console.log(payload.data.message);
-            }
+            } 
         })
     }
 

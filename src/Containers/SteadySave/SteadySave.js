@@ -21,7 +21,7 @@ import {
     STANDARD_ACCOUNT,
     statusFormatter,
     steadyStatusFormatter,
-    titleFormatter, toggleTable,
+    titleFormatter, toastReloadMessage, toggleTable,
     viewFormatter
 } from "../../Helpers/Helper";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
@@ -33,7 +33,7 @@ import SSaveTransTable from "../../Components/Dashboard/SSaveTransTable/SSaveTra
 import {getSteadySavHistory, getSteadySavTrans} from "../../actions/SteadySaveAction";
 import SteadyAmountCard from "./SteadyAmountCard";
 import PayNowModal from "../../Components/Dashboard/PayNowModal/PayNowModal";
-import {ToastProvider} from 'react-toast-notifications';
+import {ToastProvider,withToastManager} from 'react-toast-notifications';
 
 class SteadySave extends Component {
     constructor(props) {
@@ -107,16 +107,17 @@ class SteadySave extends Component {
 
 
     handleSteadySave = (state, res) => {
+
         this.setState({
             showLoader: false
         });
+
         if (state && res) {
             this.setState({
                 transactions: res.data.data,
             });
             const temp = res.data.data;
             if (temp && temp.length > 0) {
-
                 let steadySave = {
                     id: temp[0].id,
                     contribution: temp[0].start_amount,
@@ -126,12 +127,12 @@ class SteadySave extends Component {
                     payment_auth: temp[0].gw_authorization_code,
                     raw: temp[0]
                 };
-
                 this.setState({steadySave});
             }
 
         } else {
-            console.log(res);
+
+            toastReloadMessage('error',this,this.getSteadySave);
         }
 
     };
@@ -144,12 +145,9 @@ class SteadySave extends Component {
         // get data from localStorage
     };
 
-
     GetBalance = () => {
         //call get user info
         request(getUserInfoEndpoint, null, true, 'GET', this.analyseSteadySaveInfo)
-
-
     };
 
 
@@ -176,23 +174,20 @@ class SteadySave extends Component {
                     }
                 });
 
-
-                // //TODO loop through transactions and add up only credits
-
-            } else {
-                console.log(data);
-                return null;
             }
         }
     };
 
+    getSteadySave = () =>{
+        this.setupSteadySave();
+        this.GetBalance();
+    };
 
     componentDidMount() {
         //get token if token isset
         let token = getToken();
         token.then(() => {
-            this.setupSteadySave();
-            this.GetBalance();
+          this.getSteadySave();
         });
         toggleTable(this);
     }
@@ -383,9 +378,6 @@ class SteadySave extends Component {
                         getSteadySavTrans(row.id, this.handleSSaveTrans);
                         getSteadySavHistory(row.id, this.handleSSaveHistory);
 
-                        //TODO Add history endpoint to get history of steady save
-
-
                     }
                 }
             },
@@ -399,6 +391,7 @@ class SteadySave extends Component {
             }
 
         ];
+
         const historyColumns = [
             {
                 text: 'Date',
@@ -444,6 +437,7 @@ class SteadySave extends Component {
             }
 
         ];
+
         const mobileHistoryColumns = [
             {
                 text: 'Date',
@@ -649,7 +643,6 @@ class SteadySave extends Component {
                                             {/*<MessageBox/>*/}
                                         </div>
                                     </div>
-
                                     {
                                         this.state.showSavingModal ?
                                             (
@@ -664,7 +657,6 @@ class SteadySave extends Component {
 
                                             ) : null
                                     }
-
                                     {
                                         this.state.showCreateSavingModal ?
                                             (
@@ -682,9 +674,7 @@ class SteadySave extends Component {
                                     <div className="content-header row">
                                     </div>
                                     <div className="content-body">
-
                                         <div className="row">
-
                                             <div className="col-lg-5 col-12 order-lg-8">
                                                 <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
                                                     <p>Start saving your money here automatically, daily, weekly or
@@ -693,7 +683,6 @@ class SteadySave extends Component {
                                                         you choose to withdraw outside of your set withdrawal days.</p>
                                                 </div>
                                             </div>
-
                                             <SteadySaveCard totalBalance={this.state.totalBalance}
                                                             newSteadySave={this.showNewSteadySaveModal}
                                             />
@@ -729,4 +718,4 @@ class SteadySave extends Component {
     }
 }
 
-export default SteadySave;
+export default withToastManager(SteadySave);

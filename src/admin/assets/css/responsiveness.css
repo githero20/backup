@@ -5,10 +5,15 @@
     .faq-main .btn-link {
         font-size: .8rem;
     }
-
+    /*.table-card{*/
+    /*    margin-bottom: 7rem;*/
+    /*}*/
     .main-menu {
         z-index: 2999999999;
         width: 260px;
+    }
+    .mb-7{
+        margin-bottom: 7rem !important;
     }
     .home-footer .footer-logo img{
         width: 60%;
@@ -16,7 +21,9 @@
     .footer-p{
         text-align: center;
     }
-
+    .steady-table-card.table-card{
+        min-height: 0;
+    }
     .table th, .table td {
         padding: .5rem;
     }

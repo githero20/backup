@@ -18,7 +18,7 @@ import {
     INTEREST_ACCOUNT,
     KYC,
     LOCKED_ACCOUNT,
-    STANDARD_ACCOUNT, toastMessage
+    STANDARD_ACCOUNT, toastMessage, toastReloadMessage
 } from "../../Helpers/Helper";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
 import {SHOWAD, USERINFO, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
@@ -221,7 +221,7 @@ class DashboardIndex extends Component {
             this.setState({
                 showLoader: false,
             });
-            toastMessage('unable to get user information at the moment','error',this);
+            toastReloadMessage('error',this,this.setupDashBoard);
         }
 
     };
@@ -279,6 +279,7 @@ class DashboardIndex extends Component {
         token.then(() => {
             this.setupDashBoard();
         });
+
 
     }
 

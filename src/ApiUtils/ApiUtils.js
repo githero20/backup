@@ -67,12 +67,8 @@ export function request(url, params, token, method, callback) {
          axios.get(url, header)
              .then(res => callback(true, res))
             .catch(err => {
-                if(err.response){
-                    console.log(err.response);
-
-                }else {
-                    return callback(false, err.response);
-                }
+                checkResponse(err);
+                callback(false, err.response);
             })
     } else if (method === 'PATCH') {
          axios.patch(url, header).then(res => callback(true, res))

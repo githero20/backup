@@ -12,7 +12,7 @@ import {
     descriptionFormatter,
     detailFormatter, handleFiltering,
     sourceFormatter,
-    statusFormatter, todaysDateForTable, toggleTable
+    statusFormatter, toastReloadMessage, todaysDateForTable, toggleTable
 } from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {withToastManager} from 'react-toast-notifications';
@@ -24,7 +24,7 @@ class Transactions extends Component {
 
     state = {
         transactions: [],
-        showLoader: false,
+        showLoader: true,
         userName: null,
         selectedTransID: null,
         showTransDetail: false,
@@ -36,11 +36,8 @@ class Transactions extends Component {
     // load all the user transactions
 
     loadTransactions() {
-
         //get transactions from api
-        this.setState({
-            showLoader: true
-        });
+        this.setState({ showLoader: true });
 
         request(getTransactionsApi, null, true, 'GET', this.handleTransactions);
     }
@@ -60,7 +57,7 @@ class Transactions extends Component {
         } else if (!state && res) {
             this.toastMessage(res.data.message, 'error');
         } else {
-            this.toastMessage('No Internet', 'error');
+            toastReloadMessage('error',this,this.loadTransactions);
         }
 
     };
@@ -93,12 +90,6 @@ class Transactions extends Component {
 
 
     componentDidMount() {
-
-
-        this.setState({
-            showLoader: true,
-        });
-
         this.loadTransactions();
         toggleTable(this);
     }

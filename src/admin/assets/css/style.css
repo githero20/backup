@@ -2287,9 +2287,7 @@ input[type=number]::-webkit-outer-spin-button {
         justify-content: center;
     }
 
-    html body .content .content-wrapper {
-        padding: 1rem 1.5rem;
-    }
+
 
     .curved-radius {
         border-radius: 1rem;
@@ -4536,7 +4534,7 @@ input:-webkit-autofill:active {
     }
 
     html body .content .content-wrapper {
-        padding: 1rem 1.5rem;
+        padding: 1rem 1.5rem 7rem;
     }
 
     .curved-radius {

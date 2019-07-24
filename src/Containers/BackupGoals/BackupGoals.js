@@ -13,7 +13,7 @@ import {
     getTotalSuccessful, getTotalSuccessfulBG,
     getTotalSuccessfulSS,
     moneyFormatter,
-    statusFormatter, toggleTable
+    statusFormatter, toastReloadMessage, toggleTable
 } from "../../Helpers/Helper";
 import {ToastProvider, withToastManager} from 'react-toast-notifications';
 import BGInfoCard from "./BGInfoCard";
@@ -44,7 +44,7 @@ class BackupGoals extends Component {
             userName: null,
             backupGoals: [],
             loading: false,
-            showLoader: false,
+            showLoader: true,
             showBackupGoal: false,
             BackupGoalHistory: [],
             selectedBG: null,
@@ -91,6 +91,7 @@ class BackupGoals extends Component {
                 if (payload) {this.setState({backupGoals: payload.data.data})}
             } else {
                 console.error("An error occurred", payload);
+                toastReloadMessage('error',this,this.fetchBackUpGoals);
             }
 
         });
@@ -98,7 +99,6 @@ class BackupGoals extends Component {
 
 
     componentDidMount() {
-        this.setState({showLoader: true});
         this.fetchBackUpGoals();
         toggleTable(this);
     }

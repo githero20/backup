@@ -22,7 +22,7 @@ import {
     formatNumber,
     INTEREST_ACCOUNT,
     STANDARD_ACCOUNT,
-    toastMessage,
+    toastMessage, toastReloadMessage,
     validateInputEntry
 } from "../../Helpers/Helper";
 import swal from 'sweetalert';
@@ -111,6 +111,9 @@ class WithdrawalForm extends Component {
                     }
                 });
             }
+
+        }else {
+            toastReloadMessage('error',this,this.getBalance);
         }
     };
 
@@ -209,16 +212,10 @@ class WithdrawalForm extends Component {
         console.log({form}, e);
 
         if (e.target.value == BACKUP_STASH || this.state.penaltyFreeDay) {
-            // let form = {...this.state.form};
-            // console.log(form);
-            console.log('before ', form);
             delete form.penalty_from;
-            console.log('after ', form);
-
             this.setState({hasPenalty: false, form});
         } else {
             form.penalty_from = CENTRAL_VAULT;
-            console.log('not free date ', form);
             this.setState({hasPenalty: true, form});
         }
 
@@ -236,11 +233,8 @@ class WithdrawalForm extends Component {
 
         if (name == 'pin_one' || name == 'pin_two' || name == 'pin_three' || name == 'pin_four') {
             form.withdrawal_pin = form.pin_one + form.pin_two + form.pin_three + form.pin_four;
-            console.log('form pin', form.withdrawal_pin);
             this.setState({form});
-            // console.log('withdrawal pin', form['withdrawal_pin']);
         }
-        console.log('length of pin ', form.withdrawal_pin.length);
         if (form.withdrawal_pin.length >= 4) {
             this.setState({
                 pinErr: false
@@ -283,15 +277,9 @@ class WithdrawalForm extends Component {
             this.forceUpdate();
         } else if (this.state.form.withdrawal_pin.length != 4) {
             //validate pin
-            this.setState({
-                pinErr: true
-            });
+            this.setState({pinErr: true});
         } else {
-            console.log("all");
             const {form, stashBalance, penalty, userBalance} = this.state;
-            console.log('withdrawal amount', typeof Number(form.withdraw_amount));
-            console.log('withdrawal amount', typeof Number(stashBalance));
-            console.log("Form", {form});
             //check if the user is withdrawing from back up stash or central vault and then check if their is enough balance
             if (form.source == CENTRAL_VAULT && form.penalty_from != '') {
                 //get penalty

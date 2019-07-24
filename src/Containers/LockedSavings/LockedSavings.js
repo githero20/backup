@@ -12,7 +12,7 @@ import {
     dateFormatter,
     handleFiltering,
     interestFormatter,
-    moneyFormatter, todaysDateForTable, toggleTable,
+    moneyFormatter, toastReloadMessage, todaysDateForTable, toggleTable,
 } from "../../Helpers/Helper";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {getUserData} from "../../actions/UserAction";
@@ -25,7 +25,7 @@ class LockedSavings extends Component {
     state = {
         showLockedSavingsModal: false,
         lockedSavings: [],
-        showLoader: false,
+        showLoader: true,
         mobileTable:true
     };
 
@@ -39,23 +39,22 @@ class LockedSavings extends Component {
 
     //get user info
     componentDidMount() {
-        console.log("Mounted");
 
-        this.setState({
-            showLoader: true,
-        });
+       this.LoadData();
+       toggleTable(this);
+    }
 
+    LoadData = () =>{
         getUserData(this.handleUserInfo);
 
         getLockedSavings((status, payload) => {
             if (status) {
                 //TODO(work on making this merging this payload.data.to lockedSavings[])
                 this.setState({lockedSavings: payload});
-
             }
         });
-        toggleTable(this);
-    }
+    };
+
 
     updateLockedSaving = () => {
         this.setState({showLoader: true});
@@ -66,20 +65,15 @@ class LockedSavings extends Component {
                 this.setState({lockedSavings: payload, showLoader: false});
             }
         })
-    }
+    };
 
     handleUserInfo = (status, res) => {
         this.setState({
             showLoader: false,
         });
 
-        if (status) {
-
-            this.setState({
-                userName: res.name
-            })
-
-        }
+        if(status) { this.setState({userName: res.name})}
+        else toastReloadMessage('error',this,this.LoadData)
     };
 
 
@@ -285,6 +279,4 @@ class LockedSavings extends Component {
     }
 }
 
-const WithToast = withToastManager(LockedSavings);
-
-export default WithToast;
+export default withToastManager(LockedSavings);

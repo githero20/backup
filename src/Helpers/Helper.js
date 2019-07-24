@@ -1,5 +1,5 @@
 import moment from "moment";
-import React from "react";
+import React, {Fragment} from "react";
 import {_isDateAfterToday} from "../utils";
 import {getLocalStorage, setLocalStorage} from "../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../Components/Auth/HOC/authcontroller";
@@ -748,7 +748,24 @@ export function toastMessage(message, status, context) {
         pauseOnHover: false,
     });
 }
+export function toastReloadMessage(status, context,callback) {
+    const {toastManager} = context.props;
+    const message = (
+        <Fragment>
+            <span>An error occurred! Click Here to </span>&nbsp;<a href='#' className='retry dark-link' onClick={()=>callback()}>Try Again</a>
+        </Fragment>
+    );
+    toastManager.add(message, {
+        appearance: status,
+        autoDismiss: false,
+        autoDismissTimeout: 4000,
+        pauseOnHover: true,
+    });
+}
 
+function sayHello (){
+    console.log('hello cutie');
+}
 export function calcPenalty(balance, penalty) {
     console.log('cal penalty', balance, penalty);
     return Number(Number(balance).toFixed(2) * (Number(penalty).toFixed(2) / 100)).toFixed(2);

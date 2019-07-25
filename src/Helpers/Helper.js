@@ -216,9 +216,7 @@ export function getCardsFromStorage(key, object) {
 
 export function hideLoader() {
     const loader = document.querySelector('.lds-loader-bg');
-    setTimeout(() => {
-        loader.style.display = 'none';
-    }, 3000);
+    window.addEventListener('load',()=>{loader.style.display ='none'});
 }
 
 export function showHomeLoader() {

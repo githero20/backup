@@ -78,15 +78,11 @@ class UpdatePassword extends Component {
     // };
 
     handleUpdateResponse = (state, response) => {
-
         const {toastManager} = this.props;
-
         this.setState({
             loading: false
         });
-
         if (state) {
-
             console.log(response.data.message);
             toastManager.add(`${response.data.message}`, {
                 appearance: 'success',
@@ -94,24 +90,23 @@ class UpdatePassword extends Component {
                 autoDismissTimeout: 3000,
             });
 
-            setTimeout(() => {
-                this.setState({redirect: true})
-            }, 2500);
+            this.setState({
+                password: '',
+                old_password: '',
+                password_confirmation: '',
+            });
 
         } else {
             console.log("error" + JSON.stringify(response));
             if (response) {
-                if (response.data.errors) {
-                    console.log(response.data.errors);
-                } else {
-                    toastManager.add(`${response.data.error}`, {
+                if (response.data.message) {
+                    console.log(response.data.message);
+                    toastManager.add(`${response.data.message}`, {
                         appearance: 'error',
                         autoDismiss: true,
                         autoDismissTimeout: 3000,
                     })
-
                 }
-
 
             }
 
@@ -130,7 +125,6 @@ class UpdatePassword extends Component {
 
 
             if (validatePasswords(this.state.password, this.state.password_confirmation)) {
-
                 this.setState({
                     loading: true,
                 }, () => {
@@ -171,10 +165,8 @@ class UpdatePassword extends Component {
 
 
     componentDidMount() {
-
         const token = getLocalStorage(USERTOKEN);
         const data = getLocalStorage(USERINFO);
-
         if (data) {
             this.setState({
                 token,
@@ -188,7 +180,7 @@ class UpdatePassword extends Component {
 
 
     render() {
-        const {password, old_password} = this.state;
+        const {password, old_password,password_confirmation} = this.state;
         return (
             <React.Fragment>
                 <div>
@@ -204,6 +196,7 @@ class UpdatePassword extends Component {
                                     type="password"
                                     id="old_password"
                                     onChange={this.changeHandler}
+                                    value={old_password}
                                     className="form-control mb-1"
                                     name="old_password"
                                 />
@@ -225,6 +218,7 @@ class UpdatePassword extends Component {
                                     id="password"
                                     onChange={this.changeHandler}
                                     className="form-control mb-1"
+                                    value={password}
                                     name="password"
                                 />
                                 {this.validator.message('password', password, `required|string|min:8|password`)}
@@ -239,6 +233,7 @@ class UpdatePassword extends Component {
                                     id="password_confirmation"
                                     onChange={this.changeHandler}
                                     onBlur={this.validatePass}
+                                    value={password_confirmation}
                                     className="form-control mb-1"
                                     name="password_confirmation"
                                 />

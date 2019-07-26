@@ -126,7 +126,7 @@ export function getTotalSteadySaveDebit(transactions) {
 
 export function validatePasswords(password, password_confirmation) {
     // perform all neccassary validations
-    return (password == password_confirmation)? true: false;
+    return (password == password_confirmation) ? true : false;
 }
 
 export function getTotalSuccessfulSS(transactions) {
@@ -150,8 +150,11 @@ export function getTotalSuccessfulBG(transactions) {
         return 0;
     }
 }
-export function  toggleTable (context){
-    window.addEventListener('resize',()=>{context.setState({mobileTable:window.innerWidth<=599})});
+
+export function toggleTable(context) {
+    window.addEventListener('resize', () => {
+        context.setState({mobileTable: window.innerWidth <= 599})
+    });
 }
 
 
@@ -216,7 +219,7 @@ export function getCardsFromStorage(key, object) {
 
 export function hideLoader() {
     const loader = document.querySelector('.lds-loader-bg');
-    loader.style.display ='none';
+    loader.style.display = 'none';
     // window.addEventListener('load',()=>{});
 }
 
@@ -299,6 +302,18 @@ export function getTotalSuccessful(transactions) {
             return successful.length;
         } else {
             return transactions.length;
+        }
+    }
+}
+
+export function getSteadySaveData(transactions) {
+    if (transactions) {
+        if (transactions.length > 1) {
+            console.log('before filter', transactions);
+            let data;
+            data = transactions.filter((content) => (content.status == 'success' || content == 'failed'));
+            console.log('after filter', data);
+            return data;
         }
     }
 }
@@ -452,7 +467,7 @@ export const EmailPhoneValidator = new SimpleReactValidator({
         password: {  // name the rule
             message: 'The :attribute must be a strong password and must have :values.',
             rule: (val, params, validator) => {
-                return validator.helpers.testRegex(val,/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
+                return validator.helpers.testRegex(val, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/)
             },
             messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
             required: true  // optional
@@ -460,7 +475,7 @@ export const EmailPhoneValidator = new SimpleReactValidator({
         emailPhone: {  // name the rule
             message: 'The :attribute must be a valid email or phone number :values.',
             rule: (val, params, validator) => {
-                return validator.helpers.testRegex(val,/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|^[0]\d{10}$/)
+                return validator.helpers.testRegex(val, /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|^[0]\d{10}$/)
             },
             messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
             required: true  // optional
@@ -545,9 +560,27 @@ export function confirmedFormatter(cell) {
         <span className='text-danger'>Failed </span>}</label>
 }
 
-export function descriptionFormatter(cell) {
-    return <span
-        className={cell === 'credit' ? 'text-green text-capitalize' : 'text-red text-capitalize'}>{cell}</span>
+export function descriptionFormatter(cell, row) {
+    if (window.innerWidth < 600) {
+        const date = moment(row.created_at).format('Do MMM YY');
+
+        return (
+            <div className="d-flex align-items-start">
+                {
+                    cell == 'credit' ? <div className="green-dot"></div> : <div className="red-dot"></div>
+                }
+                <div className='d-flex flex-column'>
+                    <span className={'text-capitalize'}>{cell}</span>
+                    <small className='text-muted'>{date}</small>
+                </div>
+            </div>
+
+        );
+    } else {
+        return <span
+            className={cell === 'credit' ? 'text-green text-capitalize' : 'text-red text-capitalize'}>{cell}</span>
+    }
+
 }
 
 export function mobileDescFormatter(cell, row) {
@@ -577,6 +610,7 @@ export function mobileTransDescFormatter(cell, row) {
         </div>
     );
 }
+
 export function todaysDateForTable() {
     return new Date(moment().format('MM-DD-YYYY'))
 }
@@ -647,6 +681,7 @@ export function amountFormatter(cell, row) {
         </p>
     )
 }
+
 export function amountLastAmountFormatter(cell, row) {
     return (
         <div className="d-flex flex-column">
@@ -654,14 +689,15 @@ export function amountLastAmountFormatter(cell, row) {
                 {row.type === 'credit' ? '+' : '-'}
                 {cell != null ? (`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`) : 'N/A'}
             </p>
-            <small  className='text-muted'>Last Amount</small>
+            <small className='text-muted'>Last Amount</small>
             <small> {row.last_amount != null ? (`₦ ${formatNumber(parseFloat(row.last_amount).toFixed(2))}`) : 'N/A'}</small>
-            <small  className='text-muted'>Date</small>
+            <small className='text-muted'>Date</small>
             <small> {moment(row.created_at).format('Do MMM YY')}</small>
         </div>
 
     )
 }
+
 export function amountBalanceFormatter(cell, row) {
     return (
         <div className="d-flex flex-column">
@@ -670,7 +706,8 @@ export function amountBalanceFormatter(cell, row) {
                 {cell != null ? (`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`) : 'N/A'}
             </p>
             <small>Balance</small>
-            <small className='text-muted'> {row.balance != null ? (`₦ ${formatNumber(parseFloat(row.balance).toFixed(2))}`) : 'N/A'}</small>
+            <small
+                className='text-muted'> {row.balance != null ? (`₦ ${formatNumber(parseFloat(row.balance).toFixed(2))}`) : 'N/A'}</small>
             <small> {moment(row.created_at).format('Do MMM YY')}</small>
         </div>
 
@@ -681,14 +718,55 @@ export function parseAndFormatNum(num) {
     return formatNumber(parseFloat(num).toFixed(2));
 }
 
-export function moneyFormatter(cell,row) {
-        console.log('row',row);
-    return (
-        <p style={{minWidth: '150px'}}
-           className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
-    )
+export function moneyFormatter(cell, row) {
+    console.log('row', row);
+
+    if (window.innerWidth < 600) {
+        return (
+            <div className="d-flex flex-column">
+                <p style={{minWidth: '100px'}}
+                   className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+                <label
+                    className={row.status == 'success' ? 'bg-light-green text-center round px-1 ' : 'bg-light-red text-center px-1 round '}>{row.status}</label>
+            </div>
+        )
+    } else {
+        return (
+            <p style={{minWidth: '150px'}}
+               className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+        )
+    }
+
 }
-export function amountCurrentStatusFormatter(cell,row) {
+
+export function contributionFormatter(cell, row) {
+    let status;
+
+    if (window.innerWidth < 600) {
+        if (parseInt(row.is_pause)) {
+            status = <small className={'text-warning'}>Paused</small>
+        } else {
+            status = <small className={'text-green'}>Ongoing</small>
+        }
+        return (
+            <div className="d-flex flex-column">
+                <small className='text-muted'>{row.title}</small>
+                <p style={{minWidth: '100px'}}
+                   className={'text-gray'}> {cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+            </div>
+        )
+    } else {
+
+        console.log('row', row);
+        return (
+            <p style={{minWidth: '150px'}}
+               className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+        )
+    }
+
+}
+
+export function amountCurrentStatusFormatter(cell, row) {
     return (
         <div className="d-flex flex-column">
 
@@ -714,7 +792,8 @@ export function mobileSSMoneyFormatter(cell, row) {
         <div className="d-flex flex-column">
             <p style={{minWidth: '100px'}}
                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
-            <label className={row.status == 'success' ? 'bg-light-green text-center round px-1 ' : 'bg-light-red text-center px-1 round '}>{row.status}</label>
+            <label
+                className={row.status == 'success' ? 'bg-light-green text-center round px-1 ' : 'bg-light-red text-center px-1 round '}>{row.status}</label>
         </div>
     )
 }
@@ -748,11 +827,13 @@ export function toastMessage(message, status, context) {
         pauseOnHover: false,
     });
 }
-export function toastReloadMessage(status, context,callback) {
+
+export function toastReloadMessage(status, context, callback) {
     const {toastManager} = context.props;
     const message = (
         <Fragment>
-            <span>An error occurred! Click Here to </span>&nbsp;<a href='#' className='retry dark-link' onClick={()=>callback()}>Try Again</a>
+            <span>An error occurred! Click Here to </span>&nbsp;<a href='#' className='retry dark-link'
+                                                                   onClick={() => callback()}>Try Again</a>
         </Fragment>
     );
     toastManager.add(message, {
@@ -763,9 +844,10 @@ export function toastReloadMessage(status, context,callback) {
     });
 }
 
-function sayHello (){
+function sayHello() {
     console.log('hello cutie');
 }
+
 export function calcPenalty(balance, penalty) {
     console.log('cal penalty', balance, penalty);
     return Number(Number(balance).toFixed(2) * (Number(penalty).toFixed(2) / 100)).toFixed(2);
@@ -798,7 +880,8 @@ export function amountInterestFormatter(cell, row) {
                className={'text-info'}> {row.amount != null ? `₦ ${formatNumber(parseFloat(row.amount).toFixed(2))}` : "N/A"}</p>
             <small className='text-muted'>Interest</small>
             <small className='text-green'>+ {`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`}</small>
-            <small style={{fontSize:'9px'}} className='text-muted'> {moment(row.start_date).format('Do MMM YY')} - {moment(row.end_date).format('Do MMM YY')}</small>
+            <small style={{fontSize: '9px'}}
+                   className='text-muted'> {moment(row.start_date).format('Do MMM YY')} - {moment(row.end_date).format('Do MMM YY')}</small>
         </div>
     )
 
@@ -807,12 +890,13 @@ export function amountInterestFormatter(cell, row) {
 export function viewFormatter(cell) {
     return <button className={'btn round btn-sm btn-blue-btn'}>View History</button>
 }
-export function actionFormatter(cell,row) {
+
+export function actionFormatter(cell, row) {
     const today = moment();
 
-    if(row.end_date != null && moment(row.end_date).format('MM-DD-YYYY')<today){
+    if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < today) {
         return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
-    }else if(row.end_date == null){
+    } else if (row.end_date == null) {
         return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
     }
     return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
@@ -1008,7 +1092,7 @@ export function handleFiltering(date, comparator, context) {
     });
 };
 
-export function handlePinConcatenation (name , event, context = this, callback = null) {
+export function handlePinConcatenation(name, event, context = this, callback = null) {
     let form = {...context.state.form};
     form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     if (name == 'pin_one' || name == 'pin_two' || name == 'pin_three' || name == 'pin_four') {
@@ -1026,7 +1110,7 @@ export function handlePinConcatenation (name , event, context = this, callback =
     return form;
 };
 
-export function validatePin(context=this) {
+export function validatePin(context = this) {
     if (context.state.form.withdrawal_pin.length != 4) {
         //validate pin
         context.setState({

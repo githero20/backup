@@ -6,10 +6,10 @@ import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-i
 import {request} from "../../ApiUtils/ApiUtils";
 import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySaveCard";
 import {
-    actionFormatter,
+    actionFormatter, contributionFormatter,
     dateFormatter,
     descriptionFormatter,
-    formatNumber,
+    formatNumber, getSteadySaveData,
     getTodaysDate,
     getToken,
     getTotalFailed,
@@ -131,6 +131,7 @@ class SteadySave extends Component {
 
     handleSteadySave = (state, res) => {
 
+        console.log('res',state,res);
         this.setState({
             showLoader: false
         });
@@ -139,6 +140,7 @@ class SteadySave extends Component {
             this.setState({
                 transactions: res.data.data,
             });
+
             const temp = res.data.data;
             if (temp && temp.length > 0) {
                 let steadySave = {
@@ -161,36 +163,6 @@ class SteadySave extends Component {
 
     };
 
-    handleOneSteadySave = (state, res) => {
-
-        this.setState({
-            showLoader: false
-        });
-
-
-        if (state && res) {
-            const temp = res.data.data;
-            if (temp && temp.length > 0) {
-                let oneSteadySave = {
-                    id: temp[0].id,
-                    contribution: temp[0].start_amount,
-                    frequency: temp[0].frequency,
-                    start_date: temp[0].start_date,
-                    hour_of_day: temp[0].hour_of_day,
-                    payment_auth: temp[0].gw_authorization_code,
-                    raw: temp[0]
-                };
-                this.setState({oneSteadySave});
-            }
-
-        } else if(!state&&res){
-            console.log('err',res);
-        }else {
-            toastReloadMessage('error',this,this.getSteadySave);
-        }
-
-    };
-
     setupSteadySave = () => {
         this.setState({
             showLoader: true
@@ -198,17 +170,6 @@ class SteadySave extends Component {
         request(getSteadySaveEndpoint, null, true, 'GET', this.handleSteadySave);
         // get data from localStorage
     };
-
-    // setupOneSteadySave = () => {
-    //     this.setState({
-    //         showLoader: true
-    //     });
-    //     request(getSteadySaveEndpoint, null, true, 'GET', this.handleOneSteadySave);
-    //     // get data from localStorage
-    // };
-
-
-
 
     GetBalance = () => {
         //call get user info
@@ -263,28 +224,22 @@ class SteadySave extends Component {
         })
     };
 
-    showCreateSteadySaveModal = () => {
-        this.setState({
-            showCreateSavingModal: true,
-        })
-    };
 
     handleSSaveTrans = (status, res) => {
         //TODO calc total steady save
         if (status && res) {
+            const trans = getSteadySaveData(res.data);
             this.setState({
                 showLoader: false,
-                steadySaveTrans: res.data,
+                steadySaveTrans: trans,
             })
 
         }
     };
 
     getHistAndTrans = () => {
-
         getSteadySavTrans(this.state.selectedSteadySave.id, this.handleSSaveTrans);
         getSteadySavHistory(this.state.selectedSteadySave.id, this.handleSSaveHistory);
-
     };
 
     handleSSaveHistory = (status, res) => {
@@ -341,10 +296,10 @@ class SteadySave extends Component {
             {
                 text: 'Contribution',
                 dataField: 'start_amount',
-                formatter: moneyFormatter,
+                formatter: contributionFormatter,
                 sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                // classes: 'd-none d-md-table-cell',
+                // headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Status',
@@ -380,7 +335,6 @@ class SteadySave extends Component {
                 formatter: actionFormatter,
                 events: {
                     onClick: (e, column, columnIndex, row) => {
-                        console.log('row',row);
                         let oneSteadySave = {
                             id: row.id,
                             contribution: row.start_amount,
@@ -390,31 +344,11 @@ class SteadySave extends Component {
                             payment_auth: row.gw_authorization_code,
                             raw: row
                         };
-
-                        getSteadySavHistory(row.id,(status,res)=>{
-                            console.log('history res',status,res);
-                            if (status && res) {
-                                let data = res.savings_plan_history.data;
-                                console.log('data',data);
-                                let totalIndSteadySave = getTotalSuccessfulSS(data);
-                                totalIndSteadySave = formatNumber(parseFloat(totalIndSteadySave).toFixed(2))
-                                console.log('total steady save',totalIndSteadySave);
-                                this.setState({totalIndSteadySave});
-                            }
-                        });
                         this.setState({oneSteadySave});
                         this.showOneSSModal();
                     }
                 }
             }
-            // {
-            //     text: 'Date',
-            //     dataField: 'created_at',
-            //     formatter: dateFormatter,
-            //     sort: true,
-            //     classes: 'd-none d-md-table-cell',
-            //     headerClasses: 'd-none d-md-table-cell',
-            // }
 
         ]; //table header and columns
 
@@ -472,13 +406,34 @@ class SteadySave extends Component {
                 }
             },
             {
-                text: 'Date',
-                dataField: 'created_at',
-                formatter: dateFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                text: 'Quick Action',
+                dataField: 'user_id',
+                formatter: actionFormatter,
+                events: {
+                    onClick: (e, column, columnIndex, row) => {
+                        let oneSteadySave = {
+                            id: row.id,
+                            contribution: row.start_amount,
+                            frequency: row.frequency,
+                            start_date: row.start_date,
+                            hour_of_day: row.hour_of_day,
+                            payment_auth: row.gw_authorization_code,
+                            raw: row
+                        };
+                        this.setState({oneSteadySave});
+                        this.showOneSSModal();
+                    }
+                }
             }
+
+            // {
+            //     text: 'Date',
+            //     dataField: 'created_at',
+            //     formatter: dateFormatter,
+            //     sort: true,
+            //     classes: 'd-none d-md-table-cell',
+            //     headerClasses: 'd-none d-md-table-cell',
+            // }
 
         ];
 
@@ -488,8 +443,8 @@ class SteadySave extends Component {
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
-                // classes: 'd-none d-md-table-cell',
-                // headerClasses: 'd-none d-md-table-cell',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Phase',
@@ -520,8 +475,8 @@ class SteadySave extends Component {
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
-                // classes: 'd-none d-md-table-cell',
-                // headerClasses: 'd-none d-md-table-cell',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             }
 
@@ -792,10 +747,8 @@ class SteadySave extends Component {
                                                 <div
                                                     className="mb-quick-actions d-flex flex-column flex-wrap mb-1 mb-md-0">
                                                     <span className="mb-btn-wrapper steady-btn-wrapper">
-                                                        <button type="button" onClick={this.showModal}
-                                                                className=" btn-blue-gradient-2 round">
-                                                            <img src={whiteSaveMoreIcon}/>
-                                                            Edit Savings Plan
+                                                        <button type="button" onClick={this.showModal} disabled={transactions.length>1?true:false} className=" btn-blue-gradient-2 round">
+                                                            <img src={whiteSaveMoreIcon}/>{transactions.length>1?' Savings Plan':'Edit Savings Plan'}
                                                         </button>
                                                     </span>
                                                 </div>

@@ -72,7 +72,7 @@ class LockedSavings extends Component {
         });
 
         if(status) { this.setState({userName: res.name})}
-        else toastReloadMessage('error',this,this.LoadData)
+        // else toastReloadMessage('error',this,this.LoadData)
     };
 
 

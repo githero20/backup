@@ -213,10 +213,10 @@ class SteadySaveForm extends Component {
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
                     <Form.Row>
-                        <Form.Group as={Col} md={6}>
-                            <div className={'text-muted secondary-text'}>Total Steady Save Balance</div>
-                            <h2>&#8358;{formatNumber(this.props.totalSteadySave) || 0}</h2>
-                        </Form.Group>
+                        {/*<Form.Group as={Col} md={6}>*/}
+                        {/*    <div className={'text-muted secondary-text'}>Total Steady Save Balance</div>*/}
+                        {/*    <h2>&#8358;{formatNumber(this.props.totalSteadySave) || 0}</h2>*/}
+                        {/*</Form.Group>*/}
                         <Form.Group as={Col} md={6}>
                             <div className={'text-muted secondary-text'}>Contribution
 

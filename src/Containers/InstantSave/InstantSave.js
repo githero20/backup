@@ -93,9 +93,11 @@ class InstantSave extends Component {
             }
         } else if (!status && data) {
             console.log('err', data)
-        } else {
-            toastReloadMessage('error', this, this.getInstantSaves);
         }
+        // else {
+        //     console.log('err')
+        //     toastReloadMessage('error', this, this.getInstantSaves);
+        // }
 
 
     };

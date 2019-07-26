@@ -89,7 +89,9 @@ class BackupGoals extends Component {
             this.setState({showLoader: false});
             if (status) {
                 if (payload) {this.setState({backupGoals: payload.data.data})}
-            } else {
+            } else if(!status&&payload){
+                console.log('err',payload);
+            }else{
                 console.error("An error occurred", payload);
                 toastReloadMessage('error',this,this.fetchBackUpGoals);
             }

@@ -31,8 +31,7 @@ class LockedSavings extends Component {
 
     constructor(props) {
         super(props);
-
-        console.log(_getToken());
+        _getToken();
         this.showLSModal = this.showLSModal.bind(this);
         this.closeLSModal = this.closeLSModal.bind(this);
     }

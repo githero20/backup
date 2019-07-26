@@ -10,15 +10,18 @@ import {
     balanceFormatter,
     dateFormatter,
     descriptionFormatter,
-    detailFormatter, handleFiltering,
+    detailFormatter,
+    handleFiltering,
     sourceFormatter,
-    statusFormatter, toastReloadMessage, todaysDateForTable, toggleTable
+    statusFormatter,
+    toastReloadMessage,
+    todaysDateForTable,
+    toggleTable
 } from "../../Helpers/Helper";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {withToastManager} from 'react-toast-notifications';
 import TransactionReceipt from "../../Components/Dashboard/TransactionReceipt/TransactionReceipt";
 import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
-import moment from 'moment';
 
 class Transactions extends Component {
 
@@ -28,7 +31,7 @@ class Transactions extends Component {
         userName: null,
         selectedTransID: null,
         showTransDetail: false,
-        mobileTable:true
+        mobileTable: true
     };
 
     //when the component mounts
@@ -37,8 +40,7 @@ class Transactions extends Component {
 
     loadTransactions() {
         //get transactions from api
-        this.setState({ showLoader: true });
-
+        this.setState({showLoader: true});
         request(getTransactionsApi, null, true, 'GET', this.handleTransactions);
     }
 
@@ -57,7 +59,7 @@ class Transactions extends Component {
         } else if (!state && res) {
             this.toastMessage(res.data.message, 'error');
         } else {
-            toastReloadMessage('error',this,this.loadTransactions);
+            toastReloadMessage('error', this, this.loadTransactions);
         }
 
     };
@@ -110,7 +112,7 @@ class Transactions extends Component {
 
     };
 
-    hideDetails = ()=>{
+    hideDetails = () => {
         this.setState({
             showTransDetail: false
         });
@@ -119,7 +121,6 @@ class Transactions extends Component {
     handleFilter = (date, comparator) => {
         handleFiltering(date, comparator, this);
     };
-
 
 
     render() {
@@ -138,7 +139,7 @@ class Transactions extends Component {
                         this.createdDateFilter = filter;
                     }
                 })
-            },{
+            }, {
                 text: 'Description',
                 dataField: 'sourcetypes',
                 formatter: sourceFormatter,
@@ -161,81 +162,6 @@ class Transactions extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-
-            },{
-                text: 'Balance',
-                dataField: 'balance',
-                formatter: balanceFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
-
-            },
-            {
-                text: 'Status',
-                dataField: 'status',
-                formatter: statusFormatter,
-                sort: true,
-                classes: 'd-none',
-                headerClasses: 'd-none',
-            },
-            {
-                text: 'transactions',
-                dataField: 'id',
-                formatter: detailFormatter,
-                events: {
-                    onClick: (e, column, columnIndex, row, rowIndex) => {
-                        this.setState({
-                            showTransDetail: true,
-                            selectedTransID:row.id
-                        });
-                    }
-                }
-            },
-            {
-                text: 'Reference',
-                dataField: 'reference',
-                sort: true,
-                classes: 'd-none',
-                headerClasses: 'd-none ',
-
-            }];
-        const mobileColumns = [
-            {
-                text: 'Date',
-                dataField: 'created_at',
-                formatter: dateFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
-                filter: dateFilter({
-                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
-                    getFilter: (filter) => {
-                        this.createdDateFilter = filter;
-                    }
-                })
-            },{
-                text: 'Description',
-                dataField: 'sourcetypes',
-                formatter: sourceFormatter,
-                sort: true,
-
-            },
-            {
-                text: 'Phase',
-                dataField: 'type',
-                formatter: descriptionFormatter,
-                sort: true,
-                classes: 'd-none',
-                headerClasses: 'd-none',
-
-            },{
-                text: 'Amount',
-                dataField: 'amount',
-                formatter: amountBalanceFormatter,
-                sort: true,
-                classes:' d-table-cell d-md-none',
-                headerClasses:'d-table-cell d-md-none',
 
             }, {
                 text: 'Balance',
@@ -262,7 +188,82 @@ class Transactions extends Component {
                     onClick: (e, column, columnIndex, row, rowIndex) => {
                         this.setState({
                             showTransDetail: true,
-                            selectedTransID:row.id
+                            selectedTransID: row.id
+                        });
+                    }
+                }
+            },
+            {
+                text: 'Reference',
+                dataField: 'reference',
+                sort: true,
+                classes: 'd-none',
+                headerClasses: 'd-none ',
+
+            }];
+        const mobileColumns = [
+            {
+                text: 'Date',
+                dataField: 'created_at',
+                formatter: dateFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+                filter: dateFilter({
+                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
+                    getFilter: (filter) => {
+                        this.createdDateFilter = filter;
+                    }
+                })
+            }, {
+                text: 'Description',
+                dataField: 'sourcetypes',
+                formatter: sourceFormatter,
+                sort: true,
+
+            },
+            {
+                text: 'Phase',
+                dataField: 'type',
+                formatter: descriptionFormatter,
+                sort: true,
+                classes: 'd-none',
+                headerClasses: 'd-none',
+
+            }, {
+                text: 'Amount',
+                dataField: 'amount',
+                formatter: amountBalanceFormatter,
+                sort: true,
+                classes: ' d-table-cell d-md-none',
+                headerClasses: 'd-table-cell d-md-none',
+
+            }, {
+                text: 'Balance',
+                dataField: 'balance',
+                formatter: balanceFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+
+            },
+            {
+                text: 'Status',
+                dataField: 'status',
+                formatter: statusFormatter,
+                sort: true,
+                classes: 'd-none',
+                headerClasses: 'd-none',
+            },
+            {
+                text: 'transactions',
+                dataField: 'id',
+                formatter: detailFormatter,
+                events: {
+                    onClick: (e, column, columnIndex, row, rowIndex) => {
+                        this.setState({
+                            showTransDetail: true,
+                            selectedTransID: row.id
                         });
                     }
                 }
@@ -294,7 +295,7 @@ class Transactions extends Component {
                                 this.state.showTransDetail ?
                                     (
                                         <TransactionReceipt hideDetails={this.hideDetails}
-                                                            selectedTransID={this.state.selectedTransID} />
+                                                            selectedTransID={this.state.selectedTransID}/>
                                     ) :
 
                                     <React.Fragment>
@@ -311,9 +312,9 @@ class Transactions extends Component {
                                             <div className="row">
                                                 {
                                                     this.state.mobileTable ?
-                                                        ( <TransactionTable handleFilter={this.handleFilter}
-                                                                            transactions={this.state.transactions}
-                                                                            columns={mobileColumns}/>):
+                                                        (<TransactionTable handleFilter={this.handleFilter}
+                                                                           transactions={this.state.transactions}
+                                                                           columns={mobileColumns}/>) :
                                                         (
                                                             <TransactionTable handleFilter={this.handleFilter}
                                                                               transactions={this.state.transactions}

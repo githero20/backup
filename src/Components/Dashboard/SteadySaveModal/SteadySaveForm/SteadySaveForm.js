@@ -200,8 +200,6 @@ class SteadySaveForm extends Component {
             });
         }
 
-        initializeAmountInput();
-
     }
 
 
@@ -301,6 +299,5 @@ class SteadySaveForm extends Component {
 }
 
 
-const SteadyToastForm = withToastManager(SteadySaveForm);
 
-export default SteadyToastForm;
+export default withToastManager(SteadySaveForm);

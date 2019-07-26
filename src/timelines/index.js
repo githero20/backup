@@ -4,13 +4,13 @@ import {ForgotPasswordLink, InviteLink, LoginLink, ResetPasswordLink, SignUpLink
 const getDashboardTimeline = (node, delay) => {
     const timeline = new Timeline({ paused: true });
     // const content = node;
-    const content = node.querySelector('.app-content');
-    const contentInner = node.querySelector('.content-wrapper');
+    // const content = node.querySelector('.app-content');
+    // const contentInner = node.querySelector('.content-wrapper');
 
     timeline
         .from(node, 0.3, {autoAlpha: 1, delay, ease: Power1.easeIn })
-        .from(content, 0.15, { autoAlpha: .5, ease: Power1.easeInOut })
-        .staggerFrom(contentInner, 0.15, { autoAlpha: .5,y:-10, delay: 0.15, ease: Power1.easeIn });
+        // .from(content, 0.15, { autoAlpha: .5, ease: Power1.easeInOut })
+        // .staggerFrom(contentInner, 0.15, { autoAlpha: .5,y:-10, delay: 0.15, ease: Power1.easeIn });
 
     return timeline;
 }

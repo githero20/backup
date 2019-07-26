@@ -17,6 +17,7 @@ import featureImage3 from "../../admin/app-assets/images/svg/feature-img-3.svg";
 import featureImage4 from "../../admin/app-assets/images/svg/feature-img-4.svg";
 import whatsAppIcon from "../../admin/app-assets/images/whatsapp-ico@2x.png";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
+import homeBGImg from "../../admin/app-assets/images/svg/header-bg.svg";
 import polarisBank from "../../admin/app-assets/images/polaris-bank.png";
 import CommentImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import tm30 from "../../admin/app-assets/images/tm30logo.png";
@@ -69,7 +70,12 @@ class Home extends Component {
 
     componentDidMount() {
         this.checkUser();
-        hideLoader();
+        let homeBGImg = document.querySelector('.home-bg-img');
+        console.log(homeBGImg);
+        homeBGImg.onload = ()=>{
+            console.log('loaded');
+            hideLoader();
+        };
         Support();
     }
 
@@ -85,6 +91,7 @@ class Home extends Component {
                     <div className="home-content">
                         <div className="home-content--inner">
                             <header className="header header-background">
+                                <img src={homeBGImg} className='home-bg-img d-none' alt="svg image"/>
                                 <div className="container">
                                     <nav className="home-nav navbar navbar-expand-lg ">
                                         <a className="navbar-brand">

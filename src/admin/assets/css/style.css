@@ -813,13 +813,25 @@ input[type="date"]::-webkit-clear-button {
 
 .btn-custom-blue:hover {
     color: white !important;
-
     background-color: #2784F4 !Important;
     border-color: #2784F4 !Important;
     transform: translateY(-.1rem);
     box-shadow: 0px 5px 5px rgba(23, 96, 171, 0.3);
 }
 
+.btn-blue-btn{
+    color: white !important;
+    background-color: #2784F4 !Important;
+    border-color: #2784F4 !Important;
+    transition: all .5s ease-in-out;
+}
+.btn-blue-btn:hover {
+    color: white !important;
+    background-color: #1160f4 !Important;
+    border-color: #1160F4 !Important;
+    transform: translateY(-.1rem);
+    box-shadow: 0px 5px 5px rgba(23, 96, 171, 0.3);
+}
 .dashboard-card {
     min-height: 200px;
 }

@@ -17,7 +17,7 @@ class StartNowButton extends React.Component {
 
         return (
             <React.Fragment>
-                <Link className={'btn btn-custom-blue round'} to={this.props.link}>Start Now</Link>
+                <Link className={'btn btn-blue-btn round'} to={this.props.link}>Start Now</Link>
             </React.Fragment>
         );
     }

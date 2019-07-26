@@ -19,11 +19,11 @@ html body.fixed-navbar
 }
 html body a
 {
-    color: #1e9ff2;
+    color: #367bff;
 }
 html body a:hover
 {
-    color: #0c84d1;
+    color: #1adbff;
 }
 html body .content
 {

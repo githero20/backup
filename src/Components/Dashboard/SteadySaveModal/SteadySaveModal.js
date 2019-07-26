@@ -20,9 +20,7 @@ class SteadySaveModal extends React.Component {
 
 
     showEditModal(status = false,start=false){
-        if(start){
-            this.setState({showStart:start});
-        }
+        if(start){ this.setState({showStart:start})}
         this.setState({showEditModal:status, showMainModal:!status});
     }
 
@@ -54,11 +52,29 @@ class SteadySaveModal extends React.Component {
                     <ToastProvider>
                         {
                             this.state.showMainModal
-                                ? <SteadySaveForm  show={this.state.showMainModal} onStart={this.showCreateModal} onEdit={this.showEditModal} setupSteadySave={this.props.setupSteadySave} steadySave={this.props.steadySave} totalSteadySave={this.props.totalSteadySave} onHide={this.props.onHide}/>
-                                :<EditSteadySave show={this.state.showEditModal}  onSave={this.showMainModal} setupSteadySave={this.props.setupSteadySave} steadySave={this.props.steadySave} onHide={this.props.onHide}/>
+                                ? <SteadySaveForm  show={this.state.showMainModal}
+                                                   onStart={this.showCreateModal}
+                                                   onEdit={this.showEditModal}
+                                                   setupSteadySave={this.props.setupSteadySave}
+                                                   steadySave={this.props.steadySave}
+                                                   totalSteadySave={this.props.totalSteadySave}
+                                                   onHide={this.props.onHide}
+                                />
+                                :<EditSteadySave
+                                    show={this.state.showEditModal}
+                                    onSave={this.showMainModal}
+                                    setupSteadySave={this.props.setupSteadySave}
+                                    steadySave={this.props.steadySave}
+                                    onHide={this.props.onHide}
+                                />
                         }
                         {
-                            this.state.showStart?<CreateSteadySaveModal  show={this.state.showStart} setupSteadySave={this.props.setupSteadySave} steadySave={this.props.steadySave} onHide={this.props.onHide} />:null
+                            this.state.showStart?<CreateSteadySaveModal
+                                show={this.state.showStart}
+                                setupSteadySave={this.props.setupSteadySave}
+                                steadySave={this.props.steadySave}
+                                onHide={this.props.onHide}
+                            />:null
                         }
                     </ToastProvider>
                 </Modal.Body>

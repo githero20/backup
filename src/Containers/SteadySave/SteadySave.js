@@ -6,6 +6,7 @@ import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-i
 import {request} from "../../ApiUtils/ApiUtils";
 import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySaveCard";
 import {
+    actionFormatter,
     dateFormatter,
     descriptionFormatter,
     formatNumber,
@@ -46,11 +47,13 @@ class SteadySave extends Component {
             userName: '',
             totalBalance: '0.00',
             totalSteadySave: '0.00',
+            totalIndSteadySave: '0.00',
             totalSuccessful: 0,
             totalAttempts: 0,
             totalFailed: 0,
             email: null,
             showSavingModal: false,
+            showOneSavingModal: false,
             showCreateSavingModal: false,
             showLoader: false,
             settings: false,
@@ -64,11 +67,20 @@ class SteadySave extends Component {
                 payment_auth: null,
                 raw: null
             },
+            oneSteadySave: {
+                id: null,
+                contribution: 0,
+                start_date: getTodaysDate(),
+                frequency: null,
+                hour_of_day: 0,
+                payment_auth: null,
+                raw: null
+            },
             showSSaveTrans: false,
             selectedSteadySave: null,
             steadySaveHistory: [],
             steadySaveTrans: [],
-            mobileTable:true,
+            mobileTable:false,
         };
 
     }
@@ -76,6 +88,12 @@ class SteadySave extends Component {
     hideModal = (status = false) => {
         this.setState({
                 showSavingModal: false
+            }
+        );
+    };
+    hideOneModal = (status = false) => {
+        this.setState({
+            showOneSavingModal: false
             }
         );
     };
@@ -96,6 +114,11 @@ class SteadySave extends Component {
     showModal = () => {
         this.setState({
             showSavingModal: true
+        });
+    };
+    showOneSSModal = () => {
+        this.setState({
+            showOneSavingModal: true
         });
     };
 
@@ -130,8 +153,39 @@ class SteadySave extends Component {
                 this.setState({steadySave});
             }
 
-        } else {
+        } else if(!state&&res){
+            console.log('err',res);
+        }else {
+            toastReloadMessage('error',this,this.getSteadySave);
+        }
 
+    };
+
+    handleOneSteadySave = (state, res) => {
+
+        this.setState({
+            showLoader: false
+        });
+
+
+        if (state && res) {
+            const temp = res.data.data;
+            if (temp && temp.length > 0) {
+                let oneSteadySave = {
+                    id: temp[0].id,
+                    contribution: temp[0].start_amount,
+                    frequency: temp[0].frequency,
+                    start_date: temp[0].start_date,
+                    hour_of_day: temp[0].hour_of_day,
+                    payment_auth: temp[0].gw_authorization_code,
+                    raw: temp[0]
+                };
+                this.setState({oneSteadySave});
+            }
+
+        } else if(!state&&res){
+            console.log('err',res);
+        }else {
             toastReloadMessage('error',this,this.getSteadySave);
         }
 
@@ -144,6 +198,17 @@ class SteadySave extends Component {
         request(getSteadySaveEndpoint, null, true, 'GET', this.handleSteadySave);
         // get data from localStorage
     };
+
+    // setupOneSteadySave = () => {
+    //     this.setState({
+    //         showLoader: true
+    //     });
+    //     request(getSteadySaveEndpoint, null, true, 'GET', this.handleOneSteadySave);
+    //     // get data from localStorage
+    // };
+
+
+
 
     GetBalance = () => {
         //call get user info
@@ -226,10 +291,8 @@ class SteadySave extends Component {
         //TODO calc total steady save
 
         if (status && res) {
-
             let data = res.savings_plan_history.data;
             const totalSteadySave = getTotalSuccessfulSS(data);
-
             const totalSuccessful = getTotalSuccessful(data);
             const totalFailed = getTotalFailed(data);
 
@@ -294,7 +357,7 @@ class SteadySave extends Component {
             },
 
             {
-                text: 'transactions',
+                text: 'Transactions',
                 dataField: 'id',
                 formatter: viewFormatter,
                 events: {
@@ -305,25 +368,53 @@ class SteadySave extends Component {
                             showLoader: true
                         });
                         //set appropriate state to change view
-
                         // make request to get transaction
                         getSteadySavTrans(row.id, this.handleSSaveTrans);
                         getSteadySavHistory(row.id, this.handleSSaveHistory);
-
                         //TODO Add history endpoint to get history of steady save
-
-
                     }
                 }
-            },
-            {
-                text: 'Date',
-                dataField: 'created_at',
-                formatter: dateFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+            },{
+                text: 'Quick Action',
+                dataField: 'user_id',
+                formatter: actionFormatter,
+                events: {
+                    onClick: (e, column, columnIndex, row) => {
+                        console.log('row',row);
+                        let oneSteadySave = {
+                            id: row.id,
+                            contribution: row.start_amount,
+                            frequency: row.frequency,
+                            start_date: row.start_date,
+                            hour_of_day: row.hour_of_day,
+                            payment_auth: row.gw_authorization_code,
+                            raw: row
+                        };
+
+                        getSteadySavHistory(row.id,(status,res)=>{
+                            console.log('history res',status,res);
+                            if (status && res) {
+                                let data = res.savings_plan_history.data;
+                                console.log('data',data);
+                                let totalIndSteadySave = getTotalSuccessfulSS(data);
+                                totalIndSteadySave = formatNumber(parseFloat(totalIndSteadySave).toFixed(2))
+                                console.log('total steady save',totalIndSteadySave);
+                                this.setState({totalIndSteadySave});
+                            }
+                        });
+                        this.setState({oneSteadySave});
+                        this.showOneSSModal();
+                    }
+                }
             }
+            // {
+            //     text: 'Date',
+            //     dataField: 'created_at',
+            //     formatter: dateFormatter,
+            //     sort: true,
+            //     classes: 'd-none d-md-table-cell',
+            //     headerClasses: 'd-none d-md-table-cell',
+            // }
 
         ]; //table header and columns
 
@@ -360,7 +451,6 @@ class SteadySave extends Component {
                 headerClasses: 'd-none d-md-table-cell',
 
             },
-
             {
                 text: 'transactions',
                 dataField: 'id',
@@ -398,41 +488,40 @@ class SteadySave extends Component {
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                // classes: 'd-none d-md-table-cell',
+                // headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Phase',
                 dataField: 'type',
                 formatter: descriptionFormatter,
                 sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
-
+                // classes: 'd-none d-md-table-cell',
+                // headerClasses: 'd-none d-md-table-cell',
             },
-            {
-                text: 'Balance',
-                dataField: 'balance',
-                formatter: moneyFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
-            },
+            // {
+            //     text: 'Balance',
+            //     dataField: 'balance',
+            //     formatter: moneyFormatter,
+            //     sort: true,
+            //     classes: 'd-none d-md-table-cell',
+            //     headerClasses: 'd-none d-md-table-cell',
+            // },
             {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter: moneyFormatter,
                 sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                // classes: 'd-none d-md-table-cell',
+                // headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Status',
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                // classes: 'd-none d-md-table-cell',
+                // headerClasses: 'd-none d-md-table-cell',
 
             }
 
@@ -455,14 +544,14 @@ class SteadySave extends Component {
                 classes: ' d-table-cell d-md-none',
                 headerClasses: 'd-table-cell d-md-none',
             },
-            {
-                text: 'Balance',
-                dataField: 'balance',
-                formatter: moneyFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
-            },
+            // {
+            //     text: 'Balance',
+            //     dataField: 'balance',
+            //     formatter: moneyFormatter,
+            //     sort: true,
+            //     classes: 'd-none d-md-table-cell',
+            //     headerClasses: 'd-none d-md-table-cell',
+            // },
             {
                 text: 'Amount',
                 dataField: 'amount',
@@ -478,9 +567,7 @@ class SteadySave extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-
             }
-
         ];
 
 
@@ -519,13 +606,14 @@ class SteadySave extends Component {
                                                     <div className="text-right">
                                                         <a href='#!' onClick={this.hideTransactions}
                                                            className='gray-text back-btn'>
-                                                            <i className='fa fa-chevron-left'></i>&nbsp; Back
+                                                            <i className='fa fa-chevron-left'></i>
+                                                            &nbsp; Back
                                                         </a>
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-4 col-12">
-                                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">Steady Save <span
-                                                        className="dot">.</span> Summary
+                                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">Steady Save
+                                                        <span className="dot">.</span> Summary
                                                     </h3>
                                                     <SteadyAmountCard bgInfo={this.state.selectedSteadySave}/>
                                                 </div>
@@ -589,9 +677,7 @@ class SteadySave extends Component {
                                                                     <p>
                                                                          {
                                                                              this.state.totalFailed > 0 ?
-                                                                                 <a href='#' className=''
-                                                                                    onClick={() => this.showPayModal()}>Pay
-                                                                                     Now</a> :
+                                                                                 <a onClick={() => this.showPayModal()}>Pay Now</a> :
                                                                                  null
                                                                          }
                                                                     </p>
@@ -658,6 +744,21 @@ class SteadySave extends Component {
                                             ) : null
                                     }
                                     {
+                                        this.state.showOneSavingModal ?
+                                            (
+                                                <React.Fragment>
+                                                    <SteadySaveModal setupSteadySave={this.setupSteadySave}
+                                                                     steadySave={this.state.oneSteadySave}
+                                                                     totalSteadySave={this.state.totalIndSteadySave}
+                                                                     show={this.state.showOneSavingModal}
+                                                                     onHide={this.hideOneModal}
+                                                    />
+                                                </React.Fragment>
+
+                                            ) : null
+                                    }
+
+                                    {
                                         this.state.showCreateSavingModal ?
                                             (
                                                 <React.Fragment>
@@ -668,7 +769,6 @@ class SteadySave extends Component {
                                                         show={this.state.showCreateSavingModal}
                                                         onHide={this.hideCreateModal}/>
                                                 </React.Fragment>
-
                                             ) : null
                                     }
                                     <div className="content-header row">
@@ -683,8 +783,9 @@ class SteadySave extends Component {
                                                         you choose to withdraw outside of your set withdrawal days.</p>
                                                 </div>
                                             </div>
-                                            <SteadySaveCard totalBalance={this.state.totalBalance}
-                                                            newSteadySave={this.showNewSteadySaveModal}
+                                            <SteadySaveCard
+                                                totalBalance={this.state.totalBalance}
+                                                newSteadySave={this.showNewSteadySaveModal}
                                             />
                                             <div className="col-lg-3 col-12 order-lg-5">
                                                 <h3 className="gray-header-text d-none d-md-block fs-mb-1 mb-md-2">&nbsp;</h3>

@@ -216,7 +216,8 @@ export function getCardsFromStorage(key, object) {
 
 export function hideLoader() {
     const loader = document.querySelector('.lds-loader-bg');
-    window.addEventListener('load',()=>{loader.style.display ='none'});
+    loader.style.display ='none';
+    // window.addEventListener('load',()=>{});
 }
 
 export function showHomeLoader() {
@@ -680,7 +681,8 @@ export function parseAndFormatNum(num) {
     return formatNumber(parseFloat(num).toFixed(2));
 }
 
-export function moneyFormatter(cell) {
+export function moneyFormatter(cell,row) {
+        console.log('row',row);
     return (
         <p style={{minWidth: '150px'}}
            className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
@@ -803,11 +805,22 @@ export function amountInterestFormatter(cell, row) {
 }
 
 export function viewFormatter(cell) {
-    return <button className={'btn round btn-sm btn-custom-blue btn-block'}>View History</button>
+    return <button className={'btn round btn-sm btn-blue-btn'}>View History</button>
+}
+export function actionFormatter(cell,row) {
+    const today = moment();
+
+    if(row.end_date != null && moment(row.end_date).format('MM-DD-YYYY')<today){
+        return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
+    }else if(row.end_date == null){
+        return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
+    }
+    return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
+
 }
 
 export function detailFormatter(cell) {
-    return <button className={'btn round btn-sm btn-custom-blue btn-block'}>View Details</button>
+    return <button className={'btn round btn-sm btn-blue-btn'}>View Details</button>
 }
 
 export function balanceFormatter(cell) {

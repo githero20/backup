@@ -15,7 +15,8 @@ import {
     handleFiltering,
     mobileDescFormatter,
     STANDARD_ACCOUNT,
-    statusFormatter, toastReloadMessage,
+    statusFormatter,
+    toastReloadMessage,
     todaysDateForTable,
     toggleTable
 } from "../../Helpers/Helper";
@@ -69,10 +70,12 @@ class InstantSave extends Component {
 
     analyseInstantSaveInfo = (status, data) => {
         console.log(this.props);
-        console.log('res',status,data);
+        console.log('res', status, data);
         if (status) {
             //set name
-            if (data) { this.setState({ userName: data.data.data.name });}
+            if (data) {
+                this.setState({userName: data.data.data.name});
+            }
 
             //set proper account
             if (data.data.data.accounts) {
@@ -87,13 +90,11 @@ class InstantSave extends Component {
                         })
                     }
                 });
-
             }
-
-
-        }else {
-            if(data) { console.log('err',data); }
-            toastReloadMessage('error',this,this.getInstantSaves);
+        } else if (!status && data) {
+            console.log('err', data)
+        } else {
+            toastReloadMessage('error', this, this.getInstantSaves);
         }
 
 
@@ -160,14 +161,13 @@ class InstantSave extends Component {
 
     };
 
-    getInstantSaves = () =>{
+    getInstantSaves = () => {
         //get user instant saves
         this.setupInstantSave();
         this.loadInstantSaves();
     };
 
     componentWillMount() {
-
         this.getInstantSaves();
     }
 

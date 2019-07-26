@@ -126,14 +126,21 @@ class InstantSave extends Component {
 
 
     handleTransactions = (state, res) => {
+        this.setState({
+            showLoader: false
+        });
+
         if (state) {
             let transactions = res.data.data
                 .filter(content => content.status == 'success' && content.type == 'credit');
             this.setState({
                 transactions,
-                showLoader: false,
                 totalInstantSave: transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount || 0
             });
+        }else if(!state && res){
+
+        }else {
+            toastReloadMessage('error',this,this.getInstantSaves);
         }
     };
 

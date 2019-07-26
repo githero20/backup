@@ -167,7 +167,7 @@ class Home extends Component {
                                     <div className="row pt-lg-1">
                                         <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
                                             <div className="header-words-container pt-lg-5 pr-lg-3">
-                                                <h1 className="animated fadeInDown delay-3s header-title mt-5 mt-lg-1 mb-2
+                                                <h1 className="animated fadeInDown delay-1s header-title mt-5 mt-lg-1 mb-2
                                         mt-md-0  px-2 px-sm-0 ">
                                                     Protecting your <br/> interest is our business.</h1>
                                                 <p className="header-sub-title mb-0 ">

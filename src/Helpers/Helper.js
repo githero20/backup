@@ -832,14 +832,14 @@ export function toastReloadMessage(status, context, callback) {
     const {toastManager} = context.props;
     const message = (
         <Fragment>
-            <span>An error occurred! Click Here to </span>&nbsp;<a href='#' className='retry dark-link'
+            <span>Unable to retrieve data at the moment !! Click Here to </span>&nbsp;<a href='#' className='retry dark-link'
                                                                    onClick={() => callback()}>Try Again</a>
         </Fragment>
     );
     toastManager.add(message, {
         appearance: status,
         autoDismiss: true,
-        autoDismissTimeout: 5000,
+        autoDismissTimeout: 10000,
         pauseOnHover: true,
     });
 }

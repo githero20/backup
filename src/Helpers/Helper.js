@@ -891,15 +891,34 @@ export function viewFormatter(cell) {
     return <button className={'btn round btn-sm btn-blue-btn'}>View History</button>
 }
 
-export function actionFormatter(cell, row) {
-    const today = moment();
+export function actionFormatter(cell, row,rowIndex,{trans}) {
+    const today = moment().format('MM-DD-YYYY');
+    console.log('row data ',rowIndex,trans);
 
-    if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < today) {
-        return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
+    //get latest end date
+
+    let latestDate = moment(Math.max.apply(null, trans.map(function(content) {
+        if(content.end_date!=null){
+            console.log('end date ',content.end_date);
+            return new Date(content.end_date);
+        }
+    }))).format('MM-DD-YYYY');
+
+    console.log('latest date',latestDate);
+    //
+    // let latestDate = moment('07-24-2019').format('MM-DD-YYYY');
+    // console.log('latest date ',latestDate);
+    // if the latest date is past render convert steady save
+    if(latestDate < today &&
+        latestDate == moment(row.end_date).format('MM-DD-YYYY')){
+        console.log('got here ');
+        return <button name='convert-btn' className={'btn btn-block round btn-sm btn-success'}>Convert</button>
+    }else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < today) {
+        return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>
     } else if (row.end_date == null) {
         return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
     }
-    return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
+    return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>
 
 }
 

@@ -1,7 +1,7 @@
 import {_axios, _getHeader} from "../utils";
 import {
     BASE_URL,
-    ContinueSteadySave,
+    ContinueSteadySave, convertSteadySave,
     CreateLockedSavings,
     EditSteadySave,
     GetLockedSavings,
@@ -114,6 +114,34 @@ export const getSteadySavHistory = (id, callback) =>{
         return;
     }
     _axios.get(`${getSteadySaveHistory}/${id}`,{
+        headers: _getHeader()
+    })
+        .then(res => {
+
+            callback(true, res.data.data);
+        })
+        .catch(err => {
+            console.log("Err", JSON.stringify(err));
+            try{
+                console.log("Err", JSON.stringify(err));
+                // if(err.response){
+                //     callback(false, err.response.data.message || "AN Error Occurred");
+                // }
+                checkResponse(err);
+                callback(false, err.response);
+            }catch (e) {
+                //log both e and err
+                callback(false, " An Error Occurred");
+            }
+        })
+};
+
+export const convertUserSteadySave = (id, callback) =>{
+    if(!id){
+        callback(false,"Invalid Steady Save Identifier");
+        return;
+    }
+    _axios.get(`${convertSteadySave}/${id}`,{
         headers: _getHeader()
     })
         .then(res => {

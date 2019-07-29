@@ -70,6 +70,7 @@ export const EditSteadySave = `sfsbapi/v1/user/savings/steady/edit`;
 export const PauseSteadySave = `sfsbapi/v1/user/savings/steady/pause`;
 export const ContinueSteadySave = `sfsbapi/v1/user/savings/steady/continue`;
 export const getSteadySaveHistory = `sfsbapi/v1/user/savings/steady`;
+export const convertSteadySave = `/sfsbapi/v1/user/savings/steady/convert`;
 export const getBGoalTrans = `sfsbapi/v1/user/goals/trans`;
 export const pauseBackupGoal = `sfsbapi/v1/user/goals/pause`;
 export const continueBackupGoal = `sfsbapi/v1/user/goals/continue`;

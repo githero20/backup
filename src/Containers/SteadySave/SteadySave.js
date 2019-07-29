@@ -22,7 +22,7 @@ import {
     STANDARD_ACCOUNT,
     statusFormatter,
     steadyStatusFormatter,
-    titleFormatter, toastReloadMessage, toggleTable,
+    titleFormatter, toastMessage, toastReloadMessage, toggleTable,
     viewFormatter
 } from "../../Helpers/Helper";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
@@ -31,10 +31,11 @@ import DashboardLoader from "../../Components/Dashboard/DashboardLoader/Dashboar
 import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
 import CreateSteadySaveModal from "../../Components/Dashboard/CreateSteadySaveModal/CreateSteadySaveModal";
 import SSaveTransTable from "../../Components/Dashboard/SSaveTransTable/SSaveTransTable";
-import {getSteadySavHistory, getSteadySavTrans} from "../../actions/SteadySaveAction";
+import {convertUserSteadySave, getSteadySavHistory, getSteadySavTrans} from "../../actions/SteadySaveAction";
 import SteadyAmountCard from "./SteadyAmountCard";
 import PayNowModal from "../../Components/Dashboard/PayNowModal/PayNowModal";
 import {ToastProvider,withToastManager} from 'react-toast-notifications';
+import swal from "sweetalert";
 
 class SteadySave extends Component {
     constructor(props) {
@@ -204,6 +205,17 @@ class SteadySave extends Component {
         }
     };
 
+    convertSteadySave = (id) =>{
+        convertUserSteadySave(id,(state,res)=>{
+            if(state&&res){
+                console.log('res',res);
+                toastMessage('Steady Save Converted Successfully.','success',this);
+                this.setupSteadySave();
+            }
+        });
+    };
+
+
     getSteadySave = () =>{
         this.setupSteadySave();
         this.GetBalance();
@@ -329,23 +341,49 @@ class SteadySave extends Component {
                         //TODO Add history endpoint to get history of steady save
                     }
                 }
-            },{
+            },
+            {
                 text: 'Quick Action',
                 dataField: 'user_id',
                 formatter: actionFormatter,
+                formatExtraData: { trans: transactions},
                 events: {
                     onClick: (e, column, columnIndex, row) => {
-                        let oneSteadySave = {
-                            id: row.id,
-                            contribution: row.start_amount,
-                            frequency: row.frequency,
-                            start_date: row.start_date,
-                            hour_of_day: row.hour_of_day,
-                            payment_auth: row.gw_authorization_code,
-                            raw: row
-                        };
-                        this.setState({oneSteadySave});
-                        this.showOneSSModal();
+                        console.log('event',e.target);
+                        if(e.target.name == 'convert-btn'){
+
+                            swal('Are you sure', 'This will convert your steady save to the new steady save ' +
+                                'that runs automatically.You can edit your steady save once it is converted.', 'info', {
+                                buttons: {
+                                    cancel: "no",
+                                    yes: "yes"
+                                },
+                            }).then((value) => {
+                                switch (value) {
+                                    case "yes":
+                                        this.convertSteadySave(row.id);
+                                        break;
+                                    case "no":
+                                        // swal("Withdrawal Cancelled");
+                                        break;
+                                }
+                            });
+                        }else {
+
+                            let oneSteadySave = {
+                                id: row.id,
+                                contribution: row.start_amount,
+                                frequency: row.frequency,
+                                start_date: row.start_date,
+                                hour_of_day: row.hour_of_day,
+                                payment_auth: row.gw_authorization_code,
+                                raw: row
+                            };
+                            this.setState({oneSteadySave});
+                            this.showOneSSModal();
+
+                        }
+
                     }
                 }
             }
@@ -409,19 +447,44 @@ class SteadySave extends Component {
                 text: 'Quick Action',
                 dataField: 'user_id',
                 formatter: actionFormatter,
+                formatExtraData: { trans: transactions},
                 events: {
                     onClick: (e, column, columnIndex, row) => {
-                        let oneSteadySave = {
-                            id: row.id,
-                            contribution: row.start_amount,
-                            frequency: row.frequency,
-                            start_date: row.start_date,
-                            hour_of_day: row.hour_of_day,
-                            payment_auth: row.gw_authorization_code,
-                            raw: row
-                        };
-                        this.setState({oneSteadySave});
-                        this.showOneSSModal();
+                        console.log('event',e.target);
+                        if(e.target.name == 'convert-btn'){
+
+                            swal('Are you sure', 'This will convert your steady save to the new steady save ' +
+                                'that runs automatically.You can edit your steady save once it is converted.', 'info', {
+                                buttons: {
+                                    cancel: "no",
+                                    yes: "yes"
+                                },
+                            }).then((value) => {
+                                switch (value) {
+                                    case "yes":
+                                        this.convertSteadySave(row.id);
+                                        break;
+                                    case "no":
+                                        // swal("Withdrawal Cancelled");
+                                        break;
+                                }
+                            });
+                        }else {
+
+                            let oneSteadySave = {
+                                id: row.id,
+                                contribution: row.start_amount,
+                                frequency: row.frequency,
+                                start_date: row.start_date,
+                                hour_of_day: row.hour_of_day,
+                                payment_auth: row.gw_authorization_code,
+                                raw: row
+                            };
+                            this.setState({oneSteadySave});
+                            this.showOneSSModal();
+
+                        }
+
                     }
                 }
             }

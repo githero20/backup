@@ -190,6 +190,7 @@ class SignUpForm extends Component {
                 // const token = serverResponse.token;
                 // const user = serverResponse.user;
                 // this.saveToLocalStorage(user, token);
+
                 this.setState({
                     redirect: true
                 });

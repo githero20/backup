@@ -16,7 +16,6 @@ class ResendActivation extends Component {
 
     constructor(props) {
         super(props);
-        console.log('props without email',this.props);
     }
 
 

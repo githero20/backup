@@ -18,7 +18,6 @@ import featureImage4 from "../../admin/app-assets/images/svg/feature-img-4.svg";
 import whatsAppIcon from "../../admin/app-assets/images/whatsapp-ico@2x.png";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
 import homeBGImg from "../../admin/app-assets/images/svg/header-bg.svg";
-import polarisBank from "../../admin/app-assets/images/polaris-bank.png";
 import CommentImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../images/sfs.jpg";
@@ -70,12 +69,10 @@ class Home extends Component {
 
     componentDidMount() {
         this.checkUser();
-        let homeBGImg = document.querySelector('.home-bg-img');
-        console.log(homeBGImg);
-        homeBGImg.onload = ()=>{
+        window.addEventListener('load',()=>{
             console.log('loaded');
             hideLoader();
-        };
+        });
         Support();
     }
 

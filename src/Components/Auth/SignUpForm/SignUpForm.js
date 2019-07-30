@@ -25,9 +25,7 @@ class SignUpForm extends Component {
     //validator
     constructor(props) {
         super(props);
-
         this.validator = passwordValidator;
-
         this.state = {
             showReferralInput: false,
             email: '',
@@ -48,7 +46,6 @@ class SignUpForm extends Component {
             errorMessage: '',
             hideError: false,
         }
-
     }
 
     //toggleReferralInput

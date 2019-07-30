@@ -35,6 +35,7 @@ class Home extends Component {
     state = {
         showMobileMenu: false,
         isLoggedIn: false,
+        showLoader: true,
     };
 
 
@@ -63,15 +64,18 @@ class Home extends Component {
     };
 
     componentWillMount() {
-        showHomeLoader();
+        if (localStorage.getItem('hideLoader') == null) {
+            showHomeLoader()
+        }
     }
 
 
     componentDidMount() {
         this.checkUser();
-        window.addEventListener('load',()=>{
+        window.addEventListener('load', () => {
             console.log('loaded');
             hideLoader();
+            localStorage.setItem('hideLoader', true);
         });
         Support();
     }
@@ -94,26 +98,30 @@ class Home extends Component {
                                         <a className="navbar-brand">
                                             <img src={backupCashLogo} alt="logo" width="180px"/>
                                         </a>
-                                        <a onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
+                                        <a onClick={this.showMobileMenu}
+                                           className="hamburger hamburger--slider navbar-toggler"
                                            data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                            aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="hamburger-box">
                                         <span className="hamburger-inner"></span>
                                     </span>
                                         </a>
-                                        <div className="collapse navbar-collapse mobile d-md-none animated slideInLeft faster"
-                                             id="navbarSupportedContent">
+                                        <div
+                                            className="collapse navbar-collapse mobile d-md-none animated slideInLeft faster"
+                                            id="navbarSupportedContent">
                                             <ul className="navbar-nav ml-auto">
                                                 <li className="nav-item">
                                                     <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
+                                                    <a className="nav-link"
+                                                       onClick={this.scrollIntoView}>Testimonials </a>
                                                 </li>
                                                 {
                                                     this.state.isLoggedIn ? (
                                                         <li className="nav-item">
-                                                            <Link to={DashboardLink} className="nav-link">Dashboard </Link>
+                                                            <Link to={DashboardLink}
+                                                                  className="nav-link">Dashboard </Link>
                                                         </li>
                                                     ) : (
                                                         <li className="nav-item">
@@ -124,7 +132,8 @@ class Home extends Component {
                                             </ul>
                                             <ul className="cta-link">
                                                 <li>
-                                                    <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
+                                                    <Link to={SignUpLink}
+                                                          className="btn-rounded-blue btn-gradient-blue">
                                                         Sign Up
                                                     </Link>
                                                 </li>
@@ -137,12 +146,14 @@ class Home extends Component {
                                                     <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a className="nav-link" onClick={this.scrollIntoView}>Testimonials </a>
+                                                    <a className="nav-link"
+                                                       onClick={this.scrollIntoView}>Testimonials </a>
                                                 </li>
                                                 {
                                                     this.state.isLoggedIn ? (
                                                         <li className="nav-item">
-                                                            <Link to={DashboardLink} className="nav-link">Dashboard </Link>
+                                                            <Link to={DashboardLink}
+                                                                  className="nav-link">Dashboard </Link>
                                                         </li>
                                                     ) : (
                                                         <li className="nav-item">
@@ -153,7 +164,8 @@ class Home extends Component {
                                             </ul>
                                             <ul className="cta-link">
                                                 <li>
-                                                    <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
+                                                    <Link to={SignUpLink}
+                                                          className="btn-rounded-blue btn-gradient-blue">
                                                         Sign Up
                                                     </Link>
                                                 </li>
@@ -274,7 +286,8 @@ class Home extends Component {
                                                     <p className="card-text mb-5">Choose a savings plan that
                                                         works for you </p>
                                                     <div className="card mb-5">
-                                                        <img className="card-1-img mt-3" src={cardIll2} alt="illustration"/>
+                                                        <img className="card-1-img mt-3" src={cardIll2}
+                                                             alt="illustration"/>
                                                     </div>
 
                                                 </div>
@@ -296,7 +309,8 @@ class Home extends Component {
                                         <div className="row pb-md-5">
                                             <div className="col-md-4 offset-md-4 text-center">
                                                 <div className="pb-4 pt-2">
-                                                    <Link to={'/sign-up'} className="btn-rounded-corner mb-5 btn-light-blue">
+                                                    <Link to={'/sign-up'}
+                                                          className="btn-rounded-corner mb-5 btn-light-blue">
                                                         Start Now
                                                     </Link>
                                                 </div>
@@ -316,11 +330,13 @@ class Home extends Component {
                                             </div>
                                         </div>
                                         <div className="col-md-6">
-                                            <div className="section-transparent-card reduced-section-transparent-card mb-5 ">
+                                            <div
+                                                className="section-transparent-card reduced-section-transparent-card mb-5 ">
                                                 <div className="section-transparent-card-icon">
                                                     <img src={featureImage1} alt={""}/>
                                                 </div>
-                                                <div className="section-transparent-card-right text-center text-md-left">
+                                                <div
+                                                    className="section-transparent-card-right text-center text-md-left">
                                                     <h5>Stay focused, Earn more</h5>
                                                     <p>Earn high interest upfront when you
                                                         choose the option of saving for a
@@ -331,7 +347,8 @@ class Home extends Component {
                                                 <div className="section-transparent-card-icon">
                                                     <img src={featureImage2} alt={""}/>
                                                 </div>
-                                                <div className="section-transparent-card-right text-center text-md-left">
+                                                <div
+                                                    className="section-transparent-card-right text-center text-md-left">
                                                     <h5>Steady savings your way</h5>
                                                     <p>Automate exactly how you
                                                         want to save whether its daily,
@@ -344,7 +361,8 @@ class Home extends Component {
                                                 <div className="section-transparent-card-icon ">
                                                     <img src={featureImage3} alt={""}/>
                                                 </div>
-                                                <div className="section-transparent-card-right text-center text-md-left">
+                                                <div
+                                                    className="section-transparent-card-right text-center text-md-left">
                                                     <h5>Flexible funding options</h5>
                                                     <p>Start making deposits with
                                                         your atm card or direct debit.</p>
@@ -354,7 +372,8 @@ class Home extends Component {
                                                 <div className="section-transparent-card-icon">
                                                     <img src={featureImage4} alt={""}/>
                                                 </div>
-                                                <div className="section-transparent-card-right text-center text-md-left">
+                                                <div
+                                                    className="section-transparent-card-right text-center text-md-left">
                                                     <h5>Trusted partner</h5>
                                                     <p>Our partner, SFS capital has 30+
                                                         years of fund management
@@ -383,7 +402,8 @@ class Home extends Component {
                                 <div>
                                     <div className="container">
                                         <div className="row pt-5 px-lg-5 mx-lg-5">
-                                            <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
+                                            <div id="carouselExampleControls" className="carousel slide"
+                                                 data-ride="carousel">
                                                 <div className="carousel-inner">
                                                     <div className="carousel-item">
                                                         <div className="comment-box">
@@ -391,8 +411,10 @@ class Home extends Component {
                                                                                             src={CommentImage}
                                                                                             alt="First slide"/></div>
 
-                                                            <p>I was a bit skeptical about using Backup Cash given the large of
-                                                                savings apps out there. In just 3 weeks of using this service,
+                                                            <p>I was a bit skeptical about using Backup Cash given the
+                                                                large of
+                                                                savings apps out there. In just 3 weeks of using this
+                                                                service,
                                                                 I am definitely hooked.
                                                             </p>
                                                             <h4>Ambrose Clark</h4>
@@ -406,7 +428,8 @@ class Home extends Component {
                                                                 <img className="user-image" src={CommentImage}
                                                                      alt="First slide"/>
                                                             </div>
-                                                            <p>I love that they have a USSD channel that works seamlessly.</p>
+                                                            <p>I love that they have a USSD channel that works
+                                                                seamlessly.</p>
                                                             <h4 className="comment-name">Emeka Udoji</h4>
                                                             <span>Student</span>
                                                             <img className="comment" src={commentIcon} alt="comment"/>
@@ -431,7 +454,8 @@ class Home extends Component {
                                                                 <img className="user-image" src={CommentImage}
                                                                      alt="First slide"/></div>
 
-                                                            <p>As an accountant, the daily interest growth calculation is a
+                                                            <p>As an accountant, the daily interest growth calculation
+                                                                is a
                                                                 feature that I love. </p>
                                                             <h4>Ikujenyo Olubunmi </h4>
                                                             <span className="comment-job-title">Finance Expert</span>
@@ -444,9 +468,11 @@ class Home extends Component {
                                                                 <img className="user-image" src={CommentImage}
                                                                      alt="First slide"/></div>
 
-                                                            <p>Being able to concurrently save for the office rent and my end of
+                                                            <p>Being able to concurrently save for the office rent and
+                                                                my end of
                                                                 year
-                                                                vacation on one platform even though I am using two different
+                                                                vacation on one platform even though I am using two
+                                                                different
                                                                 cards is so convenient.
                                                             </p>
                                                             <h4>Ope Craig </h4>
@@ -460,9 +486,11 @@ class Home extends Component {
                                                                 <img className="user-image" src={CommentImage}
                                                                      alt="First slide"/></div>
 
-                                                            <p>Last December, I couldn’t attend all my favorite shows because of
+                                                            <p>Last December, I couldn’t attend all my favorite shows
+                                                                because of
                                                                 the costs.
-                                                                Right now, I have saved enough for at least 3 shows and a nice
+                                                                Right now, I have saved enough for at least 3 shows and
+                                                                a nice
                                                                 outfit.
                                                             </p>
                                                             <h4>Tobi Oladele </h4>
@@ -520,7 +548,8 @@ class Home extends Component {
                                                 </div>
                                                 <div className="partner-img-container">
                                                     <a href={'https://www.sfsnigeria.com/'} rel={'noopenner noreferrer'}
-                                                       target='_blank'><img className="partner-img-50 sfs-image" src={sfsImage}
+                                                       target='_blank'><img className="partner-img-50 sfs-image"
+                                                                            src={sfsImage}
                                                                             alt="sfs"/></a>
 
                                                 </div>
@@ -551,7 +580,8 @@ class Home extends Component {
                                     <div className="row px-lg-5 mx-lg-5">
                                         <div className="col-md-6">
                                             <div className="action-placeholder ">
-                                                <h2 className="mb-3 mt-5 pr-lg-5 text-white cas-title">Protect your interest
+                                                <h2 className="mb-3 mt-5 pr-lg-5 text-white cas-title">Protect your
+                                                    interest
                                                     with SFS
                                                     Backup Cash</h2>
                                                 <Link to={'/sign-up'}
@@ -578,7 +608,8 @@ class Home extends Component {
                                         </div>
                                         <div className="col-md-6">
                                             <div className="contact-detail-placeholder pt-3 text-center pt-md-5">
-                                                <p className="deep-blue-color pt-md-5 chat-title">Connect with social media</p>
+                                                <p className="deep-blue-color pt-md-5 chat-title">Connect with social
+                                                    media</p>
                                                 <div className="btn btn-whatsapp social-media">
                                                     <div className="footer-icon-list d-flex justify-content-between">
                                                     <span className="fa-stack fa-sm">
@@ -618,7 +649,8 @@ class Home extends Component {
                                                 <img src={sfsFooterLogo} alt="sfs footer logo"/>
                                             </div>
                                         </div>
-                                        <div className="col-md-9 offset-md-0 col-sm-12 offset-sm-0 d-lg-block offset-lg-1 col-lg-8">
+                                        <div
+                                            className="col-md-9 offset-md-0 col-sm-12 offset-sm-0 d-lg-block offset-lg-1 col-lg-8">
                                             <div className="row">
                                                 <div className=" col-sm-6 col-md-4 col-lg-4 ">
                                                     <p className="footer-header">Company</p>
@@ -648,19 +680,24 @@ class Home extends Component {
                                                 <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-4 ">
                                                     <p className="footer-header">Physical Address</p>
 
-                                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria
+                                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street,
+                                                        Victoria
                                                         Island 23401, Lagos</p>
-                                                    <p className='gray-text footer-p'>Enquires: 08149460946, 07018567235 </p>
+                                                    <p className='gray-text footer-p'>Enquires: 08149460946,
+                                                        07018567235 </p>
 
                                                 </div>
 
                                             </div>
                                         </div>
-                                        <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
-                                            <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All Rights
+                                        <div
+                                            className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
+                                            <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All
+                                                Rights
                                                 Reserved</p>
                                             <p className="footer-sub-text text-center mr-lg-3">Powered by
-                                                <a href='http://www.tm30.net' rel='noreferrer' className='footer-brand-link'
+                                                <a href='http://www.tm30.net' rel='noreferrer'
+                                                   className='footer-brand-link'
                                                    target='_blank'> TM30
                                                 </a>
                                             </p>

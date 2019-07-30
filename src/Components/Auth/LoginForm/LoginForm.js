@@ -10,9 +10,10 @@ import {
     ResendActivationLink
 } from "../../../RouteLinks/RouteLinks";
 import {api} from "../../../ApiUtils/ApiUtils";
-import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
+import {SESSION_INTERVAL, USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 import {ADMIN, ADMIN_LOGIN_URL, CUSTOMER, EmailPhoneValidator} from "../../../Helpers/Helper";
+import moment from 'moment';
 
 
 class LoginForm extends Component {
@@ -89,6 +90,8 @@ class LoginForm extends Component {
         if (state) {
 
             if (response != undefined) {
+                //set session time
+                const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
                 // handle admin login
                 switch (response.data.role) {
                     case ADMIN:
@@ -97,6 +100,7 @@ class LoginForm extends Component {
                     case CUSTOMER:
                         if (response.data.bank_withdrawal_pin == true) {
                             localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
+                            localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
                             localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
                             setTimeout(() => {
                                 this.setState({
@@ -116,67 +120,8 @@ class LoginForm extends Component {
                     default:
                         break;
                 }
-
-                //Old Login Process
-
-                //
-                // if (response.data.role == ADMIN) {
-                //     //admin
-                //     window.location.replace(ADMIN_LOGIN_URL);
-                //
-                // } else if (response.data.role == CUSTOMER && response.data.bank_withdrawal_pin === true) {
-                //     // completely active user
-                //     localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
-                //     localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
-                //     setTimeout(() => {
-                //         this.setState({
-                //             redirect: true,
-                //             loading: false
-                //         });
-                //     }, 3000);
-                //
-                // }
-                //
-
-
-                // getUserRole(this.handleRole);
-                // getUserRole(response.data.token,this.handleRole);
-                //
-                // localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
-                // localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
-                // setTimeout(() => {
-                //     this.setState({
-                //         redirect: true,
-                //         loading: false
-                //     });
-                // }, 3000);
             }
 
-            // //Temporary get user details
-            // getUserData((status, payload) => {
-            //     console.log("status", status,payload);
-            //     if(status){
-            //        // const setComplete =  setLocalStorage(USERINFO,payload);
-            //        //  let done = false ;
-            //         console.log("after",this);
-            //         setupUser(USERINFO,payload);
-            //         setTimeout(()=>{
-            //             this.setState({
-            //                 redirect: true,
-            //                 loading: false
-            //             });
-            //         },2000);
-            //
-            //
-            //         // if(done){
-            //         //     this.setState({
-            //         //         redirect: true,
-            //         //         loading: false
-            //         //     });
-            //         // }
-            //
-            //     }
-            // });
         } else {
 
             this.setState({loading: false});

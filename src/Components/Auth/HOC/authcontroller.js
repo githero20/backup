@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react";
 import axios from 'axios'
 import {BASE_URL} from "../../../RouteLinks/RouteLinks";
 import {setLocalStorage} from "../../../ApiUtils/ApiUtils";
+import swal from "sweetalert";
 
 export const USERTOKEN = "token";
+export const SESSION_INTERVAL = 'time-stamp';
 export const USERINFO = "user";
 export const USERWITHDRAWAL = "user-withdrawal";
 export const DASHBOARDINFO = "dashboard-info";
@@ -47,12 +49,27 @@ const AuthController = component => {
                                     setLocalStorage(USERACTIVATED,false);
 
                                 }else{
+                                    swal('Your Session has expired!', 'Enter your password to Continue', 'info', {
+                                        buttons: {
+                                            cancel: "no",
+                                            yes: "yes"
+                                        },
+                                    }).then((value) => {
+                                        console.log('value ', value);
+                                        switch (value) {
+                                            case "yes":
+                                                console.log('button yes value',value );
+                                                break;
+                                            case "cancel":
+                                                console.log('button cancel value',value );
+                                                console.log('logout');
+                                                props.history.push(`/login`);
+                                                localStorage.removeItem(USERTOKEN);
+                                                localStorage.removeItem(USERINFO);
+                                                break;
+                                        }
+                                    });
 
-                                    props.history.push(
-                                        `/login`
-                                    );
-                                    localStorage.removeItem(USERTOKEN);
-                                    localStorage.removeItem(USERINFO);
                                     return null;
                                 }
                             } else{

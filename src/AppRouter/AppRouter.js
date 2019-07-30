@@ -76,7 +76,7 @@ class AppRouter extends Component {
                                                 <Route exact path={HomeLink} component={Home}/>
                                                 {/*dashboard Routes*/}
                                                 {/*dashboard Routes*/}
-                                                <Route path={DashboardLink} component={AuthController(DashboardIndex)}/>
+                                                <Route exact path={DashboardLink} component={AuthController(DashboardIndex)}/>
                                                 <Route path={InstantSaveLink} component={AuthController(InstantSave)}/>
                                                 <Route path={SteadySaveLink} component={AuthController(SteadySave)}/>
                                                 <Route path={LockedSavingsLink} component={AuthController(LockedSavings)}/>

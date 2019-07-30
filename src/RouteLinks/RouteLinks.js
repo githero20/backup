@@ -5,25 +5,25 @@
 export const ForgotPasswordLink  = '/forgot-password';
 export const ResetPasswordLink  = '/password/reset/:token';
 export const ActivateAccountLink  = '/payment/activate';
-export const DashboardLink  = '/dashboard';
+export const addWithdrawalLink  = '/add-bank';
 export const EmailActivationLink  = '/activate';
-export const InstantSaveLink  = '/instant-save';
-export const SteadySaveLink  = '/steady-save';
-export const LockedSavingsLink  = '/locked-savings';
-export const BackupGoalsLink  = '/backup-goals';
-export const TransactionsLink  = '/transactions';
-export const WithdrawalLink  = '/withdrawal';
-export const ProfileSettingLink  = '/profile-setting';
-export const BankCardLink  = '/bank-card-setting';
 export const LoginLink  = '/login';
 export const SignUpLink  = '/sign-up';
-export const FaqLink  = '/faq';
 export const InviteLink  = '/invite/:ref';
-export const ResendActivationLink  = '/resend/email';
 export const HomeLink  = '/';
-export const KycSettingLink  = '/kyc-setting';
-export const BackupStashLink  = '/backup-stash';
-export const addWithdrawalLink  = '/add-bank';
+export const FaqLink  = '/faq';
+export const ResendActivationLink  = '/resend/email';
+export const DashboardLink  = '/dashboard';
+export const InstantSaveLink  = '/dashboard/instant-save';
+export const SteadySaveLink  = '/dashboard/steady-save';
+export const LockedSavingsLink  = '/dashboard/locked-savings';
+export const BackupGoalsLink  = '/dashboard/backup-goals';
+export const TransactionsLink  = '/dashboard/transactions';
+export const WithdrawalLink  = '/dashboard/withdrawal';
+export const ProfileSettingLink  = '/dashboard/profile-setting';
+export const BankCardLink  = '/dashboard/bank-card-setting';
+export const KycSettingLink  = '/dashboard/kyc-setting';
+export const BackupStashLink  = '/dashboard/backup-stash';
 
 
 ////////////////////////// Endpoints /////////////////////////////////////////////

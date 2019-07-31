@@ -10,6 +10,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 class ErrorPage extends Component {
+
     render() {
         return (
             <React.Fragment>
@@ -24,7 +25,7 @@ class ErrorPage extends Component {
                         <img src={errorIll} className='error-img pt-5'/>
                         <h2 className='error-header'>Error 404!</h2>
                         <h5 className='error-title mb-5'>Page Not Found</h5>
-                        <Link to={HomeLink} className='error-btn'><img src={errorBackArrow}/>Go Back</Link>
+                        <a onClick={()=>this.props.history.goBack()} className='error-btn'><img src={errorBackArrow}/>Go Back</a>
                     </section>
 
 

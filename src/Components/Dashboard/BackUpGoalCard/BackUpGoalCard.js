@@ -95,7 +95,7 @@ class BackUpGoalCard extends Component {
                         </div>
                         <div
                             className="card-item d-flex flex-row flex-md-column justify-content-between align-content-between">
-                            <a href={'#'} onClick={this.props.showModal} className={'btn btn-gray dash-btn'}>New Goals <i
+                            <a onClick={this.props.showModal} className={'btn btn-gray dash-btn'}>New Goals <i
                                 className='fa fa-arrow-right'></i></a>
                             <Link to={BackupGoalsLink} className={'btn btn-gray dash-btn'}>View Goals <i
                                 className='fa fa-arrow-right'></i></Link>

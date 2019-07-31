@@ -48,7 +48,7 @@ class LockedSavingsCard extends Component {
                         </div>
                         <div
                             className="card-item d-flex flex-row flex-md-column justify-content-between align-content-between">
-                            <a href={'#'} onClick={this.props.showModal} className={'btn btn-gray dash-btn'}>New Locked <i
+                            <a  onClick={this.props.showModal} className={'btn btn-gray dash-btn'}>New Locked <i
                                 className='fa fa-arrow-right'></i></a>
                             <Link to={LockedSavingsLink} className={'btn btn-gray dash-btn'}>View All <i
                                 className='fa fa-arrow-right'></i></Link>

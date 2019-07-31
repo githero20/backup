@@ -6,7 +6,7 @@ import LogOutIcon from "../../../admin/app-assets/images/svg/logout-cion.svg";
 import KycIcon from "../../../admin/app-assets/images/svg/kyc-icon.svg";
 import AvatarImage from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import {Link, Redirect} from "react-router-dom";
-import {DashboardLink, LoginLink} from "../../../RouteLinks/RouteLinks";
+import {DashboardLink, KycSettingLink, LoginLink, ProfileSettingLink} from "../../../RouteLinks/RouteLinks";
 import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
 import {getUserData} from "../../../actions/UserAction";
 import {hideLoader} from "../../../Helpers/Helper";
@@ -172,10 +172,10 @@ class HorizontalNav extends Component {
                                         </a>
                                         <div
                                             className={'dropdown-menu menu-custom-dropdown dropdown-menu-right ' + this.state.show}>
-                                            <Link to={'/profile-setting'} className="dropdown-item" href="profile.html">
-                                                <img src={ProfileIcon} className="img-2x mr-1" alt={''}/> Profile
+                                            <Link to={ProfileSettingLink} className="dropdown-item" >
+                                                <img src={ProfileIcon} className="img-2x mr-1" alt={'profile '}/> Profile
                                             </Link>
-                                            <Link to={'/kyc-setting'} className="dropdown-item" href="kyc.html">
+                                            <Link to={KycSettingLink} className="dropdown-item" >
                                                 <img
                                                     src={KycIcon}
                                                     className="img-2x mr-1" alt={''}/> KYC</Link>

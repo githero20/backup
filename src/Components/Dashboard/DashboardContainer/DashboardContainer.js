@@ -291,13 +291,13 @@ class DashboardContainer extends Component {
                                     !this.state.mobileTable ?(
                                     <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
                                                       runFilter={runFilter}
-                                                      transactions={transactions.reverse()}
+                                                      transactions={transactions}
                                                       columns={columns}/>
 
                                 ):(
                                     <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
                                                       runFilter={runFilter}
-                                                      transactions={transactions.reverse()}
+                                                      transactions={transactions}
                                                       columns={mobileColumns}/>
                                 )}
 

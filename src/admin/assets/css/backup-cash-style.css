@@ -501,8 +501,11 @@ a.btn-light-blue:hover {
 }
 
 .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before {
-    background: rgb(0, 80, 147);
-    background: linear-gradient(90deg, rgba(0, 80, 147, 1) 0%, rgba(0, 80, 147, 1) 100%);
+    /*background: rgb(0, 80, 147);*/
+    /*background: linear-gradient(90deg, rgba(0, 80, 147, 1) 0%, rgba(0, 80, 147, 1) 100%);*/
+    background:  rgba(0, 34, 81, 1) ;
+
+
 }
 
 .partner-img {
@@ -1151,7 +1154,7 @@ footer-logo {
         transition-duration: .15s;
         transition-property: transform;
         border-radius: 4px;
-        background-color: #000;
+        /*background-color: #000;*/
     }
 
     /*#timeline-wrap {*/

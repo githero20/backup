@@ -122,7 +122,7 @@ class Home extends Component {
                                     </span>
                                         </a>
                                         <div
-                                            className="collapse navbar-collapse mobile d-md-none animated slideInLeft faster"
+                                            className="collapse navbar-collapse mobile animated slideInLeft faster"
                                             id="navbarSupportedContent">
                                             <ul className="navbar-nav ml-auto">
                                                 <li className="nav-item">
@@ -154,6 +154,7 @@ class Home extends Component {
                                                 </li>
                                             </ul>
                                         </div>
+
                                         <div className="collapse navbar-collapse desktop "
                                              id="navbarSupportedContent">
                                             <ul className="navbar-nav ml-auto">

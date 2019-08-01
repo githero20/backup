@@ -2343,18 +2343,6 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: .8rem;
     }
 
-    /*.btn-custom-blue {*/
-    /*    color: #fff;*/
-    /*    border-color: #2784F4;*/
-    /*    background-color: #2784F4;*/
-    /*    font-size: 1rem;*/
-    /*    padding-top: .7rem;*/
-    /*    padding-left: .2rem;*/
-    /*    padding-right: .2em;*/
-    /*    padding-bottom: .7rem;*/
-    /*    transition: all .5s ease;*/
-    /*}*/
-
     .btn-icon {
         width: 1rem;
         margin-left: 0.5rem;
@@ -2461,27 +2449,6 @@ input[type=number]::-webkit-outer-spin-button {
     /*right: 5rem;*/
     /*top: 10em;*/
 }
-
-
-
-/*!************************** animation *************8*!*/
-/*@keyframes loadingSpinner {*/
-/*    from {*/
-/*        transform: rotate(0deg);*/
-/*    }*/
-/*    to {*/
-/*        transform: rotate(360deg);*/
-/*    }*/
-/*}*/
-
-/*@-webkit-keyframes loadingSpinner {*/
-/*    from {*/
-/*        -webkit-transform: rotate(0deg);*/
-/*    }*/
-/*    to {*/
-/*        -webkit-transform: rotate(360deg);*/
-/*    }*/
-/*}*/
 
 .fs-xs {
     font-size: 1.2rem;
@@ -4636,23 +4603,6 @@ input:-webkit-autofill:active {
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/*loader styles*/
-/* Absolute Center Spinner */
-/*.loading {*/
-/*    position: fixed;*/
-/*    z-index: 5000;*/
-/*    height: 3em;*/
-/*    width: 3em;*/
-/*    margin: auto;*/
-/*    border: .5rem solid;*/
-/*    border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;*/
-/*    top: 10rem;*/
-/*    right: 6rem;*/
-/*    display: block;*/
-/*    animation: spinner 1500ms infinite linear;*/
-
-/*}*/
-
 
 /* Animation */
 
@@ -4979,11 +4929,6 @@ input[type=date]::-webkit-inner-spin-button {
 
 @media all and (min-width: 600px) {
     .modal-btn {
-        /*display: flex;*/
-        /*position: relative;*/
-        /*padding: 10px 20px;*/
-        /*text-align: center;*/
-        /*align-items: center;*/
         min-width:150px;
         height:40px;
         cursor: pointer;
@@ -4991,7 +4936,7 @@ input[type=date]::-webkit-inner-spin-button {
 
 }
 
-@media all and (min-width: 768px) {
+@media all and (min-width: 992px) {
     .navbar-expand-lg .mobile {
         display: none !important;
     }

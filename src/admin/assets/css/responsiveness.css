@@ -287,7 +287,10 @@
 
 
 @media only screen and (min-width: 600px) and (max-width: 899px) {
-
+    .header-background{
+        height: 780px;
+        background-position: top right;
+    }
     .blue-round-btn {
         padding: 0px;
     }
@@ -412,7 +415,9 @@
     .content {
         margin-left: 18%;
     }
-
+    .card-container .card{
+        width: 90%;
+    }
     html body .content .content-wrapper {
         padding-top: 3rem;
     }
@@ -505,5 +510,31 @@
 @media all and (min-width: 1200px){
     .swal-overlay--show-modal .swal-modal{
         border-radius: 2rem;
+    }
+}@media all and (max-width: 992px){
+    .navbar .navbar-collapse {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 254, 250, 1);
+        padding-top: 6rem;
+        z-index: 20000;
+        text-align: center;
+    }
+    .navbar-toggler, .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before{
+        font-size: 0rem;
+        padding: 0rem;
+        z-index: 30000;
+    }
+    .navbar-nav .nav-link {
+        margin: 0rem 0rem 1rem 0rem;
+    }
+    .hamburger.is-active .hamburger-inner, .hamburger.is-active .hamburger-inner:after, .hamburger.is-active .hamburger-inner:before{
+        background-color: #022453;
+    }
+    .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before{
+        background: rgb(10, 51, 107);
     }
 }

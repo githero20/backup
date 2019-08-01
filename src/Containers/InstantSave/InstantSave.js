@@ -15,7 +15,7 @@ import {
     handleFiltering,
     mobileDescFormatter,
     STANDARD_ACCOUNT,
-    statusFormatter,
+    statusFormatter, toastMessage,
     toastReloadMessage,
     todaysDateForTable,
     toggleTable
@@ -126,19 +126,18 @@ class InstantSave extends Component {
 
 
     handleTransactions = (state, res) => {
-        this.setState({
-            showLoader: false
-        });
 
         if (state) {
             let transactions = res.data.data
                 .filter(content => content.status == 'success' && content.type == 'credit');
             this.setState({
                 transactions,
+                showLoader: false,
                 totalInstantSave: transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount || 0
             });
         }else if(!state && res){
-
+            toastMessage('unable to get instant save transactions','error',this);
+            this.setState({showLoader: false});
         }else {
             toastReloadMessage('error',this,this.getInstantSaves);
         }
@@ -151,9 +150,6 @@ class InstantSave extends Component {
 
     loadInstantSaveTable = (status, payload) => {
         //hide loader
-        this.setState({
-            showLoader: false
-        });
 
         //handle response
         if (status) {
@@ -161,11 +157,15 @@ class InstantSave extends Component {
                 // console.log(JSON.parse(JSON.stringify(payload)));
                 let transactions = payload.data.data.transactions.data.filter((content) => content.status == 'success');
                 this.setState({
-                    transactions
+                    transactions,
+                    showLoader: false
                 });
                 // console.log('success', payload);
             }
 
+        }else {
+            // toastMessage('Unable to get Instant saves at the moment','error',this);
+            this.setState({showLoader: false});
         }
 
     };
@@ -195,6 +195,12 @@ class InstantSave extends Component {
 
     componentDidMount() {
         toggleTable(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.reload){
+            this.getInstantSaves();
+        }
     }
 
     render() {

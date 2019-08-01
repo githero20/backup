@@ -68,6 +68,19 @@ class BankCardSetting extends Component {
         this.getUserCards();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.reload){
+            this.setState({
+                showLoader: true,
+            });
+
+            getUserData(this.handleUserInfo);
+
+            this.getUserBanks();
+            this.getUserCards();
+        }
+    }
+
 
     handleUserInfo = (status, res) => {
         this.setState({

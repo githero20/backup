@@ -54,6 +54,13 @@ class LockedSavings extends Component {
         });
     };
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.reload){
+            this.LoadData();
+        }
+    }
+
+
 
     updateLockedSaving = () => {
         this.setState({showLoader: true});

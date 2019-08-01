@@ -40,20 +40,24 @@ class ProfileSetting extends Component {
 
     };
 
+    getProfile = ()=>{
+        //make request
+        this.setState({showLoader:true});
+        request(getUserInfoEndpoint, null, true, 'GET', this.setupProfile);
+        console.log('setting up profile');
+    };
 
     componentDidMount() {
-        // fetch User info
-        // const data = getLocalStorage(USERINFO);
-        // console.log(data);
-        // if (data) {
-        //     this.setupProfile(data);
-        // }
 
-            //make request
-            this.setState({showLoader:true});
-            request(getUserInfoEndpoint, null, true, 'GET', this.setupProfile);
-            console.log('setting up profile');
+        this.getProfile();
 
+    }
+
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.reload){
+            this.getProfile();
+        }
     }
 
 

@@ -218,9 +218,7 @@ class DashboardIndex extends Component {
             });
         }catch (e) {
             console.log('err res',e);
-            this.setState({
-                showLoader: false,
-            });
+            // this.setState({showLoader: false});
             toastReloadMessage('error',this,this.setupDashBoard);
         }
 
@@ -283,6 +281,12 @@ class DashboardIndex extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.reload){
+            this.setupDashBoard();
+        }
+    }
+
 
     render() {
         const {
@@ -328,22 +332,22 @@ class DashboardIndex extends Component {
                         onHide={this.closeSteadySaveModal}
                     />
 
-                    <ToastProvider>
+                    {/*<ToastProvider>*/}
                         <LockedSavingModal
                             show={this.state.showlockedSavingsModal}
                             onHide={this.closeLSModal}
                         />
-                    </ToastProvider>
+                    {/*</ToastProvider>*/}
                     <BackUpGoalsModal
                         show={this.state.showActiveGoalModal}
                         onHide={this.closeActiveGoalModal}
                     />
-                    <ToastProvider>
+                    {/*<ToastProvider>*/}
                         <ActivationModal
                             show={this.state.showActivationModal}
                             email={this.state.email}
                         />
-                    </ToastProvider>
+                    {/*</ToastProvider>*/}
 
 
                     <StartNowModal

@@ -105,6 +105,11 @@ class BackupGoals extends Component {
         toggleTable(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.reload){
+            this.fetchBackUpGoals();
+        }
+    }
 
     toastMessage = (message, status) => {
         const {toastManager} = this.props;

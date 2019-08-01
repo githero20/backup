@@ -42,6 +42,15 @@ class Withdrawal extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            showLoader: true,
+        });
+        if(nextProps.reload){
+            this.LoadWithdrawals();
+        }
+    }
+
     LoadWithdrawals = () =>{
         getUserData(this.handleUserInfo);
         this.getWithdrawalList();

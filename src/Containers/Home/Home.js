@@ -59,7 +59,6 @@ class Home extends Component {
     checkUser = () => {
         let timeStamp = JSON.parse(localStorage.getItem(SESSION_INTERVAL));
         let user = JSON.parse(localStorage.getItem(USERTOKEN));
-        console.log('user',user);
         if ( timeStamp != null) {
             // get the session and compare the current time
             var diff = moment(timeStamp);

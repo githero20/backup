@@ -282,6 +282,11 @@ class SteadySave extends Component {
         })
     };
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.reload){
+            this.getSteadySave();
+        }
+    }
 
     render() {
 

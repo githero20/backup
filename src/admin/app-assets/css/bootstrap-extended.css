@@ -1278,12 +1278,6 @@ select.form-control
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ================================================================================================*/
-.navbar-dark .hamburger-inner,
-.navbar-dark .hamburger-inner::before,
-.navbar-dark .hamburger-inner::after
-{
-    background-color: #fff;
-}
 
 .header-navbar
 {
@@ -1943,15 +1937,7 @@ select.form-control
         margin-right: 0;
         margin-left: -2px;
     }
-    .navbar-dark .hamburger-inner,
-    .navbar-dark .hamburger-inner::before,
-    .navbar-dark .hamburger-inner::after,
-    .navbar-semi-dark .hamburger-inner,
-    .navbar-semi-dark .hamburger-inner::before,
-    .navbar-semi-dark .hamburger-inner::after
-    {
-        background-color: #fff;
-    }
+
     .navbar-dark .navbar-header .navbar-nav .nav-link,
     .navbar-semi-dark .navbar-header .navbar-nav .nav-link
     {

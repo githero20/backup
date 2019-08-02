@@ -5,9 +5,6 @@
     .faq-main .btn-link {
         font-size: .8rem;
     }
-    /*.table-card{*/
-    /*    margin-bottom: 7rem;*/
-    /*}*/
     .main-menu {
         z-index: 2999999999;
         width: 260px;
@@ -17,6 +14,9 @@
     }
     .home-footer.footer{
         padding-bottom: 5rem;
+    }
+    .header-background{
+        min-height: 85vh;
     }
     .mb-7{
         margin-bottom: 7rem !important;
@@ -130,9 +130,6 @@
         left: 0 !important;
     }
 
-    /*.mb-btn-wrapper{*/
-    /*    width: 100%;*/
-    /*}*/
     .modal-content h4 {
         font-size: 15px;
     }
@@ -225,25 +222,11 @@
     }
 
     .loading {
-        /*position: fixed;*/
-        /*display: block;*/
-        /*z-index: 9999999;*/
-        /*height: 5rem;*/
-        /*width: 5rem;*/
-        /*margin: auto;*/
-        /*background-color: transparent;*/
         top: 50%;
         left: 40%;
-        /*transform: translate(-50%, -50%);*/
-        /*border: 1rem solid;*/
-        /*border-color: rgba(0, 32, 107, 0.75) transparent transparent transparent;*/
-        /*border-radius: 50%;*/
-        /*animation: spinner infinite 1s;*/
+
     }
 
-    /*.mb-details-container, .mb-btn-wrapper {*/
-    /*    width: 100%;*/
-    /*}*/
     .dash-card {
         min-height: 200px;
     }
@@ -346,44 +329,6 @@
         background-color: #F7FBFF;
     }
 
-    /*.mb-btn-wrapper button {*/
-    /*    padding: 1rem 2rem 1rem 3rem;*/
-    /*    font-size: .7rem;*/
-    /*    margin-bottom: 1rem;*/
-    /*    border-radius: 5rem;*/
-    /*    transform: translate(0);*/
-    /*    cursor: pointer;*/
-    /*    transition: all .5s ease;*/
-    /*}*/
-    /*.mb-details-container p{*/
-    /*    font-size: .8rem;*/
-    /*}*/
-    /*.blue-card .card-body{*/
-    /*    padding:0rem;*/
-    /*}*/
-    /*.blue-card-heading {*/
-    /*    font-size: 1rem;*/
-    /*    margin-bottom: 2rem;*/
-    /*}*/
-    /*.blue-card-icon {*/
-    /*    width: 2.5rem;*/
-    /*}*/
-    /*.blue-card-price {*/
-    /*    font-size: 1.1rem;*/
-    /*}*/
-    /*.secure-section {*/
-    /*    position: absolute;*/
-    /*    bottom: 2%;*/
-    /*    left: 3%;*/
-    /*    vertical-align: middle;*/
-    /*    font-size: 1.3rem;*/
-    /*    font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
-    /*}*/
-    /*.btn-blue-gradient-2 img {*/
-    /*    position: absolute;*/
-    /*    top: .5rem;*/
-    /*    left: .5rem;*/
-    /*}*/
     .welcome-text {
         color: #103366;
         font-family: "Gilroy Bold", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -491,13 +436,9 @@
     .main-menu {
         transform: translate3d(-240px, 0, 0);
         transition: all .3s ease-in-out;
-        /*-webkit-backface-visibility: hidden;*/
-        /*backface-visibility: hidden;*/
     }
     .main-menu.active {
         transform: translate3d(0, 0, 0);
-        /*-webkit-backface-visibility: hidden;*/
-        /*backface-visibility: hidden;*/
     }
 }
 

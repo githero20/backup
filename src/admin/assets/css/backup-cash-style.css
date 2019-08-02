@@ -119,8 +119,6 @@ body {
 
 section {
     min-height: 400px;
-    /*padding-top: 8rem;*/
-    /*padding-bottom: 8rem;*/
 }
 
 #height-100vh {
@@ -132,14 +130,11 @@ section {
     border: 2px solid red;
 }
 
-/*.header-background {*/
-/*    background-image: url("../../app-assets/images/svg/header-background.svg");*/
-/*    background-size: cover;*/
-/*}*/
 .header-background {
     background-image: url("../../app-assets/images/svg/header-bg.svg");
     background-size: 100%;
     min-height: 100vh;
+    height: 700px;
     background-repeat: no-repeat;
 }
 
@@ -196,7 +191,7 @@ section {
 }
 
 .btn-dark-blue {
-    /*background: #103366;*/
+
     background: rgb(16, 51, 102);
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
     color: rgba(242,242,242,0.9);
@@ -214,7 +209,6 @@ section {
 }
 
 .round-btn-dark-blue {
-    /*background: #103366;*/
     background: rgb(16, 51, 102);
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
     color: rgba(242,242,242,0.9);
@@ -222,7 +216,7 @@ section {
     cursor: pointer;
     transition: all .3s ease-in-out;
     box-shadow: 0px 5px 10px rgba(2, 43, 105, 0.25);
-    /*box-shadow: 0px 15px 10px 5px rgba(2, 34, 81, 0.25);*/
+
 }
 
 .round-btn-dark-blue:hover {
@@ -297,8 +291,6 @@ a.btn-rounded-corner:hover {
 }
 
 a.btn-light-blue {
-    /*background: rgba(0, 34, 81, 1);*/
-    /*background: blue;*/
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
     color: white;
     padding: 1.3rem 3rem 1.3rem 3rem;
@@ -390,12 +382,6 @@ a.btn-light-blue:hover {
 .cta-link li {
     display: inline-block;
 }
-
-/*.btn-dark-blue {*/
-/*    color: white;*/
-/*    background: #103366;*/
-/*    transition: .5s ease-in-out;*/
-/*}*/
 
 .header-background {
     position: relative;
@@ -517,14 +503,6 @@ a.btn-light-blue:hover {
     margin-bottom: 3rem;
 }
 
-/*.call-action-section {*/
-/*    height: 500px;*/
-/*    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("../../app-assets/images/call-to-act-bg@2x.png");*/
-/*    background-size: 100%;*/
-/*    background-position: top right;*/
-/*    background-repeat: no-repeat;*/
-/*    color: white;*/
-/*}*/
 .call-action-section {
     height: 300px;
     background: linear-gradient(rgba(10, 1, 31, 0.78), rgba(7, 1, 19, 0.8)), url("../../app-assets/images/call-to-act-bg@2x.png");
@@ -725,15 +703,12 @@ a.carousel-btn {
 
 }
 
-.security-img-wrapper img {
-    /*width: 200px;*/
-}
+
 
 .section-transparent-card-right p {
     font-size: 1.3rem;
     font-weight: normal;
     font-family: "Circular Std", Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
-    /*color: #bdbdbd;*/
     color: rgba(0, 0, 0, 0.7);
 }
 
@@ -787,7 +762,6 @@ a.carousel-btn {
 }
 
 .header-sub-title {
-    /*color: #7F7F7F;*/
     color: #243C5E;
     font-family: "Circular Std Book";
     margin-bottom: 0rem;
@@ -1157,13 +1131,6 @@ footer-logo {
         /*background-color: #000;*/
     }
 
-    /*#timeline-wrap {*/
-    /*    position: absolute;*/
-    /*    top: 24%;*/
-    /*    left: 12%;*/
-    /*    width: 150px;*/
-    /*    height: 200px;*/
-    /*}*/
     .login-form {
         margin-top: 2rem;
         margin-bottom: 10rem;

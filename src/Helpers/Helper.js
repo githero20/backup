@@ -647,16 +647,17 @@ export function sourceFormatter(cell, row) {
         );
     }
 
-    if (cell.data.name == WITHDRAWAL_SOURCE) {
+    console.log('cell',cell,row);
+    if (cell.name == WITHDRAWAL_SOURCE) {
         content = `${cell.data.name.replace(/_/g, ' ')}`;
         return sourceMarkup(content);
     }
-    if (cell.data.name == STEADY_SAVE) {
+    if (cell.name == STEADY_SAVE) {
         content = `Steady Savings`;
         return sourceMarkup(content);
     }
 
-    content = `${cell.data.name.replace(/_/g, ' ')} savings`;
+    content = `${cell.name.replace(/_/g, ' ')} savings`;
     return sourceMarkup(content);
 }
 
@@ -721,21 +722,21 @@ export function parseAndFormatNum(num) {
 export function moneyFormatter(cell, row) {
     console.log('row', row);
 
-    if (window.innerWidth < 600) {
-        return (
-            <div className="d-flex flex-column">
-                <p style={{minWidth: '100px'}}
-                   className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
-                <label
-                    className={row.status == 'success' ? 'bg-light-green text-center round px-1 ' : 'bg-light-red text-center px-1 round '}>{row.status}</label>
-            </div>
-        )
-    } else {
+    // if (window.innerWidth < 600) {
+    //     return (
+    //         <div className="d-flex flex-column">
+    //             <p style={{minWidth: '100px'}}
+    //                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+    //             <label
+    //                 className={row.status == 'success' ? 'bg-light-green text-center round px-1 ' : 'bg-light-red text-center px-1 round '}>{row.status}</label>
+    //         </div>
+    //     )
+    // } else {
         return (
             <p style={{minWidth: '150px'}}
                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
         )
-    }
+    // }
 
 }
 

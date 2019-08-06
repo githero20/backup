@@ -70,9 +70,7 @@ class BankCardSetting extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.reload){
-            this.setState({
-                showLoader: true,
-            });
+            this.setState({showLoader: true});
 
             getUserData(this.handleUserInfo);
 
@@ -83,18 +81,8 @@ class BankCardSetting extends Component {
 
 
     handleUserInfo = (status, res) => {
-        this.setState({
-            showLoader: false,
-        });
-
-        if (status) {
-
-            this.setState({
-                userName: res.name
-            })
-
-        }
-
+        this.setState({ showLoader: false});
+        if (status) {this.setState({userName: res.name})}
     }
 
 
@@ -108,9 +96,7 @@ class BankCardSetting extends Component {
 
     hideBankModal(status = false) {
         this.setState({showBankModal: false});
-        if (status) {
-            this.getUserBanks();
-        }
+        if (status) {this.getUserBanks()}
     }
 
     hideCardModal() {
@@ -118,7 +104,6 @@ class BankCardSetting extends Component {
     }
 
     resolvePaystackResponse(response) {
-        console.log("Paystack Response", response);
         verifyTransaction({
             ref: response.reference,
             type: "instant"
@@ -167,8 +152,9 @@ class BankCardSetting extends Component {
                             className=" big-dots"/>
                     </div>
                     <p className="mb-md-3 mt-2 ml-1 ml-md-0 mt-md-0">**** **** **** {card.last4}</p>
-                    <div className="ml-1 ml-md-0 sm-font"><span
-                        className="mr-5 mb-1 sm-font"></span><span>{card.exp_month}/{card.exp_year}</span>
+                    <div className="ml-1 ml-md-0 sm-font">
+                        <span className="mr-5 mb-1 sm-font"></span>
+                        <span>{card.exp_month}/{card.exp_year}</span>
                     </div>
                     <div>
                         <img className="card-img-icon"

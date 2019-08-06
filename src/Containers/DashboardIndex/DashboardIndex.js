@@ -6,24 +6,24 @@ import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySa
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
 import {
     activateUserEndpoint,
-    CentralVaultInterest, GetBackUpGoals,
+    CentralVaultInterest,
+    GetBackUpGoals,
     getUserInfoEndpoint,
-    GetUserKYC, LockedInterest,
-    resendActEndpoint
+    LockedInterest
 } from "../../RouteLinks/RouteLinks";
-import {api, getLocalStorage, request, setLocalStorage} from "../../ApiUtils/ApiUtils";
+import {api, getLocalStorage} from "../../ApiUtils/ApiUtils";
 import {
     BACKUP_GOALS_ACCOUNT,
     getCompletedGoals,
     INTEREST_ACCOUNT,
     KYC,
     LOCKED_ACCOUNT,
-    STANDARD_ACCOUNT, toastMessage, toastReloadMessage
+    STANDARD_ACCOUNT
 } from "../../Helpers/Helper";
 import BackUpGoalsModal from "../../Components/Dashboard/BackUpGoalsModal/BackUpGoalsModal";
-import {SHOWAD, USERINFO, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
+import {USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
 import ActivationModal from "../../Components/Dashboard/ActivationModal/ActivationModal";
-import {ToastProvider,withToastManager} from 'react-toast-notifications';
+import {withToastManager} from 'react-toast-notifications';
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import StartNowModal from "../../Components/Dashboard/StartNowModal/StartNowModal";
 import moment from "moment";
@@ -38,28 +38,28 @@ class DashboardIndex extends Component {
         showActiveGoalModal: false,
         showlockedSavingsModal: false,
         showStartModal: false,
-        error: false,
-        errorMessage: '',
         showActivationModal: false,
+        showAdModal: false,
+        error: false,
         activationSuccss: false,
         accountInfo: null,
+        errorMessage: '',
+        userName: '',
         vaultAmount: 0,
         backupAmount: 0,
         lockedSavingsAmount: 0,
         stashAmount: 0,
         transactions: [],
-        userName: '',
         totalInterest: 0,
         totalSteadySave: 0,
         ActiveGoals: 0,
         CompletedGoals: 0,
+        vaultInterest: 0,
+        lockedSavingsInterest: 0,
         email: null,
         showLoader: true,
         isActive: false,
-        showAdModal: false,
-        vaultInterest: 0,
         updateKyc: false,
-        lockedSavingsInterest: 0
     };
 
     constructor(props) {
@@ -100,10 +100,10 @@ class DashboardIndex extends Component {
 
     };
 
-    handleFirstTimeLogin = (status,response) =>{
-        console.log('res',status,response);
-        if(status && response){
-            console.log('res',response);
+    handleFirstTimeLogin = (status, response) => {
+        console.log('res', status, response);
+        if (status && response) {
+            console.log('res', response);
         }
     };
 
@@ -148,15 +148,15 @@ class DashboardIndex extends Component {
         // }
     };
 
-    handleFirstTimeUSer=(status,response)=>{
-        if(status && response == null){
+    handleFirstTimeUSer = (status, response) => {
+        if (status && response == null) {
             this.setState({
                 showStartModal: true
             })
         }
     };
 
-    async setupDashBoard (){
+    async setupDashBoard() {
 
         //controls add display
         const config = {
@@ -166,15 +166,15 @@ class DashboardIndex extends Component {
         this.adModalController();
 
         try {
-            const [UserInfoRes, CentralVaultIntRes,LockedIntRes,BackUpRes] = await Promise.all([
-                _axios.get(getUserInfoEndpoint,config),
-                _axios.get(CentralVaultInterest,config),
-                _axios.get(LockedInterest,config),
-                _axios.get(GetBackUpGoals,config),
+            const [UserInfoRes, CentralVaultIntRes, LockedIntRes, BackUpRes] = await Promise.all([
+                _axios.get(getUserInfoEndpoint, config),
+                _axios.get(CentralVaultInterest, config),
+                _axios.get(LockedInterest, config),
+                _axios.get(GetBackUpGoals, config),
             ]);
             let transactions = [];
             const now = moment().format('YYYY-MM-DD');
-            let accounts,vaultAmount,backupAmount,lockedSavingsAmount,stashAmount,totalInterest = 0;
+            let accounts, vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalInterest = 0;
             this.showUpdateKYC(UserInfoRes.data.data);
             if (UserInfoRes.data.data.accounts) {
                 // loop through data and set appropriate states
@@ -185,12 +185,12 @@ class DashboardIndex extends Component {
                     if (content.account_type_id == STANDARD_ACCOUNT) {
                         vaultAmount = parseFloat(content.balance).toFixed(2);
                     } else if (content.account_type_id == BACKUP_GOALS_ACCOUNT) {
-                        backupAmount= parseFloat(content.balance).toFixed(2);
+                        backupAmount = parseFloat(content.balance).toFixed(2);
                     } else if (content.account_type_id == LOCKED_ACCOUNT) {
-                        lockedSavingsAmount= parseFloat(content.balance).toFixed(2);
+                        lockedSavingsAmount = parseFloat(content.balance).toFixed(2);
                     } else if (content.account_type_id == INTEREST_ACCOUNT) {
-                        stashAmount= parseFloat(content.balance).toFixed(2);
-                        totalInterest= parseFloat(content.balance).toFixed(2);
+                        stashAmount = parseFloat(content.balance).toFixed(2);
+                        totalInterest = parseFloat(content.balance).toFixed(2);
                     }
                 });
 
@@ -198,7 +198,8 @@ class DashboardIndex extends Component {
             const backUpGoals = BackUpRes.data.data;
             // //check  to  filter all goals where current data is greater than today
             let activeGoals = backUpGoals.filter((content) => {
-                return (moment(content.end_date).format('YYYY-MM-DD') > now && parseInt(content.is_pause) === 0 && parseInt(content.stop) === 0);
+                return (moment(content.end_date).format('YYYY-MM-DD') > now &&
+                    parseInt(content.is_pause) === 0 && parseInt(content.stop) === 0);
             });
             let CompletedGoals = getCompletedGoals(backUpGoals);
             this.setState({
@@ -216,10 +217,10 @@ class DashboardIndex extends Component {
                 ActiveGoals: activeGoals.length,
                 CompletedGoals: CompletedGoals
             });
-        }catch (e) {
-            console.log('err res',e);
-            // this.setState({showLoader: false});
-            toastReloadMessage('error',this,this.setupDashBoard);
+
+        } catch (e) {
+            console.log('err res', e);
+            this.setState({showLoader: false});
         }
 
     };
@@ -265,14 +266,6 @@ class DashboardIndex extends Component {
 
     componentDidMount() {
 
-        // check if user is activated
-
-        //if user account is activated
-
-        //setup dashboard
-
-        //get token if token isset
-        //
         let token = this.getToken();
         token.then(() => {
             this.setupDashBoard();
@@ -282,8 +275,12 @@ class DashboardIndex extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.reload){
-            this.setupDashBoard();
+        if (nextProps.reload) {
+            console.log('received props', nextProps);
+            this.setState({showLoader:true});
+            this.setupDashBoard().then(
+
+            );
         }
     }
 
@@ -317,7 +314,6 @@ class DashboardIndex extends Component {
                         ActiveGoals={ActiveGoals}
                         error={this.state.error}
                         errorMessage={this.state.errorMessage}
-                        // activateAccount={this.activateAccount}
                         hideSSModal={this.closeSteadySaveModal}
                         showSSModal={this.showSteadySaveModal}
                         hideAGModal={this.closeActiveGoalModal}
@@ -333,20 +329,20 @@ class DashboardIndex extends Component {
                     />
 
                     {/*<ToastProvider>*/}
-                        <LockedSavingModal
-                            show={this.state.showlockedSavingsModal}
-                            onHide={this.closeLSModal}
-                        />
+                    <LockedSavingModal
+                        show={this.state.showlockedSavingsModal}
+                        onHide={this.closeLSModal}
+                    />
                     {/*</ToastProvider>*/}
                     <BackUpGoalsModal
                         show={this.state.showActiveGoalModal}
                         onHide={this.closeActiveGoalModal}
                     />
                     {/*<ToastProvider>*/}
-                        <ActivationModal
-                            show={this.state.showActivationModal}
-                            email={this.state.email}
-                        />
+                    <ActivationModal
+                        show={this.state.showActivationModal}
+                        email={this.state.email}
+                    />
                     {/*</ToastProvider>*/}
 
 

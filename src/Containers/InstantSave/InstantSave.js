@@ -76,7 +76,6 @@ class InstantSave extends Component {
             if (data) {
                 this.setState({userName: data.data.data.name});
             }
-
             //set proper account
             if (data.data.data.accounts) {
                 // loop through data and set appropriate states
@@ -94,11 +93,6 @@ class InstantSave extends Component {
         } else if (!status && data) {
             console.log('err', data)
         }
-        // else {
-        //     console.log('err')
-        //     toastReloadMessage('error', this, this.getInstantSaves);
-        // }
-
 
     };
 
@@ -138,8 +132,6 @@ class InstantSave extends Component {
         }else if(!state && res){
             toastMessage('unable to get instant save transactions','error',this);
             this.setState({showLoader: false});
-        }else {
-            toastReloadMessage('error',this,this.getInstantSaves);
         }
     };
 

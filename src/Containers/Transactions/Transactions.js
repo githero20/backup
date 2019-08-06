@@ -14,7 +14,6 @@ import {
     handleFiltering,
     sourceFormatter,
     statusFormatter,
-    toastReloadMessage,
     todaysDateForTable,
     toggleTable
 } from "../../Helpers/Helper";
@@ -22,6 +21,8 @@ import TransactionTable from "../../Components/Dashboard/TransactionTable/Transa
 import {withToastManager} from 'react-toast-notifications';
 import TransactionReceipt from "../../Components/Dashboard/TransactionReceipt/TransactionReceipt";
 import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
+import paginationFactory from 'react-bootstrap-table2-paginator';
+
 
 class Transactions extends Component {
 
@@ -51,15 +52,14 @@ class Transactions extends Component {
         this.setState({
             showLoader: false
         });
-
+        console.log('transaction data', res);
         if (state && res) {
+            console.log('trans arr',res.data.data.data);
             this.setState({
-                transactions: res.data.data
+                transactions: res.data.data.data
             });
         } else if (!state && res) {
-            this.toastMessage(res.data.message, 'error');
-        } else {
-            toastReloadMessage('error', this, this.loadTransactions);
+            console.log('err',res);
         }
 
     };

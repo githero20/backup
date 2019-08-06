@@ -94,7 +94,7 @@ const AuthController = component => {
                                                             localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
                                                             localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
                                                         }
-                                                        swal('Yeh!!','You have successfully logged in','success');
+                                                        swal('Yeh!!','You have successfully logged in','success',{button: false});
                                                         setReload(true);
                                                     }
                                                 } else {

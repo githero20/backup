@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
-import Button from "react-bootstrap/Button";
 import {_handleFormChange} from "../../../utils/index";
 import SimpleReactValidator from "simple-react-validator";
 import ButtonLoader from "../../../Components/Auth/Buttonloader/ButtonLoader";
 import {withToastManager} from 'react-toast-notifications';
 import {resolveBankName, sendBankOTP} from "../../../actions/BankAction";
+import {toastMessage} from "../../../Helpers/Helper";
 
 
 class BankForm extends Component {
@@ -31,11 +31,6 @@ class BankForm extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    //Create Form
-    //validate form
-    //save
-    //handle response
-
     handleChange(e){
         this.setState({resolved:false});
         _handleFormChange(e.target.name,e, this)
@@ -58,11 +53,9 @@ class BankForm extends Component {
                 if(status){
                     this.props.showOtp(payload);
                 }else{
-                    this.props.toastManager.add(payload,{
-                        appearance:"error",
-                        autoDismiss:true,
-                        autoDismissTimeout:3000
-                    })
+                    if(payload.status==422){
+                        toastMessage(payload.data.data,'error',this);
+                    }
                 }
             });
         }
@@ -85,15 +78,20 @@ class BankForm extends Component {
                     this.setState({loading:false, resolved:true, form});
                 }else{
                     this.setState({loading:false});
-                    this.props.toastManager.add(payload,{
-                        appearance:"error",
-                        autoDismiss:true,
-                        autoDismissTimeout:3000
-                    })
+                    console.log('error',payload);
+                    if(payload.status==422){
+                        toastMessage(payload.data.message,'error',this);
+                    }
                 }
             });
         }
     }
+
+
+    componentDidMount() {
+        console.log('props',this.props);
+    }
+
     render() {
 
         const banksSelect = this.props.banks.map((bank,index) => {
@@ -148,9 +146,6 @@ class BankForm extends Component {
 
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
-                        {/*<div>*/}
-                        {/*    <button onClick={this.props.onHide} className='mr-1 round btn-outline-gray px-1'>Close</button>*/}
-                        {/*</div>*/}
                         <div className={'d-flex justify-content-end'}>
 
                             {
@@ -177,7 +172,6 @@ class BankForm extends Component {
 }
 
 
-const FormWithToast = withToastManager(BankForm);
 
 // export default LoginWithToast;
-export default FormWithToast;
+export default withToastManager(BankForm);

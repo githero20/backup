@@ -54,7 +54,7 @@ class BackupGoals extends Component {
             totalFailed: 0,
             totalBGSave:'0.00',
             showPayModal:false,
-            mobileTable:true
+            mobileTable:false
         };
         this.fetchBackUpGoals = this.fetchBackUpGoals.bind(this);
         this.handleBGHistory = this.handleBGHistory.bind(this);
@@ -91,9 +91,6 @@ class BackupGoals extends Component {
                 if (payload) {this.setState({backupGoals: payload.data.data})}
             } else if(!status&&payload){
                 console.log('err',payload);
-            }else{
-                console.error("An error occurred", payload);
-                toastReloadMessage('error',this,this.fetchBackUpGoals);
             }
 
         });
@@ -103,6 +100,12 @@ class BackupGoals extends Component {
     componentDidMount() {
         this.fetchBackUpGoals();
         toggleTable(this);
+
+        if(window.innerWidth<=559){
+            this.setState({ mobileTable:true})
+        }else{
+            this.setState({ mobileTable:false})
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -211,21 +214,21 @@ class BackupGoals extends Component {
                 headerClasses: 'd-none d-md-table-cell',
             },
             {
-                text: 'Current Amount',
+                text: 'Balance',
                 dataField: 'current_amount',
                 formatter: moneyFormatter,
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
             },
-            {
-                text: 'Pay Date',
-                dataField: 'pay_date',
-                formatter: dateFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
-            },
+            // {
+            //     text: 'Pay Date',
+            //     dataField: 'pay_date',
+            //     formatter: dateFormatter,
+            //     sort: true,
+            //     classes: 'd-none d-md-table-cell',
+            //     headerClasses: 'd-none d-md-table-cell',
+            // },
             {
                 text: 'Status',
                 dataField: 'status',
@@ -252,7 +255,8 @@ class BackupGoals extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-            },{
+            },
+            {
                 text: 'Description',
                 dataField: 'amount',
                 formatter: amountCurrentStatusFormatter,
@@ -260,14 +264,14 @@ class BackupGoals extends Component {
                 classes:' d-table-cell d-md-none',
                 headerClasses:'d-table-cell d-md-none',
             },
-            {
-                text: 'Pay Date',
-                dataField: 'pay_date',
-                formatter: dateFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
-            },
+            // {
+            //     text: 'Pay Date',
+            //     dataField: 'pay_date',
+            //     formatter: dateFormatter,
+            //     sort: true,
+            //     classes: 'd-none d-md-table-cell',
+            //     headerClasses: 'd-none d-md-table-cell',
+            // },
             {
                 text: 'Status',
                 dataField: 'status',
@@ -362,7 +366,7 @@ class BackupGoals extends Component {
                                                                                     (
                                                                                         <TransactionTable
                                                                                         transactions={this.state.selectedBGHistory.reverse()}
-                                                                                        columns={mobileColumns}/>):
+                                                                                        columns={mobileColumns}/> ):
                                                                                     (
                                                                                         <TransactionTable
                                                                                             transactions={this.state.selectedBGHistory.reverse()}
@@ -447,7 +451,7 @@ class BackupGoals extends Component {
                                                                                                 moment(content.end_date).format('YYYY-MM-DD') > moment().format('YYYY-MM-DD') && parseInt(content.is_pause) === 0 && parseInt(content.stop) === 0 ?
                                                                                                     (
                                                                                                         <span
-                                                                                                            className={'goal-active text-info'}>Active</span>) :
+                                                                                                            className={'goal-active bGoal-blue'}>Active</span>) :
                                                                                                     (
 
                                                                                                         (

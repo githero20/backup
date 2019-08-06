@@ -50,10 +50,7 @@ export const sendBankOTP = (payload, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            // console.log("Err",JSON.stringify(err),err.response.data.data, err.response.data.message);
-            // if(err.response){
-            //     callback(false, err.response.data.message|| err.response.data.data);
-            // }
+            console.log("Err",err);
             checkResponse(err);
             callback(false, err.response);
         })
@@ -68,10 +65,6 @@ export const resendBankOTP = (payload, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            // console.log("Err",JSON.stringify(err),err.response.data.data, err.response.data.message);
-            // if(err.response){
-            //     callback(false, err.response.data.message|| err.response.data.data);
-            // }
             checkResponse(err);
             callback(false, err.response);
         })
@@ -88,9 +81,6 @@ export const verifyOtp = (payload, callback) =>{
         })
         .catch(err => {
             console.log("Err",err);
-            // if(err.response){
-            //     callback(false, err.response.data.message|| err.response.data.data);
-            // }
             checkResponse(err);
             callback(false, err.response);
         })
@@ -104,10 +94,6 @@ export const getUserBanks = (callback) => {
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            // console.log("Err",err);
-            // if(err.response){
-            //     callback(false, err.response.data.message|| err.response.data.data);
-            // }
             checkResponse(err);
             callback(false, err.response);
         })

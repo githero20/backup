@@ -453,7 +453,7 @@
         border-radius: 2rem;
     }
 }@media all and (max-width: 992px){
-    .navbar .navbar-collapse {
+    .navbar .navbar-collapse.res-menu {
         position: fixed;
         top: 0;
         left: 0;

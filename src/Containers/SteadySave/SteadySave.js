@@ -158,8 +158,6 @@ class SteadySave extends Component {
 
         } else if(!state&&res){
             console.log('err',res);
-        }else {
-            toastReloadMessage('error',this,this.getSteadySave);
         }
 
     };

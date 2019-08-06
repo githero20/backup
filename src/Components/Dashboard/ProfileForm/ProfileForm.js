@@ -19,25 +19,6 @@ class ProfileForm extends Component {
 
     };
 
-
-    // setupProfile = (data) => {
-    //     const profile = JSON.parse(data);
-    //     this.setState({
-    //         userProfile: profile,
-    //     })
-    //
-    // };
-    //
-
-    // componentDidMount() {
-    //     // fetch User info
-    //     const data = getLocalStorage(USERINFO);
-    //     if (data) {
-    //         this.setupProfile(data);
-    //     }
-    // }
-
-
     constructor(props) {
 
         super(props);
@@ -86,20 +67,12 @@ class ProfileForm extends Component {
         document.execCommand('copy');
         textField.remove();
         this.toastMessage('Copied!', 'success');
-        //
-        // document.getElementById('referral_code').value();
-        // document.execCommand('copy');
-        // // This is just personal preference.
-        // // I prefer to not show the the whole text area selected.
-        // e.target.focus();
         this.setState({copySuccess: true});
     };
 
 
 
     validatePasswords = () => {
-
-
         const {password, password_confirmation} = this.state;
 
         // perform all neccassary validations

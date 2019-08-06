@@ -647,16 +647,16 @@ export function sourceFormatter(cell, row) {
         );
     }
 
-    if (cell.data.name == WITHDRAWAL_SOURCE) {
+    if (cell.name == WITHDRAWAL_SOURCE) {
         content = `${cell.data.name.replace(/_/g, ' ')}`;
         return sourceMarkup(content);
     }
-    if (cell.data.name == STEADY_SAVE) {
+    if (cell.name == STEADY_SAVE) {
         content = `Steady Savings`;
         return sourceMarkup(content);
     }
 
-    content = `${cell.data.name.replace(/_/g, ' ')} savings`;
+    content = `${cell.name.replace(/_/g, ' ')} savings`;
     return sourceMarkup(content);
 }
 

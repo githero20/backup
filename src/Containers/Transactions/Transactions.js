@@ -141,7 +141,7 @@ class Transactions extends Component {
                 })
             }, {
                 text: 'Description',
-                dataField: 'sourcetypes',
+                dataField: 'sourcetype',
                 formatter: sourceFormatter,
                 sort: true,
 
@@ -217,7 +217,7 @@ class Transactions extends Component {
                 })
             }, {
                 text: 'Description',
-                dataField: 'sourcetypes',
+                dataField: 'sourcetype',
                 formatter: sourceFormatter,
                 sort: true,
 

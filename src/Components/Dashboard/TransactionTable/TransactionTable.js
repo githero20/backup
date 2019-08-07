@@ -10,7 +10,6 @@ import {changeHandler} from "../../../Helpers/Helper";
 const {SearchBar, ClearSearchButton} = Search;
 const {ExportCSVButton} = CSVExport;
 
-
 class TransactionTable extends Component {
 
     state = {
@@ -67,8 +66,7 @@ class TransactionTable extends Component {
                             keyField="id"
                             data={transactions}
                             columns={columns}
-                            search
-                        >
+                            search>
                             {
                                 props => (
                                     <div>
@@ -82,12 +80,11 @@ class TransactionTable extends Component {
 
                                             <ExportCSVButton
                                                 className="btn-green d-none d-md-inline-block"  {...props.csvProps}>
-                                                Export CSV</ExportCSVButton>
+                                                Export CSV
+                                            </ExportCSVButton>
                                         </div>
 
-
-                                        {this.state.sort ?
-
+                                        { this.state.sort ?
                                             <div className='sort-box round shadow-sm'>
                                                 <p>Sort Table </p>
                                                 <div className={'mb-1'}>
@@ -100,12 +97,9 @@ class TransactionTable extends Component {
                                                     <button className='btn btn-block btn-custom-blue'>Sort</button>
                                                 </div>
                                             </div> : null
-
                                         }
 
                                         {this.state.filter ?
-
-
                                             <div className='filter-box round shadow'>
                                                 <div className="custom-filter date-filter">
                                                     <div className="filter-label">
@@ -143,7 +137,6 @@ class TransactionTable extends Component {
 
                                             </div>
                                             : null
-
                                         }
 
                                         <BootstrapTable classes={'spaced-table'}
@@ -151,15 +144,18 @@ class TransactionTable extends Component {
                                                         pagination={paginationFactory({
                                                             hideSizePerPage: true,
                                                             sizePerPageList: [{
-                                                                text: '5', value: 5
+                                                                text: '5',
+                                                                value: 5
                                                             }, {
-                                                                text: '10', value: 10
+                                                                text: '10',
+                                                                value: 10
                                                             }],
                                                             withFirstAndLast: true,
                                                             alwaysShowAllBtns: true,
                                                             prePageText: 'Prev',
                                                             nextPageText: 'Next',
                                                         })}
+
                                                         filter={filterFactory()}
                                         />
                                     </div>

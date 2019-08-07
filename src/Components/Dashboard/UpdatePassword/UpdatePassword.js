@@ -244,7 +244,7 @@ class UpdatePassword extends Component {
                         </div>
                         <div className="col-12 text-center mt-2  text-md-right">
                             <button type="submit" onClick={this.submitForm} disabled={this.state.loading}
-                                    className="btn-withdraw round ">
+                                    className="btn-custom-blue round ">
                                 {this.state.loading ? <ButtonLoader/> :
                                     <span>Update Password</span>}
                             </button>

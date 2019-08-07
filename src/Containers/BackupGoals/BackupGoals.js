@@ -101,11 +101,7 @@ class BackupGoals extends Component {
         this.fetchBackUpGoals();
         toggleTable(this);
 
-        if(window.innerWidth<=559){
-            this.setState({ mobileTable:true})
-        }else{
-            this.setState({ mobileTable:false})
-        }
+
     }
 
     componentWillReceiveProps(nextProps) {

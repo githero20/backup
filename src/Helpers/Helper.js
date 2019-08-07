@@ -155,6 +155,11 @@ export function toggleTable(context) {
     window.addEventListener('resize', () => {
         context.setState({mobileTable: window.innerWidth <= 599})
     });
+    if(window.innerWidth<=559){
+        context.setState({ mobileTable:true})
+    }else{
+        context.setState({ mobileTable:false})
+    }
 }
 
 
@@ -182,23 +187,12 @@ export function readURL(input, context) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            console.log('image url', e.target.result);
-            console.log('previewer', document.querySelector('#img-previewer'));
-            context.setState({
-                fileUpload: e.target.result
-            });
-            // document.querySelector('#img-previewer').setAttribute('src', e.target.result);
+            context.setState({ fileUpload: e.target.result });
         };
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-//
-// export function capitalize (value) {
-//     value.prototype.capitalize = function() {
-//         return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
-//     };
-// };
 export function getCards(key, object) {
     const userInfo = getLocalStorage(key);
     if (getLocalStorage(key) != undefined) {
@@ -220,7 +214,6 @@ export function getCardsFromStorage(key, object) {
 export function hideLoader() {
     const loader = document.querySelector('.lds-loader-bg');
     loader.style.display = 'none';
-    // window.addEventListener('load',()=>{});
 }
 
 export function showHomeLoader() {
@@ -235,7 +228,6 @@ export function capitalize(value) {
     } else {
         return value.charAt(0).toUpperCase() + value.slice(1);
     }
-    // return value.replace(/(?:^|\s)\S/g, value.toUpperCase());
 };
 
 export function validateInputEntry(e) {
@@ -251,15 +243,8 @@ export function shiftFocus(e) {
     if (e.type == 'keyup' && e.keyCode !== 46 && e.keyCode !== 8 && e.keyCode > 47 && e.keyCode <= 58) {
 
         if (e.target.parentElement.nextElementSibling) {
-            // && e.target.parentElement.nextElementSibling.firstChild.length>0
             if (e.target.parentElement.nextElementSibling.firstChild.value == '') {
                 e.target.parentElement.nextElementSibling.firstChild.focus();
-                //
-                //     console.log('there is value',true,e.target.parentElement.nextElementSibling.firstChild.value);
-                // }else {
-                //     console.log('no value',false);
-                // }
-                // console.log('siblling element', e.target.parentElement.nextElementSibling.firstChild.value);
             }
         }
 
@@ -646,8 +631,53 @@ export function sourceFormatter(cell, row) {
             </p>
         );
     }
+    console.log('trans',cell,row);
+    if (cell.data.name == WITHDRAWAL_SOURCE) {
+        content = `${cell.data.name.replace(/_/g, ' ')}`;
+        return sourceMarkup(content);
+    }
+    if (cell.data.name == STEADY_SAVE) {
+        content = `Steady Savings`;
+        return sourceMarkup(content);
+    }
 
+    content = `${cell.data.name.replace(/_/g, ' ')} savings`;
+    return sourceMarkup(content);
+}
 
+export function transSourceFormatter(cell, row) {
+    console.log('trans data ooh',cell,row);
+    let content;
+    if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
+        return (
+            <p style={{minWidth: '140px'}}
+               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+                <small className='text-muted'>(Interest on backup goals)</small>
+            </p>
+        );
+        //
+        // return sourceMarkup(content);
+    }
+    if (row.gw_authorization_code.includes(MATURED_LOCKED_SAVINGS)) {
+        return (
+            <p style={{minWidth: '140px'}}
+               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+                <small className='text-muted'>(Matured locked savings)</small>
+            </p>
+        );
+        //
+        // return sourceMarkup(content);
+    }
+
+    if (row.gw_authorization_code.includes(INTEREST_ON_VAULT)) {
+        return (
+            <p style={{minWidth: '140px'}}
+               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+                <small className='text-muted'>(Interest on central vault)</small>
+            </p>
+        );
+    }
+    console.log('trans',cell,row);
     if (cell.name == WITHDRAWAL_SOURCE) {
         content = `${cell.data.name.replace(/_/g, ' ')}`;
         return sourceMarkup(content);

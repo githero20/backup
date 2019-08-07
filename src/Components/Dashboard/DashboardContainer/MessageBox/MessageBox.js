@@ -5,7 +5,7 @@ import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {KycSettingLink} from "../../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
-import {getUserPoints} from "../../../../actions/UserAction";
+import {getUserPoints, isKycUpdated} from "../../../../actions/UserAction";
 
 class MessageBox extends Component {
 
@@ -74,6 +74,7 @@ class MessageBox extends Component {
     componentDidMount() {
         getUserPoints(this.handlePoints);
         //get
+
     }
 
     handlePoints = (status, res) => {

@@ -125,14 +125,23 @@ div.fixed-navbar {
 .swal-title{
     color: #2b335e;
 }
-.swal-button.swal-button--yes{
-    background-color: #2b335e;
+.swal-button.swal-button--yes,.swal-button.swal-button--confirm{
+    background-color: #2784F4;
     color:white;
+    border-radius: 2rem;
+    text-transform: capitalize;
+}
+.swal-button.swal-button--yes:hover,.swal-button.swal-button--confirm:hover{
+    background-color: #2478df;
+    color:white;
+
 }
 
 .swal-button.swal-button--cancel{
-
+    border-radius: 2rem;
+    text-transform: capitalize;
 }
+
 .text-green {
     color: green;
 }

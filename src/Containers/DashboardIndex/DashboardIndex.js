@@ -28,7 +28,7 @@ import DashboardLoader from "../../Components/Dashboard/DashboardLoader/Dashboar
 import StartNowModal from "../../Components/Dashboard/StartNowModal/StartNowModal";
 import moment from "moment";
 import {_axios, _getHeader} from "../../utils";
-import {getFirstTimeUser, storeFirstTimeLogin} from "../../actions/UserAction";
+import {getFirstTimeUser, isKycUpdated, storeFirstTimeLogin} from "../../actions/UserAction";
 
 
 class DashboardIndex extends Component {
@@ -91,13 +91,8 @@ class DashboardIndex extends Component {
     };
 
     closeStartModal = () => {
-        this.setState({
-            showStartModal: false
-        });
-
+        this.setState({ showStartModal: false });
         storeFirstTimeLogin(this.handleFirstTimeLogin);
-        // setLocalStorage(SHOWAD, 'dont_show');
-
     };
 
     handleFirstTimeLogin = (status, response) => {
@@ -241,22 +236,43 @@ class DashboardIndex extends Component {
     };
 
     showUpdateKYC = (data) => {
-        const update = localStorage.getItem(KYC);
-        if (update == null) {
-            if (data.accounts) {
-                // loop through data and set appropriate states
-                let accounts = data.accounts.data;
-                accounts.map((content, idx) => {
-                    if (content.account_type_id === STANDARD_ACCOUNT) {
-                        if (parseFloat(content.balance).toFixed(2) >= 1000000) {
-                            this.setState({
-                                updateKyc: true,
-                            });
-                        }
+        // const update = localStorage.getItem(KYC);
+
+        isKycUpdated((state,res)=>{
+            console.log('res',state,res.is_kyc_updated);
+            if(state&&res){
+                if(res==null||res.is_kyc_updated == 0){
+                    if (data.accounts) {
+                        // loop through data and set appropriate states
+                        let accounts = data.accounts.data;
+                        accounts.map((content, idx) => {
+                            if (content.account_type_id === STANDARD_ACCOUNT) {
+                                if (parseFloat(content.balance).toFixed(2) >= 1000000) {
+                                    this.setState({ updateKyc: true });
+                                }
+                            }
+                        });
                     }
-                });
+                }
             }
-        }
+
+            // if (update == null) {
+            //     if (data.accounts) {
+            //         // loop through data and set appropriate states
+            //         let accounts = data.accounts.data;
+            //         accounts.map((content, idx) => {
+            //             if (content.account_type_id === STANDARD_ACCOUNT) {
+            //                 if (parseFloat(content.balance).toFixed(2) >= 1000000) {
+            //                     this.setState({
+            //                         updateKyc: true,
+            //                     });
+            //                 }
+            //             }
+            //         });
+            //     }
+            // }
+        });
+
     };
 
 
@@ -277,7 +293,7 @@ class DashboardIndex extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.reload) {
             console.log('received props', nextProps);
-            this.setState({showLoader:true});
+            this.setState({showLoader: true});
             this.setupDashBoard().then(
 
             );

@@ -12,16 +12,16 @@ import {
     descriptionFormatter,
     detailFormatter,
     handleFiltering,
-    sourceFormatter,
     statusFormatter,
     todaysDateForTable,
-    toggleTable
+    toggleTable,
+    transSourceFormatter
 } from "../../Helpers/Helper";
-import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import {withToastManager} from 'react-toast-notifications';
 import TransactionReceipt from "../../Components/Dashboard/TransactionReceipt/TransactionReceipt";
 import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
-import paginationFactory from 'react-bootstrap-table2-paginator';
+import RemotePagination from "../../Components/Dashboard/RemoteTable/RemotePagination";
+import {getPaginatedTrans} from "../../actions/TransactionActions";
 
 
 class Transactions extends Component {
@@ -32,7 +32,21 @@ class Transactions extends Component {
         userName: null,
         selectedTransID: null,
         showTransDetail: false,
-        mobileTable: true
+        mobileTable: true,
+        transData: {
+            first_page_url: "http://backupcash.atp-sevas.com//sfsbapi/v1/user/transactions?page=1",
+            from: 1,
+            data: [],
+            current_page: 1,
+            last_page: 8,
+            last_page_url: "http://backupcash.atp-sevas.com//sfsbapi/v1/user/transactions?page=8",
+            next_page_url: "http://backupcash.atp-sevas.com//sfsbapi/v1/user/transactions?page=2",
+            path: "http://backupcash.atp-sevas.com//sfsbapi/v1/user/transactions",
+            per_page: 30,
+            prev_page_url: null,
+            to: 30,
+            total: 223,
+        }
     };
 
     //when the component mounts
@@ -54,12 +68,13 @@ class Transactions extends Component {
         });
         console.log('transaction data', res);
         if (state && res) {
-            console.log('trans arr',res.data.data.data);
+            console.log('trans arr', res.data.data.data);
             this.setState({
-                transactions: res.data.data.data
+                transactions: res.data.data.data,
+                transData: {...this.state.transData, ...res.data.data}
             });
         } else if (!state && res) {
-            console.log('err',res);
+            console.log('err', res);
         }
 
     };
@@ -122,10 +137,24 @@ class Transactions extends Component {
         handleFiltering(date, comparator, this);
     };
 
+    handleTableChange = (type, props) => {
+        getPaginatedTrans(`${this.state.transData.path}?page=${props.page}`,
+            this.handlePaginatedData)
+    };
+
+    handlePaginatedData = (status, res) => {
+        console.log(status, res);
+        if (status) {
+            this.setState({
+                transData: {...this.state.transData, ...res}
+            })
+        }
+    };
 
     render() {
 
         const columns = [
+
             {
                 text: 'Date',
                 dataField: 'created_at',
@@ -141,8 +170,8 @@ class Transactions extends Component {
                 })
             }, {
                 text: 'Description',
-                dataField: 'sourcetype',
-                formatter: sourceFormatter,
+                dataField: 'sourcetypes',
+                formatter: transSourceFormatter,
                 sort: true,
 
             },
@@ -201,6 +230,8 @@ class Transactions extends Component {
                 headerClasses: 'd-none ',
 
             }];
+
+
         const mobileColumns = [
             {
                 text: 'Date',
@@ -217,8 +248,8 @@ class Transactions extends Component {
                 })
             }, {
                 text: 'Description',
-                dataField: 'sourcetype',
-                formatter: sourceFormatter,
+                dataField: 'sourcetypes',
+                formatter: transSourceFormatter,
                 sort: true,
 
             },
@@ -307,19 +338,28 @@ class Transactions extends Component {
                                                     <h3 className="gray-header-text mb-2 ">Transactions
                                                     </h3>
                                                 </div>
-
                                             </div>
                                             <div className="row">
                                                 {
                                                     this.state.mobileTable ?
-                                                        (<TransactionTable handleFilter={this.handleFilter}
-                                                                           transactions={this.state.transactions}
-                                                                           columns={mobileColumns}/>) :
-                                                        (
-                                                            <TransactionTable handleFilter={this.handleFilter}
-                                                                              transactions={this.state.transactions}
-                                                                              columns={columns}/>
-                                                        )
+                                                        (<RemotePagination
+                                                            data={this.state.transData.data}
+                                                            handleFilter={this.handleFilter}
+                                                            columns={columns}
+                                                            onTableChange={this.handleTableChange}
+                                                            page={this.state.transData.current_page}
+                                                            sizePerPage={this.state.transData.per_page}
+                                                            totalSize={this.state.transData.total}
+                                                        />) :
+                                                        (<RemotePagination
+                                                            data={this.state.transData.data}
+                                                            handleFilter={this.handleFilter}
+                                                            columns={mobileColumns}
+                                                            onTableChange={this.handleTableChange}
+                                                            page={this.state.transData.current_page}
+                                                            sizePerPage={this.state.transData.per_page}
+                                                            totalSize={this.state.transData.total}
+                                                        />)
                                                 }
                                             </div>
                                         </div>

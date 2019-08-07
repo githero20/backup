@@ -4,7 +4,7 @@ import {
     getFirstTimeUserEndpoint,
     getUserInfoEndpoint,
     getUserPointsEndpoint,
-    getUserRoleEndpoint, storeFirstTimeLoginEndpoint
+    getUserRoleEndpoint, InitiateBGDuePayEndpoint,updateUserProfileEndpoint, storeFirstTimeLoginEndpoint
 } from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 import axios from "axios";
@@ -24,6 +24,7 @@ export const getUserData =  callback =>{
             callback(false, err.response);
         })
 };
+
 export const getFirstTimeUser =  callback =>{
     _axios.get(getFirstTimeUserEndpoint,{
         headers: _getHeader()
@@ -39,6 +40,23 @@ export const getFirstTimeUser =  callback =>{
             callback(false, err.response);
         })
 };
+export const isKycUpdated =  callback =>{
+    _axios.get(getFirstTimeUserEndpoint,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            if(callback){
+                callback(true, res.data.data);
+            }
+        })
+        .catch(err => {
+            console.log("Err",JSON.stringify(err));
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};
+
+
 export const storeFirstTimeLogin =  callback =>{
     _axios.get(storeFirstTimeLoginEndpoint,{
         headers: _getHeader()
@@ -68,30 +86,8 @@ export const getUserPoints =  callback =>{
             console.log("Err",JSON.stringify(err));
             checkResponse(err);
             callback(false, err.response);
-            // if(err.response) {callback(false, err.response.data.data || err.response.data.message);
-            //
-            // }
         })
 };
-
-// export const getUserRole =  callback =>{
-//     _axios.get(getUserRoleEndpoint,{
-//         headers: _getHeader()
-//     })
-//         .then(res => {
-//             if(callback){
-//                 callback(true, res.data.data);
-//             }
-//         })
-//         .catch(err => {
-//             console.log("Err",JSON.stringify(err));
-//             checkResponse(err);
-//             callback(false, err.response);
-//             // if(err.response) {callback(false, err.response.data.data || err.response.data.message);
-//             //
-//             // }
-//         })
-// };
 
 export function getUserRole(token=null, callback) {
 
@@ -112,3 +108,19 @@ export function getUserRole(token=null, callback) {
      axios.get(url, header).then(res => callback(true, res))
         .catch(err => callback(false, err.response))
 }
+
+export const updateUserProfile = (payload, callback) =>{
+    console.log("body", payload);
+    _axios.post(updateUserProfileEndpoint,payload,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            console.log("Res",res);
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err",err);
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};

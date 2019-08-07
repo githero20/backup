@@ -168,6 +168,7 @@ class KycSettingForm extends Component {
     }
 
     handleKyc(status, result) {
+        console.log(status,result);
         if (status) {
             try {
                 if (result.data.edit == "1") {

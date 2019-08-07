@@ -150,6 +150,7 @@ export const addWithdrawalPin = (payload, callback) => {
         })
 };
 
+
 export const changePin = (payload, callback) => {
     _axios.post(`${changeWithdrawalPin}`, payload,{
         headers: _getHeader()

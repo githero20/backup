@@ -123,7 +123,17 @@ div.fixed-navbar {
     text-align: center;
 }
 .swal-title{
-    color: #2b335e;
+    color: #2684f4;
+}
+.swal-footer{
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 3rem;
+}
+input[type=password]:not(.browser-default).swal-content__input{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
 }
 .swal-button.swal-button--yes,.swal-button.swal-button--confirm{
     background-color: #2784F4;

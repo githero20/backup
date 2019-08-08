@@ -646,6 +646,7 @@ export function withdrawSourceFormatter(cell) {
 }
 
 export function amountFormatter(cell, row) {
+    console.log('trans data',cell,row);
     return (
         <p style={{minWidth: '100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
             {row.type === 'credit' ? '+' : '-'}

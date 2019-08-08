@@ -38,7 +38,6 @@ class LockedSavings extends Component {
 
     //get user info
     componentDidMount() {
-
        this.LoadData();
        toggleTable(this);
     }

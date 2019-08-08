@@ -62,6 +62,7 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                 nextPageText: 'Next',
                             })
                         }
+                        exportCSV
                     >
                         {
                             (props) => (
@@ -135,7 +136,8 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                         </div>
                                         : null
                                     }
-
+                                    {/*{console.log('provider props',props)}*/}
+                                    {/*<ExportCSVButton { ...props.csvProps }>Export CSV!!</ExportCSVButton>*/}
                                     {/*<ToolkitProvider*/}
                                     {/*    remote*/}
                                     {/*    keyField="id"*/}

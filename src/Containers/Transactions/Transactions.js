@@ -32,7 +32,7 @@ class Transactions extends Component {
         userName: null,
         selectedTransID: null,
         showTransDetail: false,
-        mobileTable: true,
+        mobileTable: false,
         transData: {
             first_page_url: "http://backupcash.atp-sevas.com//sfsbapi/v1/user/transactions?page=1",
             from: 1,
@@ -106,7 +106,7 @@ class Transactions extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.reload){
+        if (nextProps.reload) {
             this.loadTransactions();
         }
     }
@@ -191,12 +191,12 @@ class Transactions extends Component {
 
             },
             {
-                text: 'Current Amount',
+                text: 'Amount',
                 dataField: 'amount',
                 formatter: amountFormatter,
                 sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                // classes: 'd-none d-md-table-cell',
+                // headerClasses: 'd-none d-md-table-cell',
 
             }, {
                 text: 'Balance',
@@ -346,12 +346,32 @@ class Transactions extends Component {
                                                 </div>
                                             </div>
                                             <div className="row">
+
+                                                {/*<RemotePagination*/}
+                                                {/*    data={this.state.transData.data}*/}
+                                                {/*    handleFilter={this.handleFilter}*/}
+                                                {/*    columns={columns}*/}
+                                                {/*    onTableChange={this.handleTableChange}*/}
+                                                {/*    page={this.state.transData.current_page}*/}
+                                                {/*    sizePerPage={this.state.transData.per_page}*/}
+                                                {/*    totalSize={this.state.transData.total}*/}
+                                                {/*/>*/}
+
+                                                {/*<RemotePagination*/}
+                                                {/*    data={this.state.transData.data}*/}
+                                                {/*    handleFilter={this.handleFilter}*/}
+                                                {/*    columns={mobileColumns}*/}
+                                                {/*    onTableChange={this.handleTableChange}*/}
+                                                {/*    page={this.state.transData.current_page}*/}
+                                                {/*    sizePerPage={this.state.transData.per_page}*/}
+                                                {/*    totalSize={this.state.transData.total}*/}
+                                                {/*/>*/}
+
                                                 {
-                                                    this.state.mobileTable ?
-                                                        (<RemotePagination
+                                                    this.state.mobileTable ? (<RemotePagination
                                                             data={this.state.transData.data}
                                                             handleFilter={this.handleFilter}
-                                                            columns={columns}
+                                                            columns={mobileColumns}
                                                             onTableChange={this.handleTableChange}
                                                             page={this.state.transData.current_page}
                                                             sizePerPage={this.state.transData.per_page}
@@ -360,7 +380,7 @@ class Transactions extends Component {
                                                         (<RemotePagination
                                                             data={this.state.transData.data}
                                                             handleFilter={this.handleFilter}
-                                                            columns={mobileColumns}
+                                                            columns={columns}
                                                             onTableChange={this.handleTableChange}
                                                             page={this.state.transData.current_page}
                                                             sizePerPage={this.state.transData.per_page}

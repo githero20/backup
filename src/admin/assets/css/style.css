@@ -790,7 +790,9 @@ input[type="date"]::-webkit-clear-button {
     margin-left: .5rem;
     margin-right: .5rem;
 }
-
+textarea.form-control{
+    padding:1rem 1rem;
+}
 .btn-custom-blue {
     color: #fff !Important;
     border: 1px solid transparent;

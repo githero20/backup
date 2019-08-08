@@ -13,17 +13,7 @@ import {GetUserKYC} from "../../RouteLinks/RouteLinks";
 import {withToastManager,ToastProvider} from "react-toast-notifications";
 import KycSettingForm from "../KycSetting/KycSettingForm";
 
-let formData = new FormData();
-
 class KycSetting extends Component {
-    
-    constructor(props) {
-        super(props);
-    
-        this.state = {
-           
-        };
-    }
 
     render() {
         return (

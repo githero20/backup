@@ -30,7 +30,6 @@ export function api(url, params, token, method, callback) {
         })
             .catch(err =>{
                 console.log("rea", err);
-                console.log("rea", JSON.stringify(err));
                 callback(false, err.response)
             })
     }

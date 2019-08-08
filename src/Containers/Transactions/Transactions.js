@@ -105,6 +105,12 @@ class Transactions extends Component {
         })
     };
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.reload){
+            this.loadTransactions();
+        }
+    }
+
 
     componentDidMount() {
         this.loadTransactions();
@@ -185,7 +191,7 @@ class Transactions extends Component {
 
             },
             {
-                text: 'Amount',
+                text: 'Current Amount',
                 dataField: 'amount',
                 formatter: amountFormatter,
                 sort: true,
@@ -262,7 +268,7 @@ class Transactions extends Component {
                 headerClasses: 'd-none',
 
             }, {
-                text: 'Amount',
+                text: 'Current Amount',
                 dataField: 'amount',
                 formatter: amountBalanceFormatter,
                 sort: true,

@@ -3,29 +3,16 @@ import {Redirect} from "react-router-dom";
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import SimpleReactValidator from 'simple-react-validator';
 import ButtonLoader from "../Buttonloader/ButtonLoader";
-import {DashboardLink} from "../../../RouteLinks/RouteLinks";
+import {DashboardLink, LoginLink} from "../../../RouteLinks/RouteLinks";
 import {USERINFO, USERTOKEN, USERWITHDRAWAL} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 import {resolveBankName} from "../../../actions/BankAction";
 import {_handleFormChange} from "../../../utils";
 import {resolveBank, setupWithdrawal} from "../../../actions/setupWithdrawalAction";
 import DashboardLoader from "../../Dashboard/DashboardLoader/DashboardLoader";
-import {handleFocus, hideLoader, showHomeLoader, validateInputEntry} from "../../../Helpers/Helper";
+import {handleFocus, hideLoader, showHomeLoader, toastMessage, validateInputEntry} from "../../../Helpers/Helper";
 
 class SetupWithdrawalForm extends Component {
-
-
-    //get the user from url
-
-    // set user info in the localstorage
-
-    // setup form
-
-
-    // on blur verify user account
-
-    // get all banks
-
 
     //validator
     constructor(props) {
@@ -39,16 +26,6 @@ class SetupWithdrawalForm extends Component {
                 phone: 'The phone number must match the required pattern (080********)',
                 password: 'Password must contain at least one lowercase letter, one uppercase letter , one number and must be a minimum of 8 characters',
             },
-            // validators: {
-            //     password: {  // name the rule
-            //         message: 'The :attribute must be a valid IP address and must be :values.',
-            //         rule: (val, params, validator) => {
-            //             return validator.helpers.testRegex(val,/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/)
-            //         },
-            //         messageReplace: (message, params) => message.replace(':values', this.helpers.toSentence(params)),  // optional
-            //         required: true  // optional
-            //     }
-            // }
 
         });
 
@@ -72,29 +49,12 @@ class SetupWithdrawalForm extends Component {
             loading: false,
             bankLoading: false,
             redirect: false,
+            redirectLogin: false,
         };
 
         this.validateForm = this.validateForm.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-
-
-    //get token from url
-
-    //get all inputs
-
-    //validate inputs
-
-    // on blur get user bank name and display the confirmation name
-
-    //get all pin concatenate and set as withdrawal pin
-
-    // post to withdrawal endpoint
-
-    // redirect to dashboard
-
-    //else display error
-
 
     validateInput = (e) => {
         validateInputEntry(e);
@@ -148,28 +108,6 @@ class SetupWithdrawalForm extends Component {
         }
         return form;
     };
-    //
-    // getUserBank = (name, event, callback = null) => {
-    //     let form = {...this.state.form};
-    //     form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    //
-    //     this.setState({form});
-    //
-    //     if (form['bank_code'] != '' && form['account_number'].length === 10 && form['bank_name']=='') {
-    //
-    //         console.log('got here', event.target.value.length);
-    //         this.setState({
-    //             bankLoading: true
-    //         });
-    //         resolveBank(form, null, this.handleResolveBank)
-    //         //load up
-    //         // make request
-    //     }
-    //     if (callback != null) {
-    //         callback();
-    //     }
-    //     return form;
-    // };
 
 
     handleResolveBank = (status, res) => {
@@ -205,19 +143,13 @@ class SetupWithdrawalForm extends Component {
             const bank = this.props.banks.find(bank => bank.code == form.bank_code);
             form.bank = `${bank.name}.${bank.code}`;
             //send all details
-            console.log('submitted form', form);
             setupWithdrawal(form, this.state.token, (status, payload) => {
                 this.setState({loading: false});
                 if (status) {
                     console.log(payload);
-                    // this.props.showOtp(payload);
-
-                    // save user withdrawal info
-                    // localStorage.setItem(USERWITHDRAWAL,JSON.stringify(payload.data) );
                     localStorage.setItem(USERTOKEN, JSON.stringify(this.state.token));
-
-                    showHomeLoader();
-                    setTimeout(hideLoader,3000);
+                    // showHomeLoader();
+                    // setTimeout(hideLoader,3000);
                     setTimeout(() => {
                         this.setState({
                             redirect: true
@@ -225,13 +157,14 @@ class SetupWithdrawalForm extends Component {
                     }, 3000);
                     //TODO handle response and redirect
 
-                } else {
+                } else if(!status&&payload){
                     console.log('err', payload);
-                    this.props.toastManager.add('Something went wrong!!', {
-                        appearance: "error",
-                        autoDismiss: true,
-                        autoDismissTimeout: 3000
-                    })
+                    toastMessage('Your Link Has Expired! Try to Login into your account.','error',this);
+                    setTimeout(() => {
+                        this.setState({
+                            redirectLogin: true
+                        });
+                    }, 3000);
                 }
             });
         } else {
@@ -258,11 +191,6 @@ class SetupWithdrawalForm extends Component {
                 } else {
                     this.setState({loading: false});
                     console.log('err', payload);
-                    // this.props.toastManager.add(payload, {
-                    //     appearance: "error",
-                    //     autoDismiss: true,
-                    //     autoDismissTimeout: 3000
-                    // })
                 }
             });
         }
@@ -380,6 +308,14 @@ class SetupWithdrawalForm extends Component {
             return (
                 <React.Fragment>
                     <Redirect push to={DashboardLink}/>
+                </React.Fragment>
+            );
+        }
+
+        if (this.state.redirectLogin) {
+            return (
+                <React.Fragment>
+                    <Redirect push to={LoginLink}/>
                 </React.Fragment>
             );
         }

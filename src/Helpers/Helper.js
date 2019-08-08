@@ -94,21 +94,6 @@ export function getTotalSteadySave(transactions) {
     }
 }
 
-//
-// export function getTotalSteadySave(transactions) {
-//     if (transactions) {
-//         if (transactions.length > 0) {
-//             let credits;
-//             credits = transactions.filter((content) => (content.type === 'credit'));
-//             credits = credits.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
-//             return credits.amount;
-//         } else {
-//             let sum = transactions.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
-//             return sum.start_amount;
-//         }
-//     }
-// }
-
 
 export function getTotalSteadySaveDebit(transactions) {
     if (transactions) {
@@ -161,19 +146,6 @@ export function toggleTable(context) {
         context.setState({ mobileTable:false})
     }
 }
-
-
-// export function getTotalSuccessfulSS(transactions) {
-//     if (transactions && transactions.length > 0) {
-//             let successful;
-//             successful = transactions.filter((content) => (content.status === 'success'));
-//             successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
-//             return successful.amount;
-//     }else {
-//         let sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
-//         return sum.amount;
-//     }
-// }
 
 export function getPercentage(startValue, endValue) {
     if (Number(startValue) != 0 && Number(endValue) != 0) {
@@ -467,26 +439,6 @@ export const EmailPhoneValidator = new SimpleReactValidator({
         }
     }
 });
-// ^[0]\d{10}$
-// ([0-9]{10})+$
-// export function validatePasswords (value,context) {
-//
-//     const {password} = context.state;
-//     // perform all neccassary validations
-//     if (password !== value) {
-//         context.setState({
-//             ConfirmPassError: true,
-//         });
-//         return false;
-//     } else {
-//         context.setState({
-//             ConfirmPassError: false,
-//         });
-//         return true;
-//
-//     }
-//
-// };
 
 
 export function dateFormatter(cell) {
@@ -506,15 +458,6 @@ export function disableKey(e) {
 export function filterUserCards(array) {
     return array.authorization.data.filter((content) => content.channel == 'card');
 }
-
-// export function getAndSetCards(array,context) {
-//     const userInfo = getLocalStorage(USERINFO);
-//     if (getLocalStorage(USERINFO) != undefined) {
-//         context.setState({
-//             userCards: userInfo.authorization.data
-//         })
-//     }
-// }
 
 export function showMobileMenu() {
     //add is-active on
@@ -646,7 +589,6 @@ export function sourceFormatter(cell, row) {
 }
 
 export function transSourceFormatter(cell, row) {
-    console.log('trans data ooh',cell,row);
     let content;
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
         return (
@@ -677,7 +619,6 @@ export function transSourceFormatter(cell, row) {
             </p>
         );
     }
-    console.log('trans',cell,row);
     if (cell.name == WITHDRAWAL_SOURCE) {
         content = `${cell.data.name.replace(/_/g, ' ')}`;
         return sourceMarkup(content);
@@ -751,23 +692,10 @@ export function parseAndFormatNum(num) {
 
 export function moneyFormatter(cell, row) {
     console.log('row', row);
-
-    // if (window.innerWidth < 600) {
-    //     return (
-    //         <div className="d-flex flex-column">
-    //             <p style={{minWidth: '100px'}}
-    //                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
-    //             <label
-    //                 className={row.status == 'success' ? 'bg-light-green text-center round px-1 ' : 'bg-light-red text-center px-1 round '}>{row.status}</label>
-    //         </div>
-    //     )
-    // } else {
         return (
             <p style={{minWidth: '150px'}}
                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
         )
-    // }
-
 }
 
 export function contributionFormatter(cell, row) {
@@ -1059,14 +987,6 @@ export function Support() {
             });
         };
     };
-
-    // Tawk_API.hideWidget();
-    // }else {
-    //     Tawk_API.onLoad = function () {
-    //         Tawk_API.hideWidget();
-    //     };
-    // }
-
 }
 
 export function hideSupport() {
@@ -1087,23 +1007,7 @@ export function hideSupport() {
     Tawk_API.onLoad = function () {
         console.log('works on load');
         Tawk_API.hideWidget();
-        // window.showTawk = function () {
-        //     var pages = ['', 'faq'];
-        //     pages.forEach(function (elem) {
-        //         if (window.location.pathname.endsWith("/" + elem)) {
-        //             Tawk_API.showWidget();
-        //         }
-        //     });
-        // };
     };
-
-    // Tawk_API.hideWidget();
-    // }else {
-    //     Tawk_API.onLoad = function () {
-    //         Tawk_API.hideWidget();
-    //     };
-    // }
-
 }
 
 //Retrieves user inputs

@@ -7,7 +7,7 @@ import ToolkitProvider,{CSVExport} from "react-bootstrap-table2-toolkit";
 const {ExportCSVButton} = CSVExport;
 
 const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, columns,handleFilter}) => {
-    console.log('props', {handleFilter});
+    console.log('props', {handleFilter},data,columns);
 
     const [tableSetting, setTableSetting] = useState({
         filter: false,
@@ -27,6 +27,27 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                             <h4 className="card-title table-title">Recent Transactions </h4>
                         </div>
                     </div>
+                    {/*<ToolkitProvider*/}
+                    {/*    keyField="id"*/}
+                    {/*    data={data}*/}
+                    {/*    columns={columns}*/}
+                    {/*    classes={'d-none'}*/}
+                    {/*    exportCSV*/}
+                    {/*>*/}
+                    {/*    {*/}
+                    {/*        props => (*/}
+                    {/*            <Fragment>*/}
+                    {/*                {console.log('toolkit props',props)}*/}
+                    {/*                <div className="d-flex align-items-end my-2">*/}
+                    {/*                    <ExportCSVButton className="btn-green d-none d-md-inline-block"  {...props.csvProps}>*/}
+                    {/*                        Export CSV*/}
+                    {/*                    </ExportCSVButton>*/}
+                    {/*                </div>*/}
+                    {/*                <BootstrapTable { ...props.baseProps } />*/}
+                    {/*            </Fragment>*/}
+                    {/*        )*/}
+                    {/*    }*/}
+                    {/*</ToolkitProvider>*/}
 
                     <PaginationProvider
                         pagination={
@@ -104,13 +125,47 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                                 </div>
                                             </div>
 
-                                            <button className={'btn btn-block round mt-1 btn-custom-blue'}
-                                                    onClick={() => handleFilter(tableSetting.date, tableSetting.comparator)}>Filter
+                                            <button className={'btn round mt-1 btn-custom-blue'}
+                                                    onClick={() =>{
+                                                        console.log('clicked filter');
+                                                        handleFilter(tableSetting.date, tableSetting.comparator)
+                                                    }}>Filter
                                             </button>
 
                                         </div>
                                         : null
                                     }
+
+                                    {/*<ToolkitProvider*/}
+                                    {/*    remote*/}
+                                    {/*    keyField="id"*/}
+                                    {/*    data={data}*/}
+                                    {/*    columns={columns}*/}
+                                    {/*    onTableChange={onTableChange}*/}
+                                    {/*    {...props.paginationTableProps}*/}
+                                    {/*    noDataIndication={ () => (*/}
+                                    {/*        <Fragment>*/}
+                                    {/*            <div className='text-center my-5 text-secondary'>*/}
+                                    {/*                <h3> No Transactions Yet !</h3>*/}
+                                    {/*            </div>*/}
+                                    {/*        </Fragment>*/}
+                                    {/*    ) }*/}
+                                    {/*    classes={'spaced-table'}*/}
+                                    {/*    exportCSV*/}
+                                    {/*>*/}
+                                    {/*    {*/}
+                                    {/*        props => (*/}
+                                                {/*<div>*/}
+                                                    {/*<ExportCSVButton { ...props.csvProps }>Export CSV!!</ExportCSVButton>*/}
+                                                    {/*<hr />*/}
+                                                    {/*<BootstrapTable { ...props.baseProps } />*/}
+                                                    {/*<PaginationListStandalone*/}
+                                                    {/*    {...props.paginationProps}*/}
+                                                    {/*/>*/}
+                                                {/*// </div>*/}
+                                        {/*//     )*/}
+                                        {/*// }*/}
+                                    {/*</ToolkitProvider>*/}
 
                                     <BootstrapTable
                                         remote
@@ -118,6 +173,7 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                         data={data}
                                         columns={columns}
                                         onTableChange={onTableChange}
+                                        filter={ filterFactory() }
                                         {...props.paginationTableProps}
                                         classes={'spaced-table'}
                                         noDataIndication={ () => (

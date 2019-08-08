@@ -53,6 +53,7 @@ export const PayDueBGEndpoint  = `sfsbapi/v1/user/goals/duepay`;
 export const getSteadySaveEndpoint  = `/sfsbapi/v1/user/savings/steady`;
 export const createBackupGoals  = `/sfsbapi/v1/user/goals`;
 export const getTransactionsApi  = `/sfsbapi/v1/user/transactions`;
+export const filterTransactionsApi  = `/sfsbapi/v1/user/transactions/filter`;
 export const getEachTransApi  = `/sfsbapi/v1/user/transaction/each/`;
 export const ResetPasswordEndpoint  = `/sfsbapi/v1/auth/password/reset`;
 export const GetLockedSavingsInterest  = `sfsbapi/v1/get-locked-saving-interest`;

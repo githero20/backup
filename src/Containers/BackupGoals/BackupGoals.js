@@ -372,8 +372,7 @@ class BackupGoals extends Component {
                                                                         ) :
                                                                         <div className='text-center'>
                                                                             <i className='fa fa-5x fa-history'></i>
-                                                                            <p className='text-muted'>No BackUp Goal
-                                                                                History</p>
+                                                                            <p className='text-muted'>No Backup Goal History</p>
                                                                         </div>
 
                                                                 }
@@ -479,7 +478,7 @@ class BackupGoals extends Component {
 
                                                                         <i className='fa fa-5x fa-briefcase'></i>
                                                                         <h2 className='table-status mb-5 mb-md-0'>
-                                                                            No BackUp Goal</h2>
+                                                                            No Backup Goal</h2>
                                                                     </div>
                                                                 }
                                                             </div>

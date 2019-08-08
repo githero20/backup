@@ -75,7 +75,7 @@ const AuthController = component => {
                                             },
                                         },
                                         buttons: {
-                                            cancel: "no",
+                                            cancel: "Log Out",
                                             yes: "continue"
                                         }
                                     }).then((value) => {
@@ -115,7 +115,7 @@ const AuthController = component => {
                                                 }
                                             });
                                                 break;
-                                            case "no":
+                                            case null:
                                                 props.history.push(`/login`);
                                                 localStorage.removeItem(USERTOKEN);
                                                 localStorage.removeItem(USERINFO);

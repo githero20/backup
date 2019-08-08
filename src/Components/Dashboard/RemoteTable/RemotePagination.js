@@ -1,22 +1,19 @@
-import React, {Fragment, useState,useEffect} from 'react';
+import React, {Fragment, useState} from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, {PaginationListStandalone, PaginationProvider} from 'react-bootstrap-table2-paginator';
-import filterFactory,{Comparator} from "react-bootstrap-table2-filter";
+import filterFactory, {Comparator} from "react-bootstrap-table2-filter";
 import moment from "moment";
-import ToolkitProvider,{CSVExport} from "react-bootstrap-table2-toolkit";
+import {CSVExport} from "react-bootstrap-table2-toolkit";
+import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
+
 const {ExportCSVButton} = CSVExport;
 
-const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, columns,handleFilter}) => {
-    console.log('props', {handleFilter},data,columns);
-
+const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, columns, handleFilter, loadFilter}) => {
     const [tableSetting, setTableSetting] = useState({
         filter: false,
         date: moment().format('MM-DD-YYYY'),
         comparator: Comparator.LEQUAL
     });
-
-
-
 
     return (
         <Fragment>
@@ -70,10 +67,10 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                     <div
                                         className={'d-none d-md-flex justify-content-between flex-md-row ' +
                                         'align-items-center mb-1 mx-1 mx-md-2'}>
-                                        <div onClick={()=>{
+                                        <div onClick={() => {
                                             document.querySelector('.filter-icon').classList.toggle('active');
-                                            const data = {filter:!tableSetting.filter};
-                                            setTableSetting({...tableSetting,...data});
+                                            const data = {filter: !tableSetting.filter};
+                                            setTableSetting({...tableSetting, ...data});
                                             console.log(tableSetting);
                                         }}
                                              className="filter-icon table-sort-display d-block d-md-inline
@@ -89,9 +86,9 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                                     <select id="date-filter-comparator-InStock Date"
                                                             name='comparator'
                                                             className="date-filter-comparator form-control "
-                                                            onChange={(e)=>{
+                                                            onChange={(e) => {
                                                                 const data = {...tableSetting};
-                                                                data[e.target.name]=e.target.value;
+                                                                data[e.target.name] = e.target.value;
                                                                 setTableSetting(data);
                                                                 console.log(data);
                                                             }}
@@ -99,12 +96,12 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                                     >
                                                         <option>Date Filter</option>
                                                         <option value={Comparator.EQ}>Equal To</option>
-                                                        <option value={Comparator.NE}>Not Equal To</option>
+                                                        <option value='<>'>Not Equal To</option>
                                                         <option value={Comparator.GT}>Greater Than</option>
-                                                        <option value={Comparator.GEQUAL}>Greater Than or Equal
+                                                        <option value='>='>Greater Than or Equal
                                                         </option>
                                                         <option value={Comparator.LT}>Less Than</option>
-                                                        <option value={Comparator.LEQUAL}>Less Than or Equal
+                                                        <option value='<='>Less Than or Equal
                                                         </option>
                                                     </select>
                                                 </div>
@@ -113,9 +110,9 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                                     <input
                                                         id="date"
                                                         name="date"
-                                                        onChange={(e)=>{
+                                                        onChange={(e) => {
                                                             const data = {...tableSetting};
-                                                            data[e.target.name]=e.target.value;
+                                                            data[e.target.name] = e.target.value;
                                                             setTableSetting(data);
                                                             console.log(data);
                                                         }}
@@ -127,10 +124,15 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                             </div>
 
                                             <button className={'btn round mt-1 btn-custom-blue'}
-                                                    onClick={() =>{
+                                                    onClick={() => {
                                                         console.log('clicked filter');
-                                                        handleFilter(tableSetting.date, tableSetting.comparator)
-                                                    }}>Filter
+                                                        handleFilter(tableSetting.date, tableSetting.comparator, page)
+                                                    }}>
+                                                {
+                                                    loadFilter ?
+                                                        <ButtonLoader/>
+                                                        : 'Filter'
+                                                }
                                             </button>
 
                                         </div>
@@ -157,16 +159,16 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                     {/*>*/}
                                     {/*    {*/}
                                     {/*        props => (*/}
-                                                {/*<div>*/}
-                                                    {/*<ExportCSVButton { ...props.csvProps }>Export CSV!!</ExportCSVButton>*/}
-                                                    {/*<hr />*/}
-                                                    {/*<BootstrapTable { ...props.baseProps } />*/}
-                                                    {/*<PaginationListStandalone*/}
-                                                    {/*    {...props.paginationProps}*/}
-                                                    {/*/>*/}
-                                                {/*// </div>*/}
-                                        {/*//     )*/}
-                                        {/*// }*/}
+                                    {/*<div>*/}
+                                    {/*<ExportCSVButton { ...props.csvProps }>Export CSV!!</ExportCSVButton>*/}
+                                    {/*<hr />*/}
+                                    {/*<BootstrapTable { ...props.baseProps } />*/}
+                                    {/*<PaginationListStandalone*/}
+                                    {/*    {...props.paginationProps}*/}
+                                    {/*/>*/}
+                                    {/*// </div>*/}
+                                    {/*//     )*/}
+                                    {/*// }*/}
                                     {/*</ToolkitProvider>*/}
 
                                     <BootstrapTable
@@ -175,16 +177,16 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                         data={data}
                                         columns={columns}
                                         onTableChange={onTableChange}
-                                        filter={ filterFactory() }
+                                        filter={filterFactory()}
                                         {...props.paginationTableProps}
                                         classes={'spaced-table'}
-                                        noDataIndication={ () => (
+                                        noDataIndication={() => (
                                             <Fragment>
                                                 <div className='text-center my-5 text-secondary'>
                                                     <h3> No Transactions Yet !</h3>
                                                 </div>
                                             </Fragment>
-                                        ) }
+                                        )}
                                     />
                                     <div>
                                         <PaginationListStandalone

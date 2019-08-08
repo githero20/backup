@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
-import {getTransactionsApi} from "../../RouteLinks/RouteLinks";
+import {BASE_URL, filterTransactionsApi, getTransactionsApi} from "../../RouteLinks/RouteLinks";
 import {request} from "../../ApiUtils/ApiUtils";
 import {
     amountBalanceFormatter,
@@ -11,7 +11,6 @@ import {
     dateFormatter,
     descriptionFormatter,
     detailFormatter,
-    handleFiltering,
     statusFormatter,
     todaysDateForTable,
     toggleTable,
@@ -21,7 +20,8 @@ import {withToastManager} from 'react-toast-notifications';
 import TransactionReceipt from "../../Components/Dashboard/TransactionReceipt/TransactionReceipt";
 import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
 import RemotePagination from "../../Components/Dashboard/RemoteTable/RemotePagination";
-import {getPaginatedTrans} from "../../actions/TransactionActions";
+import {getFilteredTrans, getFitleredTrans, getPaginatedTrans} from "../../actions/TransactionActions";
+import moment from "moment";
 
 
 class Transactions extends Component {
@@ -29,6 +29,7 @@ class Transactions extends Component {
     state = {
         transactions: [],
         showLoader: true,
+        loadFilter: false,
         userName: null,
         selectedTransID: null,
         showTransDetail: false,
@@ -139,23 +140,45 @@ class Transactions extends Component {
         });
     };
 
-    handleFilter = (date, comparator) => {
-        handleFiltering(date, comparator, this);
+    handleFilter = (date, comparator, page) => {
+
+        // on filter click get the page
+        // get the page
+
+
+        // handleFiltering(date, comparator, this);
+        date = moment(date).format('YYYY-MM-DD');
+        console.log('filter params', date, comparator, page);
+        const filter = {date: date, operand: comparator};
+        this.setState({loadFilter: true,filter:filter});
+        getFilteredTrans(`${BASE_URL}${filterTransactionsApi}`, filter,
+            this.handlePaginatedData)
+
     };
 
+
     handleTableChange = (type, props) => {
-        getPaginatedTrans(`${this.state.transData.path}?page=${props.page}`,
-            this.handlePaginatedData)
+        if(this.state.transData.path.includes('filter')){
+            getFilteredTrans(`${this.state.transData.path}?page=${props.page}`,
+                this.state.filter,
+                this.handlePaginatedData)
+        }else {
+            getPaginatedTrans(`${this.state.transData.path}?page=${props.page}`,
+                this.handlePaginatedData)
+        }
+
     };
 
     handlePaginatedData = (status, res) => {
         console.log(status, res);
+        this.setState({loadFilter: false});
         if (status) {
             this.setState({
                 transData: {...this.state.transData, ...res}
             })
         }
     };
+
 
     render() {
 
@@ -371,6 +394,7 @@ class Transactions extends Component {
                                                     this.state.mobileTable ? (<RemotePagination
                                                             data={this.state.transData.data}
                                                             handleFilter={this.handleFilter}
+
                                                             columns={mobileColumns}
                                                             onTableChange={this.handleTableChange}
                                                             page={this.state.transData.current_page}
@@ -378,6 +402,7 @@ class Transactions extends Component {
                                                             totalSize={this.state.transData.total}
                                                         />) :
                                                         (<RemotePagination
+                                                            loadFilter={this.state.loadFilter}
                                                             data={this.state.transData.data}
                                                             handleFilter={this.handleFilter}
                                                             columns={columns}

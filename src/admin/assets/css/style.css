@@ -127,8 +127,8 @@ div.fixed-navbar {
 }
 .swal-footer{
     display: flex;
-    justify-content: space-around;
-    padding-bottom: 3rem;
+    justify-content: space-between;
+    padding: 1rem 4rem 3rem;
 }
 input[type=password]:not(.browser-default).swal-content__input{
     width: 80%;
@@ -4742,7 +4742,7 @@ input:-webkit-autofill:active {
     /*text-align: center;*/
     font-size: 14px;
     background: rgba(54, 123, 255, 1);
-    background: linear-gradient(270deg, rgba(23, 225, 255, 1) 0%, rgba(54, 123, 255, 1) 70%, rgba(54, 123, 255, 1) 100%);
+    /*background: linear-gradient(270deg, rgba(23, 225, 255, 1) 0%, rgba(54, 123, 255, 1) 70%, rgba(54, 123, 255, 1) 100%);*/
 }
 
 .withdrawal-modal .modal-header .close {

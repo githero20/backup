@@ -48,7 +48,7 @@ const RemotePagination = ({data, page, sizePerPage, onTableChange, totalSize, co
                                                   sort-icon">
                                             </div>
                                             <ExportCSVButton
-                                                className="btn-green d-none d-md-inline-block"  {...props.csvProps}>
+                                                className="btn-green d-none d-md-inline-block mr-2"  {...props.csvProps}>
                                                 Export CSV
                                             </ExportCSVButton>
                                         </div>

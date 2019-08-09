@@ -4803,8 +4803,11 @@ p {
     border-right: 10px solid #BEABFF;
 }
 
+/*.yellow-border-right {*/
+/*    border-right: 10px solid #FBDA72;*/
+/*}*/
 .yellow-border-right {
-    border-right: 10px solid #FBDA72;
+    border-right: 10px solid #f9cb3b;
 }
 
 .orange-border-right {
@@ -4845,21 +4848,56 @@ p {
     transform: translateX(5px);
 }
 
+/*.dash-card.blue-border-right .dash-btn:hover {*/
+/*    color: #F9F9F9;*/
+/*    background-color: #2567FF;*/
+/*}*/
+
+/*.dash-card.purple-border-right .dash-btn:hover {*/
+/*    color: #F9F9F9;*/
+/*    background-color: #BEABFF;*/
+/*}*/
+
+/*.dash-card.yellow-border-right .dash-btn:hover {*/
+/*    color: #F9F9F9;*/
+/*    background-color: #FBDA72;*/
+/*}*/
+
+/*.dash-card.orange-border-right .dash-btn:hover {*/
+/*    color: #F9F9F9;*/
+/*    background-color: #FFB658;*/
+/*}*/
+.dash-card.blue-border-right .dash-btn{
+    color: #F9F9F9;
+    background-color: #2567FF;
+}
 .dash-card.blue-border-right .dash-btn:hover {
     color: #F9F9F9;
     background-color: #2567FF;
 }
 
+.dash-card.purple-border-right .dash-btn {
+    color: #F9F9F9;
+    background-color: #BEABFF;
+}
 .dash-card.purple-border-right .dash-btn:hover {
     color: #F9F9F9;
     background-color: #BEABFF;
 }
 
+.dash-card.yellow-border-right .dash-btn {
+    color: #F9F9F9;
+    background-color: #f9cb3b;
+}
 .dash-card.yellow-border-right .dash-btn:hover {
     color: #F9F9F9;
-    background-color: #FBDA72;
+    background-color: #f9cb3b;
 }
 
+.dash-card.orange-border-right .dash-btn {
+    color: #F9F9F9;
+    background-color: #FFB658;
+}
 .dash-card.orange-border-right .dash-btn:hover {
     color: #F9F9F9;
     background-color: #FFB658;
@@ -5020,4 +5058,11 @@ input[type=date]::-webkit-inner-spin-button {
 
 .bGoal-blue{
     color:#1F75FF;
+}
+.back-up-goal-bg{
+    background: #FBDA72;
+}
+.locked-saving-bg{
+    background: #FBDA72;
+    /*box-shadow: 0px 5px 10px rgba(0,0,0,0.5);*/
 }

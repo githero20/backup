@@ -411,7 +411,7 @@ class BackupGoals extends Component {
                                                                             className=" right-btn-holder deep-blue-bg white "
                                                                             data-toggle="modal" data-target="#large">
                                                                         <img src={addSavingsIcon}/>
-                                                                        New Goals
+                                                                        New Goal
                                                                     </button>
                                                                 </h4>
                                                                 <ul className=" mb-0 locked-saving-display d-none d-md-inline-block">

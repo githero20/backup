@@ -28,7 +28,7 @@ import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import moment from 'moment';
-import {SESSION_INTERVAL, USERINFO, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
+import {SESSION_INTERVAL, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
 import {hideLoader, hideSupport, showHomeLoader, Support} from "../../Helpers/Helper";
 
 class Home extends Component {
@@ -59,16 +59,16 @@ class Home extends Component {
     checkUser = () => {
         let timeStamp = JSON.parse(localStorage.getItem(SESSION_INTERVAL));
         let user = JSON.parse(localStorage.getItem(USERTOKEN));
-        if ( timeStamp != null) {
+        if (timeStamp != null) {
             // get the session and compare the current time
             var diff = moment(timeStamp);
 
-            if(diff < moment().subtract(50,'minutes')||user==null){
+            if (diff < moment().subtract(50, 'minutes') || user == null) {
                 console.log('logged in a while ago');
                 this.setState({
                     isLoggedIn: false
                 })
-            }else if(diff > moment().subtract(50,'minutes') && user!=null){
+            } else if (diff > moment().subtract(50, 'minutes') && user != null) {
                 console.log(diff.fromNow());
                 this.setState({
                     isLoggedIn: true
@@ -88,7 +88,6 @@ class Home extends Component {
     componentDidMount() {
         this.checkUser();
         window.addEventListener('load', () => {
-            console.log('loaded');
             hideLoader();
             localStorage.setItem('hideLoader', true);
         });

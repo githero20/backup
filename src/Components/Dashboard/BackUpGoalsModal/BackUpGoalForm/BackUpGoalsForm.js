@@ -131,12 +131,6 @@ class BackUpGoalsForm extends Component {
                 loading: true,
             });
 
-            // if (parseInt(this.state.form.payment_auth) === 0) {
-            //     //initiate paystack
-            //     console.log('got here to initiate paystack');
-            //     this.initiatePayStack();
-            // }else {
-
             console.log(JSON.stringify(this.state.form));
             createBackUpGoal(this.state.form, (status, payload) => {
                 //remove loader
@@ -166,64 +160,6 @@ class BackUpGoalsForm extends Component {
         }
 
     };
-
-
-    //
-    // initiatePayStack = () => {
-    //
-    //     //send api
-    //     initTransaction({
-    //         amount: parseFloat(this.state.form.contribution),
-    //         source: 'quick',
-    //     }, (status, payload) => {
-    //         console.log("status", status, payload);
-    //         this.setState({loading: false});
-    //         if (status) {
-    //             const user = _getUser();
-    //             console.log(user);
-    //             _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
-    //         } else {
-    //             this.props.toastManager.add(payload, {
-    //                 appearance: "error",
-    //                 autoDismiss: true,
-    //                 autoDismissTimeout: 3000
-    //             })
-    //         }
-    //
-    //         this.props.onHide();
-    //     });
-    //
-    // }
-    //
-    //
-    // resolvePaystackResponse=(response)=>{
-    //     this.setState({
-    //         loading: false,
-    //     });
-    //     console.log("Paystack Response", response);
-    //     verifyTransaction({
-    //         ref: response.reference,
-    //         type: "instant"
-    //     },(status, payload) =>{
-    //         console.log("status", status, payload);
-    //         if(status){
-    //             this.props.toastManager.add("Card Added Successfully",{
-    //                 appearance:"success",
-    //                 autoDismiss:true,
-    //                 autoDismissTimeout:3000
-    //             });
-    //
-    //             this.filterUserCards();
-    //         }else{
-    //             this.props.toastManager.add("Unable to add card at this moment",{
-    //                 appearance:"error",
-    //                 autoDismiss:true,
-    //                 autoDismissTimeout:3000
-    //             })
-    //         }
-    //     })
-    //
-    // }
 
 
     handleGoalAmount(e) {
@@ -303,18 +239,7 @@ class BackUpGoalsForm extends Component {
     };
 
     componentDidMount() {
-
-        //get pay auths
-        //TODO(dont save card details to local storage, if you will be saving it, encrypt it)
-        // const userInfo = getLocalStorage(USERINFO);
-        // if (getLocalStorage(USERINFO) != undefined) {
-        //     this.setState({
-        //         userCards: userInfo.authorization.data
-        //     })
-        // }
         getCardsFromStorage(USERINFO,this);
-        initializeAmountInput();
-
     }
 
     render() {
@@ -434,13 +359,14 @@ class BackUpGoalsForm extends Component {
                             <Form.Control
                                 type="number" id="contribution"
                                 // className={'amount-input'}
-                                value={contribution} step={'5'} name="contribution"
+                                value={contribution != 0 ?Number(contribution).toFixed(2):contribution}
+                                step={'5'} name="contribution"
                                 onChange={this.changeHandler}/>
                             <Form.Text className="text-muted">
                                 Contribution range daily [ &#8358; 50 - &#8358; 25000]
-
                             </Form.Text>
                             {this.validator.message('contribution', contribution, 'required|numeric')}
+
                             {/*{this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
 
                         </Form.Group>
@@ -460,7 +386,7 @@ class BackUpGoalsForm extends Component {
                         </Form.Group>
 
                         <Form.Group as={Col}>
-                            <Form.Label>Maturity Date</Form.Label>
+                            <Form.Label>End Date</Form.Label>
                             <Form.Control
                                 type="date"
                                 name={'maturity_date'}
@@ -514,7 +440,7 @@ class BackUpGoalsForm extends Component {
                                 // className={'amount-input'}
                                 name={'goal_amount'}
                                 id={'goal_amount'}
-                                value={goal_amount}
+                                value={goal_amount != 0 ? Number(goal_amount).toFixed(2):goal_amount}
                                 onChange={this.handleGoalAmount}
                             />
                             {this.validator.message('Goal Amount', goal_amount, 'required|numeric')}

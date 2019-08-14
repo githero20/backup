@@ -67,9 +67,7 @@ class Transactions extends Component {
         this.setState({
             showLoader: false
         });
-        console.log('transaction data', res);
         if (state && res) {
-            console.log('trans arr', res.data.data.data);
             this.setState({
                 transactions: res.data.data.data,
                 transData: {...this.state.transData, ...res.data.data}
@@ -141,11 +139,8 @@ class Transactions extends Component {
     };
 
     handleFilter = (date, comparator, page) => {
-
         // on filter click get the page
         // get the page
-
-
         // handleFiltering(date, comparator, this);
         date = moment(date).format('YYYY-MM-DD');
         console.log('filter params', date, comparator, page);
@@ -170,13 +165,8 @@ class Transactions extends Component {
     };
 
     handlePaginatedData = (status, res) => {
-        console.log(status, res);
         this.setState({loadFilter: false});
-        if (status) {
-            this.setState({
-                transData: {...this.state.transData, ...res}
-            })
-        }
+        if (status) {this.setState({transData: {...this.state.transData, ...res}})}
     };
 
 

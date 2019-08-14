@@ -37,8 +37,6 @@ export function setupWithdrawal(payload, token, callback) {
     }
 
     return axios.post(`${BASE_URL}${registerBank}`,payload,header).then(res => {
-        console.log("rea", res);
-        console.log("rea", JSON.stringify(res));
         callback(true, res.data.data)
     })
         .catch(err => {

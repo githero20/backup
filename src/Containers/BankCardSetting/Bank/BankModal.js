@@ -20,7 +20,6 @@ class BankModal extends React.Component {
     }
     componentDidMount() {
         getListOfBanks((status, payload) =>{
-            console.log("res", status, payload);
             if(status){
                 this.setState({banks:payload});
             }else {

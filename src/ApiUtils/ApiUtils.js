@@ -24,13 +24,12 @@ export function api(url, params, token, method, callback) {
     }
     if (method) {
         return axios.post(url, params, header).then(res => {
-            // console.log("rea", res);
-            // console.log("rea", JSON.stringify(res));
             callback(true, res)
         })
             .catch(err =>{
                 console.log("rea", err);
-                callback(false, err.response)
+                if(err.response)callback(false,err.response);
+                callback(false, err);
             })
     }
 

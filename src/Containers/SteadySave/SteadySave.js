@@ -131,16 +131,10 @@ class SteadySave extends Component {
 
 
     handleSteadySave = (state, res) => {
-
-        console.log('res',state,res);
-        this.setState({
-            showLoader: false
-        });
+        this.setState({showLoader: false});
 
         if (state && res) {
-            this.setState({
-                transactions: res.data.data,
-            });
+            this.setState({transactions: res.data.data});
 
             const temp = res.data.data;
             if (temp && temp.length > 0) {
@@ -156,16 +150,14 @@ class SteadySave extends Component {
                 this.setState({steadySave});
             }
 
-        } else if(!state&&res){
+        } else if(!state && res){
             console.log('err',res);
         }
 
     };
 
     setupSteadySave = () => {
-        this.setState({
-            showLoader: true
-        });
+        this.setState({showLoader: true});
         request(getSteadySaveEndpoint, null, true, 'GET', this.handleSteadySave);
         // get data from localStorage
     };
@@ -180,11 +172,7 @@ class SteadySave extends Component {
 
         if (status) {
             //set name
-            if (data) {
-                this.setState({
-                    userName: data.data.data.name
-                });
-            }
+            if (data) {this.setState({userName: data.data.data.name});}
 
             //set account
             if (data.data.data.accounts) {
@@ -206,7 +194,6 @@ class SteadySave extends Component {
     convertSteadySave = (id) =>{
         convertUserSteadySave(id,(state,res)=>{
             if(state&&res){
-                console.log('res',res);
                 toastMessage('Steady Save Converted Successfully.','success',this);
                 this.setupSteadySave();
             }
@@ -352,9 +339,7 @@ class SteadySave extends Component {
                 formatExtraData: { trans: transactions},
                 events: {
                     onClick: (e, column, columnIndex, row) => {
-                        console.log('event',e.target);
                         if(e.target.name == 'convert-btn'){
-
                             swal('Are you sure', 'This will convert your steady save to the new steady save ' +
                                 'that runs automatically.You can edit your steady save once it is converted.', 'info', {
                                 buttons: {
@@ -453,7 +438,6 @@ class SteadySave extends Component {
                 formatExtraData: { trans: transactions},
                 events: {
                     onClick: (e, column, columnIndex, row) => {
-                        console.log('event',e.target);
                         if(e.target.name == 'convert-btn'){
 
                             swal('Are you sure', 'This will convert your steady save to the new steady save ' +

@@ -64,7 +64,6 @@ class LockedSavings extends Component {
     updateLockedSaving = () => {
         this.setState({showLoader: true});
         getLockedSavings((status, payload) => {
-            console.log("payload", status, payload);
             if (status) {
                 //TODO(work on making this merging this payload.data.to lockedSavings[])
                 this.setState({lockedSavings: payload, showLoader: false});

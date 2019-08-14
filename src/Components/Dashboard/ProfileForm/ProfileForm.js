@@ -89,7 +89,7 @@ class ProfileForm extends Component {
         return (
             <React.Fragment>
                 <div>
-                    <div className="form lock-form px-md-1 text-capitalize">
+                    <div className="form lock-form px-md-1 text-lowercase">
                         <div className="form-body">
                             <div>
                                 <div className="row mb-2">

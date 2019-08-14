@@ -188,7 +188,6 @@ class BGPayNowModal extends Component {
 
             //set timeout
         }
-        console.log("res", status, payload);
     };
 
 

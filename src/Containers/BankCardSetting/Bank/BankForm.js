@@ -14,13 +14,13 @@ class BankForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading:false,
+            loading: false,
             resolved: false,
             form: {
-                bank:"",
-                account_number:"",
+                bank: "",
+                account_number: "",
                 // account_number:"1234575785",
-                bank_code:"",
+                bank_code: "",
                 account_name: ""
             }
         };
@@ -31,56 +31,56 @@ class BankForm extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(e){
-        this.setState({resolved:false});
-        _handleFormChange(e.target.name,e, this)
+    handleChange(e) {
+        this.setState({resolved: false});
+        _handleFormChange(e.target.name, e, this)
     }
-    validateForm(e){
+
+    validateForm(e) {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             // this.props.toastManager("An Error Occured");
             // rerender to show messages for the first time
             this.forceUpdate();
-        }else{
-            this.setState({loading:true});
+        } else {
+            this.setState({loading: true});
             //send api
             const {form} = this.state;
             const bank = this.props.banks.find(bank => bank.code == form.bank_code);
             form.bank = `${bank.name}.${bank.code}`;
-            sendBankOTP(form,(status, payload) => {
-                this.setState({loading:false});
-                if(status){
+            sendBankOTP(form, (status, payload) => {
+                this.setState({loading: false});
+                if (status) {
                     this.props.showOtp(payload);
-                }else{
-                    if(payload.status==422){
-                        toastMessage(payload.data.data,'error',this);
+                } else {
+                    if (payload != null && payload.status == 422) {
+                        toastMessage(payload.data.data, 'error', this);
                     }
                 }
             });
         }
     };
 
-    resolveAccountNumber(e){
+    resolveAccountNumber(e) {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             this.forceUpdate();
-        }
-        else{
-            this.setState({loading:true});
+        } else {
+            this.setState({loading: true});
             //send api
             const {form} = this.state;
-            resolveBankName(form.account_number, form.bank_code,(status, payload) => {
-                if(status){
+            resolveBankName(form.account_number, form.bank_code, (status, payload) => {
+                if (status) {
                     let form = this.state.form;
                     form.account_name = payload.account_name;
-                    this.setState({loading:false, resolved:true, form});
-                }else{
-                    this.setState({loading:false});
-                    console.log('error',payload);
-                    if(payload.status==422){
-                        toastMessage(payload.data.message,'error',this);
+                    this.setState({loading: false, resolved: true, form});
+                } else {
+                    this.setState({loading: false});
+                    console.log('error', payload);
+                    if (payload != null && payload.status == 422) {
+                        toastMessage(payload.data.message, 'error', this);
                     }
                 }
             });
@@ -89,15 +89,15 @@ class BankForm extends Component {
 
 
     componentDidMount() {
-        console.log('props',this.props);
+        console.log('props', this.props);
     }
 
     render() {
 
-        const banksSelect = this.props.banks.map((bank,index) => {
-           return(
-               <option key={index} value={bank.code}>{bank.name}</option>
-           );
+        const banksSelect = this.props.banks.map((bank, index) => {
+            return (
+                <option key={index} value={bank.code}>{bank.name}</option>
+            );
         });
 
         return (
@@ -111,7 +111,7 @@ class BankForm extends Component {
                                 <option value={""}>Select Bank</option>
                                 {banksSelect}
                             </Form.Control>
-                            {this.validator.message("bank",this.state.form.bank_code,"required")}
+                            {this.validator.message("bank", this.state.form.bank_code, "required")}
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
@@ -123,7 +123,7 @@ class BankForm extends Component {
                                 onChange={this.handleChange}
                                 value={this.state.form.account_number}
                             />
-                            {this.validator.message("Account Number",this.state.form.account_number,"required|numeric|size:10")}
+                            {this.validator.message("Account Number", this.state.form.account_number, "required|numeric|size:10")}
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
@@ -151,7 +151,8 @@ class BankForm extends Component {
                             {
                                 !this.state.resolved
                                     ?
-                                    <button className={'round btn-custom-blue modal-btn px-1'} onClick={this.resolveAccountNumber} >
+                                    <button className={'round btn-custom-blue modal-btn px-1'}
+                                            onClick={this.resolveAccountNumber}>
                                         {this.state.loading ? <ButtonLoader/> : "Confirm"}
                                     </button>
                                     :
@@ -170,7 +171,6 @@ class BankForm extends Component {
         );
     }
 }
-
 
 
 // export default LoginWithToast;

@@ -10,7 +10,7 @@ import {resolveBankName, sendBankOTP} from "../../../actions/BankAction";
 import {initTransaction, verifyTransaction} from "../../../actions/CardAction";
 
 
-class BankForm extends Component {
+class CardForm extends Component {
 
     constructor(props) {
         super(props);
@@ -25,11 +25,6 @@ class BankForm extends Component {
         this.validateForm = this.validateForm.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-
-    //Create Form
-    //validate form
-    //save
-    //handle response
 
     handleChange(e){
         this.setState({resolved:false});
@@ -88,8 +83,7 @@ class BankForm extends Component {
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-between mt-2'}>
                         <div>
-                            <button onClick={this.props.onHide}
-                                    className='mr-1 round btn-outline-gray modal-btn'>Close</button>
+                            <button onClick={this.props.onHide} className='mr-1 round btn-outline-gray modal-btn'>Close</button>
                         </div>
                         <div className={'d-flex justify-content-end'}>
                             <button className={'round btn-custom-blue modal-btn '} type="submit">
@@ -106,7 +100,7 @@ class BankForm extends Component {
 }
 
 
-const FormWithToast = withToastManager(BankForm);
+const FormWithToast = withToastManager(CardForm);
 
 // export default LoginWithToast;
 export default FormWithToast;

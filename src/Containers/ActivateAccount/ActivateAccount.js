@@ -133,10 +133,6 @@ class ActivateAccount extends Component {
     }
 
 
-    componentDidMount() {
-
-        // console.log(localStorage.getItem('user'));
-    }
 
     render(){
 

@@ -96,9 +96,8 @@ class DashboardIndex extends Component {
     };
 
     handleFirstTimeLogin = (status, response) => {
-        console.log('res', status, response);
         if (status && response) {
-            console.log('res', response);
+            console.log('logged in for the first time');
         }
     };
 
@@ -239,7 +238,6 @@ class DashboardIndex extends Component {
         // const update = localStorage.getItem(KYC);
 
         isKycUpdated((state,res)=>{
-            console.log('res',state,res.is_kyc_updated);
             if(state&&res){
                 if(res==null||res.is_kyc_updated == 0){
                     if (data.accounts) {

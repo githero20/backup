@@ -99,7 +99,6 @@ class PhonePassResetForm extends Component {
         });
         //handle response
         if(state){
-            console.log(response);
             toastMessage(`${response.data.data}`,'success',this);
         }else{
             console.log('err',response);

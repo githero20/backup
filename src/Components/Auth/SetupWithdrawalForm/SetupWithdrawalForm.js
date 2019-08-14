@@ -81,12 +81,9 @@ class SetupWithdrawalForm extends Component {
         if (name == 'pin_one' || name == 'pin_two' || name == 'pin_three' || name == 'pin_four') {
 
             form.withdrawal_pin = form.pin_one + form.pin_two + form.pin_three + form.pin_four;
-            console.log('form pin', form.withdrawal_pin);
             this.setState({form});
             // console.log('withdrawal pin', form['withdrawal_pin']);
         }
-
-        console.log('length of pin ', form.withdrawal_pin.length);
         if (form.withdrawal_pin.length >= 4) {
             this.setState({
                 pinErr: false
@@ -94,8 +91,6 @@ class SetupWithdrawalForm extends Component {
         }
 
         if (form['bank_code'] != '' && form['account_number'].length === 10 && form['bank_name'] == '') {
-
-            console.log('got here', event.target.value.length);
             this.setState({
                 bankLoading: true
             });
@@ -117,11 +112,8 @@ class SetupWithdrawalForm extends Component {
 
         if (status) {
             let form = {...this.state.form};
-            console.log(res.data);
             form.account_name = form.bank_name = res.data.account_name;
             this.setState({form, showBank: true});
-            console.log('resolve bank data', res);
-
         } else {
             console.log('err', res);
         }
@@ -146,7 +138,6 @@ class SetupWithdrawalForm extends Component {
             setupWithdrawal(form, this.state.token, (status, payload) => {
                 this.setState({loading: false});
                 if (status) {
-                    console.log(payload);
                     localStorage.setItem(USERTOKEN, JSON.stringify(this.state.token));
                     // showHomeLoader();
                     // setTimeout(hideLoader,3000);

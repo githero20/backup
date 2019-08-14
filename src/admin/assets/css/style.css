@@ -1418,7 +1418,7 @@ textarea.form-control{
 .lock-form input.form-control, .lock-form select.form-control, .lock-form input.form-control::placeholder, .lock-form select.form-control::placeholder {
     color: #606060;
     font-size: 1.3rem;
-    text-transform: capitalize;
+    text-transform: lowercase;
 }
 
 
@@ -4832,7 +4832,7 @@ p {
 .dash-card .dash-btn {
     background-color: #F9F9F9;
     color: #2D2D2D;
-    padding: 5px 15px;
+    padding: 7px 15px;
     font-size:.8rem;
     border-radius: 2rem;
     margin: 10px 0px;

@@ -66,8 +66,6 @@ class HorizontalNav extends Component {
         } catch (e) {
             console.log(e);
         }
-
-        console.log('chat box',document.getElementById('tawkchat-minified-box'));
     }
 
     showMobileMenu = () => {

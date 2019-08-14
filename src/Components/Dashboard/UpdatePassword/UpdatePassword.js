@@ -171,8 +171,6 @@ class UpdatePassword extends Component {
             this.setState({
                 token,
                 email: data.email
-            }, () => {
-                console.log(this.state);
             })
         }
 

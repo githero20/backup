@@ -36,7 +36,6 @@ class BankCardSetting extends Component {
 
     getUserBanks() {
         getUserBanks((status, payload) => {
-            console.log(status, payload);
             if (status) {
                 this.setState({banks: payload});
             } else {
@@ -45,9 +44,9 @@ class BankCardSetting extends Component {
         })
     }
 
+
     getUserCards() {
         getUserCards((status, payload) => {
-            console.log("Cards", status, payload);
             if (status) {
                 this.setState({cards: payload});
             } else {
@@ -108,7 +107,6 @@ class BankCardSetting extends Component {
             ref: response.reference,
             type: "instant"
         }, (status, payload) => {
-            console.log("status", status, payload);
             if (status) {
 
                 this.toastMessage("Card Added Successfully", 'success');
@@ -137,7 +135,6 @@ class BankCardSetting extends Component {
         const randomGradient = ["gray-gradient", "blue-gradient"];
         const cards = this.state.cards.map((card, index) => {
             const grad = randomGradient[Math.floor(Math.random() * randomGradient.length)];
-            console.log("grad", Math.floor(Math.random() * randomGradient.length), grad);
             let cardType = masterCardImage;
             //TODO(get verve image)
             if (card.brand == "visa")

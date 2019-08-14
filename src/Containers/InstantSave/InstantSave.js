@@ -69,8 +69,6 @@ class InstantSave extends Component {
     };
 
     analyseInstantSaveInfo = (status, data) => {
-        console.log(this.props);
-        console.log('res', status, data);
         if (status) {
             //set name
             if (data) {

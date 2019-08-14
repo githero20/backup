@@ -339,7 +339,6 @@ class ActivationForm extends Component {
             })
         }
 
-        // console.log("Form", form);
     }
 
      getTodaysDate () {

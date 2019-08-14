@@ -25,7 +25,6 @@ class TransactionReceipt extends Component {
         this.setState({
             showLoader: false
         });
-        console.log('Each transactions', state, res);
         if (state && res) {
             this.setState({
                 selectedTrans: res.data.data

@@ -31,7 +31,6 @@ class BankOtpForm extends Component {
         this.setState({resendLoading:true});
         resendBankOTP({bankotp_id: this.state.form.bankotp_id},(status,payload) => {
             this.setState({resendLoading:false});
-            console.log(status, payload);
             if(status){
                 this.props.toastManager.add("OTP has been resent to your email",{
                     appearance:"success",

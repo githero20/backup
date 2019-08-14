@@ -88,7 +88,6 @@ class LoginForm extends Component {
 
     processLogin(state, response) {
         if (state) {
-
             if (response != undefined) {
                 //set session time
                 const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
@@ -116,16 +115,13 @@ class LoginForm extends Component {
                             });
                         }
                         break;
-
                     default:
                         break;
                 }
             }
 
         } else {
-
             this.setState({loading: false});
-
             if (response) {
                 console.log('login error', response);
                 if (response.status == 401) {
@@ -147,7 +143,8 @@ class LoginForm extends Component {
                         this.toastMessage(`${JSON.stringify(response.data.message)}`, 'error');
                     }
                 } else {
-                    this.toastMessage(`${JSON.stringify(response.data.message)}`, 'error');
+                    console.log('error response', JSON.stringify(response));
+                    this.toastMessage(`${response}`, 'error');
                 }
             }
         }

@@ -25,7 +25,6 @@ class ProfileSetting extends Component {
 
     setupProfile = (status,res) => {
         if(status){
-            console.log(res.data.data);
             this.setState({
                 userProfile:res.data.data,
                 showLoader:false

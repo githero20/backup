@@ -51,7 +51,6 @@ class EditBGForm extends Component {
     //validate form
     handleFrequencySelect(form, inverse = false){
         // console.log(form);
-        console.log(inverse);
         if(inverse){
             if(form.frequency == "daily"){
                 form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date,"days")) || 0;
@@ -140,14 +139,12 @@ class EditBGForm extends Component {
 
 
                 //TODO update backup Goals
-                console.log('formdata :'+JSON.stringify(this.state.form));
                 editBGoal(this.state.form.id, this.state.form,(status, payload) =>{
                     //remove loader
 
                     this.setState({
                         loading:false,
                     });
-                    console.log("Res", status, payload);
                     if(status){
                         console.log("here");
                         this.props.toastManager.add("Backup Goal Updated.", {
@@ -175,10 +172,7 @@ class EditBGForm extends Component {
     };
 
 
-    handleGoalAmount(e){
-        console.log(e,this.state);
-        this.changeHandler(e, true)
-    }
+    handleGoalAmount(e){this.changeHandler(e, true)}
     //Retrieves user inputs
     changeHandler(event, inverse = false){
        const form =  _handleFormChange(
@@ -188,7 +182,6 @@ class EditBGForm extends Component {
         );
 
         // console.log("megg", event.target.name, event.target.value);
-        console.log('got her to handle frequency change');
         this.handleFrequencySelect(form,inverse);
 
     };
@@ -198,13 +191,8 @@ class EditBGForm extends Component {
         //TODO(dont save card details to local storage, if you will be saving it, encrypt it)
         const userInfo = getLocalStorage(USERINFO);
         if (userInfo!=undefined) {
-            console.log(userInfo.authorization.data);
-            this.setState({
-                userCards: userInfo.authorization.data,
-            });
-
+            this.setState({userCards: userInfo.authorization.data});
             let formData = {...this.state.form} ;
-
             formData.title = this.props.selectedBG.title;
             formData.id = this.props.selectedBG.id;
             formData.payment_auth = this.props.selectedBG.gw_authorization_code;
@@ -237,7 +225,6 @@ class EditBGForm extends Component {
     render() {
         const {title, target_amount, start_date,frequency,gw_authorization_code, end_date,maturity_date, start_amount, hour_of_day, day_of_week, day_of_month} = this.state.form;
         // console.log('selected bg :'+JSON.stringify(this.props.selectedBG));
-        console.log(this.state);
         const showHour = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Hour of the day</Form.Label>

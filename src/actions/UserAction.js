@@ -110,12 +110,10 @@ export function getUserRole(token=null, callback) {
 }
 
 export const updateUserProfile = (payload, callback) =>{
-    console.log("body", payload);
     _axios.post(updateUserProfileEndpoint,payload,{
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {

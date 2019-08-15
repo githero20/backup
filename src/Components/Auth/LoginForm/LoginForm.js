@@ -142,9 +142,6 @@ class LoginForm extends Component {
                     } else {
                         this.toastMessage(`${JSON.stringify(response.data.message)}`, 'error');
                     }
-                } else {
-                    console.log('error response', JSON.stringify(response));
-                    this.toastMessage(`${response}`, 'error');
                 }
             }
         }

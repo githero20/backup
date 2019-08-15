@@ -197,7 +197,7 @@ class LockedSavingForm extends Component {
                         </Form.Group>
 
                         <Form.Group as={Col} sm={6} controlId="formGridEmail">
-                            <Form.Label>Maturity Date</Form.Label>
+                            <Form.Label>End Date</Form.Label>
                             <Form.Control
                                 onChange={this.handleDateInput}
                                 type="date"
@@ -210,9 +210,9 @@ class LockedSavingForm extends Component {
                                 value={this.state.form.end_date}
                             />
                             <Form.Text className="text-muted">
-                                Enter the maturity date when funds should be returned to your Backup Stash.
+                                Enter the end Date when funds should be returned to your Backup Stash.
                             </Form.Text>
-                            {this.validator.message("maturity date", this.state.form.end_date, "required")}
+                            {this.validator.message("end Date", this.state.form.end_date, "required")}
                         </Form.Group>
                     </Form.Row>
 
@@ -268,11 +268,11 @@ class LockedSavingForm extends Component {
                                     LOCK ₦
                                     <span>{formatNumber(this.state.form.amount)}</span> &nbsp; from my BackupCash
                                     savings immediately
-                                    and return it in full on the date I set in the "Maturity Date"
+                                    and return it in full on the date I set in the "End Date"
                                     above. This transaction is IRREVERSIBLE.
                                     <br/>
-                                    NB: Funds in "Locked Savings" cannot be accessed until maturity date.
-                                    Locked Funds will be sent back to your Backup Stash on maturity date.
+                                    NB: Funds in "Locked Savings" cannot be accessed until end Date.
+                                    Locked Funds will be sent back to your Backup Stash on end Date.
                                 </Form.Text>}/>
                             {this.validator.message("terms and condition", this.state.form.accepted, "accepted")}
 

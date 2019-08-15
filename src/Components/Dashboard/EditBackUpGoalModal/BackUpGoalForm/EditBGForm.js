@@ -60,7 +60,7 @@ class EditBGForm extends Component {
                     showHour: true,
                     form
                 });
-                //calculate the difference between the start date and the maturity date
+                //calculate the difference between the start date and the end Date
             }
             else if(form.frequency == "weekly"){
                 form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date,"weeks")) || 0;
@@ -89,7 +89,7 @@ class EditBGForm extends Component {
                     showHour: true,
                     form
                 });
-                //calculate the difference between the start date and the maturity date
+                //calculate the difference between the start date and the end Date
             }
             else if(form.frequency == "weekly"){
 
@@ -391,7 +391,7 @@ class EditBGForm extends Component {
                         {/*    {this.validator.message('credit card', gw_authorization_code, 'required|numeric')}*/}
                         {/*</Form.Group>*/}
                         <Form.Group as={Col} sm={12}>
-                            <Form.Label>Maturity Date</Form.Label>
+                            <Form.Label>End Date</Form.Label>
                             <Form.Control
                                 type="date"
                                 name={'maturity_date'}

@@ -50,6 +50,7 @@ html body .content.app-content
 html body .content .content-wrapper
 {
     padding: 2.2rem;
+    transition: all .5s ease-in-out;
 }
 html body .content .content-wrapper .content-header-title
 {
@@ -668,6 +669,7 @@ footer.footer-dark
 .main-menu.menu-dark .navigation > li > a
 {
     padding: 12px 30px 12px 18px;
+    transition: all .5s ease-in-out;
 }
 .main-menu.menu-dark .navigation > li > a .label
 {

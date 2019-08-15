@@ -21,6 +21,7 @@ import homeBGImg from "../../admin/app-assets/images/svg/header-bg.svg";
 import CommentImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../images/sfs.jpg";
+import sfsCredit from "../../admin/app-assets/images/SFS Credits@3x.png";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
 import {DashboardLink, FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
@@ -574,12 +575,12 @@ class Home extends Component {
                                                                              alt="aa"/></a>
 
                                                 </div>
-                                                {/*<div className="partner-img-container">*/}
-                                                {/*    <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}*/}
-                                                {/*       target='_blank'> <img className="partner-img-50 polaris"*/}
-                                                {/*                             src={polarisBank} alt="aa"/></a>*/}
+                                                <div className="partner-img-container">
+                                                    <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
+                                                       target='_blank'> <img className="partner-img-50 polaris"
+                                                                             src={sfsCredit} alt="sfs credit"/></a>
 
-                                                {/*</div>*/}
+                                                </div>
 
 
                                             </ReactOwlCarousel>

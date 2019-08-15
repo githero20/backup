@@ -59,7 +59,7 @@ class BackupGoalQuickActions extends React.Component {
                     showHour: true,
                     form
                 });
-                //calculate the difference between the start date and the maturity date
+                //calculate the difference between the start date and the end Date
             } else if (form.frequency == "weekly") {
                 form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date, "weeks")) || 0;
                 this.setState({
@@ -86,7 +86,7 @@ class BackupGoalQuickActions extends React.Component {
                     showHour: true,
                     form
                 });
-                //calculate the difference between the start date and the maturity date
+                //calculate the difference between the start date and the end Date
             } else if (form.frequency == "weekly") {
                 form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "weeks") * form.contribution) || 0;
                 this.setState({

@@ -43,10 +43,10 @@ class Withdrawal extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            showLoader: true,
-        });
-        if(nextProps.reload){
+        if(nextProps.reload == true){
+            this.setState({
+                showLoader: true,
+            });
             this.LoadWithdrawals();
         }
     }

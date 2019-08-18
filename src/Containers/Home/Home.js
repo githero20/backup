@@ -579,7 +579,6 @@ class Home extends Component {
                                                     <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
                                                        target='_blank'> <img className="partner-img-50 polaris"
                                                                              src={sfsCredit} alt="sfs credit"/></a>
-
                                                 </div>
 
 

@@ -615,9 +615,14 @@ class Home extends Component {
                                             <div className="contact-detail-placeholder text-center pt-md-5">
                                                 <p className="deep-blue-color pt-md-5 chat-title">Chat with us on
                                                     Whatsapp</p>
-                                                <div className="btn btn-whatsapp">+234
-                                                    818 545 4545
-                                                    <img alt={'pin icon'} src={whatsAppIcon} className="ml-md-2 w-20"/>
+                                                <div className="btn btn-whatsapp chat-whats-app">
+                                                    <a href="https://api.whatsapp.com/send?phone=18883699915"
+                                                       className='whatsapp-link'
+                                                       target='_blank'
+                                                    >
+                                                        <img alt={'pin icon'} src={whatsAppIcon} className="w-20"/>
+                                                    </a>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -628,14 +633,14 @@ class Home extends Component {
                                                 <div className="btn btn-whatsapp social-media">
                                                     <div className="footer-icon-list d-flex justify-content-between">
                                                     <span className="fa-stack fa-sm">
-                                                        <a href='http://www.facebook.com/sfsbackupcash' rel='noreferrer'
+                                                        <a href='https://www.facebook.com/BackUpCash/' rel='noreferrer'
                                                            target='_blank'>
                                                             <i className="fa fa-circle fa-stack-2x"></i>
                                                             <i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
                                                         </a>
                                                     </span>
                                                         <span className="fa-stack fa-sm">
-                                                        <a href='http://www.twitter.com/sfsbackupcash' rel='noreferrer'
+                                                        <a href='https://twitter.com/backupcash' rel='noreferrer'
                                                            target='_blank'>
                                                             <i className="fa fa-circle fa-stack-2x"></i>
                                                             <i className="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -643,7 +648,7 @@ class Home extends Component {
                                                     </span>
 
                                                         <span className="fa-stack fa-sm">
-                                                    <a href="http://www.instagram.com/sfsbackupcash" rel='noreferrer'
+                                                    <a href="https://www.instagram.com/mybackupcash/" rel='noreferrer'
                                                        target='_blank'>
                                                          <i className="fa fa-circle fa-stack-2x"></i>
                                                         <i className="fa fa-instagram fa-stack-1x fa-inverse"></i>

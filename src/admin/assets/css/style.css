@@ -5066,3 +5066,14 @@ input[type=date]::-webkit-inner-spin-button {
     background: #FBDA72;
     /*box-shadow: 0px 5px 10px rgba(0,0,0,0.5);*/
 }
+.whatsapp-link{
+    color: #0A3560;
+    transition: all .5s ease-in;
+}
+.whatsapp-link:hover{
+    color: #202041;
+}
+.whatsapp div.btn-whatsapp.chat-whats-app{
+    /*padding-top: 1.3rem ;*/
+    /*padding-bottom: 1.1rem ;*/
+}

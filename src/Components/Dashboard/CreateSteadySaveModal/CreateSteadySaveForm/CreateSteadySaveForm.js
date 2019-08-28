@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
-import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 import {
@@ -9,17 +8,12 @@ import {
     formatNumber,
     getCardsFromStorage,
     initializeAmountInput,
-    transformHour
+    validateSteadySaveAmount
 } from "../../../../Helpers/Helper";
-import {
-    continueSteadySave, createSteadySave,
-    pauseSteadySave,
-    stopSteadySave,
-    updateSteadySave
-} from "../../../../actions/SteadySaveAction";
+import {createSteadySave} from "../../../../actions/SteadySaveAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
-import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../../../utils";
+import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
@@ -28,14 +22,14 @@ import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
 class CreateSteadySaveForm extends Component {
 
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        console.log("props",props);
+        console.log("props", props);
         this.toastManager = this.props.toastManager;
         this.state = {
-            loading:false,
-            disableStartDate:false,
-            form:{
+            loading: false,
+            disableStartDate: false,
+            form: {
                 id: null,
                 contribution: null,
                 start_date: "N/A",
@@ -43,15 +37,15 @@ class CreateSteadySaveForm extends Component {
                 hour_of_day: 0,
                 payment_auth: null,
                 raw: null,
-                title:'steady save'
+                title: 'steady save'
             },
-            err:'',
+            err: '',
             showMonth: false,
             showDay: false,
             showHour: true,
-            userCards:[]
+            userCards: []
         };
-        console.log("start",this.state);
+        console.log("start", this.state);
         this.validator = new SimpleReactValidator();
         this.changeHandler = this.changeHandler.bind(this);
     }
@@ -66,20 +60,20 @@ class CreateSteadySaveForm extends Component {
         //         userCards: userInfo.authorization.data
         //     })
         // }
-        getCardsFromStorage(USERINFO,this);
+        getCardsFromStorage(USERINFO, this);
         initializeAmountInput();
     }
 
     validateStartDate() {
         const date = _calculateDateDifference(this.state.form.start_date);
-        if(date > 0){
-            this.setState({disableStartDate:true});
+        if (date > 0) {
+            this.setState({disableStartDate: true});
         }
     }
 
     //Retrieves user inputs
-    changeHandler(event){
-        const form =  _handleFormChange(
+    changeHandler(event) {
+        const form = _handleFormChange(
             event.target.name,
             event,
             this
@@ -89,17 +83,17 @@ class CreateSteadySaveForm extends Component {
         this.handleFrequencySelect(form);
 
     };
+
     //validate form
-    handleFrequencySelect(form){
-        if(form.frequency == "daily"){
+    handleFrequencySelect(form) {
+        if (form.frequency == "daily") {
             console.log('dailt');
             this.setState({
                 showMonth: false,
                 showDay: false,
                 showHour: true,
             });
-        }
-        else if(form.frequency == "weekly"){
+        } else if (form.frequency == "weekly") {
             console.log('weekly');
             // form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
             this.setState({
@@ -107,7 +101,7 @@ class CreateSteadySaveForm extends Component {
                 showDay: true,
                 showHour: true,
             });
-        }else if(form.frequency == "monthly"){
+        } else if (form.frequency == "monthly") {
             // form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
             this.setState({
                 showMonth: true,
@@ -119,126 +113,58 @@ class CreateSteadySaveForm extends Component {
     }
 
 
-
-    //
-    // initiatePayStack = () => {
-    //
-    //     //send api
-    //     console.log(this.state.form);
-    //     initTransaction({
-    //         amount: parseFloat(this.state.form.contribution),
-    //         source: 'quick',
-    //     }, (status, payload) => {
-    //         console.log("status", status, payload);
-    //         this.setState({loading: false});
-    //         if (status) {
-    //             const user = _getUser();
-    //             console.log(user);
-    //             _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
-    //         } else {
-    //             console.log(payload);
-    //             this.props.toastManager.add(payload, {
-    //                 appearance: "error",
-    //                 autoDismiss: true,
-    //                 autoDismissTimeout: 3000
-    //             })
-    //         }
-    //
-    //         this.props.onHide();
-    //     });
-    //
-    // }
-    //
-    //
-    // resolvePaystackResponse=(response)=>{
-    //     this.setState({
-    //         loading: false,
-    //     });
-    //     console.log("Paystack Response", response);
-    //     verifyTransaction({
-    //         ref: response.reference,
-    //         type: "instant"
-    //     },(status, payload) =>{
-    //         console.log("status", status, payload);
-    //         if(status){
-    //             this.props.toastManager.add("Card Added Successfully",{
-    //                 appearance:"success",
-    //                 autoDismiss:true,
-    //                 autoDismissTimeout:3000
-    //             });
-    //
-    //             this.filterUserCards();
-    //         }else{
-    //             this.props.toastManager.add("Unable to add card at this moment",{
-    //                 appearance:"error",
-    //                 autoDismiss:true,
-    //                 autoDismissTimeout:3000
-    //             })
-    //         }
-    //     })
-    //
-    // }
-
-
     //submit steady save form
     submitForm = (e) => {
-
+        const {contribution, frequency} = this.state.form;
         e.preventDefault();
         if (!this.validator.allValid()) {
-            console.log("hererererer",this,this.validator, this.validator.errorMessages);
+            console.log("hererererer", this, this.validator, this.validator.errorMessages);
             this.validator.showMessages();
             this.forceUpdate();
         } else {
+            const valid = validateSteadySaveAmount(contribution, frequency, this);
             console.log("here", this.state.form);
-            this.setState({loading:true});
+            if (valid) {
+                this.setState({loading: true});
 
-
-            // //if add bank is selected
-            // if (parseInt(this.state.form.payment_auth) === 0) {
-            //     //initiate paystack
-            //     console.log('got here to initiate paystack');
-            //     this.initiatePayStack();
-            //
-            // }else{
-
-                createSteadySave(this.state.form,(status, payload) => {
-                    this.setState({loading:false});
-                    if(!status){
-                        this.toastManager.add(JSON.stringify(payload),{
+                createSteadySave(this.state.form, (status, payload) => {
+                    this.setState({loading: false});
+                    if (!status) {
+                        this.toastManager.add(JSON.stringify(payload), {
                             appearance: "error",
-                            autoDismissTimeout:5000,
-                            autoDismiss:true
+                            autoDismissTimeout: 5000,
+                            autoDismiss: true
                         });
-                    }else{
-                        this.toastManager.add("New steady save created successfully",{
+                    } else {
+                        this.toastManager.add("New steady save created successfully", {
                             appearance: "success",
-                            autoDismissTimeout:3000,
-                            autoDismiss:true
+                            autoDismissTimeout: 3000,
+                            autoDismiss: true
                         });
                         console.log(payload);
-                        setTimeout(()=>{this.props.onHide()},2000);
+                        setTimeout(() => {
+                            this.props.onHide()
+                        }, 2000);
                         this.props.setupSteadySave();
                         //set timeout
                     }
                     console.log("res", status, payload);
                 })
-                // const id = this.props.id;
-                // request(`${EditSteadySave}${id}`, null, true, 'GET', this.handleResponse)
-            // }
+            }
         }
 
     };
 
-    textAmountHandler=(event)=>{
+    textAmountHandler = (event) => {
         let name = event.target.name;
         let value = event.target.value;
 
-        console.log(name,value);
+        console.log(name, value);
         // check if the value exist
-        if(value!==""){
-            if(parseFloat(value).toFixed(2) !== 0.00){
-                const rawValue = parseFloat(value.trim().replace(',','').replace('₦',''))
-                console.log(name,rawValue);
+        if (value !== "") {
+            if (parseFloat(value).toFixed(2) !== 0.00) {
+                const rawValue = parseFloat(value.trim().replace(',', '').replace('₦', ''))
+                console.log(name, rawValue);
                 let data = {...this.state.instantSaveInfo};
                 data[name] = rawValue;
                 this.setState({
@@ -246,7 +172,7 @@ class CreateSteadySaveForm extends Component {
                     err: ''
                 })
             }
-        }else {
+        } else {
             this.setState({
                 err: 'Please Input the Amount you want to Save'
             })
@@ -259,7 +185,8 @@ class CreateSteadySaveForm extends Component {
         const showHour = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Hour of the day</Form.Label>
-                <Form.Control as="select" defaultValue={this.state.form.hour_of_day} onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
+                <Form.Control as="select" defaultValue={this.state.form.hour_of_day} onChange={this.changeHandler}
+                              id="hour_of_day" name="hour_of_day">
                     <option value={'1'}>1:00 am</option>
                     <option value={'2'}>2:00 am</option>
                     <option value={'3'}>3:00 am</option>
@@ -353,7 +280,7 @@ class CreateSteadySaveForm extends Component {
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
                     <Form.Row>
-                        <Form.Group as={Col} sm={6} >
+                        <Form.Group as={Col} sm={6}>
                             <div className={'text-muted secondary-text'}>Contribution
                                 <span className='amount-display round float-right text-white px-1'>
                                     ₦ {formatNumber(Number(this.state.form.contribution).toFixed(2))}
@@ -371,15 +298,15 @@ class CreateSteadySaveForm extends Component {
                                 {this.validator.message('contribution', this.state.form.contribution, 'required|numeric')}
                             </React.Fragment>
                         </Form.Group>
-                        <Form.Group as={Col} sm={6} >
-                            <div className={'text-muted secondary-text'}>Card: </div>
+                        <Form.Group as={Col} sm={6}>
+                            <div className={'text-muted secondary-text'}>Card:</div>
                             <React.Fragment>
                                 <Form.Control
                                     as="select"
                                     onChange={this.changeHandler}
                                     defaultValue={this.state.form.payment_auth}
                                     name={'payment_auth'}>
-                                    <option value={''} >Select Card</option>
+                                    <option value={''}>Select Card</option>
                                     {
                                         this.state.userCards.map((data) => {
                                             if (data.channel == "card")
@@ -390,7 +317,9 @@ class CreateSteadySaveForm extends Component {
                                         })
                                     }
                                 </Form.Control>
-                                {this.state.userCards.length===0?<label className={'text-muted mt-1'}>You do not have a card click here  <Link to={BankCardLink}>Add Card</Link></label>:null}
+                                {this.state.userCards.length === 0 ?
+                                    <label className={'text-muted mt-1'}>You do not have a card click here <Link
+                                        to={BankCardLink}>Add Card</Link></label> : null}
                                 {this.validator.message('Debit Card', this.state.form.payment_auth, 'required|numeric')}
                             </React.Fragment>
                         </Form.Group>
@@ -413,29 +342,30 @@ class CreateSteadySaveForm extends Component {
                             </React.Fragment>
                         </Form.Group>
 
-                        <Form.Group as={Col} sm={6} >
+                        <Form.Group as={Col} sm={6}>
                             <div className={'text-muted secondary-text'}>Start Date</div>
                             <React.Fragment>
                                 <Form.Control type="date"
                                               onKeyDown={disableKey}
                                               onKeyUp={disableKey}
-                                              min={moment().add(1,'days').format("YYYY-MM-DD")}  defaultValue={this.state.form.start_date} name={'start_date'}
+                                              min={moment().add(1, 'days').format("YYYY-MM-DD")}
+                                              defaultValue={this.state.form.start_date} name={'start_date'}
                                               id={'start_date'}
                                               disabled={this.state.disableStartDate}
                                               onChange={this.changeHandler}/>
                                 {this.validator.message('start_date', this.state.form.start_date, 'required|string')}
                             </React.Fragment>
                         </Form.Group>
-                        {this.state.showHour ? showHour :null}
-                        {this.state.showDay ? showDay: null}
-                        {this.state.showMonth ? showMonth: null}
+                        {this.state.showHour ? showHour : null}
+                        {this.state.showDay ? showDay : null}
+                        {this.state.showMonth ? showMonth : null}
                     </Form.Row>
-
 
 
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
                         <div className={'d-flex justify-content-end'}>
-                            <button className={'round modal-btn btn-custom-blue '} disabled={this.state.loading} type="submit">
+                            <button className={'round modal-btn btn-custom-blue '} disabled={this.state.loading}
+                                    type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Start"}
                             </button>
                         </div>

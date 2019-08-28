@@ -2,7 +2,7 @@ import moment from "moment";
 import React, {Fragment} from "react";
 import {_isDateAfterToday} from "../utils";
 import {getLocalStorage, setLocalStorage} from "../ApiUtils/ApiUtils";
-import {USERINFO, USERTOKEN} from "../Components/Auth/HOC/authcontroller";
+import {AMOUNT_LIMITS, APP_FREQUENCY, USERINFO, USERTOKEN} from "../Components/Auth/HOC/authcontroller";
 import AutoNumeric from "autonumeric";
 import {getUserData} from "../actions/UserAction";
 import SimpleReactValidator from "simple-react-validator";
@@ -140,10 +140,10 @@ export function toggleTable(context) {
     window.addEventListener('resize', () => {
         context.setState({mobileTable: window.innerWidth <= 599})
     });
-    if(window.innerWidth<=559){
-        context.setState({ mobileTable:true})
-    }else{
-        context.setState({ mobileTable:false})
+    if (window.innerWidth <= 559) {
+        context.setState({mobileTable: true})
+    } else {
+        context.setState({mobileTable: false})
     }
 }
 
@@ -159,7 +159,7 @@ export function readURL(input, context) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            context.setState({ fileUpload: e.target.result });
+            context.setState({fileUpload: e.target.result});
         };
         reader.readAsDataURL(input.files[0]);
     }
@@ -574,7 +574,7 @@ export function sourceFormatter(cell, row) {
             </p>
         );
     }
-    console.log('trans',cell,row);
+    console.log('trans', cell, row);
     if (cell.data.name == WITHDRAWAL_SOURCE) {
         content = `${cell.data.name.replace(/_/g, ' ')}`;
         return sourceMarkup(content);
@@ -646,7 +646,7 @@ export function withdrawSourceFormatter(cell) {
 }
 
 export function amountFormatter(cell, row) {
-    console.log('trans data',cell,row);
+    console.log('trans data', cell, row);
     return (
         <p style={{minWidth: '100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
             {row.type === 'credit' ? '+' : '-'}
@@ -693,10 +693,10 @@ export function parseAndFormatNum(num) {
 
 export function moneyFormatter(cell, row) {
     console.log('row', row);
-        return (
-            <p style={{minWidth: '150px'}}
-               className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
-        )
+    return (
+        <p style={{minWidth: '150px'}}
+           className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+    )
 }
 
 export function contributionFormatter(cell, row) {
@@ -792,8 +792,10 @@ export function toastReloadMessage(status, context, callback) {
     const {toastManager} = context.props;
     const message = (
         <Fragment>
-            <span>Unable to retrieve data at the moment !! Click Here to </span>&nbsp;<a href='#' className='retry dark-link'
-                                                                   onClick={() => callback()}>Try Again</a>
+            <span>Unable to retrieve data at the moment !! Click Here to </span>&nbsp;<a href='#'
+                                                                                         className='retry dark-link'
+                                                                                         onClick={() => callback()}>Try
+            Again</a>
         </Fragment>
     );
     toastManager.add(message, {
@@ -851,20 +853,20 @@ export function viewFormatter(cell) {
     return <button className={'btn round btn-sm btn-blue-btn'}>View History</button>
 }
 
-export function actionFormatter(cell, row,rowIndex,{trans}) {
+export function actionFormatter(cell, row, rowIndex, {trans}) {
     const today = moment().format('MM-DD-YYYY');
     //get latest end date
-    let latestDate = moment(Math.max.apply(null, trans.map(function(content) {
-        if(content.end_date!=null){
-            console.log('end date ',content.end_date);
+    let latestDate = moment(Math.max.apply(null, trans.map(function (content) {
+        if (content.end_date != null) {
+            console.log('end date ', content.end_date);
             return new Date(content.end_date);
         }
     }))).format('MM-DD-YYYY');
 
     // if the latest date is past render convert steady save
-    if(latestDate < today && latestDate == moment(row.end_date).format('MM-DD-YYYY')){
+    if (latestDate < today && latestDate == moment(row.end_date).format('MM-DD-YYYY')) {
         return <button name='convert-btn' className={'btn btn-block round btn-sm btn-success'}>Convert</button>
-    }else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < today) {
+    } else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < today) {
         return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>
     } else if (row.end_date == null) {
         return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
@@ -1056,3 +1058,52 @@ export function validatePin(context = this) {
     }
     return true;
 }
+
+export function validateSteadySaveAmount(frequency, contribution, context) {
+    console.log('got to validate steady save');
+    if (frequency == APP_FREQUENCY.daily && Number(contribution) < AMOUNT_LIMITS.minSteadySaveDaily) {
+        toastMessage(`Thec mimimum amount for ${APP_FREQUENCY.daily} steady save is ₦ ${formatNumber(AMOUNT_LIMITS.minSteadySaveDaily)}`, 'error', context);
+        return false;
+    } else if (frequency == APP_FREQUENCY.monthly && Number(contribution) < AMOUNT_LIMITS.minSteadySaveMonthly) {
+        toastMessage(`The mimimum amount for ${APP_FREQUENCY.monthly} steady save is ₦ ${formatNumber(AMOUNT_LIMITS.minSteadySaveMonthly)}`, 'error', context);
+        return false;
+    } else if (frequency == APP_FREQUENCY.weekly && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalWeekly) {
+        toastMessage(`The mimimum amount for ${APP_FREQUENCY.weekly} steady save is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalWeekly)}`, 'error', context);
+        return false;
+    } else if (frequency == APP_FREQUENCY.daily && Number(contribution) > AMOUNT_LIMITS.maxSteadySaveDaily) {
+        toastMessage(`The maximum amount for ${APP_FREQUENCY.daily} steady save is ₦ ${formatNumber(AMOUNT_LIMITS.maxSteadySaveDaily)}`, 'error', context);
+        return false;
+    } else if (frequency == APP_FREQUENCY.monthly && Number(contribution) > AMOUNT_LIMITS.maxSteadySaveMonthly) {
+        toastMessage(`The maximum amount for ${APP_FREQUENCY.monthly} steady save is ₦ ${formatNumber(AMOUNT_LIMITS.maxSteadySaveMonthly)}`, 'error', context);
+        return false;
+    } else if (frequency == APP_FREQUENCY.weekly && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalWeekly) {
+        toastMessage(`The maximum amount for ${APP_FREQUENCY.weekly} steady save is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalWeekly)}`, 'error', context);
+        return false;
+    } else {
+        return true;
+    }
+}
+export function validateBackupGoalAmount(frequency, contribution, context) {
+    if (frequency == APP_FREQUENCY.daily && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalDaily) {
+        toastMessage(`The mimimum amount for ${APP_FREQUENCY.daily} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalDaily)}`, 'error', context);
+        return false;
+    } else if (frequency == APP_FREQUENCY.monthly && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalMonthly) {
+        toastMessage(`The mimimum amount for ${APP_FREQUENCY.monthly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalMonthly)}`, 'error', context);
+        return false;
+    } else if (frequency == APP_FREQUENCY.weekly && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalWeekly) {
+        toastMessage(`The mimimum amount for ${APP_FREQUENCY.weekly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalWeekly)}`, 'error', context);
+        return false;
+    } else if (frequency == APP_FREQUENCY.daily && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalDaily) {
+        toastMessage(`The maximum amount for ${APP_FREQUENCY.daily} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalDaily)}`, 'error', context);
+        return false;
+    } else if (frequency == APP_FREQUENCY.monthly && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalMonthly) {
+        toastMessage(`The maximum amount for ${APP_FREQUENCY.monthly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalMonthly)}`, 'error', context);
+        return false;
+    } else if (frequency == APP_FREQUENCY.weekly && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalWeekly) {
+        toastMessage(`The maximum amount for ${APP_FREQUENCY.weekly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalWeekly)}`, 'error', context);
+        return false;
+    }else {
+        return true;
+    }
+}
+

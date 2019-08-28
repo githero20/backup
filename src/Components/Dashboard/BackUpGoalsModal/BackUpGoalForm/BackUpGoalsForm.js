@@ -3,13 +3,12 @@ import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/Button";
 import SimpleReactValidator from "simple-react-validator";
-import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
 import {createBackUpGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {disableKey, formatNumber, getCardsFromStorage, initializeAmountInput} from "../../../../Helpers/Helper";
+import {disableKey, formatNumber, getCardsFromStorage, validateBackupGoalAmount} from "../../../../Helpers/Helper";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
@@ -118,44 +117,42 @@ class BackUpGoalsForm extends Component {
     }
 
     submitForm = (e) => {
+        const {frequency, contribution} = this.state.form;
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
-            console.log('error');
             // rerender to show messages for the first time
             this.forceUpdate();
         } else {
-            console.log('worked');
             //show loader
-            this.setState({
-                loading: true,
-            });
-
-            console.log(JSON.stringify(this.state.form));
-            createBackUpGoal(this.state.form, (status, payload) => {
-                //remove loader
-
+            const valid = validateBackupGoalAmount(frequency, contribution, this);
+            if (valid) {
                 this.setState({
-                    loading: false,
+                    loading: true,
                 });
-                console.log("Res", status, payload);
-                if (status) {
-                    console.log("here");
-                    this.props.toastManager.add("Backup Goal Saved.", {
-                        appearance: "success"
-                    });
-                    setTimeout(() => this.props.onHide(true), 2000);
-                } else {
-                    // console.log(payload, "Message", this.toastManager);
-                    this.props.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
-                        appearance: "error",
-                        autoDismiss: true,
-                        autoDismissTimeout: 5000
-                    });
-                }
-            });
+                createBackUpGoal(this.state.form, (status, payload) => {
+                    //remove loader
 
-            // }
+                    this.setState({
+                        loading: false,
+                    });
+                    console.log("Res", status, payload);
+                    if (status) {
+                        console.log("here");
+                        this.props.toastManager.add("Backup Goal Saved.", {
+                            appearance: "success"
+                        });
+                        setTimeout(() => this.props.onHide(true), 2000);
+                    } else {
+                        // console.log(payload, "Message", this.toastManager);
+                        this.props.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
+                            appearance: "error",
+                            autoDismiss: true,
+                            autoDismissTimeout: 5000
+                        });
+                    }
+                });
+            }
 
         }
 
@@ -239,7 +236,7 @@ class BackUpGoalsForm extends Component {
     };
 
     componentDidMount() {
-        getCardsFromStorage(USERINFO,this);
+        getCardsFromStorage(USERINFO, this);
     }
 
     render() {
@@ -359,7 +356,7 @@ class BackUpGoalsForm extends Component {
                             <Form.Control
                                 type="number" id="contribution"
                                 // className={'amount-input'}
-                                value={contribution != 0 ?Number(contribution).toFixed(2):contribution}
+                                value={contribution != 0 ? Number(contribution).toFixed(2) : contribution}
                                 step={'5'} name="contribution"
                                 onChange={this.changeHandler}/>
                             <Form.Text className="text-muted">
@@ -393,7 +390,7 @@ class BackUpGoalsForm extends Component {
                                 id={'maturity_date'}
                                 onKeyDown={disableKey}
                                 onKeyUp={disableKey}
-                                min={moment(start_date).add(1,'days').format('YYYY-MM-DD')}
+                                min={moment(start_date).add(1, 'days').format('YYYY-MM-DD')}
                                 value={maturity_date}
                                 onChange={this.changeHandler}/>
                             {this.validator.message('maturity_date', maturity_date, 'required|string')}
@@ -430,7 +427,7 @@ class BackUpGoalsForm extends Component {
                                     Card</Link></label> : null}
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label  className='d-block'>Goal Amount(NGN)
+                            <Form.Label className='d-block'>Goal Amount(NGN)
                                 <span className='amount-display round float-right text-white px-1'>
                                     ₦ {formatNumber(Number(goal_amount).toFixed(2))}
                                 </span>
@@ -440,7 +437,7 @@ class BackUpGoalsForm extends Component {
                                 // className={'amount-input'}
                                 name={'goal_amount'}
                                 id={'goal_amount'}
-                                value={goal_amount != 0 ? Number(goal_amount).toFixed(2):goal_amount}
+                                value={goal_amount != 0 ? Number(goal_amount).toFixed(2) : goal_amount}
                                 onChange={this.handleGoalAmount}
                             />
                             {this.validator.message('Goal Amount', goal_amount, 'required|numeric')}
@@ -466,7 +463,8 @@ class BackUpGoalsForm extends Component {
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
 
-                        <Button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading} type="submit">
+                        <Button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading}
+                                type="submit">
                             {this.state.loading ? <ButtonLoader/> :
                                 <span>Start </span>}
 

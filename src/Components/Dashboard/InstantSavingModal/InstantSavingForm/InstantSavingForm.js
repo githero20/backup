@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
 import SimpleReactValidator from "simple-react-validator";
-import {getLocalStorage, request} from "../../../../ApiUtils/ApiUtils";
+import {request} from "../../../../ApiUtils/ApiUtils";
 import {instantSaveEndpoint} from "../../../../RouteLinks/RouteLinks";
-import {USERINFO} from "../../../Auth/HOC/authcontroller";
+import {ADD_BANK, MIN_INSTANT_SAVE, USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {filterUserCards, formatNumber, getCardsFromStorage} from "../../../../Helpers/Helper";
+import {formatNumber, getCardsFromStorage, toastMessage} from "../../../../Helpers/Helper";
 import {getUserCards, initTransaction, verifyTransaction} from "../../../../actions/CardAction";
 import {_getUser, _payWithPaystack} from "../../../../utils";
 
@@ -121,21 +121,26 @@ class InstantSavingForm extends Component {
 
     //submit steady save form
     submitForm = (e) => {
+        const {form} = this.state;
         e.preventDefault();
         if (this.validator.allValid()) {
-            this.setState({
-                loading: true,
-                disableButton: true
-            });
-
-            //if add bank is selected
-            if (parseInt(this.state.form.payment_auth) === 0) {
-                //initiate paystack
-                this.initiatePayStack();
-
+            if (Number(form.amount) < MIN_INSTANT_SAVE) {
+                toastMessage('The minimum amount for an instant save is ₦500', 'error', this);
             } else {
-                request(instantSaveEndpoint, this.state.form, true, 'POST', this.HandleInstantSave);
+                this.setState({
+                    loading: true,
+                    disableButton: true
+                });
+
+                //if add bank is selected
+                if (parseInt(this.state.form.payment_auth) === ADD_BANK) {
+                    //initiate paystack
+                    this.initiatePayStack();
+                } else {
+                    request(instantSaveEndpoint, this.state.form, true, 'POST', this.HandleInstantSave);
+                }
             }
+
 
         } else {
 
@@ -153,17 +158,10 @@ class InstantSavingForm extends Component {
             loading: false,
             disableButton: false,
         });
-        const {toastManager} = this.props;
 
         if (state) {
             if (response.status === 200) {
-                toastManager.add(`${JSON.stringify('You have successfully created an Instant Save')}`, {
-                    appearance: 'success',
-                    autoDismiss: true,
-                    autoDismissTimeout: 3000,
-                });
-                // this.props.onHide();
-
+                toastMessage(`${JSON.stringify('You have successfully created an Instant Save')}`, 'success', this);
                 //hide modal
                 setTimeout(() => {
                     this.props.onHide(true);
@@ -172,15 +170,9 @@ class InstantSavingForm extends Component {
         } else {
             if (response) {
                 console.log(JSON.stringify(response));
-                toastManager.add(`${JSON.stringify(response.data.message)}`, {
-                    appearance: 'error',
-                    autoDismiss: true,
-                });
+                toastMessage(`${JSON.stringify(response.data.message)}`, 'error', this);
             }
-
         }
-
-
     };
 
 
@@ -246,7 +238,7 @@ class InstantSavingForm extends Component {
         //     });
         // }\
         // get cards from local storage
-        getCardsFromStorage(USERINFO,this);
+        getCardsFromStorage(USERINFO, this);
     }
 
 

@@ -22,12 +22,14 @@ import {
     formatNumber,
     INTEREST_ACCOUNT,
     STANDARD_ACCOUNT,
-    toastMessage, toastReloadMessage,
+    toastMessage,
+    toastReloadMessage,
     validateInputEntry
 } from "../../Helpers/Helper";
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom';
 import AddPinModal from "../../Components/Dashboard/AddPinModal/AddPinModal";
+import {MINIMUM_WITHDRAWAL} from "../../Components/Auth/HOC/authcontroller";
 
 class WithdrawalForm extends Component {
 
@@ -39,7 +41,7 @@ class WithdrawalForm extends Component {
             userBanks: [],
             hasPenalty: true,
             nextDate: "",
-            userBalance:'',
+            userBalance: '',
             stashBalance: '',
             penaltyFreeDay: false,
             userPin: false,
@@ -109,8 +111,8 @@ class WithdrawalForm extends Component {
                     }
                 });
             }
-        }else {
-            toastReloadMessage('error',this,this.getBalance);
+        } else {
+            toastReloadMessage('error', this, this.getBalance);
         }
     };
 
@@ -255,9 +257,9 @@ class WithdrawalForm extends Component {
     }
 
     onSubmit(e) {
+
+        const {form, stashBalance, penalty, userBalance} = this.state;
         e.preventDefault();
-
-
         if (!this.validator.allValid()) {
             //validate fields
             this.validator.showMessages();
@@ -265,8 +267,9 @@ class WithdrawalForm extends Component {
         } else if (this.state.form.withdrawal_pin.length != 4) {
             //validate pin
             this.setState({pinErr: true});
+        } else if (Number(form.withdraw_amount) < MINIMUM_WITHDRAWAL) {
+            toastMessage('The minimum amount you can withdraw is ₦500', 'error', this);
         } else {
-            const {form, stashBalance, penalty, userBalance} = this.state;
             //check if the user is withdrawing from back up stash or central vault and then check if their is enough balance
             if (form.source == CENTRAL_VAULT && form.penalty_from != '') {
                 //get penalty
@@ -277,9 +280,8 @@ class WithdrawalForm extends Component {
             } else {
                 toastMessage('Insufficient Balance', 'error', this);
             }
-
-
         }
+
     }
 
     handleBalance = () => {
@@ -320,21 +322,21 @@ class WithdrawalForm extends Component {
         }).then((value) => {
             switch (value) {
                 case "yes":
-                    swal("Processing Withdrawal....","success",{button:false});
+                    swal("Processing Withdrawal....", "success", {button: false});
                     this.initiateWithdrawal();
                     break;
                 case "no":
-                    swal("Withdrawal Cancelled",{button:false});
+                    swal("Withdrawal Cancelled", {button: false});
                     break;
                 default:
-                    swal("You Cancelled Your Withdrawal",{button:false});
+                    swal("You Cancelled Your Withdrawal", {button: false});
                     break;
             }
         });
 
     };
 
-    initiateWithdrawal = () =>{
+    initiateWithdrawal = () => {
         const {form} = this.state;
         this.setState({loading: true});
         makeWithdrawal(form, (status, payload) => {
@@ -346,7 +348,7 @@ class WithdrawalForm extends Component {
                     autoDismiss: true,
                     autoDismissTimeout: 5000
                 });
-                swal("Withdrawal successful","success",{button: false});
+                swal("Withdrawal successful", "success", {button: false});
                 const form = {
                     penalty_from: "central_vault",
                     withdraw_amount: "",
@@ -378,9 +380,6 @@ class WithdrawalForm extends Component {
 
     validateInput = (e) => {
         validateInputEntry(e);
-        // if (e.target.value.length > 0 && e.keyCode !== 46 && e.keyCode !== 8) {
-        //     e.preventDefault();
-        // }
     };
 
     render() {
@@ -398,11 +397,6 @@ class WithdrawalForm extends Component {
                         ) : null
 
                 }
-                {/*<AddPinModal*/}
-                {/*    show={this.state.showPinModal}*/}
-                {/*    // onHide={this.hidePinModal}*/}
-                {/*    hideForm={this.props.hideForm}*/}
-                {/*/>*/}
 
                 <WithdrawalSettingsModal show={this.state.showWithdrawalSetting} onHide={this.hideWithdrawalSettings}/>
                 <div className="col-lg-6">
@@ -422,7 +416,7 @@ class WithdrawalForm extends Component {
                                                     <div className='blue-banner round mb-3'>
                                                         <p>Your next free withdrawal Date is </p>
                                                         <strong>{
-                                                            this.state.penaltyFreeDay ? "Today" :(this.state.nextDate!=''?moment(this.state.nextDate).format('dddd, MMMM Do'):"Retrieving Date...")
+                                                            this.state.penaltyFreeDay ? "Today" : (this.state.nextDate != '' ? moment(this.state.nextDate).format('dddd, MMMM Do') : "Retrieving Date...")
                                                         }</strong>
                                                         <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
                                                         <ul>
@@ -457,14 +451,16 @@ class WithdrawalForm extends Component {
                                                                 <div className="col-12 mb-2 mb-md-0">
                                                                     <div className="media d-flex pb-2 pb-md-5">
                                                                         <div className="align-self-center">
-                                                                            <img className="blue-card-icon" src={totalBalanceIcon}/>
+                                                                            <img className="blue-card-icon"
+                                                                                 src={totalBalanceIcon}/>
                                                                         </div>
                                                                         <div className="media-body text-left pt-1 ">
                                                                             <h3 className=" ">
-                                                                                <strong className="blue-card-price fs-1-5 ml-1 mr-2">
-                                                                                   {this.state.userBalance!='' ?
-                                                                                    `₦ ${formatNumber(parseFloat(this.state.userBalance).toFixed(2))}` :
-                                                                                "Loading..."}
+                                                                                <strong
+                                                                                    className="blue-card-price fs-1-5 ml-1 mr-2">
+                                                                                    {this.state.userBalance != '' ?
+                                                                                        `₦ ${formatNumber(parseFloat(this.state.userBalance).toFixed(2))}` :
+                                                                                        "Loading..."}
                                                                                 </strong>
                                                                             </h3>
                                                                         </div>
@@ -482,13 +478,15 @@ class WithdrawalForm extends Component {
                                                                     <div className="col-12">
                                                                         <div className="media d-flex pb-2 pb-md-5">
                                                                             <div className="align-self-center">
-                                                                                <img className="blue-card-icon" src={totalBalanceIcon}/>
+                                                                                <img className="blue-card-icon"
+                                                                                     src={totalBalanceIcon}/>
                                                                             </div>
                                                                             <div className="media-body text-left pt-1 ">
                                                                                 <h3 className=" ">
-                                                                                    <strong className="blue-card-price fs-1-5 ml-1 mr-2">
-                                                                                        {this.state.stashBalance!='' ?
-                                                                                            `₦ ${formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}`:
+                                                                                    <strong
+                                                                                        className="blue-card-price fs-1-5 ml-1 mr-2">
+                                                                                        {this.state.stashBalance != '' ?
+                                                                                            `₦ ${formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}` :
                                                                                             "Loading..."
                                                                                         }
                                                                                     </strong>
@@ -509,7 +507,7 @@ class WithdrawalForm extends Component {
                                                         {/*<button className={'btn btn-withdraw round mb-2 '}>See withdrawal Days</button>*/}
                                                         <p className={'text-gray'}>Next free withdrawal day</p>
                                                         <h4 className={'text-black'}>{
-                                                            this.state.penaltyFreeDay ? "Today" :(this.state.nextDate!=''?moment(this.state.nextDate).format('dddd, MMMM Do'):"Retrieving Date...")
+                                                            this.state.penaltyFreeDay ? "Today" : (this.state.nextDate != '' ? moment(this.state.nextDate).format('dddd, MMMM Do') : "Retrieving Date...")
                                                         }</h4>
                                                     </div>
                                                 </div>
@@ -680,8 +678,8 @@ class WithdrawalForm extends Component {
                             <div className="media-body text-left pt-1 ">
                                 <h3 className=" ">
                                     <strong className="blue-card-price fs-1-5 ml-1 mr-2">
-                                        {this.state.stashBalance!='' ?
-                                            `₦ ${formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}`:
+                                        {this.state.stashBalance != '' ?
+                                            `₦ ${formatNumber(parseFloat(this.state.stashBalance).toFixed(2))}` :
                                             "Loading..."
                                         }
                                     </strong>
@@ -694,7 +692,7 @@ class WithdrawalForm extends Component {
                         <div className='banner round '>
                             <p>Your next free withdrawal Date is </p>
                             <strong>{
-                                this.state.penaltyFreeDay ? "Today" : (this.state.nextDate!=''?moment(this.state.nextDate).format('dddd, MMMM Do'):"Retrieving Date...")
+                                this.state.penaltyFreeDay ? "Today" : (this.state.nextDate != '' ? moment(this.state.nextDate).format('dddd, MMMM Do') : "Retrieving Date...")
                             }</strong>
                             <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
                             <ul>

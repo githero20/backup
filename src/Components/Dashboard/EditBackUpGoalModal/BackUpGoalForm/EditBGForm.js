@@ -6,10 +6,10 @@ import SimpleReactValidator from "simple-react-validator";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
-import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../../../utils";
-import {createBackUpGoal, editBGoal} from "../../../../actions/BackUpGoalsAction";
+import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
+import {editBGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {disableKey, formatNumber, getTodaysDate} from "../../../../Helpers/Helper";
+import {disableKey, formatNumber, validateBackupGoalAmount} from "../../../../Helpers/Helper";
 import moment from "moment";
 
 
@@ -33,13 +33,13 @@ class EditBGForm extends Component {
                 day_of_week: null,
                 day_of_month: null,
             },
-            dateDifference:0,
+            dateDifference: 0,
             userCards: [],
             showMonth: false,
             showDay: false,
             showHour: true,
-            loading:false,
-            disabled:true
+            loading: false,
+            disabled: true
 
         };
 
@@ -49,11 +49,11 @@ class EditBGForm extends Component {
     }
 
     //validate form
-    handleFrequencySelect(form, inverse = false){
+    handleFrequencySelect(form, inverse = false) {
         // console.log(form);
-        if(inverse){
-            if(form.frequency == "daily"){
-                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date,"days")) || 0;
+        if (inverse) {
+            if (form.frequency == "daily") {
+                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date, "days")) || 0;
                 this.setState({
                     showMonth: false,
                     showDay: false,
@@ -61,17 +61,16 @@ class EditBGForm extends Component {
                     form
                 });
                 //calculate the difference between the start date and the end Date
-            }
-            else if(form.frequency == "weekly"){
-                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date,"weeks")) || 0;
+            } else if (form.frequency == "weekly") {
+                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date, "weeks")) || 0;
                 this.setState({
                     showMonth: false,
                     showDay: true,
                     showHour: true,
                     form
                 });
-            }else if(form.frequency == "monthly"){
-                form.contribution = (form.goal_amount /_calculateDateDifference(form.start_date, form.maturity_date,"months")) || 0;
+            } else if (form.frequency == "monthly") {
+                form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date, "months")) || 0;
                 this.setState({
                     showMonth: true,
                     showDay: false,
@@ -79,9 +78,9 @@ class EditBGForm extends Component {
                     form
                 })
             }
-        }else{
-            if(form.frequency == "daily"){
-                form.goal_amount = form.target_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"days") * form.contribution) || 0;
+        } else {
+            if (form.frequency == "daily") {
+                form.goal_amount = form.target_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "days") * form.contribution) || 0;
 
                 this.setState({
                     showMonth: false,
@@ -90,10 +89,9 @@ class EditBGForm extends Component {
                     form
                 });
                 //calculate the difference between the start date and the end Date
-            }
-            else if(form.frequency == "weekly"){
+            } else if (form.frequency == "weekly") {
 
-                form.goal_amount = form.target_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
+                form.goal_amount = form.target_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "weeks") * form.contribution) || 0;
 
                 this.setState({
                     showMonth: false,
@@ -101,8 +99,8 @@ class EditBGForm extends Component {
                     showHour: true,
                     form
                 });
-            }else if(form.frequency == "monthly"){
-                form.goal_amount = form.target_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
+            } else if (form.frequency == "monthly") {
+                form.goal_amount = form.target_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "months") * form.contribution) || 0;
                 this.setState({
                     showMonth: true,
                     showDay: false,
@@ -111,13 +109,10 @@ class EditBGForm extends Component {
                 })
             }
         }
-
-
-        // console.log("Form", form);
     }
 
     submitForm = (e) => {
-
+        const {frequency, contribution} = this.state.form;
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
@@ -126,26 +121,18 @@ class EditBGForm extends Component {
             this.forceUpdate();
         } else {
             console.log('worked');
+            const valid = validateBackupGoalAmount(frequency, contribution, this);
             //show loader
-            this.setState({
-                loading:true,
-            });
-
-            // if (parseInt(this.state.form.payment_auth) === 0) {
-            //     //initiate paystack
-            //     console.log('got here to initiate paystack');
-            //     this.initiatePayStack();
-            // }else {
-
-
+            if (valid) {
+                this.setState({
+                    loading: true,
+                });
                 //TODO update backup Goals
-                editBGoal(this.state.form.id, this.state.form,(status, payload) =>{
-                    //remove loader
-
+                editBGoal(this.state.form.id, this.state.form, (status, payload) => {
                     this.setState({
-                        loading:false,
+                        loading: false,
                     });
-                    if(status){
+                    if (status) {
                         console.log("here");
                         this.props.toastManager.add("Backup Goal Updated.", {
                             appearance: "success"
@@ -155,8 +142,7 @@ class EditBGForm extends Component {
                             this.props.updateSelectedBG(payload);
                             this.props.fetchGoals();
                         }, 2000);
-                    }else{
-                        // console.log(payload, "Message", this.toastManager);
+                    } else {
                         this.props.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
                             appearance: "error",
                             autoDismiss: true,
@@ -164,25 +150,28 @@ class EditBGForm extends Component {
                         });
                     }
                 });
+            }
 
-            // }
 
         }
 
     };
 
 
-    handleGoalAmount(e){this.changeHandler(e, true)}
+    handleGoalAmount(e) {
+        this.changeHandler(e, true)
+    }
+
     //Retrieves user inputs
-    changeHandler(event, inverse = false){
-       const form =  _handleFormChange(
+    changeHandler(event, inverse = false) {
+        const form = _handleFormChange(
             event.target.name,
             event,
             this
         );
 
         // console.log("megg", event.target.name, event.target.value);
-        this.handleFrequencySelect(form,inverse);
+        this.handleFrequencySelect(form, inverse);
 
     };
 
@@ -190,9 +179,9 @@ class EditBGForm extends Component {
         //get pay auths
         //TODO(dont save card details to local storage, if you will be saving it, encrypt it)
         const userInfo = getLocalStorage(USERINFO);
-        if (userInfo!=undefined) {
+        if (userInfo != undefined) {
             this.setState({userCards: userInfo.authorization.data});
-            let formData = {...this.state.form} ;
+            let formData = {...this.state.form};
             formData.title = this.props.selectedBG.title;
             formData.id = this.props.selectedBG.id;
             formData.payment_auth = this.props.selectedBG.gw_authorization_code;
@@ -210,25 +199,26 @@ class EditBGForm extends Component {
             formData.day_of_month = this.props.selectedBG.day_of_month;
 
             this.setState({
-                form:formData
+                form: formData
             });
         }
     }
 
-    enableEdit = ()=>{
+    enableEdit = () => {
         this.setState({
-            disabled:false
+            disabled: false
         })
     };
 
 
     render() {
-        const {title, target_amount, start_date,frequency,gw_authorization_code, end_date,maturity_date, start_amount, hour_of_day, day_of_week, day_of_month} = this.state.form;
+        const {title, target_amount, start_date, frequency, gw_authorization_code, end_date, maturity_date, start_amount, hour_of_day, day_of_week, day_of_month} = this.state.form;
         // console.log('selected bg :'+JSON.stringify(this.props.selectedBG));
         const showHour = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Hour of the day</Form.Label>
-                <Form.Control as="select" value={hour_of_day!=null?hour_of_day:12} disabled={this.state.disabled} onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
+                <Form.Control as="select" value={hour_of_day != null ? hour_of_day : 12} disabled={this.state.disabled}
+                              onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
                     <option value={'1'}>1:00 am</option>
                     <option value={'2'}>2:00 am</option>
                     <option value={'3'}>3:00 am</option>
@@ -262,7 +252,8 @@ class EditBGForm extends Component {
         const showMonth = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Month</Form.Label>
-                <Form.Control as="select" value={day_of_month!=null?day_of_month:1} disabled={true} onChange={this.changeHandler} id="day_of_month" name={'day_of_month'}>
+                <Form.Control as="select" value={day_of_month != null ? day_of_month : 1} disabled={true}
+                              onChange={this.changeHandler} id="day_of_month" name={'day_of_month'}>
                     <option value={'1'}>1</option>
                     <option value={'2'}>2</option>
                     <option value={'3'}>3</option>
@@ -302,7 +293,7 @@ class EditBGForm extends Component {
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Week</Form.Label>
                 <Form.Control as="select"
-                              value={day_of_week!=null?day_of_week:1}
+                              value={day_of_week != null ? day_of_week : 1}
                               disabled={true}
                               onChange={this.changeHandler}
                               id="day_of_week" name="day_of_week"
@@ -417,7 +408,7 @@ class EditBGForm extends Component {
                                 type="number"
                                 name={'target_amount'}
                                 id={'number'}
-                                value={target_amount!==null?target_amount:0}
+                                value={target_amount !== null ? target_amount : 0}
                                 disabled={true}
                                 onChange={this.changeHandler}/>
                         </Form.Group>
@@ -435,18 +426,20 @@ class EditBGForm extends Component {
                         {/*</Form.Group>*/}
 
                         {/*{this.state.showHour ? showHour: null}*/}
-                        {this.state.showDay ? showDay: null}
-                        {this.state.showMonth ? showMonth: null}
+                        {this.state.showDay ? showDay : null}
+                        {this.state.showMonth ? showMonth : null}
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
 
                         {this.state.disabled ?
-                            <Button onClick={this.enableEdit} className={'round btn-custom-blue modal-btn'} type="button">
+                            <Button onClick={this.enableEdit} className={'round btn-custom-blue modal-btn'}
+                                    type="button">
                                 Edit
                             </Button> :
                             (
 
-                                <Button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading}  type="button"  onClick={this.submitForm}>
+                                <Button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading}
+                                        type="button" onClick={this.submitForm}>
                                     {this.state.loading ? <ButtonLoader/> :
                                         <span>Update Goal </span>
                                     }

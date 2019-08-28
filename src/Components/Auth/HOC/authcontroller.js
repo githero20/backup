@@ -10,6 +10,28 @@ export const USERTOKEN = "token";
 export const SESSION_INTERVAL = 'time-stamp';
 export const USERINFO = "user";
 export const USERWITHDRAWAL = "user-withdrawal";
+export const MINIMUM_WITHDRAWAL = 500;
+export const MIN_INSTANT_SAVE = 500;
+export const AMOUNT_LIMITS = {
+    minSteadySaveDaily:50,
+    maxSteadySaveDaily:50000,
+    minSteadySaveWeekly:800,
+    maxSteadySaveWeekly:200000,
+    minSteadySaveMonthly:5000,
+    maxSteadySaveMonthly:2000000,
+    minBackUpGoalDaily:50,
+    maxBackUpGoalDaily:50000,
+    minBackUpGoalWeekly:50,
+    maxBackUpGoalWeekly:200000,
+    minBackUpGoalMonthly:50,
+    maxBackUpGoalMonthly:2000000,
+};
+export const APP_FREQUENCY = {
+    daily:'daily',
+    weekly:'weekly',
+    monthly:'monthly'
+};
+export const ADD_BANK = 0;
 export const DASHBOARDINFO = "dashboard-info";
 export const USERACTIVATED = "activated";
 export const ACTIVATIONMESG = "activation-msg";

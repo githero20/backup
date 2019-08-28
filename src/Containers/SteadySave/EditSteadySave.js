@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
 import SimpleReactValidator from "simple-react-validator";
-import {getLocalStorage} from "../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../utils";
@@ -13,10 +12,10 @@ import moment from "moment";
 import {
     disableKey,
     formatNumber,
+    getCardsFromStorage,
     getToken,
-    filterUserCards,
     initializeAmountInput,
-    getCardsFromStorage
+    validateSteadySaveAmount
 } from "../../Helpers/Helper";
 import {Link} from 'react-router-dom';
 import {BankCardLink} from "../../RouteLinks/RouteLinks";
@@ -37,7 +36,7 @@ class SteadySaveForm extends Component {
             showDay: false,
             showHour: false,
             userCards: [],
-            addCard:false
+            addCard: false
         };
         console.log("Edit", this.state);
         this.validator = new SimpleReactValidator();
@@ -55,7 +54,7 @@ class SteadySaveForm extends Component {
         //     })
         // }
 
-        getCardsFromStorage(USERINFO,this);
+        getCardsFromStorage(USERINFO, this);
         initializeAmountInput();
     }
 
@@ -76,14 +75,14 @@ class SteadySaveForm extends Component {
 
         const name = event.target.name;
         const value = event.target.value;
-        console.log(name,value);
-        if(name =='payment_auth' && value=='add'){
+        console.log(name, value);
+        if (name == 'payment_auth' && value == 'add') {
             this.setState({
-                addCard:true
+                addCard: true
             })
-        }else {
+        } else {
             this.setState({
-                addCard:false
+                addCard: false
             })
         }
 
@@ -182,23 +181,16 @@ class SteadySaveForm extends Component {
 
     //submit steady save form
     submitForm = (e) => {
+        const {contribution, frequency} = this.state.form;
+        console.log(contribution,frequency,'steady saves');
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             this.forceUpdate();
         } else {
-            this.setState({loading: true});
-
-
-            //if add bank is selected
-            // if (parseInt(this.state.form.payment_auth) === 0) {
-            //     //initiate paystack
-            //     console.log('got here to initiate paystack');
-            //     this.initiatePayStack();
-            //
-            // } else {
-
-
+            const valid = validateSteadySaveAmount(frequency,contribution,  this);
+            if (valid) {
+                this.setState({loading: true});
                 //make sure user is authenticated
                 let token = getToken();
 
@@ -223,15 +215,9 @@ class SteadySaveForm extends Component {
                             this.props.setupSteadySave();
                             //set timeout
                         }
-                        console.log("res", status, payload);
                     })
                 });
-
-                // const id = this.props.id;
-                // request(`${EditSteadySave}${id}`, null, true, 'GET', this.handleResponse)
-
-            // }
-
+            }
 
         }
 
@@ -338,7 +324,8 @@ class SteadySaveForm extends Component {
                 <Form onSubmit={this.submitForm}>
                     <Form.Row>
                         <Form.Group as={Col} sm={6}>
-                            <div className={'text-muted secondary-text'}>Contribution <span className='amount-display round float-right text-white px-1'>
+                            <div className={'text-muted secondary-text'}>Contribution <span
+                                className='amount-display round float-right text-white px-1'>
                                     ₦ {formatNumber(Number(this.state.form.contribution).toFixed(2))}
                                     </span></div>
                             <React.Fragment>
@@ -363,11 +350,13 @@ class SteadySaveForm extends Component {
                                     <option value={''}>Select Card</option>
                                     <option value={'add'}>Add Card</option>
                                     {
-                                        this.state.userCards.map((data,index) => {
-                                            if (data.channel == "card"){
+                                        this.state.userCards.map((data, index) => {
+                                            if (data.channel == "card") {
 
                                                 return (
-                                                    <option value={data.id} key={data.id} selected={index===0?true:null}>{data.card_type}(**** ****
+                                                    <option value={data.id} key={data.id}
+                                                            selected={index === 0 ? true : null}>{data.card_type}(****
+                                                        ****
                                                         **** {data.last4})</option>
                                                 );
                                             }
@@ -378,7 +367,9 @@ class SteadySaveForm extends Component {
 
                                 {this.validator.message('Card', this.state.form.payment_auth, 'required|numeric')}
                             </React.Fragment>
-                            {this.state.addCard?<label className={'text-muted mt-1'}> click here to <Link to={BankCardLink}>Add Card</Link></label>:null}
+                            {this.state.addCard ?
+                                <label className={'text-muted mt-1'}> click here to <Link to={BankCardLink}>Add
+                                    Card</Link></label> : null}
 
                         </Form.Group>
                     </Form.Row>
@@ -422,7 +413,8 @@ class SteadySaveForm extends Component {
 
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
                         <div className={'d-flex justify-content-end'}>
-                            <button className={'round modal-btn btn-custom-blue '} disabled={this.state.loading} type="submit">
+                            <button className={'round modal-btn btn-custom-blue '} disabled={this.state.loading}
+                                    type="submit">
                                 {this.state.loading ? <ButtonLoader/> : "Update"}
                             </button>
                         </div>

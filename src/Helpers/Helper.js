@@ -266,10 +266,8 @@ export function getTotalSuccessful(transactions) {
 export function getSteadySaveData(transactions) {
     if (transactions) {
         if (transactions.length > 1) {
-            console.log('before filter', transactions);
             let data;
             data = transactions.filter((content) => (content.status == 'success' || content == 'failed'));
-            console.log('after filter', data);
             return data;
         }
     }
@@ -574,7 +572,6 @@ export function sourceFormatter(cell, row) {
             </p>
         );
     }
-    console.log('trans', cell, row);
     if (cell.data.name == WITHDRAWAL_SOURCE) {
         content = `${cell.data.name.replace(/_/g, ' ')}`;
         return sourceMarkup(content);
@@ -646,7 +643,6 @@ export function withdrawSourceFormatter(cell) {
 }
 
 export function amountFormatter(cell, row) {
-    console.log('trans data', cell, row);
     return (
         <p style={{minWidth: '100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
             {row.type === 'credit' ? '+' : '-'}
@@ -692,7 +688,6 @@ export function parseAndFormatNum(num) {
 }
 
 export function moneyFormatter(cell, row) {
-    console.log('row', row);
     return (
         <p style={{minWidth: '150px'}}
            className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
@@ -717,7 +712,6 @@ export function contributionFormatter(cell, row) {
         )
     } else {
 
-        console.log('row', row);
         return (
             <p style={{minWidth: '150px'}}
                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
@@ -806,12 +800,8 @@ export function toastReloadMessage(status, context, callback) {
     });
 }
 
-function sayHello() {
-    console.log('hello cutie');
-}
 
 export function calcPenalty(balance, penalty) {
-    console.log('cal penalty', balance, penalty);
     return Number(Number(balance).toFixed(2) * (Number(penalty).toFixed(2) / 100)).toFixed(2);
 }
 
@@ -858,7 +848,6 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
     //get latest end date
     let latestDate = moment(Math.max.apply(null, trans.map(function (content) {
         if (content.end_date != null) {
-            console.log('end date ', content.end_date);
             return new Date(content.end_date);
         }
     }))).format('MM-DD-YYYY');
@@ -975,11 +964,9 @@ export function Support() {
     Tawk_API = Tawk_API || {};
     Tawk_API.onBeforeLoad = function () {
         //place your code here
-        console.log('got here before load');
     };
 
     Tawk_API.onLoad = function () {
-        console.log('works on load');
         Tawk_API.hideWidget();
         window.showTawk = function () {
             var pages = ['', 'faq'];
@@ -1008,7 +995,6 @@ export function hideSupport() {
         //place your code here
     };
     Tawk_API.onLoad = function () {
-        console.log('works on load');
         Tawk_API.hideWidget();
     };
 }
@@ -1060,7 +1046,6 @@ export function validatePin(context = this) {
 }
 
 export function validateSteadySaveAmount(frequency, contribution, context) {
-    console.log('got to validate steady save');
     if (frequency == APP_FREQUENCY.daily && Number(contribution) < AMOUNT_LIMITS.minSteadySaveDaily) {
         toastMessage(`Thec mimimum amount for ${APP_FREQUENCY.daily} steady save is ₦ ${formatNumber(AMOUNT_LIMITS.minSteadySaveDaily)}`, 'error', context);
         return false;

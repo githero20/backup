@@ -83,6 +83,7 @@ class Home extends Component {
         if (localStorage.getItem('hideLoader') == null) {
             showHomeLoader()
         }
+        console.log = ()=>{};
     }
 
 

@@ -15,7 +15,6 @@ class LockedSavingForm extends Component {
 
     constructor(props) {
         super(props);
-        //TODO(get the user balance and set the max amount to that amount)
         const {toastManager} = this.props;
         this.toastManager = toastManager;
         this.state = {
@@ -40,7 +39,6 @@ class LockedSavingForm extends Component {
                 end_date: 'Plan End Date is required.',
                 amount: 'Amount is required',
             }
-
         });
 
         this.handleDateInput = this.handleDateInput.bind(this);
@@ -58,8 +56,6 @@ class LockedSavingForm extends Component {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
-            // this.props.toastManager("An Error Occured");
-            // rerender to show messages for the first time
             this.forceUpdate();
         } else {
             this.setState({loading: true});
@@ -101,7 +97,6 @@ class LockedSavingForm extends Component {
                 }
             });
         }
-        console.log(this.state.form);
     };
 
 
@@ -110,9 +105,6 @@ class LockedSavingForm extends Component {
         _handleFormChange("end_date", e, this);
         const endDate = e.target.value;
         const dateDifference = _calculateDateDifference(null, endDate);
-
-        // console.log("enddate", endDate, dateDifference);
-        console.log(dateDifference);
         getLockedInterestSavings({days: dateDifference}, this.handleLockedSavingsInterest);
         this.setState({dateDifference: dateDifference});
         //update after
@@ -139,8 +131,6 @@ class LockedSavingForm extends Component {
     }
 
     handleLockedSavingsInterest(status, data) {
-
-        console.log('sfsfdf locked', status, data);
         if (status) {
             let form = {...this.state.form};
             form.interest = data;
@@ -153,21 +143,12 @@ class LockedSavingForm extends Component {
             });
         }
 
-        // toastManager.add("Data");
-
     }
 
     handleAdminInterest(status, res) {
         console.log('interest', res);
-        if (status) {
-            let data = res;
-            console.log('adminInterest' + data);
-            // let form = {...this.state.form};
-            // form.adminInterest = JSON.parse(res.data.interest);
-            // this.setState({form});
-        }
+        if (status) console.log('adminInterest' + res)
 
-        // toastManager.add("Data");
 
     };
 
@@ -279,9 +260,10 @@ class LockedSavingForm extends Component {
                         </Form.Group>
                     </Form.Row>
                     <Form.Row className="d-flex justify-content-end  my-2">
-                            <button className="round btn-custom-blue modal-btn " disabled={this.state.loading} type="submit">
-                                {this.state.loading ? <ButtonLoader/> : "Start Saving"}
-                            </button>
+                        <button className="round btn-custom-blue modal-btn " disabled={this.state.loading}
+                                type="submit">
+                            {this.state.loading ? <ButtonLoader/> : "Start Saving"}
+                        </button>
                     </Form.Row>
 
                 </Form>
@@ -290,5 +272,4 @@ class LockedSavingForm extends Component {
     }
 }
 
-const LockedFormWithToast = withToastManager(LockedSavingForm);
-export default LockedFormWithToast;
+export default withToastManager(LockedSavingForm);

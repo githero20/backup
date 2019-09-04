@@ -73,8 +73,9 @@ class LockedSavingForm extends Component {
                         autoDismissTimeout: 3000,
                     });
                     setTimeout(() => {
+                        console.log('locked savings props', this.props);
                         this.props.onHide(true);
-                        this.props.updateLockedSaving();
+                        // this.props.updateLockedSaving();
                     }, 1500)
 
 
@@ -89,11 +90,8 @@ class LockedSavingForm extends Component {
                                 autoDismiss: true,
                                 autoDismissTimeout: 3000,
                             });
-
                         }
-
                     }
-
                 }
             });
         }
@@ -111,7 +109,6 @@ class LockedSavingForm extends Component {
     };
 
     handleAmountInput(e) {
-
         const value = e.target.value;
         if (value !== "" && parseFloat(value).toFixed(2) !== 0.00) {
             const rawValue = parseFloat(value.trim().replace(',', '').replace('₦', ''));
@@ -121,13 +118,9 @@ class LockedSavingForm extends Component {
             form.interestRate = ((form.interest / 100) * rawValue).toFixed(2);
             console.log('interest rate', form.interestRate);
             this.setState({form, err: ''});
-
         } else {
-            this.setState({
-                err: 'Please Input the Amount you want to Contribute'
-            })
+            this.setState({err: 'Please Input the Amount you want to Contribute'})
         }
-
     }
 
     handleLockedSavingsInterest(status, data) {
@@ -138,18 +131,13 @@ class LockedSavingForm extends Component {
             form.days = this.state.dateDifference;
             this.setState({form});
         } else {
-            this.toastManager.add("Unable to get Locked Savings Interest", {
-                appearance: 'error',
-            });
+            this.toastManager.add("Unable to get Locked Savings Interest", {appearance: 'error'});
         }
-
     }
 
     handleAdminInterest(status, res) {
         console.log('interest', res);
         if (status) console.log('adminInterest' + res)
-
-
     };
 
 

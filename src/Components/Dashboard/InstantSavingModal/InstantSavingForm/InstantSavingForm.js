@@ -140,10 +140,7 @@ class InstantSavingForm extends Component {
                     request(instantSaveEndpoint, this.state.form, true, 'POST', this.HandleInstantSave);
                 }
             }
-
-
         } else {
-
             this.validator.showMessages();
             // rerender to show messages for the first time
             this.forceUpdate();

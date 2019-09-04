@@ -16,7 +16,6 @@ import {
     BACKUP_GOALS_ACCOUNT,
     getCompletedGoals,
     INTEREST_ACCOUNT,
-    KYC,
     LOCKED_ACCOUNT,
     STANDARD_ACCOUNT
 } from "../../Helpers/Helper";
@@ -91,7 +90,7 @@ class DashboardIndex extends Component {
     };
 
     closeStartModal = () => {
-        this.setState({ showStartModal: false });
+        this.setState({showStartModal: false});
         storeFirstTimeLogin(this.handleFirstTimeLogin);
     };
 
@@ -115,31 +114,19 @@ class DashboardIndex extends Component {
     };
 
 
-    closeLSModal = () => {
+    closeLSModal = (status = false) => {
         this.setState({
-            showlockedSavingsModal: false
+            showlockedSavingsModal: false,
+            showLoader: true,
         });
+        console.log(status);
+        if (status) this.setupDashBoard();
     };
 
 
     adModalController = () => {
-        //TODO setup popup for first user login
-
         //when user logs in for the first time
         getFirstTimeUser(this.handleFirstTimeUSer);
-        // if (!localStorage.getItem(SHOWAD)) {
-        //     setLocalStorage(SHOWAD, 'show');
-        //     // show the add
-        //     this.setState({
-        //         showStartModal: true
-        //     })
-        //
-        // } else if (JSON.stringify(localStorage.getItem(SHOWAD)) !== 'show') {
-        //     this.setState({
-        //         showStartModal: false
-        //     })
-        //
-        // }
     };
 
     handleFirstTimeUSer = (status, response) => {
@@ -153,10 +140,7 @@ class DashboardIndex extends Component {
     async setupDashBoard() {
 
         //controls add display
-        const config = {
-            headers: _getHeader()
-        };
-
+        const config = {headers: _getHeader()};
         this.adModalController();
 
         try {
@@ -237,38 +221,22 @@ class DashboardIndex extends Component {
     showUpdateKYC = (data) => {
         // const update = localStorage.getItem(KYC);
 
-        isKycUpdated((state,res)=>{
-            if(state&&res){
-                if(res==null||res.is_kyc_updated == 0){
+        isKycUpdated((state, res) => {
+            if (state && res) {
+                if (res == null || res.is_kyc_updated == 0) {
                     if (data.accounts) {
                         // loop through data and set appropriate states
                         let accounts = data.accounts.data;
                         accounts.map((content, idx) => {
                             if (content.account_type_id === STANDARD_ACCOUNT) {
                                 if (parseFloat(content.balance).toFixed(2) >= 1000000) {
-                                    this.setState({ updateKyc: true });
+                                    this.setState({updateKyc: true});
                                 }
                             }
                         });
                     }
                 }
             }
-
-            // if (update == null) {
-            //     if (data.accounts) {
-            //         // loop through data and set appropriate states
-            //         let accounts = data.accounts.data;
-            //         accounts.map((content, idx) => {
-            //             if (content.account_type_id === STANDARD_ACCOUNT) {
-            //                 if (parseFloat(content.balance).toFixed(2) >= 1000000) {
-            //                     this.setState({
-            //                         updateKyc: true,
-            //                     });
-            //                 }
-            //             }
-            //         });
-            //     }
-            // }
         });
 
     };
@@ -279,7 +247,6 @@ class DashboardIndex extends Component {
     }
 
     componentDidMount() {
-
         let token = this.getToken();
         token.then(() => {
             this.setupDashBoard();

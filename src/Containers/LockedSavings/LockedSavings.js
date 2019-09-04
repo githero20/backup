@@ -97,6 +97,9 @@ class LockedSavings extends Component {
         this.setState({
             showLockedSavingsModal: false
         });
+        if(status){
+            this.updateLockedSaving();
+        }
     };
 
 
@@ -217,6 +220,7 @@ class LockedSavings extends Component {
                 <LockedSavingModal
                     show={this.state.showLockedSavingsModal}
                     onHide={this.closeLSModal}
+                    dashboard={false}
                     updateLockedSaving={this.updateLockedSaving}
                 />
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"

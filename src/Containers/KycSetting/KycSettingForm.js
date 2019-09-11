@@ -13,6 +13,7 @@ import {getUserData} from "../../actions/UserAction";
 import moment from "moment";
 import {disableKey, KYC, readURL} from "../../Helpers/Helper";
 import PreviewModal from "../../Components/Dashboard/PreviewModal/PreviewModal";
+import Footer from "../../Components/Dashboard/Footer/Footer";
 
 let formData = new FormData();
 
@@ -220,7 +221,7 @@ class KycSettingForm extends Component {
                         <div className="app-content content">
                             <div className="content-wrapper">
                                 {this.state.showLoader ? <DashboardLoader/> : null}
-                                <div className="row mb-4">
+                                <div className="row mb-4 d-none">
                                     <div className="col-12">
                                         {/* TODO Add Message box */}
                                         {/*<MessageBox/>*/}
@@ -677,6 +678,7 @@ class KycSettingForm extends Component {
                                     </div>
                                 </div>
                             </div>
+                            <Footer/>
                         </div>
                     </div>
                 </ToastProvider>

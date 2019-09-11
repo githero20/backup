@@ -15,8 +15,8 @@ import {
     handleFiltering,
     mobileDescFormatter,
     STANDARD_ACCOUNT,
-    statusFormatter, toastMessage,
-    toastReloadMessage,
+    statusFormatter,
+    toastMessage,
     todaysDateForTable,
     toggleTable
 } from "../../Helpers/Helper";
@@ -26,6 +26,7 @@ import DashboardLoader from "../../Components/Dashboard/DashboardLoader/Dashboar
 import {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
 import moment from "moment";
 import {withToastManager} from 'react-toast-notifications';
+import Footer from "../../Components/Dashboard/Footer/Footer";
 
 class InstantSave extends Component {
 
@@ -127,8 +128,8 @@ class InstantSave extends Component {
                 showLoader: false,
                 totalInstantSave: transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount || 0
             });
-        }else if(!state && res){
-            toastMessage('unable to get instant save transactions','error',this);
+        } else if (!state && res) {
+            toastMessage('unable to get instant save transactions', 'error', this);
             this.setState({showLoader: false});
         }
     };
@@ -153,7 +154,7 @@ class InstantSave extends Component {
                 // console.log('success', payload);
             }
 
-        }else {
+        } else {
             // toastMessage('Unable to get Instant saves at the moment','error',this);
             this.setState({showLoader: false});
         }
@@ -188,7 +189,7 @@ class InstantSave extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.reload){
+        if (nextProps.reload) {
             this.getInstantSaves();
         }
     }
@@ -317,10 +318,7 @@ class InstantSave extends Component {
                 <VerticalNav/>
                 <div className="app-content content ">
                     <div className="content-wrapper">
-
-                        {/* message baox*/}
-                        {/*<MessageBox/>*/}
-                        <div className="row mb-4">
+                        <div className="row mb-4 d-none">
                             <div className="col-12"></div>
                         </div>
                         {
@@ -382,7 +380,6 @@ class InstantSave extends Component {
                             </div>
 
                             <div className="row">
-                                {/*transaction table */}
                                 {
                                     this.state.mobileTable ?
                                         (
@@ -395,11 +392,10 @@ class InstantSave extends Component {
                                                               transactions={this.state.transactions} columns={columns}/>
                                         )
                                 }
-
                             </div>
-
                         </div>
                     </div>
+                    <Footer/>
                 </div>
             </div>
         );

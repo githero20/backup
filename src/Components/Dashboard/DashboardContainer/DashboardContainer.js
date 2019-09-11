@@ -19,6 +19,7 @@ import adImgTwo from '../../../admin/app-assets/images/svg/adone.svg';
 // import { dateFilter, Comparator } from 'react-bootstrap-table-next';
 import filterFactory, {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
 import moment from "moment";
+import Footer from "../Footer/Footer";
 
 
 class DashboardContainer extends Component {
@@ -309,6 +310,8 @@ class DashboardContainer extends Component {
                         </div>
 
                     </div>
+
+                    <Footer/>
                 </div>
 
             </React.Fragment>

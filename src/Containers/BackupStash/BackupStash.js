@@ -30,6 +30,7 @@ import TransferLockedSavingsModal
     from "../../Components/Dashboard/TransferLockedSavingsModal/TransferLockedSavingsModal";
 import TransferToCentralVaultModal
     from "../../Components/Dashboard/TransferToCentralVaultModal/TransferToCentralVaultModal";
+import Footer from "../../Components/Dashboard/Footer/Footer";
 
 class BackupStash extends Component {
 
@@ -351,6 +352,7 @@ class BackupStash extends Component {
 
                         </div>
                     </div>
+                    <Footer/>
                 </div>
             </div>
         );

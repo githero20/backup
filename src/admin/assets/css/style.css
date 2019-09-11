@@ -66,6 +66,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .fs-xs {
     font-size: 1.2rem;
 }
+.fs-0-7 {
+    font-size: 0.7rem;
+}
+.fs-1 {
+    font-size: 1rem;
+}
+.faded-black {
+    color: rgba(0,0,0,0.5);
+}
 
 .extra-digit {
     padding-top: .3rem;
@@ -79,6 +88,19 @@ div.fixed-navbar {
 }
 .page-item.active .page-link button {
     position: relative;
+}
+
+.a-instagram:hover{
+    color:  #517fa4;
+}
+.a-whatsapp:hover{
+    color: #4AC959;
+}
+.a-twitter:hover{
+    color: #55acee;
+}
+.a-facebook:hover{
+    color: #3b5998;
 }
 
 .loadingSpinner {
@@ -637,6 +659,9 @@ input[type="date"]::-webkit-clear-button {
     border-spacing: 0 .5rem;
     padding: 0rem 0rem;
     border: none;
+}
+.table th, .table td {
+    padding: .75rem 1.5rem;
 }
 
 .spaced-table th, .spaced-table td {

@@ -15,6 +15,7 @@ import {
     dateFormatter, toastReloadMessage, toggleTable,
     withdrawSourceFormatter
 } from "../../Helpers/Helper";
+import Footer from "../../Components/Dashboard/Footer/Footer";
 
 class Withdrawal extends Component {
 
@@ -275,7 +276,7 @@ class Withdrawal extends Component {
                                 </div>
                             </div>
                         </div>
-
+                        <Footer/>
                     </div>
                 </div>
             </React.Fragment>

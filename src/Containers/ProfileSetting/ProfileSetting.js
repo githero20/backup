@@ -11,6 +11,7 @@ import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {CentralVaultInterest, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
+import Footer from "../../Components/Dashboard/Footer/Footer";
 
 
 class ProfileSetting extends Component {
@@ -71,14 +72,14 @@ class ProfileSetting extends Component {
 
                     <div className="app-content content">
                         <div className="content-wrapper">
-                            <div className="row mb-4">
+                            <div className="row mb-4 d-none">
                                 <div className="col-12">
                                     {/* message box */}
                                     {/*<MessageBox/>   */}
                                 </div>
                             </div>
                             {this.state.showLoader ? <DashboardLoader/> : null}
-                            <div className="content-header row">
+                            <div className="content-header row ">
                             </div>
                             <div className="content-body">
                                 <div className="row">
@@ -104,6 +105,7 @@ class ProfileSetting extends Component {
 
                             </div>
                         </div>
+                        <Footer/>
                     </div>
                 </div>
             </React.Fragment>

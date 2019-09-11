@@ -26,6 +26,7 @@ import {request} from "../../ApiUtils/ApiUtils";
 import PayNowModal from "../../Components/Dashboard/PayNowModal/PayNowModal";
 import BGPayNowModal from "../../Components/Dashboard/BGPayNowModal/BGPayNowModal";
 import {getSteadySavHistory, getSteadySavTrans} from "../../actions/SteadySaveAction";
+import Footer from "../../Components/Dashboard/Footer/Footer";
 
 class BackupGoals extends Component {
 
@@ -495,6 +496,7 @@ class BackupGoals extends Component {
                                 }
 
                             </div>
+                            <Footer/>
                         </div>
                     </div>
             </React.Fragment>

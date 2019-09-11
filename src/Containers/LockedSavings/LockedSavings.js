@@ -18,6 +18,7 @@ import DashboardLoader from "../../Components/Dashboard/DashboardLoader/Dashboar
 import {getUserData} from "../../actions/UserAction";
 import LockedTransactionTable from "../../Components/Dashboard/LockedTransactionTable/LockedTransactionTable";
 import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
+import Footer from "../../Components/Dashboard/Footer/Footer";
 
 
 class LockedSavings extends Component {
@@ -279,6 +280,7 @@ class LockedSavings extends Component {
                                     </div>
                                 </div>
                             </div>
+                            <Footer/>
                         </div>
                     </div>
                 </div>

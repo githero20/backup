@@ -322,13 +322,10 @@ class DashboardIndex extends Component {
                         email={this.state.email}
                     />
                     {/*</ToastProvider>*/}
-
-
                     <StartNowModal
                         show={this.state.showStartModal}
                         onHide={this.closeStartModal}
                     />
-
                 </div>
             </React.Fragment>
         );

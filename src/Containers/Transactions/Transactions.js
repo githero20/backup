@@ -22,6 +22,7 @@ import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
 import RemotePagination from "../../Components/Dashboard/RemoteTable/RemotePagination";
 import {getFilteredTrans, getFitleredTrans, getPaginatedTrans} from "../../actions/TransactionActions";
 import moment from "moment";
+import Footer from "../../Components/Dashboard/Footer/Footer";
 
 
 class Transactions extends Component {
@@ -336,7 +337,7 @@ class Transactions extends Component {
                     <VerticalNav userName={this.state.userName}/>
                     <div className="app-content content">
                         <div className="content-wrapper">
-                            <div className="row mb-4">
+                            <div className="row mb-4 d-none">
                                 <div className="col-12">
                                 </div>
                             </div>
@@ -407,6 +408,7 @@ class Transactions extends Component {
                                     </React.Fragment>
                             }
                         </div>
+                        <Footer/>
                     </div>
                 </div>
             </React.Fragment>

@@ -11,6 +11,7 @@ import {getUserCards, verifyTransaction} from "../../actions/CardAction";
 import {withToastManager} from "react-toast-notifications";
 import {getUserData} from "../../actions/UserAction";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
+import Footer from "../../Components/Dashboard/Footer/Footer";
 
 class BankCardSetting extends Component {
 
@@ -178,7 +179,7 @@ class BankCardSetting extends Component {
                     <div className="app-content content">
                         <div className="content-wrapper">
                             {this.state.showLoader ? <DashboardLoader/> : null}
-                            <div className="row mb-4">
+                            <div className="row mb-4 d-none">
                                 <div className="col-12">
                                     {/*message box*/}
                                     {/*<MessageBox/>*/}
@@ -310,6 +311,7 @@ class BankCardSetting extends Component {
                                 </section>
                             </div>
                         </div>
+                        <Footer/>
                     </div>
                 </div>
             </React.Fragment>

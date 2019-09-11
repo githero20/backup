@@ -36,6 +36,7 @@ import SteadyAmountCard from "./SteadyAmountCard";
 import PayNowModal from "../../Components/Dashboard/PayNowModal/PayNowModal";
 import {ToastProvider,withToastManager} from 'react-toast-notifications';
 import swal from "sweetalert";
+import Footer from "../../Components/Dashboard/Footer/Footer";
 
 class SteadySave extends Component {
     constructor(props) {
@@ -589,7 +590,7 @@ class SteadySave extends Component {
                             <React.Fragment>
                                 <div className="app-content content">
                                     <div className="content-wrapper">
-                                        <div className="row mb-4">
+                                        <div className="row mb-4 d-none">
                                             <div className="col-12">
                                             </div>
                                         </div>
@@ -721,6 +722,7 @@ class SteadySave extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    <Footer/>
                                 </div>
                             </React.Fragment>
                         )
@@ -729,7 +731,7 @@ class SteadySave extends Component {
                         : (
                             <div className="app-content content">
                                 <div className="content-wrapper">
-                                    <div className="row mb-4">
+                                    <div className="row mb-4 d-none">
                                         <div className="col-12">
                                             {/*<MessageBox/>*/}
                                         </div>
@@ -813,6 +815,7 @@ class SteadySave extends Component {
                                         </div>
                                     </div>
                                 </div>
+                                <Footer/>
                             </div>
                         )
                     }

@@ -587,6 +587,7 @@ export function sourceFormatter(cell, row) {
 
 export function transSourceFormatter(cell, row) {
     let content;
+    console.log('cell',cell,row);
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
         return (
             <p style={{minWidth: '140px'}}
@@ -617,7 +618,7 @@ export function transSourceFormatter(cell, row) {
         );
     }
     if (cell.name == WITHDRAWAL_SOURCE) {
-        content = `${cell.data.name.replace(/_/g, ' ')}`;
+        content = `${cell.name.replace(/_/g, ' ')}`;
         return sourceMarkup(content);
     }
     if (cell.name == STEADY_SAVE) {

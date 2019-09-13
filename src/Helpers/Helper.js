@@ -587,7 +587,6 @@ export function sourceFormatter(cell, row) {
 
 export function transSourceFormatter(cell, row) {
     let content;
-    console.log('cell',cell,row);
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
         return (
             <p style={{minWidth: '140px'}}

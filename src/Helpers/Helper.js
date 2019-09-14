@@ -587,10 +587,11 @@ export function sourceFormatter(cell, row) {
 
 export function transSourceFormatter(cell, row) {
     let content;
+    console.log('cell o',cell,row);
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
         return (
             <p style={{minWidth: '140px'}}
-               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+               className={'text-secondary text-capitalize'}>{cell.name.replace(/_/g, ' ')}<br/>
                 <small className='text-muted'>(Interest on backup goals)</small>
             </p>
         );
@@ -600,7 +601,7 @@ export function transSourceFormatter(cell, row) {
     if (row.gw_authorization_code.includes(MATURED_LOCKED_SAVINGS)) {
         return (
             <p style={{minWidth: '140px'}}
-               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+               className={'text-secondary text-capitalize'}>{cell.name.replace(/_/g, ' ')}<br/>
                 <small className='text-muted'>(Matured locked savings)</small>
             </p>
         );
@@ -611,7 +612,7 @@ export function transSourceFormatter(cell, row) {
     if (row.gw_authorization_code.includes(INTEREST_ON_VAULT)) {
         return (
             <p style={{minWidth: '140px'}}
-               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+               className={'text-secondary text-capitalize'}>{cell.name.replace(/_/g, ' ')}<br/>
                 <small className='text-muted'>(Interest on central vault)</small>
             </p>
         );
@@ -836,7 +837,6 @@ export function amountInterestFormatter(cell, row) {
                    className='text-muted'> {moment(row.start_date).format('Do MMM YY')} - {moment(row.end_date).format('Do MMM YY')}</small>
         </div>
     )
-
 }
 
 export function viewFormatter(cell) {
@@ -1068,6 +1068,7 @@ export function validateSteadySaveAmount(frequency, contribution, context) {
         return true;
     }
 }
+
 export function validateBackupGoalAmount(frequency, contribution, context) {
     if (frequency == APP_FREQUENCY.daily && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalDaily) {
         toastMessage(`The mimimum amount for ${APP_FREQUENCY.daily} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalDaily)}`, 'error', context);
@@ -1087,7 +1088,7 @@ export function validateBackupGoalAmount(frequency, contribution, context) {
     } else if (frequency == APP_FREQUENCY.weekly && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalWeekly) {
         toastMessage(`The maximum amount for ${APP_FREQUENCY.weekly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalWeekly)}`, 'error', context);
         return false;
-    }else {
+    } else {
         return true;
     }
 }

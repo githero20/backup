@@ -148,7 +148,7 @@ class ResetPasswordForm extends Component {
                         <div className="col-12">
                             <div className="form-group">
                                 <label htmlFor="email" className="">Email Address</label>
-                                <input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="form-control text-capitalize" />
+                                <input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="form-control" />
                                 {this.validator.message('email', email, 'required|email')}
                             </div>
 
@@ -158,7 +158,7 @@ class ResetPasswordForm extends Component {
                         <div className="col-12">
                             <div className="form-group">
                                 <label htmlFor="password" className="">New Password</label>
-                                <input id="password" name={'password'}  onChange={this.changeHandler} type="password" className="form-control text-capitalize" />
+                                <input id="password" name={'password'}  onChange={this.changeHandler} type="password" className="form-control" />
                                 {this.validator.message('password', password, 'required|string|min:8|password')}
                             </div>
                         </div>
@@ -168,7 +168,7 @@ class ResetPasswordForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="password_confirmation">Confirm New Password</label>
                                 <input id="password_confirmation" name={'password_confirmation'} type="password"
-                                       className="form-control text-capitalize" onChange={this.changeHandler}
+                                       className="form-control" onChange={this.changeHandler}
                                        onBlur={this.validatePasswords}/>
 
                             </div>

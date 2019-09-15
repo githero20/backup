@@ -19,7 +19,7 @@ import {
     addWithdrawalLink,
     BackupGoalsLink,
     BackupStashLink,
-    BankCardLink,
+    BankCardLink, botCreatePasswordLink,
     DashboardLink,
     EmailActivationLink,
     FaqLink,
@@ -96,6 +96,8 @@ class AppRouter extends Component {
                                                 <Route path={InviteLink} component={SignUp}/>
                                                 <Route path={ActivateAccountLink} component={ActivateAccount}/>
                                                 <Route path={ForgotPasswordLink} component={ForgotPassword}/>
+
+                                                <Route path={botCreatePasswordLink}  render={props => <ForgotPassword bot={true} {...props} />} />
                                                 <Route path={ResetPasswordLink} component={ResetPassword}/>
                                                 <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
                                                 <Route path={FaqLink} component={Faq}/>

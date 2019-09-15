@@ -129,7 +129,7 @@ class ForgotPasswordForm extends Component {
                     <div className="row">
                         <div className="col-12">
                             {/*provide breadcrumb to go back*/}
-                            <h5 className="form-header-purple mb-1">Forgot Password</h5>
+                            <h5 className="form-header-purple mb-1">{this.props.text}</h5>
                             {/*<p className='mb-1'>Get a password reset</p>*/}
                         </div>
                         <div className="col-12">
@@ -143,12 +143,12 @@ class ForgotPasswordForm extends Component {
                         </div>
 
                         <div className="col-12">
-                            <div
-                                className="d-flex flex-column flex-md-row justify-content-end align-items-center">
+                            <div className="d-flex flex-column flex-md-row justify-content-end align-items-center">
                                 <button type={'button'} disabled={this.state.loading} onClick={this.submitForm}
                                         className="btn btn-round blue-round-btn auth-btn "
                                         name="action">{this.state.loading ? <ButtonLoader/> :
-                                    <span>Submit <img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
+                                    <span>Submit <img alt="" className="img-2x ml-1" src={signInIcon}/>
+                                    </span>}
                                 </button>
                             </div>
                         </div>

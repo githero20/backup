@@ -11,6 +11,8 @@ class ForgotPassword extends Component {
     state = {
         PhoneResetForm: false,
         phone:'',
+        forgotPasswordText:'Forgot password',
+
     };
 
 
@@ -32,6 +34,15 @@ class ForgotPassword extends Component {
         })
     };
 
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.bot){
+            this.setState({
+                forgotPasswordText:'Create Password'
+            })
+        }
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -42,14 +53,21 @@ class ForgotPassword extends Component {
                             <div className=" col-md-5 offset-md-6">
                                 {/*   header component */}
                                 <div className=" py-md-1 px-md-1  header-shadow mt-2 mb-md-5 bg-white">
-                                    <Link to={HomeLink}><img alt="" src={backUpCashLogo} width="200px"/></Link>
+                                    <Link to={HomeLink}>
+                                        <img alt="" src={backUpCashLogo} width="200px"/>
+                                    </Link>
                                 </div>
-                                <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
+                                <h3 className="mobile-welcome-text d-block d-md-none">
+                                    Welcome <br/> Back
+                                </h3>
                                 <ToastProvider>
                                     {
                                         this.state.PhoneResetForm ?
-                                        <PhonePassResetForm phone={this.state.phone} />
-                                        : <ForgotPasswordForm setPhone={this.setPhone} showPhoneResetForm={this.showPhoneResetForm} hidePhoneResetForm={this.hidePhoneResetForm}/>
+                                        <PhonePassResetForm  phone={this.state.phone} />
+                                        : <ForgotPasswordForm  text={this.state.forgotPasswordText}  setPhone={this.setPhone}
+                                                              showPhoneResetForm={this.showPhoneResetForm}
+                                                              hidePhoneResetForm={this.hidePhoneResetForm}
+                                            />
                                     }
                                 </ToastProvider>
 

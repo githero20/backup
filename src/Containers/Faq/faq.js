@@ -61,9 +61,6 @@ class Faq extends Component {
                                         <li className="nav-item">
                                             <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                         </li>
-                                        {/*<li className="nav-item">*/}
-                                        {/*    <Link className="nav-link" to={HomeLink}>Testimonials </Link>*/}
-                                        {/*</li>*/}
                                         {
                                             this.state.isLoggedIn ? (
                                                 <li className="nav-item">
@@ -129,9 +126,6 @@ class Faq extends Component {
                                         <p className="header-sub-title mb-0 ">
                                             Get in Touch With Us
                                         </p>
-                                        {/*<p className="header-sub-title mb-2">*/}
-                                        {/*    Earn up to <strong>13% </strong> interest on Savings. */}
-                                        {/*</p>*/}
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +135,7 @@ class Faq extends Component {
                                 <div className="col-sm-4 text-center text-md-left">
                                     <div className="mb-3 mt-3 mt-md-0 mb-md-5">
                                         <h4 className='text-capitalize'>Whatsapp</h4>
-                                        <p className='gray-text '>+234 803 791 3530</p>
+                                        <p className='gray-text '>+1 888 369 9915</p>
                                     </div>
                                 </div>
                                 <div className="col-sm-4 text-center text-md-left">
@@ -225,7 +219,8 @@ class Faq extends Component {
                                                  data-parent="#accordion">
                                                 <div className="card-body">
                                                     - No, It's completely FREE. There are no charges for transferring
-                                                    money to your Backup Cash account.<br/>
+                                                    money to your Backup Cash account.
+                                                    <br/>
                                                 </div>
                                             </div>
                                         </div>

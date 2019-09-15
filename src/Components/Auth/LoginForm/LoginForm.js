@@ -3,7 +3,7 @@ import {Link, Redirect} from "react-router-dom";
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {
-    addWithdrawalLink,
+    addWithdrawalLink, botCreatePasswordLink,
     DashboardLink,
     ForgotPasswordLink,
     LoginEndpoint,
@@ -260,25 +260,36 @@ class LoginForm extends Component {
                                 </div>
                                 <input id="password" name={'password'} type="password" onChange={this.changeHandler}
                                        className="form-control"/>
-
                             </div>
                         </div>
                         <div className="col-12">
-                            <div className=" text-right pr-sm-0  mt-md-1 mb-1 pr-1 pr-md-1">
-                                <label className="font-size-1-1 mb-md-1 dark-link">New User ?
-                                    &nbsp;<Link to={'/sign-up'} className="blue-link ">Sign Up</Link>
-                                </label>
+                            <div className="d-flex flex-column flex-md-row justify-content-end justify-content-md-between pr-sm-0  mt-md-1 mb-1 pr-1 pr-md-1">
+                                <div className='my-1 my-md-0 d-none d-md-flex'>
+                                    <label className="font-size-1-1 mb-md-1 dark-link">Bot User ?
+                                        &nbsp;<Link to={botCreatePasswordLink} className="blue-link ">Create Password</Link>
+                                    </label>
+                                    {/*No Password Yet (Bot User)?  Create */}
+                                </div>
+                                <div className='text-right text-md-left my-1 my-md-0'>
+                                    <label className="font-size-1-1 mb-md-1 dark-link">New User ?
+                                        &nbsp;<Link to={'/sign-up'} className="blue-link ">Sign Up</Link>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div className="col-12">
-                            <div
-                                className="d-flex  flex-column flex-md-row justify-content-end align-items-center">
-
+                            <div className="d-flex  flex-column flex-md-row justify-content-end align-items-center">
                                 <button type={'submit'} disabled={this.state.loading}
                                         className="btn btn-round blue-round-btn auth-btn order-md-12"
                                         name="action">{this.state.loading ? <ButtonLoader/> :
                                     <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
                                 </button>
+                            </div>
+                            <div className='my-3 d-md-none text-center'>
+                                <label className="font-size-1-1 mb-md-1 dark-link">Bot User ?
+                                    &nbsp;<Link to={botCreatePasswordLink} className="blue-link ">Create Password</Link>
+                                </label>
+                                {/*No Password Yet (Bot User)?  Create */}
                             </div>
                         </div>
                     </div>

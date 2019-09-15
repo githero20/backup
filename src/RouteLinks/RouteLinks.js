@@ -3,6 +3,7 @@
 ////////////////////////// Route Links ///////////////////////////////////////
 
 export const ForgotPasswordLink  = '/forgot-password';
+export const botCreatePasswordLink  = '/bot/create-password';
 export const ResetPasswordLink  = '/password/reset/:token';
 export const ActivateAccountLink  = '/payment/activate';
 export const addWithdrawalLink  = '/add-bank';

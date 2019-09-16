@@ -46,8 +46,9 @@ class ForgotPasswordForm extends Component {
 
     // validate forgot password
 
-    submitForm = () => {
+    submitForm = (e) => {
 
+        e.preventDefault();
 
         if (this.validator.allValid()) {
 
@@ -124,7 +125,7 @@ class ForgotPasswordForm extends Component {
 
         return (
             <React.Fragment>
-                <form className="login-form">
+                <form className="login-form" onSubmit={this.submitForm}>
                     <div className="row">
                         <div className="col-12">
                             {/*provide breadcrumb to go back*/}
@@ -143,11 +144,12 @@ class ForgotPasswordForm extends Component {
 
                         <div className="col-12">
                             <div className="d-flex flex-column flex-md-row justify-content-end align-items-center">
-                                <button type={'button'} disabled={this.state.loading} onClick={this.submitForm}
+                                <button type={'submit'} disabled={this.state.loading}
                                         className="btn btn-round blue-round-btn auth-btn "
                                         name="action">{
                                     this.state.loading ? <ButtonLoader/> :
-                                        <span>Submit <img alt="arrow right" className="img-2x ml-1" src={signInIcon}/>
+                                        <span>Submit
+                                            <img alt="arrow right" className="img-2x ml-1" src={signInIcon}/>
                                     </span>
                                 }
                                 </button>

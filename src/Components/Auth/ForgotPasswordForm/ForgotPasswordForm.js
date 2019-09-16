@@ -1,7 +1,6 @@
-"use strict";
+
 import React, {Component} from 'react';
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
-import SimpleReactValidator from "simple-react-validator";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {passwordResetEndpoint} from "../../../RouteLinks/RouteLinks";
 import {request} from "../../../ApiUtils/ApiUtils";
@@ -86,17 +85,17 @@ class ForgotPasswordForm extends Component {
 
             toastMessage(`${response.data.success}`, 'success', this);
         } else {
-            console.log('err',response);
+            console.log('err', response);
             if (response) {
                 if (response.data.error.toLowerCase() == "user not found") {
                     toastMessage(`${response.data.error}`, 'error', this);
-                }else if (response.data.error.toLowerCase() == "unable to get user's email") {
+                } else if (response.data.error.toLowerCase() == "unable to get user's email") {
                     toastMessage('Your phone number has been detected, kindly update your email', 'success', this);
                     this.props.setPhone(this.state.email);
                     setTimeout(() => {
                         this.props.showPhoneResetForm();
                     }, 3000);
-                }else {
+                } else {
                     toastMessage(`${response.data.message}`, 'error', this);
                 }
             }
@@ -146,9 +145,11 @@ class ForgotPasswordForm extends Component {
                             <div className="d-flex flex-column flex-md-row justify-content-end align-items-center">
                                 <button type={'button'} disabled={this.state.loading} onClick={this.submitForm}
                                         className="btn btn-round blue-round-btn auth-btn "
-                                        name="action">{this.state.loading ? <ButtonLoader/> :
-                                    <span>Submit <img alt="" className="img-2x ml-1" src={signInIcon}/>
-                                    </span>}
+                                        name="action">{
+                                    this.state.loading ? <ButtonLoader/> :
+                                        <span>Submit <img alt="arrow right" className="img-2x ml-1" src={signInIcon}/>
+                                    </span>
+                                }
                                 </button>
                             </div>
                         </div>
@@ -159,6 +160,4 @@ class ForgotPasswordForm extends Component {
     }
 }
 
-const FPWithToast = withToastManager(ForgotPasswordForm);
-
-export default FPWithToast;
+export default withToastManager(ForgotPasswordForm);

@@ -18,6 +18,17 @@ class StartNowModal extends React.Component {
             Desc: 'Start saving your money here whenever you want! \n' +
                 'We want you to be disciplined, so we’ll charge you 5% if you choose\n' +
                 ' to withdraw outside of your set withdrawal days.',
+            isDesc: 'Start saving your money here whenever you want! \n' +
+                'We want you to be disciplined, so we’ll charge you 5% if you choose\n' +
+                ' to withdraw outside of your set withdrawal days.',
+            lsDesc: 'Earn your interest upfront, but you need to lock your money with \n' +
+                'us for a period set by you. You can withdraw at the \n' +
+                'end of the period you have set.',
+            bgDesc: 'Want to save towards a new phone, car or rent? \n' +
+                'Setup a savings goal and be on your way to greatness.',
+            ssDesc: 'Start saving your money here automatically, daily, weekly or monthly\n' +
+                'We want you to be disciplined, so we’ll charge you 5% if you choose\n' +
+                ' to withdraw outside of your set withdrawal days.',
             showBackupGoal:false,
             showSteadySave:false,
             showLockedSave:false,
@@ -39,10 +50,11 @@ class StartNowModal extends React.Component {
             showSteadySave:false,
             showLockedSave:false,
             showInstantSave:true,
-            Desc: 'Start saving your money here whenever you want! \n' +
+            isDesc: 'Start saving your money here whenever you want! \n' +
                 'We want you to be disciplined, so we’ll charge you 5% if you choose\n' +
-                ' to withdraw outside of your set withdrawal days.'
-        })
+                ' to withdraw outside of your set withdrawal days.',
+            Desc:this.state.isDesc
+        });
         // localStorage.setItem(SHOWAD, 'dont_show');
         storeFirstTimeLogin(this.handleFirstTimeLogin);
     }
@@ -54,9 +66,10 @@ class StartNowModal extends React.Component {
             showSteadySave:false,
             showLockedSave:true,
             showInstantSave:false,
-            Desc: 'Earn your interest upfront, but you need to lock your money with \n' +
+            lsDesc: 'Earn your interest upfront, but you need to lock your money with \n' +
                 'us for a period set by you. You can withdraw at the \n' +
-                'end of the period you have set.'
+                'end of the period you have set.',
+            Desc:this.state.lsDesc
         })
         // localStorage.setItem(SHOWAD, 'dont_show');
         storeFirstTimeLogin(this.handleFirstTimeLogin);
@@ -70,8 +83,9 @@ class StartNowModal extends React.Component {
             showSteadySave:false,
             showLockedSave:false,
             showInstantSave:false,
-            Desc: 'Want to save towards a new phone, car or rent? \n' +
-                'Setup a savings goal and be on your way to greatness.'
+            bgDesc: 'Want to save towards a new phone, car or rent? \n' +
+                'Setup a savings goal and be on your way to greatness.',
+            Desc:this.state.bgDesc
         });
 
         // localStorage.setItem(SHOWAD, 'dont_show');
@@ -89,9 +103,10 @@ class StartNowModal extends React.Component {
             showSteadySave:true,
             showLockedSave:false,
             showInstantSave:false,
-            Desc: 'Start saving your money here automatically, daily, weekly or monthly\n' +
+            ssDesc: 'Start saving your money here automatically, daily, weekly or monthly\n' +
                 'We want you to be disciplined, so we’ll charge you 5% if you choose\n' +
-                ' to withdraw outside of your set withdrawal days.'
+                ' to withdraw outside of your set withdrawal days.',
+            Desc:this.state.ssDesc
         });
         // localStorage.setItem(SHOWAD, 'dont_show');
         storeFirstTimeLogin(this.handleFirstTimeLogin);
@@ -130,7 +145,7 @@ class StartNowModal extends React.Component {
                              onMouseLeave={this.instantHandler} className={`ad-placeholder ${this.state.showInstantSave?'active':null} `}>
                             <img alt={'instant-save'} className={'ad-img'} src={InstantSaveIcon}/>
                             <p>Instant Save<img className={this.state.showInstantSave?'active':null} src={markSelected} /></p>
-                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
+                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.isDesc}</div>
                             <div className="ad-links d-flex justify-content-center d-block d-md-none justify-content-md-end">
                                 <StartNowButton link={this.state.startLink}/>
                             </div>
@@ -139,7 +154,7 @@ class StartNowModal extends React.Component {
                              onMouseLeave={this.steadyHandler} className={`ad-placeholder ${this.state.showSteadySave?'active':null}`}>
                             <img className={'ad-img'} alt={'steady-save'} src={SSIcon}/>
                             <p>Steady Save<img  className={this.state.showSteadySave?'active':null} src={markSelected}/></p>
-                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
+                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.ssDesc}</div>
                             <div className="ad-links d-flex justify-content-center d-block d-md-none justify-content-md-end">
                                 <StartNowButton link={this.state.startLink}/>
                             </div>
@@ -148,7 +163,7 @@ class StartNowModal extends React.Component {
                              onMouseEnter={this.lockedHandler} className={`ad-placeholder ${this.state.showLockedSave?'active':null}`}>
                             <img className={'ad-img'} alt={'locked-savings'} src={LSIcon}/>
                             <p>Locked Savings<img className={this.state.showLockedSave?'active':null} src={markSelected} /></p>
-                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
+                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.lsDesc}</div>
                             <div className="ad-links d-flex justify-content-center d-block d-md-none justify-content-md-end">
                                 <StartNowButton link={this.state.startLink}/>
                             </div>
@@ -157,7 +172,7 @@ class StartNowModal extends React.Component {
                              onMouseLeave={this.backupHandler} className={`ad-placeholder ${this.state.showBackupGoal?'active':null}`}>
                             <img className={'ad-img'} alt={'backup-goals'} src={BGIcon}/>
                             <p>Backup Goals<img className={this.state.showBackupGoal?'active':null} src={markSelected} /></p>
-                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.Desc}</div>
+                            <div className={'ad-desc-placeholder d-block d-md-none text-center px-0 px-lg-5 py-lg-1 '}>{this.state.bgDesc}</div>
                             <div className="ad-links d-flex justify-content-center d-block d-md-none justify-content-md-end">
                                 <StartNowButton   link={this.state.startLink}/>
                             </div>

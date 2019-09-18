@@ -119,10 +119,8 @@ class InstantSave extends Component {
 
 
     handleTransactions = (state, res) => {
-
-        console.log('res', res);
         if (state) {
-            let transactions = 0;
+            let transactions = [];
             let total = 0;
 
             if (res.data.data.length > 0) {

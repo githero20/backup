@@ -205,6 +205,7 @@ class DashboardContainer extends Component {
             <React.Fragment>
                 <div className="app-content content">
                     <div className="content-wrapper">
+                        <div className="mb-5"></div>
                         {/* notification component */}
 
                         {/*{*/}
@@ -252,7 +253,7 @@ class DashboardContainer extends Component {
                                             <h5>New Investment
                                                 Opportunities</h5>
                                             <a className={'ad-gray-link'}>Know more <i
-                                                className='fa fa-arrow-right'></i></a>
+                                                className='fa fa-arrow-right'/></a>
                                         </div>
                                     </div>
                                 </div>
@@ -260,8 +261,9 @@ class DashboardContainer extends Component {
                                     <div className="dash-ads mb-3">
                                         <img src={adImgTwo} className='dash-ad-img' alt="advert two"/>
                                         <div className={'dash-action right-action'}>
-                                            <a className={'ad-link-white'}>Know more <i
-                                                className='fa fa-arrow-right'></i></a>
+                                            <a className={'ad-link-white'}>Know more
+                                                <i className='fa fa-arrow-right'/>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

@@ -18,6 +18,11 @@
     .header-background{
         min-height: 85vh;
     }
+    /*.toggle-password{*/
+    /*    bottom:20px;*/
+    /*    right:0%;*/
+    /*    transform: translate(-50%,-50%);*/
+    /*}*/
     .mb-7{
         margin-bottom: 7rem !important;
     }

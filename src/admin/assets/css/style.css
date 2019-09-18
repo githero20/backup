@@ -149,7 +149,7 @@ div.fixed-navbar {
 }
 .swal-footer{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 1rem 4rem 3rem;
 }
 input[type=password]:not(.browser-default).swal-content__input{

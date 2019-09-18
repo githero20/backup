@@ -867,10 +867,23 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 export function detailFormatter(cell) {
     return <button className={'btn round btn-sm btn-blue-btn'}>View Details</button>
 }
+export function userFormatter(cell,row) {
+    return <span className='text-capitalize'>{cell.name} {cell.last_name}</span>
+}
 
 export function balanceFormatter(cell) {
     return <label style={{minWidth: '100px'}}
                   className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
+
+}
+export function pointFormatter(cell) {
+    return <label style={{minWidth: '100px'}}
+                  className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
+
+}
+export function pointStatusFormatter(cell) {
+    return (cell== 1 ? <button className={'btn btn-success'}>Active</button> :
+        <button className={'btn btn-sm btn-warning'}>In Active</button>)
 
 }
 

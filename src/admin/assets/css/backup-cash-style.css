@@ -1586,3 +1586,34 @@ footer-logo {
 .show {
     display: block;
 }
+.bc-deep-purple{
+    color: #0c1d4a;
+}
+.bc-gray-white{
+    background-color: #d8e7f4;
+    color: white;
+}
+.tooltip-inner {
+    background-color: #170e32;
+}
+.br-2{
+    border-radius: 2rem;
+}
+.py-0-2{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^='right'] .arrow::before {
+    border-right-color: #170e32;
+}
+/*.toggle-password{*/
+/*    bottom:5px;*/
+/*    right:0%;*/
+/*    transform: translate(-50%,-50%);*/
+/*}*/
+
+.login-form .input-group-append{
+    margin-left: -15px;
+    margin-top: 10px;
+    z-index: 50;
+}

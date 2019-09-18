@@ -7,7 +7,7 @@ import {RegisterEndpoint, ResendActivationLink} from "../../../RouteLinks/RouteL
 import {api} from "../../../ApiUtils/ApiUtils";
 import {USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {passwordValidator} from "../../../Helpers/Helper";
+import SimpleReactValidator from "simple-react-validator";
 
 class SignUpForm extends Component {
 
@@ -25,7 +25,7 @@ class SignUpForm extends Component {
     //validator
     constructor(props) {
         super(props);
-        this.validator = passwordValidator;
+        this.validator = new SimpleReactValidator();
         this.state = {
             showReferralInput: false,
             email: '',
@@ -66,10 +66,10 @@ class SignUpForm extends Component {
         //     this.validatePassword();
         // }
 
-        // //validate confirm password
-        // if (name === 'password_confirmation') {
-        //     this.validatePasswords(value);
-        // }
+        //validate confirm password
+        if (name === 'password_confirmation') {
+            this.validatePasswords(value);
+        }
 
         this.setState({
             [name]: value
@@ -158,11 +158,12 @@ class SignUpForm extends Component {
 
         if (!state) {
             if (response) {
-                this.setState({
-                    error: true,
-                    errorMessage: JSON.stringify(response.data.message),
-                    loading: false
-                });
+                console.log('error',response);
+                // this.setState({
+                //     error: true,
+                //     errorMessage: JSON.stringify(response.data.message),
+                //     loading: false
+                // });
 
                 if (response.data) {
                     let errors = response.data.errors;
@@ -203,8 +204,8 @@ class SignUpForm extends Component {
             //validate confirm password
             // perform all necessary validation
             const ConfPassValid = this.validatePasswords(this.state.password_confirmation);
-            const PassVal = this.validatePassword();
-            if (ConfPassValid && PassVal) {
+            // const PassVal = this.validatePassword();
+            if (ConfPassValid) {
                 //    make api call
                 this.setState({
                     loading: true
@@ -239,7 +240,6 @@ class SignUpForm extends Component {
     };
 
     componentWillReceiveProps(newProps) {
-
         // add to the referral input
         const {referralCode} = newProps;
         if (referralCode) {
@@ -254,6 +254,29 @@ class SignUpForm extends Component {
 
 
     }
+
+    togglePass = (e) => {
+        e.persist();
+        if (e.target.id == 'pass-toggle') {
+            let icon = document.getElementById("pass-toggle");
+            icon.classList.toggle('fa-eye-slash');
+            let x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        } else if (e.target.id == 'confirm-pass-toggle') {
+            let confPicon = document.getElementById("confirm-pass-toggle");
+            confPicon.classList.toggle('fa-eye-slash');
+            let y = document.getElementById("password_confirmation");
+            if (y.type === "password") {
+                y.type = "text";
+            } else {
+                y.type = "password";
+            }
+        }
+    };
 
 
     render() {
@@ -270,9 +293,7 @@ class SignUpForm extends Component {
                     <Redirect push to={{
                         pathname: `${ResendActivationLink}`,
                         state: {email: this.state.email}
-                    }}
-
-                    />
+                    }}/>
                 </React.Fragment>
             );
         }
@@ -290,7 +311,7 @@ class SignUpForm extends Component {
                         <div className="col-12 col-lg-6">
                             <div className="form-group">
                                 <label htmlFor="name">First Name</label>
-                                <input id="name" type="text" name={'name'} className={'form-control text-capitalize'}
+                                <input id="name" type="text" name={'name'} className={'form-control  text-capitalize'}
                                        onChange={this.changeHandler}/>
                                 {this.validator.message('name', name, 'required|string')}
                             </div>
@@ -309,7 +330,7 @@ class SignUpForm extends Component {
                         <div className="col-12  col-lg-6 ">
                             <div className="form-group">
                                 <label htmlFor="email">Email</label>
-                                <input id="email" name={'email'} type="email" className="form-control"
+                                <input id="email" name={'email'} type="email" className="form-control "
                                        onChange={this.changeHandler}/>
                                 {this.validator.message('email', email, 'required|email')}
                             </div>
@@ -326,13 +347,23 @@ class SignUpForm extends Component {
 
 
                         <div className="col-12 col-lg-6">
-                            <div className="form-group">
+                            <div className="form-group position-relative">
                                 <label htmlFor="password">Password</label>
-                                <input id="password" type="password" name={'password'} className={'form-control'}
-                                       onChange={this.changeHandler}
-                                    // onBlur={this.validatePassword}
-                                />
-                                {this.validator.message('password', password, `required|string|min:8|password`)}
+
+                                <div className="input-group">
+                                    <input id="password" type="password" name={'password'}
+                                           className={'form-control pl-0 position-relative'}
+                                           onChange={this.changeHandler}
+                                        // onBlur={this.validatePassword}
+                                    />
+                                    <div className="input-group-append">
+                                        <i id='pass-toggle' name="pass-toggle" onClick={this.togglePass}
+                                           className="fa fa-fw fa-eye field-icon  toggle-password "></i>
+                                    </div>
+                                </div>
+
+                                {this.validator.message('password', password, `required|string|min:8`)}
+                                {/*{this.validator.message('password', password, `required|string|min:8|password`)}*/}
                                 {/*^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})*/}
                                 {/*{this.state.passwordError ?*/}
                                 {/*    <label className={'srv-validation-message'}>Password must contain at least one*/}
@@ -343,22 +374,30 @@ class SignUpForm extends Component {
                             </div>
                         </div>
                         <div className="col-12 col-lg-6">
-                            <div className="form-group">
+                            <div className="form-group position-relative">
                                 <label htmlFor="password_confirmation">Confirm Password</label>
-                                <input id="password_confirmation" name={'password_confirmation'} type="password"
-                                       className="form-control" onChange={this.changeHandler}
-                                />
+
+                                <div className="input-group">
+                                    <input id="password_confirmation" name={'password_confirmation'} type="password"
+                                           className="form-control pl-0" onChange={this.changeHandler}/>
+                                    <div className="input-group-append">
+                                        <i id='confirm-pass-toggle' name="confirm-pass-toggle" onClick={this.togglePass}
+                                           className="fa fa-fw fa-eye field-icon  toggle-password "></i>
+                                    </div>
+
+                                </div>
+
+
                                 {this.state.ConfirmPassError ?
-                                    <label className={'srv-validation-message'}>Password Doesn't match</label> : null}
+                                    <label className={'srv-validation-message'}>The passwords you entered are inconsistent!</label> : null}
                             </div>
                         </div>
 
                         <div className="col-md-6 text-center text-md-left mb-3 mb-md-0">
                             <div className="referal-code-section">
                                 <a className="blue-link" id="referral-btn" onClick={this.toggleReferralInput}>Got a
-                                    referral code ? <img
-                                        className="img-2x ml-1"
-                                        src={blueHeadArrow}/>
+                                    referral code ?
+                                    <img className="img-2x ml-1" src={blueHeadArrow}/>
                                 </a>
                                 {
                                     this.state.showReferralInput ?

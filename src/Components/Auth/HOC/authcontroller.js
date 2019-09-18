@@ -101,7 +101,6 @@ const AuthController = component => {
                                             yes: "continue"
                                         }
                                     }).then((value) => {
-                                        console.log('value ', value);
                                         switch (value) {
                                             case "yes":
                                                 let data = JSON.parse(localStorage.getItem(USERINFO));
@@ -116,7 +115,7 @@ const AuthController = component => {
                                                             localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
                                                             localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
                                                         }
-                                                        swal('Yeh!!','You have successfully logged in','success',{button: false});
+                                                        swal('Yeh!!','You have successfully logged in','success',{button: false,timer:2000});
                                                         setReload(true);
                                                     }
                                                 } else {
@@ -126,12 +125,13 @@ const AuthController = component => {
                                                             if (response.data.message == "invalid_credentials") {
                                                                 swal('Oops!!',`Invalid Credentials`, 'warning');
                                                             } else if (response.data.message == 'Incorrect email or password,Try again') {
-                                                                swal('Oops!!','Incorrect Email or Password', 'warning');
+                                                                swal('Oops!!','Incorrect Email or Password', 'warning',{button: false,timer:2000});
                                                             } else {
                                                                 swal('Oops!!',`${JSON.stringify(response.data.message)}`, 'warning');
                                                             }
                                                         } else {
-                                                            swal('Oops!!',`${JSON.stringify(response.data.message)}`, 'warning');
+                                                            console.log(response);
+                                                            // swal('Oops!!',`${JSON.stringify(response.data.message)}`, 'warning');
                                                         }
                                                     }
                                                 }

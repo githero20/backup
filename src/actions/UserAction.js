@@ -79,7 +79,7 @@ export const getUserPoints =  callback =>{
     })
         .then(res => {
             if(callback){
-                callback(true, res.data.data);
+                callback(true, res.data);
             }
         })
         .catch(err => {

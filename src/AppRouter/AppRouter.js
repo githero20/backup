@@ -30,7 +30,7 @@ import {
     KycSettingLink,
     LockedSavingsLink,
     LoginLink,
-    ProfileSettingLink,
+    ProfileSettingLink, ReferralsLink,
     ResendActivationLink,
     ResetPasswordLink,
     SignUpLink,
@@ -51,6 +51,7 @@ import ErrorPage from "../Containers/ErrorPage/ErrorPage";
 import Faq from "../Containers/Faq/faq";
 import { TransitionGroup, Transition } from "react-transition-group";
 import {play,exit} from "../timelines";
+import Referrals from "../Containers/Referrals/Referrals";
 
 class AppRouter extends Component {
 
@@ -82,6 +83,7 @@ class AppRouter extends Component {
                                                 <Route path={LockedSavingsLink} component={AuthController(LockedSavings)}/>
                                                 <Route path={BackupGoalsLink} component={AuthController(BackupGoals)}/>
                                                 <Route path={TransactionsLink} component={AuthController(Transactions)}/>
+                                                <Route path={ReferralsLink} component={AuthController(Referrals)}/>
                                                 <Route path={WithdrawalLink} component={AuthController(Withdrawal)}/>
                                                 <Route path={ProfileSettingLink} component={AuthController(ProfileSetting)}/>
                                                 <Route path={BankCardLink} component={AuthController(BankCardSetting)}/>

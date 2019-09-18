@@ -356,7 +356,7 @@ class BackUpGoalsForm extends Component {
                             <Form.Control
                                 type="number" id="contribution"
                                 // className={'amount-input'}
-                                value={contribution != 0 ? Number(contribution).toFixed(2) : contribution}
+                                value={contribution != 0 ?contribution : contribution}
                                 step={'5'} name="contribution"
                                 onChange={this.changeHandler}/>
                             <Form.Text className="text-muted">
@@ -437,7 +437,7 @@ class BackUpGoalsForm extends Component {
                                 // className={'amount-input'}
                                 name={'goal_amount'}
                                 id={'goal_amount'}
-                                value={goal_amount != 0 ? Number(goal_amount).toFixed(2) : goal_amount}
+                                value={goal_amount != 0 ? goal_amount : goal_amount}
                                 onChange={this.handleGoalAmount}
                             />
                             {this.validator.message('Goal Amount', goal_amount, 'required|numeric')}

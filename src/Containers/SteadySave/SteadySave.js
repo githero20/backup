@@ -590,10 +590,8 @@ class SteadySave extends Component {
                             <React.Fragment>
                                 <div className="app-content content">
                                     <div className="content-wrapper">
-                                        <div className="row mb-4 d-none">
-                                            <div className="col-12">
-                                            </div>
-                                        </div>
+                                        <div className="mb-5"></div>
+
                                         <div className="content-header row mt-5">
 
                                         </div>
@@ -731,11 +729,7 @@ class SteadySave extends Component {
                         : (
                             <div className="app-content content">
                                 <div className="content-wrapper">
-                                    <div className="row mb-4 d-none">
-                                        <div className="col-12">
-                                            {/*<MessageBox/>*/}
-                                        </div>
-                                    </div>
+                                    <div className="mb-5"></div>
                                     {
                                         this.state.showSavingModal ?
                                             (

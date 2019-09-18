@@ -120,14 +120,22 @@ class InstantSave extends Component {
 
     handleTransactions = (state, res) => {
 
+        console.log('res', res);
         if (state) {
-            let transactions = res.data.data
-                .filter(content => content.status == 'success' && content.type == 'credit');
+            let transactions = 0;
+            let total = 0;
+
+            if (res.data.data.length > 0) {
+                transactions = res.data.data.filter(content => content.status == 'success' && content.type == 'credit');
+                total = transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount;
+            }
+
             this.setState({
                 transactions,
                 showLoader: false,
-                totalInstantSave: transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount || 0
+                totalInstantSave: total
             });
+
         } else if (!state && res) {
             toastMessage('unable to get instant save transactions', 'error', this);
             this.setState({showLoader: false});
@@ -318,9 +326,7 @@ class InstantSave extends Component {
                 <VerticalNav/>
                 <div className="app-content content ">
                     <div className="content-wrapper">
-                        <div className="row mb-4 d-none">
-                            <div className="col-12"></div>
-                        </div>
+                        <div className="mb-5"></div>
                         {
                             this.state.showSavingModal ?
                                 (
@@ -362,7 +368,7 @@ class InstantSave extends Component {
                                                 <button type="button" data-toggle="modal" data-target="#large"
                                                         onClick={this.showModal}
                                                         className=" btn-blue-gradient-2 round">
-                                                    <img src={whiteSaveMoreIcon}/>Save More
+                                                    <img src={whiteSaveMoreIcon}/>Save Now
                                                 </button>
                                             </span>
                                         <span className="mb-details-container ">

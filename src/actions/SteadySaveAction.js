@@ -60,6 +60,7 @@ export const createSteadySave = (payload, callback) =>{
             callback(false, err.response);
         })
 };
+
 export const paySteadySaveDue = (payload, callback) =>{
 
     _axios.post(`${PayDueSSEndpoint}`,payload,{

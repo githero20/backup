@@ -337,11 +337,7 @@ class Transactions extends Component {
                     <VerticalNav userName={this.state.userName}/>
                     <div className="app-content content">
                         <div className="content-wrapper">
-                            <div className="row mb-4 d-none">
-                                <div className="col-12">
-                                </div>
-                            </div>
-
+                            <div className="mb-5"></div>
                             {
                                 this.state.showTransDetail ?
                                     (
@@ -360,27 +356,6 @@ class Transactions extends Component {
                                                 </div>
                                             </div>
                                             <div className="row">
-
-                                                {/*<RemotePagination*/}
-                                                {/*    data={this.state.transData.data}*/}
-                                                {/*    handleFilter={this.handleFilter}*/}
-                                                {/*    columns={columns}*/}
-                                                {/*    onTableChange={this.handleTableChange}*/}
-                                                {/*    page={this.state.transData.current_page}*/}
-                                                {/*    sizePerPage={this.state.transData.per_page}*/}
-                                                {/*    totalSize={this.state.transData.total}*/}
-                                                {/*/>*/}
-
-                                                {/*<RemotePagination*/}
-                                                {/*    data={this.state.transData.data}*/}
-                                                {/*    handleFilter={this.handleFilter}*/}
-                                                {/*    columns={mobileColumns}*/}
-                                                {/*    onTableChange={this.handleTableChange}*/}
-                                                {/*    page={this.state.transData.current_page}*/}
-                                                {/*    sizePerPage={this.state.transData.per_page}*/}
-                                                {/*    totalSize={this.state.transData.total}*/}
-                                                {/*/>*/}
-
                                                 {
                                                     this.state.mobileTable ? (<RemotePagination
                                                             data={this.state.transData.data}

@@ -3,9 +3,12 @@ import {withToastManager} from 'react-toast-notifications';
 import {capitalize, formatNumber, toastMessage} from "../../../../Helpers/Helper";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
-import {KycSettingLink} from "../../../../RouteLinks/RouteLinks";
+import {KycSettingLink, ReferralsLink} from "../../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
-import {getUserPoints, isKycUpdated} from "../../../../actions/UserAction";
+import {getUserPoints} from "../../../../actions/UserAction";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import Modal from "react-bootstrap/Modal";
 
 class MessageBox extends Component {
 
@@ -14,8 +17,10 @@ class MessageBox extends Component {
         userReferralLink: '',
         userCode: '',
         userPoint: '',
+        numOfUser: '',
         updateKyc: false,
-        balance: '0.00'
+        balance: '0.00',
+        show: false,
     };
 
 
@@ -39,7 +44,6 @@ class MessageBox extends Component {
 
     }
 
-
     copyToClipboard = (e) => {
 
         // let text = document.getElementById("referral_code").value;
@@ -51,6 +55,7 @@ class MessageBox extends Component {
         const otherText = 'invites you to save for the rainy day on BackUpCash.' +
             '\n It is a financial planning tool designed to help you automate ' +
             'savings towards a financial goal. Sign-up and get started using the link below: \n';
+
         textField.innerText = referralText + ' ' + otherText + this.state.userReferralLink;
 
         document.body.appendChild(textField);
@@ -62,7 +67,7 @@ class MessageBox extends Component {
 
     copyLink = (e) => {
         let textField = document.createElement('textarea');
-        textField.innerText = this.state.userReferralLink;
+        textField.innerText = this.state.userCode;
         document.body.appendChild(textField);
         textField.select();
         document.execCommand('copy');
@@ -78,16 +83,31 @@ class MessageBox extends Component {
     }
 
     handlePoints = (status, res) => {
+        console.log('res', res);
         if (status) {
-            this.setState({userPoint: res})
+            this.setState({userPoint: res.data, numOfUser: res.user})
         } else if (!status && res) {
             console.log('points error', status, res);
         }
 
     };
+    handleClose = () => {
+        this.setState({show: false})
+    };
+    showModal = () => {
+        this.setState({show: true})
+    };
 
 
     render() {
+        const {show} = this.state;
+
+        const referralText =
+            this.state.userName ? capitalize(this.state.userName) : null;
+        const otherText = 'invites you to save for the rainy day on BackUpCash.' +
+            '\n It is a financial planning tool designed to help you automate ' +
+            'savings towards a financial goal. Sign-up and get started using the link below: \n';
+        let fullRefText = referralText + ' ' + otherText + this.state.userReferralLink;
 
         const kycInfo = (
             <React.Fragment>
@@ -108,9 +128,29 @@ class MessageBox extends Component {
                 {/*    <strong>Congrats! </strong>*/}
                 {/*    You referred 5 persons from [ 1 -2-2019 to 5-2-2019 ] ,*/}
                 {/*</span>*/}
-                <div className="admin-purple d-block d-md-inline">Your referral points earned
-                    <strong
-                        className="d-md-inline ml-1">{this.state.userPoint ? this.state.userPoint : 0} points</strong>
+                <div className="admin-purple d-block d-md-inline cursor-pointer">
+                    You have referred <strong
+                    className='font-weight-bold bc-deep-purple'>{this.state.numOfUser ? this.state.numOfUser : 0}</strong> users &nbsp; | &nbsp; Your
+                    referral points
+                    earned
+                    <Link to={ReferralsLink}>
+                        <strong
+                            className="d-md-inline ml-1 font-weight-bold br-2 bc-gray-white py-0-2 px-2">
+                            {this.state.userPoint ? this.state.userPoint : 0} points
+                            <i className='ml-1 fa fa-arrow-right text-white'/></strong>
+                    </Link>&nbsp;
+                    <OverlayTrigger
+                        placement={'right'}
+                        overlay={
+                            <Tooltip id={`tooltip-${'right'}`}>
+                                You will get 10 Referral Points for every of your referred users that saves at least
+                                N500
+                            </Tooltip>
+                        }
+                    >
+                        <strong className='bc-deep-purple'>&nbsp;(?)</strong>
+                    </OverlayTrigger>
+
                 </div>
             </React.Fragment>
         );
@@ -121,9 +161,10 @@ class MessageBox extends Component {
                     this.props.updateKyc ? (
                         <div className="row mb-1">
                             <div className="col-12">
-                                <div className={'bg-white shadow-sm dashboard-callout text-center text-md-left callout-border-right' +
-                                ' d-flex flex-column flex-md-row justify-content-between align-items-center callout-round callout-transparent ' +
-                                'mt-1 px-2 py-2 py-1'}>
+                                <div
+                                    className={'bg-white shadow-sm dashboard-callout text-center text-md-left callout-border-right' +
+                                    ' d-flex flex-column flex-md-row justify-content-between align-items-center callout-round callout-transparent ' +
+                                    'mt-1 px-2 py-2 py-1'}>
                                     {/*<label className='d-flex justify-content-between flex-md-row'>*/}
                                     {kycInfo}
                                     {/*</label>*/}
@@ -147,14 +188,35 @@ class MessageBox extends Component {
                             <label className='d-flex flex-md-row flex-wrap flex-column align-items-center'>
                                 <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"> copy referral code</span>
                                 <div className='d-flex justify-content-between  d-md-inline-block flex-grow-1'>
-                                    <span className="code-btn mr-2 mb-md-0 " onClick={this.copyLink}>AEC45SF</span>
-                                    <span className="code-btn" onClick={this.copyToClipboard}>Share Code</span>
+                                    <span className="code-btn mr-2 mb-md-0 "
+                                          onClick={this.copyLink}>{this.state.userCode}</span>
+                                    <span className="code-btn" onClick={this.showModal}>Share Code</span>
                                 </div>
-
                             </label>
                         </div>
                     </div>
                 </div>
+
+                <Modal className={'steady-save-modal mt-5 pt-5'} show={show} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Share Referral Code </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="d-flex justify-content-center px-5 pb-3">
+                            <a className='a-twitter mr-2' href={`https://twitter.com/intent/tweet?text=${fullRefText}`}
+                               target='_blank'>
+                                <i className='fa fa-4x fa-twitter'/>
+                            </a>
+                            {/*<a className='a-facebook' href="#" target='_blank'>*/}
+                            {/*    <i className='fa fa-4x fa-facebook'/>*/}
+                            {/*</a>*/}
+                            <a className='a-whatsapp' href={`https://api.whatsapp.com/send?text=${fullRefText}`}
+                               target='_blank'>
+                                <i className='fa fa-4x fa-whatsapp'/>
+                            </a>
+                        </div>
+                    </Modal.Body>
+                </Modal>
             </React.Fragment>
         );
     }

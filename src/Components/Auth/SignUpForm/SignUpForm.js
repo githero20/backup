@@ -178,9 +178,7 @@ class SignUpForm extends Component {
                             })
                         )
                     });
-
                 }
-
             }
         } else {
             if (response) {

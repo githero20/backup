@@ -26,7 +26,7 @@ class PhonePassResetForm extends Component {
 
     constructor(props) {
         super(props);
-        this.validator = passwordValidator;
+        this.validator = SimpleReactValidator();
 
         this.state = {
             email: '',
@@ -158,8 +158,8 @@ class PhonePassResetForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="password" className="">New Password</label>
                                 <input id="password" name={'password'} onChange={this.handleChange} type="password"
-                                       className="form-control text-capitalize"/>
-                                {this.validator.message('password', password, 'required|string|min:8|password')}
+                                       className="form-control"/>
+                                {this.validator.message('password', password, 'required|string|min:8')}
                             </div>
                         </div>
 
@@ -168,7 +168,7 @@ class PhonePassResetForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="password_confirmation">Confirm New Password</label>
                                 <input id="password_confirmation" name={'password_confirmation'} type="password"
-                                       className="form-control text-capitalize" onChange={this.handleChange}
+                                       className="form-control" onChange={this.handleChange}
                                        onBlur={this.validatePasswords}/>
                                 {this.state.passErr ? <label className={'srv-validation-message'}>Password Doesn't match</label> : null}
                             </div>

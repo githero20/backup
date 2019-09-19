@@ -13,7 +13,6 @@ import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 class EmailActivation extends Component {
 
     state = {
-
         token:null,
         message:'',
         redirect:false,

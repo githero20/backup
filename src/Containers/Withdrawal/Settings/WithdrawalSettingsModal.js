@@ -30,7 +30,7 @@ class BankModal extends React.Component {
                 <Modal.Body className={'pb-md-4 px-md-3'}>
                     {/* form */}
                     <ToastProvider>
-                        <WithdrawalSettingsForm onHide={this.props.onHide}/>
+                        <WithdrawalSettingsForm getWithdrawalSettings={this.props.getWithdrawalSettings} onHide={this.props.onHide}/>
                     </ToastProvider>
                 </Modal.Body>
             </Modal>

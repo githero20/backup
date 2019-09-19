@@ -26,7 +26,7 @@ class PhonePassResetForm extends Component {
 
     constructor(props) {
         super(props);
-        this.validator = SimpleReactValidator();
+        this.validator = new SimpleReactValidator();
 
         this.state = {
             email: '',

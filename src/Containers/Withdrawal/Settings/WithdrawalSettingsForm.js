@@ -6,7 +6,7 @@ import {withToastManager} from 'react-toast-notifications';
 import ButtonLoader from "../../../Components/Auth/Buttonloader/ButtonLoader";
 import {createWithdrawalSettings} from "../../../actions/WithdrawalAction";
 import moment from "moment";
-import {disableKey} from "../../../Helpers/Helper";
+import {disableKey, toastMessage} from "../../../Helpers/Helper";
 
 class WithdrawalSettingsForm extends Component {
 
@@ -51,19 +51,23 @@ class WithdrawalSettingsForm extends Component {
             createWithdrawalSettings(param, (status, payload) => {
                 this.setState({loading: false});
                 if (status) {
-                    this.props.toastManager.add("Settings Updated", {
-                        appearance: "success",
-                        autoDismissTimeout: 3000,
-                        autoDismiss: true
-                    });
-
-                    setTimeout(this.props.onHide, 3000);
+                	toastMessage("Settings Updated",'success',this);
+                    // this.props.toastManager.add("Settings Updated", {
+                    //     appearance: "success",
+                    //     autoDismissTimeout: 3000,
+                    //     autoDismiss: true
+                    // });
+                    setTimeout(()=>{
+						this.props.getWithdrawalSettings();
+						this.props.onHide();
+					}, 3000);
                 } else {
-                    this.props.toastManager.add(payload, {
-                        appearance: "error",
-                        autoDismissTimeout: 3000,
-                        autoDismiss: true
-                    });
+					toastMessage(payload,'error',this);
+                    // this.props.toastManager.add(payload, {
+                    //     appearance: "error",
+                    //     autoDismissTimeout: 3000,
+                    //     autoDismiss: true
+                    // });
                 }
             })
         }
@@ -175,11 +179,11 @@ class WithdrawalSettingsForm extends Component {
 
 						<div className="form-actions d-flex justify-content-center justify-content-md-end">
 							<button type="button"
-									className="btn mr-1 px-3 py-1 round pull-left"
+									className="btn mr-1 px-3 py-1 round "
 									onClick={this.props.onHide}>Cancel
 							</button>
 							<button type="submit"
-									className="btn  btn-bg-shade-2 px-3 py-1 round pull-right">
+									className="btn btn-custom-blue btn-bg-shade-2 px-3 py-1 round ">
 								{this.state.loading ? <ButtonLoader/> :
 									<span>Update</span>}
 							</button>

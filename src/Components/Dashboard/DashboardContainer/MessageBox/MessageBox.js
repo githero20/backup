@@ -3,7 +3,7 @@ import {withToastManager} from 'react-toast-notifications';
 import {capitalize, formatNumber, toastMessage} from "../../../../Helpers/Helper";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
-import {KycSettingLink, ReferralsLink} from "../../../../RouteLinks/RouteLinks";
+import {BASE_URL, KycSettingLink, ReferralsLink} from "../../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 import {getUserPoints} from "../../../../actions/UserAction";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -32,7 +32,7 @@ class MessageBox extends Component {
         let name = `${data.name} ${data.last_name != null ? data.last_name : ''}`;
         this.setState({
             userName: name,
-            userReferralLink: data.referral_link,
+            userReferralLink: window.location.origin+'/invite/'+data.referral_code,
             userCode: data.referral_code,
 
         });

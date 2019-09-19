@@ -188,7 +188,6 @@ class SetupWithdrawalForm extends Component {
     }
 
     saveToLocalStorage = (user, token) => {
-
         if (user && token) {
             localStorage.setItem(USERTOKEN, JSON.stringify(token));
             localStorage.setItem(USERINFO, user);

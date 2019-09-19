@@ -27,7 +27,7 @@ class ResetPasswordForm extends Component {
 
         super(props);
 
-        this.validator = passwordValidator;
+        this.validator = new SimpleReactValidator();
 
 
     }
@@ -159,7 +159,7 @@ class ResetPasswordForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="password" className="">New Password</label>
                                 <input id="password" name={'password'}  onChange={this.changeHandler} type="password" className="form-control" />
-                                {this.validator.message('password', password, 'required|string|min:8|password')}
+                                {this.validator.message('password', password, 'required|string|min:8')}
                             </div>
                         </div>
 

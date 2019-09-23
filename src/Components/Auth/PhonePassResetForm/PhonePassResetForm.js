@@ -7,13 +7,15 @@ import {withToastManager} from 'react-toast-notifications';
 import {
     handlePinConcatenation,
     hideLoader,
-    passwordValidator, toastMessage,
-    validateInputEntry, validatePasswords,
+    toastMessage,
+    validateInputEntry,
+    validatePasswords,
     validatePin
 } from "../../../Helpers/Helper";
 import {_handleFormChange} from "../../../utils";
 import {request} from "../../../ApiUtils/ApiUtils";
-import {phonePassResetEndpoint} from "../../../RouteLinks/RouteLinks";
+import {LoginLink, phonePassResetEndpoint} from "../../../RouteLinks/RouteLinks";
+import {Redirect} from "react-router";
 
 class PhonePassResetForm extends Component {
 
@@ -36,6 +38,7 @@ class PhonePassResetForm extends Component {
             loading: false,
             message: '',
             pinErr: false,
+            redirect: false,
             form: {
                 pin_one: '',
                 pin_two: '',
@@ -52,18 +55,17 @@ class PhonePassResetForm extends Component {
 
     validatePasswords = (e) => {
         const {password} = this.state.form;
-        validatePasswords(password,e.target.value)?this.setState({passErr: false}): this.setState({passErr: true})
+        validatePasswords(password, e.target.value) ? this.setState({passErr: false}) : this.setState({passErr: true})
     };
-
-
 
 
     handleChange = (e) => {
         let form = _handleFormChange(e.target.name, e, this);
         handlePinConcatenation(e.target.name, e, this);
         if (e.target.name == 'password_confirmation') {
-            validatePasswords(e.target.value,this.state.form.password)?this.setState({passErr: false}): this.setState({passErr: true})
+            validatePasswords(e.target.value, this.state.form.password) ? this.setState({passErr: false}) : this.setState({passErr: true})
         }
+
         return form;
     };
 
@@ -78,12 +80,12 @@ class PhonePassResetForm extends Component {
             // you can use the autoForceUpdate option to do this automatically`
             this.forceUpdate();
         } else {
-            if(validatePin(this)){
+            if (validatePin(this)) {
                 // call reset password endpoint
                 this.setState({
                     loading: true
                 });
-                request(phonePassResetEndpoint,this.state.form,false,"POST",this.handleResetResponse);
+                request(phonePassResetEndpoint, this.state.form, false, "POST", this.handleResetResponse);
             }
         }
     };
@@ -98,11 +100,15 @@ class PhonePassResetForm extends Component {
             loading: false
         });
         //handle response
-        if(state){
-            toastMessage(`${response.data.data}`,'success',this);
-        }else{
-            console.log('err',response);
-            toastMessage(`${response.data.message}`,'error',this);
+        if (state) {
+            toastMessage(`${response.data.data}`, 'success', this);
+
+            setTimeout(() => {
+                this.setState({redirect: true})
+            }, 3000);
+        } else {
+            console.log('err', response);
+            toastMessage(`${response.data.message}`, 'error', this);
         }
     };
 
@@ -118,6 +124,7 @@ class PhonePassResetForm extends Component {
     componentWillReceiveProps(nextProps) {
         let form = this.state.form;
         form.phone = nextProps.phone;
+        form.email = `${nextProps.phone}@backupcash.ng`;
         this.setState({
             form
         });
@@ -128,7 +135,13 @@ class PhonePassResetForm extends Component {
     }
 
     render() {
-        const {email, password,phone} = this.state.form;
+        const {email, password, phone} = this.state.form;
+
+        if (this.state.redirect) {
+            return (
+                <Redirect to={LoginLink}/>
+            )
+        }
         return (
             <React.Fragment>
                 <form className="login-form" autoComplete="off">
@@ -138,18 +151,20 @@ class PhonePassResetForm extends Component {
                             <h5 className="form-header-purple mb-1">Get Password</h5>
                             {/*<p className='mb-1'>Get a new password </p>*/}
                         </div>
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label htmlFor="email" className="">Email </label>
-                                <input id="email" name={'email'} autoComplete="off" onChange={this.handleChange} type="email"
-                                       className="form-control"/>
-                                {this.validator.message('email', email, 'required|email')}
-                            </div>
-                        </div>
-                        <div className="col-md-6">
+                        {/*<div className="col-md-6">*/}
+                        {/*    <div className="form-group">*/}
+                        {/*        <label htmlFor="email" className="">Email </label>*/}
+                        {/*        <input id="email" name={'email'} autoComplete="off" onChange={this.handleChange}*/}
+                        {/*               type="hidden"*/}
+                        {/*               className="form-control"/>*/}
+                        {/*        /!*{this.validator.message('email', email, 'required|email')}*!/*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
+                        <div className="col-md-12">
                             <div className="form-group">
                                 <label htmlFor="email" className="">Phone </label>
-                                <input id="phone" name={'phone'} autoComplete="off" defaultValue={phone} onChange={this.handleChange} type="number"
+                                <input id="phone" name={'phone'} autoComplete="off" defaultValue={phone}
+                                       onChange={this.handleChange} type="number"
                                        className="form-control"/>
                                 {this.validator.message('phone', phone, 'required|numeric|phone')}
                             </div>
@@ -170,7 +185,8 @@ class PhonePassResetForm extends Component {
                                 <input id="password_confirmation" name={'password_confirmation'} type="password"
                                        className="form-control" onChange={this.handleChange}
                                        onBlur={this.validatePasswords}/>
-                                {this.state.passErr ? <label className={'srv-validation-message'}>Password Doesn't match</label> : null}
+                                {this.state.passErr ?
+                                    <label className={'srv-validation-message'}>Password Doesn't match</label> : null}
                             </div>
 
                         </div>
@@ -192,7 +208,7 @@ class PhonePassResetForm extends Component {
 
                                     </div>
                                     <div className="col-3">
-                                        <input id="pin_two" type="password" autoComplete='off'  name={'pin_two'}
+                                        <input id="pin_two" type="password" autoComplete='off' name={'pin_two'}
                                                className={'form-control pin-control'}
                                                value={this.state.form.pin_two}
                                                onChange={this.handleChange}

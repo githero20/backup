@@ -357,6 +357,10 @@
         font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
+    .spaced-table th, .spaced-table td{
+        padding: .75rem .75rem !Important;
+    }
+
 }
 
 
@@ -414,6 +418,9 @@
     html body .content .content-wrapper {
         padding-top: 0rem;
 
+    }
+    .spaced-table th, .spaced-table td{
+        padding: .75rem .75rem !Important;
     }
 }
 

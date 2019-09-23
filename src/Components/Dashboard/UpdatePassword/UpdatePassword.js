@@ -5,6 +5,7 @@ import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 import {passwordValidator, validatePasswords} from "../../../Helpers/Helper";
+import SimpleReactValidator from "simple-react-validator";
 
 
 
@@ -31,7 +32,7 @@ class UpdatePassword extends Component {
 
         super(props);
 
-        this.validator = passwordValidator;
+        this.validator = new SimpleReactValidator();
 
 
     }
@@ -51,7 +52,9 @@ class UpdatePassword extends Component {
         const name = event.target.name;
         const value = event.target.value;
         if (name == 'password_confirmation') {
-            (!validatePasswords(this.state.password, value)) ? this.setState({passErr: true}) : this.setState({passErr: false});
+            (!validatePasswords(this.state.password, value)) ?
+                this.setState({passErr: true}) :
+                this.setState({passErr: false});
         }
         this.setState({
             [name]: value
@@ -198,7 +201,7 @@ class UpdatePassword extends Component {
                                     className="form-control mb-1"
                                     name="old_password"
                                 />
-                                {this.validator.message('old password', old_password, `required|string|min:8|password`)}
+                                {this.validator.message('old password', old_password, `required|string|min:8`)}
                                 {/*{this.validator.message('Old password', password, 'required|string|min:8')}*/}
                                 {/*{this.state.passwordError ?*/}
                                 {/*    <label className={'srv-validation-message'}>Password must contain at least one*/}
@@ -219,7 +222,7 @@ class UpdatePassword extends Component {
                                     value={password}
                                     name="password"
                                 />
-                                {this.validator.message('password', password, `required|string|min:8|password`)}
+                                {this.validator.message('password', password, `required|string|min:8`)}
                                 {/*{this.validator.message('Password', password, 'required|string|min:8')}*/}
                             </div>
                         </div>

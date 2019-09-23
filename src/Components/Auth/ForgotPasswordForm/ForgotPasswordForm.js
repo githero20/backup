@@ -162,4 +162,4 @@ class ForgotPasswordForm extends Component {
     }
 }
 
-export default withToastManager(ForgotPasswordForm);
+export default  withToastManager(ForgotPasswordForm);

@@ -173,13 +173,13 @@ class LockedSavingForm extends Component {
                                 onKeyDown={disableKey}
                                 onKeyUp={disableKey}
                                 format="YYYY-MM-DD"
-                                min={moment().add('1', 'days').format('YYYY-MM-DD')}
+                                min={moment().add('30', 'days').format('YYYY-MM-DD')}
                                 max={moment().add('1', 'years').format('YYYY-MM-DD')}
                                 name="end_date"
                                 value={this.state.form.end_date}
                             />
                             <Form.Text className="text-muted">
-                                Enter the end Date when funds should be returned to your Backup Stash.
+                                Pick the end Date when funds should be returned to your Backup Stash. You can lock money for at least 30 days.
                             </Form.Text>
                             {this.validator.message("end Date", this.state.form.end_date, "required")}
                         </Form.Group>

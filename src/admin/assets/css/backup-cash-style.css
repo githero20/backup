@@ -1617,3 +1617,7 @@ bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^='right'] .arrow::
     margin-top: 10px;
     z-index: 50;
 }
+
+.spaced-table th, .spaced-table td{
+    padding: .75rem .75rem !Important;
+}

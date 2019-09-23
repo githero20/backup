@@ -22,14 +22,9 @@ class ResetPasswordForm extends Component {
 
     };
 
-
     constructor(props) {
-
         super(props);
-
         this.validator = new SimpleReactValidator();
-
-
     }
 
     //Retrieves user inputs
@@ -47,24 +42,17 @@ class ResetPasswordForm extends Component {
 
 
     handleResetResponse = (state,response)=> {
-
         const { toastManager } = this.props;
-
         this.setState({
             loading:false
         });
 
         if(state){
-
-
             toastManager.add(`${response.data.success}`, {
                 appearance: 'success',
             });
-
             setTimeout(()=>{this.setState({redirect:true})},2500);
-
         }else{
-
             if(response){
                 if(response.data.errors){
                     response.data.errors.map((err,indx)=>{
@@ -76,7 +64,7 @@ class ResetPasswordForm extends Component {
                         )
                     });
                 }else {
-                    toastManager.add(`${response.data.error}`, {
+                    toastManager.add(`${"Your Link has expired. Please request a new one."}`, {
                         appearance: 'error',
                     })
                 }
@@ -142,7 +130,6 @@ class ResetPasswordForm extends Component {
 
                         <div className="col-12">
                             <h5 className="form-header-purple mb-5">Reset password</h5>
-
                         </div>
 
                         <div className="col-12">

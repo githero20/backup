@@ -66,6 +66,10 @@ class SignUpForm extends Component {
         //     this.validatePassword();
         // }
 
+        //set confirm password
+        if (name === 'password') {
+            this.setConfirmPass(value);
+        }
         //validate confirm password
         if (name === 'password_confirmation') {
             this.validatePasswords(value);
@@ -125,6 +129,12 @@ class SignUpForm extends Component {
 
     };
 
+    setConfirmPass = (value) => {
+        this.setState({
+            password_confirmation: value,
+        });
+    };
+
     validatePassword = () => {
         let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
         //^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})
@@ -158,7 +168,7 @@ class SignUpForm extends Component {
 
         if (!state) {
             if (response) {
-                console.log('error',response);
+                console.log('error', response);
                 // this.setState({
                 //     error: true,
                 //     errorMessage: JSON.stringify(response.data.message),
@@ -201,25 +211,25 @@ class SignUpForm extends Component {
         if (this.validator.allValid()) {
             //validate confirm password
             // perform all necessary validation
-            const ConfPassValid = this.validatePasswords(this.state.password_confirmation);
+            // const ConfPassValid = this.validatePasswords(this.state.password_confirmation);
             // const PassVal = this.validatePassword();
-            if (ConfPassValid) {
-                //    make api call
-                this.setState({
-                    loading: true
-                });
+            // if (ConfPassValid) {
+            //    make api call
+            this.setState({
+                loading: true
+            });
 
-                this.signUp(RegisterEndpoint, this.state, this.getSignUpInfo);
+            this.signUp(RegisterEndpoint, this.state, this.getSignUpInfo);
 
-            }
+            // }
 
 
         } else {
 
             //display All errors
 
-            this.validatePasswords(this.state.password_confirmation);
-            this.validatePassword();
+            // this.validatePasswords(this.state.password_confirmation);
+            // this.validatePassword();
 
             this.validator.showMessages();
             // rerender to show messages for the first time
@@ -325,7 +335,7 @@ class SignUpForm extends Component {
                             </div>
                         </div>
 
-                        <div className="col-12  col-lg-6 ">
+                        <div className="col-12  ">
                             <div className="form-group">
                                 <label htmlFor="email">Email</label>
                                 <input id="email" name={'email'} type="email" className="form-control "
@@ -371,25 +381,25 @@ class SignUpForm extends Component {
                                 {/*    </label> : null}*/}
                             </div>
                         </div>
-                        <div className="col-12 col-lg-6">
-                            <div className="form-group position-relative">
-                                <label htmlFor="password_confirmation">Confirm Password</label>
+                        {/*<div className="col-12 col-lg-6">*/}
+                        {/*    <div className="form-group position-relative">*/}
+                        {/*        <label htmlFor="password_confirmation">Confirm Password</label>*/}
 
-                                <div className="input-group">
-                                    <input id="password_confirmation" name={'password_confirmation'} type="password"
-                                           className="form-control pl-0" onChange={this.changeHandler}/>
-                                    <div className="input-group-append">
-                                        <i id='confirm-pass-toggle' name="confirm-pass-toggle" onClick={this.togglePass}
-                                           className="fa fa-fw fa-eye field-icon  toggle-password "></i>
-                                    </div>
+                        {/*        <div className="input-group">*/}
+                        {/*            <input id="password_confirmation" name={'password_confirmation'} type="password"*/}
+                        {/*                   className="form-control pl-0" onChange={this.changeHandler}/>*/}
+                        {/*            <div className="input-group-append">*/}
+                        {/*                <i id='confirm-pass-toggle' name="confirm-pass-toggle" onClick={this.togglePass}*/}
+                        {/*                   className="fa fa-fw fa-eye field-icon  toggle-password "></i>*/}
+                        {/*            </div>*/}
 
-                                </div>
+                        {/*        </div>*/}
 
 
-                                {this.state.ConfirmPassError ?
-                                    <label className={'srv-validation-message'}>The passwords you entered are inconsistent!</label> : null}
-                            </div>
-                        </div>
+                        {/*        {this.state.ConfirmPassError ?*/}
+                        {/*            <label className={'srv-validation-message'}>The passwords you entered are inconsistent!</label> : null}*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
 
                         <div className="col-md-6 text-center text-md-left mb-3 mb-md-0">
                             <div className="referal-code-section">

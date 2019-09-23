@@ -883,7 +883,7 @@ export function pointFormatter(cell) {
 }
 export function pointStatusFormatter(cell) {
 	return (cell== 1 ? <button className={'btn btn-success'}>Active</button> :
-		<button className={'btn btn-sm btn-warning'}>In Active</button>)
+		<button className={'btn btn-sm btn-warning'}>Inactive</button>)
 
 }
 

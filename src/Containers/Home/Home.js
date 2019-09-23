@@ -93,11 +93,11 @@ class Home extends Component {
             hideLoader();
             localStorage.setItem('hideLoader', true);
         });
-        Support();
+        // Support();
     }
 
     componentWillUnmount() {
-        hideSupport();
+        // hideSupport();
     }
 
 

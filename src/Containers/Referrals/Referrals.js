@@ -46,6 +46,7 @@ class Referrals extends Component {
             showLoader: false
         });
         console.log('res before', res);
+
         if (state && res) {
             this.setState({
                 transactions: res,
@@ -103,15 +104,14 @@ class Referrals extends Component {
                 dataField: 'user',
                 formatter: userFormatter,
             },
-            // {
-            //     text: 'Point',
-            //     dataField: 'points',
-            //     formatter: pointFormatter,
-            //     sort: true,
-            //     classes: 'd-none d-md-table-cell',
-            //     headerClasses: 'd-none d-md-table-cell',
-            // },
             {
+                text: 'Point',
+                dataField: 'points',
+                formatter: pointFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            }, {
                 text: 'Status',
                 dataField: 'is_transact',
                 formatter: pointStatusFormatter,
@@ -138,14 +138,14 @@ class Referrals extends Component {
                 dataField: 'user',
                 formatter: userFormatter,
             },
-            // {
-            //     text: 'Point',
-            //     dataField: 'points',
-            //     // formatter: amountBalanceFormatter,
-            //     sort: true,
-            //     classes: ' d-table-cell d-md-none',
-            //     headerClasses: 'd-table-cell d-md-none',
-            // },
+            {
+                text: 'Point',
+                dataField: 'points',
+                // formatter: amountBalanceFormatter,
+                sort: true,
+                classes: ' d-table-cell d-md-none',
+                headerClasses: 'd-table-cell d-md-none',
+            },
             {
                 text: 'status',
                 dataField: 'is_transact',

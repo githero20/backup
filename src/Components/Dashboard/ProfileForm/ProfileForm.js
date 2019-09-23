@@ -17,7 +17,8 @@ class ProfileForm extends Component {
         ConfirmPassError: false,
         loading: false,
         userProfile: null,
-        copySuccess: false
+        copySuccess: false,
+        email:'',
 
     };
 
@@ -84,8 +85,59 @@ class ProfileForm extends Component {
     };
 
 
+    getEmail = (e) =>{
+        this.setState({
+            email:e.target.value
+        })
+    };
+
+    updateEmail = () => {
+
+        //validate email
+        
+        // get email
+
+        // update email
+
+    };
+
+
     render() {
         const {userProfile} = this.props;
+
+        let emailInput = null;
+        if (userProfile && userProfile.email == '') {
+            emailInput = (
+                <div>
+                    <div className="input-group">
+                        <input id="email" type="password" name={'email'}
+                               className={'form-control pl-0'}
+                               onChange={this.getEmail}
+                        />
+                        <div className="input-group-append">
+                            <button id='pass-toggle' name="pass-toggle"
+                                   onClick={this.updateEmail}  className="btn btn-custom-blue">Update Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )
+        } else {
+            emailInput = (
+                <div>
+                    <input type="email"
+                           id="email"
+                           name='email'
+                           className="form-control"
+                           placeholder="Email"
+                           disabled
+                        // onChange={this.changeHandler}
+                           defaultValue={userProfile ? userProfile.email : null}
+                    />
+                </div>
+            )
+        }
+
         return (
             <React.Fragment>
                 <div>
@@ -129,34 +181,18 @@ class ProfileForm extends Component {
                                                     />
                                                     {/*{this.validator.message('name', name, 'required|string')}*/}
                                                     {/*{this.validator.message('last name', userProfile.last_name, 'required|string')}*/}
-
                                                 </div>
                                             </div>
                                             <div className="col-md-12 col-lg-6">
-                                                <div
-                                                    className="custom-form-group form-group">
-                                                    <label htmlFor="email"
-                                                           className="active">Email</label>
-                                                    <div>
-                                                        <input type="email"
-                                                               id="email"
-                                                               name='email'
-                                                               className="form-control"
-                                                               placeholder="Email"
-                                                               disabled
-                                                               // onChange={this.changeHandler}
-                                                               defaultValue={userProfile ? userProfile.email : null}
-                                                        />
-                                                        {/*{this.validator.message('email', userProfile.email, 'required|email')}*/}
-
-                                                    </div>
+                                                <div className="custom-form-group form-group">
+                                                    <label htmlFor="email" className="active">Email</label>
+                                                    {emailInput}
                                                 </div>
-
                                             </div>
+
                                             <div className="col-md-12 col-lg-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="phone">Phone
-                                                        Number</label>
+                                                    <label htmlFor="phone">Phone Number</label>
                                                     <input
                                                         type="number"
                                                         id="phone"

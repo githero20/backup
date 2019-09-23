@@ -119,15 +119,17 @@ class InstantSave extends Component {
 
 
     handleTransactions = (state, res) => {
-        console.log('res',res);
+        console.log('res', res);
         if (state) {
             let transactions = [];
             let total = 0;
             if (res.data.data.length > 0) {
                 transactions = res.data.data.filter(content => content.status == 'success' && content.type == 'credit');
-                total = transactions.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount;
+                if (transactions.length > 0) {
+                    total = transactions.reduce((a, b) => ({
+                        amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount;
+                }
             }
-
             this.setState({
                 transactions,
                 showLoader: false,

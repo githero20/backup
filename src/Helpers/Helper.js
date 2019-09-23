@@ -876,9 +876,15 @@ export function balanceFormatter(cell) {
 				  className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
 
 }
-export function pointFormatter(cell) {
-	return <label style={{minWidth: '100px'}}
-				  className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
+export function pointFormatter(cell,row) {
+	if(row.is_transact == 0){
+		return <label style={{minWidth: '100px'}}
+					  className={'text-info'}>0</label>
+	}else {
+		return <label style={{minWidth: '100px'}}
+					  className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
+	}
+
 
 }
 export function pointStatusFormatter(cell) {

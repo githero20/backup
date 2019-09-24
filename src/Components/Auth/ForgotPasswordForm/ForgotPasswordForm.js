@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
@@ -119,7 +118,7 @@ class ForgotPasswordForm extends Component {
     }
 
     render() {
-
+        console.log('props',this.props.text);
         const {email} = this.state;
 
 
@@ -134,7 +133,10 @@ class ForgotPasswordForm extends Component {
                         </div>
                         <div className="col-12">
                             <div className="form-group">
-                                <label htmlFor="email" className="">Your Email or Phone Number</label>
+                                <label htmlFor="email"
+                                       className="">
+                                    {this.props.text == 'Create Password' ? 'Your Phone Number' : 'Your Email or Phone Number'}
+                                </label>
                                 {/*<input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="form-control" />*/}
                                 <input id="email" name={'email'} onChange={this.changeHandler} type="text"
                                        className="form-control"/>
@@ -162,4 +164,4 @@ class ForgotPasswordForm extends Component {
     }
 }
 
-export default  withToastManager(ForgotPasswordForm);
+export default withToastManager(ForgotPasswordForm);

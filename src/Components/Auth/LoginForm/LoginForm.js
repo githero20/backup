@@ -14,6 +14,7 @@ import {SESSION_INTERVAL, USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 import {ADMIN, ADMIN_LOGIN_URL, CUSTOMER, EmailPhoneValidator} from "../../../Helpers/Helper";
 import moment from 'moment';
+import SimpleReactValidator from "simple-react-validator";
 
 
 class LoginForm extends Component {
@@ -33,7 +34,7 @@ class LoginForm extends Component {
 
     constructor(props) {
         super(props);
-        this.validator = EmailPhoneValidator;
+        this.validator = new SimpleReactValidator();
         this.processLogin = this.processLogin.bind(this);
         this.toastMessage = this.toastMessage.bind(this);
     }
@@ -248,7 +249,7 @@ class LoginForm extends Component {
                                 <label htmlFor="email">Email or Phone Number</label>
                                 <input id="email" name={'email'} onChange={this.changeHandler} type="text"
                                        className="form-control"/>
-                                {this.validator.message('email or phone', email, 'required|emailPhone')}
+                                {/*{this.validator.message('email or phone', email, 'required|emailPhone')}*/}
 
                             </div>
                         </div>

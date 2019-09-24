@@ -101,7 +101,8 @@ class PhonePassResetForm extends Component {
         });
         //handle response
         if (state) {
-            toastMessage(`${response.data.data}`, 'success', this);
+            // toastMessage(`${response.data.data}`, 'success', this);
+            toastMessage(`Password created successfully !!`, 'success', this);
 
             setTimeout(() => {
                 this.setState({redirect: true})

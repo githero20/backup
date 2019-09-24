@@ -24,7 +24,7 @@ const Footer = () => {
                         <a href="https://www.facebook.com/BackUpCash/" className='a-facebook' target='_blank'>
                             <i className='fa fa-facebook fa-2x mr-2'/>
                         </a>
-                        <a href="https://twitter.com/backupcash" className='a-twitter' target='_blank'>
+                        <a href="https://twitter.com/mybackupcash" className='a-twitter' target='_blank'>
                             <i className='fa fa-twitter fa-2x  mr-2'/>
                         </a>
                         <a href="https://www.instagram.com/mybackupcash/" className='a-instagram' target='_blank'>

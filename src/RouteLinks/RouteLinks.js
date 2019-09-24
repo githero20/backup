@@ -67,6 +67,7 @@ export const registerBank = `sfsbapi/v1/user/banks/register`;
 export const getBank = `sfsbapi/v1/get-bank-name`;
 export const getUserWithdrawalPin = `sfsbapi/v1/user/withdrawals/pin`;
 export const updateUserProfileEndpoint = `sfsbapi/v1/user/profile/update`;
+export const updateEmailEndpoint = `sfsbapi/v1/user/profile/update/email`;
 export const ResendBankOTP = `/sfsbapi/v1/user/banks/resendotp`;
 export const VerifyBankOTP = `sfsbapi/v1/user/banks/verifyotp`;
 export const GetUserBanks = `sfsbapi/v1/user/banks`;

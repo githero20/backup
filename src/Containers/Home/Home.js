@@ -641,7 +641,7 @@ class Home extends Component {
                                                         </a>
                                                     </span>
                                                         <span className="fa-stack fa-sm">
-                                                        <a href='https://twitter.com/backupcash' rel='noreferrer'
+                                                        <a href='https://twitter.com/mybackupcash' rel='noreferrer'
                                                            target='_blank'>
                                                             <i className="fa fa-circle fa-stack-2x"></i>
                                                             <i className="fa fa-twitter fa-stack-1x fa-inverse"></i>

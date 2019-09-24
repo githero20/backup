@@ -4,7 +4,11 @@ import {
     getFirstTimeUserEndpoint,
     getUserInfoEndpoint,
     getUserPointsEndpoint,
-    getUserRoleEndpoint, InitiateBGDuePayEndpoint,updateUserProfileEndpoint, storeFirstTimeLoginEndpoint
+    getUserRoleEndpoint,
+    InitiateBGDuePayEndpoint,
+    updateUserProfileEndpoint,
+    storeFirstTimeLoginEndpoint,
+    updateEmailEndpoint
 } from "../RouteLinks/RouteLinks";
 import {checkResponse} from "../ApiUtils/ApiUtils";
 import axios from "axios";
@@ -111,6 +115,20 @@ export function getUserRole(token=null, callback) {
 
 export const updateUserProfile = (payload, callback) =>{
     _axios.post(updateUserProfileEndpoint,payload,{
+        headers: _getHeader()
+    })
+        .then(res => {
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            console.log("Err",err);
+            checkResponse(err);
+            callback(false, err.response);
+        })
+};
+
+export const updateEmailProfile = (payload, callback) =>{
+    _axios.post(updateEmailEndpoint,payload,{
         headers: _getHeader()
     })
         .then(res => {

@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import SimpleReactValidator from "simple-react-validator";
 import {withToastManager} from 'react-toast-notifications';
-import {capitalize} from "../../../Helpers/Helper";
+import {capitalize, toastMessage} from "../../../Helpers/Helper";
 import UpdateWithdrawalPin from "../UpdateWithdrawalPin/UpdateWithdrawalPin";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
-import {updateUserProfile} from "../../../actions/UserAction";
+import {updateEmailProfile, updateUserProfile} from "../../../actions/UserAction";
 
 class ProfileForm extends Component {
 
@@ -18,8 +18,7 @@ class ProfileForm extends Component {
         loading: false,
         userProfile: null,
         copySuccess: false,
-        email:'',
-
+        email: '',
     };
 
     constructor(props) {
@@ -85,20 +84,36 @@ class ProfileForm extends Component {
     };
 
 
-    getEmail = (e) =>{
+    getEmail = (e) => {
         this.setState({
-            email:e.target.value
+            email: e.target.value
         })
     };
 
-    updateEmail = () => {
-
-        //validate email
-        
-        // get email
-
+    updateEmail = (e) => {
+        e.preventDefault();
         // update email
-
+        this.setState({loading: true});
+        updateEmailProfile(this.state, (status, response) => {
+            this.setState({loading: false});
+            if (status) {
+                console.log(response);
+                toastMessage('Email updated successfully!!', 'success', this);
+                // this.setState({
+                //
+                // })
+            } else {
+                if (response && response.data) {
+                    console.log('error', response);
+                    let errors = response.data.errors;
+                    let errorData = Object.values(errors);
+                    errorData.map((err, idx) => {
+                        return toastMessage(err, 'error', this)
+                    });
+                }
+                // toastMessage('Uhnable to update Email', 'error', this);
+            }
+        });
     };
 
 
@@ -106,21 +121,22 @@ class ProfileForm extends Component {
         const {userProfile} = this.props;
 
         let emailInput = null;
-        if (userProfile && userProfile.email == '') {
+        if (userProfile && (userProfile.email == '' || userProfile.email == null || userProfile.email == undefined)) {
             emailInput = (
-                <div>
-                    <div className="input-group">
-                        <input id="email" type="password" name={'email'}
+                <form onSubmit={this.updateEmail}>
+                    <div className="input-group mb-1">
+                        <input id="email" type="email" name={'email'}
                                className={'form-control pl-0'}
-                               onChange={this.getEmail}
+                               onChange={this.getEmail} required
                         />
-                        <div className="input-group-append">
-                            <button id='pass-toggle' name="pass-toggle"
-                                   onClick={this.updateEmail}  className="btn btn-custom-blue">Update Email
-                            </button>
-                        </div>
                     </div>
-                </div>
+                    <div>
+                        <button id='pass-toggle' name="pass-toggle" type='submit' className="round btn-custom-blue">
+                            {this.state.loading ? <ButtonLoader/> :
+                                <span>Update Email</span>}
+                        </button>
+                    </div>
+                </form>
             )
         } else {
             emailInput = (
@@ -228,7 +244,7 @@ class ProfileForm extends Component {
                                         <div className="input-group">
                                             <input type="text" id="referral_code" name="referral_code"
                                                    className="form-control"
-                                                   value={userProfile ? userProfile.referral_code : null}
+                                                   value={userProfile ? userProfile.referral_code : ''}
                                                    aria-describedby="button-addon2"
                                             />
 

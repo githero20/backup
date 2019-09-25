@@ -6,19 +6,19 @@ import {withToastManager} from 'react-toast-notifications';
 import {LoginLink, ResetPasswordEndpoint} from "../../../RouteLinks/RouteLinks";
 import {request} from "../../../ApiUtils/ApiUtils";
 import {Redirect} from "react-router";
-import {passwordValidator, validatePasswords} from "../../../Helpers/Helper";
+import {passwordValidator, toastMessage, validatePasswords} from "../../../Helpers/Helper";
 
 
 class ResetPasswordForm extends Component {
 
-    state={
-        password:'',
-        token:'',
-        password_confirmation:'',
-        email:'',
-        passErr:false,
-        loading:false,
-        redirect:false,
+    state = {
+        password: '',
+        token: '',
+        password_confirmation: '',
+        email: '',
+        passErr: false,
+        loading: false,
+        redirect: false,
 
     };
 
@@ -35,44 +35,36 @@ class ResetPasswordForm extends Component {
             [name]: value
         });
         if (name == 'password_confirmation') {
-            (!validatePasswords(this.state.password, value)) ? this.setState({passErr: true}) : this.setState({passErr: false});
+            (!validatePasswords(this.state.password, value)) ?
+                this.setState({passErr: true}) :
+                this.setState({passErr: false});
         }
     };
 
 
-
-    handleResetResponse = (state,response)=> {
-        const { toastManager } = this.props;
+    handleResetResponse = (state, response) => {
+        const {toastManager} = this.props;
         this.setState({
-            loading:false
+            loading: false
         });
 
-        if(state){
-            toastManager.add(`${response.data.success}`, {
-                appearance: 'success',
-            });
-            setTimeout(()=>{this.setState({redirect:true})},2500);
-        }else{
-            if(response){
-                if(response.data.errors){
-                    response.data.errors.map((err,indx)=>{
-                        return(
-                            toastManager.add(`${err}`, {
-                                appearance: 'error',
-                                index:indx,
-                            })
-                        )
-                    });
-                }else {
-                    toastManager.add(`${"Your Link has expired. Please request a new one."}`, {
+        if (state) {
+            toastMessage(response.data.success, 'success', this);
+            setTimeout(() => {
+                this.setState({redirect: true})
+            }, 2500);
+        } else if (!state && response && response.data && response.data.errors) {
+            response.data.errors.map((err, indx) => {
+                return (
+                    toastManager.add('Your Link has expired.Please Request a new Link', {
                         appearance: 'error',
+                        index: indx,
                     })
-                }
-            }
+                )
+            });
         }
+
     };
-
-
 
 
     submitForm = (e) => {
@@ -80,12 +72,12 @@ class ResetPasswordForm extends Component {
         e.preventDefault();
 
         if (this.validator.allValid()) {
-            if( validatePasswords(this.state.password, this.state.password_confirmation)){
+            if (validatePasswords(this.state.password, this.state.password_confirmation)) {
                 this.setState({
-                    loading:true,
-                    token:this.props.token
-                },()=>{
-                    request(ResetPasswordEndpoint,this.state,false,'POST',this.handleResetResponse)
+                    loading: true,
+                    token: this.props.token
+                }, () => {
+                    request(ResetPasswordEndpoint, this.state, false, 'POST', this.handleResetResponse)
                 });
             }
         } else {
@@ -95,7 +87,6 @@ class ResetPasswordForm extends Component {
             this.forceUpdate();
         }
     };
-
 
 
     validatePasswords = () => {
@@ -113,14 +104,11 @@ class ResetPasswordForm extends Component {
     };
 
 
-
-
-
     render() {
-        const {password,email}=this.state;
-        if(this.state.redirect){
+        const {password, email} = this.state;
+        if (this.state.redirect) {
             return (
-                <Redirect to={LoginLink} />
+                <Redirect to={LoginLink}/>
             )
         }
         return (
@@ -135,7 +123,8 @@ class ResetPasswordForm extends Component {
                         <div className="col-12">
                             <div className="form-group">
                                 <label htmlFor="email" className="">Email Address</label>
-                                <input id="email" name={'email'}  onChange={this.changeHandler} type="email" className="form-control" />
+                                <input id="email" name={'email'} onChange={this.changeHandler} type="email"
+                                       className="form-control"/>
                                 {this.validator.message('email', email, 'required|email')}
                             </div>
 
@@ -145,7 +134,8 @@ class ResetPasswordForm extends Component {
                         <div className="col-12">
                             <div className="form-group">
                                 <label htmlFor="password" className="">New Password</label>
-                                <input id="password" name={'password'}  onChange={this.changeHandler} type="password" className="form-control" />
+                                <input id="password" name={'password'} onChange={this.changeHandler} type="password"
+                                       className="form-control"/>
                                 {this.validator.message('password', password, 'required|string|min:8')}
                             </div>
                         </div>
@@ -167,8 +157,9 @@ class ResetPasswordForm extends Component {
                         <div className="col-12">
                             <div className="d-flex mt-1  flex-md-row justify-content-end align-items-center">
                                 {/* submit button */}
-                                <button type="submit" disabled={this.state.loading}  className="btn btn-round blue-round-btn auth-btn "
-                                        name="action">{this.state.loading?<ButtonLoader/>:
+                                <button type="submit" disabled={this.state.loading}
+                                        className="btn btn-round blue-round-btn auth-btn "
+                                        name="action">{this.state.loading ? <ButtonLoader/> :
                                     <span>Submit<img alt="" className="img-2x ml-2" src={signInIcon}/></span>}
                                 </button>
                             </div>

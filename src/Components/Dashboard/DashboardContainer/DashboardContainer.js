@@ -244,8 +244,6 @@ class DashboardContainer extends Component {
                                 />
 
                                 <BackUpStashCard stashAmount={stashAmount}/>
-
-
                                 <div className="col-12 col-lg-6">
                                     <div className="dash-ads mb-3">
                                         <img src={adImg} className='dash-ad-img' alt="advert one "/>

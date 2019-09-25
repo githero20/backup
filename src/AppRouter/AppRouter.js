@@ -52,8 +52,16 @@ import Faq from "../Containers/Faq/faq";
 import { TransitionGroup, Transition } from "react-transition-group";
 import {play,exit} from "../timelines";
 import Referrals from "../Containers/Referrals/Referrals";
+import ReactGA from 'react-ga';
+
 
 class AppRouter extends Component {
+
+
+    componentDidMount() {
+        ReactGA.initialize('UA-148092447-1');
+        ReactGA.pageview(window.location.pathname + window.location.search);
+    }
 
     render() {
 

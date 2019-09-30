@@ -845,7 +845,7 @@ export function viewFormatter(cell) {
 }
 
 export function actionFormatter(cell, row, rowIndex, {trans}) {
-	const today = moment().format('MM-DD-YYYY');
+	const tommorrow = moment().add(1).format('MM-DD-YYYY');
 	//get latest end date
 	let latestDate = moment(Math.max.apply(null, trans.map(function (content) {
 		if (content.end_date != null) {
@@ -853,18 +853,24 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 		}
 	}))).format('MM-DD-YYYY');
 
+	let latestHour = Math.max.apply(null, trans.map(function (content) {
+		if (content.hour_of_day != null) {
+			return content.hour_of_day;
+		}
+	}));
+    console.log('latestHour',latestHour);
 	console.log('transactions',trans);
 	console.log('row',row);
 	console.log('cell',cell);
-	console.log('dates',today,latestDate);
+	console.log('dates',tommorrow,latestDate);
 	// if the latest date is past render convert steady save
-	if (latestDate < today && latestDate == moment(row.end_date).format('MM-DD-YYYY')) {
+	if (latestDate < tommorrow && latestDate == moment(row.end_date).format('MM-DD-YYYY')) {
 		console.log('entered first block');
 		return <button name='convert-btn' className={'btn btn-block round btn-sm btn-success'}>Convert</button>
-	}else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < today) {
+	}else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < tommorrow) {
 		console.log('entered two block');
 		return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>;
-	} else if (row.end_date == null || (latestDate > today && latestDate == moment(row.end_date).format('MM-DD-YYYY') && row.stop != 1)) {
+	} else if (row.end_date == null || (latestDate > tommorrow && latestDate == moment(row.end_date).format('MM-DD-YYYY'))) {
 		console.log('entered third block');
 		return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
 	}

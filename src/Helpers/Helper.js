@@ -863,7 +863,7 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 	}else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < today) {
 		console.log('entered two block');
 		return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>;
-	} else if (row.end_date == null || (latestDate > today && latestDate == moment(row.end_date).format('MM-DD-YYYY'))) {
+	} else if (row.end_date == null || (latestDate > today && latestDate == moment(row.end_date).format('MM-DD-YYYY') && row.stop != 1)) {
 		console.log('entered third block');
 		return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
 	}

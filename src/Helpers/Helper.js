@@ -852,6 +852,9 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 		}
 	}))).format('MM-DD-YYYY');
 
+	console.log('transactions',trans);
+	console.log('row',row);
+	console.log('cell',cell);
 	console.log('dates',today,latestDate);
 	// if the latest date is past render convert steady save
 	if (latestDate < today && latestDate == moment(row.end_date).format('MM-DD-YYYY')) {

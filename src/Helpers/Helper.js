@@ -857,16 +857,15 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 	if (latestDate < today && latestDate == moment(row.end_date).format('MM-DD-YYYY')) {
 		console.log('entered first block');
 		return <button name='convert-btn' className={'btn btn-block round btn-sm btn-success'}>Convert</button>
-	} else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < today) {
-		console.log('entered second block');
+	}else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < today) {
+		console.log('entered two block');
 		return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>;
-	} else if (row.end_date == null) {
+	} else if (row.end_date == null || (latestDate > today && latestDate == moment(row.end_date).format('MM-DD-YYYY'))) {
 		console.log('entered third block');
 		return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
 	}
 	console.log('did not enter block');
 	return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>
-
 }
 
 export function detailFormatter(cell) {

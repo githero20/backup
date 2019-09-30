@@ -337,6 +337,7 @@ export function getTotalBGSuccessful(transactions) {
 
 
 export function transformHour(hour) {
+	hour = Number(hour);
 	switch (hour) {
 
 		case 1 :

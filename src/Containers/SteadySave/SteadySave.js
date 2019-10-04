@@ -112,6 +112,12 @@ class SteadySave extends Component {
             }
         );
     };
+    showCreateModal = () => {
+        this.setState({
+                showCreateSavingModal: true
+            }
+        );
+    };
 
     showModal = () => {
         this.setState({
@@ -285,7 +291,7 @@ class SteadySave extends Component {
 
         if (transactions.length == 0) {
             startButtonText = 'Create Steady Save';
-        }else{
+        } else {
             startButtonText = 'Edit Steady Save'
         }
 
@@ -811,9 +817,10 @@ class SteadySave extends Component {
                                                     className="mb-quick-actions d-flex flex-column flex-wrap mb-1 mb-md-0">
                                                     <span className="mb-btn-wrapper steady-btn-wrapper">
                                                         {transactions.length > 1 ? <>&nbsp;</> :
-                                                            <button type="button" onClick={this.showModal}
+                                                            <button type="button"
+                                                                    onClick={transactions.length == 0 ? this.showCreateModal : this.showModal}
                                                                     className=" btn-blue-gradient-2 round">
-                                                                <img src={whiteSaveMoreIcon}/>{startButtonText}
+                                                                <img src={whiteSaveMoreIcon}/> {startButtonText}
                                                             </button>}
 
                                                     </span>

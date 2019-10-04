@@ -109,8 +109,8 @@ class AppRouter extends Component {
                                                 <Route path={LoginLink} render={() => (
                                                     user ? <Redirect to={DashboardLink}/> : <Login/>
                                                 )}/>
-                                                <Route path={SignUpLink} render={() => (
-                                                    user ? <Redirect to={DashboardLink}/> : <SignUp/>
+                                                <Route path={SignUpLink} render={(props) => (
+                                                    user ? <Redirect to={DashboardLink}/> : <SignUp {...props}/>
                                                 )}/>
                                                 <Route path={InviteLink} component={SignUp}/>
                                                 <Route path={ActivateAccountLink} component={ActivateAccount}/>

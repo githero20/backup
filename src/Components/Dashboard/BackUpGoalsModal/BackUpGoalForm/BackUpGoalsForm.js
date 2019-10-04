@@ -377,7 +377,8 @@ class BackUpGoalsForm extends Component {
                                           id={'start_date'}
                                           min={moment().add(1, 'days').format('YYYY-MM-DD')}
                                           value={start_date}
-                                          onChange={this.changeHandler}/>
+                                          onChange={this.changeHandler}
+                            />
                             {this.validator.message('start_date', start_date, 'required|string')}
 
                         </Form.Group>

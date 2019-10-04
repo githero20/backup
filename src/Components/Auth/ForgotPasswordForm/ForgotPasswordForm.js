@@ -90,7 +90,7 @@ class ForgotPasswordForm extends Component {
                 if (response.data.error.toLowerCase() == "user not found") {
                     toastMessage(`${response.data.error}`, 'error', this);
                 } else if (response.data.error.toLowerCase() == "unable to get user's email") {
-                    toastMessage('Your phone number has been detected, kindly update your email', 'success', this);
+                    toastMessage('Your phone number has been detected, kindly create your password', 'success', this);
                     this.props.setPhone(this.state.email);
                     setTimeout(() => {
                         this.props.showPhoneResetForm();

@@ -34,7 +34,7 @@ import SSaveTransTable from "../../Components/Dashboard/SSaveTransTable/SSaveTra
 import {convertUserSteadySave, getSteadySavHistory, getSteadySavTrans} from "../../actions/SteadySaveAction";
 import SteadyAmountCard from "./SteadyAmountCard";
 import PayNowModal from "../../Components/Dashboard/PayNowModal/PayNowModal";
-import {ToastProvider,withToastManager} from 'react-toast-notifications';
+import {ToastProvider, withToastManager} from 'react-toast-notifications';
 import swal from "sweetalert";
 import Footer from "../../Components/Dashboard/Footer/Footer";
 
@@ -82,7 +82,7 @@ class SteadySave extends Component {
             selectedSteadySave: null,
             steadySaveHistory: [],
             steadySaveTrans: [],
-            mobileTable:false,
+            mobileTable: false,
         };
 
     }
@@ -95,7 +95,7 @@ class SteadySave extends Component {
     };
     hideOneModal = (status = false) => {
         this.setState({
-            showOneSavingModal: false
+                showOneSavingModal: false
             }
         );
     };
@@ -151,8 +151,8 @@ class SteadySave extends Component {
                 this.setState({steadySave});
             }
 
-        } else if(!state && res){
-            console.log('err',res);
+        } else if (!state && res) {
+            console.log('err', res);
         }
 
     };
@@ -173,7 +173,9 @@ class SteadySave extends Component {
 
         if (status) {
             //set name
-            if (data) {this.setState({userName: data.data.data.name});}
+            if (data) {
+                this.setState({userName: data.data.data.name});
+            }
 
             //set account
             if (data.data.data.accounts) {
@@ -192,17 +194,17 @@ class SteadySave extends Component {
         }
     };
 
-    convertSteadySave = (id) =>{
-        convertUserSteadySave(id,(state,res)=>{
-            if(state&&res){
-                toastMessage('Steady Save Converted Successfully.','success',this);
+    convertSteadySave = (id) => {
+        convertUserSteadySave(id, (state, res) => {
+            if (state && res) {
+                toastMessage('Steady Save Converted Successfully.', 'success', this);
                 this.setupSteadySave();
             }
         });
     };
 
 
-    getSteadySave = () =>{
+    getSteadySave = () => {
         this.setupSteadySave();
         this.GetBalance();
     };
@@ -211,7 +213,7 @@ class SteadySave extends Component {
         //get token if token isset
         let token = getToken();
         token.then(() => {
-          this.getSteadySave();
+            this.getSteadySave();
         });
         toggleTable(this);
     }
@@ -269,7 +271,7 @@ class SteadySave extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.reload){
+        if (nextProps.reload) {
             this.getSteadySave();
         }
     }
@@ -278,6 +280,14 @@ class SteadySave extends Component {
 
         const {transactions, userName} = this.state;
         //update the button to show status in progress if is paused is 0 or paused if its 1
+
+        let startButtonText = null;
+
+        if (transactions.length == 0) {
+            startButtonText = 'Create Steady Save';
+        }else{
+            startButtonText = 'Edit Steady Save'
+        }
 
         //table header and columns
         const columns = [
@@ -337,10 +347,10 @@ class SteadySave extends Component {
                 text: 'Quick Action',
                 dataField: 'user_id',
                 formatter: actionFormatter,
-                formatExtraData: { trans: transactions},
+                formatExtraData: {trans: transactions},
                 events: {
                     onClick: (e, column, columnIndex, row) => {
-                        if(e.target.name == 'convert-btn'){
+                        if (e.target.name == 'convert-btn') {
                             swal('Are you sure', 'This will convert your steady save to the new steady save ' +
                                 'that runs automatically.You can edit your steady save once it is converted.', 'info', {
                                 buttons: {
@@ -357,7 +367,7 @@ class SteadySave extends Component {
                                         break;
                                 }
                             });
-                        }else {
+                        } else {
 
                             let oneSteadySave = {
                                 id: row.id,
@@ -436,10 +446,10 @@ class SteadySave extends Component {
                 text: 'Quick Action',
                 dataField: 'user_id',
                 formatter: actionFormatter,
-                formatExtraData: { trans: transactions},
+                formatExtraData: {trans: transactions},
                 events: {
                     onClick: (e, column, columnIndex, row) => {
-                        if(e.target.name == 'convert-btn'){
+                        if (e.target.name == 'convert-btn') {
 
                             swal('Are you sure', 'This will convert your steady save to the new steady save ' +
                                 'that runs automatically.You can edit your steady save once it is converted.', 'info', {
@@ -457,7 +467,7 @@ class SteadySave extends Component {
                                         break;
                                 }
                             });
-                        }else {
+                        } else {
 
                             let oneSteadySave = {
                                 id: row.id,
@@ -542,7 +552,7 @@ class SteadySave extends Component {
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
             },
-             {
+            {
                 text: 'Description',
                 dataField: 'type',
                 formatter: mobileDescFormatter,
@@ -681,7 +691,8 @@ class SteadySave extends Component {
                                                                     <p>
                                                                          {
                                                                              this.state.totalFailed > 0 ?
-                                                                                 <a onClick={() => this.showPayModal()}>Pay Now</a> :
+                                                                                 <a onClick={() => this.showPayModal()}>Pay
+                                                                                     Now</a> :
                                                                                  null
                                                                          }
                                                                     </p>
@@ -708,10 +719,16 @@ class SteadySave extends Component {
                                                             {/* STEADY SAVE TABLE */}
                                                             {this.state.mobileTable ?
                                                                 (
-                                                                    <SSaveTransTable emptyMessage={'No Steady Saves Available'} title={'Steady Save Transactions'}
-                                                                                  transactions={this.state.steadySaveTrans} columns={mobileHistoryColumns} />):
-                                                                ( <SSaveTransTable emptyMessage={'No Steady Saves Available'} title={'Steady Save Transactions'}
-                                                                                  transactions={this.state.steadySaveTrans} columns={historyColumns} />)
+                                                                    <SSaveTransTable
+                                                                        emptyMessage={'No Steady Saves Available'}
+                                                                        title={'Steady Save Transactions'}
+                                                                        transactions={this.state.steadySaveTrans}
+                                                                        columns={mobileHistoryColumns}/>) :
+                                                                (<SSaveTransTable
+                                                                    emptyMessage={'No Steady Saves Available'}
+                                                                    title={'Steady Save Transactions'}
+                                                                    transactions={this.state.steadySaveTrans}
+                                                                    columns={historyColumns}/>)
                                                             }
 
                                                         </div>
@@ -793,18 +810,23 @@ class SteadySave extends Component {
                                                 <div
                                                     className="mb-quick-actions d-flex flex-column flex-wrap mb-1 mb-md-0">
                                                     <span className="mb-btn-wrapper steady-btn-wrapper">
-                                                        <button type="button" onClick={this.showModal} disabled={transactions.length>1?true:false} className=" btn-blue-gradient-2 round">
-                                                            <img src={whiteSaveMoreIcon}/>{transactions.length>1?' Savings Plan':'Edit Savings Plan'}
-                                                        </button>
+                                                        {transactions.length > 1 ? <>&nbsp;</> :
+                                                            <button type="button" onClick={this.showModal}
+                                                                    className=" btn-blue-gradient-2 round">
+                                                                <img src={whiteSaveMoreIcon}/>{startButtonText}
+                                                            </button>}
+
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="row">
                                             {/* //TODO show steady save transactions */}
-                                            {this.state.mobileTable?
-                                                (<SSaveTransTable title={'Steady Saves'} transactions={transactions} columns={mobileColumns}/>):
-                                                (<SSaveTransTable title={'Steady Saves'} transactions={transactions} columns={columns}/>)}
+                                            {this.state.mobileTable ?
+                                                (<SSaveTransTable title={'Steady Saves'} transactions={transactions}
+                                                                  columns={mobileColumns}/>) :
+                                                (<SSaveTransTable title={'Steady Saves'} transactions={transactions}
+                                                                  columns={columns}/>)}
 
                                         </div>
                                     </div>

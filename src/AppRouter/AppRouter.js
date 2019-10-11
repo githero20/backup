@@ -65,7 +65,6 @@ class AppRouter extends Component {
 
     render() {
         const user = localStorage.getItem(USERINFO);
-        console.log('user', user);
         return (
             <React.Fragment>
                 <ToastProvider>

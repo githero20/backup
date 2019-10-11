@@ -1091,8 +1091,8 @@ footer-logo {
         margin-left: -1rem;
     }
 
-    header {
-        min-height: 800px;
+    .header {
+        min-height: 100vh;
         padding: 3rem 10rem 5rem 10rem;
     }
 
@@ -1176,7 +1176,7 @@ footer-logo {
         margin-left: -1rem;
     }
 
-    header {
+    .header {
         min-height: 400px;
     }
 

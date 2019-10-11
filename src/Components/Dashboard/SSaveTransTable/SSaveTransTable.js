@@ -104,6 +104,7 @@ class SSaveTransTable extends Component {
     render() {
 
         const {transactions, columns,title,emptyMessage} = this.props;
+        console.log('steady save',transactions);
 
         return (
             <React.Fragment>
@@ -115,7 +116,7 @@ class SSaveTransTable extends Component {
                             </div>
                         </div>
                         {
-                            transactions!==0?
+                            transactions && transactions.length > 0?
                                 (
                                     <ToolkitProvider
                                         keyField="id"
@@ -178,9 +179,9 @@ class SSaveTransTable extends Component {
                                     </ToolkitProvider>
                                 ):
                                 (
-                                    <div>
-                                        <i className='fa fa-history'></i>
-                                        <p className='text-muted'> {emptyMessage}</p>
+                                    <div className='text-center light-gray'>
+                                        <i className='fa fa-database fa-4x'/>
+                                        <p className='text-muted mt-2'> {emptyMessage}</p>
                                     </div>
                                 )
                         }

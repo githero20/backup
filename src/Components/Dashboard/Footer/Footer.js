@@ -11,7 +11,7 @@ const Footer = () => {
                         Street, Victoria Island 23401,
                         Lagos</p>
                     <p className='faded-black'>
-                        <i className='fa fa-phone '/>&nbsp; 08149460946, 07018567235
+                        <i className='fa fa-phone '/>&nbsp; +234 814 946 0946 , +234 701 856 7235
                     </p>
                     <p className='faded-black'>
                         <i className='fa fa-envelope '/>&nbsp; Enquiries@SFSBackupcash.com

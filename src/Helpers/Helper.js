@@ -344,7 +344,6 @@ export function transformHour(hour) {
 			return '1:00am';
 		case 2:
 			return '2:00am';
-
 		case 3:
 			return '3:00am';
 		case 4:
@@ -387,7 +386,7 @@ export function transformHour(hour) {
 			return '10:00am';
 		case 23:
 			return '11:00am';
-		case 24:
+		case 0:
 			return '12:00am';
 		default:
 			return 'none';
@@ -588,7 +587,6 @@ export function sourceFormatter(cell, row) {
 
 export function transSourceFormatter(cell, row) {
 	let content;
-	console.log('cell o',cell,row);
 	if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
 		return (
 			<p style={{minWidth: '140px'}}
@@ -691,8 +689,7 @@ export function parseAndFormatNum(num) {
 
 export function moneyFormatter(cell, row) {
 	return (
-		<p style={{minWidth: '150px'}}
-		   className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+		<p style={{minWidth: '150px'}} className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
 	)
 }
 
@@ -788,10 +785,8 @@ export function toastReloadMessage(status, context, callback) {
 	const {toastManager} = context.props;
 	const message = (
 		<Fragment>
-			<span>Unable to retrieve data at the moment !! Click Here to </span>&nbsp;<a href='#'
-																						 className='retry dark-link'
-																						 onClick={() => callback()}>Try
-			Again</a>
+			<span>Unable to retrieve data at the moment !! Click Here to </span>&nbsp;
+            <a href='#' className='retry dark-link' onClick={() => callback()}>Try Again</a>
 		</Fragment>
 	);
 	toastManager.add(message, {
@@ -858,23 +853,17 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 			return content.hour_of_day;
 		}
 	}));
-    console.log('latestHour',latestHour);
-	console.log('transactions',trans);
-	console.log('row',row);
-	console.log('cell',cell);
-	console.log('dates',tommorrow,latestDate);
+
 	// if the latest date is past render convert steady save
 	if (latestDate < tommorrow && latestDate == moment(row.end_date).format('MM-DD-YYYY')) {
-		console.log('entered first block');
+
 		return <button name='convert-btn' className={'btn btn-block round btn-sm btn-success'}>Convert</button>
 	}else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < tommorrow) {
-		console.log('entered two block');
+
 		return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>;
 	} else if (row.end_date == null || (latestDate > tommorrow && latestDate == moment(row.end_date).format('MM-DD-YYYY'))) {
-		console.log('entered third block');
 		return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
 	}
-	console.log('did not enter block');
 	return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>
 }
 
@@ -978,7 +967,6 @@ export function getUserName(context, callback) {
 		// const user = getLocalStorage(USERINFO);
 
 	} catch (e) {
-		console.log(e);
 	}
 }
 
@@ -1047,7 +1035,7 @@ export function handleFiltering(date, comparator, context) {
 		date: new Date(date),
 		comparator: comparator
 	});
-};
+}
 
 export function handlePinConcatenation(name, event, context = this, callback = null) {
 	let form = {...context.state.form};
@@ -1065,7 +1053,7 @@ export function handlePinConcatenation(name, event, context = this, callback = n
 		callback();
 	}
 	return form;
-};
+}
 
 export function validatePin(context = this) {
 	if (context.state.form.withdrawal_pin.length != 4) {

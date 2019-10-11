@@ -64,9 +64,10 @@ const AuthController = component => {
 
         useEffect(() => {
             if (!token) {
-                props.history.push(
-                    `/login`
-                );
+                // props.history.push(
+                //     `/login`
+                // );
+                window.location.href = `/login`;
                 localStorage.removeItem(USERTOKEN);
                 localStorage.removeItem(USERINFO);
             } else {
@@ -115,7 +116,7 @@ const AuthController = component => {
                                                             localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
                                                             localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
                                                         }
-                                                        swal('Yeh!!','You have successfully logged in','success',{button: false,timer:2000});
+                                                        swal('Awesome!!','You have successfully logged in','success',{button: false,timer:2000});
                                                         setReload(true);
                                                     }
                                                 } else {
@@ -138,7 +139,8 @@ const AuthController = component => {
                                             });
                                                 break;
                                             case null:
-                                                props.history.push(`/login`);
+                                                // props.history.push(`/login`);
+                                                window.location.href = `/login`;
                                                 localStorage.removeItem(USERTOKEN);
                                                 localStorage.removeItem(USERINFO);
                                                 break;

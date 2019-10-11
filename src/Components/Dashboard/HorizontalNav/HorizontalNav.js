@@ -16,7 +16,6 @@ class HorizontalNav extends Component {
     //state to display user menu when clicked
     state = {
         show: '',
-        redirectLogin: false,
         toggleMenu: false,
         userName: null
     };
@@ -27,16 +26,10 @@ class HorizontalNav extends Component {
         this.setState({show: toggle});
     };
 
-    //display user info on the menu
-    //check if user info is stored retrieve the info
-    // look for a way to securely store and retrieve data from local storage
-
     logout = () => {
         localStorage.removeItem(USERTOKEN);
         localStorage.removeItem(USERINFO);
-        this.setState({
-            redirectLogin: true,
-        })
+        window.location.href = LoginLink;
     };
 
     handleUserInfo = (status, response) => {
@@ -80,34 +73,17 @@ class HorizontalNav extends Component {
         mobileMenu.classList.toggle('menu-open');
     };
 
-    showTabMenu = (e) =>{
+    showTabMenu = (e) => {
         e.preventDefault();
         let menu = document.querySelector('.main-menu');
         menu.classList.toggle('active');
 
     };
 
-    // display toggler for tablet
-
-    // only shows on table view
-    // toggles the menu position on click
-
-
     render() {
 
         const {userName} = this.state;
-        // const {userName} = this.state;
 
-
-        if (this.state.redirectLogin) {
-
-            return (
-                <React.Fragment>
-                    <Redirect to={LoginLink}/>
-                </React.Fragment>
-            );
-
-        }
         return (
             <React.Fragment>
                 <nav
@@ -156,8 +132,7 @@ class HorizontalNav extends Component {
                                                 <i></i>
                                             </span>
                                             <span className="mr-1">
-                                                <span
-                                                    className="user-name text-bold-700 text-capitalize">{userName}</span>
+                                                <span className="user-name text-bold-700 text-capitalize">{userName}</span>
                                             </span>
                                         </a>
                                         <a href='#' onClick={this.showTabMenu}
@@ -165,15 +140,16 @@ class HorizontalNav extends Component {
                                            data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                            aria-expanded="false" aria-label="Toggle navigation">
                                                     <span className="hamburger-box">
-                                                        <span className="hamburger-inner"></span>
+                                                        <span className="hamburger-inner"/>
                                                     </span>
                                         </a>
                                         <div
                                             className={'dropdown-menu menu-custom-dropdown dropdown-menu-right ' + this.state.show}>
-                                            <Link to={ProfileSettingLink} className="dropdown-item" >
-                                                <img src={ProfileIcon} className="img-2x mr-1" alt={'profile '}/> Profile
+                                            <Link to={ProfileSettingLink} className="dropdown-item">
+                                                <img src={ProfileIcon} className="img-2x mr-1"
+                                                     alt={'profile '}/> Profile
                                             </Link>
-                                            <Link to={KycSettingLink} className="dropdown-item" >
+                                            <Link to={KycSettingLink} className="dropdown-item">
                                                 <img
                                                     src={KycIcon}
                                                     className="img-2x mr-1" alt={''}/> KYC</Link>

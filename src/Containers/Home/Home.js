@@ -195,11 +195,14 @@ class Home extends Component {
                                             <div className="header-words-container pt-lg-5 pr-lg-3">
                                                 <h1 className="animated fadeInDown delay-1s header-title mt-5 mt-lg-1 mb-2
                                         mt-md-0  px-2 px-sm-0 ">
-                                                    Protecting your <br/> interest is our business.</h1>
-                                                <p className="header-sub-title mb-0 ">
-                                                    Save as little as <strong>₦500 </strong></p>
+                                                    Save as little as <strong>₦500 </strong>and<br/>
+                                                    Earn up to <strong>13% </strong> interest on Savings.
+                                                </h1>
+                                                {/*<p className="header-sub-title mb-0 ">*/}
+                                                {/*    Save as little as <strong>₦500 </strong></p>*/}
                                                 <p className="header-sub-title mb-3">
-                                                    Earn up to <strong>13% </strong> interest on Savings. </p>
+                                                    Protecting your interest is our business.
+                                                </p>
                                                 <Link to={'/sign-up'}
                                                       className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow">
                                                     Create free account</Link>

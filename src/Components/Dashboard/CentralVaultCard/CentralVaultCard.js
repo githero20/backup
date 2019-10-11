@@ -37,7 +37,7 @@ class CentralVaultCard extends Component {
                                     <div
                                         className='d-flex dash-card-total-details justify-content-between '>
                                         <h6 className='fs-12'>Total Savings</h6>
-                                        &nbsp;<i className='fa fa-arrow-right '></i>
+                                        &nbsp;<i className='fa fa-arrow-right '/>
                                         <strong className='flex-grow-1'>
                                             &#8358;&nbsp;{vaultAmount != 0 && vaultAmount != undefined ?
                                             formatNumber(vaultAmount) : '0.00'}</strong>
@@ -45,7 +45,7 @@ class CentralVaultCard extends Component {
                                     <div
                                         className='d-flex dash-card-total-details justify-content-between'>
                                         <h6 className='fs-12'>Total Interest</h6>
-                                        &nbsp;<i className='fa fa-arrow-right '></i>
+                                        &nbsp;<i className='fa fa-arrow-right '/>
                                         <strong className='flex-grow-1'>
                                             &#8358;&nbsp;{vaultInterest !== 0 && vaultInterest !== undefined ?
                                             formatNumber(vaultInterest) : '0.00'}</strong>
@@ -55,10 +55,8 @@ class CentralVaultCard extends Component {
                         </div>
                         <div
                             className="card-item d-flex flex-md-column justify-content-between align-content-between">
-                            <Link to={InstantSaveLink} className={'btn btn-gray dash-btn'}>Instant Save <i
-                                className='fa fa-arrow-right'></i></Link>
-                            <Link to={SteadySaveLink} className={'btn btn-gray dash-btn'}>Steady Save <i
-                                className='fa fa-arrow-right'></i></Link>
+                            <Link to={InstantSaveLink} className={'btn btn-gray dash-btn'}>Instant Save <i className='fa fa-arrow-right'/></Link>
+                            <Link to={SteadySaveLink} className={'btn btn-gray dash-btn'}>Steady Save <i className='fa fa-arrow-right'/></Link>
                         </div>
 
                     </div>

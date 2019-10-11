@@ -233,6 +233,7 @@ class SteadySave extends Component {
 
     handleSSaveTrans = (status, res) => {
         //TODO calc total steady save
+        console.log('steady save trans', status, res);
         if (status && res) {
             const trans = getSteadySaveData(res.data);
             this.setState({
@@ -250,6 +251,7 @@ class SteadySave extends Component {
 
     handleSSaveHistory = (status, res) => {
         //TODO calc total steady save
+        console.log('steady save history', status, res);
 
         if (status && res) {
             let data = res.savings_plan_history.data;
@@ -285,7 +287,6 @@ class SteadySave extends Component {
     render() {
 
         const {transactions, userName} = this.state;
-        //update the button to show status in progress if is paused is 0 or paused if its 1
 
         let startButtonText = null;
 
@@ -317,8 +318,6 @@ class SteadySave extends Component {
                 dataField: 'start_amount',
                 formatter: contributionFormatter,
                 sort: true,
-                // classes: 'd-none d-md-table-cell',
-                // headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Status',
@@ -606,7 +605,7 @@ class SteadySave extends Component {
                             <React.Fragment>
                                 <div className="app-content content">
                                     <div className="content-wrapper">
-                                        <div className="mb-5"></div>
+                                        <div className="mb-5"/>
 
                                         <div className="content-header row mt-5">
 
@@ -626,7 +625,7 @@ class SteadySave extends Component {
                                                     <div className="text-right">
                                                         <a href='#!' onClick={this.hideTransactions}
                                                            className='gray-text back-btn'>
-                                                            <i className='fa fa-chevron-left'></i>
+                                                            <i className='fa fa-chevron-left'/>
                                                             &nbsp; Back
                                                         </a>
                                                     </div>
@@ -728,12 +727,12 @@ class SteadySave extends Component {
                                                                     <SSaveTransTable
                                                                         emptyMessage={'No Steady Saves Available'}
                                                                         title={'Steady Save Transactions'}
-                                                                        transactions={this.state.steadySaveTrans}
+                                                                        transactions={this.state.steadySaveHistory}
                                                                         columns={mobileHistoryColumns}/>) :
                                                                 (<SSaveTransTable
                                                                     emptyMessage={'No Steady Saves Available'}
                                                                     title={'Steady Save Transactions'}
-                                                                    transactions={this.state.steadySaveTrans}
+                                                                    transactions={this.state.steadySaveHistory}
                                                                     columns={historyColumns}/>)
                                                             }
 
@@ -752,7 +751,7 @@ class SteadySave extends Component {
                         : (
                             <div className="app-content content">
                                 <div className="content-wrapper">
-                                    <div className="mb-5"></div>
+                                    <div className="mb-5"/>
                                     {
                                         this.state.showSavingModal ?
                                             (
@@ -831,8 +830,10 @@ class SteadySave extends Component {
                                             {/* //TODO show steady save transactions */}
                                             {this.state.mobileTable ?
                                                 (<SSaveTransTable title={'Steady Saves'} transactions={transactions}
+                                                                  emptyMessage={'No Steady Saves Available'}
                                                                   columns={mobileColumns}/>) :
                                                 (<SSaveTransTable title={'Steady Saves'} transactions={transactions}
+                                                                  emptyMessage={'No Steady Saves Available'}
                                                                   columns={columns}/>)}
 
                                         </div>

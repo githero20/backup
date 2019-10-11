@@ -41,23 +41,26 @@ class Faq extends Component {
         return (
             <React.Fragment>
                 <div className={'homeBody'}>
-                    <header className="header faq-bg">
+                    <header className="p-1 p-md-0 ">
                         <div className="container">
                             <nav className="home-nav navbar navbar-expand-lg ">
                                 <Link to={HomeLink} className="navbar-brand">
-                                    <img src={backupCashLogo} alt="logo" width="180px"/>
+                                    <img src={backupCashLogo} alt="logo" width="150px"/>
                                 </Link>
                                 <a onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
                                    data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                    aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="hamburger-box">
-                                        <span className="hamburger-inner"></span>
+                                        <span className="hamburger-inner"/>
                                     </span>
                                 </a>
 
                                 <div className="collapse navbar-collapse mobile d-md-none animated slideInLeft faster"
                                      id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto">
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to={HomeLink}>Home </Link>
+                                        </li>
                                         <li className="nav-item">
                                             <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                         </li>
@@ -111,50 +114,9 @@ class Faq extends Component {
                                     </ul>
                                 </div>
                             </nav>
-                            {/*row and two columns */}
-                            <div className=" row pt-lg-1">
-                                <div className="col-lg-6 my-md-5 mt-lg-0 text-center text-lg-left">
-                                    <div className="header-words-container pt-lg-5 pr-lg-3">
 
-                                        <h1 className="header-title mt-5 mt-lg-1 mb-2 mt-md-0  px-2 px-sm-0 ">
-                                            <div className="yellow-icon-holder">
-                                                <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
-                                                     alt="yellow icon"/>
-                                            </div>
-                                            We are here to Help.
-                                        </h1>
-                                        <p className="header-sub-title mb-0 ">
-                                            Get in Touch With Us
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div className="contact-row row mt-5">
-                                <div className="col-sm-4 text-center text-md-left">
-                                    <div className="mb-3 mt-3 mt-md-0 mb-md-5">
-                                        <h4 className='text-capitalize'>Whatsapp</h4>
-                                        <p className='gray-text '>+1 888 369 9915</p>
-                                    </div>
-                                </div>
-                                <div className="col-sm-4 text-center text-md-left">
-                                    <div className="mb-3 mb-md-5 ">
-                                        <h4 className='text-capitalize'>Email</h4>
-                                        <p className='gray-text text-capitalize'>Enquiries@SFSBackupcash.com</p>
-                                    </div>
-                                </div>
-                                <div className="col-sm-4 text-center text-md-left">
-                                    <div className="mb-3 mb-md-5 ">
-                                        <h4 className='text-capitalize'>Phone</h4>
-                                        <p className='gray-text text-capitalize'>+234 814 946 0946 | +234 701 856 7235
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </header>
-
                     <section className='faq-main my-5'>
                         <div className="container">
                             <div className="row">
@@ -403,7 +365,8 @@ class Faq extends Component {
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="collapseEight0" className="collapse" aria-labelledby="headingEight0"
+                                            <div id="collapseEight0" className="collapse"
+                                                 aria-labelledby="headingEight0"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
                                                     - We are backed by the license of SFS Capital.<br/>
@@ -451,10 +414,14 @@ class Faq extends Component {
                                             <div id="collapseTen" className="collapse" aria-labelledby="headingTen"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - You won’t be able to automatically save for that day, week or month.<br/>
-                                                    - We can only help you save when you have funds in your account.<br/>
-                                                    - However, you have options of using <strong>Instant Save</strong> once your account is
-                                                    funded by saving manually or <strong>Steady Save</strong> that automatically debits your
+                                                    - You won’t be able to automatically save for that day, week or
+                                                    month.<br/>
+                                                    - We can only help you save when you have funds in your
+                                                    account.<br/>
+                                                    - However, you have options of using <strong>Instant
+                                                    Save</strong> once your account is
+                                                    funded by saving manually or <strong>Steady Save</strong> that
+                                                    automatically debits your
                                                     registered account towards your targeted goal.
                                                     <br/>
                                                 </div>
@@ -589,6 +556,52 @@ class Faq extends Component {
                             </div>
                         </div>
                     </section>
+                    <section>
+                        <div className="container">
+
+                            <div className=" row pt-lg-1">
+                                <div className="col-lg-6 my-md-5 mt-lg-0 text-center text-lg-left">
+                                    <div className="header-words-container pt-lg-5 pr-lg-3">
+
+                                        <h1 className="header-title mt-5 mt-lg-1 mb-2 mt-md-0  px-2 px-sm-0 ">
+                                            <div className="yellow-icon-holder">
+                                                <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
+                                                     alt="yellow icon"/>
+                                            </div>
+                                            We are here to Help.
+                                        </h1>
+                                        <p className="header-sub-title mb-0 ">
+                                            Get in Touch With Us
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="contact-row row mt-5">
+                                <div className="col-sm-4 text-center text-md-left">
+                                    <div className="mb-3 mt-3 mt-md-0 mb-md-5">
+                                        <h4 className='text-capitalize'>Whatsapp</h4>
+                                        <p className='gray-text '>+1 888 369 9915</p>
+                                    </div>
+                                </div>
+                                <div className="col-sm-4 text-center text-md-left">
+                                    <div className="mb-3 mb-md-5 ">
+                                        <h4 className='text-capitalize'>Email</h4>
+                                        <p className='gray-text text-capitalize'>Enquiries@SFSBackupcash.com</p>
+                                    </div>
+                                </div>
+                                <div className="col-sm-4 text-center text-md-left">
+                                    <div className="mb-3 mb-md-5 ">
+                                        <h4 className='text-capitalize'>Phone</h4>
+                                        <p className='gray-text text-capitalize'>+234 814 946 0946 | +234 701 856 7235
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
                     <footer className="light-yellow-bg home-footer footer">
                         <div className="container my-0 my-lg-5">
                             <div className="row px-lg-5 mx-lg-5">
@@ -604,7 +617,7 @@ class Faq extends Component {
                                             <Link to={HomeLink}>Testimonials</Link>
                                         </li>
                                         <li>
-                                            <Link to={FaqLink} >FAQs</Link>
+                                            <Link to={FaqLink}>FAQs</Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -627,7 +640,8 @@ class Faq extends Component {
 
                                     <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria
                                         Island 23401, Lagos</p>
-                                    <p className='gray-text footer-p'>Enquires: 08149460946, 07018567235 </p>
+                                    <p className='gray-text footer-p'>Enquires: +234 814 946 0946 , +234 701 856
+                                        7235 </p>
                                 </div>
                                 <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
                                     <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All RIghts

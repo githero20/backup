@@ -150,6 +150,7 @@ class DashboardIndex extends Component {
                 _axios.get(LockedInterest, config),
                 _axios.get(GetBackUpGoals, config),
             ]);
+
             let transactions = [];
             const now = moment().format('YYYY-MM-DD');
             let accounts, vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalInterest = 0;
@@ -171,8 +172,8 @@ class DashboardIndex extends Component {
                         totalInterest = parseFloat(content.balance).toFixed(2);
                     }
                 });
-
             }
+
             const backUpGoals = BackUpRes.data.data;
             // //check  to  filter all goals where current data is greater than today
             let activeGoals = backUpGoals.filter((content) => {

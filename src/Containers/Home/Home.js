@@ -80,19 +80,19 @@ class Home extends Component {
     };
 
     componentWillMount() {
-        if (localStorage.getItem('hideLoader') == null) {
-            showHomeLoader()
-        }
-        console.log = ()=>{};
+        // if (localStorage.getItem('hideLoader') == null) {
+        //     showHomeLoader()
+        // }
+        // console.log = ()=>{};
     }
 
 
     componentDidMount() {
         this.checkUser();
-        window.addEventListener('load', () => {
-            hideLoader();
-            localStorage.setItem('hideLoader', true);
-        });
+        // window.addEventListener('load', () => {
+        //     hideLoader();
+        //     localStorage.setItem('hideLoader', true);
+        // });
         // Support();
     }
 

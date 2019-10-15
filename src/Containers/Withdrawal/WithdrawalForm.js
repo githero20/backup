@@ -290,7 +290,9 @@ class WithdrawalForm extends Component {
         const penaltySource = (penalty_from == CENTRAL_VAULT) ? 'central vault' : 'withdrawal amount';
         const withdrawAmount = Number(withdraw_amount);
         const penaltyAmount = Number(penalty);
-        if ((withdrawAmount + penaltyAmount) <= userBalance) {
+        if ((penalty_from == CENTRAL_VAULT && (withdrawAmount + penaltyAmount) <= userBalance)
+            || (penalty_from != CENTRAL_VAULT && withdrawAmount <= userBalance)
+        ) {
             //handle penalty
             swal('Withdrawal', `Penalty of ₦ ${Number(penalty).toFixed(2)} would be deducted from your ${penaltySource}`, 'info', {
                 buttons: {
@@ -321,7 +323,7 @@ class WithdrawalForm extends Component {
         }).then((value) => {
             switch (value) {
                 case "yes":
-                    swal('Withdrawal', 'Processing Withdrawal....', 'info', {button: false, timer: 3000});
+                    swal('Withdrawal', 'Processing Withdrawal...', 'info', {button: false, timer: 3000});
                     this.initiateWithdrawal();
                     break;
                 case "no":

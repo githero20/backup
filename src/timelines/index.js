@@ -8,12 +8,13 @@ const getDashboardTimeline = (node, delay) => {
     // const contentInner = node.querySelector('.content-wrapper');
 
     timeline
-        .from(node, 0.3, {autoAlpha: 1, delay, ease: Power1.easeIn})
+        .from(node, 0.3, {autoAlpha: 1, delay, ease: Power1.easeIn});
     // .from(content, 0.15, { autoAlpha: .5, ease: Power1.easeInOut })
     // .staggerFrom(contentInner, 0.15, { autoAlpha: .5,y:-10, delay: 0.15, ease: Power1.easeIn });
 
     return timeline;
-}
+};
+
 const getLoginTimeline = (node, delay) => {
     const timeline = new Timeline({paused: true});
     // const content = node;
@@ -31,7 +32,7 @@ const getLoginTimeline = (node, delay) => {
         return timeline;
     }
 
-}
+};
 
 const getHomeTimeline = (node, delay) => {
     const timeline = new Timeline({paused: true});
@@ -60,4 +61,4 @@ export const exit = (node) => {
     const timeline = new Timeline({paused: true});
     timeline.to(node, 0.15, {autoAlpha: 0, ease: Power1.easeOut});
     timeline.play();
-}
+};

@@ -17,6 +17,7 @@
     font-family: "Circular Std Black";
     src: url("../../app-assets/fonts/app-fonts/CircularStd-Black.otf");
 }
+
 @font-face {
     font-family: "Circular Std Book";
     src: url("../../app-assets/fonts/app-fonts/CircularStd-Book.otf");
@@ -112,7 +113,7 @@ body {
 }
 
 .homeBody {
-    font-family: "Product Sans",'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: "Product Sans", 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-size: 1.2rem;
 }
 
@@ -181,9 +182,11 @@ section {
     padding: 3rem;
     border-radius: 2rem;
 }
-.home-footer .footer-logo img{
+
+.home-footer .footer-logo img {
     width: 100%;
 }
+
 .btn-custom-border {
     border-top-left-radius: 2.8rem;
     border-bottom-right-radius: 2.8rem;
@@ -195,14 +198,15 @@ section {
 
     background: rgb(16, 51, 102);
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
-    color: rgba(242,242,242,0.9);
+    color: rgba(242, 242, 242, 0.9);
     font-size: 1.2rem;
     cursor: pointer;
     transition: all .3s ease-in-out;
     box-shadow: 0px 15px 30px 5px rgba(2, 43, 105, 0.25);
     /*box-shadow: 0px 15px 10px 5px rgba(2, 34, 81, 0.25);*/
 }
-.btn-blue--1{
+
+.btn-blue--1 {
     background-color: #367BFF;
 }
 
@@ -215,7 +219,7 @@ section {
 .round-btn-dark-blue {
     background: rgb(16, 51, 102);
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
-    color: rgba(242,242,242,0.9);
+    color: rgba(242, 242, 242, 0.9);
     font-size: 1.2rem;
     cursor: pointer;
     transition: all .3s ease-in-out;
@@ -289,6 +293,7 @@ a.btn-rounded-corner {
     transform: translateY(0);
     transition: all .5s ease-in-out;
 }
+
 a.btn-rounded-corner:hover {
     transform: translateY(-10px);
     box-shadow: 0px 10px 30px rgba(16, 39, 102, 0.5);
@@ -343,28 +348,32 @@ a.btn-light-blue:hover {
 .btn-gradient-blue {
     position: relative;
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
-    color: rgba(242,242,242,0.9);
+    color: rgba(242, 242, 242, 0.9);
     font-size: 1rem;
     transform: translateY(0);
     transition: all 1s ease;
 }
-.bg-blue-1{
+
+.bg-blue-1 {
     background-color: #2567FF;
 }
-.btn-light-blue-round{
+
+.btn-light-blue-round {
     background-color: #367BFF;
     border-radius: 3rem;
-    padding: .7rem ;
-    color:white;
+    padding: .7rem;
+    color: white;
     box-shadow: 0px 10px 10px rgba(5, 128, 216, 0.04);
 }
-.btn-white-bordered{
+
+.btn-white-bordered {
     border: 1px solid white;
     color: white;
     padding: .5rem 0rem;
     transition: all .3s ease-in-out;
 }
-.btn-white-bordered:hover{
+
+.btn-white-bordered:hover {
     border: 1px solid transparent;
     color: #2567FF;
     background-color: white;
@@ -397,6 +406,7 @@ a.btn-light-blue:hover {
     transform: translateY(0px);
     transition: transform .5s ease-in-out;
 }
+
 .cta-link:hover {
     transform: translateY(-5px);
 }
@@ -488,20 +498,24 @@ a.btn-light-blue:hover {
     transform: translateY(0px);
     transition: all .5s ease-in-out;
 }
-.home-blue-bg{
+
+.home-blue-bg {
     background-color: #103366;
     color: white;
 }
-.app-features .section-transparent-card-right p{
+
+.app-features .section-transparent-card-right p {
     color: #dddddd;
 }
 
-.app-features .section-header p{
+.app-features .section-header p {
     color: white;
 }
-.app-features .section-transparent-card-right h5{
+
+.app-features .section-transparent-card-right h5 {
     color: white;
 }
+
 .card-container .card:hover {
     /*box-shadow: 0 26px 30px -14px rgba(0, 102, 245, 0.08);*/
     box-shadow: 0 30px 50px 10px rgba(187, 188, 189, 0.5);
@@ -511,7 +525,7 @@ a.btn-light-blue:hover {
 .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before {
     /*background: rgb(0, 80, 147);*/
     /*background: linear-gradient(90deg, rgba(0, 80, 147, 1) 0%, rgba(0, 80, 147, 1) 100%);*/
-    background:  rgba(0, 34, 81, 1) ;
+    background: rgba(0, 34, 81, 1);
 
 
 }
@@ -642,6 +656,7 @@ a.carousel-btn {
     border-radius: 20px;
     transition: box-shadow .5s ease-in-out;
 }
+
 .carousel-btn:hover {
     box-shadow: 5px 5px 15px rgba(54, 123, 255, 0.58);
 }
@@ -709,7 +724,7 @@ a.carousel-btn {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
-    color: rgba(242,242,242,0.9);
+    color: rgba(242, 242, 242, 0.9);
     font-family: "Circular Std Black", Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
 }
 
@@ -724,7 +739,6 @@ a.carousel-btn {
 .security-img-wrapper {
 
 }
-
 
 
 .section-transparent-card-right p {
@@ -904,6 +918,7 @@ a.carousel-btn {
     transform: translateY(0);
     transition: all .5s ease-in-out;
 }
+
 .whatsapp .btn-whatsapp img {
     width: 16%;
 }
@@ -956,14 +971,14 @@ a.carousel-btn {
     margin-top: 2rem;
     font-size: 14px;
     font-weight: bold;
-    font-family: "Circular Std","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+    font-family: "Circular Std", "Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
     color: #0A3560;
 }
 
 .comment-box span {
     color: #3D5A84;
     font-size: 1rem;
-    font-family: "Circular Std Book","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+    font-family: "Circular Std Book", "Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
 }
 
 .partner-img-50 {
@@ -1124,20 +1139,52 @@ footer-logo {
     }
 
     /* hero slider*/
-    .hero-carousel{
+    .hero-carousel {
 
     }
+
     /*.hero-carousel img{*/
     /*    width: 10rem;*/
     /*}*/
-    .hero-bg{
-        background: radial-gradient(ellipse at 30% 75%, #ffffff 0%, #ffffff 30%, rgba(255,255,181,.5) 100%);
+    .hero-bg {
+        background: radial-gradient(ellipse at 30% 75%, #ffffff 0%, #ffffff 30%, rgba(255, 255, 181, .5) 100%);
     }
-    .hero-carousel .owl-item{
+
+    .hero-carousel .owl-item {
         text-align: center;
     }
+
+    .hero-carousel .owl-nav {
+        position: absolute;
+        top: 50%;
+        margin-left: -75px;
+        width: 100%;
+    }
+
+    .hero-carousel .owl-nav .owl-prev {
+        position: absolute;
+        left: 0%;
+    }
+
+    .hero-carousel.owl-carousel .owl-nav button.owl-prev, .hero-carousel.owl-carousel .owl-nav button.owl-next {
+        color: white;
+        width: 3rem;
+        height: 3rem;
+        background-color: #367BFF;
+    }
+
+    .hero-carousel .owl-nav .owl-prev {
+        position: absolute;
+        left: 0%;
+    }
+
+    .hero-carousel .owl-nav .owl-next {
+        position: absolute;
+        right: 0%;
+    }
+
     .owl-carousel .owl-item img.hero-slide-item {
-        width:90%;
+        width: 90%;
     }
 
 }
@@ -1354,6 +1401,7 @@ footer-logo {
         text-align: center;
 
     }
+
     .footer-icon-list {
         width: 170px;
 
@@ -1504,7 +1552,7 @@ footer-logo {
     }
 
     .section-details-paragraph {
-        color:#3D5A84;
+        color: #3D5A84;
         font-size: 1rem;
         line-height: 1.6rem;
     }
@@ -1616,6 +1664,7 @@ footer-logo {
 .footer-brand-link {
     color: #102766;
 }
+
 .footer-brand-link:hover {
     color: #0c1d4a;
 }
@@ -1625,38 +1674,45 @@ footer-logo {
 .show {
     display: block;
 }
-.bc-deep-purple{
+
+.bc-deep-purple {
     color: #0c1d4a;
 }
-.bc-gray-white{
+
+.bc-gray-white {
     background-color: #d8e7f4;
     color: white;
 }
+
 .tooltip-inner {
     background-color: #170e32;
 }
-.br-2{
+
+.br-2 {
     border-radius: 2rem;
 }
-.py-0-2{
+
+.py-0-2 {
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
 }
+
 bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^='right'] .arrow::before {
     border-right-color: #170e32;
 }
+
 /*.toggle-password{*/
 /*    bottom:5px;*/
 /*    right:0%;*/
 /*    transform: translate(-50%,-50%);*/
 /*}*/
 
-.login-form .input-group-append{
+.login-form .input-group-append {
     margin-left: -15px;
     margin-top: 10px;
     z-index: 50;
 }
 
-.spaced-table th, .spaced-table td{
+.spaced-table th, .spaced-table td {
     padding: .75rem .75rem !Important;
 }

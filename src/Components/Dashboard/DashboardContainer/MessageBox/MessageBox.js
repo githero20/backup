@@ -3,7 +3,13 @@ import {withToastManager} from 'react-toast-notifications';
 import {capitalize, formatNumber, toastMessage} from "../../../../Helpers/Helper";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
-import {BASE_URL, KycSettingLink, ReferralsLink} from "../../../../RouteLinks/RouteLinks";
+import {
+    BASE_URL,
+    getSteadySaveEndpoint,
+    KycSettingLink,
+    ReferralsLink,
+    SteadySaveLink
+} from "../../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 import {getUserPoints} from "../../../../actions/UserAction";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -155,6 +161,29 @@ class MessageBox extends Component {
             </React.Fragment>
         );
 
+        if(this.props.challenge){
+            return (
+                <div className="row mb-2">
+                    <div className="col-12">
+                        <div className='bg-blue-1 shadow-sm dashboard-callout callout-border-right d-flex flex-column
+                        flex-md-row flex-wrap justify-content-md-between align-items-center
+                         callout-round callout-transparent px-2'>
+                            <label
+                                className='d-flex flex-column align-items-center text-white flex-md-row justify-content-md-center'>
+                                <span>Get started with 21 days challenge and stand a chance to win big!! </span>
+                            </label>
+                            <label className='d-flex flex-md-row flex-wrap flex-column align-items-center'>
+                                <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"/>
+                                <div className='d-flex justify-content-between  d-md-inline-block flex-grow-1'>
+                                    <Link to={SteadySaveLink} className="btn-white-bordered round px-md-2 mr-2 mb-md-0">Start now</Link>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
         return (
             <React.Fragment>
                 {
@@ -176,6 +205,7 @@ class MessageBox extends Component {
                             </div>
                         </div>
                     ) : null}
+
                 <div className="row mb-2">
                     <div className="col-12">
                         <div className='bg-white shadow-sm dashboard-callout callout-border-right d-flex flex-column

@@ -19,7 +19,7 @@ import {
     addWithdrawalLink,
     BackupGoalsLink,
     BackupStashLink,
-    BankCardLink, botCreatePasswordLink,
+    BankCardLink, botCreatePasswordLink, challengeLink,
     DashboardLink,
     EmailActivationLink,
     FaqLink,
@@ -53,6 +53,8 @@ import {TransitionGroup, Transition} from "react-transition-group";
 import {play, exit} from "../timelines";
 import Referrals from "../Containers/Referrals/Referrals";
 import ReactGA from 'react-ga';
+import HomePage from "../Containers/Home/HomePage";
+import Challenge from "../Containers/challenge/Challenge";
 
 
 class AppRouter extends Component {
@@ -84,7 +86,6 @@ class AppRouter extends Component {
                                             <Switch>
                                                 <Route exact path={HomeLink} component={Home}/>
                                                 {/*dashboard Routes*/}
-                                                {/*dashboard Routes*/}
                                                 <Route exact path={DashboardLink}
                                                        component={AuthController(DashboardIndex)}/>
                                                 <Route path={InstantSaveLink} component={AuthController(InstantSave)}/>
@@ -103,6 +104,7 @@ class AppRouter extends Component {
                                                 <Route path={BackupStashLink} component={AuthController(BackupStash)}/>
                                                 <Route path={EmailActivationLink} component={EmailActivation}/>
                                                 <Route path={ResendActivationLink} component={ResendActivation}/>
+                                                <Route path={challengeLink} component={Challenge}/>
 
                                                 {/*auth routes*/}
                                                 <Route path={LoginLink} render={() => (

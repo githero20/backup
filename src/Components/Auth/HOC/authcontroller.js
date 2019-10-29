@@ -13,17 +13,17 @@ export const USERWITHDRAWAL = "user-withdrawal";
 export const MINIMUM_WITHDRAWAL = 500;
 export const MIN_INSTANT_SAVE = 500;
 export const AMOUNT_LIMITS = {
-    minSteadySaveDaily:50,
+    minSteadySaveDaily:500,
     maxSteadySaveDaily:50000,
-    minSteadySaveWeekly:800,
+    minSteadySaveWeekly:500,
     maxSteadySaveWeekly:200000,
-    minSteadySaveMonthly:5000,
+    minSteadySaveMonthly:500,
     maxSteadySaveMonthly:2000000,
-    minBackUpGoalDaily:50,
+    minBackUpGoalDaily:500,
     maxBackUpGoalDaily:50000,
-    minBackUpGoalWeekly:50,
+    minBackUpGoalWeekly:500,
     maxBackUpGoalWeekly:200000,
-    minBackUpGoalMonthly:50,
+    minBackUpGoalMonthly:500,
     maxBackUpGoalMonthly:2000000,
 };
 export const APP_FREQUENCY = {

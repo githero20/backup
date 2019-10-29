@@ -19,12 +19,16 @@ import whatsAppIcon from "../../admin/app-assets/images/whatsapp-ico@2x.png";
 import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
 import homeBGImg from "../../admin/app-assets/images/svg/header-bg.svg";
 import CommentImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
+import firstSlideImage from "../../admin/app-assets/images/home-slider-img-1.png";
+import secondSlideImage from "../../admin/app-assets/images/home-slider-img-1.png";
 import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../images/sfs.jpg";
 import sfsCredit from "../../admin/app-assets/images/SFS Credits@3x.png";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
+import facebookCreateBtn from "../../admin/app-assets/images/create-with-facebook@2x.png";
+import whatsappCreateBtn from "../../admin/app-assets/images/create-with-whatsapp@2x.png";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import {DashboardLink, FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import {BlogLink, DashboardLink, FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -62,7 +66,7 @@ class Home extends Component {
         let user = JSON.parse(localStorage.getItem(USERTOKEN));
         if (timeStamp != null) {
             // get the session and compare the current time
-            var diff = moment(timeStamp);
+            let diff = moment(timeStamp);
 
             if (diff < moment().subtract(50, 'minutes') || user == null) {
                 console.log('logged in a while ago');
@@ -79,26 +83,12 @@ class Home extends Component {
         }
     };
 
-    componentWillMount() {
-        // if (localStorage.getItem('hideLoader') == null) {
-        //     showHomeLoader()
-        // }
-        // console.log = ()=>{};
-    }
 
 
     componentDidMount() {
         this.checkUser();
-        // window.addEventListener('load', () => {
-        //     hideLoader();
-        //     localStorage.setItem('hideLoader', true);
-        // });
-        // Support();
     }
 
-    componentWillUnmount() {
-        // hideSupport();
-    }
 
 
     render() {
@@ -107,7 +97,7 @@ class Home extends Component {
                 <div className={'homeBody'}>
                     <div className="home-content">
                         <div className="home-content--inner">
-                            <header className="header header-background">
+                            <header className="header header-background hero-bg">
                                 <img src={homeBGImg} className='home-bg-img d-none' alt="svg image"/>
                                 <div className="container">
                                     <nav className="home-nav navbar navbar-expand-lg ">
@@ -119,11 +109,10 @@ class Home extends Component {
                                            data-toggle="collapse" data-aria-controls="navbarSupportedContent"
                                            aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="hamburger-box">
-                                        <span className="hamburger-inner"></span>
+                                        <span className="hamburger-inner"/>
                                     </span>
                                         </a>
-                                        <div
-                                            className="collapse navbar-collapse res-menu mobile animated slideInLeft faster"
+                                        <div className="collapse navbar-collapse res-menu mobile animated slideInLeft faster"
                                             id="navbarSupportedContent">
                                             <ul className="navbar-nav ml-auto">
                                                 <li className="nav-item">
@@ -136,8 +125,7 @@ class Home extends Component {
                                                 {
                                                     this.state.isLoggedIn ? (
                                                         <li className="nav-item">
-                                                            <Link to={DashboardLink}
-                                                                  className="nav-link">Dashboard </Link>
+                                                            <Link to={DashboardLink} className="nav-link">Dashboard </Link>
                                                         </li>
                                                     ) : (
                                                         <li className="nav-item">
@@ -156,15 +144,18 @@ class Home extends Component {
                                             </ul>
                                         </div>
 
-                                        <div className="collapse navbar-collapse  desktop "
+                                        <div className="collapse navbar-collapse desktop "
                                              id="navbarSupportedContent">
-                                            <ul className="navbar-nav ml-auto">
+                                            <ul className="navbar-nav ">
                                                 <li className="nav-item">
                                                     <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                                 </li>
                                                 <li className="nav-item">
                                                     <a className="nav-link"
-                                                       onClick={this.scrollIntoView}>Testimonials </a>
+                                                       onClick={this.scrollIntoView}>Stories </a>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link className="nav-link" to={BlogLink}>Blog </Link>
                                                 </li>
                                                 {
                                                     this.state.isLoggedIn ? (
@@ -193,20 +184,39 @@ class Home extends Component {
                                     <div className="row pt-lg-1">
                                         <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
                                             <div className="header-words-container pt-lg-5 pr-lg-3">
-                                                <h1 className="animated fadeInDown delay-1s header-title mt-5 mt-lg-1 mb-2
-                                        mt-md-0  px-2 px-sm-0 ">
-                                                    Save as little as <strong>₦500 </strong>and<br/>
-                                                    Earn up to <strong>13% </strong> interest on Savings.
+                                                <h1 className="animated fadeInDown delay-1s header-title mt-5 mt-lg-0 mb-2 mt-md-0  px-2 px-sm-0 ">
+                                                    Save Money,<br/>
+                                                    Grow Wealth.
                                                 </h1>
-                                                {/*<p className="header-sub-title mb-0 ">*/}
-                                                {/*    Save as little as <strong>₦500 </strong></p>*/}
-                                                <p className="header-sub-title mb-3">
-                                                    Protecting your interest is our business.
+                                                <p className="header-sub-title">
+                                                    Save as little as <strong>₦500 </strong>
                                                 </p>
-                                                <Link to={'/sign-up'}
-                                                      className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow">
-                                                    Create free account</Link>
+                                                <p className="header-sub-title mb-md-3">
+                                                    Earn up to <strong>13% </strong> interest on Savings.
+                                                </p>
+                                                <Link to={'/sign-up'} className="btn px-5 btn-light-blue-round btn-hover-shadow">Create free account</Link>
+                                                <div className="hero-cta-btn-container pt-3 d-flex">
+                                                    <img src={facebookCreateBtn} className='width-30-per mr-lg-1' alt="facebook create button"/>
+                                                    <img src={whatsappCreateBtn} className='width-30-per' alt="whatsapp create button"/>
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
+                                            <ReactOwlCarousel
+                                                className="owl-theme hero-carousel"
+                                                loop
+                                                margin={10}
+                                                autoplay={1000}
+                                                autoplayTimeout={5000}
+                                                dots={false}
+                                                responsiveClass={true}
+                                                items={1}
+                                                nav={true}
+                                            >
+                                                <img src={firstSlideImage} className='item hero-slide-item' alt="first slide image"/>
+                                                <img src={secondSlideImage} className='item hero-slide-item' alt="second slide image"/>
+
+                                            </ReactOwlCarousel>
                                         </div>
                                     </div>
                                 </div>
@@ -708,7 +718,7 @@ class Home extends Component {
                                                         Victoria
                                                         Island 23401, Lagos</p>
                                                     <p className='gray-text footer-p'>Enquires: 08149460946,
-                                                        07018567235 </p>
+                                                        09087766679 </p>
 
                                                 </div>
 

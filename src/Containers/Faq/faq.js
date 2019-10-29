@@ -593,7 +593,7 @@ class Faq extends Component {
                                 <div className="col-sm-4 text-center text-md-left">
                                     <div className="mb-3 mb-md-5 ">
                                         <h4 className='text-capitalize'>Phone</h4>
-                                        <p className='gray-text text-capitalize'>+234 814 946 0946 | +234 701 856 7235
+                                        <p className='gray-text text-capitalize'>+234 814 946 0946 | +234 908 776 6679
                                         </p>
                                     </div>
                                 </div>
@@ -638,10 +638,8 @@ class Faq extends Component {
                                 <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-3 ">
                                     <p className="footer-header">Physical Address</p>
 
-                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria
-                                        Island 23401, Lagos</p>
-                                    <p className='gray-text footer-p'>Enquires: +234 814 946 0946 , +234 701 856
-                                        7235 </p>
+                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria Island 23401, Lagos</p>
+                                    <p className='gray-text footer-p'>Enquires: +234 814 946 0946 , +234 908 776 6679</p>
                                 </div>
                                 <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
                                     <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All RIghts

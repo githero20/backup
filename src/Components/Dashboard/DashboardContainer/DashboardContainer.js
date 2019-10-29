@@ -205,16 +205,12 @@ class DashboardContainer extends Component {
             <React.Fragment>
                 <div className="app-content content">
                     <div className="content-wrapper">
-                        <div className="mb-5"></div>
+                        <div className="mb-5"/>
                         {/* notification component */}
 
-                        {/*{*/}
-                        {/*    !isActive?*/}
+                        <MessageBox challenge={true} />
                         <MessageBox updateKyc={this.props.updateKyc} balance={vaultAmount}/>
-                        {/*    :null*/}
-                        {/*}*/}
 
-                        {/*Vault Card */}
 
                         <div className="content-body">
                             <div className="row">
@@ -225,8 +221,6 @@ class DashboardContainer extends Component {
                                     totalSteadySave={totalSteadySave}
                                     vaultInterest={vaultInterest}
                                 />
-                                {/*    TODO  ADD STEADY SAVE  */}
-
 
                                 <BackUpGoalCard
                                     backupAmount={backupAmount}
@@ -266,28 +260,9 @@ class DashboardContainer extends Component {
                                     </div>
                                 </div>
 
-                                {/*adverts*/}
-
-
                             </div>
-                            {/*<div className="row">*/}
-                            {/*    <div className="col-md-6  col-12 ">*/}
-                            {/*        <TotalSavingsBlueCard totalSavings={vaultAmount}/>*/}
-
-                            {/*    </div>*/}
-                            {/*    <div className="col-md-6  col-12 ">*/}
-                            {/*        <TotalInterestCard totalInterest={totalInterest}/>*/}
-
-                            {/*    </div>*/}
-
-                            {/*</div>*/}
 
                             <div className="row">
-                                {/*<button className={'btn'} onClick={this.handleFilter}>filter</button>*/}
-                                {/*<div>*/}
-                                {/*    <BootstrapTable keyField='id' data={ transactions } columns={ columns } filter={ filterFactory() } />*/}
-                                {/*</div>*/}
-
                                 {
                                     !this.state.mobileTable ?(
                                     <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
@@ -301,9 +276,6 @@ class DashboardContainer extends Component {
                                                       transactions={transactions}
                                                       columns={mobileColumns}/>
                                 )}
-
-
-
                             </div>
 
 

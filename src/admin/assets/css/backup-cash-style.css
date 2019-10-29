@@ -131,12 +131,13 @@ section {
 }
 
 .header-background {
-    background-image: url("../../app-assets/images/svg/header-bg.svg");
+    /*background-image: url("../../app-assets/images/svg/header-bg.svg");*/
     background-size: 100%;
     min-height: 100vh;
     height: 700px;
     background-repeat: no-repeat;
 }
+
 
 .faq-bg {
     background-image: url("../../app-assets/images/svg/faq-bg.png");
@@ -200,6 +201,9 @@ section {
     transition: all .3s ease-in-out;
     box-shadow: 0px 15px 30px 5px rgba(2, 43, 105, 0.25);
     /*box-shadow: 0px 15px 10px 5px rgba(2, 34, 81, 0.25);*/
+}
+.btn-blue--1{
+    background-color: #367BFF;
 }
 
 .btn-dark-blue:hover {
@@ -337,15 +341,33 @@ a.btn-light-blue:hover {
 }
 
 .btn-gradient-blue {
-    background: #103366;
-    background: rgb(16, 51, 102);
     position: relative;
-    box-shadow: 0px 15px 30px 8px rgba(0,0,0,0.20);
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
     color: rgba(242,242,242,0.9);
     font-size: 1rem;
     transform: translateY(0);
     transition: all 1s ease;
+}
+.bg-blue-1{
+    background-color: #2567FF;
+}
+.btn-light-blue-round{
+    background-color: #367BFF;
+    border-radius: 3rem;
+    padding: .7rem ;
+    color:white;
+    box-shadow: 0px 10px 10px rgba(5, 128, 216, 0.04);
+}
+.btn-white-bordered{
+    border: 1px solid white;
+    color: white;
+    padding: .5rem 0rem;
+    transition: all .3s ease-in-out;
+}
+.btn-white-bordered:hover{
+    border: 1px solid transparent;
+    color: #2567FF;
+    background-color: white;
 }
 
 .btn-white-shadow {
@@ -398,7 +420,7 @@ a.btn-light-blue:hover {
 .header-title {
     margin-top: 5rem !important;
     font-family: "Gilroy bold";
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     color: #103366;
     letter-spacing: -1px;
 }
@@ -720,7 +742,7 @@ a.carousel-btn {
 
 .nav-link {
     color: #3D5A84;
-    font-size: 1rem;
+    font-size: .9rem;
     letter-spacing: .5px;
     margin-right: 2.5rem;
     transition: .5s ease-in-out;
@@ -765,7 +787,7 @@ a.carousel-btn {
     color: #243C5E;
     font-family: "Circular Std Book";
     margin-bottom: 0rem;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 .carousel-item {
@@ -868,7 +890,7 @@ a.carousel-btn {
 }
 
 .header .btn {
-    padding: 1.8rem 2rem;
+    padding: 1.5rem 2rem;
     font-size: 1rem;
     letter-spacing: 1px;
 }
@@ -1089,6 +1111,7 @@ footer-logo {
 
     .homeBody .navbar .navbar-brand {
         margin-left: -1rem;
+        padding-top: 0rem;
     }
 
     .header {
@@ -1100,6 +1123,22 @@ footer-logo {
         padding: 3rem 10rem 5rem 10rem;
     }
 
+    /* hero slider*/
+    .hero-carousel{
+
+    }
+    /*.hero-carousel img{*/
+    /*    width: 10rem;*/
+    /*}*/
+    .hero-bg{
+        background: radial-gradient(ellipse at 30% 75%, #ffffff 0%, #ffffff 30%, rgba(255,255,181,.5) 100%);
+    }
+    .hero-carousel .owl-item{
+        text-align: center;
+    }
+    .owl-carousel .owl-item img.hero-slide-item {
+        width:90%;
+    }
 
 }
 

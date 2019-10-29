@@ -7,11 +7,11 @@ const Footer = () => {
                 <div className="footer-address mb-3 mb-0">
                     <h5>Backup Cash | A product of SFS Capital</h5>
                     <p className='faded-black'>
-                        <i className='fa fa-map-marker '/> &nbsp;Plot 287 Ajose Adeogun
+                        <i className='fa fa-map-marker '/> &nbsp; Plot 287 Ajose Adeogun
                         Street, Victoria Island 23401,
                         Lagos</p>
                     <p className='faded-black'>
-                        <i className='fa fa-phone '/>&nbsp; +234 814 946 0946 , +234 701 856 7235
+                        <i className='fa fa-phone '/> &nbsp; +234 814 946 0946 , +234 908 776 6679
                     </p>
                     <p className='faded-black'>
                         <i className='fa fa-envelope '/>&nbsp; Enquiries@SFSBackupcash.com

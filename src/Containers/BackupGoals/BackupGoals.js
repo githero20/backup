@@ -36,6 +36,8 @@ class BackupGoals extends Component {
 
     // get total successful
 
+
+    //TODO show frequency for each backup goals
     //get due pay
     constructor(props) {
         super(props);

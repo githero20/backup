@@ -593,7 +593,7 @@ class Faq extends Component {
                                 <div className="col-sm-4 text-center text-md-left">
                                     <div className="mb-3 mb-md-5 ">
                                         <h4 className='text-capitalize'>Phone</h4>
-                                        <p className='gray-text text-capitalize'>+234 814 946 0946 | +234 701 856 7235
+                                        <p className='gray-text text-capitalize'> +234 814 946 0946 | +234 908 776 6679
                                         </p>
                                     </div>
                                 </div>

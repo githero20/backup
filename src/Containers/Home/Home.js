@@ -65,7 +65,6 @@ class Home extends Component {
             var diff = moment(timeStamp);
 
             if (diff < moment().subtract(50, 'minutes') || user == null) {
-                console.log('logged in a while ago');
                 this.setState({
                     isLoggedIn: false
                 })
@@ -706,7 +705,7 @@ class Home extends Component {
                                                         Victoria
                                                         Island 23401, Lagos</p>
                                                     <p className='gray-text footer-p'>Enquires: 08149460946,
-                                                        07018567235 </p>
+                                                        09087766679 </p>
 
                                                 </div>
 

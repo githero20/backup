@@ -133,7 +133,7 @@ class EditBGForm extends Component {
                         loading: false,
                     });
                     if (status) {
-                        console.log("here");
+                        console.log("edited",payload);
                         this.props.toastManager.add("Backup Goal Updated.", {
                             appearance: "success"
                         });
@@ -143,7 +143,7 @@ class EditBGForm extends Component {
                             this.props.fetchGoals();
                         }, 2000);
                     } else {
-                        this.props.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
+                        this.props.toastManager.add("Unable to update backup goal at themoment", {
                             appearance: "error",
                             autoDismiss: true,
                             autoDismissTimeout: 5000
@@ -170,7 +170,6 @@ class EditBGForm extends Component {
             this
         );
 
-        // console.log("megg", event.target.name, event.target.value);
         this.handleFrequencySelect(form, inverse);
 
     };
@@ -242,7 +241,7 @@ class EditBGForm extends Component {
                     <option value="21">9:00 pm</option>
                     <option value="22">10:00 pm</option>
                     <option value="23">11:00 pm</option>
-                    <option value="24">12:00 am</option>
+                    <option value="0">12:00 am</option>
                 </Form.Control>
 
             </Form.Group>
@@ -325,62 +324,9 @@ class EditBGForm extends Component {
                             />
                             {this.validator.message('title', title, 'required|string')}
                         </Form.Group>
-
-
-                        {/*<Form.Group as={Col} sm={6}>*/}
-                        {/*    <Form.Label>Start amount (NGN)</Form.Label>*/}
-                        {/*    <Form.Control*/}
-                        {/*        type="number" id="start_amount"*/}
-                        {/*        value={start_amount} step={'5'} name="start_amount"*/}
-                        {/*        onChange={this.changeHandler}*/}
-                        {/*        disabled={true}*/}
-                        {/*    />*/}
-
-                        {/*    <Form.Text className="text-muted">*/}
-                        {/*        Contribution range daily [ &#8358; 50 - &#8358; 25000]*/}
-                        {/*    </Form.Text>*/}
-                        {/*    {this.validator.message('start amount', start_amount, 'required|numeric')}*/}
-
-                        {/*</Form.Group>*/}
                     </Form.Row>
                     <Form.Row>
-                        {/*<Form.Group as={Col}>*/}
-                        {/*    <Form.Label>Start Date</Form.Label>*/}
-                        {/*    <Form.Control type="date" name={'start_date'}*/}
-                        {/*                  id={'start_date'}*/}
-                        {/*                  min={moment().format('YYYY-MM-DD')}*/}
-                        {/*                  value={start_date}*/}
-                        {/*                  disabled={true}*/}
-                        {/*                  onChange={this.changeHandler}*/}
-                        {/*    />*/}
-                        {/*    {this.validator.message('start_date', start_date, 'required|string')}*/}
 
-                        {/*</Form.Group>*/}
-
-                    </Form.Row>
-                    <Form.Row>
-                        {/*<Form.Group as={Col} sm={6}>*/}
-                        {/*    <Form.Label>Account to Debit</Form.Label>*/}
-                        {/*    <Form.Control as="select" disabled={true} onChange={this.changeHandler} value={gw_authorization_code!=null?gw_authorization_code:-1} id={'payment_auth'}*/}
-                        {/*                  name={'payment_auth'}>*/}
-                        {/*        /!* loop through and get the number of accounts user has *!/*/}
-                        {/*        <option value={-1} >Select Card</option>*/}
-                        {/*        {*/}
-                        {/*            this.state.userCards.length > 0 ?*/}
-
-                        {/*                this.state.userCards.map((data) => {*/}
-                        {/*                    if(data.channel == "card")*/}
-                        {/*                        return (*/}
-                        {/*                            <option value={data.id} key={data.id}>{data.card_type}(**** **** **** {data.last4})</option>*/}
-                        {/*                        );*/}
-
-                        {/*                })*/}
-                        {/*                : <option value={-1} >Select Card</option>*/}
-                        {/*        }*/}
-
-                        {/*    </Form.Control>*/}
-                        {/*    {this.validator.message('credit card', gw_authorization_code, 'required|numeric')}*/}
-                        {/*</Form.Group>*/}
                         <Form.Group as={Col} sm={12}>
                             <Form.Label>End Date</Form.Label>
                             <Form.Control
@@ -392,7 +338,6 @@ class EditBGForm extends Component {
                                 min={moment(maturity_date).format('YYYY-MM-DD')}
                                 value={maturity_date}
                                 disabled={this.state.disabled}
-                                // onChange={this.changeHandler}
                                 onChange={this.changeHandler}
                             />
                             {this.validator.message('maturity_date', maturity_date, 'required|string')}
@@ -414,18 +359,6 @@ class EditBGForm extends Component {
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                        {/*<Form.Group as={Col}>*/}
-                        {/*    <Form.Label>Frequency </Form.Label>*/}
-                        {/*    /!*select Box *!/*/}
-                        {/*    <Form.Control as="select" id="frequency" value={frequency} disabled={true} onChange={this.changeHandler} name={'frequency'}>*/}
-                        {/*        <option value={'daily'}>Daily</option>*/}
-                        {/*        <option value={'weekly'}>Weekly</option>*/}
-                        {/*        <option value={'monthly'}>Monthly</option>*/}
-                        {/*    </Form.Control>*/}
-                        {/*    {this.validator.message('frequency', frequency, 'required|string')}*/}
-                        {/*</Form.Group>*/}
-
-                        {/*{this.state.showHour ? showHour: null}*/}
                         {this.state.showDay ? showDay : null}
                         {this.state.showMonth ? showMonth : null}
                     </Form.Row>

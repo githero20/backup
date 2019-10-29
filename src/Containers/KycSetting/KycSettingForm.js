@@ -169,7 +169,7 @@ class KycSettingForm extends Component {
     }
 
     handleKyc(status, result) {
-        console.log(status,result);
+        console.log(status, result);
         if (status) {
             try {
                 if (result.data.edit == "1") {
@@ -228,6 +228,7 @@ class KycSettingForm extends Component {
                                     </div>
                                 </div>
                                 <div className="content-header row">
+                                    <p className='mb-2'>&nbsp;</p>
                                 </div>
                                 <div className="content-body">
                                     <div className="row">

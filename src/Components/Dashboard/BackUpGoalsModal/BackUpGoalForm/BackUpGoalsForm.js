@@ -243,7 +243,7 @@ class BackUpGoalsForm extends Component {
                     <option value="21">9:00 pm</option>
                     <option value="22">10:00 pm</option>
                     <option value="23">11:00 pm</option>
-                    <option value="24">12:00 am</option>
+                    <option value="0">12:00 am</option>
                 </Form.Control>
 
             </Form.Group>

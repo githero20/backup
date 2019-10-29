@@ -146,7 +146,7 @@ class Home extends Component {
 
                                         <div className="collapse navbar-collapse desktop "
                                              id="navbarSupportedContent">
-                                            <ul className="navbar-nav ">
+                                            <ul className="navbar-nav ml-lg-3">
                                                 <li className="nav-item">
                                                     <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                                 </li>
@@ -185,36 +185,44 @@ class Home extends Component {
                                         <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
                                             <div className="header-words-container pt-lg-5 pr-lg-3">
                                                 <h1 className="animated fadeInDown delay-1s header-title mt-5 mt-lg-0 mb-2 mt-md-0  px-2 px-sm-0 ">
-                                                    Save Money,<br/>
-                                                    Grow Wealth.
+                                                    Earn up to <strong>13% </strong><br/>
+                                                    interest on Savings.
                                                 </h1>
-                                                <p className="header-sub-title">
+                                                <p className="header-sub-title animated fadeInDown delay-1s">
                                                     Save as little as <strong>₦500 </strong>
                                                 </p>
-                                                <p className="header-sub-title mb-md-3">
-                                                    Earn up to <strong>13% </strong> interest on Savings.
+                                                <p className="header-sub-title animated fadeInDown delay-1s mb-md-3">
+                                                    Save Money , Grow Wealth.
+                                                {/*     */}
                                                 </p>
                                                 <Link to={'/sign-up'} className="btn px-5 btn-light-blue-round btn-hover-shadow">Create free account</Link>
                                                 <div className="hero-cta-btn-container pt-3 d-flex">
-                                                    <img src={facebookCreateBtn} className='width-30-per mr-lg-1' alt="facebook create button"/>
-                                                    <img src={whatsappCreateBtn} className='width-30-per' alt="whatsapp create button"/>
+                                                    <a href='https://www.facebook.com/BackUpCash/' rel='noreferrer'
+                                                       target='_blank' >
+                                                        <img src={facebookCreateBtn} className=' cursor-pointer mr-lg-1' alt="facebook create button"/>
+                                                    </a>
+                                                    <a href="https://api.whatsapp.com/send?phone=18883699915" target='_blank'>
+                                                        <img src={whatsappCreateBtn} className=' cursor-pointer' alt="whatsapp create button"/>
+                                                    </a>
+
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
+                                        <div className="col-lg-6 mt-md-5 mt-lg-0 text-center pt-lg-2 text-lg-left">
                                             <ReactOwlCarousel
                                                 className="owl-theme hero-carousel"
                                                 loop
                                                 margin={10}
-                                                autoplay={1000}
-                                                autoplayTimeout={5000}
+                                                // autoplay={1000}
+                                                // autoplayTimeout={5000}
                                                 dots={false}
                                                 responsiveClass={true}
                                                 items={1}
                                                 nav={true}
                                             >
-                                                <img src={firstSlideImage} className='item hero-slide-item' alt="first slide image"/>
-                                                <img src={secondSlideImage} className='item hero-slide-item' alt="second slide image"/>
+                                                    <img src={firstSlideImage} className='item hero-slide-item ' alt="first slide image"/>
+                                                    <img src={secondSlideImage} className='item hero-slide-item ' alt="second slide image"/>
+
 
                                             </ReactOwlCarousel>
                                         </div>
@@ -259,8 +267,7 @@ class Home extends Component {
                                             <div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">
                                                 <div className="row pb-md-5">
                                                     <div className="col-12">
-                                                        <div className="d-flex flex-column flex-md-row justify-content-around
-                                                 align-items-center">
+                                                        <div className="d-flex flex-column flex-md-row justify-content-around align-items-center">
                                                             <div className="security-img-wrapper mb-2 mb-md-0">
                                                                 <img src={securityIcon}
                                                                      alt="security icon"/>

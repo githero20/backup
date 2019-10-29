@@ -200,9 +200,7 @@ class Home extends Component {
                                                 </h1>
                                                 {/*<p className="header-sub-title mb-0 ">*/}
                                                 {/*    Save as little as <strong>₦500 </strong></p>*/}
-                                                <p className="header-sub-title mb-3">
-                                                    Protecting your interest is our business.
-                                                </p>
+                                                <p className="header-sub-title mb-3">Protecting your interest is our business.</p>
                                                 <Link to={'/sign-up'}
                                                       className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow">
                                                     Create free account</Link>

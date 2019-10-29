@@ -160,14 +160,12 @@ const AuthController = component => {
 
         }, [RenderComponent]);
 
-
         return <RenderComponent {...props} reload={reload}/>;
     };
 
     Authenticate.defaultProps = {
         component
     };
-
 
     return Authenticate
 };

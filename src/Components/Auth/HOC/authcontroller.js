@@ -27,9 +27,9 @@ export const AMOUNT_LIMITS = {
     maxBackUpGoalMonthly:2000000,
 };
 export const APP_FREQUENCY = {
-    daily:'daily',
-    weekly:'weekly',
-    monthly:'monthly'
+    daily: 'daily',
+    weekly: 'weekly',
+    monthly: 'monthly'
 };
 export const ADD_BANK = 0;
 export const DASHBOARDINFO = "dashboard-info";
@@ -40,12 +40,11 @@ export const SHOWAD = "show-ad";
 
 const verifyTokenURL = BASE_URL + "sfsbapi/v1/user";
 
-const doLogin = (data,callback) => {
+const doLogin = (data, callback) => {
     const password = document.getElementById('password').value;
     Login(LoginEndpoint, {email: data.email, password: password}, callback)
 
 };
-
 
 
 const Login = (url, param, login) => {
@@ -61,12 +60,73 @@ const AuthController = component => {
         const RenderComponent = props.component;
         const token = JSON.parse(localStorage.getItem(USERTOKEN));
 
+        const handleUserAuth = () => {
+            swal({
+                text: 'Enter your password to continue',
+                title: 'Your Session has expired!',
+                icon: 'info',
+                content: {
+                    element: "input",
+                    attributes: {
+                        placeholder: "Type your password",
+                        type: "password",
+                        name: "password",
+                        id: "password",
+                    },
+                },
+                buttons: {
+                    cancel: "Log Out",
+                    yes: "continue"
+                }
+            }).then((value) => {
+                switch (value) {
+                    case "yes":
+                        let data = JSON.parse(localStorage.getItem(USERINFO));
+                        doLogin(data, (state, response) => {
+                            if (state && response && response.data) {
+                                //set session time
+                                const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
+                                // handle admin login
+                                if (response.data.role == CUSTOMER) {
+                                    localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
+                                    localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
+                                    localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
+                                }
+                                swal('Awesome!!', 'You have successfully logged in', 'success', {
+                                    button: false,
+                                    timer: 2000
+                                });
+                                setReload(true);
+                            } else {
+
+                                if (response) {
+                                    if (response.status == 401) {
+                                        if (response.data.message == "invalid_credentials") {
+                                            swal('Oops!!', `Invalid Credentials`, 'warning');
+                                        } else if (response.data.message == 'Incorrect email or password,Try again') {
+                                            swal('Oops!!', 'Incorrect Email or Password', 'warning', {
+                                                button: false,
+                                                timer: 2000
+                                            });
+                                        } else {
+                                            swal('Oops!!', `Unable to login at the moment.Try Again`, 'warning');
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case null:
+                        window.location.href = `/login`;
+                        localStorage.removeItem(USERTOKEN);
+                        localStorage.removeItem(USERINFO);
+                        break;
+                }
+            });
+        };
 
         useEffect(() => {
             if (!token) {
-                // props.history.push(
-                //     `/login`
-                // );
                 window.location.href = `/login`;
                 localStorage.removeItem(USERTOKEN);
                 localStorage.removeItem(USERINFO);
@@ -79,75 +139,11 @@ const AuthController = component => {
                     },
                     err => {
                         try {
-                            if (err.response) {
-                                if (err.response.data.message === "Account has not been activated, click on resend") {
+                            if (err && err.response) {
+                                if (err && err.response && err.response.data && err.response.data.message === "Account has not been activated, click on resend") {
                                     setLocalStorage(USERACTIVATED, false);
-
                                 } else {
-                                    swal({
-                                        text: 'Enter your password to continue',
-                                        title: 'Your Session has expired!',
-                                        icon: 'info',
-                                        content: {
-                                            element: "input",
-                                            attributes: {
-                                                placeholder: "Type your password",
-                                                type: "password",
-                                                name: "password",
-                                                id: "password",
-                                            },
-                                        },
-                                        buttons: {
-                                            cancel: "Log Out",
-                                            yes: "continue"
-                                        }
-                                    }).then((value) => {
-                                        switch (value) {
-                                            case "yes":
-                                                let data = JSON.parse(localStorage.getItem(USERINFO));
-                                                doLogin(data,(state, response) => {
-                                                if (state) {
-                                                    if (response != undefined) {
-                                                        //set session time
-                                                        const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
-                                                        // handle admin login
-                                                        if (response.data.role == CUSTOMER) {
-                                                            localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
-                                                            localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
-                                                            localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
-                                                        }
-                                                        swal('Awesome!!','You have successfully logged in','success',{button: false,timer:2000});
-                                                        setReload(true);
-                                                    }
-                                                } else {
-
-                                                    if (response) {
-                                                        if (response.status == 401) {
-                                                            if (response.data.message == "invalid_credentials") {
-                                                                swal('Oops!!',`Invalid Credentials`, 'warning');
-                                                            } else if (response.data.message == 'Incorrect email or password,Try again') {
-                                                                swal('Oops!!','Incorrect Email or Password', 'warning',{button: false,timer:2000});
-                                                            } else {
-                                                                swal('Oops!!',`${JSON.stringify(response.data.message)}`, 'warning');
-                                                            }
-                                                        } else {
-                                                            console.log(response);
-                                                            // swal('Oops!!',`${JSON.stringify(response.data.message)}`, 'warning');
-                                                        }
-                                                    }
-                                                }
-                                            });
-                                                break;
-                                            case null:
-                                                // props.history.push(`/login`);
-                                                window.location.href = `/login`;
-                                                localStorage.removeItem(USERTOKEN);
-                                                localStorage.removeItem(USERINFO);
-                                                break;
-                                        }
-                                    });
-
-                                    return null;
+                                    handleUserAuth();
                                 }
                             } else {
                                 //TODO("Log to central Log")
@@ -165,7 +161,7 @@ const AuthController = component => {
         }, [RenderComponent]);
 
 
-        return <RenderComponent {...props} reload={reload} />;
+        return <RenderComponent {...props} reload={reload}/>;
     };
 
     Authenticate.defaultProps = {

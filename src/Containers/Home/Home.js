@@ -69,7 +69,6 @@ class Home extends Component {
             let diff = moment(timeStamp);
 
             if (diff < moment().subtract(50, 'minutes') || user == null) {
-                console.log('logged in a while ago');
                 this.setState({
                     isLoggedIn: false
                 })
@@ -204,7 +203,6 @@ class Home extends Component {
                                                     <a href="https://api.whatsapp.com/send?phone=18883699915" target='_blank'>
                                                         <img src={whatsappCreateBtn} className=' cursor-pointer' alt="whatsapp create button"/>
                                                     </a>
-
                                                 </div>
                                             </div>
                                         </div>

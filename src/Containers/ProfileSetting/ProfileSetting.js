@@ -80,6 +80,7 @@ class ProfileSetting extends Component {
                             </div>
                             {this.state.showLoader ? <DashboardLoader/> : null}
                             <div className="content-header row ">
+                                <p className='mb-2'>&nbsp;</p>
                             </div>
                             <div className="content-body">
                                 <div className="row">

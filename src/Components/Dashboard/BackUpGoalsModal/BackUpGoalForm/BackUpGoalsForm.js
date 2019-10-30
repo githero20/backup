@@ -112,8 +112,6 @@ class BackUpGoalsForm extends Component {
             }
         }
 
-
-        // console.log("Form", form);
     }
 
     submitForm = (e) => {
@@ -210,31 +208,6 @@ class BackUpGoalsForm extends Component {
 
     };
 
-
-    textAmountHandler = (event) => {
-        let name = event.target.name;
-        let value = event.target.value;
-
-        console.log(name, value);
-        // check if the value exist
-        if (value !== "") {
-            if (parseFloat(value).toFixed(2) !== 0.00) {
-                const rawValue = parseFloat(value.trim().replace(',', '').replace('₦', ''))
-                console.log(name, rawValue);
-                let data = {...this.state.instantSaveInfo};
-                data[name] = rawValue;
-                this.setState({
-                    form: data,
-                    err: ''
-                })
-            }
-        } else {
-            this.setState({
-                err: 'Please Input the Amount you want to Save'
-            })
-        }
-    };
-
     componentDidMount() {
         getCardsFromStorage(USERINFO, this);
     }
@@ -270,7 +243,7 @@ class BackUpGoalsForm extends Component {
                     <option value="21">9:00 pm</option>
                     <option value="22">10:00 pm</option>
                     <option value="23">11:00 pm</option>
-                    <option value="24">12:00 am</option>
+                    <option value="0">12:00 am</option>
                 </Form.Control>
             </Form.Group>
         );

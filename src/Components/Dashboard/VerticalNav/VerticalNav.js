@@ -162,20 +162,20 @@ class VerticalNav extends Component {
 
                             {/*<li className="navigation-header d-none d-md-inline">*/}
                             {/*    <span data-i18n="nav.category.apps">Investments</span>*/}
-                            {/*    /!*<i className="la la-ellipsis-h ft-minus"></i>*!/*/}
+                                {/*<i className="la la-ellipsis-h ft-minus"></i>*/}
                             {/*</li>*/}
-                            {/*<li className={'nav-item ' + this.getNavLinkClass(LockedSavingsLink)}>*/}
-                            {/*    <NavLink to={LockedSavingsLink}>*/}
-                            {/*        <img src={LockedSavings}/>*/}
-                            {/*        <span className="menu-title">Locked Savings</span>*/}
-                            {/*    </NavLink>*/}
-                            {/*</li>*/}
-                            {/*<li className={'nav-item ' + this.getNavLinkClass(BackupGoalsLink)}>*/}
-                            {/*    <NavLink to={BackupGoalsLink}>*/}
-                            {/*        <img src={BackUpGoalsIcon}/>*/}
-                            {/*        <span className="menu-title">Backup Goals</span>*/}
-                            {/*    </NavLink>*/}
-                            {/*</li>*/}
+                            <li className={'nav-item ' + this.getNavLinkClass(LockedSavingsLink)}>
+                                <NavLink to={LockedSavingsLink}>
+                                    <img src={LockedSavings} style={{filter:'brightness(0.8)'}}/>
+                                    <span className="menu-title">Locked Savings</span>
+                                </NavLink>
+                            </li>
+                            <li className={'nav-item ' + this.getNavLinkClass(BackupGoalsLink)}>
+                                <NavLink to={BackupGoalsLink}>
+                                    <img src={BackUpGoalsIcon}/>
+                                    <span className="menu-title">Backup Goals</span>
+                                </NavLink>
+                            </li>
 
 
                             <li className="navigation-header d-none d-md-inline">

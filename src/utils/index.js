@@ -132,7 +132,6 @@ export const _calculateDateDifference = (from = null, to = null, type = "days") 
     // if (!to)
     //     to = moment().utc();
 
-
     //dddd, MMMM Do YYYY
     console.log("fromto", from, to);
     if(to == null)
@@ -141,13 +140,13 @@ export const _calculateDateDifference = (from = null, to = null, type = "days") 
         to = moment(to, "YYYY-MM-DD").endOf("day");
     console.log("to", to);
 
-
     if(from == null)
         from = moment().utc();
     else
         from = moment(from,"YYYY-MM-DD").startOf("day");
-    console.log("from", from);
-    return to.diff(from,type);
+    console.log("from", from,'type',type);
+    console.log("difference",Math.ceil(to.diff(from,type,true))) ;
+    return Math.ceil(to.diff(from,type,true));
 };
 
 

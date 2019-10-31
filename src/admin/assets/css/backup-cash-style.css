@@ -232,6 +232,41 @@ section {
     width: 100%;
 }
 
+/*awards section*/
+.text-deep-blue{
+    color: #062858;
+}
+
+.award-card{
+    box-shadow: none;
+    border-radius: 1rem;
+    background: transparent;
+    transition: all .5s ease-in-out;
+}
+.award-card:hover,.award-card.active{
+    background: white;
+    box-shadow: 0px 20px 30px 15px rgba(0,0,0,0.05);
+}
+.awards p.gray-text {
+    color: rgba(6,40,88,0.6);
+    font-size: 2rem;
+}
+.awards p strong {
+    color: #062858;
+}
+.awards-bg{
+   background-image: url("../../app-assets/images/award-bg.svg");
+    background-position: center;
+    background-size: cover;
+    min-height: 400px;
+    background-repeat: no-repeat;
+}
+.deep-blue-link-underline{
+    color:#062858 ;
+    padding-bottom: .5rem;
+    margin: 1rem;
+    border-bottom: .3rem solid #FFDB51;
+}
 .btn-custom-border {
     border-top-left-radius: 2.8rem;
     border-bottom-right-radius: 2.8rem;

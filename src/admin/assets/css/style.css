@@ -1854,6 +1854,12 @@ input[type=number]::-webkit-outer-spin-button {
 .circular-std {
     font-family: "Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+.circular-std-Black{
+    font-family: "Circular Std Black", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.circular-std-Book{
+    font-family: "Circular Std Book", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 
 
 

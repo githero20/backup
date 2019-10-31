@@ -1293,6 +1293,11 @@ footer-logo {
 
 
 @media all and (max-width: 599px) {
+
+    /*video advert */
+    .dash-ads video {
+        height: 150px ;
+    }
     .section-transparent-card-icon img {
         margin: 0 auto;
     }

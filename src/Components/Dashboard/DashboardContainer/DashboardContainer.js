@@ -212,7 +212,7 @@ class DashboardContainer extends Component {
                         {/* notification component */}
                         <div className="col-12 d-md-none">
                             <Link to={SteadySaveLink} className="dash-ads br-2 overflow-hidden mb-3">
-                                <video width="100%" height="200px" autoPlay={true} loop>
+                                <video width="100%" height="200px" autoPlay muted loop>
                                     <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}
                                             type="video/mp4"/>
                                 </video>
@@ -257,7 +257,7 @@ class DashboardContainer extends Component {
                                 <BackUpStashCard stashAmount={stashAmount}/>
                                 <div className="col-12 col-lg-6">
                                     <Link to={SteadySaveLink} className="dash-ads br-2 overflow-hidden mb-3">
-                                        <video width="100%" height="200px" autoPlay={true} loop>
+                                        <video width="100%" height="200px" autoPlay muted loop>
                                             <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}
                                                     type="video/mp4"/>
                                         </video>
@@ -272,7 +272,7 @@ class DashboardContainer extends Component {
                                 </div>
                                 <div className="col-12 col-lg-6">
                                     <div className="dash-ads mb-3 pt-2">
-                                        <img src={require('../../../admin/app-assets/images/ussd-ad.png')} className='dash-ad-img height-150' alt="advert two"/>
+                                        <img src={require('../../../admin/app-assets/images/ussd-ad.png')} className='dash-ad-img mt-1' alt="advert two"/>
                                         <div className={'dash-action right-action'}>
                                             {/*<a className={'ad-link-white'}>Know more&nbsp;*/}
                                             {/*    <i className='fa fa-arrow-right'/>*/}

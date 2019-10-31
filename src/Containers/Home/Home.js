@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
-import backupCashLogo from "../../admin/app-assets/images/Logo@2x.png";
 import sfsFooterLogo from "../../admin/app-assets/images/Logo@2x.png";
 import illustration1 from "../../admin/app-assets/images/wymg@2x.png";
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
@@ -23,14 +22,16 @@ import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../images/sfs.jpg";
 import sfsCredit from "../../admin/app-assets/images/SFS Credits@3x.png";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
+import facebookCreateBtn from "../../admin/app-assets/images/create-with-whatsapp@2x.png";
+import whatsappCreateBtn from "../../admin/app-assets/images/create-with-facebook@2x.png";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import {DashboardLink, FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import {FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import moment from 'moment';
 import {SESSION_INTERVAL, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
-import {hideLoader, hideSupport, showHomeLoader, Support} from "../../Helpers/Helper";
+import Navigation from "./Navigation";
 
 class Home extends Component {
 
@@ -62,7 +63,7 @@ class Home extends Component {
         let user = JSON.parse(localStorage.getItem(USERTOKEN));
         if (timeStamp != null) {
             // get the session and compare the current time
-            var diff = moment(timeStamp);
+            let diff = moment(timeStamp);
 
             if (diff < moment().subtract(50, 'minutes') || user == null) {
                 this.setState({
@@ -78,140 +79,121 @@ class Home extends Component {
         }
     };
 
-    componentWillMount() {
-        // if (localStorage.getItem('hideLoader') == null) {
-        //     showHomeLoader()
-        // }
-        // console.log = ()=>{};
+    handleScrollAnimation = () => {
+        window.addEventListener('scroll', () => {
+            let cards = document.getElementsByClassName("award-card");
+            if (window.scrollY < 3200) {
+                for (let i = 0; i < cards.length; cards++) {
+                    cards[i].className.replace(" active", "");
+                    cards[0].className += " active";
+                }
+
+            } else if (window.scrollY >= 3200) {
+                for (let i = 0; i < cards.length; cards++) {
+                    cards[i].className.replace(" active", "");
+                    cards[1].className += " active";
+                }
+                console.log('cards', cards);
+
+            }
+        })
+
     }
 
 
     componentDidMount() {
         this.checkUser();
-        // window.addEventListener('load', () => {
-        //     hideLoader();
-        //     localStorage.setItem('hideLoader', true);
-        // });
-        // Support();
-    }
-
-    componentWillUnmount() {
-        // hideSupport();
+        // this.handleScrollAnimation();
     }
 
 
     render() {
+        const {isLoggedIn} = this.state;
         return (
             <React.Fragment>
                 <div className={'homeBody'}>
                     <div className="home-content">
                         <div className="home-content--inner">
-                            <header className="header header-background">
+                            <header className="header header-background hero-bg">
                                 <img src={homeBGImg} className='home-bg-img d-none' alt="svg image"/>
                                 <div className="container">
-                                    <nav className="home-nav navbar navbar-expand-lg ">
-                                        <a className="navbar-brand">
-                                            <img src={backupCashLogo} alt="logo" width="180px"/>
-                                        </a>
-                                        <a onClick={this.showMobileMenu}
-                                           className="hamburger hamburger--slider navbar-toggler"
-                                           data-toggle="collapse" data-aria-controls="navbarSupportedContent"
-                                           aria-expanded="false" aria-label="Toggle navigation">
-                                    <span className="hamburger-box">
-                                        <span className="hamburger-inner"></span>
-                                    </span>
-                                        </a>
-                                        <div
-                                            className="collapse navbar-collapse res-menu mobile animated slideInLeft faster"
-                                            id="navbarSupportedContent">
-                                            <ul className="navbar-nav ml-auto">
-                                                <li className="nav-item">
-                                                    <Link className="nav-link" to={FaqLink}>FAQs </Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a className="nav-link"
-                                                       onClick={this.scrollIntoView}>Testimonials </a>
-                                                </li>
-                                                {
-                                                    this.state.isLoggedIn ? (
-                                                        <li className="nav-item">
-                                                            <Link to={DashboardLink}
-                                                                  className="nav-link">Dashboard </Link>
-                                                        </li>
-                                                    ) : (
-                                                        <li className="nav-item">
-                                                            <Link to={LoginLink} className="nav-link">Login </Link>
-                                                        </li>
-                                                    )
-                                                }
-                                            </ul>
-                                            <ul className="cta-link">
-                                                <li>
-                                                    <Link to={SignUpLink}
-                                                          className="btn-rounded-blue btn-gradient-blue">
-                                                        Sign Up
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <div className="collapse navbar-collapse  desktop "
-                                             id="navbarSupportedContent">
-                                            <ul className="navbar-nav ml-auto">
-                                                <li className="nav-item">
-                                                    <Link className="nav-link" to={FaqLink}>FAQs </Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a className="nav-link"
-                                                       onClick={this.scrollIntoView}>Testimonials </a>
-                                                </li>
-                                                {
-                                                    this.state.isLoggedIn ? (
-                                                        <li className="nav-item">
-                                                            <Link to={DashboardLink}
-                                                                  className="nav-link">Dashboard </Link>
-                                                        </li>
-                                                    ) : (
-                                                        <li className="nav-item">
-                                                            <Link to={LoginLink} className="nav-link">Login </Link>
-                                                        </li>
-                                                    )
-                                                }
-                                            </ul>
-                                            <ul className="cta-link">
-                                                <li>
-                                                    <Link to={SignUpLink}
-                                                          className="btn-rounded-blue btn-gradient-blue">
-                                                        Sign Up
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </nav>
+                                    <Navigation isLoggedIn={isLoggedIn} scrollIntoView={this.scrollIntoView}/>
                                     {/*row and two columns */}
                                     <div className="row pt-lg-1">
                                         <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
                                             <div className="header-words-container pt-lg-5 pr-lg-3">
-                                                <h1 className="animated fadeInDown delay-1s header-title mt-5 mt-lg-1 mb-2
-                                        mt-md-0  px-2 px-sm-0 ">
-                                                    Save as little as <strong>₦500 </strong>and<br/>
-                                                    Earn up to <strong>13% </strong> interest on Savings.
+                                                <h1 className="animated fadeInDown delay-1s fast header-title mt-5 mt-lg-0 mb-1 mb-md-3 mt-md-0  px-2 px-sm-0 ">
+                                                    Earn up to <strong>13% </strong><br/>
+                                                    interest on Savings.
                                                 </h1>
-                                                {/*<p className="header-sub-title mb-0 ">*/}
-                                                {/*    Save as little as <strong>₦500 </strong></p>*/}
-                                                <p className="header-sub-title mb-3">Protecting your interest is our business.</p>
+                                                <p className="header-sub-title animated fadeInDown fast delay-1s">
+                                                    Save as little as <strong>₦500 </strong>
+                                                </p>
+                                                <p className="header-sub-title animated fadeInDown fast delay-1s mb-3">
+                                                    Save Money , Grow Wealth.
+                                                    {/*     */}
+                                                </p>
                                                 <Link to={'/sign-up'}
-                                                      className="btn px-5 btn-custom-border btn-dark-blue  btn-hover-shadow">
-                                                    Create free account</Link>
+                                                      className="btn px-5 btn-light-blue-round btn-hover-shadow animated fadeIn fast delay-1s">Create
+                                                    free account</Link>
+                                                <div
+                                                    className="hero-cta-btn-container pt-3 mb-3  d-lg-flex text-center animated fadeIn fast delay-1s">
+                                                    <a href='https://www.messenger.com/t/BackUpCash' rel='noreferrer'
+                                                       target='_blank'>
+                                                        <img src={facebookCreateBtn} className=' cursor-pointer mr-1'
+                                                             alt="facebook create button"/>
+                                                    </a>
+                                                    <a href="https://api.whatsapp.com/send?phone=18883699915"
+                                                       target='_blank'>
+                                                        <img src={whatsappCreateBtn} className=' cursor-pointer'
+                                                             alt="whatsapp create button"/>
+                                                    </a>
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div
+                                            className="col-lg-6 mt-md-5 mt-lg-0 text-center pt-lg-2 text-lg-left d-none d-lg-block">
+                                            <ReactOwlCarousel
+                                                className="owl-theme hero-carousel"
+                                                loop
+                                                margin={10}
+                                                autoplay={1000}
+                                                autoplayTimeout={5000}
+                                                dots={false}
+                                                responsiveClass={true}
+                                                items={1}
+                                                nav={true}
+                                            >
+                                                <img src={require('../../admin/app-assets/images/slider/IMG-20191025-WA0004.jpg')}
+                                                     className='item hero-slide-item ' alt="first slide image"/>
+                                                <img src={require('../../admin/app-assets/images/slider/IMG-20191025-WA0007.jpg')}
+                                                    className='item hero-slide-item ' alt="first slide image"/>
+                                                <img src={require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')}
+                                                    className='item hero-slide-item ' alt="first slide image"/>
+                                                <img
+                                                    src={require('../../admin/app-assets/images/slider/mybackupcash_2___B2vzESsl0TG___.jpg')}
+                                                    className='item hero-slide-item ' alt="first slide image"/>
+                                                <img src={require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')}
+                                                    className='item hero-slide-item ' alt="first slide image"/>
+
+
+                                                <img
+                                                    src={require('../../admin/app-assets/images/slider/mybackupcash_2___B23mgrTlfLp___.jpg')}
+                                                    className='item hero-slide-item ' alt="first slide image"/>
+                                                <img
+                                                    src={require('../../admin/app-assets/images/slider/mybackupcash___B206V6_lxNQ___.jpg')}
+                                                    className='item hero-slide-item ' alt="first slide image"/>
+                                            </ReactOwlCarousel>
                                         </div>
                                     </div>
                                 </div>
                             </header>
+
+
                             <section className="pb-sm-0  mb-md-5 pt-md-5">
                                 <div className="container">
                                     <div className="row  mb-5 mb-md-0">
-                                        <div className="col-md-6 text-center text-md-left">
+                                        <div className="col-md-6 text-center text-md-left mt-3 mt-lg-0">
                                             <img src={illustration1} alt="backup cash illustration"
                                                  className="ill-2x" width="100%"/>
                                         </div>
@@ -246,8 +228,8 @@ class Home extends Component {
                                             <div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">
                                                 <div className="row pb-md-5">
                                                     <div className="col-12">
-                                                        <div className="d-flex flex-column flex-md-row justify-content-around
-                                                 align-items-center">
+                                                        <div
+                                                            className="d-flex flex-column flex-md-row justify-content-around align-items-center">
                                                             <div className="security-img-wrapper mb-2 mb-md-0">
                                                                 <img src={securityIcon}
                                                                      alt="security icon"/>
@@ -277,8 +259,8 @@ class Home extends Component {
                                     </div>
                                 </div>
                                 <div className=" pb-5 pb-md-0 height-100vh ">
-                                    <div className="container px-md-5">
-                                        <div className="row mx-md-5">
+                                    <div className="container px-lg-5">
+                                        <div className="row mx-lg-5">
                                             <div className="col-md-4 px-md-0">
 
                                                 <div className="card-container text-center mb-xs-5">
@@ -401,7 +383,58 @@ class Home extends Component {
                                     </div>
                                 </div>
                             </section>
+                            <section className="awards awards-bg pt-5">
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <p className='text-center gray-text fs-1-5 mt-5 mb-3 mb-lg-5 mt-lg-0 d-flex align-items-lg-center justify-content-lg-center flex-column flex-lg-row'>
+                                                <span>
+                                                    Start Saving with only
+                                                </span>
+                                                <span className='d-flex align-items-center justify-content-center'>
+                                                    <a href="https://api.whatsapp.com/send?phone=18883699915"
+                                                       className='deep-blue-link-underline cursor-pointer'
+                                                       target='_blank'>
+                                                        <strong>Whatsapp</strong>
+                                                    </a>
+                                                    <span>or</span>
+                                                    <a href="https://www.messenger.com/t/BackUpCash"
+                                                       className='deep-blue-link-underline cursor-pointer'
+                                                       target='_blank'>
+                                                        <strong>Facebook</strong>
+                                                    </a>
+                                                </span>
 
+                                            </p>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <div
+                                                className='fs-1-8 mt-5 mt-md-2 pl-lg-5 mt-lg-5 mb-1 text-center text-md-left'>
+                                                <img className='mb-3 mb-md-1 mb-lg-3'
+                                                     src={require('../../admin/app-assets/images/svg/award-medal.svg')}
+                                                     alt="award medal"
+                                                />
+                                                <p className='circular-std-Book text-deep-blue'>Some of our </p>
+                                                <p className='circular-std-Black text-deep-blue px-3 px-lg-0'>Acheivements </p>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <div className="award-card p-3 p-md-1 p-lg-3 mb-3 ">
+                                                <img className='w-100'
+                                                     src={require('../../admin/app-assets/images/award-1.png')}
+                                                     alt="award image one"/>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <div className="award-card p-3 p-md-1 p-lg-3 mb-3 ">
+                                                <img className='w-100'
+                                                     src={require('../../admin/app-assets/images/award-2.png')}
+                                                     alt="award image one"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
 
                             <section className="client-say-section testimonial pt-sm-0 pt-md-5 mb-3">
                                 <div className="container">

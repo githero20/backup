@@ -166,7 +166,7 @@ class TransferLockedSavingsModal extends React.Component {
                                         onKeyUp={disableKey}
                                         format="YYYY-MM-DD"
                                         name="end_date"
-                                        min={moment().format('YYYY-MM-DD')}
+                                        min={moment().add(30,'days').format('YYYY-MM-DD')}
                                         value={this.state.form.end_date}
                                     />
                                     <Form.Text className="text-muted">

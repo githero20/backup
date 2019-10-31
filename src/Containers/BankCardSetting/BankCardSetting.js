@@ -209,45 +209,10 @@ class BankCardSetting extends Component {
                                                             <span
                                                                 className="btn-custom-round-blue plus-btn-shadow mr-1">
                                                                 {/*<img  src={addButton}/>*/}
-                                                                <i className='fa fa-plus text-white'></i>
+                                                                <i className='fa fa-plus text-white'/>
                                                             </span>Add Bank</span>
                                                         </div>
 
-
-                                                        {/*<div className="table-responsive">*/}
-                                                        {/*    <table*/}
-                                                        {/*           className="table table-hover text-center">*/}
-                                                        {/*        <thead>*/}
-                                                        {/*        <tr>*/}
-                                                        {/*            <th>Bank Name</th>*/}
-                                                        {/*            <th>Account Number</th>*/}
-                                                        {/*            /!*<th>Action</th>*!/*/}
-                                                        {/*        </tr>*/}
-                                                        {/*        </thead>*/}
-                                                        {/*        <tbody>*/}
-                                                        {/*        {*/}
-                                                        {/*            this.state.banks.map((bank, index) => {*/}
-                                                        {/*                return (*/}
-                                                        {/*                    <tr key={index}>*/}
-                                                        {/*                        <td>*/}
-                                                        {/*                            {bank.bank}*/}
-                                                        {/*                        </td>*/}
-                                                        {/*                        <td>*/}
-                                                        {/*                            {bank.bank_number}*/}
-                                                        {/*                        </td>*/}
-                                                        {/*                        /!*<td>*!/*/}
-                                                        {/*                            /!*<button className={"btn btn-sm btn-danger"}>*!/*/}
-                                                        {/*                                /!*<i className={"glyphicons fa-trash"}/> delete*!/*/}
-                                                        {/*                            /!*</button>*!/*/}
-                                                        {/*                        /!*</td>*!/*/}
-
-                                                        {/*                    </tr>*/}
-                                                        {/*                )*/}
-                                                        {/*            })*/}
-                                                        {/*        }*/}
-                                                        {/*        </tbody>*/}
-                                                        {/*    </table>*/}
-                                                        {/*</div>*/}
 
                                                         <div
                                                             className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">
@@ -273,12 +238,6 @@ class BankCardSetting extends Component {
 
                                                         </div>
 
-                                                        {/*{*/}
-                                                        {/*this.state.banks.length == 0*/}
-                                                        {/*?<h4 className="card-text mt-5 text-center setting-header px-5 light-gray">You*/}
-                                                        {/*currently do not have any banks accounts Added</h4>*/}
-                                                        {/*: banksTemplate*/}
-                                                        {/*}*/}
                                                     </div>
                                                 </div>
                                             </div>

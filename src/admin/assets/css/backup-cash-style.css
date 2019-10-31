@@ -17,6 +17,7 @@
     font-family: "Circular Std Black";
     src: url("../../app-assets/fonts/app-fonts/CircularStd-Black.otf");
 }
+
 @font-face {
     font-family: "Circular Std Book";
     src: url("../../app-assets/fonts/app-fonts/CircularStd-Book.otf");
@@ -112,7 +113,7 @@ body {
 }
 
 .homeBody {
-    font-family: "Product Sans",'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: "Product Sans", 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-size: 1.2rem;
 }
 
@@ -131,12 +132,13 @@ section {
 }
 
 .header-background {
-    background-image: url("../../app-assets/images/svg/header-bg.svg");
+    /*background-image: url("../../app-assets/images/svg/header-bg.svg");*/
     background-size: 100%;
     min-height: 100vh;
     height: 700px;
     background-repeat: no-repeat;
 }
+
 
 .faq-bg {
     background-image: url("../../app-assets/images/svg/faq-bg.png");
@@ -180,8 +182,90 @@ section {
     padding: 3rem;
     border-radius: 2rem;
 }
-.home-footer .footer-logo img{
+
+
+/*challenge*/
+
+.btn-deep-blue {
+    background-color: #080A3C;
+    color: white;
+    transform: translateY(0);
+    transition: all .3s ease-in-out;
+}
+
+.btn-deep-blue:hover {
+    color: white;
+    transform: translateY(-10px);
+}
+
+.challenge-hero {
+    background: url("../../app-assets/images/challenge/hero.png");
+    background-size: cover;
+}
+
+.bg-prize-img, .bg-white-referral-img, .bg-gold-prize-img, .bg-challenge-message {
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bg-white-referral-img {
+    background-image: url("../../app-assets/images/challenge/challenge-refer-slogan.png");
+}
+
+.bg-gold-prize-img {
+    background-image: url("../../app-assets/images/challenge/challenge-gold-prize.png");
+}
+
+.bg-prize-img {
+    background-image: url("../../app-assets/images/challenge/challenge-prize-section.png");
+}
+
+.how-to-challenge {
+
+}
+
+.bg-challenge-message {
+    background-image: url("../../app-assets/images/challenge/challenge-footer.png");
+}
+
+.home-footer .footer-logo img {
     width: 100%;
+}
+
+/*awards section*/
+.text-deep-blue{
+    color: #062858;
+}
+
+.award-card{
+    box-shadow: none;
+    border-radius: 1rem;
+    background: transparent;
+    transition: all .5s ease-in-out;
+}
+.award-card:hover,.award-card.active{
+    background: white;
+    box-shadow: 0px 20px 30px 15px rgba(0,0,0,0.05);
+}
+.awards p.gray-text {
+    color: rgba(6,40,88,0.6);
+    font-size: 2rem;
+}
+.awards p strong {
+    color: #062858;
+}
+.awards-bg{
+   background-image: url("../../app-assets/images/award-bg.svg");
+    background-position: center;
+    background-size: cover;
+    min-height: 400px;
+    background-repeat: no-repeat;
+}
+.deep-blue-link-underline{
+    color:#062858 ;
+    padding-bottom: .5rem;
+    margin: 1rem;
+    border-bottom: .3rem solid #FFDB51;
 }
 .btn-custom-border {
     border-top-left-radius: 2.8rem;
@@ -194,12 +278,16 @@ section {
 
     background: rgb(16, 51, 102);
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
-    color: rgba(242,242,242,0.9);
+    color: rgba(242, 242, 242, 0.9);
     font-size: 1.2rem;
     cursor: pointer;
     transition: all .3s ease-in-out;
     box-shadow: 0px 15px 30px 5px rgba(2, 43, 105, 0.25);
     /*box-shadow: 0px 15px 10px 5px rgba(2, 34, 81, 0.25);*/
+}
+
+.btn-blue--1 {
+    background-color: #367BFF;
 }
 
 .btn-dark-blue:hover {
@@ -211,7 +299,7 @@ section {
 .round-btn-dark-blue {
     background: rgb(16, 51, 102);
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
-    color: rgba(242,242,242,0.9);
+    color: rgba(242, 242, 242, 0.9);
     font-size: 1.2rem;
     cursor: pointer;
     transition: all .3s ease-in-out;
@@ -250,11 +338,9 @@ section {
 .section-details-paragraph {
     color: #3D5A84;
     font-size: 1.2rem;
-    line-height: 28px;
+    line-height: 35px;
     padding-right: 1rem;
-    letter-spacing: 0.5px;
-    font-family: 'Circular Std Book', Product Sans, Quicksand,
-    Georgia, Times New Roman, Times, serif;
+    font-family: 'Circular Std Book', Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
 }
 
 .section-header p {
@@ -285,6 +371,7 @@ a.btn-rounded-corner {
     transform: translateY(0);
     transition: all .5s ease-in-out;
 }
+
 a.btn-rounded-corner:hover {
     transform: translateY(-10px);
     box-shadow: 0px 10px 30px rgba(16, 39, 102, 0.5);
@@ -337,15 +424,43 @@ a.btn-light-blue:hover {
 }
 
 .btn-gradient-blue {
-    background: #103366;
-    background: rgb(16, 51, 102);
     position: relative;
-    box-shadow: 0px 15px 30px 8px rgba(0,0,0,0.20);
     background: linear-gradient(0deg, rgba(16, 51, 102, 1) 0%, rgba(0, 34, 81, 1) 100%);
-    color: rgba(242,242,242,0.9);
+    color: rgba(242, 242, 242, 0.9);
     font-size: 1rem;
     transform: translateY(0);
     transition: all 1s ease;
+}
+
+.bg-blue-1 {
+    background-color: #2567FF;
+}
+
+.btn-light-blue-round {
+    background-color: #367BFF;
+    border-radius: 3rem;
+    padding: .7rem;
+    color: white;
+    box-shadow: 0px 10px 30px rgba(5, 128, 216, 0.15);
+    transition: all .5s ease-in-out;
+}
+
+.btn-light-blue-round:hover {
+    color: white;
+    box-shadow: 0px 10px 10px rgba(5, 128, 216, 0.2);
+}
+
+.btn-white-bordered {
+    border: 1px solid white;
+    color: white;
+    padding: .5rem 0rem;
+    transition: all .3s ease-in-out;
+}
+
+.btn-white-bordered:hover {
+    border: 1px solid transparent;
+    color: #2567FF;
+    background-color: white;
 }
 
 .btn-white-shadow {
@@ -375,6 +490,7 @@ a.btn-light-blue:hover {
     transform: translateY(0px);
     transition: transform .5s ease-in-out;
 }
+
 .cta-link:hover {
     transform: translateY(-5px);
 }
@@ -396,9 +512,9 @@ a.btn-light-blue:hover {
 }
 
 .header-title {
-    margin-top: 5rem !important;
+    margin-top: 5rem;
     font-family: "Gilroy bold";
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     color: #103366;
     letter-spacing: -1px;
 }
@@ -466,30 +582,33 @@ a.btn-light-blue:hover {
     transform: translateY(0px);
     transition: all .5s ease-in-out;
 }
-.home-blue-bg{
+
+.home-blue-bg {
     background-color: #103366;
     color: white;
 }
-.app-features .section-transparent-card-right p{
+
+.app-features .section-transparent-card-right p {
     color: #dddddd;
 }
 
-.app-features .section-header p{
+.app-features .section-header p {
     color: white;
 }
-.app-features .section-transparent-card-right h5{
+
+.app-features .section-transparent-card-right h5 {
     color: white;
 }
+
 .card-container .card:hover {
-    /*box-shadow: 0 26px 30px -14px rgba(0, 102, 245, 0.08);*/
-    box-shadow: 0 30px 50px 10px rgba(187, 188, 189, 0.5);
+    box-shadow: 0 30px 50px 30px rgba(187, 188, 189, 0.2);
     transform: translateY(-10px);
 }
 
 .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before {
     /*background: rgb(0, 80, 147);*/
     /*background: linear-gradient(90deg, rgba(0, 80, 147, 1) 0%, rgba(0, 80, 147, 1) 100%);*/
-    background:  rgba(0, 34, 81, 1) ;
+    background: rgba(0, 34, 81, 1);
 
 
 }
@@ -620,6 +739,7 @@ a.carousel-btn {
     border-radius: 20px;
     transition: box-shadow .5s ease-in-out;
 }
+
 .carousel-btn:hover {
     box-shadow: 5px 5px 15px rgba(54, 123, 255, 0.58);
 }
@@ -687,7 +807,7 @@ a.carousel-btn {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
-    color: rgba(242,242,242,0.9);
+    color: rgba(242, 242, 242, 0.9);
     font-family: "Circular Std Black", Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
 }
 
@@ -702,7 +822,6 @@ a.carousel-btn {
 .security-img-wrapper {
 
 }
-
 
 
 .section-transparent-card-right p {
@@ -720,7 +839,7 @@ a.carousel-btn {
 
 .nav-link {
     color: #3D5A84;
-    font-size: 1rem;
+    font-size: .9rem;
     letter-spacing: .5px;
     margin-right: 2.5rem;
     transition: .5s ease-in-out;
@@ -765,7 +884,7 @@ a.carousel-btn {
     color: #243C5E;
     font-family: "Circular Std Book";
     margin-bottom: 0rem;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 .carousel-item {
@@ -868,7 +987,7 @@ a.carousel-btn {
 }
 
 .header .btn {
-    padding: 1.8rem 2rem;
+    padding: 1.5rem 2rem;
     font-size: 1rem;
     letter-spacing: 1px;
 }
@@ -882,6 +1001,7 @@ a.carousel-btn {
     transform: translateY(0);
     transition: all .5s ease-in-out;
 }
+
 .whatsapp .btn-whatsapp img {
     width: 16%;
 }
@@ -934,14 +1054,14 @@ a.carousel-btn {
     margin-top: 2rem;
     font-size: 14px;
     font-weight: bold;
-    font-family: "Circular Std","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+    font-family: "Circular Std", "Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
     color: #0A3560;
 }
 
 .comment-box span {
     color: #3D5A84;
     font-size: 1rem;
-    font-family: "Circular Std Book","Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
+    font-family: "Circular Std Book", "Product Sans", Quicksand, Georgia, 'Times New Roman', Times, serif;
 }
 
 .partner-img-50 {
@@ -1089,6 +1209,7 @@ footer-logo {
 
     .homeBody .navbar .navbar-brand {
         margin-left: -1rem;
+        padding-top: 0rem;
     }
 
     .header {
@@ -1096,10 +1217,110 @@ footer-logo {
         padding: 3rem 10rem 5rem 10rem;
     }
 
-    .faq-main {
+    .header-sub-title {
+        font-size: 1.2rem;
+    }
+
+    .faq-main, .faq-hero {
         padding: 3rem 10rem 5rem 10rem;
     }
 
+    /* challenge */
+    .fs-3{
+        font-size: 3rem;
+    }
+    .fs-1-8 {
+        font-size: 1.8rem;
+    }
+    .challenge-hero {
+        min-height: 100vh;
+        background-position: center;
+        padding: 3rem 10rem 5rem 10rem;
+    }
+
+
+    .challenge section {
+        min-height: 100vh;
+    }
+
+    .challenge .bg-white-referral-img {
+        min-height: 10rem;
+    }
+
+    .challenge .how-to-challenge {
+        min-height: 400px;
+    }
+
+    .challenge .bg-challenge-message {
+        min-height: 850px;
+    }
+
+    /* hero.png slider*/
+    .hero-carousel {
+
+    }
+
+
+    /*.hero.png-carousel img{*/
+    /*    width: 10rem;*/
+    /*}*/
+    .header-title {
+        margin-top: 1rem;
+    }
+
+    .hero-bg {
+        background: radial-gradient(ellipse at 30% 75%, #ffffff 0%, #ffffff 30%, rgba(255, 255, 181, .5) 100%);
+    }
+
+    .hero-carousel .owl-item {
+        text-align: center;
+    }
+
+    .hero-carousel .owl-nav {
+        position: absolute;
+        top: 46%;
+        left: 5%;
+        margin-left: -6px;
+        width: 100%;
+    }
+
+    .hero-carousel .owl-nav .owl-prev {
+        position: absolute;
+        left: 0%;
+    }
+
+    .hero-cta-btn-container a img {
+        width: 10rem;
+    }
+
+    .hero-carousel.owl-carousel .owl-nav button.owl-prev, .hero-carousel.owl-carousel .owl-nav button.owl-next {
+        color: white;
+        width: 5rem;
+        font-size: 2rem;
+        line-height: 2.5rem;
+        height: 4rem;
+        border-radius: 0;
+        background-color: #367BFF;
+    }
+
+    .hero-carousel .owl-nav .owl-prev {
+        position: absolute;
+        left: 0%;
+    }
+
+    .hero-carousel .owl-nav .owl-next {
+        position: absolute;
+        right: 0%;
+    }
+
+    .hero-carousel.owl-carousel .owl-item img.hero-slide-item {
+        width: 85%;
+        margin: 40px 20px 20px auto;
+        border-top-left-radius: 14px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.09);
+    }
 
 }
 
@@ -1107,8 +1328,23 @@ footer-logo {
 
 
 @media all and (max-width: 599px) {
+
+    /*video advert */
+    .dash-ads video {
+        height: 150px ;
+    }
     .section-transparent-card-icon img {
         margin: 0 auto;
+    }
+
+    .swal-footer {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 1rem 3rem;
+    }
+
+    .hero-cta-btn-container a img {
+        width: 120px;
     }
 
     .faq-main .faq-header p {
@@ -1315,6 +1551,7 @@ footer-logo {
         text-align: center;
 
     }
+
     .footer-icon-list {
         width: 170px;
 
@@ -1419,9 +1656,39 @@ footer-logo {
     .security-info-wrapper h2 {
         font-size: 1rem;
     }
+
+    /*    challenge mobile */
+    .challenge-hero{
+        padding: 1rem;
+        background-position: center;
+    }
+    .bg-prize-img, .bg-white-referral-img, .bg-gold-prize-img, .bg-challenge-message {
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 185px;
+    }
+    .bg-white-referral-img{
+        min-height: 50px;
+    }
+    .challenge-logo {
+        width: 70%;
+        margin: 5rem auto;
+    }
+    .challenge-logo img {
+        margin-bottom: 3rem;
+    }
+    .how-to-list{
+        font-size: 1.1rem;
+        margin-top: 2rem;
+    }
 }
 
 @media all and (min-width: 600px) and (max-width: 900px) {
+
+    /*hero.png buttons*/
+    .hero-cta-btn-container a img {
+        width: 150px;
+    }
 
     .section-transparent-card-right {
         text-align: left !important;
@@ -1442,11 +1709,11 @@ footer-logo {
     }
 
     .header-title {
-        font-size: 2.5rem;
+        font-size: 3.5rem;
     }
 
     .header-sub-title {
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
 
     .header-background {
@@ -1465,7 +1732,7 @@ footer-logo {
     }
 
     .section-details-paragraph {
-        color:#3D5A84;
+        color: #3D5A84;
         font-size: 1rem;
         line-height: 1.6rem;
     }
@@ -1495,6 +1762,67 @@ footer-logo {
 }
 
 @media all and (min-width: 900px) and (max-width: 1200px) {
+
+
+    /*header*/
+    .header-background {
+        background-size: 100%;
+        min-height: auto;
+        height: auto;
+        background-repeat: no-repeat;
+    }
+
+    /*hero.png */
+    .hero-carousel .owl-item {
+        text-align: center;
+    }
+
+    .hero-carousel .owl-nav {
+        position: absolute;
+        top: 46%;
+        left: 5%;
+        margin-left: -6px;
+        width: 100%;
+    }
+
+    .hero-carousel .owl-nav .owl-prev {
+        position: absolute;
+        left: 0%;
+    }
+
+    .hero-cta-btn-container a img {
+        width: 10rem;
+    }
+
+    .hero-carousel.owl-carousel .owl-nav button.owl-prev, .hero-carousel.owl-carousel .owl-nav button.owl-next {
+        color: white;
+        width: 5rem;
+        font-size: 2rem;
+        line-height: 2.5rem;
+        height: 4rem;
+        border-radius: 0;
+        background-color: #367BFF;
+    }
+
+    .hero-carousel .owl-nav .owl-prev {
+        position: absolute;
+        left: 0%;
+    }
+
+    .hero-carousel .owl-nav .owl-next {
+        position: absolute;
+        right: 0%;
+    }
+
+    .owl-carousel .owl-item img.hero-slide-item {
+        width: 85%;
+        margin: 10px 20px 10px auto;
+        border-top-left-radius: 14px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.05);
+    }
+
     .header-background {
         padding-bottom: 5rem;
     }
@@ -1577,6 +1905,7 @@ footer-logo {
 .footer-brand-link {
     color: #102766;
 }
+
 .footer-brand-link:hover {
     color: #0c1d4a;
 }
@@ -1586,38 +1915,50 @@ footer-logo {
 .show {
     display: block;
 }
-.bc-deep-purple{
+
+.bc-deep-purple {
     color: #0c1d4a;
 }
-.bc-gray-white{
+
+.bc-gray-white {
     background-color: #d8e7f4;
     color: white;
 }
+
+.bc-blue-white {
+    background-color: #2567FF;
+    color: white;
+}
+
 .tooltip-inner {
     background-color: #170e32;
 }
-.br-2{
+
+.br-2 {
     border-radius: 2rem;
 }
-.py-0-2{
+
+.py-0-2 {
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
 }
+
 bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^='right'] .arrow::before {
     border-right-color: #170e32;
 }
+
 /*.toggle-password{*/
 /*    bottom:5px;*/
 /*    right:0%;*/
 /*    transform: translate(-50%,-50%);*/
 /*}*/
 
-.login-form .input-group-append{
+.login-form .input-group-append {
     margin-left: -15px;
     margin-top: 10px;
     z-index: 50;
 }
 
-.spaced-table th, .spaced-table td{
+.spaced-table th, .spaced-table td {
     padding: .75rem .75rem !Important;
 }

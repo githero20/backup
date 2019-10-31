@@ -44,7 +44,12 @@ class WithdrawalSettingsForm extends Component {
             const {form} = this.state;
             const param = {
                 label: ["First Quarter", "Second Quarter", "Third Quarter", "Fourth Quarter"],
-                withdrawal_date: [moment(form.first_quarter).format("M/DD"), moment(form.second_quarter).format("M/DD"), moment(form.third_quarter).format("M/DD"), moment(form.fourth_quarter).format("M/DD")]
+                withdrawal_date: [
+                	moment(form.first_quarter).format("M/DD"),
+					moment(form.second_quarter).format("M/DD"),
+					moment(form.third_quarter).format("M/DD"),
+					moment(form.fourth_quarter).format("M/DD")
+				]
             };
 
             console.log('params',param);
@@ -52,22 +57,12 @@ class WithdrawalSettingsForm extends Component {
                 this.setState({loading: false});
                 if (status) {
                 	toastMessage("Settings Updated",'success',this);
-                    // this.props.toastManager.add("Settings Updated", {
-                    //     appearance: "success",
-                    //     autoDismissTimeout: 3000,
-                    //     autoDismiss: true
-                    // });
                     setTimeout(()=>{
 						this.props.getWithdrawalSettings();
 						this.props.onHide();
 					}, 3000);
                 } else {
 					toastMessage(payload,'error',this);
-                    // this.props.toastManager.add(payload, {
-                    //     appearance: "error",
-                    //     autoDismissTimeout: 3000,
-                    //     autoDismiss: true
-                    // });
                 }
             })
         }

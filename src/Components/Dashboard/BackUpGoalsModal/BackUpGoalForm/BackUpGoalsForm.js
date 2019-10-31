@@ -245,7 +245,6 @@ class BackUpGoalsForm extends Component {
                     <option value="23">11:00 pm</option>
                     <option value="0">12:00 am</option>
                 </Form.Control>
-
             </Form.Group>
         );
         const showMonth = (
@@ -329,11 +328,11 @@ class BackUpGoalsForm extends Component {
                             <Form.Control
                                 type="number" id="contribution"
                                 // className={'amount-input'}
-                                value={contribution != 0 ?contribution : contribution}
+                                value={contribution}
                                 step={'5'} name="contribution"
                                 onChange={this.changeHandler}/>
                             <Form.Text className="text-muted">
-                                Contribution range daily [ &#8358; 50 - &#8358; 25000]
+                                Contribution range daily [ &#8358; 500 - &#8358; 25000]
                             </Form.Text>
                             {this.validator.message('contribution', contribution, 'required|numeric')}
 
@@ -386,8 +385,9 @@ class BackUpGoalsForm extends Component {
                                         this.state.userCards.map((data) => {
                                             if (data.channel == "card")
                                                 return (
-                                                    <option value={data.id} key={data.id}>{data.card_type}(**** ****
-                                                        **** {data.last4})</option>
+                                                    <option value={data.id} key={data.id}>
+                                                        {data.card_type}(**** **** **** {data.last4})
+                                                    </option>
                                                 );
 
                                         })

@@ -25,16 +25,25 @@ import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../images/sfs.jpg";
 import sfsCredit from "../../admin/app-assets/images/SFS Credits@3x.png";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
-import facebookCreateBtn from "../../admin/app-assets/images/create-with-facebook@2x.png";
-import whatsappCreateBtn from "../../admin/app-assets/images/create-with-whatsapp@2x.png";
+import facebookCreateBtn from "../../admin/app-assets/images/create-with-whatsapp@2x.png";
+import whatsappCreateBtn from "../../admin/app-assets/images/create-with-facebook@2x.png";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import {BlogLink, DashboardLink, FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import {
+    BlogLink,
+    ChallengeLink,
+    DashboardLink,
+    FaqLink,
+    HomeLink,
+    LoginLink,
+    SignUpLink
+} from "../../RouteLinks/RouteLinks";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import moment from 'moment';
 import {SESSION_INTERVAL, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
 import {hideLoader, hideSupport, showHomeLoader, Support} from "../../Helpers/Helper";
+import Navigation from "./Navigation";
 
 class Home extends Component {
 
@@ -91,6 +100,7 @@ class Home extends Component {
 
 
     render() {
+        const {isLoggedIn}=this.state;
         return (
             <React.Fragment>
                 <div className={'homeBody'}>
@@ -99,106 +109,27 @@ class Home extends Component {
                             <header className="header header-background hero-bg">
                                 <img src={homeBGImg} className='home-bg-img d-none' alt="svg image"/>
                                 <div className="container">
-                                    <nav className="home-nav navbar navbar-expand-lg ">
-                                        <a className="navbar-brand">
-                                            <img src={backupCashLogo} alt="logo" width="180px"/>
-                                        </a>
-                                        <a onClick={this.showMobileMenu}
-                                           className="hamburger hamburger--slider navbar-toggler"
-                                           data-toggle="collapse" data-aria-controls="navbarSupportedContent"
-                                           aria-expanded="false" aria-label="Toggle navigation">
-                                    <span className="hamburger-box">
-                                        <span className="hamburger-inner"/>
-                                    </span>
-                                        </a>
-                                        <div className="collapse navbar-collapse res-menu mobile animated slideInLeft faster"
-                                            id="navbarSupportedContent">
-                                            <ul className="navbar-nav ml-auto">
-                                                <li className="nav-item">
-                                                    <Link className="nav-link" to={FaqLink}>FAQs </Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a className="nav-link"
-                                                       onClick={this.scrollIntoView}>Testimonials </a>
-                                                </li>
-                                                {
-                                                    this.state.isLoggedIn ? (
-                                                        <li className="nav-item">
-                                                            <Link to={DashboardLink} className="nav-link">Dashboard </Link>
-                                                        </li>
-                                                    ) : (
-                                                        <li className="nav-item">
-                                                            <Link to={LoginLink} className="nav-link">Login </Link>
-                                                        </li>
-                                                    )
-                                                }
-                                            </ul>
-                                            <ul className="cta-link">
-                                                <li>
-                                                    <Link to={SignUpLink}
-                                                          className="btn-rounded-blue btn-gradient-blue">
-                                                        Sign Up
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <div className="collapse navbar-collapse desktop "
-                                             id="navbarSupportedContent">
-                                            <ul className="navbar-nav ml-lg-3">
-                                                <li className="nav-item">
-                                                    <Link className="nav-link" to={FaqLink}>FAQs </Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a className="nav-link"
-                                                       onClick={this.scrollIntoView}>Stories </a>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link className="nav-link" to={BlogLink}>Blog </Link>
-                                                </li>
-                                                {
-                                                    this.state.isLoggedIn ? (
-                                                        <li className="nav-item">
-                                                            <Link to={DashboardLink}
-                                                                  className="nav-link">Dashboard </Link>
-                                                        </li>
-                                                    ) : (
-                                                        <li className="nav-item">
-                                                            <Link to={LoginLink} className="nav-link">Login </Link>
-                                                        </li>
-                                                    )
-                                                }
-                                            </ul>
-                                            <ul className="cta-link">
-                                                <li>
-                                                    <Link to={SignUpLink}
-                                                          className="btn-rounded-blue btn-gradient-blue">
-                                                        Sign Up
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </nav>
+                                    <Navigation isLoggedIn={isLoggedIn} scrollIntoView={this.scrollIntoView}/>
                                     {/*row and two columns */}
                                     <div className="row pt-lg-1">
                                         <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
                                             <div className="header-words-container pt-lg-5 pr-lg-3">
-                                                <h1 className="animated fadeInDown delay-1s header-title mt-5 mt-lg-0 mb-2 mt-md-0  px-2 px-sm-0 ">
+                                                <h1 className="animated fadeInDown delay-1s fast header-title mt-5 mt-lg-0 mb-1 mb-md-3 mt-md-0  px-2 px-sm-0 ">
                                                     Earn up to <strong>13% </strong><br/>
                                                     interest on Savings.
                                                 </h1>
-                                                <p className="header-sub-title animated fadeInDown delay-1s">
+                                                <p className="header-sub-title animated fadeInDown fast delay-1s">
                                                     Save as little as <strong>₦500 </strong>
                                                 </p>
-                                                <p className="header-sub-title animated fadeInDown delay-1s mb-md-3">
+                                                <p className="header-sub-title animated fadeInDown fast delay-1s mb-3">
                                                     Save Money , Grow Wealth.
                                                 {/*     */}
                                                 </p>
-                                                <Link to={'/sign-up'} className="btn px-5 btn-light-blue-round btn-hover-shadow">Create free account</Link>
-                                                <div className="hero-cta-btn-container pt-3 d-flex">
+                                                <Link to={'/sign-up'} className="btn px-5 btn-light-blue-round btn-hover-shadow animated fadeIn fast delay-1s">Create free account</Link>
+                                                <div className="hero-cta-btn-container pt-3 mb-3  d-lg-flex text-center animated fadeIn fast delay-1s">
                                                     <a href='https://www.facebook.com/BackUpCash/' rel='noreferrer'
                                                        target='_blank' >
-                                                        <img src={facebookCreateBtn} className=' cursor-pointer mr-lg-1' alt="facebook create button"/>
+                                                        <img src={facebookCreateBtn} className=' cursor-pointer mr-1' alt="facebook create button"/>
                                                     </a>
                                                     <a href="https://api.whatsapp.com/send?phone=18883699915" target='_blank'>
                                                         <img src={whatsappCreateBtn} className=' cursor-pointer' alt="whatsapp create button"/>
@@ -206,22 +137,23 @@ class Home extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-lg-6 mt-md-5 mt-lg-0 text-center pt-lg-2 text-lg-left">
+                                        <div className="col-lg-6 mt-md-5 mt-lg-0 text-center pt-lg-2 text-lg-left d-none d-lg-block">
                                             <ReactOwlCarousel
                                                 className="owl-theme hero-carousel"
                                                 loop
                                                 margin={10}
-                                                // autoplay={1000}
-                                                // autoplayTimeout={5000}
+                                                autoplay={1000}
+                                                autoplayTimeout={5000}
                                                 dots={false}
                                                 responsiveClass={true}
                                                 items={1}
                                                 nav={true}
                                             >
-                                                    <img src={firstSlideImage} className='item hero-slide-item ' alt="first slide image"/>
-                                                    <img src={secondSlideImage} className='item hero-slide-item ' alt="second slide image"/>
-
-
+                                                    <img src={require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')} className='item hero-slide-item ' alt="first slide image"/>
+                                                    <img src={require('../../admin/app-assets/images/slider/mybackupcash_2___B2vzESsl0TG___.jpg')} className='item hero-slide-item ' alt="first slide image"/>
+                                                    <img src={require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')} className='item hero-slide-item ' alt="first slide image"/>
+                                                    <img src={require('../../admin/app-assets/images/slider/mybackupcash_2___B23mgrTlfLp___.jpg')} className='item hero-slide-item ' alt="first slide image"/>
+                                                    <img src={require('../../admin/app-assets/images/slider/mybackupcash___B206V6_lxNQ___.jpg')} className='item hero-slide-item ' alt="first slide image"/>
                                             </ReactOwlCarousel>
                                         </div>
                                     </div>
@@ -230,7 +162,7 @@ class Home extends Component {
                             <section className="pb-sm-0  mb-md-5 pt-md-5">
                                 <div className="container">
                                     <div className="row  mb-5 mb-md-0">
-                                        <div className="col-md-6 text-center text-md-left">
+                                        <div className="col-md-6 text-center text-md-left mt-3 mt-lg-0">
                                             <img src={illustration1} alt="backup cash illustration"
                                                  className="ill-2x" width="100%"/>
                                         </div>
@@ -295,8 +227,8 @@ class Home extends Component {
                                     </div>
                                 </div>
                                 <div className=" pb-5 pb-md-0 height-100vh ">
-                                    <div className="container px-md-5">
-                                        <div className="row mx-md-5">
+                                    <div className="container px-lg-5">
+                                        <div className="row mx-lg-5">
                                             <div className="col-md-4 px-md-0">
 
                                                 <div className="card-container text-center mb-xs-5">

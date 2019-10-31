@@ -9,18 +9,21 @@ import {
     balanceFormatter,
     dateFormatter,
     descriptionFormatter,
-    handleFiltering, mobileDescFormatter,
+    handleFiltering,
+    mobileDescFormatter,
     sourceFormatter,
-    statusFormatter, todaysDateForTable, toggleTable
+    statusFormatter,
+    todaysDateForTable,
+    toggleTable
 } from "../../../Helpers/Helper";
 import MessageBox from "./MessageBox/MessageBox";
-import adImg from '../../../admin/app-assets/images/svg/adtwo.svg';
 import adImgTwo from '../../../admin/app-assets/images/svg/adone.svg';
 // import { dateFilter, Comparator } from 'react-bootstrap-table-next';
 import filterFactory, {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
 import moment from "moment";
 import Footer from "../Footer/Footer";
-
+import {SteadySaveLink} from "../../../RouteLinks/RouteLinks";
+import {Link} from 'react-router-dom';
 
 class DashboardContainer extends Component {
 
@@ -30,7 +33,7 @@ class DashboardContainer extends Component {
         this.state = {
             date: moment().format('MM-DD-YYYY'),
             comparator: Comparator.EQ,
-            mobileTable:true,
+            mobileTable: true,
         }
     }
 
@@ -58,8 +61,8 @@ class DashboardContainer extends Component {
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
-                classes:'d-none d-md-table-cell',
-                headerClasses:'d-none d-md-table-cell',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
                 filter: dateFilter({
                     defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
                     getFilter: (filter) => {
@@ -80,8 +83,8 @@ class DashboardContainer extends Component {
                 dataField: 'sourcetypes',
                 formatter: sourceFormatter,
                 sort: true,
-                classes:'d-none d-md-table-cell',
-                headerClasses:'d-none d-md-table-cell',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             },
             {
@@ -102,15 +105,15 @@ class DashboardContainer extends Component {
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
-                classes:'d-none d-md-table-cell',
-                headerClasses:'d-none d-md-table-cell',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Reference',
                 dataField: 'reference',
                 sort: true,
-                classes:'d-none d-md-table-cell',
-                headerClasses:'d-none d-md-table-cell',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             }];
 
@@ -121,8 +124,8 @@ class DashboardContainer extends Component {
                 dataField: 'created_at',
                 formatter: dateFormatter,
                 sort: true,
-                classes:'d-none d-md-table-cell',
-                headerClasses:'d-none d-md-table-cell',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
                 filter: dateFilter({
                     defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
                     getFilter: (filter) => {
@@ -130,13 +133,13 @@ class DashboardContainer extends Component {
                     }
                 })
             },
-             {
+            {
                 text: 'Description',
                 dataField: 'sourcetypes',
                 formatter: sourceFormatter,
                 sort: true,
-                classes:'d-none d-md-table-cell',
-                headerClasses:'d-none d-md-table-cell',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             },
             {
@@ -144,8 +147,8 @@ class DashboardContainer extends Component {
                 dataField: 'type',
                 formatter: mobileDescFormatter,
                 sort: true,
-                classes:' d-table-cell d-md-none',
-                headerClasses:'d-table-cell d-md-none',
+                classes: ' d-table-cell d-md-none',
+                headerClasses: 'd-table-cell d-md-none',
 
             }, {
                 text: 'Amount',
@@ -165,15 +168,15 @@ class DashboardContainer extends Component {
                 dataField: 'status',
                 formatter: statusFormatter,
                 sort: true,
-                classes:'d-none d-md-table-cell',
-                headerClasses:'d-none d-md-table-cell',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Reference',
                 dataField: 'reference',
                 sort: true,
-                classes:'d-none d-md-table-cell',
-                headerClasses:'d-none d-md-table-cell',
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
 
             }];
         const runFilter = () => {
@@ -195,7 +198,7 @@ class DashboardContainer extends Component {
 
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
-            transactions, totalInterest, ActiveGoals, CompletedGoals, vaultInterest, lockedSavingsInterest
+            transactions, totalInterest, ActiveGoals, CompletedGoals, vaultInterest, lockedSavingsInterest, showSSModal
         } = this.props;
 
 
@@ -205,10 +208,24 @@ class DashboardContainer extends Component {
             <React.Fragment>
                 <div className="app-content content">
                     <div className="content-wrapper">
-                        <div className="mb-5"/>
+                        <div className="mb-md-5"/>
                         {/* notification component */}
-
-                        <MessageBox challenge={true} />
+                        <div className="col-12 d-md-none">
+                            <Link to={SteadySaveLink} className="dash-ads br-2 overflow-hidden mb-3">
+                                <video width="100%" height="200px" autoPlay={true} loop>
+                                    <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}
+                                            type="video/mp4"/>
+                                </video>
+                                {/*<img src={adImg} className='dash-ad-img' alt="advert one "/>*/}
+                                {/*<div className={'dash-action left-action'}>*/}
+                                {/*    <h5>New Investment*/}
+                                {/*        Opportunities</h5>*/}
+                                {/*    <a className={'ad-gray-link'}>Know more <i*/}
+                                {/*        className='fa fa-arrow-right'/></a>*/}
+                                {/*</div>*/}
+                            </Link>
+                        </div>
+                        <MessageBox challenge={true} showSSModal={showSSModal}/>
                         <MessageBox updateKyc={this.props.updateKyc} balance={vaultAmount}/>
 
 
@@ -239,43 +256,46 @@ class DashboardContainer extends Component {
 
                                 <BackUpStashCard stashAmount={stashAmount}/>
                                 <div className="col-12 col-lg-6">
-                                    <div className="dash-ads mb-3">
-                                        <img src={adImg} className='dash-ad-img' alt="advert one "/>
-                                        <div className={'dash-action left-action'}>
-                                            <h5>New Investment
-                                                Opportunities</h5>
-                                            <a className={'ad-gray-link'}>Know more <i
-                                                className='fa fa-arrow-right'/></a>
-                                        </div>
-                                    </div>
+                                    <Link to={SteadySaveLink} className="dash-ads br-2 overflow-hidden mb-3">
+                                        <video width="100%" height="200px" autoPlay={true} loop>
+                                            <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}
+                                                    type="video/mp4"/>
+                                        </video>
+                                        {/*<img src={adImg} className='dash-ad-img' alt="advert one "/>*/}
+                                        {/*<div className={'dash-action left-action'}>*/}
+                                        {/*    <h5>New Investment*/}
+                                        {/*        Opportunities</h5>*/}
+                                        {/*    <a className={'ad-gray-link'}>Know more <i*/}
+                                        {/*        className='fa fa-arrow-right'/></a>*/}
+                                        {/*</div>*/}
+                                    </Link>
                                 </div>
                                 <div className="col-12 col-lg-6">
-                                    <div className="dash-ads mb-3">
-                                        <img src={adImgTwo} className='dash-ad-img' alt="advert two"/>
+                                    <div className="dash-ads mb-3 pt-2">
+                                        <img src={require('../../../admin/app-assets/images/ussd-ad.png')} className='dash-ad-img height-150' alt="advert two"/>
                                         <div className={'dash-action right-action'}>
-                                            <a className={'ad-link-white'}>Know more
-                                                <i className='fa fa-arrow-right'/>
-                                            </a>
+                                            {/*<a className={'ad-link-white'}>Know more&nbsp;*/}
+                                            {/*    <i className='fa fa-arrow-right'/>*/}
+                                            {/*</a>*/}
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div className="row">
                                 {
-                                    !this.state.mobileTable ?(
-                                    <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
-                                                      runFilter={runFilter}
-                                                      transactions={transactions}
-                                                      columns={columns}/>
+                                    !this.state.mobileTable ? (
+                                        <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
+                                                          runFilter={runFilter}
+                                                          transactions={transactions}
+                                                          columns={columns}/>
 
-                                ):(
-                                    <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
-                                                      runFilter={runFilter}
-                                                      transactions={transactions}
-                                                      columns={mobileColumns}/>
-                                )}
+                                    ) : (
+                                        <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
+                                                          runFilter={runFilter}
+                                                          transactions={transactions}
+                                                          columns={mobileColumns}/>
+                                    )}
                             </div>
 
 

@@ -3,13 +3,7 @@ import {withToastManager} from 'react-toast-notifications';
 import {capitalize, formatNumber, toastMessage} from "../../../../Helpers/Helper";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
-import {
-    BASE_URL,
-    getSteadySaveEndpoint,
-    KycSettingLink,
-    ReferralsLink,
-    SteadySaveLink
-} from "../../../../RouteLinks/RouteLinks";
+import {KycSettingLink, ReferralsLink, SteadySaveLink} from "../../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 import {getUserPoints} from "../../../../actions/UserAction";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -38,7 +32,7 @@ class MessageBox extends Component {
         let name = `${data.name} ${data.last_name != null ? data.last_name : ''}`;
         this.setState({
             userName: name,
-            userReferralLink: window.location.origin+'/invite/'+data.referral_code,
+            userReferralLink: window.location.origin + '/invite/' + data.referral_code,
             userCode: data.referral_code,
 
         });
@@ -106,7 +100,8 @@ class MessageBox extends Component {
 
 
     render() {
-        const {show} = this.state;
+        const {show, numOfUser} = this.state;
+        const {showSSModal, challenge} = this.props;
 
         const referralText =
             this.state.userName ? capitalize(this.state.userName) : null;
@@ -130,52 +125,52 @@ class MessageBox extends Component {
 
         const referralInfo = (
             <React.Fragment>
-                {/*<span>*/}
-                {/*    <strong>Congrats! </strong>*/}
-                {/*    You referred 5 persons from [ 1 -2-2019 to 5-2-2019 ] ,*/}
-                {/*</span>*/}
                 <div className="admin-purple d-block d-md-inline cursor-pointer">
-                    You have referred <strong
-                    className='font-weight-bold bc-deep-purple'>{this.state.numOfUser ? this.state.numOfUser : 0}</strong> users &nbsp; | &nbsp; Your
-                    referral points
-                    earned
-                    <Link to={ReferralsLink}>
-                        <strong
-                            className="d-md-inline ml-1 font-weight-bold br-2 bc-gray-white py-0-2 px-2">
+                    You have referred &nbsp;
+                    <strong className='font-weight-bold bc-deep-purple'>
+                        {numOfUser ? numOfUser : 0}
+                    </strong>
+                    &nbsp; {numOfUser <= 1 ? 'user' : 'users'} | &nbsp; Your referral points earned
+                    <Link to={ReferralsLink} className='d-block mt-2 mt-md-0 d-md-inline'>
+                        <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
                             {this.state.userPoint ? this.state.userPoint : 0} points
-                            <i className='ml-1 fa fa-arrow-right text-white'/></strong>
-                    </Link>&nbsp;
-                    <OverlayTrigger
-                        placement={'right'}
-                        overlay={
-                            <Tooltip id={`tooltip-${'right'}`}>
-                                You will get 10 Referral Points for every of your referred users that saves at least
-                                N500
-                            </Tooltip>
-                        }
-                    >
-                        <strong className='bc-deep-purple'>&nbsp;(?)</strong>
-                    </OverlayTrigger>
+                            <i className='ml-1 fa fa-arrow-right text-white'/>
+                        </strong>
+                        <OverlayTrigger
+                            placement={'right'}
+                            overlay={
+                                <Tooltip id={`tooltip-${'right'}`}>
+                                    You will get 10 Referral Points for every of your referred users that saves at least
+                                    N500
+                                </Tooltip>
+                            }
+                        >
+                            <strong className='bc-deep-purple ml-1'>&nbsp;(?)</strong>
+                        </OverlayTrigger>
+                    </Link> &nbsp;
+
 
                 </div>
             </React.Fragment>
         );
 
-        if(this.props.challenge){
+        if (challenge) {
             return (
                 <div className="row mb-2">
                     <div className="col-12">
                         <div className='bg-blue-1 shadow-sm dashboard-callout callout-border-right d-flex flex-column
-                        flex-md-row flex-wrap justify-content-md-between align-items-center
-                         callout-round callout-transparent px-2'>
+                         flex-md-row flex-wrap justify-content-md-between align-items-md-center callout-round
+                          callout-transparent py-1 py-md-1 px-2'>
                             <label
                                 className='d-flex flex-column align-items-center text-white flex-md-row justify-content-md-center'>
                                 <span>Get started with 21 days challenge and stand a chance to win big!! </span>
                             </label>
-                            <label className='d-flex flex-md-row flex-wrap flex-column align-items-center'>
+                            <label
+                                className='d-flex mt-1 flex-md-row flex-wrap flex-column align-items-md-center'>
                                 <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"/>
-                                <div className='d-flex justify-content-between  d-md-inline-block flex-grow-1'>
-                                    <Link to={SteadySaveLink} className="btn-white-bordered round px-md-2 mr-2 mb-md-0">Start now</Link>
+                                <div className='d-flex justify-content-between d-md-inline-block flex-grow-1'>
+                                    <Link to={SteadySaveLink}
+                                          className="btn-white-bordered round px-2 mr-md-2 mb-md-0">Start now</Link>
                                 </div>
                             </label>
                         </div>
@@ -194,13 +189,7 @@ class MessageBox extends Component {
                                     className={'bg-white shadow-sm dashboard-callout text-center text-md-left callout-border-right' +
                                     ' d-flex flex-column flex-md-row justify-content-between align-items-center callout-round callout-transparent ' +
                                     'mt-1 px-2 py-2 py-1'}>
-                                    {/*<label className='d-flex justify-content-between flex-md-row'>*/}
                                     {kycInfo}
-                                    {/*</label>*/}
-                                    {/*<label>*/}
-                                    {/*    <span className="mr-2"> copy referral code</span>*/}
-                                    {/*    <span className="code-btn" onClick={this.copyToClipboard}>AEC45SF</span>*/}
-                                    {/*</label>*/}
                                 </div>
                             </div>
                         </div>
@@ -209,14 +198,15 @@ class MessageBox extends Component {
                 <div className="row mb-2">
                     <div className="col-12">
                         <div className='bg-white shadow-sm dashboard-callout callout-border-right d-flex flex-column
-                        flex-md-row flex-wrap justify-content-md-between align-items-center
-                         callout-round callout-transparent px-2'>
+                        flex-md-row flex-wrap justify-content-md-between align-items-md-center
+                        callout-round callout-transparent px-2'>
                             <label
                                 className='d-flex flex-column align-items-center flex-md-row justify-content-md-center'>
                                 {referralInfo}
                             </label>
-                            <label className='d-flex flex-md-row flex-wrap flex-column align-items-center'>
-                                <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"> copy referral code</span>
+                            <label className='d-flex flex-md-row flex-wrap flex-column align-items-md-center'>
+                                <span
+                                    className="mr-md-2 mb-1 text-md-left mb-md-0 flex-grow-1"> copy referral code</span>
                                 <div className='d-flex justify-content-between  d-md-inline-block flex-grow-1'>
                                     <span className="code-btn mr-2 mb-md-0 "
                                           onClick={this.copyLink}>{this.state.userCode}</span>

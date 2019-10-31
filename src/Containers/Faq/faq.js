@@ -9,6 +9,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
 import {hideLoader} from "../../Helpers/Helper";
+import Navigation from "../Home/Navigation";
 
 class Faq extends Component {
 
@@ -41,80 +42,9 @@ class Faq extends Component {
         return (
             <React.Fragment>
                 <div className={'homeBody'}>
-                    <header className="p-1 p-md-0 ">
+                    <header className=" faq-hero ">
                         <div className="container">
-                            <nav className="home-nav navbar navbar-expand-lg ">
-                                <Link to={HomeLink} className="navbar-brand">
-                                    <img src={backupCashLogo} alt="logo" width="150px"/>
-                                </Link>
-                                <a onClick={this.showMobileMenu} className="hamburger hamburger--slider navbar-toggler"
-                                   data-toggle="collapse" data-aria-controls="navbarSupportedContent"
-                                   aria-expanded="false" aria-label="Toggle navigation">
-                                    <span className="hamburger-box">
-                                        <span className="hamburger-inner"/>
-                                    </span>
-                                </a>
-
-                                <div className="collapse navbar-collapse mobile d-md-none animated slideInLeft faster"
-                                     id="navbarSupportedContent">
-                                    <ul className="navbar-nav ml-auto">
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={HomeLink}>Home </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={FaqLink}>FAQs </Link>
-                                        </li>
-                                        {
-                                            this.state.isLoggedIn ? (
-                                                <li className="nav-item">
-                                                    <Link to={DashboardLink} className="nav-link">Dashboard </Link>
-                                                </li>
-                                            ) : (
-                                                <li className="nav-item">
-                                                    <Link to={LoginLink} className="nav-link">Login </Link>
-                                                </li>
-                                            )
-                                        }
-                                    </ul>
-                                    <ul className="cta-link">
-                                        <li>
-                                            <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
-                                                Sign Up
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="collapse navbar-collapse desktop "
-                                     id="navbarSupportedContent">
-                                    <ul className="navbar-nav ml-auto">
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={FaqLink}>FAQs </Link>
-                                        </li>
-                                        {/*<li className="nav-item">*/}
-                                        {/*    <Link className="nav-link" to={HomeLink}>Testimonials </Link>*/}
-                                        {/*</li>*/}
-                                        {
-                                            this.state.isLoggedIn ? (
-                                                <li className="nav-item">
-                                                    <Link to={DashboardLink} className="nav-link">Dashboard </Link>
-                                                </li>
-                                            ) : (
-                                                <li className="nav-item">
-                                                    <Link to={LoginLink} className="nav-link">Login </Link>
-                                                </li>
-                                            )
-                                        }
-                                    </ul>
-                                    <ul className="cta-link">
-                                        <li>
-                                            <Link to={SignUpLink} className="btn-rounded-blue btn-gradient-blue">
-                                                Sign Up
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </nav>
-
+                            <Navigation />
                         </div>
                     </header>
                     <section className='faq-main my-5'>

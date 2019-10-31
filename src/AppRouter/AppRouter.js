@@ -19,7 +19,7 @@ import {
     addWithdrawalLink,
     BackupGoalsLink,
     BackupStashLink,
-    BankCardLink, botCreatePasswordLink, challengeLink,
+    BankCardLink, botCreatePasswordLink, ChallengeLink,
     DashboardLink,
     EmailActivationLink,
     FaqLink,
@@ -104,7 +104,7 @@ class AppRouter extends Component {
                                                 <Route path={BackupStashLink} component={AuthController(BackupStash)}/>
                                                 <Route path={EmailActivationLink} component={EmailActivation}/>
                                                 <Route path={ResendActivationLink} component={ResendActivation}/>
-                                                <Route path={challengeLink} component={Challenge}/>
+                                                <Route path={ChallengeLink} component={Challenge}/>
 
                                                 {/*auth routes*/}
                                                 <Route path={LoginLink} render={() => (

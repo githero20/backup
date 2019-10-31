@@ -13,18 +13,18 @@ export const USERWITHDRAWAL = "user-withdrawal";
 export const MINIMUM_WITHDRAWAL = 500;
 export const MIN_INSTANT_SAVE = 500;
 export const AMOUNT_LIMITS = {
-    minSteadySaveDaily:500,
-    maxSteadySaveDaily:50000,
-    minSteadySaveWeekly:500,
-    maxSteadySaveWeekly:200000,
-    minSteadySaveMonthly:500,
-    maxSteadySaveMonthly:2000000,
-    minBackUpGoalDaily:500,
-    maxBackUpGoalDaily:50000,
-    minBackUpGoalWeekly:500,
-    maxBackUpGoalWeekly:200000,
-    minBackUpGoalMonthly:500,
-    maxBackUpGoalMonthly:2000000,
+    minSteadySaveDaily: 500,
+    maxSteadySaveDaily: 50000,
+    minSteadySaveWeekly: 500,
+    maxSteadySaveWeekly: 200000,
+    minSteadySaveMonthly: 500,
+    maxSteadySaveMonthly: 2000000,
+    minBackUpGoalDaily: 500,
+    maxBackUpGoalDaily: 50000,
+    minBackUpGoalWeekly: 500,
+    maxBackUpGoalWeekly: 200000,
+    minBackUpGoalMonthly: 500,
+    maxBackUpGoalMonthly: 2000000,
 };
 export const APP_FREQUENCY = {
     daily: 'daily',
@@ -99,20 +99,21 @@ const AuthController = component => {
                                 setReload(true);
                             } else {
 
-                                if (response) {
-                                    if (response.status == 401) {
-                                        if (response.data.message == "invalid_credentials") {
-                                            swal('Oops!!', `Invalid Credentials`, 'warning');
-                                        } else if (response.data.message == 'Incorrect email or password,Try again') {
-                                            swal('Oops!!', 'Incorrect Email or Password', 'warning', {
-                                                button: false,
-                                                timer: 2000
-                                            });
-                                        } else {
-                                            swal('Oops!!', `Unable to login at the moment.Try Again`, 'warning');
-                                        }
-                                    }
+                                if (response && response.status == 401 && response.data.message == "invalid_credentials") {
+                                    swal('Oops!!', `Invalid Credentials`, 'warning');
+                                } else if (response.data.message == 'Incorrect email or password,Try again') {
+                                    swal('Oops!!', 'Incorrect Email or Password', 'warning', {
+                                        button: false,
+                                        timer: 2000
+                                    });
+                                } else {
+                                    console.log('err',response);
+                                    swal('Oops!!', `Unable to login at the moment.Try Again`, 'warning', {
+                                        button: false,
+                                        timer: 2000
+                                    });
                                 }
+
                             }
                         });
                         break;
@@ -150,14 +151,12 @@ const AuthController = component => {
                                 // console.error("Unknown Error", err);
                             }
                         } catch (e) {
-                            // console.log("Critical Error", e);
+                            console.log("Error", e);
                         }
 
                     }
                 )
             }
-
-
         }, [RenderComponent]);
 
 

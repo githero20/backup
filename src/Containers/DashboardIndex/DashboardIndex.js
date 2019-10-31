@@ -28,6 +28,7 @@ import StartNowModal from "../../Components/Dashboard/StartNowModal/StartNowModa
 import moment from "moment";
 import {_axios, _getHeader} from "../../utils";
 import {getFirstTimeUser, isKycUpdated, storeFirstTimeLogin} from "../../actions/UserAction";
+import CreateSteadySaveModal from "../../Components/Dashboard/CreateSteadySaveModal/CreateSteadySaveModal";
 
 
 class DashboardIndex extends Component {
@@ -302,7 +303,11 @@ class DashboardIndex extends Component {
                     />
 
                     {/* steady save modal */}
-                    <SteadySaveModal
+                    {/*<SteadySaveModal*/}
+                    {/*    show={this.state.showSteadySavingModal}*/}
+                    {/*    onHide={this.closeSteadySaveModal}*/}
+                    {/*/> */}
+                    <CreateSteadySaveModal
                         show={this.state.showSteadySavingModal}
                         onHide={this.closeSteadySaveModal}
                     />

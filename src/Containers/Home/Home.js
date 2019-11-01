@@ -136,7 +136,7 @@ class Home extends Component {
                                                     {/*     */}
                                                 </p>
                                                 <Link to={'/sign-up'}
-                                                      className="btn px-5 btn-light-blue-round btn-hover-shadow animated fadeIn fast delay-1s">Create
+                                                      className="btn px-5 btn-light-blue-round btn-hover-shadow animated fadeIn fast delay-1s">Create a
                                                     free account</Link>
                                                 <div
                                                     className="hero-cta-btn-container pt-3 mb-3  d-lg-flex text-center animated fadeIn fast delay-1s">
@@ -209,18 +209,13 @@ class Home extends Component {
                                                     <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
                                                          alt="yellow icon"/>
                                                 </div>
-                                                <h2 className="section-details-header text-center text-md-left mb-md-2">Watch
+                                                <h2 className="section-details-header text-center text-md-left mb-md-2">Relax and Watch
                                                     Your Money
                                                     Grow</h2>
                                                 <p className="section-details-paragraph text-center text-md-left mb-md-2  ">
-                                                    Backup Cash is a secure and innovative savings
-                                                    platform that allows you automate your savings
-                                                    and earn interest on your deposits. </p>
+                                                    Backup Cash is a secure and automated savings app that allows you earn higher interest on deposits than your bank. </p>
                                                 <p className="section-details-paragraph text-center text-md-left ">
-                                                    Our platform is designed to help users cultivate a
-                                                    focused financial attitude by saving little amounts
-                                                    of money periodically towards a specific financial
-                                                    goal and limiting withdrawals until a set date. </p>
+                                                    It helps make saving little amounts of money easy, so you can reach your goals faster. </p>
                                             </div>
                                         </div>
                                     </div>
@@ -229,7 +224,7 @@ class Home extends Component {
                             <div className="security-section deep-blue-bg-drop">
                                 <div className="container">
                                     <div className="row text-center text-md-left">
-                                        <div className=" col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                                        <div className=" col-md-8 offset-md-2 col-lg-8 offset-lg-2">
                                             <div className="security-info-wrapper mt-md-5 pb-5 pb-md-0">
                                                 <div className="row pb-md-5">
                                                     <div className="col-12">
@@ -240,9 +235,9 @@ class Home extends Component {
                                                                      alt="security icon"/>
                                                             </div>
                                                             <div className="ml-md-2 ml-md-0">
-                                                                <h2>Your Security Is Our
-                                                                    Business</h2>
-                                                                <h6>Safest Security Measures</h6>
+                                                                <h2>Your money is safe and secure</h2>
+                                                                <h6 className='pr-lg-5'>Your funds are invested in the SFS Fixed Income Fund, managed by SFS Capital.
+                                                                    The SFS Fixed Income Fund is AA rated and has won the BusinessDay Award for the Best performing Fixed Income Fund in 2018 and 2019.</h6>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -342,9 +337,7 @@ class Home extends Component {
                                                 <div
                                                     className="section-transparent-card-right text-center text-md-left">
                                                     <h5>Stay focused, Earn more</h5>
-                                                    <p>Earn high interest upfront when you
-                                                        choose the option of saving for a
-                                                        specified period.</p>
+                                                    <p>Earn high interest upfront when you choose the option of saving for a specified period.</p>
                                                 </div>
                                             </div>
                                             <div className="section-transparent-card mb-5">

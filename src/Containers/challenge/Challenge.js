@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Navigation from "../Home/Navigation";
+import {TermsAndCondLink} from "../../RouteLinks/RouteLinks";
+import {Link} from "react-router-dom";
 
 class Challenge extends Component {
 
@@ -43,17 +45,27 @@ class Challenge extends Component {
                                 <div className="py-lg-5 my-lg-5 py-2 my-2 px-1 fs-1-8 circular-std">
                                     <h1 className='fs-3'><strong>How to Enter:</strong></h1>
                                     <ol className='how-to-list'>
-                                        <li><strong>Sign up</strong> on Backup Cash via whatsapp</li>
-                                        <li><strong>Start </strong> a steady save</li>
-                                        <li><strong>Save at least </strong>&#8358;500 every day from Nov. 1 - 21</li>
-                                        <li><strong>Refer at least </strong>% friends with your referral code</li>
+                                        <li>
+                                            <strong>Sign up</strong> on Backup Cash via whatsapp
+                                        </li>
+                                        <li>
+                                            <strong>Start </strong> a steady save
+                                        </li>
+                                        <li>
+                                            <strong>Save at least </strong> &#8358;500 every day from Nov. 1st - 21st
+                                        </li>
+                                        <li>
+                                            <strong>Refer at least </strong> 5 friends with your referral code
+                                        </li>
                                     </ol>
                                 </div>
 
                             </div>
                         </div>
                         <div className="text-center mt-5 ">
-                            <em>Terms & Conditions Apply.</em>
+                            <Link className='dark-link' to={TermsAndCondLink}>
+                                <em>Terms & Conditions Apply.</em>
+                            </Link>
                         </div>
                     </section>
                     <section className='bg-challenge-message'>

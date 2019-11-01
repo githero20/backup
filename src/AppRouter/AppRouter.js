@@ -29,7 +29,7 @@ import {
     InviteLink,
     KycSettingLink,
     LockedSavingsLink,
-    LoginLink,
+    LoginLink, TermsAndCondLink,
     ProfileSettingLink, ReferralsLink,
     ResendActivationLink,
     ResetPasswordLink,
@@ -55,6 +55,7 @@ import Referrals from "../Containers/Referrals/Referrals";
 import ReactGA from 'react-ga';
 import HomePage from "../Containers/Home/HomePage";
 import Challenge from "../Containers/challenge/Challenge";
+import PrivacyPolicy from "../Containers/privacy policy/PrivacyPolicy";
 
 
 class AppRouter extends Component {
@@ -105,6 +106,7 @@ class AppRouter extends Component {
                                                 <Route path={EmailActivationLink} component={EmailActivation}/>
                                                 <Route path={ResendActivationLink} component={ResendActivation}/>
                                                 <Route path={ChallengeLink} component={Challenge}/>
+                                                <Route path={TermsAndCondLink} component={PrivacyPolicy}/>
 
                                                 {/*auth routes*/}
                                                 <Route path={LoginLink} render={() => (

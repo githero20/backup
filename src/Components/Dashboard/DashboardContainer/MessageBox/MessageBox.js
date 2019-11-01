@@ -163,7 +163,9 @@ class MessageBox extends Component {
                           callout-transparent py-1 py-md-1 px-2'>
                             <label
                                 className='d-flex flex-column align-items-center text-white flex-md-row justify-content-md-center'>
-                                <span>Get started with 21 days challenge and stand a chance to win big!! </span>
+                                <span>
+                                    Save, Refer & Win!. Join the 21 Day Savings Challenge from 1st – 21st of November
+                                </span>
                             </label>
                             <label
                                 className='d-flex mt-1 flex-md-row flex-wrap flex-column align-items-md-center'>

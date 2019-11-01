@@ -15,12 +15,11 @@ import featureImage2 from "../../admin/app-assets/images/svg/feature-img-2.svg";
 import featureImage3 from "../../admin/app-assets/images/svg/feature-img-3.svg";
 import featureImage4 from "../../admin/app-assets/images/svg/feature-img-4.svg";
 import whatsAppIcon from "../../admin/app-assets/images/whatsapp-ico@2x.png";
-import paystackImage from "../../admin/app-assets/images/svg/paystack.svg";
+import paystackImage from "../../admin/app-assets/images/paystack.png";
 import homeBGImg from "../../admin/app-assets/images/svg/header-bg.svg";
 import CommentImage from "../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import tm30 from "../../admin/app-assets/images/tm30logo.png";
-import sfsImage from "../../images/sfs.jpg";
-import sfsCredit from "../../admin/app-assets/images/SFS Credits@3x.png";
+import sfsImage from "../../admin/app-assets/images/SFS-LOGOS-4-150x150.jpg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import facebookCreateBtn from "../../admin/app-assets/images/create-with-whatsapp@2x.png";
 import whatsappCreateBtn from "../../admin/app-assets/images/create-with-facebook@2x.png";
@@ -40,7 +39,7 @@ class Home extends Component {
         isLoggedIn: false,
         showLoader: true,
     };
-
+    doAnimation = true;
 
     showMobileMenu = () => {
         //add is-active on
@@ -80,30 +79,33 @@ class Home extends Component {
     };
 
     handleScrollAnimation = () => {
-        window.addEventListener('scroll', () => {
-            let cards = document.getElementsByClassName("award-card");
-            if (window.scrollY < 3200) {
-                for (let i = 0; i < cards.length; cards++) {
-                    cards[i].className.replace(" active", "");
-                    cards[0].className += " active";
+        if (this.doAnimation) {
+            window.addEventListener('scroll', () => {
+                console.log('window position', window.scrollY);
+                const animatePos = 3200;
+                let cards = document.getElementsByClassName("award-card");
+                if (cards && cards.length > 0) {
+                    if (window.scrollY < animatePos) {
+                        cards[0].classList.add('active');
+                        cards[1].classList.remove('active');
+                    } else if (window.scrollY >= animatePos) {
+                        cards[1].classList.add('active');
+                        cards[0].classList.remove('active');
+                    }
                 }
 
-            } else if (window.scrollY >= 3200) {
-                for (let i = 0; i < cards.length; cards++) {
-                    cards[i].className.replace(" active", "");
-                    cards[1].className += " active";
-                }
-                console.log('cards', cards);
+            })
+        }
+    };
 
-            }
-        })
-
+    componentWillUnmount() {
+        this.doAnimation = false;
     }
 
 
     componentDidMount() {
         this.checkUser();
-        // this.handleScrollAnimation();
+        this.doAnimation = this.handleScrollAnimation();
     }
 
 
@@ -164,16 +166,20 @@ class Home extends Component {
                                                 items={1}
                                                 nav={true}
                                             >
-                                                <img src={require('../../admin/app-assets/images/slider/IMG-20191025-WA0004.jpg')}
-                                                     className='item hero-slide-item ' alt="first slide image"/>
-                                                <img src={require('../../admin/app-assets/images/slider/IMG-20191025-WA0007.jpg')}
+                                                <img
+                                                    src={require('../../admin/app-assets/images/slider/IMG-20191025-WA0004.jpg')}
                                                     className='item hero-slide-item ' alt="first slide image"/>
-                                                <img src={require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')}
+                                                <img
+                                                    src={require('../../admin/app-assets/images/slider/IMG-20191025-WA0007.jpg')}
+                                                    className='item hero-slide-item ' alt="first slide image"/>
+                                                <img
+                                                    src={require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')}
                                                     className='item hero-slide-item ' alt="first slide image"/>
                                                 <img
                                                     src={require('../../admin/app-assets/images/slider/mybackupcash_2___B2vzESsl0TG___.jpg')}
                                                     className='item hero-slide-item ' alt="first slide image"/>
-                                                <img src={require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')}
+                                                <img
+                                                    src={require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')}
                                                     className='item hero-slide-item ' alt="first slide image"/>
 
 
@@ -188,7 +194,6 @@ class Home extends Component {
                                     </div>
                                 </div>
                             </header>
-
 
                             <section className="pb-sm-0  mb-md-5 pt-md-5">
                                 <div className="container">
@@ -478,10 +483,11 @@ class Home extends Component {
                                                                 <img className="user-image" src={CommentImage}
                                                                      alt="First slide"/>
                                                             </div>
-                                                            <p>I love that they have a USSD channel that works
-                                                                seamlessly.</p>
-                                                            <h4 className="comment-name">Emeka Udoji</h4>
-                                                            <span>Student</span>
+                                                            <p>Thanks for the app. I feel so proud to actually be able
+                                                                to start a saving culture. Over time i will save even
+                                                                more.</p>
+                                                            <h4 className="comment-name">Bunmi Oloidi</h4>
+                                                            <span>Entrepreneur</span>
                                                             <img className="comment" src={commentIcon} alt="comment"/>
                                                         </div>
                                                     </div>
@@ -609,11 +615,11 @@ class Home extends Component {
                                                                              alt="aa"/></a>
 
                                                 </div>
-                                                <div className="partner-img-container">
-                                                    <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
-                                                       target='_blank'> <img className="partner-img-50 polaris"
-                                                                             src={sfsCredit} alt="sfs credit"/></a>
-                                                </div>
+                                                {/*<div className="partner-img-container">*/}
+                                                {/*    <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}*/}
+                                                {/*       target='_blank'> <img className="partner-img-50 polaris"*/}
+                                                {/*                             src={sfsCredit} alt="sfs credit"/></a>*/}
+                                                {/*</div>*/}
 
 
                                             </ReactOwlCarousel>
@@ -629,13 +635,12 @@ class Home extends Component {
                                     <div className="row px-lg-5 mx-lg-5">
                                         <div className="col-md-6">
                                             <div className="action-placeholder ">
-                                                <h2 className="mb-3 mt-5 pr-lg-5 text-white cas-title">Protect your
-                                                    interest
-                                                    with SFS
-                                                    Backup Cash</h2>
+                                                <h2 className="mb-3 mt-5 pr-lg-5 text-white cas-title">
+                                                    Protect your interest with SFS Backup Cash</h2>
                                                 <Link to={'/sign-up'}
-                                                      className="btn btn-yellow-outline btn-custom-border cas-btn">Start
-                                                    Now</Link>
+                                                      className="btn btn-yellow-outline btn-custom-border cas-btn">
+                                                    Start Now
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -647,8 +652,9 @@ class Home extends Component {
                                     <div className="row ">
                                         <div className="col-md-6">
                                             <div className="contact-detail-placeholder text-center pt-md-5">
-                                                <p className="deep-blue-color pt-md-5 chat-title">Chat with us on
-                                                    Whatsapp</p>
+                                                <p className="deep-blue-color pt-md-5 chat-title">
+                                                    Chat with us on Whatsapp
+                                                </p>
                                                 <div className="btn btn-whatsapp chat-whats-app">
                                                     <a href="https://api.whatsapp.com/send?phone=18883699915"
                                                        className='whatsapp-link'
@@ -662,30 +668,31 @@ class Home extends Component {
                                         </div>
                                         <div className="col-md-6">
                                             <div className="contact-detail-placeholder pt-3 text-center pt-md-5">
-                                                <p className="deep-blue-color pt-md-5 chat-title">Connect with social
-                                                    media</p>
+                                                <p className="deep-blue-color pt-md-5 chat-title">
+                                                    Connect with social media
+                                                </p>
                                                 <div className="btn btn-whatsapp social-media">
                                                     <div className="footer-icon-list d-flex justify-content-between">
                                                     <span className="fa-stack fa-sm">
                                                         <a href='https://www.facebook.com/BackUpCash/' rel='noreferrer'
                                                            target='_blank'>
-                                                            <i className="fa fa-circle fa-stack-2x"></i>
-                                                            <i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                                            <i className="fa fa-circle fa-stack-2x"/>
+                                                            <i className="fa fa-facebook fa-stack-1x fa-inverse"/>
                                                         </a>
                                                     </span>
                                                         <span className="fa-stack fa-sm">
                                                         <a href='https://twitter.com/mybackupcash' rel='noreferrer'
                                                            target='_blank'>
-                                                            <i className="fa fa-circle fa-stack-2x"></i>
-                                                            <i className="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                                            <i className="fa fa-circle fa-stack-2x"/>
+                                                            <i className="fa fa-twitter fa-stack-1x fa-inverse"/>
                                                         </a>
                                                     </span>
 
                                                         <span className="fa-stack fa-sm">
                                                     <a href="https://www.instagram.com/mybackupcash/" rel='noreferrer'
                                                        target='_blank'>
-                                                         <i className="fa fa-circle fa-stack-2x"></i>
-                                                        <i className="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                                         <i className="fa fa-circle fa-stack-2x"/>
+                                                        <i className="fa fa-instagram fa-stack-1x fa-inverse"/>
                                                     </a>
                                                 </span>
                                                     </div>
@@ -703,8 +710,8 @@ class Home extends Component {
                                                 <img src={sfsFooterLogo} alt="sfs footer logo"/>
                                             </div>
                                         </div>
-                                        <div
-                                            className="col-md-9 offset-md-0 col-sm-12 offset-sm-0 d-lg-block offset-lg-1 col-lg-8">
+                                        <div className="col-md-9 offset-md-0 col-sm-12 offset-sm-0
+                                             d-lg-block offset-lg-1 col-lg-8">
                                             <div className="row">
                                                 <div className=" col-sm-6 col-md-4 col-lg-4 ">
                                                     <p className="footer-header">Company</p>

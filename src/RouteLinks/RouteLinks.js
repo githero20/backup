@@ -16,6 +16,7 @@ export const FaqLink  = '/faq';
 export const BlogLink  = '/blog';
 export const ResendActivationLink  = '/resend/email';
 export const ChallengeLink  = '/21daysavingschallenge';
+export const TermsAndCondLink  = '/terms-and-condition';
 export const DashboardLink  = '/dashboard';
 export const InstantSaveLink  = '/dashboard/instant-save';
 export const SteadySaveLink  = '/dashboard/steady-save';

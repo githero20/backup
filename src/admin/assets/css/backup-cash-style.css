@@ -1894,12 +1894,11 @@ footer-logo {
 }
 
 .sfs-image {
-    filter: grayscale(100%) saturate(100%) contrast(80%) opacity(70%);
+    /*filter: grayscale(100%) saturate(100%) contrast(80%) opacity(70%);*/
 }
 
 .tm-30 {
     width: 50% !important;
-    filter: grayscale(1);
 }
 
 .footer-brand-link {

@@ -168,7 +168,7 @@ class MessageBox extends Component {
                                 </span>
                             </label>
                             <label
-                                className='d-flex mt-1 flex-md-row flex-wrap flex-column align-items-md-center'>
+                                className='d-flex mt-1 mt-lg-0 mb-lg-0 flex-md-row flex-wrap flex-column align-items-md-center'>
                                 <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"/>
                                 <div className='d-flex justify-content-between d-md-inline-block flex-grow-1'>
                                     <Link to={SteadySaveLink}

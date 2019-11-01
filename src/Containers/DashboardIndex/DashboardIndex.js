@@ -29,7 +29,7 @@ import moment from "moment";
 import {_axios, _getHeader} from "../../utils";
 import {getFirstTimeUser, isKycUpdated, storeFirstTimeLogin} from "../../actions/UserAction";
 import CreateSteadySaveModal from "../../Components/Dashboard/CreateSteadySaveModal/CreateSteadySaveModal";
-
+import swal from 'sweetalert';
 
 class DashboardIndex extends Component {
 
@@ -332,6 +332,7 @@ class DashboardIndex extends Component {
                         show={this.state.showStartModal}
                         onHide={this.closeStartModal}
                     />
+
                 </div>
             </React.Fragment>
         );

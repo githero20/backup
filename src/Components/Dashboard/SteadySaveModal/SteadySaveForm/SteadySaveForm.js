@@ -159,7 +159,7 @@ class SteadySaveForm extends Component {
             // });
             swal("Steady Save", 'Something Went Wrong', 'error');
         } else {
-            swal("Steady Save", 'Steady Save Continued Successfully', 'success').then(() => {
+            swal("Steady Save", 'Steady Save Paused Successfully', 'success').then(() => {
                 this.props.onHide();
                 this.props.setupSteadySave();
             });

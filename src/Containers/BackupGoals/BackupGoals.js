@@ -141,7 +141,7 @@ class BackupGoals extends Component {
         this.setState({
             showBackupGoal: true,
         })
-    }
+    };
 
 
     showBackUpHistory = (id) => {
@@ -263,14 +263,6 @@ class BackupGoals extends Component {
                 classes:' d-table-cell d-md-none',
                 headerClasses:'d-table-cell d-md-none',
             },
-            // {
-            //     text: 'Pay Date',
-            //     dataField: 'pay_date',
-            //     formatter: dateFormatter,
-            //     sort: true,
-            //     classes: 'd-none d-md-table-cell',
-            //     headerClasses: 'd-none d-md-table-cell',
-            // },
             {
                 text: 'Status',
                 dataField: 'status',

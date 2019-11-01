@@ -133,7 +133,7 @@ class EditBGForm extends Component {
                         loading: false,
                     });
                     if (status) {
-                        console.log("edited",payload);
+                        console.log("edited", payload);
                         this.props.toastManager.add("Backup Goal Updated.", {
                             appearance: "success"
                         });
@@ -173,6 +173,27 @@ class EditBGForm extends Component {
         this.handleFrequencySelect(form, inverse);
 
     };
+
+
+    displayHours = () => {
+        const hour = moment().hour();
+        console.log('hour', hour);
+        let hourOptions = [];
+        for (let i = 0; i < hour; i++) {
+            if (i == 0) {
+                hourOptions.push(<option value={'0'}>12:00 am</option>);
+            } else if (i < 12) {
+                hourOptions.push(<option value={'' + i + ''}>{i} :00 am</option>);
+            } else if (i == 12) {
+                hourOptions.push(<option value={'12'}>12 noon</option>);
+            } else {
+                hourOptions.push(<option value={'' + i - 12 + ''}>{i - 12} :00 pm</option>);
+            }
+        }
+        return hourOptions;
+
+    };
+
 
     componentDidMount() {
         //get pay auths
@@ -247,6 +268,7 @@ class EditBGForm extends Component {
             </Form.Group>
         );
 
+        const hourOptions = this.displayHours();
 
         const showMonth = (
             <Form.Group as={Col} type="text">
@@ -361,7 +383,18 @@ class EditBGForm extends Component {
                     <Form.Row>
                         {this.state.showDay ? showDay : null}
                         {this.state.showMonth ? showMonth : null}
+
+                        <Form.Group as={Col} type="text">
+                            <Form.Label>Hour of the day</Form.Label>
+                            <Form.Control as="select" defaulValue={this.state.form.hour_of_day}
+                                          onChange={this.changeHandler}
+                                          disabled={this.state.disabled}
+                                          id="hour_of_day" name="hour_of_day">
+                                {hourOptions}
+                            </Form.Control>
+                        </Form.Group>
                     </Form.Row>
+
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
 
                         {this.state.disabled ?
@@ -370,7 +403,6 @@ class EditBGForm extends Component {
                                 Edit
                             </Button> :
                             (
-
                                 <Button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading}
                                         type="button" onClick={this.submitForm}>
                                     {this.state.loading ? <ButtonLoader/> :

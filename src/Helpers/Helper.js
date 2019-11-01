@@ -126,7 +126,7 @@ export function getTotalSuccessfulSS(transactions) {
 }
 
 export function getTotalSuccessfulBG(transactions) {
-	if (transactions && transactions.length > 0) {
+	if (transactions && transactions.length > 1) {
 		let successful;
 		successful = transactions.filter((content) => (content.status === 'success'));
 		successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
@@ -252,15 +252,15 @@ export function validateNumbers(e) {
 
 
 export function getTotalSuccessful(transactions) {
-	if (transactions) {
-		if (transactions.length > 1) {
-			let successful;
-			successful = transactions.filter((content) => (content.status == 'success'));
-			return successful.length;
-		} else {
-			return transactions.length;
-		}
+
+	if (transactions && transactions.length > 1) {
+		let successful;
+		successful = transactions.filter((content) => (content.status == 'success'));
+		return successful.length;
+	} else {
+		return transactions.length;
 	}
+
 }
 
 export function getSteadySaveData(transactions) {
@@ -274,20 +274,20 @@ export function getSteadySaveData(transactions) {
 }
 
 export function getTotalFailed(transactions) {
-	if (transactions) {
-		if (transactions.length > 1) {
-			let failed;
-			failed = transactions.filter((content) => (content.status == 'failed'));
-			if (failed.length > 0) {
-				failed = failed.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
-				return failed.amount;
-			} else {
-				return 0
-			}
+
+	if (transactions && transactions.length > 1) {
+		let failed;
+		failed = transactions.filter((content) => (content.status == 'failed'));
+		if (failed.length > 0) {
+			failed = failed.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+			return failed.amount;
 		} else {
-			return 0;
+			return 0
 		}
+	} else {
+		return 0;
 	}
+
 }
 
 export function getCompletedGoals(transactions) {
@@ -300,7 +300,6 @@ export function getCompletedGoals(transactions) {
 				(parseInt(content.stop) === 1)
 			);
 		});
-
 		return CompletedGoals.length;
 
 	}
@@ -689,7 +688,8 @@ export function parseAndFormatNum(num) {
 
 export function moneyFormatter(cell, row) {
 	return (
-		<p style={{minWidth: '150px'}} className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+		<p style={{minWidth: '150px'}}
+		   className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
 	)
 }
 
@@ -786,7 +786,7 @@ export function toastReloadMessage(status, context, callback) {
 	const message = (
 		<Fragment>
 			<span>Unable to retrieve data at the moment !! Click Here to </span>&nbsp;
-            <a href='#' className='retry dark-link' onClick={() => callback()}>Try Again</a>
+			<a href='#' className='retry dark-link' onClick={() => callback()}>Try Again</a>
 		</Fragment>
 	);
 	toastManager.add(message, {
@@ -858,7 +858,7 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 	if (latestDate < tommorrow && latestDate == moment(row.end_date).format('MM-DD-YYYY')) {
 
 		return <button name='convert-btn' className={'btn btn-block round btn-sm btn-success'}>Convert</button>
-	}else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < tommorrow) {
+	} else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < tommorrow) {
 
 		return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>;
 	} else if (row.end_date == null || (latestDate > tommorrow && latestDate == moment(row.end_date).format('MM-DD-YYYY'))) {
@@ -870,7 +870,8 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 export function detailFormatter(cell) {
 	return <button className={'btn round btn-sm btn-blue-btn'}>View Details</button>
 }
-export function userFormatter(cell,row) {
+
+export function userFormatter(cell, row) {
 	return <span className='text-capitalize'>{cell.name} {cell.last_name}</span>
 }
 
@@ -879,19 +880,21 @@ export function balanceFormatter(cell) {
 				  className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
 
 }
-export function pointFormatter(cell,row) {
-	if(row.is_transact == 0){
+
+export function pointFormatter(cell, row) {
+	if (row.is_transact == 0) {
 		return <label style={{minWidth: '100px'}}
 					  className={'text-info'}>0</label>
-	}else {
+	} else {
 		return <label style={{minWidth: '100px'}}
 					  className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
 	}
 
 
 }
+
 export function pointStatusFormatter(cell) {
-	return (cell== 1 ? <button className={'btn btn-success'}>Active</button> :
+	return (cell == 1 ? <button className={'btn btn-success'}>Active</button> :
 		<button className={'btn btn-sm btn-warning'}>Inactive</button>)
 
 }

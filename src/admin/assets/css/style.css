@@ -119,7 +119,9 @@ div.fixed-navbar {
     animation: loadingSpinner 0.7s infinite linear;
     -webkit-animation: loadingSpinner 0.7s infinite linear;
 }
-
+.swal-modal{
+    z-index: 100000000;
+}
 .dash-cust-blue {
     color: white;
     background-color: #2784F4;

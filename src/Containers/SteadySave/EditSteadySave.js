@@ -47,13 +47,6 @@ class SteadySaveForm extends Component {
         this.setState({form: this.props.steadySave});
         this.validateStartDate();
         this.handleFrequencySelect(this.props.steadySave);
-        // const userInfo = getLocalStorage(USERINFO);
-        // if (getLocalStorage(USERINFO)!=undefined) {
-        //     this.setState({
-        //         userCards: filterUserCards(userInfo)
-        //     })
-        // }
-
         getCardsFromStorage(USERINFO, this);
         initializeAmountInput();
     }
@@ -86,7 +79,6 @@ class SteadySaveForm extends Component {
             })
         }
 
-        // console.log("megg", event.target.name, event.target.value);
         this.handleFrequencySelect(form);
 
     };
@@ -94,14 +86,12 @@ class SteadySaveForm extends Component {
     //validate form
     handleFrequencySelect(form) {
         if (form.frequency == "daily") {
-            console.log('dailt');
             this.setState({
                 showMonth: false,
                 showDay: false,
                 showHour: true,
             });
         } else if (form.frequency == "weekly") {
-            console.log('weekly');
             // form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
             this.setState({
                 showMonth: false,

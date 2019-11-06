@@ -31,8 +31,8 @@ class BackUpGoalsForm extends Component {
                 hour_of_day: '12',
                 contribution: '',
                 goal_amount: '',
-                day_of_week: null,
-                day_of_month: null,
+                day_of_week: '2',
+                day_of_month: '1',
             },
             dateDifference: 0,
             userCards: [],
@@ -218,7 +218,7 @@ class BackUpGoalsForm extends Component {
         const showHour = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Hour of the day</Form.Label>
-                <Form.Control as="select" defaulValue={this.state.form.hour_of_day} onChange={this.changeHandler}
+                <Form.Control as="select" value={this.state.form.hour_of_day} onChange={this.changeHandler}
                               id="hour_of_day" name="hour_of_day">
                     <option value={'1'}>1:00 am</option>
                     <option value={'2'}>2:00 am</option>
@@ -250,7 +250,7 @@ class BackUpGoalsForm extends Component {
         const showMonth = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Month</Form.Label>
-                <Form.Control as="select" defaultValue={this.state.form.day_of_month} onChange={this.changeHandler}
+                <Form.Control as="select" value={this.state.form.day_of_month} onChange={this.changeHandler}
                               id="day_of_month" name={'day_of_month'}>
                     <option value={'1'}>1</option>
                     <option value={'2'}>2</option>
@@ -290,15 +290,16 @@ class BackUpGoalsForm extends Component {
         const showDay = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Week</Form.Label>
-                <Form.Control as="select" defaultValue={this.state.form.day_of_week} onChange={this.changeHandler}
+                <Form.Control as="select" value={this.state.form.day_of_week} onChange={this.changeHandler}
                               id="day_of_week" name="day_of_week">
-                    <option value={'1'}>Mon</option>
-                    <option value={'2'}>Tue</option>
-                    <option value={'3'}>Wed</option>
-                    <option value={'4'}>Thur</option>
-                    <option value={'5'}>Fri</option>
-                    <option value={'6'}>Sat</option>
-                    <option value={'7'}>Sun</option>
+
+                    <option value={'2'}>Mon</option>
+                    <option value={'3'}>Tue</option>
+                    <option value={'4'}>Wed</option>
+                    <option value={'5'}>Thur</option>
+                    <option value={'6'}>Fri</option>
+                    <option value={'7'}>Sat</option>
+                    <option value={'1'}>Sun</option>
                 </Form.Control>
             </Form.Group>
         );

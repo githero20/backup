@@ -81,7 +81,6 @@ class Home extends Component {
     handleScrollAnimation = () => {
         if (this.doAnimation) {
             window.addEventListener('scroll', () => {
-                console.log('window position', window.scrollY);
                 const animatePos = 3200;
                 let cards = document.getElementsByClassName("award-card");
                 if (cards && cards.length > 0) {

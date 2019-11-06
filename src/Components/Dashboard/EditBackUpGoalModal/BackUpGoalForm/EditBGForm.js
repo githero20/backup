@@ -319,13 +319,13 @@ class EditBGForm extends Component {
                               onChange={this.changeHandler}
                               id="day_of_week" name="day_of_week"
                 >
-                    <option value={'1'}>Mon</option>
-                    <option value={'2'}>Tue</option>
-                    <option value={'3'}>Wed</option>
-                    <option value={'4'}>Thur</option>
-                    <option value={'5'}>Fri</option>
-                    <option value={'6'}>Sat</option>
-                    <option value={'7'}>Sun</option>
+                    <option value={'2'}>Mon</option>
+                    <option value={'3'}>Tue</option>
+                    <option value={'4'}>Wed</option>
+                    <option value={'5'}>Thur</option>
+                    <option value={'6'}>Fri</option>
+                    <option value={'7'}>Sat</option>
+                    <option value={'1'}>Sun</option>
                 </Form.Control>
             </Form.Group>
         );

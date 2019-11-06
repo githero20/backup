@@ -23,7 +23,7 @@ class LockedSavingForm extends Component {
             form: {
                 title: "",
                 end_date: "",
-                amount: null,
+                amount: "",
                 interest: 0.0,
                 days: 0,
                 source: 'central_vault',
@@ -47,11 +47,6 @@ class LockedSavingForm extends Component {
         this.handleAdminInterest = this.handleAdminInterest.bind(this);
     }
 
-    //Create Form
-    //validate form
-    //save
-    //handle response
-
     validateForm = (e) => {
         e.preventDefault();
         if (!this.validator.allValid()) {
@@ -60,11 +55,11 @@ class LockedSavingForm extends Component {
         } else {
             this.setState({loading: true});
             //send api
-            let formdata = {...this.state.form};
+            let formData = {...this.state.form};
 
-            formdata.interest = this.state.form.interestRate;
+            formData.interest = this.state.form.interestRate;
 
-            createLockedSavings(formdata, (status, payload) => {
+            createLockedSavings(formData, (status, payload) => {
                 this.setState({loading: false});
                 if (status) {
                     this.props.toastManager.add("Locked Savings Created", {
@@ -73,25 +68,21 @@ class LockedSavingForm extends Component {
                         autoDismissTimeout: 3000,
                     });
                     setTimeout(() => {
-                        console.log('locked savings props', this.props);
                         this.props.onHide(true);
-                        // this.props.updateLockedSaving();
                     }, 1500)
 
-
-                    // setTimeout(this.props.onHide(true),5000);
                 } else {
-                    if (payload) {
-                        if (payload.status == 401) {
-                            window.location = '/login'
-                        } else {
-                            this.props.toastManager.add(payload.data.message || "An Error Occurred", {
-                                appearance: 'error',
-                                autoDismiss: true,
-                                autoDismissTimeout: 3000,
-                            });
-                        }
+
+                    if (payload && payload.status == 401) {
+                        window.location = '/login'
+                    } else {
+                        this.props.toastManager.add(payload.data.message || "An Error Occurred", {
+                            appearance: 'error',
+                            autoDismiss: true,
+                            autoDismissTimeout: 3000,
+                        });
                     }
+
                 }
             });
         }
@@ -110,15 +101,13 @@ class LockedSavingForm extends Component {
 
     handleAmountInput(e) {
         const value = e.target.value;
-        if (value !== "" && parseFloat(value).toFixed(2) !== 0.00) {
+        if (parseFloat(value).toFixed(2) >= 0.00 ) {
             const rawValue = parseFloat(value.trim().replace(',', '').replace('₦', ''));
-            console.log(rawValue);
             let form = {...this.state.form};
             form.amount = rawValue;
             form.interestRate = ((form.interest / 100) * rawValue).toFixed(2);
-            console.log('interest rate', form.interestRate);
             this.setState({form, err: ''});
-        } else {
+        }else {
             this.setState({err: 'Please Input the Amount you want to Contribute'})
         }
     }
@@ -136,8 +125,11 @@ class LockedSavingForm extends Component {
     }
 
     handleAdminInterest(status, res) {
-        console.log('interest', res);
-        if (status) console.log('adminInterest' + res)
+        if (status) {
+
+        } else {
+            console.log('err getting admin interest', res);
+        }
     };
 
 
@@ -145,7 +137,6 @@ class LockedSavingForm extends Component {
         // getLockedInterestSavings();
         // initialize inputs with commas
         initializeAmountInput();
-        console.log('component mounted');
         request(getAdminInterest, null, true, "GET", this.handleAdminInterest);
     }
 
@@ -179,7 +170,8 @@ class LockedSavingForm extends Component {
                                 value={this.state.form.end_date}
                             />
                             <Form.Text className="text-muted">
-                                Pick the end Date when funds should be returned to your Backup Stash. You can lock money for at least 30 days.
+                                Pick the end Date when funds should be returned to your Backup Stash. You can lock money
+                                for at least 30 days.
                             </Form.Text>
                             {this.validator.message("end Date", this.state.form.end_date, "required")}
                         </Form.Group>
@@ -195,12 +187,10 @@ class LockedSavingForm extends Component {
                             </Form.Label>
                             <Form.Control
                                 type="number"
-                                // className={'amount-input'}
                                 onChange={this.handleAmountInput}
                                 defaultValue={this.state.form.amount}
                                 name="amount"
                             />
-                            {/*{this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
 
                             {this.validator.message("capital investment", this.state.form.amount, "required")}
                             <Form.Text className="text-muted">
@@ -248,8 +238,7 @@ class LockedSavingForm extends Component {
                         </Form.Group>
                     </Form.Row>
                     <Form.Row className="d-flex justify-content-end  my-2">
-                        <button className="round btn-custom-blue modal-btn " disabled={this.state.loading}
-                                type="submit">
+                        <button className="round btn-custom-blue modal-btn " disabled={this.state.loading} type="submit">
                             {this.state.loading ? <ButtonLoader/> : "Start Saving"}
                         </button>
                     </Form.Row>

@@ -4745,6 +4745,16 @@ input:-webkit-autofill:active {
     display: none;
     margin-left: 5px;
 }
+/* ad slider */
+.ad-container.owl-carousel .owl-nav button.owl-prev, .ad-container.owl-carousel .owl-nav button.owl-next {
+    color: white;
+    width: 3rem;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    background-color: #367BFF;
+}
 
 .ad-placeholder p img.active {
     display: inline-block;
@@ -4756,9 +4766,14 @@ input:-webkit-autofill:active {
     margin-bottom: 3rem;
 }
 
-.ad-container .ad-img {
+.ad-container .ad-placeholder p img {
+    width: auto;
+    display: inline;
+}
+.ad-container .ad-placeholder .ad-img {
     padding: 1rem 0rem;
     margin: 3px auto;
+    width: auto;
 }
 
 .table-card {

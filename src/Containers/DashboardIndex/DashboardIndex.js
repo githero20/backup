@@ -302,11 +302,6 @@ class DashboardIndex extends Component {
                         showLSModal={this.showLSModal}
                     />
 
-                    {/* steady save modal */}
-                    {/*<SteadySaveModal*/}
-                    {/*    show={this.state.showSteadySavingModal}*/}
-                    {/*    onHide={this.closeSteadySaveModal}*/}
-                    {/*/> */}
                     <CreateSteadySaveModal
                         show={this.state.showSteadySavingModal}
                         onHide={this.closeSteadySaveModal}
@@ -330,6 +325,7 @@ class DashboardIndex extends Component {
                     {/*</ToastProvider>*/}
                     <StartNowModal
                         show={this.state.showStartModal}
+                        // show={true}
                         onHide={this.closeStartModal}
                     />
 

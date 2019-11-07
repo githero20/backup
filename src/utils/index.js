@@ -163,7 +163,8 @@ export const _payWithPaystack = (ref, amount, callback) => {
     const user = _getUser();
     const handler = window.PaystackPop.setup({
         key: PAYSTACK_PUBLIC_KEY,
-        email: user.email,
+        // key: 'pk_test_a59d1204944c01bf05330ab59fb1abe607eb36a6',
+        email: user.email ? user.email:`${user.phone}@backupcash.ng`,
         amount: parseFloat(amount) * 100,
         currency: "NGN",
         ref: ref,

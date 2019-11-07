@@ -338,7 +338,6 @@ export function getTotalBGSuccessful(transactions) {
 export function transformHour(hour) {
 	hour = Number(hour);
 	switch (hour) {
-
 		case 1 :
 			return '1:00am';
 		case 2:
@@ -364,29 +363,29 @@ export function transformHour(hour) {
 		case 12:
 			return '12:00noon';
 		case 13:
-			return '1:00am';
+			return '1:00pm';
 		case 14:
-			return '2:00am';
+			return '2:00pm';
 		case 15:
-			return '3:00am';
+			return '3:00pm';
 		case 16 :
-			return '4:00am';
+			return '4:00pm';
 		case 17:
-			return '5:00am';
+			return '5:00pm';
 		case 18:
-			return '6:00am';
+			return '6:00pm';
 		case 19:
-			return '7:00am';
+			return '7:00pm';
 		case 20:
-			return '8:00am';
+			return '8:00pm';
 		case 21:
-			return '9:00am';
+			return '9:00pm';
 		case 22:
-			return '10:00am';
+			return '10:00pm';
 		case 23:
-			return '11:00am';
+			return '11:00pm';
 		case 0:
-			return '12:00am';
+			return '12:00pm';
 		default:
 			return 'none';
 	}

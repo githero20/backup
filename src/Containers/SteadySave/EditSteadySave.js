@@ -14,7 +14,7 @@ import {
     formatNumber,
     getCardsFromStorage,
     getToken,
-    initializeAmountInput,
+    initializeAmountInput, toastMessage,
     validateSteadySaveAmount
 } from "../../Helpers/Helper";
 import {Link} from 'react-router-dom';
@@ -48,7 +48,7 @@ class SteadySaveForm extends Component {
         this.validateStartDate();
         this.handleFrequencySelect(this.props.steadySave);
         getCardsFromStorage(USERINFO, this);
-        initializeAmountInput();
+        // initializeAmountInput();
     }
 
     validateStartDate() {
@@ -112,13 +112,10 @@ class SteadySaveForm extends Component {
 
     initiatePayStack = () => {
 
-        //send api
-        console.log(this.state.form);
         initTransaction({
             amount: parseFloat(this.state.form.contribution),
             source: 'quick',
         }, (status, payload) => {
-            console.log("status", status, payload);
             this.setState({loading: false});
             if (status) {
                 const user = _getUser();
@@ -126,13 +123,8 @@ class SteadySaveForm extends Component {
                 _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
             } else {
                 console.log(payload);
-                this.props.toastManager.add(payload, {
-                    appearance: "error",
-                    autoDismiss: true,
-                    autoDismissTimeout: 3000
-                })
+                toastMessage(payload,'error',this);
             }
-
             this.props.onHide();
         });
 
@@ -143,26 +135,15 @@ class SteadySaveForm extends Component {
         this.setState({
             loading: false,
         });
-        console.log("Paystack Response", response);
         verifyTransaction({
             ref: response.reference,
             type: "instant"
         }, (status, payload) => {
-            console.log("status", status, payload);
             if (status) {
-                this.props.toastManager.add("Card Added Successfully", {
-                    appearance: "success",
-                    autoDismiss: true,
-                    autoDismissTimeout: 3000
-                });
-
+                toastMessage('Card Added Successfully','success',this);
                 this.filterUserCards();
             } else {
-                this.props.toastManager.add("Unable to add card at this moment", {
-                    appearance: "error",
-                    autoDismiss: true,
-                    autoDismissTimeout: 3000
-                })
+                toastMessage("Unable to add card at this moment",'error',this);
             }
         })
 
@@ -189,17 +170,9 @@ class SteadySaveForm extends Component {
                     updateSteadySave(this.props.steadySave.id, this.state.form, (status, payload) => {
                         this.setState({loading: false});
                         if (!status) {
-                            this.toastManager.add(JSON.stringify(payload), {
-                                appearance: "error",
-                                autoDismissTimeout: 5000,
-                                autoDismiss: true
-                            });
+                            toastMessage(JSON.stringify(payload),'error',this);
                         } else {
-                            this.toastManager.add("Steady save updated successfully", {
-                                appearance: "success",
-                                autoDismissTimeout: 3000,
-                                autoDismiss: true
-                            });
+                            toastMessage("Steady save updated successfully",'success',this);
                             console.log(payload);
                             setTimeout(this.props.onHide, 3000);
                             this.props.setupSteadySave();
@@ -342,12 +315,10 @@ class SteadySaveForm extends Component {
                                     {
                                         this.state.userCards.map((data, index) => {
                                             if (data.channel == "card") {
-
                                                 return (
-                                                    <option value={data.id} key={data.id}
-                                                            selected={index === 0 ? true : null}>{data.card_type}(****
-                                                        ****
-                                                        **** {data.last4})</option>
+                                                    <option value={data.id} key={data.id} selected={index === 0 ? true : null}>
+                                                        {data.card_type}(**** **** **** {data.last4})
+                                                    </option>
                                                 );
                                             }
 

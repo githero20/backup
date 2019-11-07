@@ -438,8 +438,6 @@ class SteadySave extends Component {
                             selectedSteadySave: row,
                             showLoader: true
                         });
-                        //set appropriate state to change view
-
                         // make request to get transaction
                         getSteadySavTrans(row.id, this.handleSSaveTrans);
                         getSteadySavHistory(row.id, this.handleSSaveHistory);
@@ -468,7 +466,6 @@ class SteadySave extends Component {
                                         this.convertSteadySave(row.id);
                                         break;
                                     case "no":
-                                        // swal("Withdrawal Cancelled");
                                         break;
                                 }
                             });
@@ -491,16 +488,6 @@ class SteadySave extends Component {
                     }
                 }
             }
-
-            // {
-            //     text: 'Date',
-            //     dataField: 'created_at',
-            //     formatter: dateFormatter,
-            //     sort: true,
-            //     classes: 'd-none d-md-table-cell',
-            //     headerClasses: 'd-none d-md-table-cell',
-            // }
-
         ];
 
         const historyColumns = [
@@ -517,24 +504,12 @@ class SteadySave extends Component {
                 dataField: 'type',
                 formatter: descriptionFormatter,
                 sort: true,
-                // classes: 'd-none d-md-table-cell',
-                // headerClasses: 'd-none d-md-table-cell',
             },
-            // {
-            //     text: 'Balance',
-            //     dataField: 'balance',
-            //     formatter: moneyFormatter,
-            //     sort: true,
-            //     classes: 'd-none d-md-table-cell',
-            //     headerClasses: 'd-none d-md-table-cell',
-            // },
             {
                 text: 'Amount',
                 dataField: 'amount',
                 formatter: moneyFormatter,
                 sort: true,
-                // classes: 'd-none d-md-table-cell',
-                // headerClasses: 'd-none d-md-table-cell',
             },
             {
                 text: 'Status',
@@ -565,14 +540,6 @@ class SteadySave extends Component {
                 classes: ' d-table-cell d-md-none',
                 headerClasses: 'd-table-cell d-md-none',
             },
-            // {
-            //     text: 'Balance',
-            //     dataField: 'balance',
-            //     formatter: moneyFormatter,
-            //     sort: true,
-            //     classes: 'd-none d-md-table-cell',
-            //     headerClasses: 'd-none d-md-table-cell',
-            // },
             {
                 text: 'Amount',
                 dataField: 'amount',

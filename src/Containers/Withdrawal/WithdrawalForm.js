@@ -166,20 +166,9 @@ class WithdrawalForm extends Component {
                 if (payload && payload.length > 0) {
                     this.setState({userBanks: payload});
                 } else {
-                    // this.props.history.push("/bank-card-setting");
-                    //TODO(Find another way to redirect to bank histort)
+                   console.log('err getting card',payload);
                 }
             }
-
-            //TODO handle no internet and no accounts error
-
-            // else{
-            //     this.props.toastManager.add("Unable to get bank accounts",{
-            //         appearance: "error",
-            //         autoDismissTimeout: 5000,
-            //         autoDismiss:true
-            //     });
-            // }
         });
     }
 
@@ -257,7 +246,7 @@ class WithdrawalForm extends Component {
 
     onSubmit(e) {
 
-        const {form, stashBalance, penalty, userBalance} = this.state;
+        const {form, stashBalance} = this.state;
         e.preventDefault();
         if (!this.validator.allValid()) {
             //validate fields
@@ -285,20 +274,29 @@ class WithdrawalForm extends Component {
 
     handleBalance = () => {
         const {withdraw_amount, penalty_from} = this.state.form;
-        const {userBalance} = this.state;
-        const penalty = this.state.penalty;
-        const penaltySource = (penalty_from == CENTRAL_VAULT) ? 'central vault' : 'withdrawal amount';
+        const {userBalance,penalty} = this.state;
         const withdrawAmount = Number(withdraw_amount);
         const penaltyAmount = Number(penalty);
-        if ((penalty_from == CENTRAL_VAULT && (withdrawAmount + penaltyAmount) <= userBalance)
-            || (penalty_from != CENTRAL_VAULT && withdrawAmount <= userBalance)
-        ) {
-            //handle penalty
+        if ((penalty_from == CENTRAL_VAULT && (withdrawAmount + penaltyAmount) <= userBalance) ||
+            (penalty_from != CENTRAL_VAULT && withdrawAmount <= userBalance)) {
+            this.confirmWithdrawalDate();
+        } else {
+            toastMessage('Insufficient Balance', 'error', this);
+        }
+    };
+
+    confirmWithdrawalDate = () => {
+        const { penaltyFreeDay,penalty} = this.state;
+        const {penalty_from} = this.state.form;
+        const penaltySource = (penalty_from == CENTRAL_VAULT) ? 'central vault' : 'withdrawal amount';
+        if (penaltyFreeDay) {
+            this.initiateWithdrawal();
+        } else {
             swal('Withdrawal', `Penalty of ₦ ${Number(penalty).toFixed(2)} would be deducted from your ${penaltySource}`, 'info', {
                 buttons: {
                     cancel: "no",
                     yes: "yes"
-                },
+                }
             }).then((value) => {
                 switch (value) {
                     case "yes":
@@ -309,8 +307,6 @@ class WithdrawalForm extends Component {
                         break;
                 }
             });
-        } else {
-            toastMessage('Insufficient Balance', 'error', this);
         }
     };
 

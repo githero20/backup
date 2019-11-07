@@ -134,7 +134,9 @@
         top: 0 !important;
         left: 0 !important;
     }
-
+    .swal-overlay{
+        z-index: 4000000000;
+    }
     .modal-content h4 {
         font-size: 15px;
     }
@@ -163,7 +165,9 @@
         font-size: .9rem;
         padding-left: 0rem;
     }
-
+    .ad-container{
+        padding: 0;
+    }
     .ad-container .ad-placeholder {
         width: 17rem;
         padding: 1rem;
@@ -172,7 +176,7 @@
         background-color: white;
         text-align: center;
         border-radius: .8rem;
-        margin-bottom: 4rem;
+        margin-bottom: 2rem;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
         cursor: pointer;
         transition: all .5s ease-in-out;

@@ -225,7 +225,6 @@ class WithdrawalForm extends Component {
 
     getNextWithdrawalDate(withdrawalDates = []) {
         try {
-            // 22n october 2019
             const now = moment();
             for (let date of withdrawalDates) {
                 let d = moment(date.withdrawal_date, "MM/DD");

@@ -81,22 +81,28 @@ class Home extends Component {
     handleScrollAnimation = () => {
         if (this.doAnimation) {
             window.addEventListener('scroll', () => {
-                const animatePos = 3600;
+                const animatePos = 3400;
                 let cards = document.getElementsByClassName("award-card");
                 if (cards && cards.length > 0) {
                     if (window.scrollY < animatePos) {
+                        // cards.map((card,index)=>{
+                        //     if(index=0){
+                        //         r
+                        //     }
+                        // })
                         cards[0].classList.add('active');
                         cards[1].classList.remove('active');
-                        cards[2].classList.remove('active');
-                    } else if (window.scrollY > animatePos && window.scrollY < 3800) {
+                        // cards[2].classList.remove('active');
+                    } else if (window.scrollY > animatePos && window.scrollY < 3600) {
                         cards[0].classList.remove('active');
                         cards[1].classList.add('active');
-                        cards[2].classList.remove('active');
-                    }else {
-                        cards[0].classList.remove('active');
-                        cards[1].classList.remove('active');
-                        cards[2].classList.add('active');
+                        // cards[2].classList.remove('active');
                     }
+                    // else {
+                    //     cards[0].classList.remove('active');
+                    //     cards[1].classList.remove('active');
+                    //     // cards[2].classList.add('active');
+                    // }
                 }
 
             })
@@ -410,7 +416,7 @@ class Home extends Component {
 
                                             </p>
                                         </div>
-                                        <div className="col-md-12 ">
+                                        <div className="col-md-4 ">
                                             <div className='fs-1-8 mt-5 mt-md-2 mt-lg-5 mb-3 text-center'>
                                                 <img className='mb-3 mb-md-1 mb-lg-3'
                                                      src={require('../../admin/app-assets/images/svg/award-medal.svg')}
@@ -434,13 +440,13 @@ class Home extends Component {
                                                      alt="award image one"/>
                                             </div>
                                         </div>
-                                        <div className="col-md-4">
-                                            <div className="award-card p-3 p-md-1 p-lg-3 mb-3 ">
-                                                <img className='w-100'
-                                                     src={require('../../admin/app-assets/images/award-2.png')}
-                                                     alt="award image one"/>
-                                            </div>
-                                        </div>
+                                        {/*<div className="col-md-6">*/}
+                                        {/*    <div className="award-card p-3 p-md-1 p-lg-3 mb-3 ">*/}
+                                        {/*        <img className='w-100'*/}
+                                        {/*             src={require('../../admin/app-assets/images/award-2.png')}*/}
+                                        {/*             alt="award image one"/>*/}
+                                        {/*    </div>*/}
+                                        {/*</div>*/}
                                     </div>
                                 </div>
                             </section>

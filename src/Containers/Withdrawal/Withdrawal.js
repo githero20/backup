@@ -242,8 +242,9 @@ class Withdrawal extends Component {
                                                             </button>
                                                             :
                                                             <a href='#' className="gray-text back-btn "
-                                                               onClick={this.hideForm}><i
-                                                                className='fa fa-chevron-left'></i>Back
+                                                               onClick={this.hideForm}>
+                                                                <i className='fa fa-chevron-left'/>
+                                                                Back
                                                             </a>
                                                     }
                                                 </div>

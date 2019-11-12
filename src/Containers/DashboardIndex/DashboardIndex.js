@@ -307,25 +307,20 @@ class DashboardIndex extends Component {
                         onHide={this.closeSteadySaveModal}
                     />
 
-                    {/*<ToastProvider>*/}
                     <LockedSavingModal
                         show={this.state.showlockedSavingsModal}
                         onHide={this.closeLSModal}
                     />
-                    {/*</ToastProvider>*/}
                     <BackUpGoalsModal
                         show={this.state.showActiveGoalModal}
                         onHide={this.closeActiveGoalModal}
                     />
-                    {/*<ToastProvider>*/}
                     <ActivationModal
                         show={this.state.showActivationModal}
                         email={this.state.email}
                     />
-                    {/*</ToastProvider>*/}
                     <StartNowModal
                         show={this.state.showStartModal}
-                        // show={true}
                         onHide={this.closeStartModal}
                     />
 

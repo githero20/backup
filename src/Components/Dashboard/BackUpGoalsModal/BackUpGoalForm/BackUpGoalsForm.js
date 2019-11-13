@@ -452,6 +452,10 @@ class BackUpGoalsForm extends Component {
     }
 }
 
+export const getHourOptions = ( ) => {
+    let hour = moment().hour();
+
+}
 
 export default withToastManager(BackUpGoalsForm);
 

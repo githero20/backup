@@ -452,6 +452,7 @@ export function disableKey(e) {
 }
 
 export function filterUserCards(array) {
+	if(array && array.authorization && array.data)
 	return array.authorization.data.filter((content) => content.channel == 'card');
 }
 

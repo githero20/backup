@@ -175,26 +175,6 @@ class EditBGForm extends Component {
     };
 
 
-    displayHours = () => {
-        const hour = moment().hour();
-        console.log('hour', hour);
-        let hourOptions = [];
-        for (let i = 0; i < hour; i++) {
-            if (i == 0) {
-                hourOptions.push(<option value={'0'}>12:00 am</option>);
-            } else if (i < 12) {
-                hourOptions.push(<option value={'' + i + ''}>{i} :00 am</option>);
-            } else if (i == 12) {
-                hourOptions.push(<option value={'12'}>12 noon</option>);
-            } else {
-                hourOptions.push(<option value={'' + i - 12 + ''}>{i - 12} :00 pm</option>);
-            }
-        }
-        return hourOptions;
-
-    };
-
-
     componentDidMount() {
         //get pay auths
         //TODO(dont save card details to local storage, if you will be saving it, encrypt it)
@@ -268,7 +248,7 @@ class EditBGForm extends Component {
             </Form.Group>
         );
 
-        const hourOptions = this.displayHours();
+        const hourOptions = displayHours('asc')();
 
         const showMonth = (
             <Form.Group as={Col} type="text">
@@ -419,6 +399,34 @@ class EditBGForm extends Component {
         );
     }
 }
+
+export const displayHours = (mode) => {
+
+    return function () {
+        const hour = moment().hour();
+        console.log('hour', hour);
+        let hourOptions = [];
+        if (mode == 'asc') {
+            for (let i = 0; i < hour; i++) {
+                if (i == 0) hourOptions.push(<option key={i} value={'0'}>12:00 am</option>)
+                else if (i < 12) hourOptions.push(<option key={i} value={'' + i + ''}>{i} :00 am</option>)
+                else if (i == 12) hourOptions.push(<option key={i} value={'12'}>12 noon</option>)
+                else if (i > 12) hourOptions.push(<option key={i - 12} value={'' + i - 12 + ''}>{i - 12} :00 pm</option>);
+            }
+        } else if (mode == 'desc') {
+            for (let i = hour + 1; i < 25; i++) {
+                if (i < 12) hourOptions.push(<option value={'' + i + ''}>{i} :00 am</option>);
+                if (i == 12) hourOptions.push(<option value={'12'}>12 noon</option>);
+                if (i > 12) hourOptions.push(<option value={'' + i - 12 + ''}>{i - 12} :00 pm</option>);
+                if (i == 24) hourOptions.push(<option value={'0'}>12:00 am</option>);
+            }
+        }
+        return hourOptions;
+    }
+
+
+};
+
 
 export default withToastManager(EditBGForm);
 

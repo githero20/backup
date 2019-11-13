@@ -17,6 +17,7 @@ import moment from "moment";
 import {Link} from "react-router-dom";
 import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
 import {createSteadySave} from "../../../../actions/SteadySaveAction";
+import {displayHours} from "../../EditBackUpGoalModal/BackUpGoalForm/EditBGForm";
 
 
 class CreateSteadySaveForm extends Component {
@@ -34,7 +35,7 @@ class CreateSteadySaveForm extends Component {
                 contribution: null,
                 start_date: "N/A",
                 frequency: "daily",
-                hour_of_day: 0,
+                hour_of_day: moment().add(1,'hour'),
                 day_of_the_week: '2',
                 day_of_month: '1',
                 payment_auth: null,
@@ -56,12 +57,6 @@ class CreateSteadySaveForm extends Component {
         // this.setState({form:this.props.steadySave});
         this.validateStartDate();
         this.handleFrequencySelect(this.state.form);
-        // const userInfo = getLocalStorage(USERINFO);
-        // if (getLocalStorage(USERINFO)!=undefined) {
-        //     this.setState({
-        //         userCards: userInfo.authorization.data
-        //     })
-        // }
         getCardsFromStorage(USERINFO, this);
         initializeAmountInput();
     }
@@ -89,16 +84,12 @@ class CreateSteadySaveForm extends Component {
     //validate form
     handleFrequencySelect(form) {
         if (form.frequency == "daily") {
-            console.log('dailt');
             this.setState({
                 showMonth: false,
                 showDay: false,
                 showHour: true,
             });
         } else if (form.frequency == "weekly") {
-            console.log('weekly');
-            // form.day_of_the_week = '2';
-            // form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
             this.setState({
                 showMonth: false,
                 showDay: true,
@@ -106,15 +97,12 @@ class CreateSteadySaveForm extends Component {
                 form
             });
         } else if (form.frequency == "monthly") {
-            // form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
-            // form.day_of_month = '1';
             this.setState({
                 showMonth: true,
                 showDay: false,
                 showHour: true,
             })
         }
-        // console.log("Form", form);
     }
 
 
@@ -123,7 +111,6 @@ class CreateSteadySaveForm extends Component {
         const {contribution, frequency} = this.state.form;
         e.preventDefault();
         if (!this.validator.allValid()) {
-            console.log("hererererer", this, this.validator, this.validator.errorMessages);
             this.validator.showMessages();
             this.forceUpdate();
         } else {
@@ -160,72 +147,27 @@ class CreateSteadySaveForm extends Component {
 
     };
 
-    textAmountHandler = (event) => {
-        let name = event.target.name;
-        let value = event.target.value;
-
-        console.log(name, value);
-        // check if the value exist
-        if (value !== "") {
-            if (parseFloat(value).toFixed(2) !== 0.00) {
-                const rawValue = parseFloat(value.trim().replace(',', '').replace('₦', ''))
-                console.log(name, rawValue);
-                let data = {...this.state.instantSaveInfo};
-                data[name] = rawValue;
-                this.setState({
-                    form: data,
-                    err: ''
-                })
-            }
-        } else {
-            this.setState({
-                err: 'Please Input the Amount you want to Save'
-            })
-        }
-    };
 
 
     render() {
-
+        const {form,userCards,disableStartDate}=this.state;
+        const hourOptions = displayHours('desc')();
         const showHour = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Hour of the day</Form.Label>
-                <Form.Control as="select" value={this.state.form.hour_of_day} onChange={this.changeHandler}
+                <Form.Control as="select" value={form.hour_of_day} onChange={this.changeHandler}
                               id="hour_of_day" name="hour_of_day">
-                    <option value={'1'}>1:00 am</option>
-                    <option value={'2'}>2:00 am</option>
-                    <option value={'3'}>3:00 am</option>
-                    <option value={'4'}>4:00 am</option>
-                    <option value={'5'}>5:00 am</option>
-                    <option value={'6'}>6:00 am</option>
-                    <option value={'7'}>7:00 am</option>
-                    <option value={'8'}>8:00 am</option>
-                    <option value={'9'}>9:00 am</option>
-                    <option value={'10'}>10:00 am</option>
-                    <option value={'11'}>11:00 am</option>
-                    <option value="12">12:00 noon</option>
-                    <option value="13">1:00 pm</option>
-                    <option value="14">2:00 pm</option>
-                    <option value="15">3:00 pm</option>
-                    <option value="16">4:00 pm</option>
-                    <option value="17">5:00 pm</option>
-                    <option value="18">6:00 pm</option>
-                    <option value="19">7:00 pm</option>
-                    <option value="20">8:00 pm</option>
-                    <option value="21">9:00 pm</option>
-                    <option value="22">10:00 pm</option>
-                    <option value="23">11:00 pm</option>
-                    <option value="0">12:00 am</option>
+                    {hourOptions}
                 </Form.Control>
 
-                {this.validator.message('hour_of_day', this.state.form.hour_of_day, 'required|numeric')}
+                {this.validator.message('hour_of_day', form.hour_of_day, 'required|numeric')}
 
             </Form.Group>
         );
         const showMonth = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Day of the Month</Form.Label>
-                <Form.Control as="select" value={this.state.form.day_of_month} onChange={this.changeHandler}
+                <Form.Control as="select" value={form.day_of_month} onChange={this.changeHandler}
                               id="day_of_month" name={'day_of_month'}>
                     <option value={'1'}>1</option>
                     <option value={'2'}>2</option>
@@ -267,7 +209,7 @@ class CreateSteadySaveForm extends Component {
         const showDay = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Day of the Week</Form.Label>
-                <Form.Control as="select" value={this.state.form.day_of_week} onChange={this.changeHandler}
+                <Form.Control as="select" value={form.day_of_week} onChange={this.changeHandler}
                               id="day_of_the_week" name="day_of_the_week">
                     <option value={'2'}>Mon</option>
                     <option value={'3'}>Tue</option>
@@ -288,19 +230,16 @@ class CreateSteadySaveForm extends Component {
                         <Form.Group as={Col} sm={6}>
                             <div className={'text-muted secondary-text'}>Contribution
                                 <span className='amount-display round float-right text-white px-1'>
-                                    ₦ {formatNumber(Number(this.state.form.contribution).toFixed(2))}
+                                    ₦ {formatNumber(Number(form.contribution).toFixed(2))}
                                 </span>
                             </div>
                             <React.Fragment>
                                 <Form.Control
                                     type="number"
                                     name={'contribution'}
-                                    // className={'amount-input'}
-                                    defaultValue={this.state.form.contribution}
+                                    defaultValue={form.contribution}
                                     onChange={this.changeHandler}/>
-                                {/*{this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
-                                {/*{this.validator.message('amount', amount, 'required|numeric')}*/}
-                                {this.validator.message('contribution', this.state.form.contribution, 'required|numeric')}
+                                {this.validator.message('contribution', form.contribution, 'required|numeric')}
                             </React.Fragment>
                         </Form.Group>
                         <Form.Group as={Col} sm={6}>
@@ -309,23 +248,26 @@ class CreateSteadySaveForm extends Component {
                                 <Form.Control
                                     as="select"
                                     onChange={this.changeHandler}
-                                    defaultValue={this.state.form.payment_auth}
+                                    defaultValue={form.payment_auth}
                                     name={'payment_auth'}>
                                     <option value={''}>Select Card</option>
                                     {
-                                        this.state.userCards.map((data) => {
+                                        userCards && userCards.map((data) => {
                                             if (data.channel == "card")
                                                 return (
-                                                    <option value={data.id} key={data.id}>{data.card_type}(**** ****
-                                                        **** {data.last4})</option>
+                                                    <option value={data.id} key={data.id}>
+                                                        {data.card_type}(**** **** **** {data.last4})
+                                                    </option>
                                                 );
                                         })
                                     }
                                 </Form.Control>
-                                {this.state.userCards.length === 0 ?
-                                    <label className={'text-muted mt-1'}>You do not have a card click here <Link
-                                        to={BankCardLink}>Add Card</Link></label> : null}
-                                {this.validator.message('Debit Card', this.state.form.payment_auth, 'required|numeric')}
+                                {userCards && userCards.length === 0 ?
+                                    <label className={'text-muted mt-1'}>
+                                        You do not have a card click here
+                                        <Link to={BankCardLink}>Add Card</Link>
+                                    </label> : null}
+                                {this.validator.message('Debit Card', form.payment_auth, 'required|numeric')}
                             </React.Fragment>
                         </Form.Group>
                     </Form.Row>
@@ -337,13 +279,13 @@ class CreateSteadySaveForm extends Component {
                                 <Form.Control
                                     as="select"
                                     onChange={this.changeHandler}
-                                    defaultValue={this.state.form.frequency}
+                                    defaultValue={form.frequency}
                                     name={'frequency'}>
                                     <option value={'daily'}>Daily</option>
                                     <option value={'weekly'}>Weekly</option>
                                     <option value={'monthly'}>Monthly</option>
                                 </Form.Control>
-                                {this.validator.message('frequency', this.state.form.frequency, 'required|string')}
+                                {this.validator.message('frequency', form.frequency, 'required|string')}
                             </React.Fragment>
                         </Form.Group>
 
@@ -353,12 +295,13 @@ class CreateSteadySaveForm extends Component {
                                 <Form.Control type="date"
                                               onKeyDown={disableKey}
                                               onKeyUp={disableKey}
-                                              min={moment().add(1, 'days').format("YYYY-MM-DD")}
-                                              defaultValue={this.state.form.start_date} name={'start_date'}
+                                              min={moment().format("YYYY-MM-DD")}
+                                              max={moment().add(1,'days').format("YYYY-MM-DD")}
+                                              defaultValue={form.start_date} name={'start_date'}
                                               id={'start_date'}
-                                              disabled={this.state.disableStartDate}
+                                              disabled={disableStartDate}
                                               onChange={this.changeHandler}/>
-                                {this.validator.message('start_date', this.state.form.start_date, 'required|string')}
+                                {this.validator.message('start_date',form.start_date, 'required|string')}
                             </React.Fragment>
                         </Form.Group>
                         {this.state.showHour ? showHour : null}
@@ -382,7 +325,4 @@ class CreateSteadySaveForm extends Component {
 
 }
 
-
-const FormWithToast = withToastManager(CreateSteadySaveForm);
-
-export default FormWithToast;
+export default withToastManager(CreateSteadySaveForm);

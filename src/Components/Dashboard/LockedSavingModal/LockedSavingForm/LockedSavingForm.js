@@ -238,7 +238,8 @@ class LockedSavingForm extends Component {
                         </Form.Group>
                     </Form.Row>
                     <Form.Row className="d-flex justify-content-end  my-2">
-                        <button className="round btn-custom-blue modal-btn " disabled={this.state.loading} type="submit">
+                        <button className="round btn-custom-blue modal-btn"
+                                disabled={this.state.loading} type="submit">
                             {this.state.loading ? <ButtonLoader/> : "Start Saving"}
                         </button>
                     </Form.Row>

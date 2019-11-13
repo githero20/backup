@@ -232,8 +232,9 @@ class InstantSavingForm extends Component {
                                         this.state.userCards.length > 0 ?
                                             this.state.userCards.map((data, index) => {
                                                 return (
-                                                    <option value={data.id} key={data.id}>{data.card_type}(**** ****
-                                                        **** {data.last4})</option>
+                                                    <option value={data.id} key={data.id}>
+                                                        {data.card_type}(**** **** **** {data.last4})
+                                                    </option>
                                                 );
                                             })
                                             : null

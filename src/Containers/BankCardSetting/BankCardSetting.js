@@ -151,7 +151,7 @@ class BankCardSetting extends Component {
                     </div>
                     <p className="mb-md-3 mt-2 ml-1 ml-md-0 mt-md-0">**** **** **** {card.last4}</p>
                     <div className="ml-1 ml-md-0 sm-font">
-                        <span className="mr-5 mb-1 sm-font"></span>
+                        <span className="mr-5 mb-1 sm-font"/>
                         <span>{card.exp_month}/{card.exp_year}</span>
                     </div>
                     <div>
@@ -180,18 +180,14 @@ class BankCardSetting extends Component {
                         <div className="content-wrapper">
                             {this.state.showLoader ? <DashboardLoader/> : null}
                             <div className="row mb-4 d-none">
-                                <div className="col-12">
-                                    {/*message box*/}
-                                    {/*<MessageBox/>*/}
-                                </div>
+                                <div className="col-12"/>
                             </div>
 
                             <div className="content-body">
                                 <section id="text-alignment">
                                     <div className="row">
                                         <div className="col-12 mt-3 mb-1">
-                                            <h3 className="gray-header-text mb-2 ">Settings <span
-                                                className="dot">.</span> Bank/Cards</h3>
+                                            <h3 className="gray-header-text mb-2 ">Settings <span className="dot">.</span> Bank/Cards</h3>
                                         </div>
                                     </div>
 
@@ -200,23 +196,15 @@ class BankCardSetting extends Component {
                                             <div className="card round px-md-3">
                                                 <div className="card-content">
                                                     <div className="card-body account-card">
-                                                        <div
-                                                            className=" d-flex justify-content-between align-items-center light-gray setting-header">
+                                                        <div className=" d-flex justify-content-between align-items-center light-gray setting-header">
                                                             <h5>My Banks</h5>
-                                                            <span
-                                                                className="pull-right right-btn-holder"
-                                                                onClick={this.showBankModal}>
-                                                            <span
-                                                                className="btn-custom-round-blue plus-btn-shadow mr-1">
-                                                                {/*<img  src={addButton}/>*/}
+                                                            <span className="pull-right right-btn-holder" onClick={this.showBankModal}>
+                                                            <span className="btn-custom-round-blue plus-btn-shadow mr-1">
                                                                 <i className='fa fa-plus text-white'/>
                                                             </span>Add Bank</span>
                                                         </div>
 
-
-                                                        <div
-                                                            className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">
-
+                                                        <div className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">
                                                             {
                                                                 this.state.banks.map((bank, index) => {
                                                                     return (
@@ -228,8 +216,9 @@ class BankCardSetting extends Component {
                                                                                     className=" big-dots"/>
                                                                             </div>
                                                                             <p className="mb-md-3 mt-2 ml-1 ml-md-0 mt-md-0"> {bank.bank_number}</p>
-                                                                            <div className="ml-1 ml-md-0 sm-font"><span
-                                                                                className="mr-5 mb-1 sm-font"></span><span>{bank.bank}</span>
+                                                                            <div className="ml-1 ml-md-0 sm-font">
+                                                                                <span className="mr-5 mb-1 sm-font"/>
+                                                                                <span>{bank.bank}</span>
                                                                             </div>
                                                                         </div>
                                                                     )
@@ -253,15 +242,12 @@ class BankCardSetting extends Component {
                                                                   onClick={this.showCardModal}>
                                                                 <span
                                                                     className="btn-custom-round-blue plus-btn-shadow mr-1">
-                                                                    {/*<img src={addButton}/>*/}
-                                                                    <i className="fa fa-plus"></i>
+                                                                    <i className="fa fa-plus"/>
                                                             </span>Add Card</span>
                                                         </div>
-                                                        <div
-                                                            className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">
+                                                        <div className="d-flex justify-content-md-between justify-content-center flex-column flex-md-row mt-4">
                                                             {cards}
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>

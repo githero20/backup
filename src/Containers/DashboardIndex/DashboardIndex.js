@@ -304,6 +304,7 @@ class DashboardIndex extends Component {
 
                     <CreateSteadySaveModal
                         show={this.state.showSteadySavingModal}
+                        // show={true}
                         onHide={this.closeSteadySaveModal}
                     />
 

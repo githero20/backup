@@ -107,7 +107,7 @@ const AuthController = component => {
                                         timer: 2000
                                     });
                                 } else {
-                                    console.log('err',response);
+                                    console.log('err', response);
                                     swal('Oops!!', `Unable to login at the moment.Try Again`, 'warning', {
                                         button: false,
                                         timer: 2000
@@ -143,12 +143,7 @@ const AuthController = component => {
                             if (err && err.response) {
                                 if (err && err.response && err.response.data && err.response.data.message === "Account has not been activated, click on resend") {
                                     setLocalStorage(USERACTIVATED, false);
-                                } else {
-                                    handleUserAuth();
-                                }
-                            } else {
-                                //TODO("Log to central Log")
-                                // console.error("Unknown Error", err);
+                                } else handleUserAuth();
                             }
                         } catch (e) {
                             console.log("Error", e);

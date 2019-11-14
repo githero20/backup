@@ -176,6 +176,7 @@ export function getCards(key, object) {
 
 export function getCardsFromStorage(key, object) {
 	const userInfo = getLocalStorage(key);
+	console.log('cards info',userInfo,filterUserCards(userInfo));
 	if (userInfo != undefined) {
 		object.setState({
 			userCards: filterUserCards(userInfo)
@@ -451,9 +452,9 @@ export function disableKey(e) {
 	// return false;
 }
 
-export function filterUserCards(array) {
-	if(array && array.authorization && array.data)
-	return array.authorization.data.filter((content) => content.channel == 'card');
+export function filterUserCards(info) {
+	if(info && info.authorization)
+	return info.authorization.data.filter((content) => content.channel == 'card');
 }
 
 export function showMobileMenu() {

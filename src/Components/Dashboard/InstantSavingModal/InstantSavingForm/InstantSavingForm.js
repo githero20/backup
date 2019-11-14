@@ -189,19 +189,10 @@ class InstantSavingForm extends Component {
     }
 
 
-    resetFormFields = () => {
-
-        let data = this.state.form;
-        data.amount = 0;
-        data.payment_auth = -1;
-
-        this.setState({
-            form: data
-        })
-    };
 
     render() {
         const {payment_auth, amount} = this.state.form;
+        const {userCards} = this.state;
         return (
             <React.Fragment>
                 <Form className={'is-modal-form'} onSubmit={this.submitForm}>
@@ -229,7 +220,7 @@ class InstantSavingForm extends Component {
                                     <option value={-1}>Select Card</option>
                                     <option value={0}>Add Card</option>
                                     {
-                                        this.state.userCards.length > 0 ?
+                                        userCards && userCards.length > 0 ?
                                             this.state.userCards.map((data, index) => {
                                                 return (
                                                     <option value={data.id} key={data.id}>
@@ -245,10 +236,8 @@ class InstantSavingForm extends Component {
                         </Col>
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
-                        <button className={'round btn-custom-blue modal-btn'}
-                                disabled={this.state.loading} type="submit">
-                            {this.state.loading ? <ButtonLoader/> :
-                                <span>Start Saving</span>}
+                        <button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading} type="submit">
+                            {this.state.loading ? <ButtonLoader/> : <span>Start Saving</span>}
                         </button>
                     </Form.Row>
                 </Form>

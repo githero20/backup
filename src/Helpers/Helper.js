@@ -320,6 +320,8 @@ export function isGoalCompleted(goal) {
 
 }
 
+export const dateFormat = 'YYYY-MM-DD';
+
 export function getTotalBGSuccessful(transactions) {
 
 

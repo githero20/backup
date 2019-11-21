@@ -212,8 +212,7 @@ class EditBGForm extends Component {
 
 
     render() {
-        const {title, target_amount, start_date, frequency, gw_authorization_code, end_date, maturity_date, start_amount, hour_of_day, day_of_week, day_of_month} = this.state.form;
-        // console.log('selected bg :'+JSON.stringify(this.props.selectedBG));
+        const {title, target_amount, maturity_date, hour_of_day, day_of_week, day_of_month} = this.state.form;
         const showHour = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Hour of the day</Form.Label>
@@ -393,38 +392,42 @@ class EditBGForm extends Component {
                         }
 
                     </Form.Row>
-
                 </Form>
             </React.Fragment>
         );
     }
 }
 
-export const displayHours = (mode) => {
+export const displayHours = (mode = 'all') => {
 
     return function () {
         const hour = moment().hour();
-        console.log('hour', hour);
         let hourOptions = [];
         if (mode == 'asc') {
             for (let i = 0; i < hour; i++) {
                 if (i == 0) hourOptions.push(<option key={i} value={'0'}>12:00 am</option>)
                 else if (i < 12) hourOptions.push(<option key={i} value={'' + i + ''}>{i} :00 am</option>)
                 else if (i == 12) hourOptions.push(<option key={i} value={'12'}>12 noon</option>)
-                else if (i > 12) hourOptions.push(<option key={i - 12} value={'' + i - 12 + ''}>{i - 12} :00 pm</option>);
+                else if (i > 12) hourOptions.push(<option key={i - 12} value={'' + i - 12 + ''}>{i - 12} :00
+                    pm</option>);
             }
         } else if (mode == 'desc') {
             for (let i = hour + 1; i < 25; i++) {
                 if (i < 12) hourOptions.push(<option value={'' + i + ''}>{i} :00 am</option>);
                 if (i == 12) hourOptions.push(<option value={'12'}>12 noon</option>);
-                if (i > 12) hourOptions.push(<option value={'' + i - 12 + ''}>{i - 12} :00 pm</option>);
+                if (i > 12 && i < 24) hourOptions.push(<option value={'' + i - 12 + ''}>{i - 12} :00 pm</option>);
+                if (i == 24) hourOptions.push(<option value={'0'}>12:00 am</option>);
+            }
+        } else {
+            for (let i = 1; i < 25; i++) {
+                if (i < 12) hourOptions.push(<option value={'' + i + ''}>{i} :00 am</option>);
+                if (i == 12) hourOptions.push(<option value={'12'}>12 noon</option>);
+                if (i > 12 && i < 24) hourOptions.push(<option value={'' + i - 12 + ''}>{i - 12} :00 pm</option>);
                 if (i == 24) hourOptions.push(<option value={'0'}>12:00 am</option>);
             }
         }
         return hourOptions;
     }
-
-
 };
 
 

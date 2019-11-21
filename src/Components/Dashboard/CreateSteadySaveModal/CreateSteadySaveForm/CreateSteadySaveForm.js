@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
 import {
+    dateFormat,
     disableKey,
     formatNumber,
     getCardsFromStorage,
@@ -35,7 +36,7 @@ class CreateSteadySaveForm extends Component {
                 contribution: null,
                 start_date: "N/A",
                 frequency: "daily",
-                hour_of_day: moment().add(1,'hour'),
+                hour_of_day: moment().add(1, 'hour'),
                 day_of_the_week: '2',
                 day_of_month: '1',
                 payment_auth: null,
@@ -148,20 +149,18 @@ class CreateSteadySaveForm extends Component {
     };
 
 
-
     render() {
-        const {form,userCards,disableStartDate}=this.state;
-        const hourOptions = displayHours('desc')();
+        const {form, userCards, disableStartDate} = this.state;
+        const hourOptions = moment(form.start_date).format(dateFormat) == moment().format(dateFormat) ?
+            displayHours('desc')() : displayHours()() ;
         const showHour = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Hour of the day</Form.Label>
-                <Form.Control as="select" value={form.hour_of_day} onChange={this.changeHandler}
-                              id="hour_of_day" name="hour_of_day">
+                <Form.Control as="select" value={form.hour_of_day}
+                              onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
                     {hourOptions}
                 </Form.Control>
-
                 {this.validator.message('hour_of_day', form.hour_of_day, 'required|numeric')}
-
             </Form.Group>
         );
         const showMonth = (
@@ -219,7 +218,6 @@ class CreateSteadySaveForm extends Component {
                     <option value={'7'}>Sat</option>
                     <option value={'1'}>Sun</option>
                 </Form.Control>
-                {/*{this.validator.message('day_of_week', this.state.form.day_of_week, 'required|numeric')}*/}
 
             </Form.Group>
         );
@@ -296,12 +294,12 @@ class CreateSteadySaveForm extends Component {
                                               onKeyDown={disableKey}
                                               onKeyUp={disableKey}
                                               min={moment().format("YYYY-MM-DD")}
-                                              max={moment().add(1,'days').format("YYYY-MM-DD")}
+                                              max={moment().add(1, 'days').format("YYYY-MM-DD")}
                                               defaultValue={form.start_date} name={'start_date'}
                                               id={'start_date'}
                                               disabled={disableStartDate}
                                               onChange={this.changeHandler}/>
-                                {this.validator.message('start_date',form.start_date, 'required|string')}
+                                {this.validator.message('start_date', form.start_date, 'required|string')}
                             </React.Fragment>
                         </Form.Group>
                         {this.state.showHour ? showHour : null}

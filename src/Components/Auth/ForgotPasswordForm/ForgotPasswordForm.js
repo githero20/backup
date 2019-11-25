@@ -96,7 +96,7 @@ class ForgotPasswordForm extends Component {
                         this.props.showPhoneResetForm();
                     }, 3000);
                 } else {
-                    toastMessage(`${response.data.message}`, 'error', this);
+                    toastMessage(`${response.data.error}`, 'error', this);
                 }
             }
         }
@@ -118,7 +118,7 @@ class ForgotPasswordForm extends Component {
     }
 
     render() {
-        console.log('props',this.props.text);
+        console.log('props', this.props.text);
         const {email} = this.state;
 
 

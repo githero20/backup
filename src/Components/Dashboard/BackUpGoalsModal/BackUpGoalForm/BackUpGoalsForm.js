@@ -328,7 +328,6 @@ class BackUpGoalsForm extends Component {
                             </Form.Label>
                             <Form.Control
                                 type="number" id="contribution"
-                                // className={'amount-input'}
                                 value={contribution}
                                 step={'5'} name="contribution"
                                 onChange={this.changeHandler}/>
@@ -336,9 +335,6 @@ class BackUpGoalsForm extends Component {
                                 Contribution range daily [ &#8358; 500 - &#8358; 25000]
                             </Form.Text>
                             {this.validator.message('contribution', contribution, 'required|numeric')}
-
-                            {/*{this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
-
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
@@ -353,7 +349,6 @@ class BackUpGoalsForm extends Component {
                                           onChange={this.changeHandler}
                             />
                             {this.validator.message('start_date', start_date, 'required|string')}
-
                         </Form.Group>
 
                         <Form.Group as={Col}>
@@ -379,7 +374,6 @@ class BackUpGoalsForm extends Component {
                                           name={'payment_auth'}>
                                 <option value={''}>Select Card</option>
                                 <option value={'add'}>Add Card</option>
-                                {/* loop through and get the number of accounts user has */}
                                 {
                                     this.state.userCards.length > 0 ?
 
@@ -390,16 +384,15 @@ class BackUpGoalsForm extends Component {
                                                         {data.card_type}(**** **** **** {data.last4})
                                                     </option>
                                                 );
-
                                         })
                                         : null
                                 }
-
                             </Form.Control>
                             {this.validator.message('payment_auth', payment_auth, 'required|numeric')}
                             {this.state.addCard ?
-                                <label className={'text-muted mt-1'}> click here to <Link to={BankCardLink}>Add
-                                    Card</Link></label> : null}
+                                <label className={'text-muted mt-1'}> click here to
+                                    <Link to={BankCardLink}>Add Card</Link>
+                                </label> : null}
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label className='d-block'>Goal Amount(NGN)
@@ -409,7 +402,6 @@ class BackUpGoalsForm extends Component {
                             </Form.Label>
                             <Form.Control
                                 type="number"
-                                // className={'amount-input'}
                                 name={'goal_amount'}
                                 id={'goal_amount'}
                                 value={goal_amount != 0 ? goal_amount : goal_amount}
@@ -422,7 +414,6 @@ class BackUpGoalsForm extends Component {
                     <Form.Row>
                         <Form.Group as={Col}>
                             <Form.Label>Frequency </Form.Label>
-                            {/*select Box */}
                             <Form.Control as="select" id="frequency" defaultValue={frequency}
                                           onChange={this.changeHandler} name={'frequency'}>
                                 <option value={'daily'}>Daily</option>

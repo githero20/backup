@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import SimpleReactValidator from "simple-react-validator";
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {_calculateDateDifference, _getUser, _handleFormChange, _payWithPaystack} from "../../utils";
+import {_calculateDateDifference, _handleFormChange, _payWithPaystack} from "../../utils";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {updateSteadySave} from "../../actions/SteadySaveAction";
 import {initTransaction, verifyTransaction} from "../../actions/CardAction";
@@ -14,7 +14,7 @@ import {
     formatNumber,
     getCardsFromStorage,
     getToken,
-    initializeAmountInput, toastMessage,
+    toastMessage,
     validateSteadySaveAmount
 } from "../../Helpers/Helper";
 import {Link} from 'react-router-dom';
@@ -26,7 +26,6 @@ class SteadySaveForm extends Component {
 
     constructor(props) {
         super(props);
-        console.log("props", props);
         this.toastManager = this.props.toastManager;
         this.state = {
             loading: false,
@@ -38,7 +37,6 @@ class SteadySaveForm extends Component {
             userCards: [],
             addCard: false
         };
-        console.log("Edit", this.state);
         this.validator = new SimpleReactValidator();
         this.changeHandler = this.changeHandler.bind(this);
     }
@@ -118,12 +116,10 @@ class SteadySaveForm extends Component {
         }, (status, payload) => {
             this.setState({loading: false});
             if (status) {
-                const user = _getUser();
-                console.log(user);
                 _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
             } else {
                 console.log(payload);
-                toastMessage(payload,'error',this);
+                toastMessage(payload, 'error', this);
             }
             this.props.onHide();
         });
@@ -140,10 +136,10 @@ class SteadySaveForm extends Component {
             type: "instant"
         }, (status, payload) => {
             if (status) {
-                toastMessage('Card Added Successfully','success',this);
+                toastMessage('Card Added Successfully', 'success', this);
                 this.filterUserCards();
             } else {
-                toastMessage("Unable to add card at this moment",'error',this);
+                toastMessage("Unable to add card at this moment", 'error', this);
             }
         })
 
@@ -152,27 +148,26 @@ class SteadySaveForm extends Component {
 
     //submit steady save form
     submitForm = (e) => {
-        const {contribution, frequency} = this.state.form;
-        console.log(contribution,frequency,'steady saves');
+        const {form: {start_date, frequency, contribution}} = this.state;
+        console.log(contribution, frequency, 'steady saves');
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             this.forceUpdate();
         } else {
-            const valid = validateSteadySaveAmount(frequency,contribution,  this);
+            const valid = validateSteadySaveAmount(frequency, contribution, this);
             if (valid) {
                 this.setState({loading: true});
                 //make sure user is authenticated
                 let token = getToken();
-
                 token.then(data => {
                     console.log(this.state.form);
                     updateSteadySave(this.props.steadySave.id, this.state.form, (status, payload) => {
                         this.setState({loading: false});
                         if (!status) {
-                            toastMessage(JSON.stringify(payload),'error',this);
+                            toastMessage(JSON.stringify(payload), 'error', this);
                         } else {
-                            toastMessage("Steady save updated successfully",'success',this);
+                            toastMessage("Steady save updated successfully", 'success', this);
                             console.log(payload);
                             setTimeout(this.props.onHide, 3000);
                             this.props.setupSteadySave();
@@ -278,10 +273,9 @@ class SteadySaveForm extends Component {
                     <option value={'7'}>Sat</option>
                     <option value={'1'}>Sun</option>
                 </Form.Control>
-                {/*{this.validator.message('day_of_week', this.state.form.day_of_week, 'required|numeric')}*/}
-
             </Form.Group>
         );
+
         return (
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
@@ -290,7 +284,8 @@ class SteadySaveForm extends Component {
                             <div className={'text-muted secondary-text'}>Contribution <span
                                 className='amount-display round float-right text-white px-1'>
                                     ₦ {formatNumber(Number(this.state.form.contribution).toFixed(2))}
-                                    </span></div>
+                                    </span>
+                            </div>
                             <React.Fragment>
                                 <Form.Control
                                     type="number"
@@ -316,7 +311,8 @@ class SteadySaveForm extends Component {
                                         this.state.userCards.map((data, index) => {
                                             if (data.channel == "card") {
                                                 return (
-                                                    <option value={data.id} key={data.id} selected={index === 0 ? true : null}>
+                                                    <option value={data.id} key={data.id}
+                                                            selected={index === 0 ? true : null}>
                                                         {data.card_type}(**** **** **** {data.last4})
                                                     </option>
                                                 );
@@ -335,7 +331,6 @@ class SteadySaveForm extends Component {
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-
                         <Form.Group as={Col} sm={6}>
                             <div className={'text-muted secondary-text'}>Frequency</div>
                             <React.Fragment>
@@ -379,10 +374,7 @@ class SteadySaveForm extends Component {
                                 {this.state.loading ? <ButtonLoader/> : "Update"}
                             </button>
                         </div>
-
                     </Form.Row>
-
-
                 </Form>
             </React.Fragment>
         );

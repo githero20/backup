@@ -9,6 +9,7 @@ import {
     formatNumber,
     getCardsFromStorage,
     initializeAmountInput,
+    toastMessage,
     validateSteadySaveAmount
 } from "../../../../Helpers/Helper";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
@@ -17,8 +18,8 @@ import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
-import {createSteadySave} from "../../../../actions/SteadySaveAction";
 import {displayHours} from "../../EditBackUpGoalModal/BackUpGoalForm/EditBGForm";
+import {createSteadySave} from "../../../../actions/SteadySaveAction";
 
 
 class CreateSteadySaveForm extends Component {
@@ -28,6 +29,9 @@ class CreateSteadySaveForm extends Component {
         super(props);
         console.log("props", props);
         this.toastManager = this.props.toastManager;
+        const hourOfDay = moment().add(1, 'hour').hour();
+        console.log('hour of the day', hourOfDay);
+
         this.state = {
             loading: false,
             disableStartDate: false,
@@ -36,8 +40,8 @@ class CreateSteadySaveForm extends Component {
                 contribution: null,
                 start_date: "N/A",
                 frequency: "daily",
-                hour_of_day: moment().add(1, 'hour'),
-                day_of_the_week: '2',
+                hour_of_day: hourOfDay,
+                day_of_week: '2',
                 day_of_month: '1',
                 payment_auth: null,
                 raw: null,
@@ -109,39 +113,30 @@ class CreateSteadySaveForm extends Component {
 
     //submit steady save form
     submitForm = (e) => {
-        const {contribution, frequency} = this.state.form;
+        const {form: {contribution, frequency, start_date}} = this.state;
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
             this.forceUpdate();
         } else {
+            console.log('form data ', this.state.form);
             const valid = validateSteadySaveAmount(contribution, frequency, this);
-            console.log("here", this.state.form);
-            if (valid) {
+            console.log('start date ', start_date, frequency, contribution);
+            if (start_date == "N/A") toastMessage('Please Select Start Date', 'error', this)
+            else if (valid) {
                 this.setState({loading: true});
-
                 createSteadySave(this.state.form, (status, payload) => {
                     this.setState({loading: false});
                     if (!status) {
-                        this.toastManager.add(JSON.stringify(payload), {
-                            appearance: "error",
-                            autoDismissTimeout: 5000,
-                            autoDismiss: true
-                        });
+                        toastMessage(JSON.stringify(payload), "error", this);
                     } else {
-                        this.toastManager.add("New steady save created successfully", {
-                            appearance: "success",
-                            autoDismissTimeout: 3000,
-                            autoDismiss: true
-                        });
-                        console.log(payload);
+                        toastMessage("New steady save created successfully", "success", this);
                         setTimeout(() => {
                             this.props.onHide()
                         }, 2000);
                         this.props.setupSteadySave();
                         //set timeout
                     }
-                    console.log("res", status, payload);
                 })
             }
         }
@@ -152,7 +147,7 @@ class CreateSteadySaveForm extends Component {
     render() {
         const {form, userCards, disableStartDate} = this.state;
         const hourOptions = moment(form.start_date).format(dateFormat) == moment().format(dateFormat) ?
-            displayHours('desc')() : displayHours()() ;
+            displayHours('desc')() : displayHours()();
         const showHour = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Hour of the day</Form.Label>
@@ -209,7 +204,7 @@ class CreateSteadySaveForm extends Component {
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Day of the Week</Form.Label>
                 <Form.Control as="select" value={form.day_of_week} onChange={this.changeHandler}
-                              id="day_of_the_week" name="day_of_the_week">
+                              id="day_of_week" name="day_of_week">
                     <option value={'2'}>Mon</option>
                     <option value={'3'}>Tue</option>
                     <option value={'4'}>Wed</option>

@@ -496,7 +496,7 @@ class Home extends Component {
                                                             <p>Thanks for the app. I feel so proud to actually be able
                                                                 to start a saving culture. Over time i will save even
                                                                 more.</p>
-                                                            <h4 className="comment-name">Bunmi Oloidi</h4>
+                                                            <h4 className="comment-name">Bunmi Akinfenwa</h4>
                                                             <span>Entrepreneur</span>
                                                             <img className="comment" src={commentIcon} alt="comment"/>
                                                         </div>

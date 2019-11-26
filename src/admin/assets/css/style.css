@@ -2581,7 +2581,7 @@ html body .content.app-content {
     padding: 8px;
     pointer-events: auto;
     position: fixed;
-    z-index: 99999999;
+    z-index: 99999999999999;
     top: 10%;
     right: 2%;
 }

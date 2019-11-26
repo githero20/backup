@@ -122,7 +122,7 @@
     }
 
     .modal {
-        z-index: 20000000000;
+        z-index: 2000000000;
     }
 
     .modal-backdrop {
@@ -130,7 +130,7 @@
     }
 
     .css-e110bw {
-        z-index: 20000000000000 !Important;
+        z-index: 200000000000000000000 !Important;
         top: 0 !important;
         left: 0 !important;
     }

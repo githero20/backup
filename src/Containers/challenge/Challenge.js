@@ -13,8 +13,9 @@ const Challenge = () => {
                 <header className="challenge-hero hero-bg">
                     <div className="container">
                         <Navigation/>
-                        <Header slides={slides} label={'21 day Challenge is over'}
-                                text={'We are happy to announce that the 21 day Challenge is over and ' +
+                        <Header slides={slides} label={'21 Days Challenge \n is Over'}
+                                textClassName={'pt-3'}
+                                text={'We are happy to announce that the 21 days Challenge is over and ' +
                                 'winners have been selected. You can keep saving and continue to earn interest on your funds.'}/>
                         {/*<div className="row mt-lg-5 pt-md-5">*/}
                         {/*    <div className="col-lg-4 offset-lg-4">*/}

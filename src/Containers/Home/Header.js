@@ -4,18 +4,18 @@ import facebookCreateBtn from "../../admin/app-assets/images/create-with-whatsap
 import whatsappCreateBtn from "../../admin/app-assets/images/create-with-facebook@2x.png";
 import ReactOwlCarousel from "react-owl-carousel";
 
-const Header = ({button, slides, label, text,className}) => {
+const Header = ({button, slides, label, text,className ,textClassName}) => {
     return (
         <Fragment>
             <div className="row pt-lg-1">
                 <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
                     <div className="header-words-container pt-lg-5 pr-lg-3">
-                        <h1 className="animated fadeInDown delay-1s fast header-title mt-5 mt-lg-0 mb-1 mb-md-3 mt-md-0  px-2 px-sm-0 ">
+                        <h1 className={`animated fadeInDown delay-1s fast header-title mt-5 mt-lg-0 mb-1 mb-md-3 mt-md-0 ${textClassName} px-2 px-sm-0`}>
                             {label ? label : <>Earn up to <strong>13% </strong><br/>interest on Savings.</>}
                         </h1>
                         {text ?
                             <>
-                                <p className="header-sub-title animated fadeInDown fast delay-1s">{text}</p>
+                                <p className={`header-sub-title animated fadeInDown fast delay-1s `}>{text}</p>
                             </> :
                             <>
                                 <p className="header-sub-title animated fadeInDown fast delay-1s">Save as little as <strong>₦500 </strong></p>

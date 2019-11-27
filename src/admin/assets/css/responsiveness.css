@@ -275,6 +275,16 @@
         font-size: 1rem;
     }
 
+    .hero-carousel.owl-carousel .owl-nav button.owl-prev, .hero-carousel.owl-carousel .owl-nav button.owl-next {
+        color: white;
+        width: 3rem;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        height: 3rem;
+        border-radius: 0;
+        background-color: #367BFF;
+    }
+
 }
 
 

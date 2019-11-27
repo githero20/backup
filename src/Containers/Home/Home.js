@@ -31,6 +31,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import moment from 'moment';
 import {SESSION_INTERVAL, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
 import Navigation from "./Navigation";
+import Header from "./Header";
 
 class Home extends Component {
 
@@ -122,6 +123,15 @@ class Home extends Component {
 
     render() {
         const {isLoggedIn} = this.state;
+        const slides = [
+            // {img:require('../../admin/app-assets/images/slider/IMG-20191025-WA0004.jpg')},
+            // {img:require('../../admin/app-assets/images/slider/IMG-20191025-WA0007.jpg')},
+            {img:require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')},
+            {img:require('../../admin/app-assets/images/slider/mybackupcash_2___B2vzESsl0TG___.jpg')},
+            {img:require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')},
+            {img:require('../../admin/app-assets/images/slider/mybackupcash_2___B23mgrTlfLp___.jpg')},
+            {img:require('../../admin/app-assets/images/slider/mybackupcash___B206V6_lxNQ___.jpg')},
+        ];
         return (
             <React.Fragment>
                 <div className={'homeBody'}>
@@ -132,77 +142,7 @@ class Home extends Component {
                                 <div className="container">
                                     <Navigation isLoggedIn={isLoggedIn} scrollIntoView={this.scrollIntoView}/>
                                     {/*row and two columns */}
-                                    <div className="row pt-lg-1">
-                                        <div className="col-lg-6 mt-md-5 mt-lg-0 text-center text-lg-left">
-                                            <div className="header-words-container pt-lg-5 pr-lg-3">
-                                                <h1 className="animated fadeInDown delay-1s fast header-title mt-5 mt-lg-0 mb-1 mb-md-3 mt-md-0  px-2 px-sm-0 ">
-                                                    Earn up to <strong>13% </strong><br/>
-                                                    interest on Savings.
-                                                </h1>
-                                                <p className="header-sub-title animated fadeInDown fast delay-1s">
-                                                    Save as little as <strong>₦500 </strong>
-                                                </p>
-                                                <p className="header-sub-title animated fadeInDown fast delay-1s mb-3">
-                                                    Save Money , Grow Wealth.
-                                                    {/*     */}
-                                                </p>
-                                                <Link to={'/sign-up'}
-                                                      className="btn px-5 btn-light-blue-round btn-hover-shadow animated fadeIn fast delay-1s">Create a
-                                                    free account</Link>
-                                                <div
-                                                    className="hero-cta-btn-container pt-3 mb-3  d-lg-flex text-center animated fadeIn fast delay-1s">
-                                                    <a href='https://www.messenger.com/t/BackUpCash' rel='noreferrer'
-                                                       target='_blank'>
-                                                        <img src={facebookCreateBtn} className=' cursor-pointer mr-1'
-                                                             alt="facebook create button"/>
-                                                    </a>
-                                                    <a href="https://api.whatsapp.com/send?phone=18883699915"
-                                                       target='_blank'>
-                                                        <img src={whatsappCreateBtn} className=' cursor-pointer'
-                                                             alt="whatsapp create button"/>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div
-                                            className="col-lg-6 mt-md-5 mt-lg-0 text-center pt-lg-2 text-lg-left d-none d-lg-block">
-                                            <ReactOwlCarousel
-                                                className="owl-theme hero-carousel"
-                                                loop
-                                                margin={10}
-                                                autoplay={1000}
-                                                autoplayTimeout={5000}
-                                                dots={false}
-                                                responsiveClass={true}
-                                                items={1}
-                                                nav={true}
-                                            >
-                                                <img
-                                                    src={require('../../admin/app-assets/images/slider/IMG-20191025-WA0004.jpg')}
-                                                    className='item hero-slide-item ' alt="first slide image"/>
-                                                <img
-                                                    src={require('../../admin/app-assets/images/slider/IMG-20191025-WA0007.jpg')}
-                                                    className='item hero-slide-item ' alt="first slide image"/>
-                                                <img
-                                                    src={require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')}
-                                                    className='item hero-slide-item ' alt="first slide image"/>
-                                                <img
-                                                    src={require('../../admin/app-assets/images/slider/mybackupcash_2___B2vzESsl0TG___.jpg')}
-                                                    className='item hero-slide-item ' alt="first slide image"/>
-                                                <img
-                                                    src={require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')}
-                                                    className='item hero-slide-item ' alt="first slide image"/>
-
-
-                                                <img
-                                                    src={require('../../admin/app-assets/images/slider/mybackupcash_2___B23mgrTlfLp___.jpg')}
-                                                    className='item hero-slide-item ' alt="first slide image"/>
-                                                <img
-                                                    src={require('../../admin/app-assets/images/slider/mybackupcash___B206V6_lxNQ___.jpg')}
-                                                    className='item hero-slide-item ' alt="first slide image"/>
-                                            </ReactOwlCarousel>
-                                        </div>
-                                    </div>
+                                    <Header slides={slides} button className='d-none'/>
                                 </div>
                             </header>
 
@@ -440,13 +380,6 @@ class Home extends Component {
                                                      alt="award image one"/>
                                             </div>
                                         </div>
-                                        {/*<div className="col-md-6">*/}
-                                        {/*    <div className="award-card p-3 p-md-1 p-lg-3 mb-3 ">*/}
-                                        {/*        <img className='w-100'*/}
-                                        {/*             src={require('../../admin/app-assets/images/award-2.png')}*/}
-                                        {/*             alt="award image one"/>*/}
-                                        {/*    </div>*/}
-                                        {/*</div>*/}
                                     </div>
                                 </div>
                             </section>

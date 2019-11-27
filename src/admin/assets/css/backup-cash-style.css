@@ -200,6 +200,7 @@ section {
 
 .challenge-hero {
     background: url("../../app-assets/images/challenge/hero.png");
+    background:none;
     background-size: cover;
 }
 

@@ -56,9 +56,7 @@ class HorizontalNav extends Component {
             }
             // const user = getLocalStorage(USERINFO);
 
-        } catch (e) {
-            console.log(e);
-        }
+        } catch (e) {}
     }
 
     showMobileMenu = () => {

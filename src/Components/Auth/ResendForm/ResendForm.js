@@ -40,8 +40,6 @@ class ResendForm extends Component {
         const {toastManager} = this.props;
 
         if (state) {
-
-            console.log(response);
             if(response){
 
                 toastManager.add(`${response.data.message}`, {
@@ -56,7 +54,6 @@ class ResendForm extends Component {
         } else {
 
             if (response) {
-                console.log(response.data);
                 toastManager.add(`${response.data.error}`, {
                     appearance: 'error',
                 });

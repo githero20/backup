@@ -78,7 +78,6 @@ class BankForm extends Component {
                     this.setState({loading: false, resolved: true, form});
                 } else {
                     this.setState({loading: false});
-                    console.log('error', payload);
                     if (payload != null && payload.status == 422) {
                         toastMessage(payload.data.message, 'error', this);
                     }
@@ -88,9 +87,6 @@ class BankForm extends Component {
     }
 
 
-    componentDidMount() {
-        console.log('props', this.props);
-    }
 
     render() {
 

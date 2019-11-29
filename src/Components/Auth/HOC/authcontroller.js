@@ -107,7 +107,6 @@ const AuthController = component => {
                                         timer: 2000
                                     });
                                 } else {
-                                    console.log('err', response);
                                     swal('Oops!!', `Unable to login at the moment.Try Again`, 'warning', {
                                         button: false,
                                         timer: 2000
@@ -145,9 +144,7 @@ const AuthController = component => {
                                     setLocalStorage(USERACTIVATED, false);
                                 } else handleUserAuth();
                             }
-                        } catch (e) {
-                            console.log("Error", e);
-                        }
+                        } catch (e) {}
 
                     }
                 )

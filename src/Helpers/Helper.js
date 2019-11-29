@@ -176,7 +176,6 @@ export function getCards(key, object) {
 
 export function getCardsFromStorage(key, object) {
 	const userInfo = getLocalStorage(key);
-	console.log('cards info',userInfo,filterUserCards(userInfo));
 	if (userInfo != undefined) {
 		object.setState({
 			userCards: filterUserCards(userInfo)

@@ -70,7 +70,6 @@ class Home extends Component {
                     isLoggedIn: false
                 })
             } else if (diff > moment().subtract(50, 'minutes') && user != null) {
-                console.log(diff.fromNow());
                 this.setState({
                     isLoggedIn: true
                 })

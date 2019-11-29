@@ -50,14 +50,12 @@ export const sendBankOTP = (payload, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err",err);
             checkResponse(err);
             callback(false, err.response);
         })
 };
 
 export const resendBankOTP = (payload, callback) =>{
-    console.log("body", payload);
     _axios.post(`${BASE_URL}/${ResendBankOTP}`,payload,{
         headers: _getHeader()
     })
@@ -80,7 +78,6 @@ export const verifyOtp = (payload, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err",err);
             checkResponse(err);
             callback(false, err.response);
         })

@@ -49,7 +49,6 @@ class BackupGoalQuickActions extends React.Component {
 
     //validate form
     handleFrequencySelect(form, inverse = false) {
-        // console.log(form);
         if (inverse) {
             if (form.frequency == "daily") {
                 form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date, "days")) || 0;
@@ -106,19 +105,15 @@ class BackupGoalQuickActions extends React.Component {
             }
         }
 
-
-        // console.log("Form", form);
     }
 
     submitForm = (e) => {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
-            console.log('error');
             // rerender to show messages for the first time
             this.forceUpdate();
         } else {
-            console.log('worked');
             //show loader
             this.setState({
                 loading: true,
@@ -126,7 +121,6 @@ class BackupGoalQuickActions extends React.Component {
 
             if (parseInt(this.state.form.payment_auth) === 0) {
                 //initiate paystack
-                console.log('got here to initiate paystack');
                 this.initiatePayStack();
             } else {
 
@@ -136,15 +130,12 @@ class BackupGoalQuickActions extends React.Component {
                     this.setState({
                         loading: false,
                     });
-                    console.log("Res", status, payload);
                     if (status) {
-                        console.log("here");
                         this.props.toastManager.add("Backup Goal Saved.", {
                             appearance: "success"
                         });
                         setTimeout(() => this.props.onHide(true), 2000);
                     } else {
-                        // console.log(payload, "Message", this.toastManager);
                         this.props.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
                             appearance: "error",
                             autoDismiss: true,
@@ -179,7 +170,6 @@ class BackupGoalQuickActions extends React.Component {
             this
         );
 
-        // console.log("megg", event.target.name, event.target.value);
         this.handleFrequencySelect(form, inverse);
 
     };
@@ -212,30 +202,6 @@ class BackupGoalQuickActions extends React.Component {
             buttons: true,
         }).then((willStop) => {
             if (willStop) {
-
-                //get penalty endpoint
-                // getPenalty((status,res)=>{
-                //     if(status){
-                //         const penalty = this.calculatePenalty(res.withdraw_penalty,this.props.selectedBGHistory);
-                //         swal(
-                //             {
-                //                 title:  'BackupGoals',
-                //                 text: 'Note : This fund will be available for withdrawal in your Backup Stash.\n' +
-                //                     `However, a penalty fee of ₦ ${penalty} will be deducted from your account `,
-                //                 icon: "warning",
-                //                 buttons: true,
-                //             }).then((willStop)=>{
-                //                 if(willStop){
-                //                     stopBGoal(id, this.handleStopResponse);
-                //                 }
-                //         });
-                //
-                //     }else {
-                //         console.log('error occurred',status,res);
-                //     }
-                // });
-                //
-
                 swal({
                     title: 'BackupGoals',
                     text: ' This fund will be transferred to your central vault',
@@ -259,7 +225,7 @@ class BackupGoalQuickActions extends React.Component {
     handleStopResponse = (status, res) => {
 
         if (status) {
-            console.log(res);
+
             swal("You have successfully stopped your backup goal.", {
                 icon: "success",
             }).then(() => {
@@ -267,7 +233,7 @@ class BackupGoalQuickActions extends React.Component {
                 this.props.updateSelectedBG(res);
             });
         } else {
-            console.log(res);
+
             swal("Something went wrong.", {
                 icon: "error",
             });
@@ -340,7 +306,6 @@ class BackupGoalQuickActions extends React.Component {
     componentDidMount() {
 
         this.props.showBackUpHistory(this.props.selectedBG.id);
-        console.log('is completed', isGoalCompleted(this.props.selectedBG));
     }
 
 

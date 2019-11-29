@@ -97,7 +97,6 @@ class UpdateWithdrawalPin extends Component {
 
             form.old_withdrawal_pin = form.old_pin_one + form.old_pin_two + form.old_pin_three + form.old_pin_four;
             this.setState({form});
-            // console.log('withdrawal pin', form['withdrawal_pin']);
         }
 
         if (name == 'new_pin_one' || name == 'new_pin_two' || name == 'new_pin_three' || name == 'new_pin_four') {

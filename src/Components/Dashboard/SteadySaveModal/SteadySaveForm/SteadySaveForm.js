@@ -209,7 +209,6 @@ class SteadySaveForm extends Component {
         const customDisable = !this.props.steadySave.id;
         const enableStart = !this.props.steadySave.id;
         const showPause = this.props.steadySave.raw ? Number(this.props.steadySave.raw.is_pause) : false;
-        console.log('steady save',this.props.steadySave);
         return (
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>

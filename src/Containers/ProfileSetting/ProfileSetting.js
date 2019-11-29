@@ -31,7 +31,7 @@ class ProfileSetting extends Component {
                 showLoader:false
             })
         }else{
-            console.log(res);
+
         }
         //
         // this.setState({
@@ -44,7 +44,6 @@ class ProfileSetting extends Component {
         //make request
         this.setState({showLoader:true});
         request(getUserInfoEndpoint, null, true, 'GET', this.setupProfile);
-        console.log('setting up profile');
     };
 
     componentDidMount() {

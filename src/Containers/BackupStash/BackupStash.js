@@ -62,7 +62,6 @@ class BackupStash extends Component {
     };
 
     showTransLockedSavingModal = () => {
-        console.log('Transfer to Locked Saving Modal');
         this.setState({
             showTransferLockedSavings: true
         });
@@ -77,7 +76,6 @@ class BackupStash extends Component {
         }
     };
     showTransToCentralVaultModal = () => {
-        console.log('Transfer to Central Vault Modal');
         this.setState({
             showTransToCentralVault: true
         });
@@ -94,8 +92,6 @@ class BackupStash extends Component {
 
         //handle response
         if (status) {
-
-            console.log(data.data.data);
             if(data){
                const userName = data.data.data.name;
                 this.setState({
@@ -104,20 +100,16 @@ class BackupStash extends Component {
             }
 
             if (data.data.data.accounts) {
-
-                console.log(data.data.data.accounts)
                 // loop through data and set appropriate states
                 let accounts = data.data.data.accounts.data;
 
                 //display total balance
                 accounts.map((content, idx) => {
                     if (content.account_type_id == INTEREST_ACCOUNT) {
-                        console.log(content.balance);
                         this.setState({
                             totalStash: formatNumber(content.balance)
                         })
                     }else if (content.account_type_id == STANDARD_ACCOUNT) {
-                        console.log(content.balance);
                         this.setState({
                             vaultBalance:content.balance,
                         })
@@ -128,7 +120,6 @@ class BackupStash extends Component {
 
 
             } else {
-                console.log(data);
                 return null;
             }
 
@@ -139,18 +130,11 @@ class BackupStash extends Component {
     };
 
 
-    getTotalInstantSave(transactions) {
-        console.log(transactions);
-        if (transactions) {
-            const sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
-            return sum.amount;
-        }
-    }
 
     analyseStashTrans = (status,res)=>{
 
         if(status){
-            console.log(res);
+
             if(res){
                 this.setState({
                     transactions:res.data.data

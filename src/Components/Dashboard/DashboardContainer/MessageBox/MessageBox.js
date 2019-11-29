@@ -83,11 +83,8 @@ class MessageBox extends Component {
     }
 
     handlePoints = (status, res) => {
-        console.log('res', res);
         if (status) {
             this.setState({userPoint: res.data, numOfUser: res.user})
-        } else if (!status && res) {
-            console.log('points error', status, res);
         }
 
     };

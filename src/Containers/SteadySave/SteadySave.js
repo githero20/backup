@@ -6,10 +6,12 @@ import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-i
 import {request} from "../../ApiUtils/ApiUtils";
 import SteadySaveCard from "../../Components/Dashboard/SteadySaveCard/SteadySaveCard";
 import {
-    actionFormatter, contributionFormatter,
+    actionFormatter,
+    contributionFormatter,
     dateFormatter,
     descriptionFormatter,
-    formatNumber, getSteadySaveData,
+    formatNumber,
+    getSteadySaveData,
     getTodaysDate,
     getToken,
     getTotalFailed,
@@ -22,7 +24,9 @@ import {
     STANDARD_ACCOUNT,
     statusFormatter,
     steadyStatusFormatter,
-    titleFormatter, toastMessage, toastReloadMessage, toggleTable,
+    titleFormatter,
+    toastMessage,
+    toggleTable,
     viewFormatter
 } from "../../Helpers/Helper";
 import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
@@ -66,6 +70,8 @@ class SteadySave extends Component {
                 start_date: getTodaysDate(),
                 frequency: null,
                 hour_of_day: 0,
+                day_of_month: 1,
+                day_of_week: 1,
                 payment_auth: null,
                 raw: null
             },
@@ -75,6 +81,8 @@ class SteadySave extends Component {
                 start_date: getTodaysDate(),
                 frequency: null,
                 hour_of_day: 0,
+                day_of_month: 1,
+                day_of_week: 1,
                 payment_auth: null,
                 raw: null
             },
@@ -99,6 +107,7 @@ class SteadySave extends Component {
             }
         );
     };
+
     hidePayModal = () => {
         this.setState({
                 showPayModal: false
@@ -145,6 +154,7 @@ class SteadySave extends Component {
 
             const temp = res.data.data;
             if (temp && temp.length > 0) {
+
                 let steadySave = {
                     id: temp[0].id,
                     contribution: temp[0].start_amount,
@@ -154,11 +164,10 @@ class SteadySave extends Component {
                     payment_auth: temp[0].gw_authorization_code,
                     raw: temp[0]
                 };
-                this.setState({steadySave});
+
+                this.setState({steadySave: {...this.state.steadySave,...steadySave}});
             }
 
-        } else if (!state && res) {
-            console.log('err', res);
         }
 
     };
@@ -233,7 +242,6 @@ class SteadySave extends Component {
 
     handleSSaveTrans = (status, res) => {
         //TODO calc total steady save
-        console.log('steady save trans', status, res);
         if (status && res) {
             const trans = getSteadySaveData(res.data);
             this.setState({
@@ -251,7 +259,6 @@ class SteadySave extends Component {
 
     handleSSaveHistory = (status, res) => {
         //TODO calc total steady save
-        console.log('steady save history', status, res);
 
         if (status && res) {
             let data = res.savings_plan_history.data;
@@ -383,7 +390,8 @@ class SteadySave extends Component {
                                 payment_auth: row.gw_authorization_code,
                                 raw: row
                             };
-                            this.setState({oneSteadySave});
+
+                            this.setState({oneSteadySave: {...this.state.oneSteadySave, ...oneSteadySave}});
                             this.showOneSSModal();
 
                         }
@@ -480,7 +488,7 @@ class SteadySave extends Component {
                                 payment_auth: row.gw_authorization_code,
                                 raw: row
                             };
-                            this.setState({oneSteadySave});
+                            this.setState({oneSteadySave: {...this.state.oneSteadySave, ...oneSteadySave}});
                             this.showOneSSModal();
 
                         }

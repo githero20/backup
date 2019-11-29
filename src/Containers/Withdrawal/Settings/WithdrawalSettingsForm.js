@@ -52,7 +52,6 @@ class WithdrawalSettingsForm extends Component {
 				]
             };
 
-            console.log('params',param);
             createWithdrawalSettings(param, (status, payload) => {
                 this.setState({loading: false});
                 if (status) {

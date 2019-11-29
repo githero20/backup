@@ -86,10 +86,7 @@ class WithdrawalForm extends Component {
     }
 
     getBalance = () => {
-
-        // console.log('ran request');
         request(getUserInfoEndpoint, null, true, 'GET', this.saveBalance);
-
     };
 
     saveBalance = (state, res) => {
@@ -119,7 +116,6 @@ class WithdrawalForm extends Component {
         // e.preventDefault();
         getWithdrawalSettings((status, payload) => {
             this.setState({loading: false});
-            console.log('withdrawal settings', payload);
             if (status) {
                 this.setState({withdrawalSettings: payload.data, settingsOwner: payload.owner});
                 this.getNextWithdrawalDate(payload.data);
@@ -165,8 +161,6 @@ class WithdrawalForm extends Component {
             if (status) {
                 if (payload && payload.length > 0) {
                     this.setState({userBanks: payload});
-                } else {
-                   console.log('err getting card',payload);
                 }
             }
         });
@@ -238,9 +232,7 @@ class WithdrawalForm extends Component {
                     break;
                 }
             }
-        } catch (e) {
-            console.log(e);
-        }
+        } catch (e) {}
     }
 
     onSubmit(e) {
@@ -336,7 +328,6 @@ class WithdrawalForm extends Component {
         const {form} = this.state;
         this.setState({loading: true});
         makeWithdrawal(form, (status, payload) => {
-            console.log("response", status, payload);
             this.setState({loading: false});
             if (status) {
                 this.props.toastManager.add("Withdrawal Successful", {

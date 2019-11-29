@@ -18,7 +18,7 @@ import {checkResponse} from "../ApiUtils/ApiUtils";
 
 
 export const getBackUpSavings = (callback) =>{
-    // console.log("body", payload);
+
     _axios.get(`${GetBackUpGoals}`,{
         headers: _getHeader()
     })
@@ -36,7 +36,6 @@ export const getBackUpSavings = (callback) =>{
 };
 
 export const getPenalty = (callback) =>{
-    // console.log("body", payload);
     _axios.get(`${GetWithdrawalPenalty}`,{
         headers: _getHeader()
     })
@@ -44,10 +43,6 @@ export const getPenalty = (callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            // checkResponse(err);
-            // if(err.response){
-            //     callback(false, err.response.data.message || "AN Error Occurred");
-            // }
             checkResponse(err);
             callback(false, err.response);
         })
@@ -61,7 +56,6 @@ export const payBGDue = (payload, callback) =>{
             callback(true, res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
             // if(err.response){
             //     callback(false, err.response.data.message || "AN Error Occurred");
             // }
@@ -73,16 +67,13 @@ export const payBGDue = (payload, callback) =>{
 
 
 export const initBGDuePay = (payload, callback) =>{
-    console.log("body", payload);
     _axios.post(InitiateBGDuePayEndpoint,payload,{
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err",err);
             // if(err.response){
             //     callback(false, err.response.data.message|| err.response.data.data);
             // }
@@ -96,12 +87,9 @@ export const verifyBGPayDue = (payload, callback) =>{
         headers: _getHeader()
     })
         .then(res => {
-            console.log("Res",res);
             callback(true, res.data.data);
         })
         .catch(err => {
-            console.log("Err",JSON.stringify(err));
-            console.log("Err",err);
             // if(err.response){
             //     callback(false, err.response.data.message|| err.response.data.data);
             // }
@@ -122,9 +110,7 @@ export const getBackUpGoalAndHistory = (id, callback) =>{
             callback(true, res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
             try{
-                console.log("Err", JSON.stringify(err));
                 // if(err.response){
                 //     callback(false, err.response.data.message || "AN Error Occurred");
                 // }
@@ -150,9 +136,8 @@ export const getBackUpGoalAndTrans = (id, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
             try{
-                console.log("Err", JSON.stringify(err));
+
                 // if(err.response){
                 //     callback(false, err.response.data.message || "AN Error Occurred");
                 // }
@@ -177,9 +162,9 @@ export const pauseBGoal = (id, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
+
             try{
-                console.log("Err", JSON.stringify(err));
+
                 // if(err.response){
                 //     callback(false, err.response.data.message || "AN Error Occurred");
                 // }
@@ -205,9 +190,9 @@ export const continueBGoal = (id, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
+
             try{
-                console.log("Err", JSON.stringify(err));
+
                 // if(err.response){
                 //     callback(false, err.response.data.message || "AN Error Occurred");
                 // }
@@ -232,9 +217,9 @@ export const editBGoal = (id,params, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
+
             try{
-                console.log("Err", JSON.stringify(err));
+
                 // if(err.response){
                 //     callback(false, err.response.data.message || "AN Error Occurred");
                 // }
@@ -260,9 +245,9 @@ export const stopBGoal = (id, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
+
             try{
-                console.log("Err", JSON.stringify(err));
+
                 // if(err.response){
                 //     callback(false, err.response.data.message || "AN Error Occurred");
                 // }
@@ -278,7 +263,6 @@ export const stopBGoal = (id, callback) =>{
 
 
 export const createBackUpGoal = (params, callback) =>{
-    // console.log("body", payload);
     _axios.post(`${createBackupGoals}`, params,{
         headers: _getHeader()
     })
@@ -286,7 +270,6 @@ export const createBackUpGoal = (params, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err",JSON.stringify(err));
             // callback(false, err.response.data.message || "AN Error Occurred");
             checkResponse(err);
             callback(false, err.response);

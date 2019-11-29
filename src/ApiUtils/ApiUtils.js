@@ -27,7 +27,6 @@ export function api(url, params, token, method, callback) {
             callback(true, res)
         })
             .catch(err =>{
-                console.log("rea", err);
                 if(err.response)callback(false,err.response);
                 callback(false, err);
             })
@@ -72,7 +71,6 @@ export function request(url, params, token, method, callback) {
          axios.patch(url, header).then(res => callback(true, res))
             .catch(err => {
                 if(err.response){
-                    console.log(err.response);
                     if(err.response.status===401){
                         localStorage.clear();
                         window.location = "/login";
@@ -85,7 +83,6 @@ export function request(url, params, token, method, callback) {
         axios.patch(url, header).then(res => callback(true, res))
             .catch(err => {
                 if(err.response){
-                    console.log(err.response);
                     if(err.response.status === 401){
                         localStorage.clear();
                         window.location = "/login";
@@ -206,14 +203,9 @@ export function apiGet(url, token, callback) {
 
 export const checkResponse = (err)=>{
   try{
-      if(err.response.status===401){
-          console.log(err.response);
-          // localStorage.clear();
-          // window.location = "/login";
-      }
+      if(err.response.status===401){}
   }catch (e) {
       console.log(err, JSON.stringify(err));
-      // swal('Poor Connection','','warning');
   }
 };
 

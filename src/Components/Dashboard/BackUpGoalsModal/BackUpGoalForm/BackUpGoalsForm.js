@@ -52,7 +52,6 @@ class BackUpGoalsForm extends Component {
 
     //validate form
     handleFrequencySelect(form, inverse = false) {
-        // console.log(form);
         if (inverse) {
             if (form.frequency == "daily") {
                 form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date, "days")) || 0;
@@ -83,7 +82,7 @@ class BackUpGoalsForm extends Component {
         } else {
             if (form.frequency == "daily") {
                 form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "days") * form.contribution) || 0;
-                console.log('daily goal amount', form.goal_amount);
+
                 this.setState({
                     showMonth: false,
                     showDay: false,
@@ -100,7 +99,6 @@ class BackUpGoalsForm extends Component {
                     form
                 });
             } else if (form.frequency == "monthly") {
-                console.log('monthly goal amount', form.goal_amount);
 
                 form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date, "months") * form.contribution) || 0;
                 this.setState({
@@ -134,15 +132,12 @@ class BackUpGoalsForm extends Component {
                     this.setState({
                         loading: false,
                     });
-                    console.log("Res", status, payload);
                     if (status) {
-                        console.log("here");
                         this.props.toastManager.add("Backup Goal Saved.", {
                             appearance: "success"
                         });
                         setTimeout(() => this.props.onHide(true), 2000);
                     } else {
-                        // console.log(payload, "Message", this.toastManager);
                         this.props.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
                             appearance: "error",
                             autoDismiss: true,
@@ -171,7 +166,6 @@ class BackUpGoalsForm extends Component {
 
         const name = event.target.name;
         const value = event.target.value;
-        console.log(name, value);
         if (name == 'payment_auth' && value == 'add') {
             this.setState({
                 addCard: true
@@ -181,7 +175,6 @@ class BackUpGoalsForm extends Component {
                 addCard: false
             })
         }
-        // console.log("megg", event.target.name, event.target.value);
         this.handleFrequencySelect(form, inverse);
 
     };

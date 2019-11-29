@@ -17,7 +17,6 @@ export const _handleFormChange = (name, event, el = this, callback = null) => {
     let form = {...el.state.form};
     form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     el.setState({form});
-    // console.log(name, event.target.value, form);
     if(callback != null){
         callback();
     }
@@ -133,19 +132,15 @@ export const _calculateDateDifference = (from = null, to = null, type = "days") 
     //     to = moment().utc();
 
     //dddd, MMMM Do YYYY
-    console.log("fromto", from, to);
     if(to == null)
         to = moment().utc();
     else
         to = moment(to, "YYYY-MM-DD").endOf("day");
-    console.log("to", to);
 
     if(from == null)
         from = moment().utc();
     else
         from = moment(from,"YYYY-MM-DD").startOf("day");
-    console.log("from", from,'type',type);
-    console.log("difference",Math.ceil(to.diff(from,type,true))) ;
     return Math.ceil(to.diff(from,type,true));
 };
 
@@ -184,7 +179,6 @@ export const _payWithPaystack = (ref, amount, callback) => {
         },
 
         onClose: function(){
-            console.log("Paystack Closed");
             window.location.reload();
         }
     });

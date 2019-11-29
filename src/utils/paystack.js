@@ -10,7 +10,6 @@ export const _createPaystackPopup = async (email, amount, transactionId, resolve
     callback: function(response){
         resolvePayment(response);
         // let r = await response;
-        console.log(response);
         return Promise.resolve(response);
         // alert('success. transaction ref is ' + response.reference);
     },

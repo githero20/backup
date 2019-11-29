@@ -29,14 +29,6 @@ class ProfileForm extends Component {
         this.toastMessage = this.toastMessage.bind(this);
     }
 
-    //Retrieves user inputs
-    // changeHandler = event => {
-    //     const name = event.target.name;
-    //     const value = event.target.value;
-    //     let userProfile = {...this.state.userProfile};
-    //     userProfile[name] = value;
-    //     this.setState({userProfile});
-    // };
 
     toastMessage(message, status) {
         const {toastManager} = this.props;
@@ -48,21 +40,7 @@ class ProfileForm extends Component {
         })
     }
 
-    // submitForm = (e) => {
-    //     e.preventDefault();
-    //     if (this.validator.allValid()) {
-    //         updateUserProfile(this.state.userProfile, (state, res) => {
-    //             console.log('res', state, res);
-    //         })
-    //     } else {
-    //         this.validator.showMessages();
-    //         this.forceUpdate();
-    //     }
-    // };
 
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({userProfile: nextProps.userProfile})
-    // }
 
 
     copyToClipboard = (e) => {
@@ -97,14 +75,12 @@ class ProfileForm extends Component {
         updateEmailProfile(this.state, (status, response) => {
             this.setState({loading: false});
             if (status) {
-                console.log(response);
                 toastMessage('Email updated successfully!!', 'success', this);
                 // this.setState({
                 //
                 // })
             } else {
                 if (response && response.data) {
-                    console.log('error', response);
                     let errors = response.data.errors;
                     let errorData = Object.values(errors);
                     errorData.map((err, idx) => {
@@ -224,13 +200,6 @@ class ProfileForm extends Component {
                                         </div>
 
                                     </div>
-                                    {/*<div className="col-12 text-center mt-2  text-md-right">*/}
-                                    {/*    <button type="button" onClick={this.submitForm} disabled={this.state.loading}*/}
-                                    {/*            className="btn-custom-blue round ">*/}
-                                    {/*        {this.state.loading ? <ButtonLoader/> :*/}
-                                    {/*            <span>Update Profile</span>}*/}
-                                    {/*    </button>*/}
-                                    {/*</div>*/}
 
                                 </div>
 

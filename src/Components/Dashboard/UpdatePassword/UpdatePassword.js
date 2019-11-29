@@ -86,7 +86,6 @@ class UpdatePassword extends Component {
             loading: false
         });
         if (state) {
-            console.log(response.data.message);
             toastManager.add(`${response.data.message}`, {
                 appearance: 'success',
                 autoDismiss: true,
@@ -100,10 +99,8 @@ class UpdatePassword extends Component {
             });
 
         } else {
-            console.log("error" + JSON.stringify(response));
             if (response) {
                 if (response.data.message) {
-                    console.log(response.data.message);
                     toastManager.add(`${response.data.message}`, {
                         appearance: 'error',
                         autoDismiss: true,

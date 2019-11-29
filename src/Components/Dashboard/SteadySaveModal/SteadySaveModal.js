@@ -69,12 +69,13 @@ class SteadySaveModal extends React.Component {
                                 />
                         }
                         {
-                            this.state.showStart?<CreateSteadySaveModal
-                                show={this.state.showStart}
-                                setupSteadySave={this.props.setupSteadySave}
-                                steadySave={this.props.steadySave}
-                                onHide={this.props.onHide}
-                            />:null
+                            this.state.showStart?
+                                <CreateSteadySaveModal
+                                    show={this.state.showStart}
+                                    setupSteadySave={this.props.setupSteadySave}
+                                    steadySave={this.props.steadySave}
+                                    onHide={this.props.onHide}
+                                />: null
                         }
                     </ToastProvider>
                 </Modal.Body>

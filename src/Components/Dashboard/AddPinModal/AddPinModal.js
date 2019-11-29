@@ -132,7 +132,6 @@ class AddPinModal extends Component {
                     this.props.onHide();
                 }, 3000);
         } else {
-           console.log(res);
             // toastManager.add(`${JSON.stringify(res.data.message)}`, {
             //     appearance: 'error',
             //     autoDismiss: true,

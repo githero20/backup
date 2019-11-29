@@ -50,7 +50,6 @@ class EditBGForm extends Component {
 
     //validate form
     handleFrequencySelect(form, inverse = false) {
-        // console.log(form);
         if (inverse) {
             if (form.frequency == "daily") {
                 form.contribution = (form.goal_amount / _calculateDateDifference(form.start_date, form.maturity_date, "days")) || 0;
@@ -116,11 +115,9 @@ class EditBGForm extends Component {
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
-            console.log('error');
             // rerender to show messages for the first time
             this.forceUpdate();
         } else {
-            console.log('worked');
             const valid = validateBackupGoalAmount(frequency, contribution, this);
             //show loader
             if (valid) {
@@ -133,7 +130,6 @@ class EditBGForm extends Component {
                         loading: false,
                     });
                     if (status) {
-                        console.log("edited", payload);
                         this.props.toastManager.add("Backup Goal Updated.", {
                             appearance: "success"
                         });

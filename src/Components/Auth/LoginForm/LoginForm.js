@@ -124,7 +124,6 @@ class LoginForm extends Component {
         } else {
             this.setState({loading: false});
             if (response) {
-                console.log('login error', response);
                 if (response.status == 401) {
                     if (response.data.message == "invalid_credentials") {
                         this.toastMessage(`Invalid Credentials`, 'error');

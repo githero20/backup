@@ -87,7 +87,6 @@ class TransferLockedSavingsModal extends React.Component {
                 }
             });
         }
-        console.log(this.state.form);
     };
 
     handleDateInput(e) {
@@ -96,7 +95,6 @@ class TransferLockedSavingsModal extends React.Component {
         const endDate = e.target.value;
         const dateDifference = _calculateDateDifference(null, endDate);
 
-        // console.log("enddate", endDate, dateDifference);
         getLockedInterestSavings({days: dateDifference}, this.handleLockedSavingsInterest);
         this.setState({dateDifference: dateDifference});
         //update after

@@ -38,7 +38,6 @@ export const getLockedSavings = (callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err",err);
             checkResponse(err);
             callback(false, err.response);
         })

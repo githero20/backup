@@ -20,8 +20,7 @@ class SetupWithdrawal extends Component {
     componentDidMount() {
         hideLoader();
         getListOfBanks((status, payload) =>{
-            if(status){this.setState({banks:payload});
-            }else{console.log('err',payload);}
+            if(status){this.setState({banks:payload})}
         });
         // retreive token from url
         this.retreiveToken();

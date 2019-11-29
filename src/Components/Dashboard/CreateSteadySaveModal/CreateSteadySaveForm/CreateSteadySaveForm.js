@@ -27,11 +27,8 @@ class CreateSteadySaveForm extends Component {
 
     constructor(props) {
         super(props);
-        console.log("props", props);
         this.toastManager = this.props.toastManager;
         const hourOfDay = moment().add(1, 'hour').hour();
-        console.log('hour of the day', hourOfDay);
-
         this.state = {
             loading: false,
             disableStartDate: false,
@@ -53,7 +50,6 @@ class CreateSteadySaveForm extends Component {
             showHour: true,
             userCards: []
         };
-        console.log("start", this.state);
         this.validator = new SimpleReactValidator();
         this.changeHandler = this.changeHandler.bind(this);
     }
@@ -81,7 +77,6 @@ class CreateSteadySaveForm extends Component {
             this
         );
 
-        // console.log("megg", event.target.name, event.target.value);
         this.handleFrequencySelect(form);
 
     };
@@ -119,9 +114,7 @@ class CreateSteadySaveForm extends Component {
             this.validator.showMessages();
             this.forceUpdate();
         } else {
-            console.log('form data ', this.state.form);
             const valid = validateSteadySaveAmount(contribution, frequency, this);
-            console.log('start date ', start_date, frequency, contribution);
             if (start_date == "N/A") toastMessage('Please Select Start Date', 'error', this)
             else if (valid) {
                 this.setState({loading: true});
@@ -195,8 +188,6 @@ class CreateSteadySaveForm extends Component {
                     <option value="30">30</option>
                     <option value="31">31</option>
                 </Form.Control>
-                {/*{this.validator.message('day_of_month', this.state.form.day_of_month, 'required|numeric')}*/}
-
             </Form.Group>
         );
 

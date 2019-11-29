@@ -96,9 +96,7 @@ class DashboardIndex extends Component {
     };
 
     handleFirstTimeLogin = (status, response) => {
-        if (status && response) {
-            console.log('logged in for the first time');
-        }
+        if (status && response) {}
     };
 
     closeSteadySaveModal = () => {
@@ -120,7 +118,6 @@ class DashboardIndex extends Component {
             showlockedSavingsModal: false,
             showLoader: true,
         });
-        console.log(status);
         if (status) this.setupDashBoard();
     };
 
@@ -199,7 +196,6 @@ class DashboardIndex extends Component {
             });
 
         } catch (e) {
-            console.log('err res', e);
             this.setState({showLoader: false});
         }
 

@@ -85,7 +85,6 @@ class VerticalNav extends Component {
                 redirect: true
             });
         } catch (e) {
-            console.log('error during mobile logout ', e);
         }
 
     };

@@ -82,15 +82,12 @@ class InstantSave extends Component {
                 //display total balance
                 accounts.map((content, idx) => {
                     if (content.account_type_id == STANDARD_ACCOUNT) {
-                        // console.log(content.balance);
                         this.setState({
                             totalBalance: content.balance
                         })
                     }
                 });
             }
-        } else if (!status && data) {
-            console.log('err', data)
         }
 
     };
@@ -102,7 +99,6 @@ class InstantSave extends Component {
             let instantSaves = transactions.filter((content) => (content.status == 'success' && content.type == 'credit'));
             //get sum of credits
             const sum = instantSaves.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
-            // console.log('sum'+sum);
             return sum.amount;
         }
     }
@@ -119,7 +115,6 @@ class InstantSave extends Component {
 
 
     handleTransactions = (state, res) => {
-        console.log('res', res);
         this.setState({ showLoader: false});
         if (state) {
             let transactions = [];
@@ -153,13 +148,11 @@ class InstantSave extends Component {
         //handle response
         if (status) {
             if (payload) {
-                // console.log(JSON.parse(JSON.stringify(payload)));
                 let transactions = payload.data.data.transactions.data.filter((content) => content.status == 'success');
                 this.setState({
                     transactions,
                     showLoader: false
                 });
-                // console.log('success', payload);
             }
 
         } else {
@@ -315,7 +308,6 @@ class InstantSave extends Component {
             }];
 
 
-        // console.log(typeof this.state.totalBalance);
         const balance = parseFloat(this.state.totalBalance).toFixed(2);
 
         return (

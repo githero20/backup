@@ -11,9 +11,9 @@ export const getPaginatedTrans = (url, callback) =>{
             callback(true, res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
+
             try{
-                console.log("Err", JSON.stringify(err));
+
                 checkResponse(err);
                 callback(false, err.response);
             }catch (e) {
@@ -32,9 +32,9 @@ export const getFilteredTrans = (url,param, callback) =>{
             callback(true, res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
+
             try{
-                console.log("Err", JSON.stringify(err));
+
                 checkResponse(err);
                 callback(false, err.response);
             }catch (e) {

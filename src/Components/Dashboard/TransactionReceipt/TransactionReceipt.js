@@ -46,21 +46,6 @@ class TransactionReceipt extends Component {
 
     }
 
-    // componentWillReceiveProps(newProps) {
-    //     const {selectedTrans} = newProps;
-    //     console.log('next props', selectedTrans);
-    //     this.setState({
-    //         selectedTrans
-    //     });
-    //
-    // }
-
-    // componentDidMount() {
-    //     this.setState({
-    //         selectedTrans:this.props.selectedTrans
-    //     });
-    //
-    // }
 
     render() {
         const {amount, type, status, reference, balance, sourcetypes, created_at} = this.state.selectedTrans;

@@ -85,7 +85,6 @@ class ForgotPasswordForm extends Component {
 
             toastMessage(`${response.data.success}`, 'success', this);
         } else {
-            console.log('err', response);
             if (response) {
                 if (response.data.error.toLowerCase() == "user not found") {
                     toastMessage(`${response.data.error}`, 'error', this);
@@ -118,10 +117,7 @@ class ForgotPasswordForm extends Component {
     }
 
     render() {
-        console.log('props', this.props.text);
         const {email} = this.state;
-
-
         return (
             <React.Fragment>
                 <form className="login-form" onSubmit={this.submitForm}>

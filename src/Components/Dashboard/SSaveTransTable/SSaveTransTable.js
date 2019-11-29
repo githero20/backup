@@ -104,8 +104,6 @@ class SSaveTransTable extends Component {
     render() {
 
         const {transactions, columns,title,emptyMessage} = this.props;
-        console.log('steady save',transactions);
-
         return (
             <React.Fragment>
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">

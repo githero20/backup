@@ -73,14 +73,11 @@ class Transactions extends Component {
                 transactions: res.data.data.data,
                 transData: {...this.state.transData, ...res.data.data}
             });
-        } else if (!state && res) {
-            console.log('err', res);
         }
 
     };
 
     handleEachTrans = (state, res) => {
-        console.log('Each transactions', res);
         this.setState({
             showLoader: false
         });
@@ -144,7 +141,6 @@ class Transactions extends Component {
         // get the page
         // handleFiltering(date, comparator, this);
         date = moment(date).format('YYYY-MM-DD');
-        console.log('filter params', date, comparator, page);
         const filter = {date: date, operand: comparator};
         this.setState({loadFilter: true,filter:filter});
         getFilteredTrans(`${BASE_URL}${filterTransactionsApi}`, filter,

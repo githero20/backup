@@ -82,7 +82,6 @@ class SetupWithdrawalForm extends Component {
 
             form.withdrawal_pin = form.pin_one + form.pin_two + form.pin_three + form.pin_four;
             this.setState({form});
-            // console.log('withdrawal pin', form['withdrawal_pin']);
         }
         if (form.withdrawal_pin.length >= 4) {
             this.setState({
@@ -114,8 +113,6 @@ class SetupWithdrawalForm extends Component {
             let form = {...this.state.form};
             form.account_name = form.bank_name = res.data.account_name;
             this.setState({form, showBank: true});
-        } else {
-            console.log('err', res);
         }
 
     };
@@ -149,7 +146,6 @@ class SetupWithdrawalForm extends Component {
                     //TODO handle response and redirect
 
                 } else if(!status&&payload){
-                    console.log('err', payload);
                     toastMessage('Your Link Has Expired! Try to Login into your account.','error',this);
                     setTimeout(() => {
                         this.setState({
@@ -181,7 +177,6 @@ class SetupWithdrawalForm extends Component {
                     this.setState({loading: false, resolved: true, form});
                 } else {
                     this.setState({loading: false});
-                    console.log('err', payload);
                 }
             });
         }
@@ -207,9 +202,7 @@ class SetupWithdrawalForm extends Component {
         });
 
         if (!state) {
-            console.log('error');
             if (response) {
-                console.log(`request failed: ${JSON.stringify(response)}`);
                 this.setState({
                     error: true,
                     errorMessage: JSON.stringify(response.data.message),
@@ -217,7 +210,6 @@ class SetupWithdrawalForm extends Component {
                 });
 
                 if (response.data) {
-                    console.log(response.data.errors);
                     let errors = response.data.errors;
                     let errorData = Object.values(errors);
                     errorData.map((err, idx) => {

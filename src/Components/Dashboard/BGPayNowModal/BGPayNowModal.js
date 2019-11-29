@@ -61,29 +61,6 @@ class BGPayNowModal extends Component {
             event,
             this
         );
-        // const name = event.target.name;
-        // let value = event.target.value;
-        //
-        // //handle least instant save amount
-        // // value = handleLeastAmount(name,value);
-        // //copy states object
-        // const data = {...this.state.form};
-        // data[name] = value;
-        //
-        // //get select data
-        //
-        // //Paystack add Card
-        // if (name === 'payment_auth' && value == 0) {
-        //     //initiate paystack
-        //     console.log('got here to initiate paystack');
-        //     this.initiatePayStack();
-        // }
-        //
-        // //manipulate object and set the state object
-        //
-        // this.setState({
-        //     form: data
-        // });
     };
 
 
@@ -93,11 +70,8 @@ class BGPayNowModal extends Component {
         initBGDuePay(this.state.form, (status, payload) => {
             this.setState({loading: false});
             if (status) {
-                // const user = _getUser();
-                // console.log(user);
                 _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
             } else {
-                console.log(payload);
                 this.props.toastManager.add(payload, {
                     appearance: "error",
                     autoDismiss: true,

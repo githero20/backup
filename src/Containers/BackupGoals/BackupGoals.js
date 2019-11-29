@@ -92,8 +92,6 @@ class BackupGoals extends Component {
             this.setState({showLoader: false});
             if (status) {
                 if (payload) {this.setState({backupGoals: payload.data.data})}
-            } else if(!status&&payload){
-                console.log('err',payload);
             }
 
         });
@@ -133,7 +131,7 @@ class BackupGoals extends Component {
 
     handleBGoalAndHist = (status, res) => {
         if (status) {
-            console.log(res);
+
         }
     };
 

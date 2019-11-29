@@ -168,7 +168,6 @@ class SignUpForm extends Component {
 
         if (!state) {
             if (response) {
-                console.log('error', response);
                 // this.setState({
                 //     error: true,
                 //     errorMessage: JSON.stringify(response.data.message),

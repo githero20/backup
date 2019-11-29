@@ -57,7 +57,6 @@ class InstantSavingForm extends Component {
                 if (status) {
                     _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
                 } else {
-                    console.log(payload);
                     this.props.toastManager.add(payload, {
                         appearance: "error",
                         autoDismiss: true,
@@ -74,7 +73,6 @@ class InstantSavingForm extends Component {
 
 
     resolvePaystackResponse = (response) => {
-        console.log('paystack response', response);
         this.setState({
             loading: false,
         });
@@ -99,7 +97,6 @@ class InstantSavingForm extends Component {
     getUserCards() {
         getUserCards((status, payload) => {
             if (status) {
-                console.log('cards', payload);
                 this.setState({cards: payload});
             } else {
                 this.props.toastManager.add("Unable to fetch Cards", {
@@ -159,7 +156,6 @@ class InstantSavingForm extends Component {
             }
         } else {
             if (response) {
-                console.log(JSON.stringify(response));
                 toastMessage(`${JSON.stringify(response.data.message)}`, 'error', this);
             }
         }

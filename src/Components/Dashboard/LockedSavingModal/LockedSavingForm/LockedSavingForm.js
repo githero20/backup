@@ -125,11 +125,7 @@ class LockedSavingForm extends Component {
     }
 
     handleAdminInterest(status, res) {
-        if (status) {
 
-        } else {
-            console.log('err getting admin interest', res);
-        }
     };
 
 

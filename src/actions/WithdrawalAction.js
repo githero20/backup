@@ -18,8 +18,6 @@ export const getWithdrawalList = (callback) =>{
             callback(true, res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
-            console.log("Err", err);
             checkResponse(err);
             callback(false, err.response);
             // if(err.response){
@@ -37,9 +35,7 @@ export const getWithdrawalPenalty = (callback) => {
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err", JSON.stringify(err));
             try{
-                console.log("Err", JSON.stringify(err));
                 checkResponse(err);
                 callback(false, err.response);
             }catch (e) {
@@ -59,7 +55,6 @@ export const createWithdrawalSettings = (payload, callback) => {
         })
         .catch(err => {
             try{
-                console.log("Err", JSON.stringify(err));
                 checkResponse(err);
                 callback(false, err.response);
             }catch (e) {
@@ -78,7 +73,6 @@ export const getWithdrawalSettings = (callback) => {
         })
         .catch(err => {
             try{
-                console.log("Err", JSON.stringify(err));
                 checkResponse(err);
                 callback(false, err.response);
             }catch (e) {
@@ -96,7 +90,6 @@ export const getWithdrawalPin = (callback) => {
         })
         .catch(err => {
             try{
-                console.log("Err", JSON.stringify(err));
                 checkResponse(err);
                 callback(false, err.response);
             }catch (e) {
@@ -111,18 +104,14 @@ export const makeWithdrawal = (payload, callback) => {
         headers: _getHeader()
     })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
             try{
-                console.log("Err", JSON.stringify(err));
                 checkResponse(err);
                 callback(false, err.response.data.message);
             }catch (e) {
                 //log both e and err
-                console.log("Err", e);
                 callback(false, " An Error Occurred");
             }
         })
@@ -133,18 +122,14 @@ export const addWithdrawalPin = (payload, callback) => {
         headers: _getHeader()
     })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
             try{
-                console.log("Err", JSON.stringify(err));
                 checkResponse(err);
                 callback(false, err.response.data.message);
             }catch (e) {
                 //log both e and err
-                console.log("Err", e);
                 callback(false, " An Error Occurred");
             }
         })
@@ -156,18 +141,14 @@ export const changePin = (payload, callback) => {
         headers: _getHeader()
     })
         .then(res => {
-            console.log(res);
-            console.log(res.data.data);
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
             try{
-                console.log("Err", JSON.stringify(err));
                 checkResponse(err);
                 callback(false, err.response.data.message);
             }catch (e) {
                 //log both e and err
-                console.log("Err", e);
                 callback(false, " An Error Occurred");
             }
         })

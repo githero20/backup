@@ -5,7 +5,6 @@ import moment from "moment";
 const BGInfoCard = (props) => {
     const totalAttempts = props.selectedBGHistory.length;
     const totalSuccessful = getTotalSuccessful(props.selectedBGHistory);
-    console.log('prop', props);
     return (
         <React.Fragment>
             <div className="card pull-up bg-white shadow-sm saving-card">

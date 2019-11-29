@@ -53,8 +53,6 @@ class EmailActivation extends Component {
 
             if(response){
 
-                console.log(response);
-
                 this.setState({
                     message:'Something Went Wrong!',
                     error:true
@@ -65,8 +63,6 @@ class EmailActivation extends Component {
                     this.setState({
                         resend:true
                     });
-
-                    console.log(response);
 
                 }
 
@@ -81,7 +77,6 @@ class EmailActivation extends Component {
     retreiveToken =()=>{
 
         const search = queryString.parse(this.props.location.search);
-        console.log(search.token);
         this.setState({
             token:search.token
         });
@@ -96,7 +91,6 @@ class EmailActivation extends Component {
 
         // retreive token from url
         const param = this.retreiveToken();
-        console.log(param.token);
         // call activation endpoint
         ActivationRequest(activateUserEndpoint,param.token,this.handleActivation);
 
@@ -117,8 +111,6 @@ class EmailActivation extends Component {
         const {toastManager} = this.props;
 
         if (state) {
-
-            console.log(response);
             if(response){
 
                 toastManager.add(`${response.data.message}`, {
@@ -133,7 +125,6 @@ class EmailActivation extends Component {
         } else {
 
             if (response) {
-                console.log(response.data);
                 toastManager.add(`${response.data.error}`, {
                     appearance: 'error',
                 });

@@ -23,7 +23,6 @@ export const getUserData =  callback =>{
             }
         })
         .catch(err => {
-            console.log("Err",JSON.stringify(err));
             checkResponse(err);
             callback(false, err.response);
         })
@@ -39,7 +38,6 @@ export const getFirstTimeUser =  callback =>{
             }
         })
         .catch(err => {
-            console.log("Err",JSON.stringify(err));
             checkResponse(err);
             callback(false, err.response);
         })
@@ -54,7 +52,6 @@ export const isKycUpdated =  callback =>{
             }
         })
         .catch(err => {
-            console.log("Err",JSON.stringify(err));
             checkResponse(err);
             callback(false, err.response);
         })
@@ -71,7 +68,6 @@ export const storeFirstTimeLogin =  callback =>{
             }
         })
         .catch(err => {
-            console.log("Err",JSON.stringify(err));
             checkResponse(err);
             callback(false, err.response);
         })
@@ -87,7 +83,6 @@ export const getUserPoints =  callback =>{
             }
         })
         .catch(err => {
-            console.log("Err",JSON.stringify(err));
             checkResponse(err);
             callback(false, err.response);
         })
@@ -121,7 +116,6 @@ export const updateUserProfile = (payload, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err",err);
             checkResponse(err);
             callback(false, err.response);
         })
@@ -135,7 +129,6 @@ export const updateEmailProfile = (payload, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            console.log("Err",err);
             checkResponse(err);
             callback(false, err.response);
         })

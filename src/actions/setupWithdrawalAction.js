@@ -3,24 +3,6 @@ import {BASE_URL, getBank, registerBank, SaveBankAccount} from "../RouteLinks/Ro
 import {checkResponse} from "../ApiUtils/ApiUtils";
 import axios from "axios";
 
-// export const setupWithdrawal = (payload, callback) =>{
-//     console.log("body", payload);
-//     _axios.post(`${BASE_URL}/${registerBank}`,payload,{
-//         headers: _getHeader()
-//     })
-//         .then(res => {
-//             console.log("Res",res);
-//             callback(res.data.status == "success", res.data.data);
-//         })
-//         .catch(err => {
-//             // console.log("Err",JSON.stringify(err),err.response.data.data, err.response.data.message);
-//             // if(err.response){
-//             //     callback(false, err.response.data.message|| err.response.data.data);
-//             // }
-//             checkResponse(err);
-//             callback(false, err.response);
-//         })
-// };
 
 
 export function setupWithdrawal(payload, token, callback) {
@@ -40,8 +22,6 @@ export function setupWithdrawal(payload, token, callback) {
         callback(true, res.data.data)
     })
         .catch(err => {
-            console.log(JSON.stringify(err));
-            console.log((err));
             callback(false, err.response)
         })
 }

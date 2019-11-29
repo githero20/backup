@@ -19,11 +19,7 @@ class ActivationModal extends React.Component {
             loading:false
         });
 
-        console.log(response);
         if(state){
-
-            console.log(response);
-
             toastManager.add(`${response.data.success}`, {
                 appearance: 'success',
             });
@@ -32,7 +28,6 @@ class ActivationModal extends React.Component {
         }else{
 
             if(response){
-                console.log(response);
                 toastManager.add(`${response.data.error}`, {
                     appearance: 'error',
                 });
@@ -46,7 +41,6 @@ class ActivationModal extends React.Component {
     resendActivationLink = () => {
 
         const param = {email:this.props.email};
-        console.log('got here',param);
 
         this.setState({
             loading:true,

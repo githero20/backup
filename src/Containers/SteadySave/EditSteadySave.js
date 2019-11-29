@@ -46,7 +46,6 @@ class SteadySaveForm extends Component {
         this.validateStartDate();
         this.handleFrequencySelect(this.props.steadySave);
         getCardsFromStorage(USERINFO, this);
-        // initializeAmountInput();
     }
 
     validateStartDate() {
@@ -66,7 +65,6 @@ class SteadySaveForm extends Component {
 
         const name = event.target.name;
         const value = event.target.value;
-        console.log(name, value);
         if (name == 'payment_auth' && value == 'add') {
             this.setState({
                 addCard: true
@@ -104,9 +102,7 @@ class SteadySaveForm extends Component {
                 showHour: true,
             })
         }
-        // console.log("Form", form);
     }
-
 
     initiatePayStack = () => {
 
@@ -118,7 +114,6 @@ class SteadySaveForm extends Component {
             if (status) {
                 _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
             } else {
-                console.log(payload);
                 toastMessage(payload, 'error', this);
             }
             this.props.onHide();
@@ -149,7 +144,6 @@ class SteadySaveForm extends Component {
     //submit steady save form
     submitForm = (e) => {
         const {form: {start_date, frequency, contribution}} = this.state;
-        console.log(contribution, frequency, 'steady saves');
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
@@ -161,7 +155,6 @@ class SteadySaveForm extends Component {
                 //make sure user is authenticated
                 let token = getToken();
                 token.then(data => {
-                    console.log(this.state.form);
                     updateSteadySave(this.props.steadySave.id, this.state.form, (status, payload) => {
                         this.setState({loading: false});
                         if (!status) {
@@ -213,8 +206,6 @@ class SteadySaveForm extends Component {
                     <option value="23">11:00 pm</option>
                     <option value="0">12:00 am</option>
                 </Form.Control>
-
-                {/*{this.validator.message('hour_of_day', this.state.form.hour_of_day, 'required|numeric')}*/}
 
             </Form.Group>
         );
@@ -290,7 +281,6 @@ class SteadySaveForm extends Component {
                                 <Form.Control
                                     type="number"
                                     name={'contribution'}
-                                    // className={'amount-input'}
                                     defaultValue={this.state.form.contribution}
                                     onChange={this.changeHandler}/>
 
@@ -325,8 +315,8 @@ class SteadySaveForm extends Component {
                                 {this.validator.message('Card', this.state.form.payment_auth, 'required|numeric')}
                             </React.Fragment>
                             {this.state.addCard ?
-                                <label className={'text-muted mt-1'}> click here to <Link to={BankCardLink}>Add
-                                    Card</Link></label> : null}
+                                <label className={'text-muted mt-1'}> click here to <Link to={BankCardLink}>Add Card</Link></label> :
+                                null}
 
                         </Form.Group>
                     </Form.Row>

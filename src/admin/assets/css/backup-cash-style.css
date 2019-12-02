@@ -1943,7 +1943,7 @@ footer-logo {
     padding-bottom: 0.2rem;
 }
 
-bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^='right'] .arrow::before {
+.bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^='right'] .arrow::before {
     border-right-color: #170e32;
 }
 
@@ -1961,4 +1961,10 @@ bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^='right'] .arrow::
 
 .spaced-table th, .spaced-table td {
     padding: .75rem .75rem !Important;
+}
+input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+input[type="date"]::-ms-clear {
+    display: none;
 }

@@ -161,7 +161,6 @@ class SteadySaveForm extends Component {
                             toastMessage(JSON.stringify(payload), 'error', this);
                         } else {
                             toastMessage("Steady save updated successfully", 'success', this);
-                            console.log(payload);
                             setTimeout(this.props.onHide, 3000);
                             this.props.setupSteadySave();
                             //set timeout

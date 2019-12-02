@@ -386,7 +386,9 @@ class WithdrawalForm extends Component {
                 }
 
                 <WithdrawalSettingsModal getWithdrawalSettings={this.getWithdrawalSettings}
-                                         show={this.state.showWithdrawalSetting} onHide={this.hideWithdrawalSettings}/>
+                                         show={this.state.showWithdrawalSetting}
+                                         onHide={this.hideWithdrawalSettings}
+                />
                 <div className="col-lg-6">
                     {/* withdrawal form component */}
                     <Fragment>
@@ -692,7 +694,6 @@ class WithdrawalForm extends Component {
                                     })
                                 }
                             </ul>
-
                             {
                                 this.state.settingsOwner == "you" ? "" :
                                     <button className='btn btn-custom-blue btn-block'

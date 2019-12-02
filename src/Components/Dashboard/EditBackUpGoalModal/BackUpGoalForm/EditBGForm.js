@@ -9,7 +9,7 @@ import {withToastManager} from "react-toast-notifications";
 import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
 import {editBGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {disableKey, formatNumber, validateBackupGoalAmount} from "../../../../Helpers/Helper";
+import {disableKey, formatNumber, toastMessage, validateBackupGoalAmount} from "../../../../Helpers/Helper";
 import moment from "moment";
 
 
@@ -130,20 +130,14 @@ class EditBGForm extends Component {
                         loading: false,
                     });
                     if (status) {
-                        this.props.toastManager.add("Backup Goal Updated.", {
-                            appearance: "success"
-                        });
+                        toastMessage("Backup Goal Updated.","success",this);
                         setTimeout(() => {
                             this.props.onHide(true);
                             this.props.updateSelectedBG(payload);
                             this.props.fetchGoals();
                         }, 2000);
                     } else {
-                        this.props.toastManager.add("Unable to update backup goal at themoment", {
-                            appearance: "error",
-                            autoDismiss: true,
-                            autoDismissTimeout: 5000
-                        });
+                        toastMessage("Unable to update backup goal at the moment",'error',this);
                     }
                 });
             }
@@ -165,7 +159,6 @@ class EditBGForm extends Component {
             event,
             this
         );
-
         this.handleFrequencySelect(form, inverse);
 
     };

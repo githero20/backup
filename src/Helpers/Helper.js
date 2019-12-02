@@ -6,6 +6,7 @@ import {AMOUNT_LIMITS, APP_FREQUENCY, USERINFO, USERTOKEN} from "../Components/A
 import AutoNumeric from "autonumeric";
 import {getUserData} from "../actions/UserAction";
 import SimpleReactValidator from "simple-react-validator";
+import Form from "react-bootstrap/Form";
 
 
 export const STANDARD_ACCOUNT = 1;
@@ -1118,4 +1119,3 @@ export function validateBackupGoalAmount(frequency, contribution, context) {
 		return true;
 	}
 }
-

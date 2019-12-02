@@ -47,29 +47,6 @@ class SteadySaveForm extends Component {
     };
 
 
-    // handleContinue = (e) => {
-    //     e.preventDefault();
-    //     this.setState({loading: true});
-    //     continueSteadySave(this.props.steadySave.id, (status, payload) => {
-    //         this.setState({loading: false});
-    //         if (!status) {
-    //             this.toastManager.add(payload, {
-    //                 appearance: "error",
-    //                 autoDismiss: true,
-    //                 autoDismissTimeout: 5000
-    //             });
-    //         } else {
-    //             this.toastManager.add("Steady Saving Updated Successfully", {
-    //                 appearance: "success",
-    //                 autoDismiss: true,
-    //                 autoDismissTimeout: 5000
-    //             });
-    //             setTimeout(this.props.onHide, 3000);
-    //             this.props.setupSteadySave();
-    //         }
-    //     });
-    // };
-
 
     handleContinue = (e) => {
         e.preventDefault();
@@ -103,29 +80,6 @@ class SteadySaveForm extends Component {
         }
     };
 
-    //
-    // handlePause = (e) => {
-    //     e.preventDefault();
-    //     this.setState({loading: true});
-    //     pauseSteadySave(this.props.steadySave.id, (status, payload) => {
-    //         this.setState({loading: false});
-    //         if (!status) {
-    //             this.toastManager.add(payload, {
-    //                 appearance: "error",
-    //                 autoDismiss: true,
-    //                 autoDismissTimeout: 5000
-    //             });
-    //         } else {
-    //             this.toastManager.add("Steady Saving Paused Successfully", {
-    //                 appearance: "success",
-    //                 autoDismiss: true,
-    //                 autoDismissTimeout: 5000
-    //             });
-    //             setTimeout(this.props.onHide, 3000);
-    //             this.props.setupSteadySave();
-    //         }
-    //     });
-    // };
 
     handlePause = (e) => {
         e.preventDefault();
@@ -213,10 +167,6 @@ class SteadySaveForm extends Component {
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
                     <Form.Row>
-                        {/*<Form.Group as={Col} md={6}>*/}
-                        {/*    <div className={'text-muted secondary-text'}>Total Steady Save Balance</div>*/}
-                        {/*    <h2>&#8358;{formatNumber(this.props.totalSteadySave) || 0}</h2>*/}
-                        {/*</Form.Group>*/}
                         <Form.Group as={Col} md={6}>
                             <div className={'text-muted secondary-text'}>Contribution
 

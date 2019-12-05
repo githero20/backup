@@ -24,12 +24,15 @@ class WithdrawalSettingsForm extends Component {
 				third_quarter_day: "01",
 				fourth_quarter_day: "01",
 			},
+			isFebruary: false,
+			extraDay: true,
 			lastDay: moment().year() + "-12-31"
 		};
 		this.validator = new SimpleReactValidator();
 
 		this.validateForm = this.validateForm.bind(this);
 		this.handleChange = this.handleChange.bind(this);
+		this.handleSelectOptions = this.handleSelectOptions.bind(this);
 	}
 
 
@@ -91,51 +94,54 @@ class WithdrawalSettingsForm extends Component {
 		}
 	};
 
+	handleSelectOptions(e) {
+
+		if (e.target.name == 'first_quarter' && e.target.value == 2) {
+			this.setState({isFebruary: true, extraDay: false})
+		} else if (
+			(e.target.name == 'second_quarter' && e.target.value == 4) ||
+			e.target.name == 'second_quarter' && e.target.value == 6 ||
+			(e.target.name == 'third_quarter' && e.target.value == 9) ||
+			(e.target.name == 'fourth_quarter' && e.target.vaelue == 11)
+		) {
+			this.setState({extraDay: false, isFebruary: false})
+		} else {
+			this.setState({extraDay: true, isFebruary: false})
+		}
+	}
 
 	//handle response
 	handleChange(e) {
 		this.setState({resolved: false});
+		this.handleSelectOptions(e);
 		_handleFormChange(e.target.name, e, this)
 	}
 
 
 	render() {
-		const {form} = this.state;
 
-		const dayOptions = [
-			<option value={'01'}>1</option>,
-			<option value={'02'}>2</option>,
-			<option value={'03'}>3</option>,
-			<option value={'04'}>4</option>,
-			<option value={'05'}>5</option>,
-			<option value={'06'}>6</option>,
-			<option value={'07'}>7</option>,
-			<option value={'08'}>8</option>,
-			<option value={'09'}>9</option>,
-			<option value={'10'}>10</option>,
-			<option value={'11'}>11</option>,
-			<option value="12">12</option>,
-			<option value="13">13</option>,
-			<option value="14">14</option>,
-			<option value="15">15</option>,
-			<option value="16">16</option>,
-			<option value="17">17</option>,
-			<option value="18">18</option>,
-			<option value="19">19</option>,
-			<option value="20">20</option>,
-			<option value="21">21</option>,
-			<option value="22">22</option>,
-			<option value="23">23</option>,
-			<option value="24">24</option>,
-			<option value="25">25</option>,
-			<option value="26">26</option>,
-			<option value="27">27</option>,
-			<option value="28">28</option>,
-			<option value="29">29</option>,
-			<option value="30">30</option>,
-			<option value="31">31</option>,
-		];
+		const {form, extraDay, isFebruary} = this.state;
+		const isLeapYear = moment().isLeapYear();
+		let dayOptions = [];
 
+		const displayOptions = () => {
+			for (let i = 1; i < 29; i++) {
+				dayOptions.push(<option key={i} value={(i < 10) ? `0${i}` : i}>{i}</option>);
+			}
+			if (isLeapYear) {
+				dayOptions.push(<option key={29} value="29">29</option>);
+			} else if (isFebruary == false && extraDay == false) {
+				dayOptions.push(<option key={29} value="29">29</option>);
+				dayOptions.push(<option key={30} value="30">30</option>);
+			} else if (extraDay && isFebruary == false) {
+				dayOptions.push(<option key={29} value="29">29</option>);
+				dayOptions.push(<option key={30} value="30">30</option>);
+				dayOptions.push(<option key={31} value="31">31</option>);
+			}
+		};
+
+
+		displayOptions();
 
 		return (
 			<React.Fragment>
@@ -156,16 +162,17 @@ class WithdrawalSettingsForm extends Component {
 										<label htmlFor="first_quarter" className=" col-form-label">First Quarter</label>
 										<select name="first_quarter" value={form.first_quarter}
 												onChange={this.handleChange} required className='form-control'
-												id="first_quarter"
-										>
+												id="first_quarter">
 											<option value="01">January</option>
 											<option value="02">February</option>
 											<option value="03">March</option>
 										</select>
 									</div>
 									<div className="form-group">
-										<label htmlFor="first_quarter_day" className="col-form-label">Day in First Quarter </label>
-										<select name="first_quarter_day" onChange={this.handleChange} required defaultValue={form.first_quarter_day}
+										<label htmlFor="first_quarter_day" className="col-form-label">Day in First
+											Quarter </label>
+										<select name="first_quarter_day" onChange={this.handleChange} required
+												defaultValue={form.first_quarter_day}
 												className='form-control' id="first_quarter_day">
 											{dayOptions}
 										</select>
@@ -174,7 +181,8 @@ class WithdrawalSettingsForm extends Component {
 
 								<div className="col-md-6">
 									<div className="form-group">
-										<label htmlFor="second_quarter" className="col-form-label">Second Quarter</label>
+										<label htmlFor="second_quarter" className="col-form-label">Second
+											Quarter</label>
 										<select name="second_quarter" required value={form.second_quarter}
 												onChange={this.handleChange} className='form-control'
 												id="second_quarter">
@@ -185,8 +193,10 @@ class WithdrawalSettingsForm extends Component {
 									</div>
 
 									<div className="form-group">
-										<label htmlFor="second_quarter_day" className="col-form-label">Day in Second Quarter </label>
-										<select name="second_quarter_day" onChange={this.handleChange} required defaultValue={form.second_quarter_day}
+										<label htmlFor="second_quarter_day" className="col-form-label">Day in Second
+											Quarter </label>
+										<select name="second_quarter_day" onChange={this.handleChange} required
+												defaultValue={form.second_quarter_day}
 												className='form-control' id="second_quarter_day">
 											{dayOptions}
 										</select>
@@ -206,8 +216,10 @@ class WithdrawalSettingsForm extends Component {
 										</select>
 									</div>
 									<div className="form-group">
-										<label htmlFor="third_quarter_day" className="col-form-label">Day in Third Quarter </label>
-										<select name="third_quarter_day" onChange={this.handleChange} required defaultValue={form.third_quarter_day}
+										<label htmlFor="third_quarter_day" className="col-form-label">Day in Third
+											Quarter </label>
+										<select name="third_quarter_day" onChange={this.handleChange} required
+												defaultValue={form.third_quarter_day}
 												className='form-control' id="third_quarter_day">
 											{dayOptions}
 										</select>
@@ -215,7 +227,8 @@ class WithdrawalSettingsForm extends Component {
 								</div>
 								<div className="col-md-6">
 									<div className="form-group">
-										<label htmlFor="fourth_quarter" className=" col-form-label">Third Quarter</label>
+										<label htmlFor="fourth_quarter" className=" col-form-label">Third
+											Quarter</label>
 										<select name="fourth_quarter" required value={form.fourth_quarter}
 												onChange={this.handleChange} className='form-control'
 												id="third_quarter">
@@ -225,8 +238,10 @@ class WithdrawalSettingsForm extends Component {
 										</select>
 									</div>
 									<div className="form-group">
-										<label htmlFor="fourth_quarter_day" className="col-form-label">Day in Fourth Quarter </label>
-										<select name="fourth_quarter_day" onChange={this.handleChange} required defaultValue={form.fourth_quarter_day}
+										<label htmlFor="fourth_quarter_day" className="col-form-label">Day in Fourth
+											Quarter </label>
+										<select name="fourth_quarter_day" onChange={this.handleChange} required
+												defaultValue={form.fourth_quarter_day}
 												className='form-control' id="fourth_quarter_day">
 											{dayOptions}
 										</select>

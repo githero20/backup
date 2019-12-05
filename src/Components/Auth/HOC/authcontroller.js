@@ -101,7 +101,7 @@ const AuthController = component => {
 
                                 if (response && response.status == 401 && response.data.message == "invalid_credentials") {
                                     swal('Oops!!', `Invalid Credentials`, 'warning');
-                                } else if (response.data.message == 'Incorrect email or password,Try again') {
+                                } else if (response && response.status == 401 && response.data.message == 'Incorrect email or password,Try again') {
                                     swal('Oops!!', 'Incorrect Email or Password', 'warning', {
                                         button: false,
                                         timer: 2000

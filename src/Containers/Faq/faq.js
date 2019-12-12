@@ -517,7 +517,8 @@ class Faq extends Component {
                                 <div className="col-sm-4 text-center text-md-left">
                                     <div className="mb-3 mb-md-5 ">
                                         <h4 className='text-capitalize'>Email</h4>
-                                        <p className='gray-text text-capitalize'>Enquiries@SFSBackupcash.com</p>
+                                        {/*<p className='gray-text text-capitalize'>Enquiries@SFSBackupcash.com</p>*/}
+                                        <p className='gray-text text-capitalize'>help@mybackupcash.com</p>
                                     </div>
                                 </div>
                                 <div className="col-sm-4 text-center text-md-left">

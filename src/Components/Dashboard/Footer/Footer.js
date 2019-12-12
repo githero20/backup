@@ -14,7 +14,8 @@ const Footer = () => {
                         <i className='fa fa-phone '/> &nbsp; +234 814 946 0946 , +234 908 776 6679
                     </p>
                     <p className='faded-black'>
-                        <i className='fa fa-envelope '/>&nbsp; Enquiries@SFSBackupcash.com
+                        {/*<i className='fa fa-envelope '/>&nbsp; Enquiries@SFSBackupcash.com*/}
+                        <i className='fa fa-envelope '/>&nbsp; help@mybackupcash.com
                     </p>
                 </div>
                 <div className="footer-connect text-md-right">

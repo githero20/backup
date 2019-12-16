@@ -316,7 +316,7 @@ class BackupGoalQuickActions extends React.Component {
                     <h3 className="gray-header-text d-none d-md-block text-right fs-mb-1 mb-2">
                         <a href='#!' className='gray-text back-btn'
                            onClick={() => this.props.hideBG()}>
-                            <i className='fa fa-chevron-left'></i>
+                            <i className='fa fa-chevron-left'/>
                             &nbsp;Back to Goals
                         </a>
                     </h3>

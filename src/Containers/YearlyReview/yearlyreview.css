@@ -51,6 +51,21 @@
 .review-modal form .round-blue-btn{
     background-color:#357AFF;
 }
+
+.review-header {
+    background-color: #4882F0;
+    background-image: url(../../admin/app-assets/images/dottedlines-bg@2x.png);
+    background-size: 120%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    animation: animatedBg 5s ease-in-out infinite;
+}
+.review-footer{
+    width: 100%;
+}
+.mh-100{
+    min-height: 100vh;
+}
 @media all and (min-width: 1200px) {
     .mh-lg-100-vh {
         min-height: 100vh;
@@ -65,15 +80,5 @@
         font-size: 1.5rem;
     }
 
-    .review-header {
-        background-color: #4882F0;
-        background-image: url(../../admin/app-assets/images/dottedlines-bg@2x.png);
-        background-size: 120%;
-        background-position: center center;
-        background-repeat: no-repeat;
-        animation: animatedBg 5s ease-in-out infinite;
-    }
-    .review-footer{
-        width: 100%;
-    }
+
 }

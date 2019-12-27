@@ -211,11 +211,11 @@ class DashboardContainer extends Component {
                         <div className="mb-md-5"/>
                         {/* notification component */}
                         <div className="col-12 d-md-none">
-                            <Link to={SteadySaveLink} className="dash-ads br-2 overflow-hidden mb-3">
-                                <video width="100%" height="200px" autoPlay muted loop>
-                                    <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}
-                                            type="video/mp4"/>
-                                </video>
+                            {/*<Link to={SteadySaveLink} className="dash-ads br-2 overflow-hidden mb-3">*/}
+                            {/*    <video width="100%" height="200px" autoPlay muted loop>*/}
+                            {/*        <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}*/}
+                            {/*                type="video/mp4"/>*/}
+                            {/*    </video>*/}
                                 {/*<img src={adImg} className='dash-ad-img' alt="advert one "/>*/}
                                 {/*<div className={'dash-action left-action'}>*/}
                                 {/*    <h5>New Investment*/}
@@ -223,7 +223,7 @@ class DashboardContainer extends Component {
                                 {/*    <a className={'ad-gray-link'}>Know more <i*/}
                                 {/*        className='fa fa-arrow-right'/></a>*/}
                                 {/*</div>*/}
-                            </Link>
+                            {/*</Link>*/}
                         </div>
                         <MessageBox challenge={true} showSSModal={showSSModal}/>
                         <MessageBox updateKyc={this.props.updateKyc} balance={vaultAmount}/>

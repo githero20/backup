@@ -25,6 +25,7 @@ export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
 export const CENTRAL_VAULT = 'central_vault';
 export const BACKUP_STASH = 'backup_stash';
 export const KYC = 'kyc';
+export const NAIRA = '₦';
 
 export function animateCSS(element, animationName, callback) {
 	const node = document.querySelector(element);

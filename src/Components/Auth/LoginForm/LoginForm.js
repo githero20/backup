@@ -215,8 +215,8 @@ class LoginForm extends Component {
             <React.Fragment>
 
                 {reviewForm ?
-                    <Form className={'py-lg-3 px-lg-3'}>
-                        <p className='font-weight-bold circular-std-Black text-gray'>Welcome back</p>
+                    <Form className={'py-3 px-lg-3 px-2'}>
+                        <p className='font-weight-bold circular-std-Black text-gray'>Welcome</p>
                         <h3 className='font-weight-bold mb-lg-5 fs-lg-2 text-faded-blue circular-std-Black '>Log In</h3>
                         <Form.Group >
                             <Form.Label>Email address or Phone Number</Form.Label>

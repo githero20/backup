@@ -3,7 +3,7 @@ import React from 'react';
 const BoldText = (props) => {
     const {className} = props;
     return (
-        <h1 className={`circular-std-Black fs-3 ${className ? className : ''}`}>{props.children}</h1>
+        <h1 className={`circular-std-Black fs-1-8 fs-3 ${className ? className : ''}`}>{props.children}</h1>
     );
 };
 

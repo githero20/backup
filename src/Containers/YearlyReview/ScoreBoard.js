@@ -30,7 +30,7 @@ import {
     getCompletedGoals,
     getCompletedGoalsAmount,
     INTEREST_ACCOUNT,
-    LOCKED_ACCOUNT,
+    LOCKED_ACCOUNT, NAIRA,
     redirectTo,
     STANDARD_ACCOUNT
 } from "../../Helpers/Helper";
@@ -212,7 +212,15 @@ const ScoreBoard = () => {
                                 <div className="text mt-lg-3">
                                     <SmallText>Central vault savings</SmallText>
                                     <BoldText
-                                        className={'text-light-yellow'}>N {userDetails ? formatNumber(userDetails.vaultAmount) : 0.00}</BoldText>
+                                        className={'text-light-yellow'}>{NAIRA} {userDetails ? formatNumber(userDetails.vaultAmount) : 0.00}</BoldText>
+                                </div>
+                            </div>
+                            <div className="flex-item mt-5 mt-lg-0 align-items-start  flex-grow-1 d-flex d-md-none">
+                                <FlexIcon img={percentageIcon}/>
+                                <div className="text mt-lg-3">
+                                    <SmallText>Interest gained</SmallText>
+                                    <BoldText
+                                        className={'text-light-yellow'}>{NAIRA} {userDetails ? formatNumber(userDetails.vaultInterest) : 0.00}</BoldText>
                                 </div>
                             </div>
                             <div className="flex-item mt-5 mt-lg-0  flex-grow-1 d-flex">
@@ -223,18 +231,18 @@ const ScoreBoard = () => {
                             </div>
                         </div>
                         <div className="d-flex flex-column pb-5 pb-lg-0  flex-lg-row">
-                            <div className="flex-item mt-5 mt-lg-0 align-items-start  flex-grow-1 d-flex">
+                            <div className="flex-item mt-5 mt-lg-0 align-items-start  d-none flex-grow-1 d-lg-flex">
                                 <FlexIcon img={percentageIcon}/>
                                 <div className="text mt-lg-3">
                                     <SmallText>Interest gained</SmallText>
                                     <BoldText
-                                        className={'text-light-yellow'}>N {userDetails ? formatNumber(userDetails.vaultInterest) : 0.00}</BoldText>
+                                        className={'text-light-yellow'}>{NAIRA} {userDetails ? formatNumber(userDetails.vaultInterest) : 0.00}</BoldText>
                                 </div>
                             </div>
-                            <div className="flex-item mt-5 mt-lg-0 flex-grow-1 d-flex">
+                            <div className="flex-item mt-0 flex-grow-1 d-flex">
                                 <div className="text">
                                     <BoldText
-                                        className={'fs-lg-4 text-light-yellow'}>N {userDetails ?
+                                        className={'fs-lg-4 text-light-yellow'}>{NAIRA} {userDetails ?
                                         formatNumber(Number(userDetails.vaultAmount) + Number(userDetails.vaultInterest))
                                         : 0.00}
                                     </BoldText>
@@ -259,7 +267,7 @@ const ScoreBoard = () => {
                                 locked savings</SmallText>
                             <BoldText className={'text-white fs-lg-4'}>=</BoldText>
                             <BoldText
-                                className={'fs-lg-4 text-deep-blue'}> N{userDetails ? formatNumber(userDetails.lockedSavingsAmount) : 0.00}</BoldText>
+                                className={'fs-lg-4 text-deep-blue'}> {NAIRA}{userDetails ? formatNumber(userDetails.lockedSavingsAmount) : 0.00}</BoldText>
                         </div>
                     </div>
                 </div>
@@ -281,8 +289,7 @@ const ScoreBoard = () => {
                             <Slash className={'flex-grow-1'}/>
                             <div className={'flex-grow-1'}>
                                 <SmallText className={'text-white mb-lg-5'}>Complete goals</SmallText>
-                                <BoldText
-                                    className={'text-white fs-lg-4'}>{userDetails ? formatNumber(userDetails.CompletedGoals) : 0}</BoldText>
+                                <BoldText className={'text-white fs-lg-4'}>{userDetails ? formatNumber(userDetails.CompletedGoals) : 0}</BoldText>
                             </div>
                         </div>
 
@@ -290,13 +297,13 @@ const ScoreBoard = () => {
                             <div className={'flex-grow-1'}>
                                 <SmallText className={'text-white mb-lg-5'}>Active goals = </SmallText>
                                 <BoldText
-                                    className={'text-white fs-lg-4'}>N {userDetails ? formatNumber(userDetails.ActiveGoalsAmount) : 0}</BoldText>
+                                    className={'text-white fs-lg-4'}>{NAIRA} {userDetails ? formatNumber(userDetails.ActiveGoalsAmount) : 0}</BoldText>
                             </div>
                             <Slash className={'flex-grow-1'}/>
                             <div className={'flex-grow-1'}>
                                 <SmallText className={'text-white mb-lg-5'}>Completed goals = </SmallText>
                                 <BoldText
-                                    className={'text-white fs-lg-4'}>N{userDetails ? formatNumber(userDetails.CompletedGoalsAmount) : 0}</BoldText>
+                                    className={'text-white fs-lg-4'}>{NAIRA} {userDetails ? formatNumber(userDetails.CompletedGoalsAmount) : 0}</BoldText>
                             </div>
                         </div>
                     </div>
@@ -315,7 +322,7 @@ const ScoreBoard = () => {
                     <BoldText>=</BoldText>
                     <SmallText className={'my-5'}>Available for withdrawal</SmallText>
                     <BoldText
-                        className={'fs-lg-4 text-light-yellow'}> N{userDetails ? formatNumber(userDetails.stashAmount) : 0}</BoldText>
+                        className={'fs-lg-4 text-light-yellow'}> {NAIRA}{userDetails ? formatNumber(userDetails.stashAmount) : 0}</BoldText>
                 </div>
             </Section>
 
@@ -326,7 +333,7 @@ const ScoreBoard = () => {
                         <SmallText className={'text-light-gray my-5 pt-5'}>From Cassandra</SmallText>
                         <div className="d-flex flex-column flex-lg-row">
                             <div className='flex-grow-1 flex-basis-40'>
-                                <BoldText className='mb-lg-5 fs-lg-4 text-light-blue'>This year,</BoldText>
+                                <BoldText className='mb-5 fs-lg-4 text-light-blue'>This year,</BoldText>
                             </div>
                             <div className={'mt-lg-2 mb-5 mb-lg-0 flex-grow-1 text-light-gray'}>
                                 <Line/>

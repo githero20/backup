@@ -167,7 +167,7 @@ class MessageBox extends Component {
                             <label
                                 className='d-flex mt-1 mt-lg-0 mb-lg-0 flex-md-row flex-wrap flex-column align-items-md-center'>
                                 <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"/>
-                                <div className='d-flex justify-content-between d-md-inline-block flex-grow-1'>
+                                <div className='d-flex justify-content-lg-between  justify-content-center d-md-inline-block flex-grow-1'>
                                     <a href={scoreboardLink} target='_blank' className="btn-white-bordered round px-2 mr-md-2 mb-md-0">View now</a>
                                 </div>
                             </label>

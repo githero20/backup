@@ -61,7 +61,10 @@
     animation: animatedBg 5s ease-in-out infinite;
 }
 .review-footer{
-    width: 100%;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+
 }
 .mh-100{
     min-height: 100vh;

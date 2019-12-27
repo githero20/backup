@@ -30,7 +30,8 @@ import {
     getCompletedGoals,
     getCompletedGoalsAmount,
     INTEREST_ACCOUNT,
-    LOCKED_ACCOUNT, NAIRA,
+    LOCKED_ACCOUNT,
+    NAIRA,
     redirectTo,
     STANDARD_ACCOUNT
 } from "../../Helpers/Helper";
@@ -137,9 +138,9 @@ const ScoreBoard = () => {
 
     console.log('user details', userDetails);
 
-    useEffect(()=>{
+    useEffect(() => {
         setIsLoggedIn(checkUser());
-    },[]);
+    }, []);
 
     const getUserMessage = (userDetails) => {
         if (userDetails && userDetails.vaultAmount) {
@@ -173,6 +174,7 @@ const ScoreBoard = () => {
     };
 
     const message = getUserMessage(userDetails);
+    let total = userDetails ? Number(userDetails.vaultAmount) + Number(userDetails.vaultInterest) : 0;
 
     return (
         <div>
@@ -190,7 +192,8 @@ const ScoreBoard = () => {
                 <div className='flower-pot-bg'>
                     <div className={'pl-lg-5 pt-lg-5'}>
                         <div className="pl-lg-5 px-2 pr-lg-0">
-                            <BoldText className={'my-lg-5 mb-5 mb-lg-0 blue-text pt-5 font-weight-bold'}>Your savings this year</BoldText>
+                            <BoldText className={'my-lg-5 mb-5 mb-lg-0 blue-text pt-5 font-weight-bold'}>Your savings
+                                this year</BoldText>
                             <Line/>
                             <SmallText className='mt-5 light-blue-text'>Let's review your saving discipline this
                                 year</SmallText>
@@ -243,7 +246,7 @@ const ScoreBoard = () => {
                                 <div className="text">
                                     <BoldText
                                         className={'fs-lg-4 text-light-yellow'}>{NAIRA} {userDetails ?
-                                        formatNumber(Number(userDetails.vaultAmount) + Number(userDetails.vaultInterest))
+                                        formatNumber(total)
                                         : 0.00}
                                     </BoldText>
                                 </div>
@@ -289,7 +292,8 @@ const ScoreBoard = () => {
                             <Slash className={'flex-grow-1'}/>
                             <div className={'flex-grow-1'}>
                                 <SmallText className={'text-white mb-lg-5'}>Complete goals</SmallText>
-                                <BoldText className={'text-white fs-lg-4'}>{userDetails ? formatNumber(userDetails.CompletedGoals) : 0}</BoldText>
+                                <BoldText
+                                    className={'text-white fs-lg-4'}>{userDetails ? formatNumber(userDetails.CompletedGoals) : 0}</BoldText>
                             </div>
                         </div>
 

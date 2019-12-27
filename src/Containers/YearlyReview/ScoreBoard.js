@@ -176,7 +176,7 @@ const ScoreBoard = () => {
 
     return (
         <div>
-            <Section className={'score-board-header'}>
+            <Section className={'score-board-header px-2 pt-2 pt-lg-0'}>
                 <Navigation isLoggedIn={isLoggedIn} type={'review'}/>
                 <Row className='mt-5 pt-lg-5'>
                     <Col lg={{span: 6}}>
@@ -189,11 +189,10 @@ const ScoreBoard = () => {
             <Section type={'fluid'} className={' bg-light-yellow mh-lg-50-vh'}>
                 <div className='flower-pot-bg'>
                     <div className={'pl-lg-5 pt-lg-5'}>
-                        <div className="pl-lg-5">
-                            <BoldText className={'my-lg-5 blue-text pt-lg-5 font-weight-bold'}>Your savings this
-                                year</BoldText>
+                        <div className="pl-lg-5 px-2 pr-lg-0">
+                            <BoldText className={'my-lg-5 mb-5 mb-lg-0 blue-text pt-5 font-weight-bold'}>Your savings this year</BoldText>
                             <Line/>
-                            <SmallText className='mt-lg-5 light-blue-text'>Let's review your saving discipline this
+                            <SmallText className='mt-5 light-blue-text'>Let's review your saving discipline this
                                 year</SmallText>
                         </div>
                     </div>
@@ -201,14 +200,14 @@ const ScoreBoard = () => {
             </Section>
 
             <Section className={'sb-deep-blue-bg text-white'}>
-                <Row className={'mt-lg-5 pt-lg-5'}>
+                <Row className={'mt-lg-5 pt-5'}>
                     <Col lg={{span: 12}}>
                         <Line type={'white'}/>
-                        <HeaderText className={'my-lg-5 text-white'}>
+                        <HeaderText className={'my-5 text-white'}>
                             Central vault <br/>savings
                         </HeaderText>
-                        <div className="d-flex">
-                            <div className="flex-item align-items-start flex-grow-1 d-flex">
+                        <div className="d-flex flex-column flex-lg-row">
+                            <div className="flex-item mt-5 mt-lg-0 align-items-start flex-grow-1 d-flex">
                                 <FlexIcon img={nairaIcon}/>
                                 <div className="text mt-lg-3">
                                     <SmallText>Central vault savings</SmallText>
@@ -216,15 +215,15 @@ const ScoreBoard = () => {
                                         className={'text-light-yellow'}>N {userDetails ? formatNumber(userDetails.vaultAmount) : 0.00}</BoldText>
                                 </div>
                             </div>
-                            <div className="flex-item flex-grow-1 d-flex">
+                            <div className="flex-item mt-5 mt-lg-0  flex-grow-1 d-flex">
                                 <div className="text">
                                     <SmallText>Your total central vault savings</SmallText>
                                     <BoldText>=</BoldText>
                                 </div>
                             </div>
                         </div>
-                        <div className="d-flex">
-                            <div className="flex-item align-items-start  flex-grow-1 d-flex">
+                        <div className="d-flex flex-column pb-5 pb-lg-0  flex-lg-row">
+                            <div className="flex-item mt-5 mt-lg-0 align-items-start  flex-grow-1 d-flex">
                                 <FlexIcon img={percentageIcon}/>
                                 <div className="text mt-lg-3">
                                     <SmallText>Interest gained</SmallText>
@@ -232,7 +231,7 @@ const ScoreBoard = () => {
                                         className={'text-light-yellow'}>N {userDetails ? formatNumber(userDetails.vaultInterest) : 0.00}</BoldText>
                                 </div>
                             </div>
-                            <div className="flex-item flex-grow-1 d-flex">
+                            <div className="flex-item mt-5 mt-lg-0 flex-grow-1 d-flex">
                                 <div className="text">
                                     <BoldText
                                         className={'fs-lg-4 text-light-yellow'}>N {userDetails ?
@@ -248,15 +247,15 @@ const ScoreBoard = () => {
 
             <Section type={'fluid'} className={'bg-light-yellow mh-lg-50-vh'}>
                 <div className='gray-lock-bg'>
-                    <div className={'pl-lg-5 py-lg-5 d-flex mb-lg-5'}>
+                    <div className={'pl-lg-5 px-2 px-lg-0 py-5 d-flex flex-column flex-lg-row  mb-lg-5'}>
                         <div className="pl-lg-5 flex-grow-1">
                             <Line/>
-                            <BoldText className='my-lg-5 text-faded-blue-2'>Locked Savings</BoldText>
+                            <BoldText className='my-5 text-faded-blue-2'>Locked Savings</BoldText>
                             <BoldText className={'fs-lg-2 text-faded-blue-3'}>Total amount locked away in
                                 2019</BoldText>
                         </div>
-                        <div className="pt-lg-5 my-lg-5 flex-grow-1">
-                            <SmallText className={'my-lg-5 fs-lg-1-5 pt-lg-5 text-faded-blue-3 font-weight-bold'}>Your
+                        <div className="pt-lg-5 my-lg-5 pb-5 pb-lg-0  flex-grow-1">
+                            <SmallText className={'my-5 fs-lg-1-5 pt-lg-5 text-faded-blue-3 font-weight-bold'}>Your
                                 locked savings</SmallText>
                             <BoldText className={'text-white fs-lg-4'}>=</BoldText>
                             <BoldText
@@ -268,12 +267,12 @@ const ScoreBoard = () => {
 
             <Section className={'deep-blue-bg text-white'} hideOverflow>
                 <img src={wavyLines} className={'wavy-lines'} alt="wavy lines"/>
-                <div className="px-lg-5 mt-lg-5 py-lg-5">
+                <div className="px-lg-5 mt-lg-5 py-5">
                     <Line type={'white'}/>
-                    <BoldText className={'my-lg-5 pb-lg-3  text-white'}>Goals you set this year</BoldText>
+                    <BoldText className={'my-5 pb-lg-3  text-white'}>Goals you set this year</BoldText>
                     <div>
                         <SmallText className={'font-weight-bold fs-2 mb-lg-5 text-white'}>Goals you set</SmallText>
-                        <div className="d-flex align-items-end mb-lg-5">
+                        <div className="d-flex flex-lg-row mt-5 mt-lg-0 align-items-lg-end mb-lg-5">
                             <div>
                                 <SmallText className={'text-white mb-lg-5'}>Active goals</SmallText>
                                 <BoldText
@@ -287,7 +286,7 @@ const ScoreBoard = () => {
                             </div>
                         </div>
 
-                        <div className="d-flex align-items-end mb-lg-5">
+                        <div className="d-flex flex-column mt-5 mt-lg-0 flex-lg-row align-items-lg-end mb-lg-5">
                             <div className={'flex-grow-1'}>
                                 <SmallText className={'text-white mb-lg-5'}>Active goals = </SmallText>
                                 <BoldText
@@ -308,40 +307,39 @@ const ScoreBoard = () => {
             <Section className={'light-blue-bg text-white'}>
                 <div className="blue-gray-bg px-lg-5">
                     <Line type={'white'}/>
-                    <HeaderText className={'my-lg-5'}>
+                    <HeaderText className={'my-5'}>
                         Finally, let's see how much matured funds you have <br/> garnered this year
                     </HeaderText>
                 </div>
-                <div className='ml-lg-5 px-lg-5 '>
+                <div className='ml-lg-5 pb-5 pb-lg-0 px-lg-5 '>
                     <BoldText>=</BoldText>
-                    <SmallText className={'my-lg-5'}>Available for withdrawal</SmallText>
+                    <SmallText className={'my-5'}>Available for withdrawal</SmallText>
                     <BoldText
                         className={'fs-lg-4 text-light-yellow'}> N{userDetails ? formatNumber(userDetails.stashAmount) : 0}</BoldText>
                 </div>
             </Section>
 
-            <Section className={'bg-light-yellow px-lg-5'} hideOverflow>
+            <Section className={'bg-light-yellow px-lg-5 px-2'} hideOverflow>
                 <Sprinkles/>
                 <Row>
                     <Col lg={{span: 12}}>
-                        <SmallText className={'text-light-gray my-lg-5 pt-lg-5'}>From Cassandra</SmallText>
-                        <div className="d-flex">
+                        <SmallText className={'text-light-gray my-5 pt-5'}>From Cassandra</SmallText>
+                        <div className="d-flex flex-column flex-lg-row">
                             <div className='flex-grow-1 flex-basis-40'>
                                 <BoldText className='mb-lg-5 fs-lg-4 text-light-blue'>This year,</BoldText>
                             </div>
-                            <div className={'mt-lg-2 flex-grow-1 text-light-gray'}>
+                            <div className={'mt-lg-2 mb-5 mb-lg-0 flex-grow-1 text-light-gray'}>
                                 <Line/>
                                 <BoldText
-                                    className='my-lg-5'>{userDetails && userDetails.vaultAmount ? message[0] : 'You were willing. Let’s make that will active!'}</BoldText>
+                                    className='my-5'>{userDetails && userDetails.vaultAmount ? message[0] : 'You were willing. Let’s make that will active!'}</BoldText>
                                 <SmallText
-                                    className={'mb-lg-5'}>{userDetails && userDetails.vaultAmount ? message[1] : 'How can we help you make your very first savings this year?'}</SmallText>
-                                <Button onClick={() => redirectTo(LoginLink)} className={'inverse'}
+                                    className={'mb-5'}>{userDetails && userDetails.vaultAmount ? message[1] : 'How can we help you make your very first savings this year?'}</SmallText>
+                                <Button onClick={() => redirectTo(LoginLink)} className={'inverse '}
                                         text={'Start saving now'}/>
                             </div>
                         </div>
                     </Col>
                 </Row>
-
             </Section>
         </div>
 

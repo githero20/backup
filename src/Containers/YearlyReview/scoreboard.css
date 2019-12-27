@@ -99,3 +99,43 @@
         font-size: 4rem;
     }
 }
+
+
+@media all and (max-width: 480px){
+
+    .score-board-header {
+        background-position: 54% 107%;
+        background-size: 430px;
+        background-color: #4882F0;
+        background-repeat: no-repeat;
+    }
+    .gray-lock-bg {
+        background-size: cover;
+        z-index: 5000;
+        margin-bottom: 0px;
+    }
+
+
+    .flower-pot-bg {
+        background-size: 500px;
+        background-position: 100% 100%;
+        background-color: #FFF8DA;
+        background-repeat: no-repeat;
+        margin-bottom: 0;
+    }
+
+    .gradient-circle {
+        width: 31%;
+        right: -13%;
+    }
+    .wavy-lines{
+        display: none;
+    }
+
+    .round-blue-btn {
+        width: 150px;
+        height: 45px;
+        font-size: 1rem;
+        word-spacing: 0;
+    }
+}

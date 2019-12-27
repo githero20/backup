@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Redirect, Route} from "react-router";
+import {Route} from "react-router";
 import Login from "../Containers/Login/Login";
 import SignUp from "../Containers/SignUp/SignUp";
 import {BrowserRouter as Router, Switch} from "react-router-dom";
@@ -19,7 +19,9 @@ import {
     addWithdrawalLink,
     BackupGoalsLink,
     BackupStashLink,
-    BankCardLink, botCreatePasswordLink, ChallengeLink,
+    BankCardLink,
+    botCreatePasswordLink,
+    ChallengeLink,
     DashboardLink,
     EmailActivationLink,
     FaqLink,
@@ -29,12 +31,15 @@ import {
     InviteLink,
     KycSettingLink,
     LockedSavingsLink,
-    LoginLink, TermsAndCondLink,
-    ProfileSettingLink, ReferralsLink,
+    LoginLink,
+    ProfileSettingLink,
+    ReferralsLink,
     ResendActivationLink,
-    ResetPasswordLink,
+    ResetPasswordLink, sbDashboardLink,
+    scoreboardLink,
     SignUpLink,
     SteadySaveLink,
+    TermsAndCondLink,
     TransactionsLink,
     WithdrawalLink
 } from "../RouteLinks/RouteLinks";
@@ -49,13 +54,14 @@ import {ToastProvider} from "react-toast-notifications";
 import SetupWithdrawal from "../Containers/SetupWithdrawal/SetupWithdrawal";
 import ErrorPage from "../Containers/ErrorPage/ErrorPage";
 import Faq from "../Containers/Faq/faq";
-import {TransitionGroup, Transition} from "react-transition-group";
-import {play, exit} from "../timelines";
+import {Transition, TransitionGroup} from "react-transition-group";
+import {exit, play} from "../timelines";
 import Referrals from "../Containers/Referrals/Referrals";
 import ReactGA from 'react-ga';
-import HomePage from "../Containers/Home/HomePage";
 import Challenge from "../Containers/challenge/Challenge";
 import PrivacyPolicy from "../Containers/privacy policy/PrivacyPolicy";
+import YearlyReview from "../Containers/YearlyReview/YearlyReview";
+import ScoreBoard from "../Containers/YearlyReview/ScoreBoard";
 
 
 class AppRouter extends Component {
@@ -110,11 +116,14 @@ class AppRouter extends Component {
 
                                                 {/*auth routes*/}
                                                 <Route path={LoginLink} render={() => (
-                                                    user ? window.location.href = DashboardLink : <Login/>
+                                                    user ? window.location.href = DashboardLink :
+                                                        <Login/>
                                                 )}/>
                                                 <Route path={SignUpLink} render={(props) => (
-                                                    user ? window.location.href = DashboardLink : <SignUp {...props}/>
+                                                    user ? window.location.href = DashboardLink :
+                                                        <SignUp {...props}/>
                                                 )}/>
+
                                                 <Route path={InviteLink} component={SignUp}/>
                                                 <Route path={ActivateAccountLink} component={ActivateAccount}/>
                                                 <Route path={ForgotPasswordLink} component={ForgotPassword}/>
@@ -124,6 +133,8 @@ class AppRouter extends Component {
                                                 <Route path={ResetPasswordLink} component={ResetPassword}/>
                                                 <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
                                                 <Route path={FaqLink} component={Faq}/>
+                                                <Route exact path={scoreboardLink} component={YearlyReview}/>
+                                                <Route exact path={sbDashboardLink} component={ScoreBoard}/>
                                                 <Route component={ErrorPage}/>
                                             </Switch>
                                         </Transition>

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {withToastManager} from 'react-toast-notifications';
-import {capitalize, formatNumber, toastMessage} from "../../../../Helpers/Helper";
+import {capitalize, formatNumber, redirectTo, toastMessage} from "../../../../Helpers/Helper";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
-import {KycSettingLink, ReferralsLink, SteadySaveLink} from "../../../../RouteLinks/RouteLinks";
+import {KycSettingLink, ReferralsLink, scoreboardLink, SteadySaveLink} from "../../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 import {getUserPoints} from "../../../../actions/UserAction";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -98,7 +98,7 @@ class MessageBox extends Component {
 
     render() {
         const {show, numOfUser} = this.state;
-        const {showSSModal, challenge} = this.props;
+        const {challenge} = this.props;
 
         const referralText =
             this.state.userName ? capitalize(this.state.userName) : null;
@@ -137,8 +137,7 @@ class MessageBox extends Component {
                             placement={'right'}
                             overlay={
                                 <Tooltip id={`tooltip-${'right'}`}>
-                                    You will get 10 Referral Points for every of your referred users that saves at least
-                                    N500
+                                    You will get 10 Referral Points for every of your referred users that saves at least N500
                                 </Tooltip>
                             }
                         >
@@ -161,15 +160,15 @@ class MessageBox extends Component {
                             <label
                                 className='d-flex flex-column align-items-center text-white flex-md-row justify-content-md-center'>
                                 <span>
-                                    Save, Refer & Win!. Join the 21 Day Savings Challenge from 1st – 21st of November
+                                    {/*Save, Refer & Win!. Join the 21 Day Savings Challenge from 1st – 21st of November*/}
+                                    View your money score card this year
                                 </span>
                             </label>
                             <label
                                 className='d-flex mt-1 mt-lg-0 mb-lg-0 flex-md-row flex-wrap flex-column align-items-md-center'>
                                 <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"/>
                                 <div className='d-flex justify-content-between d-md-inline-block flex-grow-1'>
-                                    <Link to={SteadySaveLink}
-                                          className="btn-white-bordered round px-2 mr-md-2 mb-md-0">Start now</Link>
+                                    <a href={scoreboardLink} target='_blank' className="btn-white-bordered round px-2 mr-md-2 mb-md-0">View now</a>
                                 </div>
                             </label>
                         </div>

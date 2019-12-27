@@ -256,11 +256,11 @@ class DashboardContainer extends Component {
 
                                 <BackUpStashCard stashAmount={stashAmount}/>
                                 <div className="col-12 col-lg-6">
-                                    <Link to={SteadySaveLink} className="dash-ads br-2 overflow-hidden mb-3">
-                                        <video width="100%" height="200px" autoPlay muted loop>
-                                            <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}
-                                                    type="video/mp4"/>
-                                        </video>
+                                    {/*<Link to={SteadySaveLink} className="dash-ads br-2 overflow-hidden mb-3">*/}
+                                    {/*    <video width="100%" height="200px" autoPlay muted loop>*/}
+                                    {/*        <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}*/}
+                                    {/*                type="video/mp4"/>*/}
+                                    {/*    </video>*/}
                                         {/*<img src={adImg} className='dash-ad-img' alt="advert one "/>*/}
                                         {/*<div className={'dash-action left-action'}>*/}
                                         {/*    <h5>New Investment*/}
@@ -268,12 +268,16 @@ class DashboardContainer extends Component {
                                         {/*    <a className={'ad-gray-link'}>Know more <i*/}
                                         {/*        className='fa fa-arrow-right'/></a>*/}
                                         {/*</div>*/}
-                                    </Link>
+                                    {/*</Link>*/}
+                                    <div className="dash-ads mb-3 pt-2">
+                                        <img src={require('../../../admin/app-assets/images/ussd-ad.png')} className='dash-ad-img mt-1' alt="advert two"/>
+                                        <div className={'dash-action right-action'}/>
+                                    </div>
                                 </div>
                                 <div className="col-12 col-lg-6">
                                     <div className="dash-ads mb-3 pt-2">
                                         <img src={require('../../../admin/app-assets/images/ussd-ad.png')} className='dash-ad-img mt-1' alt="advert two"/>
-                                        <div className={'dash-action right-action'}>
+                                        <div className={'dash-action right-action'}/>
                                             {/*<a className={'ad-link-white'}>Know more&nbsp;*/}
                                             {/*    <i className='fa fa-arrow-right'/>*/}
                                             {/*</a>*/}
@@ -302,16 +306,10 @@ class DashboardContainer extends Component {
                         </div>
 
                     </div>
-
                     <Footer/>
-                </div>
-
             </React.Fragment>
         );
-
-
     }
-
 };
 
 export default DashboardContainer;

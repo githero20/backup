@@ -1,0 +1,12 @@
+.bottom-0{
+    bottom: 20px;
+}
+
+.review-footer a {
+    color: white;
+    font-size: 1.2rem;
+}
+.review-footer a:hover {
+    color: #ffffffdd;
+    font-size: 1.2rem;
+}

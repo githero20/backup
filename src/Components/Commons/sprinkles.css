@@ -1,0 +1,11 @@
+@media all and (min-width: 1200px){
+    /*.sprinkles{*/
+    /*    top:20%;*/
+    /*    left: 50%;*/
+    /*    transform: translate(-10%,-50%);*/
+    /*}*/
+}
+
+.sprinkles{
+    width: 80%;
+}

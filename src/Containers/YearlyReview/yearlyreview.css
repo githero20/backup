@@ -1,0 +1,79 @@
+@keyframes animatedBg {
+    0% {
+        background-size: 120%;
+    }
+
+    25% {
+        background-size: 250%;
+    }
+
+    50% {
+        background-size: 150%;
+    }
+    75% {
+        background-size: 200%;
+    }
+    100% {
+        background-size: 120%;
+    }
+}
+
+.text-gray{
+    color: #06285840;
+}
+.text-faded-blue{
+    color: #062858CC;
+}
+.text-faded-blue-2{
+    color: #495F8A;
+}
+.text-faded-blue-3{
+    color: #092B5D73;
+}
+
+.review-modal form label{
+    color: #092B5D4D;
+}
+.review-modal form input.form-control{
+    border-bottom:1px solid #092B5D4D;
+    background-color: transparent;
+}
+.review-modal .input:-webkit-autofill,
+.review-modal input:-webkit-autofill:hover,
+.review-modal input:-webkit-autofill:focus,
+.review-modal input:-webkit-autofill:active{
+    background-color: transparent;
+}
+.review-modal .modal-content{
+    background-color:#FFFCEF;
+}
+
+.review-modal form .round-blue-btn{
+    background-color:#357AFF;
+}
+@media all and (min-width: 1200px) {
+    .mh-lg-100-vh {
+        min-height: 100vh;
+    }
+    .fs-lg-3{
+        font-size: 3rem;
+    }
+    .fs-lg-2{
+        font-size: 2rem;
+    }
+    .fs-lg-1-5{
+        font-size: 1.5rem;
+    }
+
+    .review-header {
+        background-color: #4882F0;
+        background-image: url(../../admin/app-assets/images/dottedlines-bg@2x.png);
+        background-size: 120%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        animation: animatedBg 5s ease-in-out infinite;
+    }
+    .review-footer{
+        width: 100%;
+    }
+}

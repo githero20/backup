@@ -178,6 +178,7 @@ class DashboardIndex extends Component {
                 return (moment(content.end_date).format('YYYY-MM-DD') > now &&
                     parseInt(content.is_pause) === 0 && parseInt(content.stop) === 0);
             });
+
             let CompletedGoals = getCompletedGoals(backUpGoals);
             this.setState({
                 showLoader: false,
@@ -217,8 +218,6 @@ class DashboardIndex extends Component {
     };
 
     showUpdateKYC = (data) => {
-        // const update = localStorage.getItem(KYC);
-
         isKycUpdated((state, res) => {
             if (state && res) {
                 if (res == null || res.is_kyc_updated == 0) {

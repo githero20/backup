@@ -21,8 +21,6 @@ import CommentImage from "../../admin/app-assets/images/portrait/small/avatar-s-
 import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../admin/app-assets/images/SFS-LOGOS-4-150x150.jpg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
-import facebookCreateBtn from "../../admin/app-assets/images/create-with-whatsapp@2x.png";
-import whatsappCreateBtn from "../../admin/app-assets/images/create-with-facebook@2x.png";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
 import {FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import ReactOwlCarousel from "react-owl-carousel";
@@ -33,6 +31,24 @@ import {SESSION_INTERVAL, USERTOKEN} from "../../Components/Auth/HOC/authcontrol
 import Navigation from "./Navigation";
 import Header from "./Header";
 
+
+export const checkUser = () => {
+    let timeStamp = JSON.parse(localStorage.getItem(SESSION_INTERVAL));
+    let user = JSON.parse(localStorage.getItem(USERTOKEN));
+    if (timeStamp != null) {
+        // get the session and compare the current time
+        let diff = moment(timeStamp);
+        if (diff < moment().subtract(50, 'minutes') || user == null) {
+            console.log('false', false);
+            return false;
+        } else if (diff > moment().subtract(50, 'minutes') && user != null) {
+            console.log('true', true);
+            return true
+        }
+
+    }
+};
+
 class Home extends Component {
 
     state = {
@@ -42,15 +58,6 @@ class Home extends Component {
     };
     doAnimation = true;
 
-    showMobileMenu = () => {
-        //add is-active on
-        let nav = document.querySelector('.navbar-toggler');
-        nav.classList.toggle('is-active');
-
-        //show toggle menu
-        let mobileMenu = document.querySelector('.navbar-collapse');
-        mobileMenu.classList.toggle('show');
-    };
 
     scrollIntoView = () => {
         document.querySelector('.testimonial').scrollIntoView({
@@ -58,25 +65,6 @@ class Home extends Component {
         });
     };
 
-    checkUser = () => {
-        let timeStamp = JSON.parse(localStorage.getItem(SESSION_INTERVAL));
-        let user = JSON.parse(localStorage.getItem(USERTOKEN));
-        if (timeStamp != null) {
-            // get the session and compare the current time
-            let diff = moment(timeStamp);
-
-            if (diff < moment().subtract(50, 'minutes') || user == null) {
-                this.setState({
-                    isLoggedIn: false
-                })
-            } else if (diff > moment().subtract(50, 'minutes') && user != null) {
-                this.setState({
-                    isLoggedIn: true
-                })
-            }
-
-        }
-    };
 
     handleScrollAnimation = () => {
         if (this.doAnimation) {
@@ -85,24 +73,13 @@ class Home extends Component {
                 let cards = document.getElementsByClassName("award-card");
                 if (cards && cards.length > 0) {
                     if (window.scrollY < animatePos) {
-                        // cards.map((card,index)=>{
-                        //     if(index=0){
-                        //         r
-                        //     }
-                        // })
                         cards[0].classList.add('active');
                         cards[1].classList.remove('active');
-                        // cards[2].classList.remove('active');
                     } else if (window.scrollY > animatePos && window.scrollY < 3600) {
                         cards[0].classList.remove('active');
                         cards[1].classList.add('active');
-                        // cards[2].classList.remove('active');
                     }
-                    // else {
-                    //     cards[0].classList.remove('active');
-                    //     cards[1].classList.remove('active');
-                    //     // cards[2].classList.add('active');
-                    // }
+
                 }
 
             })
@@ -115,7 +92,8 @@ class Home extends Component {
 
 
     componentDidMount() {
-        this.checkUser();
+        const isLoggedIn = checkUser();
+        this.setState({isLoggedIn})
         this.doAnimation = this.handleScrollAnimation();
     }
 
@@ -123,13 +101,11 @@ class Home extends Component {
     render() {
         const {isLoggedIn} = this.state;
         const slides = [
-            // {img:require('../../admin/app-assets/images/slider/IMG-20191025-WA0004.jpg')},
-            // {img:require('../../admin/app-assets/images/slider/IMG-20191025-WA0007.jpg')},
-            {img:require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')},
-            {img:require('../../admin/app-assets/images/slider/mybackupcash_2___B2vzESsl0TG___.jpg')},
-            {img:require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')},
-            {img:require('../../admin/app-assets/images/slider/mybackupcash_2___B23mgrTlfLp___.jpg')},
-            {img:require('../../admin/app-assets/images/slider/mybackupcash___B206V6_lxNQ___.jpg')},
+            {img: require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')},
+            {img: require('../../admin/app-assets/images/slider/mybackupcash_2___B2vzESsl0TG___.jpg')},
+            {img: require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')},
+            {img: require('../../admin/app-assets/images/slider/mybackupcash_2___B23mgrTlfLp___.jpg')},
+            {img: require('../../admin/app-assets/images/slider/mybackupcash___B206V6_lxNQ___.jpg')},
         ];
         return (
             <React.Fragment>
@@ -139,7 +115,9 @@ class Home extends Component {
                             <header className="header header-background hero-bg">
                                 <img src={homeBGImg} className='home-bg-img d-none' alt="svg image"/>
                                 <div className="container">
-                                    <Navigation isLoggedIn={isLoggedIn} scrollIntoView={this.scrollIntoView}/>
+                                    <Navigation isLoggedIn={isLoggedIn}
+                                                scrollIntoView={this.scrollIntoView}
+                                    />
                                     {/*row and two columns */}
                                     <Header slides={slides} button className='d-none'/>
                                 </div>
@@ -159,13 +137,16 @@ class Home extends Component {
                                                     <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
                                                          alt="yellow icon"/>
                                                 </div>
-                                                <h2 className="section-details-header text-center text-md-left mb-md-2">Relax and Watch
+                                                <h2 className="section-details-header text-center text-md-left mb-md-2">Relax
+                                                    and Watch
                                                     Your Money
                                                     Grow</h2>
                                                 <p className="section-details-paragraph text-center text-md-left mb-md-2  ">
-                                                    Backup Cash is a secure and automated savings app that allows you earn higher interest on deposits than your bank. </p>
+                                                    Backup Cash is a secure and automated savings app that allows you
+                                                    earn higher interest on deposits than your bank. </p>
                                                 <p className="section-details-paragraph text-center text-md-left ">
-                                                    It helps make saving little amounts of money easy, so you can reach your goals faster. </p>
+                                                    It helps make saving little amounts of money easy, so you can reach
+                                                    your goals faster. </p>
                                             </div>
                                         </div>
                                     </div>
@@ -186,8 +167,11 @@ class Home extends Component {
                                                             </div>
                                                             <div className="ml-md-2 ml-md-0">
                                                                 <h2>Your money is safe and secure</h2>
-                                                                <h6 className='pr-lg-5'>Your funds are invested in the SFS Fixed Income Fund, managed by SFS Capital.
-                                                                    The SFS Fixed Income Fund is AA rated and has won the BusinessDay Award for the Best performing Fixed Income Fund in 2018 and 2019.</h6>
+                                                                <h6 className='pr-lg-5'>Your funds are invested in the
+                                                                    SFS Fixed Income Fund, managed by SFS Capital.
+                                                                    The SFS Fixed Income Fund is AA rated and has won
+                                                                    the BusinessDay Award for the Best performing Fixed
+                                                                    Income Fund in 2018 and 2019.</h6>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -287,7 +271,8 @@ class Home extends Component {
                                                 <div
                                                     className="section-transparent-card-right text-center text-md-left">
                                                     <h5>Stay focused, Earn more</h5>
-                                                    <p>Earn high interest upfront when you choose the option of saving for a specified period.</p>
+                                                    <p>Earn high interest upfront when you choose the option of saving
+                                                        for a specified period.</p>
                                                 </div>
                                             </div>
                                             <div className="section-transparent-card mb-5">

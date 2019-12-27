@@ -302,11 +302,27 @@ export function getCompletedGoals(transactions) {
 			);
 		});
 		return CompletedGoals.length;
-
 	}
 	return 0;
-
 }
+export function getCompletedGoalsAmount(transactions) {
+	const now = moment().format('YYYY-MM-DD');
+	if (transactions.length > 0) {
+		let CompletedGoals = transactions.filter((content) => {
+			return ((moment(content.end_date).format('YYYY-MM-DD') < now
+					&& parseInt(content.is_pause) === 0
+					&& parseInt(content.stop) === 0) ||
+				(parseInt(content.stop) === 1)
+			);
+		});
+		return CompletedGoals.reduce((a,b)=>{
+			console.log('completed a + b',a,b);
+			return a+Number(b.target_amount)
+		},0);
+	}
+	return 0;
+}
+
 
 export function isGoalCompleted(goal) {
 	const now = moment().format('YYYY-MM-DD');
@@ -1095,7 +1111,8 @@ export function validateSteadySaveAmount(frequency, contribution, context) {
 		return true;
 	}
 }
-
+export const redirectTo = (url) => window.location.href = url ;
+export const currentLocation = window.location.pathname ;
 export function validateBackupGoalAmount(frequency, contribution, context) {
 	if (frequency == APP_FREQUENCY.daily && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalDaily) {
 		toastMessage(`The mimimum amount for ${APP_FREQUENCY.daily} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalDaily)}`, 'error', context);

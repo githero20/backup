@@ -3,18 +3,21 @@ import {Link, Redirect} from "react-router-dom";
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {
-    addWithdrawalLink, botCreatePasswordLink,
+    addWithdrawalLink,
+    botCreatePasswordLink,
     DashboardLink,
     ForgotPasswordLink,
     LoginEndpoint,
-    ResendActivationLink
+    ResendActivationLink, sbDashboardLink, scoreboardLink
 } from "../../../RouteLinks/RouteLinks";
 import {api} from "../../../ApiUtils/ApiUtils";
 import {SESSION_INTERVAL, USERINFO, USERTOKEN} from "../HOC/authcontroller";
 import {withToastManager} from 'react-toast-notifications';
-import {ADMIN, ADMIN_LOGIN_URL, CUSTOMER, EmailPhoneValidator} from "../../../Helpers/Helper";
+import {ADMIN, ADMIN_LOGIN_URL, currentLocation, CUSTOMER, redirectTo} from "../../../Helpers/Helper";
 import moment from 'moment';
 import SimpleReactValidator from "simple-react-validator";
+import {Form} from "react-bootstrap";
+import Button from "../../Commons/Button";
 
 
 class LoginForm extends Component {
@@ -48,12 +51,6 @@ class LoginForm extends Component {
         });
     };
 
-
-    //TODO login should handle is user sign's up but hasn't activated yet
-
-    //TODO on login user should be redirected to the email verification
-
-
     toastMessage(message, status) {
         const {toastManager} = this.props;
         toastManager.add(message, {
@@ -63,28 +60,6 @@ class LoginForm extends Component {
             pauseOnHover: false,
         })
     }
-
-    handleRole = (status, res) => {
-        if (status) {
-
-            //get user role
-
-
-            // if the role is a customer process to dashboard
-
-
-            // else redirect user to admin login page
-
-            if (res == 'admin') {
-
-
-            } else if (res == 'customer') {
-
-
-            }
-
-        }
-    };
 
 
     processLogin(state, response) {
@@ -102,12 +77,18 @@ class LoginForm extends Component {
                             localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
                             localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
                             localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
-                            setTimeout(() => {
-                                this.setState({
-                                    redirect: true,
-                                    loading: false
-                                });
-                            }, 3000);
+
+                            if(currentLocation === scoreboardLink){
+                                redirectTo(sbDashboardLink);
+                            }else {
+                                setTimeout(() => {
+                                    this.setState({
+                                        redirect: true,
+                                        loading: false
+                                    });
+                                }, 3000);
+                            }
+
                         } else {
                             // get user info and redirect to add withdrawal page
                             this.setState({
@@ -149,9 +130,7 @@ class LoginForm extends Component {
 
 
     Login = (url, param, login) => {
-        this.setState({
-            loading: true
-        });
+        this.setState({loading: true});
         api(url, param, false, true, login);
     };
 
@@ -168,9 +147,7 @@ class LoginForm extends Component {
 
     //hides error display
     hideError = () => {
-        this.setState({
-            error: false
-        });
+        this.setState({error: false});
     };
 
     componentDidMount() {
@@ -185,9 +162,7 @@ class LoginForm extends Component {
             const {password} = this.state;
             // perform all neccassary validations
             if (!PasswordRegex.exec(password)) {
-                this.setState({
-                    RenderPasswordError: true,
-                })
+                this.setState({RenderPasswordError: true})
             } else {
                 return true;
             }
@@ -202,7 +177,8 @@ class LoginForm extends Component {
 
     render() {
 
-        const {email, password} = this.state;
+        const {email, password, loading} = this.state;
+        const {reviewForm} = this.props;
 
         if (this.state.redirect) {
             return (
@@ -238,62 +214,82 @@ class LoginForm extends Component {
         return (
             <React.Fragment>
 
-                <form className="login-form" onSubmit={this.submitForm}>
-                    <div className="row">
-                        <div className="col-12">
-                            <h5 className="form-header-purple mb-2">Log In</h5>
-                        </div>
-                        <div className="col-12">
-                            <div className="form-group">
-                                <label htmlFor="email">Email or Phone Number</label>
-                                <input id="email" name={'email'} onChange={this.changeHandler} type="text"
-                                       className="form-control"/>
-                                {/*{this.validator.message('email or phone', email, 'required|emailPhone')}*/}
+                {reviewForm ?
+                    <Form className={'py-lg-3 px-lg-3'}>
+                        <p className='font-weight-bold circular-std-Black text-gray'>Welcome back</p>
+                        <h3 className='font-weight-bold mb-lg-5 fs-lg-2 text-faded-blue circular-std-Black '>Log In</h3>
+                        <Form.Group >
+                            <Form.Label>Email address or Phone Number</Form.Label>
+                            <Form.Control type="text" id="email" name={'email'} onChange={this.changeHandler}/>
+                        </Form.Group>
 
+                        <Form.Group>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" id="password" name={'password'} onChange={this.changeHandler}/>
+                        </Form.Group>
+                        <Button text={'Log In'} loading={loading} onClick={(e) => this.submitForm(e)}/>
+                    </Form> :
+                    <form className="login-form" onSubmit={this.submitForm}>
+                        <div className="row">
+                            <div className="col-12">
+                                <h5 className="form-header-purple mb-2">Log In</h5>
                             </div>
-                        </div>
-                        <div className="col-12">
-                            <div className="form-group">
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <label htmlFor="password" className="">Password</label>
-                                    <Link className='dark-link' to={ForgotPasswordLink}>Forgot Password ?</Link>
+                            <div className="col-12">
+                                <div className="form-group">
+                                    <label htmlFor="email">Email or Phone Number</label>
+                                    <input id="email" name={'email'} onChange={this.changeHandler} type="text"
+                                           className="form-control"/>
+                                    {/*{this.validator.message('email or phone', email, 'required|emailPhone')}*/}
+
                                 </div>
-                                <input id="password" name={'password'} type="password" onChange={this.changeHandler}
-                                       className="form-control"/>
                             </div>
-                        </div>
-                        <div className="col-12">
-                            <div className="d-flex flex-column flex-md-row justify-content-end justify-content-md-between pr-sm-0  mt-md-1 mb-1 pr-1 pr-md-1">
-                                <div className='my-1 my-md-0 d-none d-md-flex'>
+                            <div className="col-12">
+                                <div className="form-group">
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <label htmlFor="password" className="">Password</label>
+                                        <Link className='dark-link' to={ForgotPasswordLink}>Forgot Password ?</Link>
+                                    </div>
+                                    <input id="password" name={'password'} type="password" onChange={this.changeHandler}
+                                           className="form-control"/>
+                                </div>
+                            </div>
+                            <div className="col-12">
+                                <div
+                                    className="d-flex flex-column flex-md-row justify-content-end justify-content-md-between pr-sm-0  mt-md-1 mb-1 pr-1 pr-md-1">
+                                    <div className='my-1 my-md-0 d-none d-md-flex'>
+                                        <label className="font-size-1-1 mb-md-1 dark-link">Bot User ?
+                                            &nbsp;<Link to={botCreatePasswordLink} className="blue-link ">Create
+                                                Password</Link>
+                                        </label>
+                                        {/*No Password Yet (Bot User)?  Create */}
+                                    </div>
+                                    <div className='text-right text-md-left my-1 my-md-0'>
+                                        <label className="font-size-1-1 mb-md-1 dark-link">New User ?
+                                            &nbsp;<Link to={'/sign-up'} className="blue-link ">Sign Up</Link>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-12">
+                                <div className="d-flex  flex-column flex-md-row justify-content-end align-items-center">
+                                    <button type={'submit'} disabled={this.state.loading}
+                                            className="btn btn-round blue-round-btn auth-btn order-md-12"
+                                            name="action">{this.state.loading ? <ButtonLoader/> :
+                                        <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
+                                    </button>
+                                </div>
+                                <div className='my-3 d-md-none text-center'>
                                     <label className="font-size-1-1 mb-md-1 dark-link">Bot User ?
-                                        &nbsp;<Link to={botCreatePasswordLink} className="blue-link ">Create Password</Link>
+                                        &nbsp;<Link to={botCreatePasswordLink} className="blue-link ">Create
+                                            Password</Link>
                                     </label>
                                     {/*No Password Yet (Bot User)?  Create */}
                                 </div>
-                                <div className='text-right text-md-left my-1 my-md-0'>
-                                    <label className="font-size-1-1 mb-md-1 dark-link">New User ?
-                                        &nbsp;<Link to={'/sign-up'} className="blue-link ">Sign Up</Link>
-                                    </label>
-                                </div>
                             </div>
                         </div>
-                        <div className="col-12">
-                            <div className="d-flex  flex-column flex-md-row justify-content-end align-items-center">
-                                <button type={'submit'} disabled={this.state.loading}
-                                        className="btn btn-round blue-round-btn auth-btn order-md-12"
-                                        name="action">{this.state.loading ? <ButtonLoader/> :
-                                    <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
-                                </button>
-                            </div>
-                            <div className='my-3 d-md-none text-center'>
-                                <label className="font-size-1-1 mb-md-1 dark-link">Bot User ?
-                                    &nbsp;<Link to={botCreatePasswordLink} className="blue-link ">Create Password</Link>
-                                </label>
-                                {/*No Password Yet (Bot User)?  Create */}
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                }
+
             </React.Fragment>
         );
     }

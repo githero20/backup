@@ -1,0 +1,8 @@
+@media all and (min-width:1200px ){
+    .mh-lg-50-vh{
+        min-height: 50vh;
+    }
+}
+.overflow-x-hidden{
+    overflow-x: hidden;
+}

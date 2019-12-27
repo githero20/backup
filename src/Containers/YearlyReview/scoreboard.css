@@ -1,0 +1,101 @@
+.score-board-header {
+    background: url(../../admin/app-assets/images/cassandra-header-bg@2x.png);
+    background-size: cover;
+}
+
+.sb-deep-blue-bg {
+    background-color: #092B5D;
+}
+
+.score-board-line {
+    width: 50px;
+    border-bottom: 2px solid #213F68;
+}
+.fs-2{
+    font-size: 2rem;
+}
+.text-light-gray{
+    color: #495F8A;
+}
+
+.text-light-blue{
+    color: #367BFF;
+}
+.white-line {
+    width: 50px;
+    border-bottom: 2px solid white;
+}
+
+.bg-light-yellow {
+    background-color: rgba(255, 248, 218, 0.56);
+}
+
+.deep-blue-bg {
+    background-color: #092B5D;
+}
+
+.light-blue-bg {
+    background: url(../../admin/app-assets/images/blue-bg-with-dotted-circles@2x.png);
+    background-size: cover;
+}
+
+.wavy-lines {
+    position: absolute;
+    top: 0%;
+    left: -90%;
+}
+
+.gradient-circle {
+    position: absolute;
+    bottom: 5%;
+    width: 15%;
+    right: -5%;
+}
+
+.blue-text {
+    color: #092B5D;
+}
+
+.light-blue-text {
+    color: #495F8ACC;
+}
+
+.flower-pot-bg {
+    background: url(../../admin/app-assets/images/yellow-flower-bg@2x.png);
+    background-size: cover;
+    height: 500px;
+    z-index: 5000;
+    position: relative;
+    margin-bottom: -100px;
+}
+
+.gray-lock-bg {
+    background: url(../../admin/app-assets/images/gray-lock-bg@2x.png);
+    background-size: cover;
+    height: 600px;
+    z-index: 5000;
+    position: relative;
+    margin-bottom: -100px;
+}
+.flex-item{
+    flex-basis: 50%;
+}
+.flex-basis-35{
+    flex-basis: 35%;
+}
+.flex-basis-40{
+    flex-basis: 40%;
+}
+.text-light-yellow{
+    color: #FFF8DA;
+}
+
+@media all and (min-width: 1200px) {
+    .fs-lg-2-5 {
+        font-size: 2.5rem;
+    }
+
+    .fs-lg-4 {
+        font-size: 4rem;
+    }
+}

@@ -40,11 +40,9 @@ import {checkUser} from "../Home/Home";
 
 const useGetUserInfo = () => {
     const [userInfo, setUserInfo] = useState({});
-
     const getDetails = async () => {
         //controls add display
         const config = {headers: _getHeader()};
-        console.log('got here', config);
         try {
             const [UserInfoRes, CentralVaultIntRes, LockedIntRes, BackUpRes] = await Promise.all([
                 _axios.get(getUserInfoEndpoint, config),
@@ -86,7 +84,6 @@ const useGetUserInfo = () => {
             let CompletedGoalsAmount = getCompletedGoalsAmount(backUpGoals);
 
             let ActiveGoalsAmount = activeGoals.reduce((a, b) => a + Number(b.target_amount), 0);
-            console.log('active goals', activeGoals, ActiveGoalsAmount);
 
 
             return {
@@ -107,7 +104,6 @@ const useGetUserInfo = () => {
             };
 
         } catch (e) {
-            console.log('unable to get user info', e);
             return e.response;
         }
 
@@ -135,8 +131,6 @@ const ScoreBoard = () => {
 
     const [userDetails, setUserDetails] = useGetUserInfo();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    console.log('user details', userDetails);
 
     useEffect(() => {
         setIsLoggedIn(checkUser());
@@ -182,8 +176,12 @@ const ScoreBoard = () => {
                 <Navigation isLoggedIn={isLoggedIn} type={'review'}/>
                 <Row className='mt-5 pt-lg-5'>
                     <Col lg={{span: 6}}>
-                        <h1 className={'ml-lg-5 pl-lg-4 circular-std-Book fs-lg-3 font-weight-bold text-white'}>Your
-                            Money <br/>scorecard this year</h1>
+                        <h1 className={'ml-lg-5 pl-lg-4 circular-std-Book fs-lg-3 font-weight-bold text-white'}>
+                            {/*Your Money <br/>scorecard this year*/}
+                            {userDetails && userDetails.vaultAmount ? message[0] : `You were willing.`+<br/>+` Let’s make that will active!`}
+
+                        </h1>
+
                     </Col>
                 </Row>
             </Section>
@@ -346,7 +344,7 @@ const ScoreBoard = () => {
                                 <SmallText
                                     className={'mb-5'}>{userDetails && userDetails.vaultAmount ? message[1] : 'How can we help you make your very first savings this year?'}</SmallText>
                                 <Button onClick={() => redirectTo(LoginLink)} className={'inverse '}
-                                        text={'Start saving now'}/>
+                                        text={'Start Saving Now'}/>
                             </div>
                         </div>
                     </Col>

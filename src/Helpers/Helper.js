@@ -317,7 +317,6 @@ export function getCompletedGoalsAmount(transactions) {
 			);
 		});
 		return CompletedGoals.reduce((a,b)=>{
-			console.log('completed a + b',a,b);
 			return a+Number(b.target_amount)
 		},0);
 	}

@@ -178,7 +178,7 @@ const ScoreBoard = () => {
                     <Col lg={{span: 6}}>
                         <h1 className={'ml-lg-5 pl-lg-4 circular-std-Book fs-lg-3 font-weight-bold text-white'}>
                             {/*Your Money <br/>scorecard this year*/}
-                            {userDetails && userDetails.vaultAmount ? message[0] : `You were willing.`+<br/>+` Let’s make that will active!`}
+                            {userDetails && userDetails.vaultAmount ? message[0] : `You were willing.\n Let’s make that will active!`}
 
                         </h1>
 

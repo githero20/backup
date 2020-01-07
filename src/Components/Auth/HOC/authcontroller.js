@@ -37,6 +37,7 @@ export const USERACTIVATED = "activated";
 export const ACTIVATIONMESG = "activation-msg";
 export const ACTIVATONEMAIL = "activation-email";
 export const SHOWAD = "show-ad";
+export const currentPath = window.location.pathname;
 
 const verifyTokenURL = BASE_URL + "sfsbapi/v1/user";
 
@@ -56,10 +57,9 @@ const AuthController = component => {
     const Authenticate = props => {
         const [fetching, setFetching] = useState(true);
         const [reload, setReload] = useState(false);
-
+        const [isLoggedIn, setIsLoggedIn] = useState(false);
         const RenderComponent = props.component;
         const token = JSON.parse(localStorage.getItem(USERTOKEN));
-
         const handleUserAuth = () => {
             swal({
                 text: 'Enter your password to continue',
@@ -91,6 +91,7 @@ const AuthController = component => {
                                     localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
                                     localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
                                     localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
+                                    setIsLoggedIn(true);
                                 }
                                 swal('Awesome!!', 'You have successfully logged in', 'success', {
                                     button: false,
@@ -98,7 +99,6 @@ const AuthController = component => {
                                 });
                                 setReload(true);
                             } else {
-
                                 if (response && response.status == 401 && response.data.message == "invalid_credentials") {
                                     swal('Oops!!', `Invalid Credentials`, 'warning');
                                 } else if (response && response.status == 401 && response.data.message == 'Incorrect email or password,Try again') {
@@ -116,11 +116,13 @@ const AuthController = component => {
                             }
                         });
                         break;
-                    case null:
+                    case null: {
+                        setIsLoggedIn(false);
                         window.location.href = `/login`;
                         localStorage.removeItem(USERTOKEN);
                         localStorage.removeItem(USERINFO);
                         break;
+                    }
                 }
             });
         };
@@ -131,27 +133,25 @@ const AuthController = component => {
                 localStorage.removeItem(USERTOKEN);
                 localStorage.removeItem(USERINFO);
             } else {
-
                 axios.get(verifyTokenURL, {headers: {Authorization: `Bearer ${JSON.parse(localStorage.getItem(USERTOKEN))}`}}).then(
                     res => {
                         localStorage.setItem(USERINFO, JSON.stringify(res.data.data));
+                        setIsLoggedIn(true);
                         setFetching(false);
                     },
                     err => {
-                        try {
-                            if (err && err.response) {
-                                if (err && err.response && err.response.data && err.response.data.message === "Account has not been activated, click on resend") {
-                                    setLocalStorage(USERACTIVATED, false);
-                                } else handleUserAuth();
-                            }
-                        } catch (e) {}
-
+                        if (err && err.response) {
+                            setIsLoggedIn(false);
+                            if (err && err.response && err.response.data && err.response.data.message === "Account has not been activated, click on resend") {
+                                setLocalStorage(USERACTIVATED, false);
+                            } else handleUserAuth();
+                        }
                     }
                 )
             }
         }, [RenderComponent]);
 
-        return <RenderComponent {...props} reload={reload}/>;
+        return <RenderComponent {...props} reload={reload} isLoggedIn={isLoggedIn}/>;
     };
 
     Authenticate.defaultProps = {

@@ -22,8 +22,6 @@ const Header = ({button, slides, label, text,className ,textClassName}) => {
                                 <p className="header-sub-title animated fadeInDown fast delay-1s mb-3">Save Money , Grow Wealth.</p>
                             </>
                         }
-
-
                         {
                             button &&
                             <>
@@ -61,11 +59,10 @@ const Header = ({button, slides, label, text,className ,textClassName}) => {
                         nav={true}
                     >
                         {slides && slides.length > 0 ?
-                            slides.map((slide) => {
-                                return <img src={slide.img} className='item hero-slide-item'
+                            slides.map((slide,i) => {
+                                return <img src={slide.img} key={i} className='item hero-slide-item'
                                             alt="first slide image"/>
-                            }) :
-                            ''}
+                            }) : null}
                     </ReactOwlCarousel>
                 </div>
             </div>

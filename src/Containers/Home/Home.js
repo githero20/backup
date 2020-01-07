@@ -39,15 +39,23 @@ export const checkUser = () => {
         // get the session and compare the current time
         let diff = moment(timeStamp);
         if (diff < moment().subtract(50, 'minutes') || user == null) {
-            console.log('false', false);
+            console.log('logged in false', false);
             return false;
         } else if (diff > moment().subtract(50, 'minutes') && user != null) {
-            console.log('true', true);
+            console.log('logged in true', true);
             return true
         }
 
     }
 };
+
+const slides = [
+    {img: require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')},
+    {img: require('../../admin/app-assets/images/slider/mybackupcash_2___B2vzESsl0TG___.jpg')},
+    {img: require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')},
+    {img: require('../../admin/app-assets/images/slider/mybackupcash_2___B23mgrTlfLp___.jpg')},
+    {img: require('../../admin/app-assets/images/slider/mybackupcash___B206V6_lxNQ___.jpg')},
+];
 
 class Home extends Component {
 
@@ -93,20 +101,14 @@ class Home extends Component {
 
     componentDidMount() {
         const isLoggedIn = checkUser();
-        this.setState({isLoggedIn})
+        this.setState({isLoggedIn});
         this.doAnimation = this.handleScrollAnimation();
     }
 
 
     render() {
-        const {isLoggedIn} = this.state;
-        const slides = [
-            {img: require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')},
-            {img: require('../../admin/app-assets/images/slider/mybackupcash_2___B2vzESsl0TG___.jpg')},
-            {img: require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')},
-            {img: require('../../admin/app-assets/images/slider/mybackupcash_2___B23mgrTlfLp___.jpg')},
-            {img: require('../../admin/app-assets/images/slider/mybackupcash___B206V6_lxNQ___.jpg')},
-        ];
+        const {isLoggedIn} = this.props;
+
         return (
             <React.Fragment>
                 <div className={'homeBody'}>
@@ -118,7 +120,6 @@ class Home extends Component {
                                     <Navigation isLoggedIn={isLoggedIn}
                                                 scrollIntoView={this.scrollIntoView}
                                     />
-                                    {/*row and two columns */}
                                     <Header slides={slides} button className='d-none'/>
                                 </div>
                             </header>

@@ -185,10 +185,7 @@ class BackupGoals extends Component {
     };
 
     getHistAndTrans =()=>{
-
-        // getSteadySavTrans(this.state.selectedBG.id, this.handleSSaveTrans);
         getBackUpGoalAndHistory(this.state.selectedBG.id, this.handleBGHistory)
-
     };
 
 
@@ -218,14 +215,6 @@ class BackupGoals extends Component {
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
             },
-            // {
-            //     text: 'Pay Date',
-            //     dataField: 'pay_date',
-            //     formatter: dateFormatter,
-            //     sort: true,
-            //     classes: 'd-none d-md-table-cell',
-            //     headerClasses: 'd-none d-md-table-cell',
-            // },
             {
                 text: 'Status',
                 dataField: 'status',

@@ -8,7 +8,6 @@ class Navigation extends Component {
 
     state = {
         showMobileMenu: false,
-        isLoggedIn: false,
         showLoader: true,
     };
 

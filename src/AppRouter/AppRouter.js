@@ -35,7 +35,8 @@ import {
     ProfileSettingLink,
     ReferralsLink,
     ResendActivationLink,
-    ResetPasswordLink, sbDashboardLink,
+    ResetPasswordLink,
+    sbDashboardLink,
     scoreboardLink,
     SignUpLink,
     SteadySaveLink,
@@ -91,8 +92,7 @@ class AppRouter extends Component {
                                             timeout={{enter: 750, exit: 150}}
                                         >
                                             <Switch>
-                                                <Route exact path={HomeLink} component={Home}/>
-                                                {/*dashboard Routes*/}
+                                                <Route exact path={HomeLink} render={() => <Home isLoggedIn={user}/>}/>
                                                 <Route exact path={DashboardLink}
                                                        component={AuthController(DashboardIndex)}/>
                                                 <Route path={InstantSaveLink} component={AuthController(InstantSave)}/>
@@ -111,28 +111,24 @@ class AppRouter extends Component {
                                                 <Route path={BackupStashLink} component={AuthController(BackupStash)}/>
                                                 <Route path={EmailActivationLink} component={EmailActivation}/>
                                                 <Route path={ResendActivationLink} component={ResendActivation}/>
-                                                <Route path={ChallengeLink} component={Challenge}/>
+                                                <Route path={ChallengeLink}
+                                                       render={() => <Challenge isLoggedIn={user}/>}
+                                                />
                                                 <Route path={TermsAndCondLink} component={PrivacyPolicy}/>
-
-                                                {/*auth routes*/}
-                                                <Route path={LoginLink} render={() => (
-                                                    user ? window.location.href = DashboardLink :
-                                                        <Login/>
-                                                )}/>
-                                                <Route path={SignUpLink} render={(props) => (
-                                                    user ? window.location.href = DashboardLink :
-                                                        <SignUp {...props}/>
-                                                )}/>
-
+                                                <Route path={LoginLink}
+                                                       render={() => (user ? window.location.href = DashboardLink : <Login/>)}
+                                                />
+                                                <Route path={SignUpLink}
+                                                       render={(props) => (user ? window.location.href = DashboardLink : <SignUp {...props}/>)}
+                                                />
                                                 <Route path={InviteLink} component={SignUp}/>
                                                 <Route path={ActivateAccountLink} component={ActivateAccount}/>
                                                 <Route path={ForgotPasswordLink} component={ForgotPassword}/>
-
                                                 <Route path={botCreatePasswordLink}
                                                        render={props => <ForgotPassword bot={true} {...props} />}/>
                                                 <Route path={ResetPasswordLink} component={ResetPassword}/>
                                                 <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
-                                                <Route path={FaqLink} component={Faq}/>
+                                                <Route path={FaqLink} render={() => <Faq isLoggedIn={user}/>}/>
                                                 <Route exact path={scoreboardLink} component={YearlyReview}/>
                                                 <Route exact path={sbDashboardLink} component={ScoreBoard}/>
                                                 <Route component={ErrorPage}/>

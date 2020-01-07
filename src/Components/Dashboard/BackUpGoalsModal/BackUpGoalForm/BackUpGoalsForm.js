@@ -8,7 +8,13 @@ import {withToastManager} from "react-toast-notifications";
 import {_calculateDateDifference, _handleFormChange} from "../../../../utils";
 import {createBackUpGoal} from "../../../../actions/BackUpGoalsAction";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {disableKey, formatNumber, getCardsFromStorage, validateBackupGoalAmount} from "../../../../Helpers/Helper";
+import {
+    disableKey,
+    formatNumber,
+    getCardsFromStorage,
+    toastMessage,
+    validateBackupGoalAmount
+} from "../../../../Helpers/Helper";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
@@ -123,26 +129,14 @@ class BackUpGoalsForm extends Component {
             //show loader
             const valid = validateBackupGoalAmount(frequency, contribution, this);
             if (valid) {
-                this.setState({
-                    loading: true,
-                });
+                this.setState({loading: true});
                 createBackUpGoal(this.state.form, (status, payload) => {
-                    //remove loader
-
-                    this.setState({
-                        loading: false,
-                    });
+                    this.setState({loading: false});
                     if (status) {
-                        this.props.toastManager.add("Backup Goal Saved.", {
-                            appearance: "success"
-                        });
+                        toastMessage("Backup Goal Saved.","success",this);
                         setTimeout(() => this.props.onHide(true), 2000);
                     } else {
-                        this.props.toastManager.add(JSON.stringify(payload) || "An Error Occurred", {
-                            appearance: "error",
-                            autoDismiss: true,
-                            autoDismissTimeout: 5000
-                        });
+                        toastMessage( "An Error Occurred","error",this);
                     }
                 });
             }
@@ -283,9 +277,7 @@ class BackUpGoalsForm extends Component {
         const showDay = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Week</Form.Label>
-                <Form.Control as="select" value={this.state.form.day_of_week} onChange={this.changeHandler}
-                              id="day_of_week" name="day_of_week">
-
+                <Form.Control as="select" value={this.state.form.day_of_week} onChange={this.changeHandler} id="day_of_week" name="day_of_week">
                     <option value={'2'}>Mon</option>
                     <option value={'3'}>Tue</option>
                     <option value={'4'}>Wed</option>
@@ -296,6 +288,7 @@ class BackUpGoalsForm extends Component {
                 </Form.Control>
             </Form.Group>
         );
+
         return (
             <React.Fragment>
                 <Form onSubmit={this.submitForm}>
@@ -421,12 +414,9 @@ class BackUpGoalsForm extends Component {
                         {this.state.showMonth ? showMonth : null}
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
-
                         <Button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading}
                                 type="submit">
-                            {this.state.loading ? <ButtonLoader/> :
-                                <span>Start </span>}
-
+                            {this.state.loading ? <ButtonLoader/> : <span>Start</span>}
                         </Button>
                     </Form.Row>
 
@@ -438,8 +428,7 @@ class BackUpGoalsForm extends Component {
 
 export const getHourOptions = ( ) => {
     let hour = moment().hour();
-
-}
+};
 
 export default withToastManager(BackUpGoalsForm);
 

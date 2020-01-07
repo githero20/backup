@@ -2,21 +2,18 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
-import backupCashLogo from "../../admin/app-assets/images/Logo@2x.png";
 import sfsFooterLogo from "../../admin/app-assets/images/svg/sfs-footer.svg";
-import {DashboardLink, FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import {FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
 import {hideLoader} from "../../Helpers/Helper";
 import Navigation from "../Home/Navigation";
+import {checkUser} from "../Home/Home";
 
 class Faq extends Component {
 
-    state = {
-        showMobileMenu: false,
-    };
-
+    state = {showMobileMenu: false, isLoggedIn: false};
 
     showMobileMenu = () => {
         //add is-active on
@@ -36,15 +33,19 @@ class Faq extends Component {
 
     componentDidMount() {
         hideLoader();
+        console.log('this faq props',this.props);
+        // const isLoggedIn = checkUser();
+        // this.setState({isLoggedIn});
     }
 
     render() {
+        const {isLoggedIn} = this.props;
         return (
             <React.Fragment>
                 <div className={'homeBody'}>
                     <header className=" faq-hero ">
                         <div className="container">
-                            <Navigation />
+                            <Navigation isLoggedIn={isLoggedIn}/>
                         </div>
                     </header>
                     <section className='faq-main my-5'>
@@ -569,8 +570,10 @@ class Faq extends Component {
                                 <div className="col-sm-6 offset-sm-6 offset-md-0 col-md-4 col-lg-3 ">
                                     <p className="footer-header">Physical Address</p>
 
-                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria Island 23401, Lagos</p>
-                                    <p className='gray-text footer-p'>Enquires: +234 814 946 0946 , +234 908 776 6679</p>
+                                    <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street, Victoria Island
+                                        23401, Lagos</p>
+                                    <p className='gray-text footer-p'>Enquires: +234 814 946 0946 , +234 908 776
+                                        6679</p>
                                 </div>
                                 <div className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
                                     <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All RIghts

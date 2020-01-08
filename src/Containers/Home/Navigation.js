@@ -79,7 +79,7 @@ class Navigation extends Component {
                                             <Link className="nav-link" to={ChallengeLink}>21 Days Challenge </Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to={'#'}>Blog</Link>
+                                            <a href={'https://medium.com/@mybackupcash'} target='_blank' className="nav-link">Blog</a>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link"
@@ -123,7 +123,7 @@ class Navigation extends Component {
                                             <Link className="nav-link" to={ChallengeLink}>21 Days Challenge </Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to={'#'}>Blog</Link>
+                                            <a href={'https://medium.com/@mybackupcash'} target='_blank' className="nav-link">Blog</a>
                                         </li>
                                         {
                                             isLoggedIn ? (

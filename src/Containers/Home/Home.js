@@ -672,8 +672,10 @@ class Home extends Component {
                                                     <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street,
                                                         Victoria
                                                         Island 23401, Lagos</p>
-                                                    <p className='gray-text footer-p'>Enquires: 08149460946,
-                                                        09087766679 </p>
+                                                    <div className='gray-text footer-p'>Enquires:
+                                                        <p>Help@mybackupcash.com</p>
+                                                        <p>08149460946,09087766679</p>
+                                                    </div>
 
                                                 </div>
 

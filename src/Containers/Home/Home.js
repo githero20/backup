@@ -103,6 +103,7 @@ class Home extends Component {
         const isLoggedIn = checkUser();
         this.setState({isLoggedIn});
         this.doAnimation = this.handleScrollAnimation();
+        console.log('env paystack key',process.env.REACT_APP_PAYSTACK_KEY);
     }
 
 

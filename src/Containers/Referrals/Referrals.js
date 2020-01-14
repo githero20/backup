@@ -105,13 +105,20 @@ class Referrals extends Component {
                 formatter: userFormatter,
             },
             {
-                text: 'Point',
+                text: 'Points',
                 dataField: 'points',
                 formatter: pointFormatter,
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-            }, {
+            },{
+                text: 'Amount',
+                dataField: 'points',
+                formatter: pointFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },{
                 text: 'Status',
                 dataField: 'is_transact',
                 formatter: pointStatusFormatter,
@@ -140,6 +147,13 @@ class Referrals extends Component {
             },
             {
                 text: 'Point',
+                dataField: 'points',
+                // formatter: amountBalanceFormatter,
+                sort: true,
+                classes: ' d-table-cell d-md-none',
+                headerClasses: 'd-table-cell d-md-none',
+            },{
+                text: 'Amount',
                 dataField: 'points',
                 // formatter: amountBalanceFormatter,
                 sort: true,

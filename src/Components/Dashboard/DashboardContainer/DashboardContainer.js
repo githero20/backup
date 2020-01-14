@@ -17,13 +17,10 @@ import {
     toggleTable
 } from "../../../Helpers/Helper";
 import MessageBox from "./MessageBox/MessageBox";
-import adImgTwo from '../../../admin/app-assets/images/svg/adone.svg';
 // import { dateFilter, Comparator } from 'react-bootstrap-table-next';
 import filterFactory, {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
 import moment from "moment";
 import Footer from "../Footer/Footer";
-import {SteadySaveLink} from "../../../RouteLinks/RouteLinks";
-import {Link} from 'react-router-dom';
 
 class DashboardContainer extends Component {
 
@@ -37,17 +34,9 @@ class DashboardContainer extends Component {
         }
     }
 
-    //validate there is data
-
-    // set the appropriate props
-
-    // send the the children components
-
-
     handleFilter = (date, comparator) => {
         handleFiltering(date, comparator, this);
     };
-
 
     componentDidMount() {
         toggleTable(this);
@@ -216,13 +205,13 @@ class DashboardContainer extends Component {
                             {/*        <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}*/}
                             {/*                type="video/mp4"/>*/}
                             {/*    </video>*/}
-                                {/*<img src={adImg} className='dash-ad-img' alt="advert one "/>*/}
-                                {/*<div className={'dash-action left-action'}>*/}
-                                {/*    <h5>New Investment*/}
-                                {/*        Opportunities</h5>*/}
-                                {/*    <a className={'ad-gray-link'}>Know more <i*/}
-                                {/*        className='fa fa-arrow-right'/></a>*/}
-                                {/*</div>*/}
+                            {/*<img src={adImg} className='dash-ad-img' alt="advert one "/>*/}
+                            {/*<div className={'dash-action left-action'}>*/}
+                            {/*    <h5>New Investment*/}
+                            {/*        Opportunities</h5>*/}
+                            {/*    <a className={'ad-gray-link'}>Know more <i*/}
+                            {/*        className='fa fa-arrow-right'/></a>*/}
+                            {/*</div>*/}
                             {/*</Link>*/}
                         </div>
                         <MessageBox challenge={true} showSSModal={showSSModal}/>
@@ -231,8 +220,6 @@ class DashboardContainer extends Component {
 
                         <div className="content-body">
                             <div className="row">
-
-
                                 <CentralVaultCard
                                     vaultAmount={vaultAmount}
                                     totalSteadySave={totalSteadySave}
@@ -261,52 +248,54 @@ class DashboardContainer extends Component {
                                     {/*        <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}*/}
                                     {/*                type="video/mp4"/>*/}
                                     {/*    </video>*/}
-                                        {/*<img src={adImg} className='dash-ad-img' alt="advert one "/>*/}
-                                        {/*<div className={'dash-action left-action'}>*/}
-                                        {/*    <h5>New Investment*/}
-                                        {/*        Opportunities</h5>*/}
-                                        {/*    <a className={'ad-gray-link'}>Know more <i*/}
-                                        {/*        className='fa fa-arrow-right'/></a>*/}
-                                        {/*</div>*/}
+                                    {/*<img src={adImg} className='dash-ad-img' alt="advert one "/>*/}
+                                    {/*<div className={'dash-action left-action'}>*/}
+                                    {/*    <h5>New Investment*/}
+                                    {/*        Opportunities</h5>*/}
+                                    {/*    <a className={'ad-gray-link'}>Know more <i*/}
+                                    {/*        className='fa fa-arrow-right'/></a>*/}
+                                    {/*</div>*/}
                                     {/*</Link>*/}
                                     <div className="dash-ads mb-3 pt-2">
-                                        <img src={require('../../../admin/app-assets/images/ussd-ad.png')} className='dash-ad-img mt-1' alt="advert two"/>
+                                        <img src={require('../../../admin/app-assets/images/ussd-ad.png')}
+                                             className='dash-ad-img mt-1' alt="advert two"/>
                                         <div className={'dash-action right-action'}/>
                                     </div>
                                 </div>
                                 <div className="col-12 col-lg-6">
                                     <div className="dash-ads mb-3 pt-2">
-                                        <img src={require('../../../admin/app-assets/images/ussd-ad.png')} className='dash-ad-img mt-1' alt="advert two"/>
+                                        <img src={require('../../../admin/app-assets/images/ussd-ad.png')}
+                                             className='dash-ad-img mt-1' alt="advert two"/>
                                         <div className={'dash-action right-action'}/>
-                                            {/*<a className={'ad-link-white'}>Know more&nbsp;*/}
-                                            {/*    <i className='fa fa-arrow-right'/>*/}
-                                            {/*</a>*/}
-                                        </div>
+                                        {/*<a className={'ad-link-white'}>Know more&nbsp;*/}
+                                        {/*    <i className='fa fa-arrow-right'/>*/}
+                                        {/*</a>*/}
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="row">
-                                {
-                                    !this.state.mobileTable ? (
-                                        <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
-                                                          runFilter={runFilter}
-                                                          transactions={transactions}
-                                                          columns={columns}/>
-
-                                    ) : (
-                                        <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
-                                                          runFilter={runFilter}
-                                                          transactions={transactions}
-                                                          columns={mobileColumns}/>
-                                    )}
-                            </div>
-
-
                         </div>
 
+                        <div className="row">
+                            {
+                                !this.state.mobileTable ? (
+                                    <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
+                                                      runFilter={runFilter}
+                                                      transactions={transactions}
+                                                      columns={columns}/>
+
+                                ) : (
+                                    <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
+                                                      runFilter={runFilter}
+                                                      transactions={transactions}
+                                                      columns={mobileColumns}/>
+                                )}
+                        </div>
+
+
                     </div>
-                    <Footer/>
+
+                </div>
+                <Footer/>
             </React.Fragment>
         );
     }

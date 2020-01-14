@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {withToastManager} from 'react-toast-notifications';
-import {capitalize, formatNumber, redirectTo, toastMessage} from "../../../../Helpers/Helper";
+import {capitalize, formatNumber, toastMessage} from "../../../../Helpers/Helper";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
-import {KycSettingLink, ReferralsLink, scoreboardLink, SteadySaveLink} from "../../../../RouteLinks/RouteLinks";
+import {KycSettingLink, ReferralsLink, scoreboardLink} from "../../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 import {getUserPoints} from "../../../../actions/UserAction";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -17,6 +17,7 @@ class MessageBox extends Component {
         userReferralLink: '',
         userCode: '',
         userPoint: '',
+        amount: 0,
         numOfUser: '',
         updateKyc: false,
         balance: '0.00',
@@ -84,7 +85,7 @@ class MessageBox extends Component {
 
     handlePoints = (status, res) => {
         if (status) {
-            this.setState({userPoint: res.data, numOfUser: res.user})
+            this.setState({userPoint: res.data.point, amount: res.data.amount, numOfUser: res.user})
         }
 
     };
@@ -122,13 +123,17 @@ class MessageBox extends Component {
 
         const referralInfo = (
             <React.Fragment>
-                <div className="admin-purple d-block d-md-inline cursor-pointer">
-                    You have referred &nbsp;
-                    <strong className='font-weight-bold bc-deep-purple'>
+                <div className="admin-purple d-flex flex-column flex-grow-1 justify-content-lg-between flex-lg-row cursor-pointer">
+                    <div className='mb-1 mb-lg-0'>
+                        You have referred &nbsp;
+                        <strong className='font-weight-bold bc-deep-purple'>
                         {numOfUser ? numOfUser : 0}
                     </strong>
-                    &nbsp; {numOfUser <= 1 ? 'user' : 'users'} | &nbsp; Your referral points earned
-                    <Link to={ReferralsLink} className='d-block mt-2 mt-md-0 d-md-inline'>
+                        &nbsp; {numOfUser <= 1 ? 'user' : 'users'}
+                    </div>
+
+                    <div className='mb-1 mb-lg-0'>Referral points earned
+                    <Link to={ReferralsLink} className='d-block mt-1 mt-md-0 d-md-inline'>
                         <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
                             {this.state.userPoint ? this.state.userPoint : 0} points
                             <i className='ml-1 fa fa-arrow-right text-white'/>
@@ -137,14 +142,37 @@ class MessageBox extends Component {
                             placement={'right'}
                             overlay={
                                 <Tooltip id={`tooltip-${'right'}`}>
-                                    You will get 10 Referral Points for every of your referred users that saves at least N500
+                                    You will get 10 Referral Points for every of your referred users that saves at least
+                                    N500
                                 </Tooltip>
                             }
                         >
                             <strong className='bc-deep-purple ml-1'>&nbsp;(?)</strong>
                         </OverlayTrigger>
-                    </Link> &nbsp;
+                    </Link>
 
+                    </div>
+
+                    <div>
+                        Referral balance
+                    <span className='d-block mt-1 mt-md-0 d-md-inline'>
+                        <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
+                             {this.state.amount ? formatNumber(this.state.amount) : 0}
+                            <i className='ml-1 fa fa-arrow-right text-white'/>
+                        </strong>
+                        <OverlayTrigger
+                            placement={'right'}
+                            overlay={
+                                <Tooltip id={`tooltip-${'right'}`}>
+                                    You will get 10 Referral Points for every of your referred users that saves at least
+                                    N500
+                                </Tooltip>
+                            }
+                        >
+                            <strong className='bc-deep-purple ml-1'>&nbsp;(?)</strong>
+                        </OverlayTrigger>
+                    </span> &nbsp;
+                    </div>
 
                 </div>
             </React.Fragment>
@@ -167,8 +195,10 @@ class MessageBox extends Component {
                             <label
                                 className='d-flex mt-1 mt-lg-0 mb-lg-0 flex-md-row flex-wrap flex-column align-items-md-center'>
                                 <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"/>
-                                <div className='d-flex justify-content-lg-between  justify-content-center d-md-inline-block flex-grow-1'>
-                                    <a href={scoreboardLink} target='_blank' className="btn-white-bordered round px-2 mr-md-2 mb-md-0">View now</a>
+                                <div
+                                    className='d-flex justify-content-lg-between  justify-content-center d-md-inline-block flex-grow-1'>
+                                    <a href={scoreboardLink} target='_blank'
+                                       className="btn-white-bordered round px-2 mr-md-2 mb-md-0">View now</a>
                                 </div>
                             </label>
                         </div>
@@ -197,11 +227,16 @@ class MessageBox extends Component {
                     <div className="col-12">
                         <div className='bg-white shadow-sm dashboard-callout callout-border-right d-flex flex-column
                         flex-md-row flex-wrap justify-content-md-between align-items-md-center
-                        callout-round callout-transparent px-2'>
+                        callout-round callout-transparent px-2 mb-2'>
                             <label
-                                className='d-flex flex-column align-items-center flex-md-row justify-content-md-center'>
+                                className='d-flex flex-column flex-md-row flex-grow-1'>
                                 {referralInfo}
                             </label>
+                        </div>
+
+                        <div className='bg-white shadow-sm dashboard-callout callout-border-right d-flex flex-column
+                        flex-md-row flex-wrap justify-content-md-between justify-content-lg-end align-items-md-center
+                        callout-round callout-transparent px-2'>
                             <label className='d-flex flex-md-row flex-wrap flex-column align-items-md-center'>
                                 <span
                                     className="mr-md-2 mb-1 text-md-left mb-md-0 flex-grow-1"> copy referral code</span>

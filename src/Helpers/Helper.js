@@ -6,7 +6,6 @@ import {AMOUNT_LIMITS, APP_FREQUENCY, USERINFO, USERTOKEN} from "../Components/A
 import AutoNumeric from "autonumeric";
 import {getUserData} from "../actions/UserAction";
 import SimpleReactValidator from "simple-react-validator";
-import Form from "react-bootstrap/Form";
 
 
 export const STANDARD_ACCOUNT = 1;
@@ -306,6 +305,7 @@ export function getCompletedGoals(transactions) {
 	}
 	return 0;
 }
+
 export function getCompletedGoalsAmount(transactions) {
 	const now = moment().format('YYYY-MM-DD');
 	if (transactions.length > 0) {
@@ -316,9 +316,9 @@ export function getCompletedGoalsAmount(transactions) {
 				(parseInt(content.stop) === 1)
 			);
 		});
-		return CompletedGoals.reduce((a,b)=>{
-			return a+Number(b.target_amount)
-		},0);
+		return CompletedGoals.reduce((a, b) => {
+			return a + Number(b.target_amount)
+		}, 0);
 	}
 	return 0;
 }
@@ -471,8 +471,8 @@ export function disableKey(e) {
 }
 
 export function filterUserCards(info) {
-	if(info && info.authorization)
-	return info.authorization.data.filter((content) => content.channel == 'card');
+	if (info && info.authorization)
+		return info.authorization.data.filter((content) => content.channel == 'card');
 }
 
 export function showMobileMenu() {
@@ -902,14 +902,14 @@ export function balanceFormatter(cell) {
 
 export function pointFormatter(cell, row) {
 	if (row.is_transact == 0) {
-		return <label style={{minWidth: '100px'}}
-					  className={'text-info'}>0</label>
+		return <label style={{minWidth: '100px'}} className={'text-info'}>0</label>
+	} else if (row.point_type === 'referral_type') {
+		return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
+	} else if (row.point_type === 'referral_bonus_centralvault') {
+		return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `₦ ${formatNumber(cell)}` : 'N/A'}</label>
 	} else {
-		return <label style={{minWidth: '100px'}}
-					  className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
+		return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
 	}
-
-
 }
 
 export function pointStatusFormatter(cell) {
@@ -1111,8 +1111,10 @@ export function validateSteadySaveAmount(frequency, contribution, context) {
 		return true;
 	}
 }
-export const redirectTo = (url) => window.location.href = url ;
-export const currentLocation = window.location.pathname ;
+
+export const redirectTo = (url) => window.location.href = url;
+export const currentLocation = window.location.pathname;
+
 export function validateBackupGoalAmount(frequency, contribution, context) {
 	if (frequency == APP_FREQUENCY.daily && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalDaily) {
 		toastMessage(`The mimimum amount for ${APP_FREQUENCY.daily} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalDaily)}`, 'error', context);

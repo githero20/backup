@@ -26,39 +26,23 @@ class MessageBox extends Component {
 
 
     componentWillMount() {
-
-        //get item from local storage
         const data = getLocalStorage(USERINFO);
-
         let name = `${data.name} ${data.last_name != null ? data.last_name : ''}`;
         this.setState({
             userName: name,
             userReferralLink: window.location.origin + '/invite/' + data.referral_code,
             userCode: data.referral_code,
-
         });
-        // if the balance is more than 1,000,000 display as an info to user so they can update kyc
-
-        // add  styling to the message box
-
-        // display info to link use ot kyc
-
     }
 
     copyToClipboard = (e) => {
-
-        // let text = document.getElementById("referral_code").value;
-
         let textField = document.createElement('textarea');
-
         const referralText =
             this.state.userName ? capitalize(this.state.userName) : null;
         const otherText = 'invites you to save for the rainy day on BackUpCash.' +
             '\n It is a financial planning tool designed to help you automate ' +
             'savings towards a financial goal. Sign-up and get started using the link below: \n';
-
         textField.innerText = referralText + ' ' + otherText + this.state.userReferralLink;
-
         document.body.appendChild(textField);
         textField.select();
         document.execCommand('copy');
@@ -132,19 +116,15 @@ class MessageBox extends Component {
                         &nbsp; {numOfUser <= 1 ? 'user' : 'users'}
                     </div>
 
-                    <div className='mb-1 mb-lg-0'>Referral points earned
+                    <div className='mb-1 mb-lg-0'>Points Earned
                     <Link to={ReferralsLink} className='d-block mt-1 mt-md-0 d-md-inline'>
                         <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
-                            {this.state.userPoint ? this.state.userPoint : 0} points
-                            <i className='ml-1 fa fa-arrow-right text-white'/>
+                            {this.state.userPoint ? this.state.userPoint : 0} <i className='ml-1 fa fa-arrow-right text-white'/>
                         </strong>
                         <OverlayTrigger
                             placement={'right'}
                             overlay={
-                                <Tooltip id={`tooltip-${'right'}`}>
-                                    You will get 10 Referral Points for every of your referred users that saves at least
-                                    N500
-                                </Tooltip>
+                                <Tooltip id={`tooltip-${'right'}`}>Accumulated points can be converted to monetary reward in future.</Tooltip>
                             }
                         >
                             <strong className='bc-deep-purple ml-1'>&nbsp;(?)</strong>
@@ -161,11 +141,10 @@ class MessageBox extends Component {
                             <i className='ml-1 fa fa-arrow-right text-white'/>
                         </strong>
                         <OverlayTrigger
-                            placement={'right'}
+                            placement={'left'}
                             overlay={
-                                <Tooltip id={`tooltip-${'right'}`}>
-                                    You will get 10 Referral Points for every of your referred users that saves at least
-                                    N500
+                                <Tooltip id={`tooltip-${'left'}`}>
+                                    You will get N500 for every of your referred user that saves atleast N500
                                 </Tooltip>
                             }
                         >

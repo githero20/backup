@@ -108,6 +108,6 @@ export const changeWithdrawalPin = `sfsbapi/v1/user/withdrawals/pin/change`;
 export const CentralVaultInterest = `/sfsbapi/v1/user/interest`;
 export const getAdminInterest = `sfsbapi/v1/get-admin-interest`;
 export const LockedInterest = `sfsbapi/v1/user/savings/locked/interest`;
-export const TransferToVault = `/sfsbapi/v1/user/transfer/centralvault`;
+export const TransferToVault = `sfsbapi/v1/user/transfer/centralvault`;
 
 

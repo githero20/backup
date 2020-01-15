@@ -16,8 +16,6 @@ import Footer from "../../Components/Dashboard/Footer/Footer";
 
 class ProfileSetting extends Component {
 
-
-
     state = {
         userProfile: '',
         showLoader:false,
@@ -30,14 +28,7 @@ class ProfileSetting extends Component {
                 userProfile:res.data.data,
                 showLoader:false
             })
-        }else{
-
         }
-        //
-        // this.setState({
-        //     userProfile: profile,
-        // })
-
     };
 
     getProfile = ()=>{
@@ -84,9 +75,7 @@ class ProfileSetting extends Component {
                             <div className="content-body">
                                 <div className="row">
                                     <div className=" col-12">
-                                        <h3 className="gray-header-text mb-2 ">Profile Settings
-
-                                        </h3>
+                                        <h3 className="gray-header-text mb-2 ">Profile Settings</h3>
                                         <div className="card curved-radius">
                                             <div className="card-content collapse show">
                                                 {/*<div className="card-header">*/}

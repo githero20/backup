@@ -154,8 +154,8 @@ class MessageBox extends Component {
                     </div>
 
                     <div>
-                        Referral balance
-                    <span className='d-block mt-1 mt-md-0 d-md-inline'>
+                        Referral Bonus
+                    <Link to={ReferralsLink} className='d-block mt-1 mt-md-0 d-md-inline'>
                         <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
                              {this.state.amount ? formatNumber(this.state.amount) : 0}
                             <i className='ml-1 fa fa-arrow-right text-white'/>
@@ -171,7 +171,7 @@ class MessageBox extends Component {
                         >
                             <strong className='bc-deep-purple ml-1'>&nbsp;(?)</strong>
                         </OverlayTrigger>
-                    </span> &nbsp;
+                    </Link> &nbsp;
                     </div>
 
                 </div>

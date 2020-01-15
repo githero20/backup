@@ -34,8 +34,9 @@ export function api(url, params, token, method, callback) {
 
     return axios.get(url, header).then(res => callback(true, res)).catch(err => callback(false, err.response));
 
-
 }
+
+
 export function request(url, params, token, method, callback) {
 
     url = `${BASE_URL}${url}`;

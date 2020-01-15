@@ -90,7 +90,6 @@ class ReferralTable extends Component {
                                                         filter={filterFactory()}
                                         />
                                     </div>
-
                                 )
                             }
                         </ToolkitProvider>

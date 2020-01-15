@@ -4,7 +4,7 @@ import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {BASE_URL, filterTransactionsApi, referralsEndpoint} from "../../RouteLinks/RouteLinks";
 import {
-    balanceFormatter,
+    balanceFormatter, bonusAmountFormatter,
     dateFormatter,
     pointFormatter,
     pointStatusFormatter,
@@ -92,12 +92,6 @@ class Referrals extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-                // filter: dateFilter({
-                //     defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
-                //     getFilter: (filter) => {
-                //         this.createdDateFilter = filter;
-                //     }
-                // })
             },
             {
                 text: 'User',
@@ -114,7 +108,7 @@ class Referrals extends Component {
             },{
                 text: 'Amount',
                 dataField: 'points',
-                formatter: pointFormatter,
+                formatter: bonusAmountFormatter,
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
@@ -133,12 +127,6 @@ class Referrals extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-                // filter: dateFilter({
-                //     defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
-                //     getFilter: (filter) => {
-                //         this.createdDateFilter = filter;
-                //     }
-                // })
             },
             {
                 text: 'User',

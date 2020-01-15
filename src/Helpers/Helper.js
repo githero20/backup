@@ -901,14 +901,19 @@ export function balanceFormatter(cell) {
 }
 
 export function pointFormatter(cell, row) {
-	if (row.is_transact == 0) {
-		return <label style={{minWidth: '100px'}} className={'text-info'}>0</label>
-	} else if (row.point_type === 'referral_type') {
+	console.log('row cell', cell, row);
+	if (row.point_type === 'referral_type') {
 		return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
-	} else if (row.point_type === 'referral_bonus_centralvault') {
+	}else {
+		return <label style={{minWidth: '100px'}} className={'text-info'}>{`0`}</label>
+	}
+}
+
+export function bonusAmountFormatter(cell, row) {
+	if (row.point_type === 'referral_bonus_centralvault') {
 		return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `₦ ${formatNumber(cell)}` : 'N/A'}</label>
 	} else {
-		return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
+		return <label style={{minWidth: '100px'}} className={'text-info'}>{`₦ 0`}</label>
 	}
 }
 

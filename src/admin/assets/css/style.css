@@ -291,13 +291,6 @@ html body .content.app-content {
     color: #8b0000;
 }
 
-/*!*materialize css*!*/
-
-.line {
-    border-bottom: 2px solid #676767;
-    margin-bottom: 3rem;
-}
-
 @media screen, projection {
 
     select:focus {
@@ -824,12 +817,10 @@ textarea.form-control{
     color: #fff !Important;
     border: 1px solid transparent;
     background-color: #2784F4 !Important;
-    /*padding-top: .7rem;*/
-    /*padding-bottom: .7rem;*/
     padding: 0 30px;
-    min-width: 100px;
+    min-width: 180px;
     height: 40px;
-    transition: all .5s ease;
+    transition: all .3s ease;
     cursor: pointer;
     box-shadow: 0px 5px 5px rgba(23, 96, 171, 0.2);
 }
@@ -848,21 +839,10 @@ textarea.form-control{
     cursor: pointer;
 }
 
-/*.modal-btn {*/
-/*    display: flex;*/
-/*    position: relative;*/
-/*    padding: 10px 20px;*/
-/*    text-align: center;*/
-/*    align-items: center;*/
-/*    !*width:150px;*!*/
-/*    !*height:40px;*!*/
-/*    cursor: pointer;*/
-/*}*/
 
 .btn-custom-blue:hover {
     color: white !important;
     background-color: #2784F4 !Important;
-    border-color: #2784F4 !Important;
     transform: translateY(-.1rem);
     box-shadow: 0px 5px 5px rgba(23, 96, 171, 0.3);
 }
@@ -2610,10 +2590,8 @@ html body .content.app-content {
     font-size: 12px;
 }
 
-/*!*materialize css*!*/
-
 .line {
-    border-bottom: 2px solid #676767;
+    border-bottom: 1px solid rgba(103, 103, 103, 0.35);
     margin-bottom: 3rem;
 }
 
@@ -3180,17 +3158,6 @@ html body .content.app-content {
     font-size: 0.8rem !important;
     cursor: pointer;
 }
-
-
-
-/*.btn-custom-blue:hover {*/
-/*    color: white !important;*/
-/*    box-shadow: 0rem .3rem .2rem rgba(0, 0, 0, 0.09);*/
-/*    background-color: #2784F4 !Important;*/
-/*    border-color: #2784F4 !Important;*/
-/*    transform: translateY(-.1rem);*/
-
-/*}*/
 
 .dashboard-card {
     min-height: 200px;

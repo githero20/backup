@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
-import SimpleReactValidator from "simple-react-validator";
 import {withToastManager} from 'react-toast-notifications';
 import {capitalize, toastMessage} from "../../../Helpers/Helper";
 import UpdateWithdrawalPin from "../UpdateWithdrawalPin/UpdateWithdrawalPin";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
-import {updateEmailProfile, updateUserProfile} from "../../../actions/UserAction";
+import {updateEmailProfile} from "../../../actions/UserAction";
 
 class ProfileForm extends Component {
-
-
     state = {
         password: '',
         token: '',
@@ -22,10 +19,7 @@ class ProfileForm extends Component {
     };
 
     constructor(props) {
-
         super(props);
-
-        // this.validator = new SimpleReactValidator();
         this.toastMessage = this.toastMessage.bind(this);
     }
 
@@ -39,8 +33,6 @@ class ProfileForm extends Component {
             pauseOnHover: false,
         })
     }
-
-
 
 
     copyToClipboard = (e) => {
@@ -70,15 +62,11 @@ class ProfileForm extends Component {
 
     updateEmail = (e) => {
         e.preventDefault();
-        // update email
         this.setState({loading: true});
         updateEmailProfile(this.state, (status, response) => {
             this.setState({loading: false});
             if (status) {
                 toastMessage('Email updated successfully!!', 'success', this);
-                // this.setState({
-                //
-                // })
             } else {
                 if (response && response.data) {
                     let errors = response.data.errors;
@@ -87,7 +75,6 @@ class ProfileForm extends Component {
                         return toastMessage(err, 'error', this)
                     });
                 }
-                // toastMessage('Uhnable to update Email', 'error', this);
             }
         });
     };
@@ -123,7 +110,6 @@ class ProfileForm extends Component {
                            className="form-control"
                            placeholder="Email"
                            disabled
-                        // onChange={this.changeHandler}
                            defaultValue={userProfile ? userProfile.email : null}
                     />
                 </div>
@@ -133,7 +119,7 @@ class ProfileForm extends Component {
         return (
             <React.Fragment>
                 <div>
-                    <div className="form lock-form px-md-1 text-lowercase">
+                    <div className="form lock-form px-md-1">
                         <div className="form-body">
                             <div>
                                 <div className="row mb-2">
@@ -141,7 +127,7 @@ class ProfileForm extends Component {
                                         <div className="row">
                                             <div className="col-12">
                                                 <h4 className="mt-md-0 ">General</h4>
-                                                <div className='line'></div>
+                                                <div className='line'/>
                                             </div>
                                             <div className="col-12 col-lg-6">
                                                 <div className="form-group">
@@ -150,13 +136,10 @@ class ProfileForm extends Component {
                                                         type="text"
                                                         id="name"
                                                         disabled
-                                                        // onChange={this.changeHandler}
                                                         className="form-control mb-1"
                                                         name="name"
                                                         defaultValue={userProfile ? userProfile.name : null}
                                                     />
-                                                    {/*{this.validator.message('name', userProfile.name, 'required|string')}*/}
-
                                                 </div>
                                             </div>
                                             <div className="col-12 col-lg-6">
@@ -168,11 +151,8 @@ class ProfileForm extends Component {
                                                         className="form-control mb-1"
                                                         name="last_name"
                                                         disabled
-                                                        // onChange={this.changeHandler}
                                                         defaultValue={userProfile ? userProfile.last_name : null}
                                                     />
-                                                    {/*{this.validator.message('name', name, 'required|string')}*/}
-                                                    {/*{this.validator.message('last name', userProfile.last_name, 'required|string')}*/}
                                                 </div>
                                             </div>
                                             <div className="col-md-12 col-lg-6">
@@ -191,18 +171,13 @@ class ProfileForm extends Component {
                                                         disabled
                                                         className="form-control mb-1"
                                                         name="phone"
-                                                        // onChange={this.changeHandler}
                                                         defaultValue={userProfile ? userProfile.phone : null}
                                                     />
-                                                    {/*{this.validator.message('phone', userProfile.phone, 'required|phone')}*/}
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </div>
 
                             <div className="row">

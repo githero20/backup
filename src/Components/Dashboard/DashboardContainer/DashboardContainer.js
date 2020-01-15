@@ -290,12 +290,10 @@ class DashboardContainer extends Component {
                                                       columns={mobileColumns}/>
                                 )}
                         </div>
-
-
                     </div>
-
+                    <Footer/>
                 </div>
-                <Footer/>
+
             </React.Fragment>
         );
     }

@@ -3,28 +3,22 @@ import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNa
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import {Link} from "react-router-dom";
 import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
-import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-icon.svg";
-import MessageBox from "../../Components/Dashboard/DashboardContainer/MessageBox/MessageBox";
-import InstantSavingModal from "../../Components/Dashboard/InstantSavingModal/InstantSavingModal";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
-import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
+import {request} from "../../ApiUtils/ApiUtils";
 import {ToastProvider} from 'react-toast-notifications';
 import {
-    amountFormatter, balanceFormatter,
+    amountFormatter,
+    balanceFormatter,
     dateFormatter,
     descriptionFormatter,
     formatNumber,
-    INTEREST_ACCOUNT, sourceFormatter, sourceTypeFormatter,
-    STANDARD_ACCOUNT, statusFormatter
+    INTEREST_ACCOUNT,
+    sourceFormatter,
+    STANDARD_ACCOUNT,
+    statusFormatter
 } from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
-import {
-    getBackUpStashTransEndpoint,
-    getTransactionsApi,
-    getUserInfoEndpoint,
-    instantSaveTransEndpoint,
-    WithdrawalLink
-} from "../../RouteLinks/RouteLinks";
+import {getBackUpStashTransEndpoint, getUserInfoEndpoint, WithdrawalLink} from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import TransferLockedSavingsModal
     from "../../Components/Dashboard/TransferLockedSavingsModal/TransferLockedSavingsModal";
@@ -71,7 +65,7 @@ class BackupStash extends Component {
         this.setState({
             showTransToCentralVault: false
         });
-        if(status){
+        if (status) {
             this.setupStash();
         }
     };
@@ -87,13 +81,13 @@ class BackupStash extends Component {
 
         //stop loader
         this.setState({
-            showLoader:false
+            showLoader: false
         });
 
         //handle response
         if (status) {
-            if(data){
-               const userName = data.data.data.name;
+            if (data) {
+                const userName = data.data.data.name;
                 this.setState({
                     userName,
                 });
@@ -109,14 +103,12 @@ class BackupStash extends Component {
                         this.setState({
                             totalStash: formatNumber(content.balance)
                         })
-                    }else if (content.account_type_id == STANDARD_ACCOUNT) {
+                    } else if (content.account_type_id == STANDARD_ACCOUNT) {
                         this.setState({
-                            vaultBalance:content.balance,
+                            vaultBalance: content.balance,
                         })
                     }
                 });
-
-
 
 
             } else {
@@ -130,19 +122,11 @@ class BackupStash extends Component {
     };
 
 
-
-    analyseStashTrans = (status,res)=>{
-
-        if(status){
-
-            if(res){
-                this.setState({
-                    transactions:res.data.data
-                })
-            }
+    analyseStashTrans = (status, res) => {
+        if (status && res) {
+            this.setState({transactions: res.data.data})
         }
-
-    }
+    };
 
 
     setupStash = () => {
@@ -151,7 +135,7 @@ class BackupStash extends Component {
 
         //TODO Add Table Loader
         this.setState({
-            showLoader:true,
+            showLoader: true,
         })
         //call get user info
         request(getUserInfoEndpoint, null, true, 'GET', this.analyseStashInfo);
@@ -163,7 +147,6 @@ class BackupStash extends Component {
     };
 
 
-
     componentDidMount() {
 
 
@@ -171,8 +154,6 @@ class BackupStash extends Component {
         this.setupStash();
 
     }
-
-
 
 
     render() {
@@ -190,7 +171,7 @@ class BackupStash extends Component {
                 formatter: descriptionFormatter,
                 sort: true,
 
-            },{
+            }, {
                 text: 'Description',
                 dataField: 'sourcetypes',
                 formatter: sourceFormatter,
@@ -203,7 +184,7 @@ class BackupStash extends Component {
                 formatter: amountFormatter,
                 sort: true,
 
-            },{
+            }, {
                 text: 'Balance',
                 dataField: 'balance',
                 formatter: balanceFormatter,
@@ -234,25 +215,25 @@ class BackupStash extends Component {
                 className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done instant-save"
                 data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                 <HorizontalNav userName={this.state.userName}/>
-                <VerticalNav userName={this.state.userName} />
+                <VerticalNav userName={this.state.userName}/>
                 <div className="app-content content ">
                     <div className="content-wrapper">
 
                         {/* message baox*/}
                         {/*<MessageBox/>*/}
                         <div className="row mb-4">
-                            <div className="col-12"></div>
+                            <div className="col-12"/>
                         </div>
                         {
                             this.state.showTransferLockedSavings ?
                                 (
                                     <React.Fragment>
                                         <ToastProvider>
-                                        <TransferLockedSavingsModal
-                                            show={this.state.showTransferLockedSavings}
-                                            onHide={this.hideTransLockedSavingModal}
-                                            setupStash={this.setupStash}
-                                        />
+                                            <TransferLockedSavingsModal
+                                                show={this.state.showTransferLockedSavings}
+                                                onHide={this.hideTransLockedSavingModal}
+                                                setupStash={this.setupStash}
+                                            />
                                         </ToastProvider>
                                     </React.Fragment>
 
@@ -299,7 +280,8 @@ class BackupStash extends Component {
 
                                     <div className="mb-quick-actions d-flex flex-md-column flex-wrap ">
                                         <span className="mb-btn-wrapper">
-                                            <button type="button" data-toggle="modal" data-target="#large" onClick={this.showTransLockedSavingModal}
+                                            <button type="button" data-toggle="modal" data-target="#large"
+                                                    onClick={this.showTransLockedSavingModal}
                                                     className=" btn-blue-gradient-2 round">
                                                 <img src={whiteSaveMoreIcon} alt={'Transfer to Saving Modal'}/>
                                                 Transfer to Locked Savings
@@ -308,7 +290,8 @@ class BackupStash extends Component {
                                         </span>
 
                                         <span className="mb-btn-wrapper">
-                                            <button type="button" data-toggle="modal" data-target="#large" onClick={this.showTransToCentralVaultModal}
+                                            <button type="button" data-toggle="modal" data-target="#large"
+                                                    onClick={this.showTransToCentralVaultModal}
                                                     className=" btn-blue-gradient-2 round">
                                                 <img src={whiteSaveMoreIcon} alt={'Transfer to Central Vault'}/>
                                                 Transfer to Central Vault

@@ -101,6 +101,7 @@ class SteadySave extends Component {
             }
         );
     };
+
     hideOneModal = (status = false) => {
         this.setState({
                 showOneSavingModal: false
@@ -148,10 +149,8 @@ class SteadySave extends Component {
 
     handleSteadySave = (state, res) => {
         this.setState({showLoader: false});
-
         if (state && res) {
             this.setState({transactions: res.data.data});
-
             const temp = res.data.data;
             if (temp && temp.length > 0) {
 
@@ -291,6 +290,12 @@ class SteadySave extends Component {
         }
     }
 
+
+    updateSteadySaveForm = (data)=> {
+        this.setState({steadySave:data,oneSteadySave:data});
+    };
+
+
     render() {
 
         const {transactions, userName} = this.state;
@@ -375,12 +380,10 @@ class SteadySave extends Component {
                                         this.convertSteadySave(row.id);
                                         break;
                                     case "no":
-                                        // swal("Withdrawal Cancelled");
                                         break;
                                 }
                             });
                         } else {
-
                             let oneSteadySave = {
                                 id: row.id,
                                 contribution: row.start_amount,
@@ -390,7 +393,6 @@ class SteadySave extends Component {
                                 payment_auth: row.gw_authorization_code,
                                 raw: row
                             };
-
                             this.setState({oneSteadySave: {...this.state.oneSteadySave, ...oneSteadySave}});
                             this.showOneSSModal();
 
@@ -400,7 +402,8 @@ class SteadySave extends Component {
                 }
             }
 
-        ]; //table header and columns
+        ];
+        //table header and columns
 
         const mobileColumns = [
             {
@@ -449,7 +452,6 @@ class SteadySave extends Component {
                         // make request to get transaction
                         getSteadySavTrans(row.id, this.handleSSaveTrans);
                         getSteadySavHistory(row.id, this.handleSSaveHistory);
-
                     }
                 }
             },
@@ -461,7 +463,6 @@ class SteadySave extends Component {
                 events: {
                     onClick: (e, column, columnIndex, row) => {
                         if (e.target.name == 'convert-btn') {
-
                             swal('Are you sure', 'This will convert your steady save to the new steady save ' +
                                 'that runs automatically.You can edit your steady save once it is converted.', 'info', {
                                 buttons: {
@@ -720,10 +721,7 @@ class SteadySave extends Component {
                                     <Footer/>
                                 </div>
                             </React.Fragment>
-                        )
-
-
-                        : (
+                        ) : (
                             <div className="app-content content">
                                 <div className="content-wrapper">
                                     <div className="mb-5"/>
@@ -736,11 +734,13 @@ class SteadySave extends Component {
                                                                      totalSteadySave={this.state.totalSteadySave}
                                                                      show={this.state.showSavingModal}
                                                                      onHide={this.hideModal}
+                                                                     updateSteadySaveForm={this.updateSteadySaveForm}
                                                     />
                                                 </React.Fragment>
 
                                             ) : null
                                     }
+
                                     {
                                         this.state.showOneSavingModal ?
                                             (
@@ -750,6 +750,7 @@ class SteadySave extends Component {
                                                                      totalSteadySave={this.state.totalIndSteadySave}
                                                                      show={this.state.showOneSavingModal}
                                                                      onHide={this.hideOneModal}
+                                                                     updateSteadySaveForm={this.updateSteadySaveForm}
                                                     />
                                                 </React.Fragment>
 
@@ -776,8 +777,7 @@ class SteadySave extends Component {
                                             <div className="col-lg-5 col-12 order-lg-8">
                                                 <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
                                                     <p>Start saving your money here automatically, daily, weekly or
-                                                        monthly.<br/>We want you to be disciplined, so we’ll charge you
-                                                        5% if
+                                                        monthly.<br/>We want you to be disciplined, so we’ll charge you 5% if
                                                         you choose to withdraw outside of your set withdrawal days.</p>
                                                 </div>
                                             </div>

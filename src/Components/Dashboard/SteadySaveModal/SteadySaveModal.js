@@ -66,6 +66,7 @@ class SteadySaveModal extends React.Component {
                                     setupSteadySave={this.props.setupSteadySave}
                                     steadySave={this.props.steadySave}
                                     onHide={this.props.onHide}
+                                    updateSteadySaveForm={this.props.updateSteadySaveForm}
                                 />
                         }
                         {

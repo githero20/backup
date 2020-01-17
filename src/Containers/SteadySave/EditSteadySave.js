@@ -105,7 +105,6 @@ class SteadySaveForm extends Component {
     }
 
     initiatePayStack = () => {
-
         initTransaction({
             amount: parseFloat(this.state.form.contribution),
             source: 'quick',
@@ -118,8 +117,7 @@ class SteadySaveForm extends Component {
             }
             this.props.onHide();
         });
-
-    }
+    };
 
 
     resolvePaystackResponse = (response) => {
@@ -157,13 +155,15 @@ class SteadySaveForm extends Component {
                 token.then(data => {
                     updateSteadySave(this.props.steadySave.id, this.state.form, (status, payload) => {
                         this.setState({loading: false});
-                        if (!status) {
-                            toastMessage(JSON.stringify(payload), 'error', this);
-                        } else {
+                        if (status) {
+                            console.log('worked',payload);
                             toastMessage("Steady save updated successfully", 'success', this);
                             setTimeout(this.props.onHide, 3000);
                             this.props.setupSteadySave();
-                            //set timeout
+                            this.props.updateSteadySaveForm(payload);
+                        }else {
+                            toastMessage('Unable to update steady Save at the moment.','error',this);
+                            console.log('error',payload);
                         }
                     })
                 });
@@ -178,8 +178,8 @@ class SteadySaveForm extends Component {
         const showHour = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Hour of the day</Form.Label>
-                <Form.Control as="select" defaultValue={this.state.form.hour_of_day} onChange={this.changeHandler}
-                              id="hour_of_day" name="hour_of_day">
+                <Form.Control as="select" defaultValue={this.state.form.hour_of_day}
+                              onChange={this.changeHandler} id="hour_of_day" name="hour_of_day">
                     <option value={'1'}>1:00 am</option>
                     <option value={'2'}>2:00 am</option>
                     <option value={'3'}>3:00 am</option>
@@ -205,14 +205,13 @@ class SteadySaveForm extends Component {
                     <option value="23">11:00 pm</option>
                     <option value="0">12:00 am</option>
                 </Form.Control>
-
             </Form.Group>
         );
         const showMonth = (
             <Form.Group as={Col} sm={6} type="text">
                 <Form.Label>Day of the Month</Form.Label>
-                <Form.Control as="select" defaultValue={this.state.form.day_of_month} onChange={this.changeHandler}
-                              id="day_of_month" name={'day_of_month'}>
+                <Form.Control as="select" defaultValue={this.state.form.day_of_month}
+                              onChange={this.changeHandler} id="day_of_month" name={'day_of_month'}>
                     <option value={'1'}>1</option>
                     <option value={'2'}>2</option>
                     <option value={'3'}>3</option>
@@ -245,8 +244,6 @@ class SteadySaveForm extends Component {
                     <option value="30">30</option>
                     <option value="31">31</option>
                 </Form.Control>
-                {/*{this.validator.message('day_of_month', this.state.form.day_of_month, 'required|numeric')}*/}
-
             </Form.Group>
         );
 
@@ -271,8 +268,8 @@ class SteadySaveForm extends Component {
                 <Form onSubmit={this.submitForm}>
                     <Form.Row>
                         <Form.Group as={Col} sm={6}>
-                            <div className={'text-muted secondary-text'}>Contribution <span
-                                className='amount-display round float-right text-white px-1'>
+                            <div className={'text-muted secondary-text'}>Contribution
+                                <span className='amount-display round float-right text-white px-1'>
                                     ₦ {formatNumber(Number(this.state.form.contribution).toFixed(2))}
                                     </span>
                             </div>

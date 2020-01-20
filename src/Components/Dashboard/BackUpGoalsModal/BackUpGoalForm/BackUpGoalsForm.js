@@ -130,8 +130,10 @@ class BackUpGoalsForm extends Component {
             const valid = validateBackupGoalAmount(frequency, contribution, this);
             if (valid) {
                 this.setState({loading: true});
+                console.log('create backupgoal',this.state.form);
                 createBackUpGoal(this.state.form, (status, payload) => {
                     this.setState({loading: false});
+                    console.log('response from backupgoal',payload);
                     if (status) {
                         toastMessage("Backup Goal Saved.","success",this);
                         setTimeout(() => this.props.onHide(true), 2000);
@@ -200,7 +202,7 @@ class BackUpGoalsForm extends Component {
     }
 
     render() {
-        const {title, goal_amount, start_date, frequency, payment_auth, maturity_date, contribution, hour_of_day, day_of_week, day_of_month} = this.state.form;
+        const {title, goal_amount, start_date, frequency, payment_auth, maturity_date, contribution} = this.state.form;
 
         const showHour = (
             <Form.Group as={Col} type="text">
@@ -362,7 +364,6 @@ class BackUpGoalsForm extends Component {
                                 <option value={'add'}>Add Card</option>
                                 {
                                     this.state.userCards.length > 0 ?
-
                                         this.state.userCards.map((data) => {
                                             if (data.channel == "card")
                                                 return (
@@ -419,7 +420,6 @@ class BackUpGoalsForm extends Component {
                             {this.state.loading ? <ButtonLoader/> : <span>Start</span>}
                         </Button>
                     </Form.Row>
-
                 </Form>
             </React.Fragment>
         );

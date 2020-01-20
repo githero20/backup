@@ -125,6 +125,7 @@ class EditBGForm extends Component {
                     loading: true,
                 });
                 //TODO update backup Goals
+
                 editBGoal(this.state.form.id, this.state.form, (status, payload) => {
                     this.setState({
                         loading: false,

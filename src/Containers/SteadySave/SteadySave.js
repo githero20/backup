@@ -153,18 +153,21 @@ class SteadySave extends Component {
             this.setState({transactions: res.data.data});
             const temp = res.data.data;
             if (temp && temp.length > 0) {
-
                 let steadySave = {
                     id: temp[0].id,
                     contribution: temp[0].start_amount,
                     frequency: temp[0].frequency,
                     start_date: temp[0].start_date,
+                    day_of_week: temp[0].day_of_week,
                     hour_of_day: temp[0].hour_of_day,
                     payment_auth: temp[0].gw_authorization_code,
-                    raw: temp[0]
+                    raw: temp[0],
                 };
 
-                this.setState({steadySave: {...this.state.steadySave,...steadySave}});
+                this.setState({
+                    steadySave: {...this.state.steadySave, ...steadySave},
+                    oneSteadySave: {...this.state.oneSteadySave, ...steadySave}
+                });
             }
 
         }
@@ -186,16 +189,11 @@ class SteadySave extends Component {
     analyseSteadySaveInfo = (status, data) => {
 
         if (status) {
-            //set name
             if (data) {
-                this.setState({userName: data.data.data.name});
+                this.setState({userName: data.data.data.name})
             }
-
-            //set account
             if (data.data.data.accounts) {
-                // loop through data and set appropriate states
                 let accounts = data.data.data.accounts.data;
-                //display total balance
                 accounts.map((content, idx) => {
                     if (content.account_type_id == STANDARD_ACCOUNT) {
                         this.setState({
@@ -203,7 +201,6 @@ class SteadySave extends Component {
                         })
                     }
                 });
-
             }
         }
     };
@@ -224,7 +221,6 @@ class SteadySave extends Component {
     };
 
     componentDidMount() {
-        //get token if token isset
         let token = getToken();
         token.then(() => {
             this.getSteadySave();
@@ -257,8 +253,6 @@ class SteadySave extends Component {
     };
 
     handleSSaveHistory = (status, res) => {
-        //TODO calc total steady save
-
         if (status && res) {
             let data = res.savings_plan_history.data;
             const totalSteadySave = getTotalSuccessfulSS(data);
@@ -291,17 +285,15 @@ class SteadySave extends Component {
     }
 
 
-    updateSteadySaveForm = (data)=> {
-        this.setState({steadySave:data,oneSteadySave:data});
+    updateSteadySaveForm = (data) => {
+        this.setState({steadySave: data, oneSteadySave: data});
     };
 
 
     render() {
 
         const {transactions, userName} = this.state;
-
         let startButtonText = null;
-
         if (transactions.length == 0) {
             startButtonText = 'Create Steady Save';
         } else {
@@ -340,7 +332,6 @@ class SteadySave extends Component {
                 headerClasses: 'd-none d-md-table-cell',
 
             },
-
             {
                 text: 'Transactions',
                 dataField: 'id',
@@ -395,16 +386,14 @@ class SteadySave extends Component {
                             };
                             this.setState({oneSteadySave: {...this.state.oneSteadySave, ...oneSteadySave}});
                             this.showOneSSModal();
-
                         }
 
                     }
                 }
             }
-
         ];
-        //table header and columns
 
+        //table header and columns
         const mobileColumns = [
             {
                 text: 'Title',
@@ -777,7 +766,8 @@ class SteadySave extends Component {
                                             <div className="col-lg-5 col-12 order-lg-8">
                                                 <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
                                                     <p>Start saving your money here automatically, daily, weekly or
-                                                        monthly.<br/>We want you to be disciplined, so we’ll charge you 5% if
+                                                        monthly.<br/>We want you to be disciplined, so we’ll charge you
+                                                        5% if
                                                         you choose to withdraw outside of your set withdrawal days.</p>
                                                 </div>
                                             </div>
@@ -802,7 +792,6 @@ class SteadySave extends Component {
                                             </div>
                                         </div>
                                         <div className="row">
-                                            {/* //TODO show steady save transactions */}
                                             {this.state.mobileTable ?
                                                 (<SSaveTransTable title={'Steady Saves'} transactions={transactions}
                                                                   emptyMessage={'No Steady Saves Available'}
@@ -810,7 +799,6 @@ class SteadySave extends Component {
                                                 (<SSaveTransTable title={'Steady Saves'} transactions={transactions}
                                                                   emptyMessage={'No Steady Saves Available'}
                                                                   columns={columns}/>)}
-
                                         </div>
                                     </div>
                                 </div>

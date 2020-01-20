@@ -860,27 +860,27 @@ export function viewFormatter(cell) {
 
 export function actionFormatter(cell, row, rowIndex, {trans}) {
 	const tommorrow = moment().add(1).format('MM-DD-YYYY');
-	//get latest end date
-	let latestDate = moment(Math.max.apply(null, trans.map(function (content) {
-		if (content.end_date != null) {
-			return new Date(content.end_date);
-		}
-	}))).format('MM-DD-YYYY');
+	let latestDate = trans.length && moment(trans[0].end_date).format('MM-DD-YYYY');
+	// let latestDate = new Date(Math.max.apply(null, trans.map(function (content) {
+	// 	if (content.end_date != null) {
+	// 		console.log('end date in array',content.end_date);
+	// 		return moment(content.end_date).format('MM-DD-YYYY');
+	// 	}
+	// })));
 
-	let latestHour = Math.max.apply(null, trans.map(function (content) {
-		if (content.hour_of_day != null) {
-			return content.hour_of_day;
-		}
-	}));
+	// let latestHour = Math.max.apply(null, trans.map(function (content) {
+	// 	if (content.hour_of_day != null) {
+	// 		return content.hour_of_day;
+	// 	}
+	// }));
+	const endDate = moment(row.end_date).format('MM-DD-YYYY');
 
-	// if the latest date is past render convert steady save
-	if (latestDate < tommorrow && latestDate == moment(row.end_date).format('MM-DD-YYYY')) {
-
-		return <button name='convert-btn' className={'btn btn-block round btn-sm btn-success'}>Convert</button>
-	} else if (row.end_date != null && moment(row.end_date).format('MM-DD-YYYY') < tommorrow) {
-
+	if (moment(latestDate).isBefore(tommorrow) && moment(latestDate).isSame(endDate) && rowIndex === 0 ) {
+		return <button name='convert-btn' className={'btn btn-sm round btn-sm btn-danger'}>Convert</button>
+	} else if (row.end_date != null && moment(row.end_date).isBefore(tommorrow)){
 		return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>;
-	} else if (row.end_date == null || (latestDate > tommorrow && latestDate == moment(row.end_date).format('MM-DD-YYYY'))) {
+	} else if (row.end_date === null || (moment(latestDate).isBefore(tommorrow)
+		&& latestDate === moment(row.end_date).format('MM-DD-YYYY'))) {
 		return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
 	}
 	return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>
@@ -904,14 +904,15 @@ export function pointFormatter(cell, row) {
 	console.log('row cell', cell, row);
 	if (row.point_type === 'referral_type') {
 		return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
-	}else {
+	} else {
 		return <label style={{minWidth: '100px'}} className={'text-info'}>{`0`}</label>
 	}
 }
 
 export function bonusAmountFormatter(cell, row) {
 	if (row.point_type === 'referral_bonus_centralvault') {
-		return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `₦ ${formatNumber(cell)}` : 'N/A'}</label>
+		return <label style={{minWidth: '100px'}}
+					  className={'text-info'}>{cell != null ? `₦ ${formatNumber(cell)}` : 'N/A'}</label>
 	} else {
 		return <label style={{minWidth: '100px'}} className={'text-info'}>{`₦ 0`}</label>
 	}

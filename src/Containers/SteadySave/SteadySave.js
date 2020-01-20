@@ -159,6 +159,7 @@ class SteadySave extends Component {
                     frequency: temp[0].frequency,
                     start_date: temp[0].start_date,
                     day_of_week: temp[0].day_of_week,
+                    day_of_month: temp[0].day_of_month,
                     hour_of_day: temp[0].hour_of_day,
                     payment_auth: temp[0].gw_authorization_code,
                     raw: temp[0],
@@ -359,8 +360,8 @@ class SteadySave extends Component {
                 events: {
                     onClick: (e, column, columnIndex, row) => {
                         if (e.target.name == 'convert-btn') {
-                            swal('Are you sure', 'This will convert your steady save to the new steady save ' +
-                                'that runs automatically.You can edit your steady save once it is converted.', 'info', {
+                            swal('Are you sure', 'This will convert your steady save\n to the new steady save ' +
+                                'that runs automatically.\nYou can edit your steady save once it is converted.', 'info', {
                                 buttons: {
                                     cancel: "no",
                                     yes: "yes"

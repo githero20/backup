@@ -300,7 +300,7 @@ class SteadySaveForm extends Component {
                                                 return (
                                                     <option value={data.id} key={data.id}
                                                             selected={index === 0 ? true : null}>
-                                                        {data.card_type}(**** **** **** {data.last4} ){data.id}
+                                                        {data.card_type}(**** **** **** {data.last4})
                                                     </option>
                                                 );
                                             }

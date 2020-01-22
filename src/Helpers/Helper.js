@@ -859,7 +859,11 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 	const tommorrow = moment().add(1).format('MM-DD-YYYY');
 	let latestDate = trans.length && moment(trans[0].end_date).format('MM-DD-YYYY');
 	const endDate = moment(row.end_date).format('MM-DD-YYYY');
-	console.log('cell data',cell,row,trans[0]);
+	console.log('cell data',row);
+	console.log('end date is before',moment(latestDate).isBefore(tommorrow));
+	console.log('end date is same',moment(latestDate).isSame(endDate));
+	console.log('row index',rowIndex);
+	console.log('end date',endDate);
 	if (moment(latestDate).isBefore(tommorrow) && moment(latestDate).isSame(endDate) && rowIndex === 0 ) {
 		console.log('entered convert');
 		return <button name='convert-btn' className={'btn btn-sm round btn-sm btn-danger'}>Convert</button>

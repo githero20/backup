@@ -860,8 +860,8 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 	let latestDate = trans.length && moment(trans[0].end_date).format('MM-DD-YYYY');
 	const endDate = moment(row.end_date).format('MM-DD-YYYY');
 	console.log('cell data',row);
-	console.log('end date is before',moment(latestDate).isBefore(tommorrow));
-	console.log('end date is same',moment(latestDate).isSame(endDate));
+	console.log('end date is before',moment(latestDate).isBefore(tommorrow),moment(latestDate),tommorrow);
+	console.log('end date is same',moment(latestDate).isSame(endDate),moment(latestDate),endDate);
 	console.log('row index',rowIndex);
 	console.log('end date',endDate);
 	console.log('tommorrow date',tommorrow);

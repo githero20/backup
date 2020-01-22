@@ -339,13 +339,11 @@ export function isGoalCompleted(goal) {
 export const dateFormat = 'YYYY-MM-DD';
 
 export function getTotalBGSuccessful(transactions) {
-
-
 	if (transactions) {
 		if (transactions.length > 0) {
 			let successful;
 			successful = transactions.filter((content) => (content.status == 'success'));
-			successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+			successful = successful.reduce((a, b) => ({amount: a + parseInt(b.amount)}),0);
 			return successful.amount;
 		} else {
 			return 0;

@@ -63,6 +63,7 @@ import Challenge from "../Containers/challenge/Challenge";
 import PrivacyPolicy from "../Containers/privacy policy/PrivacyPolicy";
 import YearlyReview from "../Containers/YearlyReview/YearlyReview";
 import ScoreBoard from "../Containers/YearlyReview/ScoreBoard";
+import ErrorBoundary from "../Components/Auth/HOC/ErrorBoundary";
 
 
 class AppRouter extends Component {
@@ -91,48 +92,66 @@ class AppRouter extends Component {
                                             onExit={(node, appears) => exit(node, appears)}
                                             timeout={{enter: 750, exit: 150}}
                                         >
-                                            <Switch>
-                                                <Route exact path={HomeLink} render={() => <Home isLoggedIn={user}/>}/>
-                                                <Route exact path={DashboardLink}
-                                                       component={AuthController(DashboardIndex)}/>
-                                                <Route path={InstantSaveLink} component={AuthController(InstantSave)}/>
-                                                <Route path={SteadySaveLink} component={AuthController(SteadySave)}/>
-                                                <Route path={LockedSavingsLink}
-                                                       component={AuthController(LockedSavings)}/>
-                                                <Route path={BackupGoalsLink} component={AuthController(BackupGoals)}/>
-                                                <Route path={TransactionsLink}
-                                                       component={AuthController(Transactions)}/>
-                                                <Route path={ReferralsLink} component={AuthController(Referrals)}/>
-                                                <Route path={WithdrawalLink} component={AuthController(Withdrawal)}/>
-                                                <Route path={ProfileSettingLink}
-                                                       component={AuthController(ProfileSetting)}/>
-                                                <Route path={BankCardLink} component={AuthController(BankCardSetting)}/>
-                                                <Route path={KycSettingLink} component={AuthController(KycSetting)}/>
-                                                <Route path={BackupStashLink} component={AuthController(BackupStash)}/>
-                                                <Route path={EmailActivationLink} component={EmailActivation}/>
-                                                <Route path={ResendActivationLink} component={ResendActivation}/>
-                                                <Route path={ChallengeLink}
-                                                       render={() => <Challenge isLoggedIn={user}/>}
-                                                />
-                                                <Route path={TermsAndCondLink} component={PrivacyPolicy}/>
-                                                <Route path={LoginLink}
-                                                       render={() => (user ? window.location.href = DashboardLink : <Login/>)}
-                                                />
-                                                <Route path={SignUpLink}
-                                                       render={(props) => (user ? window.location.href = DashboardLink : <SignUp {...props}/>)}
-                                                />
-                                                <Route path={InviteLink} component={SignUp}/>
-                                                <Route path={ActivateAccountLink} component={ActivateAccount}/>
-                                                <Route path={ForgotPasswordLink} component={ForgotPassword}/>
-                                                <Route path={botCreatePasswordLink}
-                                                       render={props => <ForgotPassword bot={true} {...props} />}/>
-                                                <Route path={ResetPasswordLink} component={ResetPassword}/>
-                                                <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
-                                                <Route path={FaqLink} render={() => <Faq isLoggedIn={user}/>}/>
-                                                <Route exact path={scoreboardLink} component={YearlyReview}/>
-                                                <Route exact path={sbDashboardLink} component={ScoreBoard}/>
-                                                <Route component={ErrorPage}/>
-                                            </Switch>
+                                            <ErrorBoundary>
+                                                <Switch>
+                                                    <Route exact path={HomeLink}
+                                                           render={() => <Home isLoggedIn={user}/>}/>
+                                                    <Route exact path={DashboardLink}
+                                                           component={AuthController(DashboardIndex)}/>
+                                                    <Route path={InstantSaveLink}
+                                                           component={AuthController(InstantSave)}/>
+                                                    <Route path={SteadySaveLink}
+                                                           component={AuthController(SteadySave)}/>
+                                                    <Route path={LockedSavingsLink}
+                                                           component={AuthController(LockedSavings)}/>
+                                                    <Route path={BackupGoalsLink}
+                                                           component={AuthController(BackupGoals)}/>
+                                                    <Route path={TransactionsLink}
+                                                           component={AuthController(Transactions)}/>
+                                                    <Route path={ReferralsLink} component={AuthController(Referrals)}/>
+                                                    <Route path={WithdrawalLink}
+                                                           component={AuthController(Withdrawal)}/>
+                                                    <Route path={ProfileSettingLink}
+                                                           component={AuthController(ProfileSetting)}/>
+                                                    <Route path={BankCardLink}
+                                                           component={AuthController(BankCardSetting)}/>
+                                                    <Route path={KycSettingLink}
+                                                           component={AuthController(KycSetting)}/>
+                                                    <Route path={BackupStashLink}
+                                                           component={AuthController(BackupStash)}/>
+                                                    <Route path={EmailActivationLink} component={EmailActivation}/>
+                                                    <Route path={ResendActivationLink} component={ResendActivation}/>
+                                                    <Route path={ChallengeLink}
+                                                           render={() => <Challenge isLoggedIn={user}/>}
+                                                    />
+                                                    <Route path={TermsAndCondLink} component={PrivacyPolicy}/>
+                                                    <Route path={LoginLink}
+                                                           render={() => (user ? window.location.href = DashboardLink :
+                                                               <Login/>)}
+                                                    />
+                                                    <Route path={SignUpLink}
+                                                           render={(props) => (user ? window.location.href = DashboardLink :
+                                                               <SignUp {...props}/>)}
+                                                    />
+                                                    <Route path={InviteLink} component={SignUp}/>
+                                                    <Route path={ActivateAccountLink} component={ActivateAccount}/>
+                                                    <Route path={ForgotPasswordLink} component={ForgotPassword}/>
+                                                    <Route path={botCreatePasswordLink}
+                                                           render={props => <ForgotPassword bot={true} {...props} />}/>
+                                                    <Route path={ResetPasswordLink} component={ResetPassword}/>
+                                                    <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
+                                                    <Route path={FaqLink} render={() => <Faq isLoggedIn={user}/>}/>
+                                                    <Route exact path={scoreboardLink} component={YearlyReview}/>
+                                                    <Route exact path={sbDashboardLink} component={ScoreBoard}/>
+                                                    <Route render={props => <ErrorPage errorName={'Error 404!'}
+                                                                                       errorTitle={'Page Not Found'}
+                                                                                       action={()=>this.props.history.goBack()}
+                                                                                       {...props}
+                                                    />}
+
+                                                    />
+                                                </Switch>
+                                            </ErrorBoundary>
                                         </Transition>
                                     </TransitionGroup>
                                 </Fragment>

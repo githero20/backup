@@ -15,25 +15,11 @@ import {USERINFO} from "../../Auth/HOC/authcontroller";
 import {initBGDuePay, payBGDue, verifyBGPayDue} from "../../../actions/BackUpGoalsAction";
 
 class BGPayNowModal extends Component {
-
-
-    // TODO Handle update KYC
-    // TODO if user has updated his or her kyc SAVE A value in the local storage
-    // TODO when user goes to the kyc section check the state of the value
-
-    // TODO if the value is to update and the user amount is greater than 1M
-    //  TODO let the KYC Message show on dashboard else dont show message anymore
-
-    //TODO validate the amount user wants to pay (mustn't be more than amount due)
-
-
-    // Handle Backup Goals PAY Now with the history
-
     constructor(props) {
         super(props);
         this.validator = new SimpleReactValidator({
             validators: {
-                amount: {  // name the rule
+                amount: {
                     message: 'Please Input the Amount',
                 }
             }
@@ -53,8 +39,6 @@ class BGPayNowModal extends Component {
 
     }
 
-
-    //Retrieves user inputs
     changeHandler =(event) =>{
         _handleFormChange(
             event.target.name,
@@ -63,8 +47,6 @@ class BGPayNowModal extends Component {
         );
     };
 
-
-    //Init Paystack
     initiatePayStack = () => {
         //send api
         initBGDuePay(this.state.form, (status, payload) => {
@@ -166,11 +148,8 @@ class BGPayNowModal extends Component {
 
 
     componentDidMount() {
-        //get card info and set state
 
         getCards(USERINFO, this);
-
-
         // set steady save to pay
         let form = {...this.state.form};
         form.backup_goal_id = this.props.selectedBG.id;
@@ -193,14 +172,9 @@ class BGPayNowModal extends Component {
                     <Modal.Title id="contained-modal-title-vcenter">
                         <h4>Pay Due Backup Goal</h4>
                     </Modal.Title>
-                    {/*<a href='#' className="gray-text back-btn "*/}
-                    {/*   onClick={()=>this.props.hideForm()}>Back to Withdrawals <i className='fa fa-chevron-right'></i>*/}
-                    {/*</a>*/}
                 </Modal.Header>
 
                 <Modal.Body className={'pb-md-4 px-md-3'}>
-                    {/* form */}
-                    {/*<ToastProvider>*/}
                         <Form onSubmit={this.submitForm}>
                             <Form.Row>
                                 <Form.Group as={Col} sm={12}>
@@ -213,13 +187,10 @@ class BGPayNowModal extends Component {
                                         <Form.Control
                                             type="number"
                                             name={'amount'}
-                                            // className={'amount-input'}
                                             value={this.state.form.amount}
                                             disabled={true}
                                             onChange={this.changeHandler}
                                         />
-                                        {/*{this.state.err?<span className={'srv-validation-message'}>{this.state.err}</span>:null}*/}
-                                        {/*{this.validator.message('amount', amount, 'required|numeric')}*/}
                                         {this.validator.message('amount', this.state.form.amount, 'required|numeric')}
                                     </React.Fragment>
                                 </Form.Group>
@@ -259,7 +230,6 @@ class BGPayNowModal extends Component {
                                 </div>
                             </Form.Row>
                         </Form>
-                    {/*</ToastProvider>*/}
                 </Modal.Body>
             </Modal>
         );

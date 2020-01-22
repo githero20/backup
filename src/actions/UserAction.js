@@ -1,94 +1,87 @@
-import {_axios, _getHeader, _getUser, _setUser} from "../utils";
+import {_axios, _getHeader} from "../utils";
 import {
     BASE_URL,
     getFirstTimeUserEndpoint,
     getUserInfoEndpoint,
     getUserPointsEndpoint,
     getUserRoleEndpoint,
-    InitiateBGDuePayEndpoint,
-    updateUserProfileEndpoint,
     storeFirstTimeLoginEndpoint,
-    updateEmailEndpoint
+    updateEmailEndpoint,
+    updateUserProfileEndpoint
 } from "../RouteLinks/RouteLinks";
-import {checkResponse} from "../ApiUtils/ApiUtils";
 import axios from "axios";
 
-export const getUserData =  callback =>{
-    _axios.get(getUserInfoEndpoint,{
+export const getUserData = callback => {
+    _axios.get(getUserInfoEndpoint, {
         headers: _getHeader()
     })
         .then(res => {
-            if(callback){
+            if (callback) {
                 callback(true, res.data.data);
             }
         })
         .catch(err => {
-            checkResponse(err);
             callback(false, err.response);
         })
 };
 
-export const getFirstTimeUser =  callback =>{
-    _axios.get(getFirstTimeUserEndpoint,{
+export const getFirstTimeUser = callback => {
+    _axios.get(getFirstTimeUserEndpoint, {
         headers: _getHeader()
     })
         .then(res => {
-            if(callback){
+            if (callback) {
                 callback(true, res.data.data);
             }
         })
         .catch(err => {
-            checkResponse(err);
             callback(false, err.response);
         })
 };
-export const isKycUpdated =  callback =>{
-    _axios.get(getFirstTimeUserEndpoint,{
+export const isKycUpdated = callback => {
+    _axios.get(getFirstTimeUserEndpoint, {
         headers: _getHeader()
     })
         .then(res => {
-            if(callback){
+            if (callback) {
                 callback(true, res.data.data);
             }
         })
         .catch(err => {
-            checkResponse(err);
             callback(false, err.response);
         })
 };
 
 
-export const storeFirstTimeLogin =  callback =>{
-    _axios.get(storeFirstTimeLoginEndpoint,{
+export const storeFirstTimeLogin = callback => {
+    _axios.get(storeFirstTimeLoginEndpoint, {
         headers: _getHeader()
     })
         .then(res => {
-            if(callback){
+            if (callback) {
                 callback(true, res.data.data);
             }
         })
         .catch(err => {
-            checkResponse(err);
             callback(false, err.response);
         })
 };
 
-export const getUserPoints =  callback =>{
-    _axios.get(getUserPointsEndpoint,{
+export const getUserPoints = callback => {
+    _axios.get(getUserPointsEndpoint, {
         headers: _getHeader()
     })
         .then(res => {
-            if(callback){
+            if (callback) {
                 callback(true, res.data);
             }
         })
         .catch(err => {
-            checkResponse(err);
             callback(false, err.response);
         })
 };
 
-export function getUserRole(token=null, callback) {
+export function getUserRole(token = null, callback) {
 
 
     let url = `${BASE_URL}${getUserRoleEndpoint}`;
@@ -104,32 +97,30 @@ export function getUserRole(token=null, callback) {
         header.headers['Authorization'] = 'Bearer ' + token;
     }
 
-     axios.get(url, header).then(res => callback(true, res))
+    axios.get(url, header).then(res => callback(true, res))
         .catch(err => callback(false, err.response))
 }
 
-export const updateUserProfile = (payload, callback) =>{
-    _axios.post(updateUserProfileEndpoint,payload,{
+export const updateUserProfile = (payload, callback) => {
+    _axios.post(updateUserProfileEndpoint, payload, {
         headers: _getHeader()
     })
         .then(res => {
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            checkResponse(err);
             callback(false, err.response);
         })
 };
 
-export const updateEmailProfile = (payload, callback) =>{
-    _axios.post(updateEmailEndpoint,payload,{
+export const updateEmailProfile = (payload, callback) => {
+    _axios.post(updateEmailEndpoint, payload, {
         headers: _getHeader()
     })
         .then(res => {
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            checkResponse(err);
             callback(false, err.response);
         })
 };

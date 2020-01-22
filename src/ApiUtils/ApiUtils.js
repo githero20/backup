@@ -58,14 +58,12 @@ export function request(url, params, token, method, callback) {
     if (method === 'POST') {
         axios.post(url, params, header).then(res => callback(true, res))
             .catch(err => {
-                checkResponse(err);
                 callback(false, err.response);
             })
     } else if (method === 'GET') {
          axios.get(url, header)
              .then(res => callback(true, res))
             .catch(err => {
-                checkResponse(err);
                 callback(false, err.response);
             })
     } else if (method === 'PATCH') {
@@ -202,13 +200,13 @@ export function apiGet(url, token, callback) {
 
 }
 
-export const checkResponse = (err)=>{
-  try{
-      if(err.response.status===401){}
-  }catch (e) {
-      console.log(err, JSON.stringify(err));
-  }
-};
+// export const checkResponse = (err)=>{
+//   try{
+//       if(err.response.status===401)
+//   }catch (e) {
+//       console.log(e);
+//   }
+// };
 
 
 export function getLocalStorage(key) {

@@ -30,15 +30,6 @@ import Footer from "../../Components/Dashboard/Footer/Footer";
 
 class BackupGoals extends Component {
 
-    //get all back up goals
-
-    // get the total paid
-
-    // get total successful
-
-
-    //TODO show frequency for each backup goals
-    //get due pay
     constructor(props) {
         super(props);
         this.state = {
@@ -369,7 +360,6 @@ class BackupGoals extends Component {
                                     ) :
                                     (
                                         <div className="content-body">
-                                            {/*<MessageBox/>*/}
                                             <div className="row">
                                                 <div className="col-12 ">
                                                     <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
@@ -457,7 +447,6 @@ class BackupGoals extends Component {
                                                                     )
                                                                     :
                                                                     <div className="col-12 text-center text-muted">
-
                                                                         <i className='fa fa-5x fa-briefcase'></i>
                                                                         <h2 className='table-status mb-5 mb-md-0'>
                                                                             No Backup Goal</h2>
@@ -472,7 +461,6 @@ class BackupGoals extends Component {
                                                 </div>
                                             </div>
                                         </div>
-
                                     )
                                 }
 

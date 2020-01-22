@@ -46,7 +46,7 @@ const BGStartAmountCard = ({bgInfo,selectedBGHistory,showPayModal}) => {
                                     <p>
                                         {
                                             totalDue > 0 ?
-                                                <a href='#' className='btn btn-sm dash-cust-blue round'
+                                                <a className='btn btn-sm dash-cust-blue round'
                                                    onClick={() => showPayModal()}>Pay
                                                     Now</a> :
                                                 null

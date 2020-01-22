@@ -130,10 +130,8 @@ class BackUpGoalsForm extends Component {
             const valid = validateBackupGoalAmount(frequency, contribution, this);
             if (valid) {
                 this.setState({loading: true});
-                console.log('create backupgoal',this.state.form);
                 createBackUpGoal(this.state.form, (status, payload) => {
                     this.setState({loading: false});
-                    console.log('response from backupgoal',payload);
                     if (status) {
                         toastMessage("Backup Goal Saved.","success",this);
                         setTimeout(() => this.props.onHide(true), 2000);

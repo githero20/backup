@@ -1,25 +1,27 @@
 import React, {Component} from 'react';
-import {withToastManager} from 'react-toast-notifications';
+import ErrorPage from "../../../Containers/ErrorPage/ErrorPage";
+
 class ErrorBoundary extends Component {
-
-
-    componentDidCatch(error, errorInfo) {
-        this.toastMessage(errorInfo,'error');
+    constructor(props) {
+        super(props);
+        this.state = {error: false};
     }
 
-    toastMessage = (message, status) =>{
-        const {toastManager} = this.props;
-        toastManager.add(message, {
-            appearance: status,
-            autoDismiss: true,
-            autoDismissTimeout: 4000,
-            pauseOnHover: false,
-        })
-    };
+    componentDidCatch(error, errorInfo) {
+        console.log(error, errorInfo);
+        this.setState({ error });
+    }
 
     render() {
-        return null;
+        if (this.state.error) {
+            return <ErrorPage errorName={'Error!'}
+                              errorTitle={'We\'re sorry — something\'s gone wrong.'}
+                              {...this.props}
+            />;
+        }else{
+            return this.props.children;
+        }
     }
 }
 
-export default withToastManager(ErrorBoundary);
+export default ErrorBoundary;

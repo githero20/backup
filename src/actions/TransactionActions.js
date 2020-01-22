@@ -1,45 +1,27 @@
 import {_axios, _getHeader} from "../utils";
-import {getBGoalHistory} from "../RouteLinks/RouteLinks";
-import {checkResponse} from "../ApiUtils/ApiUtils";
 
-export const getPaginatedTrans = (url, callback) =>{
+export const getPaginatedTrans = (url, callback) => {
 
-    _axios.get(`${url}`,{
+    _axios.get(`${url}`, {
         headers: _getHeader()
     })
         .then(res => {
             callback(true, res.data.data);
         })
         .catch(err => {
-
-            try{
-
-                checkResponse(err);
-                callback(false, err.response);
-            }catch (e) {
-                //log both e and err
-                callback(false, " An Error Occurred");
-            }
+            callback(false, err.response);
         })
 };
 
-export const getFilteredTrans = (url,param, callback) =>{
+export const getFilteredTrans = (url, param, callback) => {
 
-    _axios.post(`${url}`,param,{
+    _axios.post(`${url}`, param, {
         headers: _getHeader()
     })
         .then(res => {
             callback(true, res.data.data);
         })
         .catch(err => {
-
-            try{
-
-                checkResponse(err);
-                callback(false, err.response);
-            }catch (e) {
-                //log both e and err
-                callback(false, " An Error Occurred");
-            }
+            callback(false, err.response);
         })
 };

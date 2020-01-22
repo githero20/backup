@@ -4,7 +4,6 @@ import {
     InitiateTransactionEndpoint,
     verifyTransactionEndpoint
 } from "../RouteLinks/RouteLinks";
-import {checkResponse} from "../ApiUtils/ApiUtils";
 
 
 export const initTransaction = (payload, callback) =>{
@@ -15,7 +14,6 @@ export const initTransaction = (payload, callback) =>{
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            checkResponse(err);
             callback(false, err.response);
         })
 };
@@ -29,7 +27,6 @@ export const verifyTransaction = (payload, callback) =>{
             callback(true, res.data.data);
         })
         .catch(err => {
-            checkResponse(err);
             callback(false, err.response);
         })
 };
@@ -42,7 +39,6 @@ export const getUserCards = (callback) => {
             callback(res.data.status == "success", res.data.data);
         })
         .catch(err => {
-            checkResponse(err);
             callback(false, err.response);
         })
 };

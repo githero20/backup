@@ -856,9 +856,9 @@ export function viewFormatter(cell) {
 }
 
 export function actionFormatter(cell, row, rowIndex, {trans}) {
-	const tommorrow = moment().add(1).format('MM-DD-YYYY');
-	let latestDate = trans.length && moment(trans[0].end_date).format('MM-DD-YYYY');
-	const endDate = moment(row.end_date).format('MM-DD-YYYY');
+	const tommorrow = moment().add(1);
+	let latestDate = trans.length && moment(trans[0].end_date);
+	const endDate = moment(row.end_date);
 	console.log('cell data',row);
 	console.log('end date is before',moment(latestDate).isBefore(tommorrow),moment(latestDate),tommorrow);
 	console.log('end date is same',moment(latestDate).isSame(endDate),moment(latestDate),endDate);

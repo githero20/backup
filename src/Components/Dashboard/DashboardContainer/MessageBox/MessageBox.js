@@ -52,7 +52,8 @@ class MessageBox extends Component {
 
     copyLink = (e) => {
         let textField = document.createElement('textarea');
-        textField.innerText = this.state.userCode;
+        textField.innerText = 'I save and earn with Backup Cash. Sign up with my code,' +
+            ' get ₦500.00 instantly and earn great interests when you save more. '+this.state.userReferralLink;
         document.body.appendChild(textField);
         textField.select();
         document.execCommand('copy');
@@ -63,8 +64,6 @@ class MessageBox extends Component {
 
     componentDidMount() {
         getUserPoints(this.handlePoints);
-        //get
-
     }
 
     handlePoints = (status, res) => {
@@ -99,8 +98,7 @@ class MessageBox extends Component {
                     Your have currently saved up to ₦ {formatNumber(Number(this.props.balance).toFixed(2))}
                 </span>
                 <span className="admin-purple">
-                    <strong><Link to={KycSettingLink}
-                                  className='purple-link text-uppercase'>Kindly click this link to update your kyc</Link></strong>.
+                    <strong><Link to={KycSettingLink} className='purple-link text-uppercase'>Kindly click this link to update your kyc</Link></strong>.
                 </span>
             </React.Fragment>
         );
@@ -168,7 +166,8 @@ class MessageBox extends Component {
                                 className='d-flex flex-column align-items-center text-white flex-md-row justify-content-md-center'>
                                 <span>
                                     {/*Save, Refer & Win!. Join the 21 Day Savings Challenge from 1st – 21st of November*/}
-                                    View your money score card this year
+                                    {/*View your money score card this year*/}
+                                    Have you referred someone today? The more people you refer, the more money you earn
                                 </span>
                             </label>
                             <label
@@ -176,8 +175,7 @@ class MessageBox extends Component {
                                 <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"/>
                                 <div
                                     className='d-flex justify-content-lg-between  justify-content-center d-md-inline-block flex-grow-1'>
-                                    <a href={scoreboardLink} target='_blank'
-                                       className="btn-white-bordered round px-2 mr-md-2 mb-md-0">View now</a>
+                                    <a onClick={this.copyLink} className="btn-white-bordered round px-2 mr-md-2 mb-md-0">Share Code</a>
                                 </div>
                             </label>
                         </div>
@@ -239,10 +237,8 @@ class MessageBox extends Component {
                                target='_blank'>
                                 <i className='fa fa-4x fa-twitter'/>
                             </a>
-                            {/*<a className='a-facebook' href="#" target='_blank'>*/}
-                            {/*    <i className='fa fa-4x fa-facebook'/>*/}
-                            {/*</a>*/}
-                            <a className='a-whatsapp' href={`https://api.whatsapp.com/send?text=${fullRefText}`}
+                            <a className='a-whatsapp'
+                               href={`https://api.whatsapp.com/send?phone=18883699915&text=Send ${this.state.userCode} to signup`}
                                target='_blank'>
                                 <i className='fa fa-4x fa-whatsapp'/>
                             </a>

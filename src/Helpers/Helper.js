@@ -864,6 +864,8 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 	console.log('end date is same',moment(latestDate).isSame(endDate));
 	console.log('row index',rowIndex);
 	console.log('end date',endDate);
+	console.log('tommorrow date',tommorrow);
+	console.log('latest date',latestDate);
 	if (moment(latestDate).isBefore(tommorrow) && moment(latestDate).isSame(endDate) && rowIndex === 0 ) {
 		console.log('entered convert');
 		return <button name='convert-btn' className={'btn btn-sm round btn-sm btn-danger'}>Convert</button>

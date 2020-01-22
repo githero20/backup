@@ -859,15 +859,19 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 	const tommorrow = moment().add(1).format('MM-DD-YYYY');
 	let latestDate = trans.length && moment(trans[0].end_date).format('MM-DD-YYYY');
 	const endDate = moment(row.end_date).format('MM-DD-YYYY');
-
+	console.log('cell data',cell,row,trans[0]);
 	if (moment(latestDate).isBefore(tommorrow) && moment(latestDate).isSame(endDate) && rowIndex === 0 ) {
+		console.log('entered convert');
 		return <button name='convert-btn' className={'btn btn-sm round btn-sm btn-danger'}>Convert</button>
 	} else if (row.end_date != null && moment(row.end_date).isBefore(tommorrow)){
+		console.log('entered disabled');
 		return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>;
 	} else if (row.end_date === null || (moment(latestDate).isBefore(tommorrow)
 		&& latestDate === moment(row.end_date).format('MM-DD-YYYY'))) {
+		console.log('entered quick action');
 		return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
 	}
+	console.log('didnt enter');
 	return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>
 }
 

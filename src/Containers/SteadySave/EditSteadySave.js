@@ -156,14 +156,15 @@ class SteadySaveForm extends Component {
                     updateSteadySave(this.props.steadySave.id, this.state.form, (status, payload) => {
                         this.setState({loading: false});
                         if (status) {
-                            console.log('worked',payload);
                             toastMessage("Steady save updated successfully", 'success', this);
                             setTimeout(this.props.onHide, 3000);
                             this.props.setupSteadySave();
-                            this.props.updateSteadySaveForm(payload);
-                        }else {
-                            toastMessage('Unable to update steady Save at the moment.','error',this);
-                            console.log('error',payload);
+                            let param = payload;
+                            param.payment_auth = param.gw_authorization_code;
+                            this.props.updateSteadySaveForm(param);
+                        } else {
+                            toastMessage('Unable to update steady Save at the moment.', 'error', this);
+                            console.log('error', payload);
                         }
                     })
                 });
@@ -289,7 +290,7 @@ class SteadySaveForm extends Component {
                                 <Form.Control
                                     as="select"
                                     onChange={this.changeHandler}
-                                    defaultValue={this.state.form.payment_auth}
+                                    value={this.state.form.payment_auth}
                                     name={'payment_auth'}>
                                     <option value={''}>Select Card</option>
                                     <option value={'add'}>Add Card</option>
@@ -299,7 +300,7 @@ class SteadySaveForm extends Component {
                                                 return (
                                                     <option value={data.id} key={data.id}
                                                             selected={index === 0 ? true : null}>
-                                                        {data.card_type}(**** **** **** {data.last4})
+                                                        {data.card_type}(**** **** **** {data.last4} ){data.id}
                                                     </option>
                                                 );
                                             }
@@ -311,7 +312,8 @@ class SteadySaveForm extends Component {
                                 {this.validator.message('Card', this.state.form.payment_auth, 'required|numeric')}
                             </React.Fragment>
                             {this.state.addCard ?
-                                <label className={'text-muted mt-1'}> click here to <Link to={BankCardLink}>Add Card</Link></label> :
+                                <label className={'text-muted mt-1'}> click here to <Link to={BankCardLink}>Add
+                                    Card</Link></label> :
                                 null}
 
                         </Form.Group>

@@ -344,8 +344,6 @@ class SteadySave extends Component {
                             selectedSteadySave: row,
                             showLoader: true
                         });
-                        //set appropriate state to change view
-                        // make request to get transaction
                         getSteadySavTrans(row.id, this.handleSSaveTrans);
                         getSteadySavHistory(row.id, this.handleSSaveHistory);
                         //TODO Add history endpoint to get history of steady save

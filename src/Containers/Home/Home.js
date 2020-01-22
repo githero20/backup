@@ -103,7 +103,6 @@ class Home extends Component {
         const isLoggedIn = checkUser();
         this.setState({isLoggedIn});
         this.doAnimation = this.handleScrollAnimation();
-        throw new Error('lets throw an error');
     }
 
 

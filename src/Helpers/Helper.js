@@ -1120,25 +1120,42 @@ export const redirectTo = (url) => window.location.href = url;
 export const currentLocation = window.location.pathname;
 
 export function validateBackupGoalAmount(frequency, contribution, context) {
-	if (frequency == APP_FREQUENCY.daily && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalDaily) {
-		toastMessage(`The mimimum amount for ${APP_FREQUENCY.daily} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalDaily)}`, 'error', context);
+	if (frequency === APP_FREQUENCY.daily && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalDaily) {
+		toastMessage(`The mimimum amount for ${APP_FREQUENCY.daily} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalDaily)}`,
+			'error', context);
 		return false;
-	} else if (frequency == APP_FREQUENCY.monthly && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalMonthly) {
-		toastMessage(`The mimimum amount for ${APP_FREQUENCY.monthly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalMonthly)}`, 'error', context);
+	} else if (frequency === APP_FREQUENCY.monthly && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalMonthly) {
+		toastMessage(`The mimimum amount for ${APP_FREQUENCY.monthly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalMonthly)}`,
+			'error', context);
 		return false;
-	} else if (frequency == APP_FREQUENCY.weekly && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalWeekly) {
-		toastMessage(`The mimimum amount for ${APP_FREQUENCY.weekly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalWeekly)}`, 'error', context);
+	} else if (frequency === APP_FREQUENCY.weekly && Number(contribution) < AMOUNT_LIMITS.minBackUpGoalWeekly) {
+		toastMessage(`The mimimum amount for ${APP_FREQUENCY.weekly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.minBackUpGoalWeekly)}`,
+			'error', context);
 		return false;
-	} else if (frequency == APP_FREQUENCY.daily && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalDaily) {
-		toastMessage(`The maximum amount for ${APP_FREQUENCY.daily} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalDaily)}`, 'error', context);
+	} else if (frequency === APP_FREQUENCY.daily && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalDaily) {
+		toastMessage(`The maximum amount for ${APP_FREQUENCY.daily} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalDaily)}`,
+			'error', context);
 		return false;
-	} else if (frequency == APP_FREQUENCY.monthly && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalMonthly) {
-		toastMessage(`The maximum amount for ${APP_FREQUENCY.monthly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalMonthly)}`, 'error', context);
+	} else if (frequency === APP_FREQUENCY.monthly && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalMonthly) {
+		toastMessage(`The maximum amount for ${APP_FREQUENCY.monthly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalMonthly)}`,
+			'error', context);
 		return false;
-	} else if (frequency == APP_FREQUENCY.weekly && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalWeekly) {
-		toastMessage(`The maximum amount for ${APP_FREQUENCY.weekly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalWeekly)}`, 'error', context);
+	} else if (frequency === APP_FREQUENCY.weekly && Number(contribution) > AMOUNT_LIMITS.maxBackUpGoalWeekly) {
+		toastMessage(`The maximum amount for ${APP_FREQUENCY.weekly} backup goals is ₦ ${formatNumber(AMOUNT_LIMITS.maxBackUpGoalWeekly)}`,
+			'error', context);
 		return false;
 	} else {
 		return true;
 	}
 }
+
+const graylog2 = require("graylog2");
+export const logger = new graylog2.graylog({
+	servers: [
+		{ 'host': '94.229.74.70', port: 12201 }
+	],
+	facility: 'Node.js',
+	bufferSize: 1350
+});
+
+

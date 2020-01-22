@@ -35,9 +35,8 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 }
 
 body {
-
     font-family: "Product Sans","Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
+    -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -81,6 +80,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 #root{
     min-width: 320px;
+    -webkit-font-smoothing: antialiased;
 }
 
 div.fixed-navbar {

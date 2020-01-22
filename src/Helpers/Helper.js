@@ -7,7 +7,6 @@ import AutoNumeric from "autonumeric";
 import {getUserData} from "../actions/UserAction";
 import SimpleReactValidator from "simple-react-validator";
 
-
 export const STANDARD_ACCOUNT = 1;
 export const LOCKED_ACCOUNT = 2;
 export const INTEREST_ACCOUNT = 3;
@@ -859,18 +858,6 @@ export function viewFormatter(cell) {
 export function actionFormatter(cell, row, rowIndex, {trans}) {
 	const tommorrow = moment().add(1).format('MM-DD-YYYY');
 	let latestDate = trans.length && moment(trans[0].end_date).format('MM-DD-YYYY');
-	// let latestDate = new Date(Math.max.apply(null, trans.map(function (content) {
-	// 	if (content.end_date != null) {
-	// 		console.log('end date in array',content.end_date);
-	// 		return moment(content.end_date).format('MM-DD-YYYY');
-	// 	}
-	// })));
-
-	// let latestHour = Math.max.apply(null, trans.map(function (content) {
-	// 	if (content.hour_of_day != null) {
-	// 		return content.hour_of_day;
-	// 	}
-	// }));
 	const endDate = moment(row.end_date).format('MM-DD-YYYY');
 
 	if (moment(latestDate).isBefore(tommorrow) && moment(latestDate).isSame(endDate) && rowIndex === 0 ) {
@@ -1149,13 +1136,5 @@ export function validateBackupGoalAmount(frequency, contribution, context) {
 	}
 }
 
-const graylog2 = require("graylog2");
-export const logger = new graylog2.graylog({
-	servers: [
-		{ 'host': '94.229.74.70', port: 12201 }
-	],
-	facility: 'Node.js',
-	bufferSize: 1350
-});
 
 

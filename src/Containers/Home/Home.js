@@ -117,9 +117,7 @@ class Home extends Component {
                             <header className="header header-background hero-bg">
                                 <img src={homeBGImg} className='home-bg-img d-none' alt="svg image"/>
                                 <div className="container">
-                                    <Navigation isLoggedIn={isLoggedIn}
-                                                scrollIntoView={this.scrollIntoView}
-                                    />
+                                    <Navigation isLoggedIn={isLoggedIn} scrollIntoView={this.scrollIntoView}/>
                                     <Header slides={slides} button className='d-none'/>
                                 </div>
                             </header>

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ErrorPage from "../../../Containers/ErrorPage/ErrorPage";
-import {logger} from "../../../Helpers/Helper";
 
 class ErrorBoundary extends Component {
     constructor(props) {
@@ -9,14 +8,13 @@ class ErrorBoundary extends Component {
     }
 
     static getDerivedStateFromError(error) {
-        // Update state so the next render will show the fallback UI.
         return { error: true };
     }
 
     componentDidCatch(error, errorInfo) {
-        console.log(error, errorInfo);
         this.setState({ error });
-        logger.log('Error occured on backupcash app ',error,errorInfo);
+        console.log("An Error has been streamed to graylog", error, errorInfo);
+
     }
 
     render() {

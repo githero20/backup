@@ -262,7 +262,7 @@ class DashboardIndex extends Component {
 
     render() {
         const {
-            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, lockedSavingsInterest,
+            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, lockedSavingsInterest,reload,
             transactions, userName, totalInterest, vaultInterest, CompletedGoals, ActiveGoals, totalSteadySave
         } = this.state;
 
@@ -278,6 +278,7 @@ class DashboardIndex extends Component {
                         updateKyc={this.state.updateKyc}
                         vaultAmount={vaultAmount}
                         vaultInterest={vaultInterest}
+                        reload={reload}
                         backupAmount={backupAmount}
                         lockedSavingsAmount={lockedSavingsAmount}
                         lockedSavingsInterest={lockedSavingsInterest}

@@ -187,7 +187,7 @@ class DashboardContainer extends Component {
 
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
-            transactions, totalInterest, ActiveGoals, CompletedGoals, vaultInterest, lockedSavingsInterest, showSSModal
+            transactions,reload, totalInterest, ActiveGoals, CompletedGoals, vaultInterest, lockedSavingsInterest, showSSModal
         } = this.props;
 
 
@@ -214,8 +214,8 @@ class DashboardContainer extends Component {
                             {/*</div>*/}
                             {/*</Link>*/}
                         </div>
-                        <MessageBox challenge={true} showSSModal={showSSModal}/>
-                        <MessageBox updateKyc={this.props.updateKyc} balance={vaultAmount}/>
+                        <MessageBox challenge={true} reload={reload} showSSModal={showSSModal}/>
+                        <MessageBox updateKyc={this.props.updateKyc} reload={reload} balance={vaultAmount}/>
 
 
                         <div className="content-body">

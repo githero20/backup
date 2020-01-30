@@ -52,7 +52,6 @@ const Login = (url, param, login) => {
     api(url, param, false, true, login);
 };
 
-
 const AuthController = component => {
     const Authenticate = props => {
         const [fetching, setFetching] = useState(true);
@@ -79,50 +78,46 @@ const AuthController = component => {
                     yes: "continue"
                 }
             }).then((value) => {
-                switch (value) {
-                    case "yes":
-                        let data = JSON.parse(localStorage.getItem(USERINFO));
-                        doLogin(data, (state, response) => {
-                            if (state && response && response.data) {
-                                //set session time
-                                const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
-                                // handle admin login
-                                if (response.data.role == CUSTOMER) {
-                                    localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
-                                    localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
-                                    localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
-                                    setIsLoggedIn(true);
-                                }
-                                swal('Awesome!!', 'You have successfully logged in', 'success', {
+                if(value){
+                    let data = JSON.parse(localStorage.getItem(USERINFO));
+                    doLogin(data, (state, response) => {
+                        if (state && response && response.data) {
+                            //set session time
+                            const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
+                            // handle admin login
+                            if (response.data.role == CUSTOMER) {
+                                localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
+                                localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
+                                localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
+                                setIsLoggedIn(true);
+                            }
+                            swal('Awesome!!', 'You have successfully logged in', 'success', {
+                                button: false,
+                                timer: 2000
+                            });
+                            setReload(true);
+                        } else {
+                            if (response && response.status == 401 && response.data.message == "invalid_credentials") {
+                                swal('Oops!!', `Invalid Credentials`, 'warning');
+                            } else if (response && response.status == 401 && response.data.message == 'Incorrect email or password,Try again') {
+                                swal('Oops!!', 'Incorrect Email or Password', 'warning', {
                                     button: false,
                                     timer: 2000
                                 });
-                                setReload(true);
                             } else {
-                                if (response && response.status == 401 && response.data.message == "invalid_credentials") {
-                                    swal('Oops!!', `Invalid Credentials`, 'warning');
-                                } else if (response && response.status == 401 && response.data.message == 'Incorrect email or password,Try again') {
-                                    swal('Oops!!', 'Incorrect Email or Password', 'warning', {
-                                        button: false,
-                                        timer: 2000
-                                    });
-                                } else {
-                                    swal('Oops!!', `Unable to login at the moment.Try Again`, 'warning', {
-                                        button: false,
-                                        timer: 2000
-                                    });
-                                }
-
+                                swal('Oops!!', `Unable to login at the moment.Try Again`, 'warning', {
+                                    button: false,
+                                    timer: 2000
+                                });
                             }
-                        });
-                        break;
-                    case null: {
-                        setIsLoggedIn(false);
-                        window.location.href = `/login`;
-                        localStorage.removeItem(USERTOKEN);
-                        localStorage.removeItem(USERINFO);
-                        break;
-                    }
+
+                        }
+                    });
+                }else{
+                    setIsLoggedIn(false);
+                    window.location.href = `/login`;
+                    localStorage.removeItem(USERTOKEN);
+                    localStorage.removeItem(USERINFO);
                 }
             });
         };

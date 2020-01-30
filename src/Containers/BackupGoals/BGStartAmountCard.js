@@ -8,7 +8,6 @@ const BGStartAmountCard = ({bgInfo,selectedBGHistory,showPayModal}) => {
     //get amount due
     const totalDue = getTotalFailed(selectedBGHistory);
 
-
     return (
         <React.Fragment>
             <div className="card pull-up bg-white shadow-sm saving-card">
@@ -41,16 +40,13 @@ const BGStartAmountCard = ({bgInfo,selectedBGHistory,showPayModal}) => {
                                     <div>
                                         <h6 className={'text-capitalize'}>Due Pay</h6>
                                         <strong
-                                            className="blue-card-price text-danger mr-2">₦ {selectedBGHistory ? formatNumber(Number(totalDue).toFixed(2)) : '0.00'}</strong>
+                                            className="blue-card-price text-danger mr-2">
+                                            ₦ {selectedBGHistory ? formatNumber(Number(totalDue).toFixed(2)) : '0.00'}
+                                        </strong>
                                     </div>
                                     <p>
-                                        {
-                                            totalDue > 0 ?
-                                                <a className='btn btn-sm dash-cust-blue round'
-                                                   onClick={() => showPayModal()}>Pay
-                                                    Now</a> :
-                                                null
-                                        }
+                                        {totalDue > 0 ? <a className='btn btn-sm dash-cust-blue round'
+                                                           onClick={() => showPayModal()}>Pay Now</a> : null}
                                     </p>
                                 </div>
 

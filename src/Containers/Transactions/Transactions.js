@@ -353,7 +353,8 @@ class Transactions extends Component {
                                             </div>
                                             <div className="row">
                                                 {
-                                                    this.state.mobileTable ? (<RemotePagination
+                                                    this.state.mobileTable ?
+                                                        (<RemotePagination
                                                             data={this.state.transData.data}
                                                             handleFilter={this.handleFilter}
 

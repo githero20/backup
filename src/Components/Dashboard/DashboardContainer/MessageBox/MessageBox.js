@@ -61,6 +61,11 @@ class MessageBox extends Component {
         toastMessage('Copied!', 'success', this);
     };
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.reload) {
+            getUserPoints(this.handlePoints);
+        }
+    }
 
     componentDidMount() {
         getUserPoints(this.handlePoints);

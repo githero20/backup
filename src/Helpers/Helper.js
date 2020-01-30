@@ -1,5 +1,5 @@
-import moment from "moment";
 import React, {Fragment} from "react";
+import moment from "moment";
 import {_isDateAfterToday} from "../utils";
 import {getLocalStorage, setLocalStorage} from "../ApiUtils/ApiUtils";
 import {AMOUNT_LIMITS, APP_FREQUENCY, USERINFO, USERTOKEN} from "../Components/Auth/HOC/authcontroller";
@@ -19,9 +19,9 @@ export const STEADY_SAVE = 'auto save';
 export const INTEREST_ON_VAULT = 'STANDARD_INTEREST_CRON_';
 export const INTEREST_ON_BACKUP_GOAL = 'STANDARD_BACKUP_GOAL_INTEREST_CRON_';
 export const MATURED_LOCKED_SAVINGS = 'STANDARD_LOCKED_CRON_';
-export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
 export const CENTRAL_VAULT = 'central_vault';
 export const BACKUP_STASH = 'backup_stash';
+export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
 export const KYC = 'kyc';
 export const NAIRA = '₦';
 
@@ -148,9 +148,9 @@ export function toggleTable(context) {
 }
 
 export function getPercentage(startValue, endValue) {
-	if (Number(startValue) != 0 && Number(endValue) != 0) {
+	console.log('number in percentage',Number(startValue),Number(endValue));
+	if (Number(startValue) !== 0 && Number(endValue) !== 0) {
 		return (startValue / endValue) * 100;
-
 	} else return 0;
 
 }
@@ -342,8 +342,12 @@ export function getTotalBGSuccessful(transactions) {
 		if (transactions.length > 0) {
 			let successful;
 			successful = transactions.filter((content) => (content.status == 'success'));
-			successful = successful.reduce((a, b) => ({amount: a + parseInt(b.amount)}),0);
-			return successful.amount;
+			let amount = successful.reduce((a, b) => {
+				console.log('a,b',a,b);
+				return ( a + Number(b.amount))
+			},0);
+			console.log('successful',successful);
+			return amount;
 		} else {
 			return 0;
 		}
@@ -565,8 +569,6 @@ export function sourceFormatter(cell, row) {
 				<small className='text-muted'>(Interest on backup goals)</small>
 			</p>
 		);
-		//
-		// return sourceMarkup(content);
 	}
 	if (row.gw_authorization_code.includes(MATURED_LOCKED_SAVINGS)) {
 		return (
@@ -575,8 +577,6 @@ export function sourceFormatter(cell, row) {
 				<small className='text-muted'>(Matured locked savings)</small>
 			</p>
 		);
-		//
-		// return sourceMarkup(content);
 	}
 
 	if (row.gw_authorization_code.includes(INTEREST_ON_VAULT)) {
@@ -609,8 +609,6 @@ export function transSourceFormatter(cell, row) {
 				<small className='text-muted'>(Interest on backup goals)</small>
 			</p>
 		);
-		//
-		// return sourceMarkup(content);
 	}
 	if (row.gw_authorization_code.includes(MATURED_LOCKED_SAVINGS)) {
 		return (
@@ -619,8 +617,6 @@ export function transSourceFormatter(cell, row) {
 				<small className='text-muted'>(Matured locked savings)</small>
 			</p>
 		);
-		//
-		// return sourceMarkup(content);
 	}
 
 	if (row.gw_authorization_code.includes(INTEREST_ON_VAULT)) {
@@ -859,9 +855,9 @@ export function actionFormatter(cell, row, rowIndex, {trans}) {
 	const tommorrow = moment().add(1);
 	let latestDate = trans.length && moment(trans[0].end_date);
 	const endDate = moment(row.end_date);
-	if (moment(latestDate).isBefore(tommorrow) && moment(latestDate).isSame(endDate) && rowIndex === 0 ) {
+	if (moment(latestDate).isBefore(tommorrow) && moment(latestDate).isSame(endDate) && rowIndex === 0) {
 		return <button name='convert-btn' className={'btn btn-sm round btn-sm btn-danger'}>Convert</button>
-	} else if (row.end_date != null && moment(row.end_date).isBefore(tommorrow)){
+	} else if (row.end_date != null && moment(row.end_date).isBefore(tommorrow)) {
 		return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>;
 	} else if (row.end_date === null || (moment(latestDate).isBefore(tommorrow)
 		&& latestDate === moment(row.end_date).format('MM-DD-YYYY'))) {

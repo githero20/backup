@@ -92,6 +92,8 @@ export function request(url, params, token, method, callback) {
             })
     }
 }
+
+
     export function multipartrequest(url, params, token, method, callback) {
 
         url = `${BASE_URL}${url}`;
@@ -175,7 +177,6 @@ export function requestAPI(url, params, token, method, callback, errCallback) {
 export function apiGet(url, token, callback) {
 
     url = `${BASE_URL}${url}`;
-
     let header = {
         headers: {
             "Content-Type": "Application/json",
@@ -189,7 +190,6 @@ export function apiGet(url, token, callback) {
         if (userToken === null && userToken !==undefined) {
             header.headers['Authorization'] = 'Bearer ' + userToken;
         }
-
     }
 
     return axios.get(url, header).then(
@@ -212,13 +212,9 @@ export function apiGet(url, token, callback) {
 export function getLocalStorage(key) {
     if(localStorage.getItem(key)!== null && localStorage.getItem(key)!== undefined ){
         return JSON.parse(localStorage.getItem(key));
-    }else {
-        return '';
     }
-
 }
 
 export function setLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
-
 }

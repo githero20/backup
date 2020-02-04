@@ -49,7 +49,7 @@ class WithdrawalForm extends Component {
             pinErr: false,
             settingsOwner: "you",
             form: {
-                penalty_from: "central_vault",
+                penalty_from: "amount_in_central_vault",
                 withdraw_amount: "",
                 bank_account: "",
                 source: "central_vault",
@@ -232,7 +232,8 @@ class WithdrawalForm extends Component {
                     break;
                 }
             }
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     onSubmit(e) {
@@ -265,7 +266,7 @@ class WithdrawalForm extends Component {
 
     handleBalance = () => {
         const {withdraw_amount, penalty_from} = this.state.form;
-        const {userBalance,penalty} = this.state;
+        const {userBalance, penalty} = this.state;
         const withdrawAmount = Number(withdraw_amount);
         const penaltyAmount = Number(penalty);
         if ((penalty_from == CENTRAL_VAULT && (withdrawAmount + penaltyAmount) <= userBalance) ||
@@ -277,7 +278,7 @@ class WithdrawalForm extends Component {
     };
 
     confirmWithdrawalDate = () => {
-        const { penaltyFreeDay,penalty} = this.state;
+        const {penaltyFreeDay, penalty} = this.state;
         const {penalty_from} = this.state.form;
         const penaltySource = (penalty_from == CENTRAL_VAULT) ? 'central vault' : 'withdrawal amount';
         if (penaltyFreeDay) {
@@ -289,13 +290,10 @@ class WithdrawalForm extends Component {
                     yes: "yes"
                 }
             }).then((value) => {
-                switch (value) {
-                    case "yes":
-                        this.initiateWithdrawal();
-                        break;
-                    case "no":
-                        swal("Withdrawal Cancelled");
-                        break;
+                if (value === "yes") {
+                    this.initiateWithdrawal();
+                } else if (value === "no") {
+                    swal("Withdrawal Cancelled");
                 }
             });
         }
@@ -337,7 +335,7 @@ class WithdrawalForm extends Component {
                 });
                 swal("Withdrawal", "Withdrawal Successful!", "success", {button: false, timer: 3000});
                 const form = {
-                    penalty_from: "central_vault",
+                    penalty_from: "amount_in_central_vault",
                     withdraw_amount: "",
                     bank_account: "",
                     source: "central_vault",
@@ -390,7 +388,6 @@ class WithdrawalForm extends Component {
                                          onHide={this.hideWithdrawalSettings}
                 />
                 <div className="col-lg-6">
-                    {/* withdrawal form component */}
                     <Fragment>
                         <div>
                             <div>

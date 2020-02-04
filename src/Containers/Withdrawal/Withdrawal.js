@@ -279,5 +279,4 @@ class Withdrawal extends Component {
         );
     }
 }
-
 export default withToastManager(Withdrawal);

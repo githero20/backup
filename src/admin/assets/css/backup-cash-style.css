@@ -339,7 +339,7 @@ section {
 .section-details-paragraph {
     color: #3D5A84;
     font-size: 1.2rem;
-    line-height: 35px;
+    line-height: 1.5rem;
     padding-right: 1rem;
     font-family: 'Circular Std Book', Product Sans, Quicksand, Georgia, Times New Roman, Times, serif;
 }
@@ -813,8 +813,8 @@ a.carousel-btn {
 }
 
 .security-info-wrapper h6 {
-    font-size: 1rem;
-    line-height: 1.4rem;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
     margin-bottom: 1rem;
     color: #cccccc;
     letter-spacing: .05rem;

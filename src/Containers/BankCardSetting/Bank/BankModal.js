@@ -23,10 +23,6 @@ class BankModal extends React.Component {
             if(status){
                 this.setState({banks:payload});
             }else {
-                // const {toastManager} = this.props;
-                // toastManager.add("Unable to fetch list of bank",{
-                //     appearance: "error"
-                // });
                 this.props.onHide(false);
             }
         })
@@ -42,13 +38,9 @@ class BankModal extends React.Component {
 
     render() {
         return (
-            <Modal
-                {...this.props}
-                size="sm"
+            <Modal {...this.props} size="sm"
                 aria-labelledby="contained-modal-title-vcenter"
-                centered
-                className={'steady-save-modal'}
-            >
+                centered className={'steady-save-modal'}>
                 <Modal.Header className={' px-md-3 py-3'} closeButton={this.props.onHide}>
                     <Modal.Title id="contained-modal-title-vcenter">
                         <h4>Add Bank</h4>

@@ -11,6 +11,7 @@ export const STANDARD_ACCOUNT = 1;
 export const LOCKED_ACCOUNT = 2;
 export const INTEREST_ACCOUNT = 3;
 export const BACKUP_GOALS_ACCOUNT = 4;
+export const BACKUP_GOALS_INTEREST = 5;
 export const ADD_CARD = '0';
 export const CUSTOMER = 'customer';
 export const ADMIN = 'administrator';
@@ -176,6 +177,7 @@ export function getCards(key, object) {
 
 export function getCardsFromStorage(key, object) {
 	const userInfo = getLocalStorage(key);
+	console.log('local storage',userInfo);
 	if (userInfo != undefined) {
 		object.setState({
 			userCards: filterUserCards(userInfo)
@@ -472,8 +474,10 @@ export function disableKey(e) {
 }
 
 export function filterUserCards(info) {
-	if (info && info.authorization)
-		return info.authorization.data.filter((content) => content.channel == 'card');
+	if (info && info.authorization){
+		console.log('filtered',info.authorization.filter((content) => content.channel == 'card'));
+		return info.authorization.filter((content) => content.channel == 'card');
+	}
 }
 
 export function showMobileMenu() {

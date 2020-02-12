@@ -187,33 +187,17 @@ class DashboardContainer extends Component {
 
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
-            transactions,reload, totalInterest, ActiveGoals, CompletedGoals, vaultInterest, lockedSavingsInterest, showSSModal
+            transactions,reload, ActiveGoals, CompletedGoals, vaultInterest,
+            lockedSavingsInterest, showSSModal,backupInterest
         } = this.props;
 
-
-        const {isActive} = this.props;
 
         return (
             <React.Fragment>
                 <div className="app-content content">
                     <div className="content-wrapper">
                         <div className="mb-md-5"/>
-                        {/* notification component */}
-                        <div className="col-12 d-md-none">
-                            {/*<Link to={SteadySaveLink} className="dash-ads br-2 overflow-hidden mb-3">*/}
-                            {/*    <video width="100%" height="200px" autoPlay muted loop>*/}
-                            {/*        <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}*/}
-                            {/*                type="video/mp4"/>*/}
-                            {/*    </video>*/}
-                            {/*<img src={adImg} className='dash-ad-img' alt="advert one "/>*/}
-                            {/*<div className={'dash-action left-action'}>*/}
-                            {/*    <h5>New Investment*/}
-                            {/*        Opportunities</h5>*/}
-                            {/*    <a className={'ad-gray-link'}>Know more <i*/}
-                            {/*        className='fa fa-arrow-right'/></a>*/}
-                            {/*</div>*/}
-                            {/*</Link>*/}
-                        </div>
+                        <div className="col-12 d-md-none"/>
                         <MessageBox challenge={true} reload={reload} showSSModal={showSSModal}/>
                         <MessageBox updateKyc={this.props.updateKyc} reload={reload} balance={vaultAmount}/>
 
@@ -230,6 +214,7 @@ class DashboardContainer extends Component {
                                     backupAmount={backupAmount}
                                     ActiveGoals={ActiveGoals}
                                     CompletedGoals={CompletedGoals}
+                                    backupInterest={backupInterest}
                                     onHide={this.props.hideAGModal}
                                     showModal={this.props.showAGModal}
                                 />
@@ -243,19 +228,6 @@ class DashboardContainer extends Component {
 
                                 <BackUpStashCard stashAmount={stashAmount}/>
                                 <div className="col-12 col-lg-6">
-                                    {/*<Link to={SteadySaveLink} className="dash-ads br-2 overflow-hidden mb-3">*/}
-                                    {/*    <video width="100%" height="200px" autoPlay muted loop>*/}
-                                    {/*        <source src={require('../../../admin/app-assets/video/Banner -506x155.mp4')}*/}
-                                    {/*                type="video/mp4"/>*/}
-                                    {/*    </video>*/}
-                                    {/*<img src={adImg} className='dash-ad-img' alt="advert one "/>*/}
-                                    {/*<div className={'dash-action left-action'}>*/}
-                                    {/*    <h5>New Investment*/}
-                                    {/*        Opportunities</h5>*/}
-                                    {/*    <a className={'ad-gray-link'}>Know more <i*/}
-                                    {/*        className='fa fa-arrow-right'/></a>*/}
-                                    {/*</div>*/}
-                                    {/*</Link>*/}
                                     <div className="dash-ads mb-3 pt-2">
                                         <img src={require('../../../admin/app-assets/images/ussd-ad.png')}
                                              className='dash-ad-img mt-1' alt="advert two"/>
@@ -267,9 +239,6 @@ class DashboardContainer extends Component {
                                         <img src={require('../../../admin/app-assets/images/ussd-ad.png')}
                                              className='dash-ad-img mt-1' alt="advert two"/>
                                         <div className={'dash-action right-action'}/>
-                                        {/*<a className={'ad-link-white'}>Know more&nbsp;*/}
-                                        {/*    <i className='fa fa-arrow-right'/>*/}
-                                        {/*</a>*/}
                                     </div>
                                 </div>
                             </div>

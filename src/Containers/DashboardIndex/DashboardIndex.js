@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import DashboardContainer from "../../Components/Dashboard/DashboardContainer/DashboardContainer";
-import SteadySaveModal from "../../Components/Dashboard/SteadySaveModal/SteadySaveModal";
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
 import {
     activateUserEndpoint,
@@ -14,6 +13,7 @@ import {
 import {api, getLocalStorage} from "../../ApiUtils/ApiUtils";
 import {
     BACKUP_GOALS_ACCOUNT,
+    BACKUP_GOALS_INTEREST,
     getCompletedGoals,
     INTEREST_ACCOUNT,
     LOCKED_ACCOUNT,
@@ -29,7 +29,6 @@ import moment from "moment";
 import {_axios, _getHeader} from "../../utils";
 import {getFirstTimeUser, isKycUpdated, storeFirstTimeLogin} from "../../actions/UserAction";
 import CreateSteadySaveModal from "../../Components/Dashboard/CreateSteadySaveModal/CreateSteadySaveModal";
-import swal from 'sweetalert';
 
 class DashboardIndex extends Component {
 
@@ -47,6 +46,7 @@ class DashboardIndex extends Component {
         userName: '',
         vaultAmount: 0,
         backupAmount: 0,
+        backupInterest: 0,
         lockedSavingsAmount: 0,
         stashAmount: 0,
         transactions: [],
@@ -96,7 +96,8 @@ class DashboardIndex extends Component {
     };
 
     handleFirstTimeLogin = (status, response) => {
-        if (status && response) {}
+        if (status && response) {
+        }
     };
 
     closeSteadySaveModal = () => {
@@ -151,18 +152,22 @@ class DashboardIndex extends Component {
 
             let transactions = [];
             const now = moment().format('YYYY-MM-DD');
-            let accounts, vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalInterest = 0;
+            let accounts, vaultAmount, backupAmount, backupInterest,
+                lockedSavingsAmount, stashAmount, totalInterest = 0;
             this.showUpdateKYC(UserInfoRes.data.data);
             if (UserInfoRes.data.data.accounts) {
                 // loop through data and set appropriate states
                 accounts = UserInfoRes.data.data.accounts.data;
                 transactions = UserInfoRes.data.data.transactions.data;
                 transactions = transactions.filter((content) => content.status == 'success');
+                console.log('user info', UserInfoRes, BackUpRes, CentralVaultIntRes, LockedIntRes);
                 accounts.map((content, idx) => {
                     if (content.account_type_id == STANDARD_ACCOUNT) {
                         vaultAmount = parseFloat(content.balance).toFixed(2);
                     } else if (content.account_type_id == BACKUP_GOALS_ACCOUNT) {
                         backupAmount = parseFloat(content.balance).toFixed(2);
+                    } else if (content.account_type_id == BACKUP_GOALS_INTEREST) {
+                        backupInterest = parseFloat(content.balance).toFixed(2);
                     } else if (content.account_type_id == LOCKED_ACCOUNT) {
                         lockedSavingsAmount = parseFloat(content.balance).toFixed(2);
                     } else if (content.account_type_id == INTEREST_ACCOUNT) {
@@ -189,6 +194,7 @@ class DashboardIndex extends Component {
                 vaultAmount,
                 transactions,
                 backupAmount,
+                backupInterest,
                 lockedSavingsAmount,
                 stashAmount,
                 totalInterest,
@@ -262,13 +268,16 @@ class DashboardIndex extends Component {
 
     render() {
         const {
-            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, lockedSavingsInterest,reload,
-            transactions, userName, totalInterest, vaultInterest, CompletedGoals, ActiveGoals, totalSteadySave
+            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount,
+            lockedSavingsInterest, reload, transactions, userName,
+            totalInterest, vaultInterest, CompletedGoals,
+            ActiveGoals, totalSteadySave,backupInterest
         } = this.state;
 
         return (
             <React.Fragment>
-                <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
+                <div className="vertical-layout vertical-menu-modern
+                 2-columns fixed-navbar  menu-expanded pace-done"
                      data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={userName}/>
                     <VerticalNav userName={userName}/>
@@ -280,6 +289,7 @@ class DashboardIndex extends Component {
                         vaultInterest={vaultInterest}
                         reload={reload}
                         backupAmount={backupAmount}
+                        backupInterest={backupInterest}
                         lockedSavingsAmount={lockedSavingsAmount}
                         lockedSavingsInterest={lockedSavingsInterest}
                         totalInterest={totalInterest}

@@ -142,8 +142,6 @@ class EditBGForm extends Component {
                     }
                 });
             }
-
-
         }
 
     };

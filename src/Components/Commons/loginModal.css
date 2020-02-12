@@ -1,3 +1,23 @@
 .br-3 .modal-content{
     border-radius: 3rem;
 }
+.modal .btn {
+    min-width: 80px;
+}
+
+.modal-content,.modal-header .close{
+    color: #0a336b;
+}
+.modal-content{
+    border: none;
+}
+.modal-footer {
+    border-top: 1px solid #f4f4f4;
+}
+
+.modal-header {
+    padding: 1rem;
+    font-family: "Circular Std Black",sans-serif;
+    font-weight: bolder;
+    border-bottom: 1px solid #f4f4f4;
+}

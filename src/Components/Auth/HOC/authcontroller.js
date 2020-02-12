@@ -47,6 +47,32 @@ const doLogin = (data, callback) => {
 
 };
 
+export function setAuthorisationToken(token,callback) {
+    //setup interceptors for 401 errors
+    axios.interceptors.response.use(function (response) {
+        // Do something with response data
+        callback(true,response);
+        return response;
+    }, function (error) {
+        //check the response status
+        if (error.response && error.response.status === 401) {
+            //clear the local storage
+            callback(false,error);
+            //redirect to the login page
+            // window.location.href = "/";
+        }
+        // Do something with response error
+        return Promise.reject(error);
+    });
+    if (token) {
+        //setting authorization header
+        // axios.defaults.headers.common['token'] = token;
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        //axios.defaults.withCredentials = true;
+    } else {
+        delete axios.defaults.headers.common['Authorization'];
+    }
+}
 
 const Login = (url, param, login) => {
     api(url, param, false, true, login);
@@ -128,21 +154,20 @@ const AuthController = component => {
                 localStorage.removeItem(USERTOKEN);
                 localStorage.removeItem(USERINFO);
             } else {
-                axios.get(verifyTokenURL, {headers: {Authorization: `Bearer ${JSON.parse(localStorage.getItem(USERTOKEN))}`}}).then(
-                    res => {
-                        localStorage.setItem(USERINFO, JSON.stringify(res.data.data));
+                setAuthorisationToken(JSON.parse(localStorage.getItem(USERTOKEN)),(status,data)=>{
+                    if(status){
+                        // localStorage.setItem(USERINFO, JSON.stringify(data.data.data));
+                        // console.log('ran this ',data);
                         setIsLoggedIn(true);
                         setFetching(false);
-                    },
-                    err => {
-                        if (err && err.response) {
-                            setIsLoggedIn(false);
-                            if (err && err.response && err.response.data && err.response.data.message === "Account has not been activated, click on resend") {
-                                setLocalStorage(USERACTIVATED, false);
-                            } else handleUserAuth();
-                        }
+                    }else {
+                        setIsLoggedIn(false);
+                        if (data && data.response && data.response.data && data.response.data.message === "Account has not been activated, click on resend") {
+                            setLocalStorage(USERACTIVATED, false);
+                        } else handleUserAuth();
                     }
-                )
+
+                });
             }
         }, [RenderComponent]);
 

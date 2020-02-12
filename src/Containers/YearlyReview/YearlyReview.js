@@ -4,7 +4,7 @@ import Heading from "../../Components/Commons/Heading";
 import Button from "../../Components/Commons/Button";
 import Footer from "../../Components/Commons/Footer";
 import './yearlyreview.css';
-import LoginModal from "../../Components/Commons/LoginModal";
+import AppModal from "../../Components/Commons/AppModal";
 import {Form} from "react-bootstrap";
 import LoginForm from "../../Components/Auth/LoginForm/LoginForm";
 
@@ -28,9 +28,9 @@ const YearlyReview = () => {
                      className={'text-center mt-5 mt-lg-0 mb-5 mb-lg-0 py-lg-5  text-white'}
             />
             <Button onClick={() => setModalShow(true)} className={'text-center'} text={'Log in'}/>
-            <LoginModal onHide={() => setModalShow(false)} className={'review-modal br-3'} show={modalShow}>
+            <AppModal onHide={() => setModalShow(false)} className={'review-modal br-3'} show={modalShow}>
                 <LoginForm reviewForm />
-            </LoginModal>
+            </AppModal>
             <Footer/>
         </div>
     );

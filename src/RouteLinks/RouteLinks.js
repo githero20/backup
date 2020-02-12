@@ -98,6 +98,7 @@ export const InitiateBGDuePayEndpoint  = `sfsbapi/v1/user/goals/init`;
 export const VerifySSDuePayEndpoint  = `sfsbapi/v1/user/savings/steady/verify`;
 export const VerifyBGDuePayEndpoint  = `sfsbapi/v1/user/goals/verify`;
 export const GetUsersCards  = `/sfsbapi/v1/user/cards`;
+export const deleteUsersCardUrl = (id)  => `sfsbapi/v1/user/cards/del/${id}`;
 export const GetUserKYC =`/sfsbapi/v1/user/profile/kyc`;
 export const GetWithdrawalPenalty = `sfsbapi/v1/user/withdrawals/penalty`;
 export const CreateWithdrawalSettings = `sfsbapi/v1/user/withdrawals/settings`;

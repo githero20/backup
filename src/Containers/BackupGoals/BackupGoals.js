@@ -273,11 +273,12 @@ class BackupGoals extends Component {
 
                     {/* handle backup goal operations */}
                     <ToastProvider>
-                        {this.state.showPayModal ? <BGPayNowModal show={this.state.showPayModal}
-                                                                  selectedBG={this.state.selectedBG}
-                                                                  totalFailed={this.state.totalFailed}
-                                                                  getHistoryTrans={this.getHistAndTrans}
-                                                                  onHide={this.hidePayModal}
+                        {this.state.showPayModal ?
+                            <BGPayNowModal show={this.state.showPayModal}
+                                           selectedBG={this.state.selectedBG}
+                                           totalFailed={this.state.totalFailed}
+                                           getHistoryTrans={this.getHistAndTrans}
+                                           onHide={this.hidePayModal}
                         /> : null}
 
                     </ToastProvider>

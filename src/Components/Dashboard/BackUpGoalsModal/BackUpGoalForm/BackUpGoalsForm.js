@@ -361,12 +361,12 @@ class BackUpGoalsForm extends Component {
                                 <option value={''}>Select Card</option>
                                 <option value={'add'}>Add Card</option>
                                 {
-                                    this.state.userCards.length > 0 ?
+                                    this.state.userCards && this.state.userCards.length?
                                         this.state.userCards.map((data) => {
                                             if (data.channel == "card")
                                                 return (
                                                     <option value={data.id} key={data.id}>
-                                                        {data.card_type}(**** **** **** {data.last4})
+                                                        [{data.card_type.toUpperCase()} **** **** **** {data.last4}] [exp: {data.exp_month}/{data.exp_year}]
                                                     </option>
                                                 );
                                         })

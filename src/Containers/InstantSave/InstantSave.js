@@ -120,7 +120,8 @@ class InstantSave extends Component {
             let transactions = [];
             let total = 0;
             if (res.data.data.length > 0) {
-                transactions = res.data.data.filter(content => content.status == 'success' && content.type == 'credit');
+                transactions = res.data.data.
+                filter(content => content.status == 'success' && content.type == 'credit');
                 if (transactions.length > 1) {
                     total = transactions.reduce((a, b) => ({
                         amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount;

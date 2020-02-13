@@ -158,6 +158,7 @@ class DashboardIndex extends Component {
             if (UserInfoRes.data.data.accounts) {
                 // loop through data and set appropriate states
                 accounts = UserInfoRes.data.data.accounts.data;
+                console.log('accounts',accounts);
                 transactions = UserInfoRes.data.data.transactions.data;
                 transactions = transactions.filter((content) => content.status == 'success');
                 console.log('user info', UserInfoRes, BackUpRes, CentralVaultIntRes, LockedIntRes);

@@ -149,7 +149,6 @@ export function toggleTable(context) {
 }
 
 export function getPercentage(startValue, endValue) {
-	console.log('number in percentage',Number(startValue),Number(endValue));
 	if (Number(startValue) !== 0 && Number(endValue) !== 0) {
 		return (startValue / endValue) * 100;
 	} else return 0;
@@ -169,6 +168,7 @@ export function readURL(input, context) {
 export function getCards(key, object) {
 	const userInfo = getLocalStorage(key);
 	if (getLocalStorage(key) != undefined) {
+		console.log('data',userInfo.authorization.data);
 		object.setState({
 			userCards: userInfo.authorization.data
 		})
@@ -345,10 +345,8 @@ export function getTotalBGSuccessful(transactions) {
 			let successful;
 			successful = transactions.filter((content) => (content.status == 'success'));
 			let amount = successful.reduce((a, b) => {
-				console.log('a,b',a,b);
 				return ( a + Number(b.amount))
 			},0);
-			console.log('successful',successful);
 			return amount;
 		} else {
 			return 0;

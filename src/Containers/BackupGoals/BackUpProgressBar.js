@@ -7,8 +7,6 @@ const BackUpProgressBar = (props) => {
         paidAmount = getTotalBGSuccessful(props.backupHistory);
         targetAmount = props.backupInfo.target_amount || 0;
         percentage = getPercentage(paidAmount, targetAmount);
-        console.log('percentage',percentage,'paidAmount',paidAmount,'targetAmount',targetAmount);
-
     return (
         <React.Fragment>
             <div className="d-flex justify-content-between">

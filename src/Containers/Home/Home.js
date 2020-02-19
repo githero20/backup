@@ -39,10 +39,8 @@ export const checkUser = () => {
         // get the session and compare the current time
         let diff = moment(timeStamp);
         if (diff < moment().subtract(50, 'minutes') || user == null) {
-            console.log('logged in false', false);
             return false;
         } else if (diff > moment().subtract(50, 'minutes') && user != null) {
-            console.log('logged in true', true);
             return true
         }
 

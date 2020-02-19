@@ -32,13 +32,13 @@ const BackUpGoalCard = (props) => {
                                     <i className='fa fa-arrow-right'/>
                                     <strong className='flex-grow-1'>{ActiveGoals? ActiveGoals : 0}</strong>
                                 </div>
-                                <div
-                                    className='d-flex dash-card-total-details
+                                <div className='d-flex dash-card-total-details
                                         back-up-detail justify-content-between'>
                                     <h6>Goal Interests</h6>
                                     <i className='fa fa-arrow-right'/>
-                                    <strong
-                                        className='flex-grow-1'>{backupInterest? formatNumber(backupInterest) : 0}</strong>
+                                    <strong className='flex-grow-1'>
+                                        {backupInterest? formatNumber(backupInterest) : 0}
+                                    </strong>
                                 </div>
                             </div>
                         </div>

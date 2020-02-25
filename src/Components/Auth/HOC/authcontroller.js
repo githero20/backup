@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import axios from 'axios'
 import {BASE_URL, LoginEndpoint} from "../../../RouteLinks/RouteLinks";
 import {api, setLocalStorage} from "../../../ApiUtils/ApiUtils";
 import swal from "sweetalert";
 import moment from "moment";
 import {CUSTOMER} from "../../../Helpers/Helper";
+import {_axios} from "../../../utils";
 
 export const USERTOKEN = "token";
 export const SESSION_INTERVAL = 'time-stamp';
@@ -37,9 +37,6 @@ export const USERACTIVATED = "activated";
 export const ACTIVATIONMESG = "activation-msg";
 export const ACTIVATONEMAIL = "activation-email";
 export const SHOWAD = "show-ad";
-export const currentPath = window.location.pathname;
-
-const verifyTokenURL = BASE_URL + "sfsbapi/v1/user";
 
 const doLogin = (data, callback) => {
     const password = document.getElementById('password').value;
@@ -47,30 +44,27 @@ const doLogin = (data, callback) => {
 
 };
 
-export function setAuthorisationToken(token,callback) {
+
+export function setAuthorisationToken(token, callback) {
     //setup interceptors for 401 errors
-    axios.interceptors.response.use(function (response) {
+    _axios.interceptors.response.use(function (response) {
         // Do something with response data
-        callback(true,response);
+        console.log('no err');
+        callback(true, response);
         return response;
     }, function (error) {
         //check the response status
         if (error.response && error.response.status === 401) {
-            //clear the local storage
-            callback(false,error);
-            //redirect to the login page
-            // window.location.href = "/";
+            callback(false, error);
         }
         // Do something with response error
         return Promise.reject(error);
     });
     if (token) {
         //setting authorization header
-        // axios.defaults.headers.common['token'] = token;
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        //axios.defaults.withCredentials = true;
+        _axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     } else {
-        delete axios.defaults.headers.common['Authorization'];
+        delete _axios.defaults.headers.common['Authorization'];
     }
 }
 
@@ -80,66 +74,35 @@ const Login = (url, param, login) => {
 
 const AuthController = component => {
     const Authenticate = props => {
-        const [fetching, setFetching] = useState(true);
         const [reload, setReload] = useState(false);
         const [isLoggedIn, setIsLoggedIn] = useState(false);
         const RenderComponent = props.component;
         const token = JSON.parse(localStorage.getItem(USERTOKEN));
-        const handleUserAuth = () => {
-            swal({
-                text: 'Enter your password to continue',
-                title: 'Your Session has expired!',
-                icon: 'info',
-                content: {
-                    element: "input",
-                    attributes: {
-                        placeholder: "Type your password",
-                        type: "password",
-                        name: "password",
-                        id: "password",
-                    },
+        const swalLoginConfig = {
+            text: 'Enter your password to continue',
+            title: 'Your Session has expired!',
+            icon: 'info',
+            content: {
+                element: "input",
+                attributes: {
+                    placeholder: "Type your password",
+                    type: "password",
+                    name: "password",
+                    id: "password",
                 },
-                buttons: {
-                    cancel: "Log Out",
-                    yes: "continue"
-                }
-            }).then((value) => {
-                if(value){
-                    let data = JSON.parse(localStorage.getItem(USERINFO));
-                    doLogin(data, (state, response) => {
-                        if (state && response && response.data) {
-                            //set session time
-                            const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
-                            // handle admin login
-                            if (response.data.role == CUSTOMER) {
-                                localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
-                                localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
-                                localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
-                                setIsLoggedIn(true);
-                            }
-                            swal('Awesome!!', 'You have successfully logged in', 'success', {
-                                button: false,
-                                timer: 2000
-                            });
-                            setReload(true);
-                        } else {
-                            if (response && response.status == 401 && response.data.message == "invalid_credentials") {
-                                swal('Oops!!', `Invalid Credentials`, 'warning');
-                            } else if (response && response.status == 401 && response.data.message == 'Incorrect email or password,Try again') {
-                                swal('Oops!!', 'Incorrect Email or Password', 'warning', {
-                                    button: false,
-                                    timer: 2000
-                                });
-                            } else {
-                                swal('Oops!!', `Unable to login at the moment.Try Again`, 'warning', {
-                                    button: false,
-                                    timer: 2000
-                                });
-                            }
+            },
+            buttons: {
+                cancel: "Log Out",
+                yes: "continue"
+            }
+        };
 
-                        }
-                    });
-                }else{
+        const handleUserAuth = () => {
+            swal(swalLoginConfig).then((value) => {
+                if (value) {
+                    let data = JSON.parse(localStorage.getItem(USERINFO));
+                    doLogin(data, onLogin);
+                } else {
                     setIsLoggedIn(false);
                     window.location.href = `/login`;
                     localStorage.removeItem(USERTOKEN);
@@ -154,14 +117,12 @@ const AuthController = component => {
                 localStorage.removeItem(USERTOKEN);
                 localStorage.removeItem(USERINFO);
             } else {
-                setAuthorisationToken(JSON.parse(localStorage.getItem(USERTOKEN)),(status,data)=>{
-                    if(status){
-                        // localStorage.setItem(USERINFO, JSON.stringify(data.data.data));
-                        // console.log('ran this ',data);
+                setAuthorisationToken(token, (status, data) => {
+                    if (status) {
                         setIsLoggedIn(true);
-                        setFetching(false);
-                    }else {
+                    } else {
                         setIsLoggedIn(false);
+                        console.log('came to the other side ');
                         if (data && data.response && data.response.data && data.response.data.message === "Account has not been activated, click on resend") {
                             setLocalStorage(USERACTIVATED, false);
                         } else handleUserAuth();
@@ -170,6 +131,41 @@ const AuthController = component => {
                 });
             }
         }, [RenderComponent]);
+
+
+        const onLogin = (state, response) => {
+            if (state && response && response.data) {
+                //set session time
+                const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
+                // handle admin login
+                if (response.data.role == CUSTOMER) {
+                    localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
+                    localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
+                    localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
+                    setIsLoggedIn(true);
+                }
+                swal('Awesome!!', 'You have successfully logged in', 'success', {
+                    button: false,
+                    timer: 2000
+                });
+                setReload(true);
+            } else {
+                if (response && response.status == 401 && response.data.message == "invalid_credentials") {
+                    swal('Oops!!', `Invalid Credentials`, 'warning');
+                } else if (response && response.status == 401 && response.data.message == 'Incorrect email or password,Try again') {
+                    swal('Oops!!', 'Incorrect Email or Password', 'warning', {
+                        button: false,
+                        timer: 2000
+                    });
+                } else {
+                    swal('Oops!!', `Unable to login at the moment.Try Again`, 'warning', {
+                        button: false,
+                        timer: 2000
+                    });
+                }
+
+            }
+        };
 
         return <RenderComponent {...props} reload={reload} isLoggedIn={isLoggedIn}/>;
     };

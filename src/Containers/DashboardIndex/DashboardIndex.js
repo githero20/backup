@@ -158,10 +158,8 @@ class DashboardIndex extends Component {
             if (UserInfoRes.data.data.accounts) {
                 // loop through data and set appropriate states
                 accounts = UserInfoRes.data.data.accounts.data;
-                console.log('accounts',accounts);
                 transactions = UserInfoRes.data.data.transactions.data;
                 transactions = transactions.filter((content) => content.status == 'success');
-                console.log('user info', UserInfoRes, BackUpRes, CentralVaultIntRes, LockedIntRes);
                 accounts.map((content, idx) => {
                     if (content.account_type_id == STANDARD_ACCOUNT) {
                         vaultAmount = parseFloat(content.balance).toFixed(2);
@@ -272,7 +270,7 @@ class DashboardIndex extends Component {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount,
             lockedSavingsInterest, reload, transactions, userName,
             totalInterest, vaultInterest, CompletedGoals,
-            ActiveGoals, totalSteadySave,backupInterest
+            ActiveGoals, totalSteadySave, backupInterest
         } = this.state;
 
         return (

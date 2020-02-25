@@ -611,8 +611,8 @@ class SteadySave extends Component {
                                                             <div className=" d-inline-block">
                                                                   <p className="gray-text circular-std mb-p-size">Total Steady Save</p>
                                                                 <strong
-                                                                    className="dark-brown font-size-1-16"><span>₦</span> {this.state.totalSteadySave} </strong>
-
+                                                                    className="dark-brown font-size-1-16">
+                                                                    <span>₦</span> {this.state.totalSteadySave} </strong>
                                                             </div>
                                                         </span>
                                                         <span
@@ -623,7 +623,8 @@ class SteadySave extends Component {
                                                             <div className="d-inline-block ">
                                                                 <p className="gray-text circular-std mb-p-size">
                                                                     <strong
-                                                                        className="dark-brown font-size-1-16">{this.state.totalAttempts} &nbsp; </strong>
+                                                                        className="dark-brown font-size-1-16">
+                                                                        {this.state.totalAttempts} &nbsp; </strong>
                                                                     Total Attempts</p>
                                                             </div>
                                                         </span>
@@ -641,8 +642,8 @@ class SteadySave extends Component {
                                                             <div className=" d-inline-block">
 
                                                                 <p className="gray-text circular-std mb-p-size">
-                                                                     <strong
-                                                                         className="dark-brown font-size-1-16"> {this.state.totalSuccessful} &nbsp;</strong>
+                                                                     <strong className="dark-brown font-size-1-16">
+                                                                         {this.state.totalSuccessful} &nbsp;</strong>
                                                                     Total Successful</p>
                                                             </div>
                                                         </span>

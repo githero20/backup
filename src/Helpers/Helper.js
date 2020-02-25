@@ -168,7 +168,7 @@ export function readURL(input, context) {
 export function getCards(key, object) {
 	const userInfo = getLocalStorage(key);
 	if (getLocalStorage(key) != undefined) {
-		console.log('data',userInfo.authorization.data);
+		console.log('data', userInfo.authorization.data);
 		object.setState({
 			userCards: userInfo.authorization.data
 		})
@@ -177,7 +177,7 @@ export function getCards(key, object) {
 
 export function getCardsFromStorage(key, object) {
 	const userInfo = getLocalStorage(key);
-	console.log('local storage',userInfo);
+	console.log('local storage', userInfo);
 	if (userInfo != undefined) {
 		object.setState({
 			userCards: filterUserCards(userInfo)
@@ -345,8 +345,8 @@ export function getTotalBGSuccessful(transactions) {
 			let successful;
 			successful = transactions.filter((content) => (content.status == 'success'));
 			let amount = successful.reduce((a, b) => {
-				return ( a + Number(b.amount))
-			},0);
+				return (a + Number(b.amount))
+			}, 0);
 			return amount;
 		} else {
 			return 0;
@@ -472,8 +472,8 @@ export function disableKey(e) {
 }
 
 export function filterUserCards(info) {
-	if (info && info.authorization){
-		console.log('filtered',info.authorization.filter((content) => content.channel == 'card'));
+	if (info && info.authorization) {
+		console.log('filtered', info.authorization.filter((content) => content.channel == 'card'));
 		return info.authorization.filter((content) => content.channel == 'card');
 	}
 }
@@ -854,16 +854,18 @@ export function viewFormatter(cell) {
 }
 
 export function actionFormatter(cell, row, rowIndex, {trans}) {
-	const tommorrow = moment().add(1);
-	let latestDate = trans.length && moment(trans[0].end_date);
-	const endDate = moment(row.end_date);
-	if (moment(latestDate).isBefore(tommorrow) && moment(latestDate).isSame(endDate) && rowIndex === 0) {
-		return <button name='convert-btn' className={'btn btn-sm round btn-sm btn-danger'}>Convert</button>
-	} else if (row.end_date != null && moment(row.end_date).isBefore(tommorrow)) {
-		return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>;
-	} else if (row.end_date === null || (moment(latestDate).isBefore(tommorrow)
-		&& latestDate === moment(row.end_date).format('MM-DD-YYYY'))) {
-		return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
+	if (rowIndex > 0) {
+		const tommorrow = moment().add(1);
+		let latestDate = trans.length && moment(trans[0].end_date);
+		const endDate = moment(row.end_date);
+		if (moment(latestDate).isBefore(tommorrow) && moment(latestDate).isSame(endDate) && rowIndex === 0) {
+			return <button name='convert-btn' className={'btn btn-sm round btn-sm btn-danger'}>Convert</button>
+		} else if (row.end_date != null && moment(row.end_date).isBefore(tommorrow)) {
+			return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>;
+		} else if (row.end_date === null || (moment(latestDate).isBefore(tommorrow)
+			&& latestDate === moment(row.end_date).format('MM-DD-YYYY'))) {
+			return <button className={'btn round btn-sm btn-secondary'}>Quick Actions</button>
+		}
 	}
 	return <button disabled={true} className={'btn round btn-sm btn-secondary'}>Disabled</button>
 }

@@ -122,7 +122,7 @@ const AuthController = component => {
                         setIsLoggedIn(true);
                     } else {
                         setIsLoggedIn(false);
-                        console.log('came to the other side ');
+
                         if (data && data.response && data.response.data && data.response.data.message === "Account has not been activated, click on resend") {
                             setLocalStorage(USERACTIVATED, false);
                         } else handleUserAuth();

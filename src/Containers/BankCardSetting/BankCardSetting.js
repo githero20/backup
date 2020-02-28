@@ -15,6 +15,7 @@ import Footer from "../../Components/Dashboard/Footer/Footer";
 import './banksetting.css';
 import {toastMessage} from "../../Helpers/Helper";
 import AppModal from "../../Components/Commons/AppModal";
+import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
 
 class BankCardSetting extends Component {
 
@@ -89,7 +90,8 @@ class BankCardSetting extends Component {
     handleUserInfo = (status, res) => {
         this.setState({showLoader: false});
         if (status) {
-            this.setState({userName: res.name})
+            localStorage.setItem(USERINFO, JSON.stringify(res));
+            this.setState({userName: res.name});
         }
     };
 

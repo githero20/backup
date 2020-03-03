@@ -3,7 +3,7 @@ import {withToastManager} from 'react-toast-notifications';
 import {capitalize, formatNumber, toastMessage} from "../../../../Helpers/Helper";
 import {getLocalStorage} from "../../../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
-import {KycSettingLink, ReferralsLink, scoreboardLink} from "../../../../RouteLinks/RouteLinks";
+import {KycSettingLink, ReferralsLink} from "../../../../RouteLinks/RouteLinks";
 import {Link} from 'react-router-dom';
 import {getUserPoints} from "../../../../actions/UserAction";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";

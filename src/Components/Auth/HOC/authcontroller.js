@@ -49,7 +49,6 @@ export function setAuthorisationToken(token, callback) {
     //setup interceptors for 401 errors
     _axios.interceptors.response.use(function (response) {
         // Do something with response data
-        console.log('no err');
         callback(true, response);
         return response;
     }, function (error) {
@@ -72,11 +71,10 @@ const Login = (url, param, login) => {
     api(url, param, false, true, login);
 };
 
-const AuthController = component => {
+const AuthController = Component => {
     const Authenticate = props => {
         const [reload, setReload] = useState(false);
         const [isLoggedIn, setIsLoggedIn] = useState(false);
-        const RenderComponent = props.component;
         const token = JSON.parse(localStorage.getItem(USERTOKEN));
         const swalLoginConfig = {
             text: 'Enter your password to continue',
@@ -122,7 +120,6 @@ const AuthController = component => {
                         setIsLoggedIn(true);
                     } else {
                         setIsLoggedIn(false);
-
                         if (data && data.response && data.response.data && data.response.data.message === "Account has not been activated, click on resend") {
                             setLocalStorage(USERACTIVATED, false);
                         } else handleUserAuth();
@@ -130,7 +127,7 @@ const AuthController = component => {
 
                 });
             }
-        }, [RenderComponent]);
+        }, [Component]);
 
 
         const onLogin = (state, response) => {
@@ -138,17 +135,19 @@ const AuthController = component => {
                 //set session time
                 const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
                 // handle admin login
+
                 if (response.data.role == CUSTOMER) {
+                    swal('Awesome!!', 'You have successfully logged in', 'success', {
+                        button: false,
+                        timer: 2000
+                    });
                     localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
                     localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
                     localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
                     setIsLoggedIn(true);
+                    setReload(true);
                 }
-                swal('Awesome!!', 'You have successfully logged in', 'success', {
-                    button: false,
-                    timer: 2000
-                });
-                setReload(true);
+
             } else {
                 if (response && response.status == 401 && response.data.message == "invalid_credentials") {
                     swal('Oops!!', `Invalid Credentials`, 'warning');
@@ -167,11 +166,11 @@ const AuthController = component => {
             }
         };
 
-        return <RenderComponent {...props} reload={reload} isLoggedIn={isLoggedIn}/>;
+        return <Component {...props} reload={reload} isLoggedIn={isLoggedIn}/>;
     };
 
     Authenticate.defaultProps = {
-        component
+        Component
     };
 
     return Authenticate

@@ -259,7 +259,7 @@ class DashboardIndex extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.reload) {
-            console.log('got here');
+
             this.setState({showLoader: true});
             this.setupDashBoard()
         }

@@ -176,14 +176,7 @@ class DashboardContainer extends Component {
             //setup table for filter
 
             // use value to filter table
-
         };
-
-
-        let {error, activateAccount} = this.props;
-
-        //set appropriate data for vault cards
-        let createdDateFilter;
 
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,

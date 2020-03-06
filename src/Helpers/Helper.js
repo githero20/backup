@@ -168,7 +168,6 @@ export function readURL(input, context) {
 export function getCards(key, object) {
 	const userInfo = getLocalStorage(key);
 	if (getLocalStorage(key) != undefined) {
-		console.log('data', userInfo.authorization.data);
 		object.setState({
 			userCards: userInfo.authorization.data
 		})
@@ -177,7 +176,6 @@ export function getCards(key, object) {
 
 export function getCardsFromStorage(key, object) {
 	const userInfo = getLocalStorage(key);
-	console.log('local storage', userInfo);
 	if (userInfo != undefined) {
 		object.setState({
 			userCards: filterUserCards(userInfo)
@@ -473,7 +471,6 @@ export function disableKey(e) {
 
 export function filterUserCards(info) {
 	if (info && info.authorization) {
-		console.log('filtered', info.authorization.filter((content) => content.channel == 'card'));
 		return info.authorization.filter((content) => content.channel == 'card');
 	}
 }
@@ -885,7 +882,6 @@ export function balanceFormatter(cell) {
 }
 
 export function pointFormatter(cell, row) {
-	console.log('row cell', cell, row);
 	if (row.point_type === 'referral_type') {
 		return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
 	} else {

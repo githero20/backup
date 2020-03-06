@@ -11,6 +11,9 @@ import './admin/assets/css/backup-cash-style.css';
 import './admin/assets/css/responsiveness.css';
 import * as serviceWorker from './serviceWorker';
 import AppRouter from "./AppRouter/AppRouter";
+import * as Sentry from '@sentry/browser';
+
+Sentry.init({dsn: process.env.REACT_APP_SENTRY});
 
 ReactDOM.render(<AppRouter/>, document.getElementById('root'));
 

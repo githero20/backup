@@ -218,7 +218,6 @@ class InstantSavingForm extends Component {
                                     {
                                         userCards && userCards.length > 0 ?
                                             this.state.userCards.map((data, index) => {
-                                                console.log('card data',data);
                                                 return (
                                                     <option value={data.id} key={data.id}>
                                                         [{data.card_type.toUpperCase()} **** **** **** {data.last4}] [exp: {data.exp_month}/{data.exp_year}]

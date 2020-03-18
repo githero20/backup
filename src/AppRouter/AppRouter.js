@@ -76,6 +76,7 @@ class AppRouter extends Component {
 
     render() {
         const user = localStorage.getItem(USERINFO);
+
         return (
             <React.Fragment>
                 <ToastProvider>
@@ -84,15 +85,15 @@ class AppRouter extends Component {
                             const {pathname, key} = location;
                             return (
                                 <Fragment>
-                                    <TransitionGroup component={null}>
-                                        <Transition
-                                            key={key}
-                                            appear={true}
-                                            onEnter={(node, appears) => play(pathname, node, appears)}
-                                            onExit={(node, appears) => exit(node, appears)}
-                                            timeout={{enter: 750, exit: 150}}
-                                        >
-                                            <ErrorBoundary>
+                                    <ErrorBoundary>
+                                        <TransitionGroup component={null}>
+                                            <Transition
+                                                key={key}
+                                                appear={true}
+                                                onEnter={(node, appears) => play(pathname, node, appears)}
+                                                onExit={(node, appears) => exit(node, appears)}
+                                                timeout={{enter: 750, exit: 150}}
+                                            >
                                                 <Switch>
                                                     <Route exact path={HomeLink}
                                                            render={() => <Home isLoggedIn={user}/>}/>
@@ -145,15 +146,15 @@ class AppRouter extends Component {
                                                     <Route exact path={sbDashboardLink} component={ScoreBoard}/>
                                                     <Route render={props => <ErrorPage errorName={'Error 404!'}
                                                                                        errorTitle={'Page Not Found'}
-                                                                                       action={()=>this.props.history.goBack()}
                                                                                        {...props}
                                                     />}
 
                                                     />
                                                 </Switch>
-                                            </ErrorBoundary>
-                                        </Transition>
-                                    </TransitionGroup>
+                                            </Transition>
+                                        </TransitionGroup>
+                                    </ErrorBoundary>
+
                                 </Fragment>
                             )
                         }}

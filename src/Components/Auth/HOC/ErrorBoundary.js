@@ -20,7 +20,7 @@ class ErrorBoundary extends Component {
     render() {
         if (this.state.error) {
             return <ErrorPage errorName={'Error!'}
-                              errorTitle={'We\'re sorry — something\'s gone wrong. Refresh Page and Try Again.'}
+                              errorTitle={'We\'re sorry — something\'s gone wrong.'}
                               {...this.props}
             />;
 

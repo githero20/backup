@@ -9,7 +9,7 @@ import AvatarImage from "../../admin/app-assets/images/portrait/small/avatar-s-1
 import ProfileForm from "../../Components/Dashboard/ProfileForm/ProfileForm";
 import {getLocalStorage, request} from "../../ApiUtils/ApiUtils";
 import {USERINFO} from "../../Components/Auth/HOC/authcontroller";
-import {CentralVaultInterest, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
+import {centralVaultInterest, getUserInfoEndpoint} from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import Footer from "../../Components/Dashboard/Footer/Footer";
 

@@ -18,12 +18,9 @@ export function setupWithdrawal(payload, token, callback) {
         header.headers['Authorization'] = 'Bearer ' + token;
     }
 
-    return axios.post(`${BASE_URL}${registerBank}`,payload,header).then(res => {
-        callback(true, res.data.data)
-    })
-        .catch(err => {
-            callback(false, err.response)
-        })
+    axios.post(`${BASE_URL}${registerBank}`,payload,header)
+        .then(res => {callback(true, res.data.data)})
+        .catch(err => {callback(false, err.response)})
 }
 export function resolveBank(payload, token, callback) {
 

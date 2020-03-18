@@ -17,13 +17,11 @@ import {
     toggleTable
 } from "../../../Helpers/Helper";
 import MessageBox from "./MessageBox/MessageBox";
-// import { dateFilter, Comparator } from 'react-bootstrap-table-next';
 import filterFactory, {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
 import moment from "moment";
 import Footer from "../Footer/Footer";
 
 class DashboardContainer extends Component {
-
 
     constructor(props) {
         super(props);
@@ -168,20 +166,11 @@ class DashboardContainer extends Component {
                 headerClasses: 'd-none d-md-table-cell',
 
             }];
-        const runFilter = () => {
-
-            //take the value of select
-            const filterValue = document.getElementById('filter-param').value;
-
-            //setup table for filter
-
-            // use value to filter table
-        };
 
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
-            transactions,reload, ActiveGoals, CompletedGoals, vaultInterest,
-            lockedSavingsInterest, showSSModal,backupInterest
+            transactions, reload, ActiveGoals, CompletedGoals, vaultInterest,
+            lockedSavingsInterest, showSSModal, backupInterest
         } = this.props;
 
 
@@ -193,8 +182,6 @@ class DashboardContainer extends Component {
                         <div className="col-12 d-md-none"/>
                         <MessageBox challenge={true} reload={reload} showSSModal={showSSModal}/>
                         <MessageBox updateKyc={this.props.updateKyc} reload={reload} balance={vaultAmount}/>
-
-
                         <div className="content-body">
                             <div className="row">
                                 <CentralVaultCard
@@ -238,19 +225,13 @@ class DashboardContainer extends Component {
                         </div>
 
                         <div className="row">
-                            {
-                                !this.state.mobileTable ? (
-                                    <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
-                                                      runFilter={runFilter}
-                                                      transactions={transactions}
-                                                      columns={columns}/>
-
-                                ) : (
-                                    <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
-                                                      runFilter={runFilter}
-                                                      transactions={transactions}
-                                                      columns={mobileColumns}/>
-                                )}
+                            {!this.state.mobileTable ?
+                                <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
+                                                  transactions={transactions}
+                                                  columns={columns}/> :
+                                <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
+                                                  transactions={transactions}
+                                                  columns={mobileColumns}/>}
                         </div>
                     </div>
                     <Footer/>
@@ -259,6 +240,6 @@ class DashboardContainer extends Component {
             </React.Fragment>
         );
     }
-};
+}
 
 export default DashboardContainer;

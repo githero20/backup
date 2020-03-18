@@ -24,8 +24,8 @@ class ErrorPage extends Component {
                         <img src={errorIll} className='error-img pt-5'/>
                         <h2 className='error-header'>{errorName}</h2>
                         <h5 className='error-title mb-5'>{errorTitle}</h5>
-                        {action ? <a onClick={action && action()} className='error-btn'>
-                            <img src={errorBackArrow}/>Go Back</a> : ''}
+                        {/*{action ? <a onClick={action && action()} className='error-btn'>*/}
+                        {/*    <img src={errorBackArrow}/>Go Back</a> : ''}*/}
                     </section>
                 </div>
             </React.Fragment>

@@ -55,7 +55,7 @@ class SetupWithdrawal extends Component {
                                             </div>
                                             <h3 className="mobile-welcome-text d-block d-md-none">Welcome <br/>Back</h3>
                                             <ToastProvider>
-                                                <SetupWithdrawalForm token={this.state.token} banks={this.state.banks}/>
+                                                <SetupWithdrawalForm {...this.props} token={this.state.token} banks={this.state.banks}/>
                                             </ToastProvider>
                                         </div>
                                     </div>

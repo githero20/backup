@@ -17,10 +17,10 @@ import Sprinkles from "../../Components/Commons/Sprinkles";
 import FlexIcon from "../../Components/Commons/FlexIcon";
 import {_axios, _getHeader} from "../../utils";
 import {
-    CentralVaultInterest,
-    GetBackUpGoals,
+    centralVaultInterest,
+    getBackUpGoals,
     getUserInfoEndpoint,
-    LockedInterest,
+    lockedInterest,
     LoginLink
 } from "../../RouteLinks/RouteLinks";
 import moment from "moment";
@@ -46,9 +46,9 @@ const useGetUserInfo = () => {
         try {
             const [UserInfoRes, CentralVaultIntRes, LockedIntRes, BackUpRes] = await Promise.all([
                 _axios.get(getUserInfoEndpoint, config),
-                _axios.get(CentralVaultInterest, config),
-                _axios.get(LockedInterest, config),
-                _axios.get(GetBackUpGoals, config),
+                _axios.get(centralVaultInterest, config),
+                _axios.get(lockedInterest, config),
+                _axios.get(getBackUpGoals, config),
             ]);
 
             let transactions = [];

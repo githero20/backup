@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BASE_URL, LoginEndpoint} from "../../../RouteLinks/RouteLinks";
+import {LoginEndpoint} from "../../../RouteLinks/RouteLinks";
 import {api, setLocalStorage} from "../../../ApiUtils/ApiUtils";
 import swal from "sweetalert";
 import moment from "moment";
@@ -114,19 +114,20 @@ const AuthController = Component => {
                 window.location.href = `/login`;
                 localStorage.removeItem(USERTOKEN);
                 localStorage.removeItem(USERINFO);
-            } else {
-                setAuthorisationToken(token, (status, data) => {
-                    if (status) {
-                        setIsLoggedIn(true);
-                    } else {
-                        setIsLoggedIn(false);
-                        if (data && data.response && data.response.data && data.response.data.message === "Account has not been activated, click on resend") {
-                            setLocalStorage(USERACTIVATED, false);
-                        } else handleUserAuth();
-                    }
-
-                });
             }
+
+            setAuthorisationToken(token, (status, data) => {
+                if (status) {
+                    setIsLoggedIn(true);
+                } else {
+                    setIsLoggedIn(false);
+                    if (data && data.response && data.response.data && data.response.data.message === "Account has not been activated, click on resend") {
+                        setLocalStorage(USERACTIVATED, false);
+                    } else handleUserAuth();
+                }
+
+            });
+
         }, [Component]);
 
 

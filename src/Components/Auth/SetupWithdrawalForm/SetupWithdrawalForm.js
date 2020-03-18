@@ -11,6 +11,7 @@ import {_handleFormChange} from "../../../utils";
 import {resolveBank, setupWithdrawal} from "../../../actions/setupWithdrawalAction";
 import DashboardLoader from "../../Dashboard/DashboardLoader/DashboardLoader";
 import {handleFocus, hideLoader, showHomeLoader, toastMessage, validateInputEntry} from "../../../Helpers/Helper";
+import {getUserData} from "../../../actions/UserAction";
 
 class SetupWithdrawalForm extends Component {
 
@@ -48,8 +49,6 @@ class SetupWithdrawalForm extends Component {
             token: '',
             loading: false,
             bankLoading: false,
-            redirect: false,
-            redirectLogin: false,
         };
 
         this.validateForm = this.validateForm.bind(this);
@@ -88,7 +87,6 @@ class SetupWithdrawalForm extends Component {
                 pinErr: false
             })
         }
-
         if (form['bank_code'] != '' && form['account_number'].length === 10 && form['bank_name'] == '') {
             this.setState({
                 bankLoading: true
@@ -136,21 +134,27 @@ class SetupWithdrawalForm extends Component {
                 this.setState({loading: false});
                 if (status) {
                     localStorage.setItem(USERTOKEN, JSON.stringify(this.state.token));
+
+                    getUserData((status,data)=>{
+                        if(!status){
+                            toastMessage('Unable to get user information');
+                        }
+                        localStorage.setItem(USERINFO,JSON.stringify(data));
+                        setTimeout(() => {
+                            this.props.history.push(DashboardLink);
+                        }, 3000);
+
+
+                    });
                     // showHomeLoader();
                     // setTimeout(hideLoader,3000);
-                    setTimeout(() => {
-                        this.setState({
-                            redirect: true
-                        });
-                    }, 3000);
+
                     //TODO handle response and redirect
 
                 } else if(!status&&payload){
                     toastMessage('Your Link Has Expired! Try to Login into your account.','error',this);
                     setTimeout(() => {
-                        this.setState({
-                            redirectLogin: true
-                        });
+                        this.props.history.push(LoginLink);
                     }, 3000);
                 }
             });
@@ -182,95 +186,6 @@ class SetupWithdrawalForm extends Component {
         }
     }
 
-    saveToLocalStorage = (user, token) => {
-        if (user && token) {
-            localStorage.setItem(USERTOKEN, JSON.stringify(token));
-            localStorage.setItem(USERINFO, user);
-            this.setState({
-                redirect: true
-            });
-        }
-    };
-
-
-    getSignUpInfo = (state, response) => {
-
-        const {toastManager} = this.props;
-
-        this.setState({
-            loading: false
-        });
-
-        if (!state) {
-            if (response) {
-                this.setState({
-                    error: true,
-                    errorMessage: JSON.stringify(response.data.message),
-                    loading: false
-                });
-
-                if (response.data) {
-                    let errors = response.data.errors;
-                    let errorData = Object.values(errors);
-                    errorData.map((err, idx) => {
-                        return (
-                            toastManager.add(`${err}`, {
-                                appearance: 'error',
-                                index: idx,
-                                autoDismiss: true,
-                                autoDismissTimeout: 3000,
-                            })
-                        )
-                    });
-
-                }
-            }
-        } else {
-            if (response) {
-                const serverResponse = response.data;
-                const token = serverResponse.token;
-                const user = serverResponse.user;
-                this.saveToLocalStorage(user, token);
-                showHomeLoader();
-                hideLoader();
-                this.setState({
-                    redirect: true
-                });
-            }
-
-        }
-    };
-
-
-    //submit sign up form
-    submitForm = () => {
-        if (this.validator.allValid()) {
-            //validate confirm password
-
-            // // perform all necessary validation
-            // const ConfPassValid = this.validatePasswords(this.state.password_confirmation);
-            // const PassVal = this.validatePassword();
-            // console.log(ConfPassValid, PassVal);
-            // if (ConfPassValid && PassVal) {
-            //     //    make api call
-            //     this.setState({
-            //         loading: true
-            //     });
-            //
-            //     this.signUp(RegisterEndpoint, this.state, this.getSignUpInfo);
-            //
-            // }
-
-
-        } else {
-
-            this.validator.showMessages();
-            // rerender to show messages for the first time
-            this.forceUpdate();
-
-        }
-
-    };
 
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -286,21 +201,6 @@ class SetupWithdrawalForm extends Component {
     render() {
 
         const {bank_name, account_number} = this.state.form;
-        if (this.state.redirect) {
-            return (
-                <React.Fragment>
-                    <Redirect push to={DashboardLink}/>
-                </React.Fragment>
-            );
-        }
-
-        if (this.state.redirectLogin) {
-            return (
-                <React.Fragment>
-                    <Redirect push to={LoginLink}/>
-                </React.Fragment>
-            );
-        }
 
         const banksSelect = this.props.banks.map((bank, index) => {
             return (
@@ -350,9 +250,7 @@ class SetupWithdrawalForm extends Component {
                                         <input id="bank_name" disabled={true} name={'bank_name'} value={bank_name}
                                                type="text"
                                                className={'form-control'}
-                                            // onChange={this.changeHandler}
                                         />
-                                        {/*{this.validator.message('phone', phone, 'required|phone|regex:^[0]\\d{10}$')}*/}
                                     </div>
                                 </div>
                             ) : null

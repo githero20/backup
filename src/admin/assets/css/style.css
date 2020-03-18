@@ -972,6 +972,10 @@ textarea.form-control{
     .dash-card-total-details h6{
         width: 95px;
     }
+    .steady-save-modal .modal-header, .instant-save-modal .modal-header {
+        border-bottom: none;
+        padding: 2rem;
+    }
 
     .back-up-detail h6{
         width:105px
@@ -1036,14 +1040,6 @@ textarea.form-control{
     padding: 2rem;
 }
 
-/*.btn-custom-round-blue {*/
-/*    background-color: #2784F4;*/
-/*    border-radius: 50%;*/
-/*    width: 20px;*/
-/*    height: 20px;*/
-/*    line-height: 14px;*/
-/*    border: 1px solid #2784F4;*/
-/*}*/
 .btn-custom-round-blue {
     background-color: #2784F4;
     border-radius: 50%;
@@ -4613,9 +4609,6 @@ input:-webkit-autofill:active {
 
 }
 
-.steady-save-modal .modal-header, .instant-save-modal .modal-header {
-    border-bottom: none;
-}
 
 .steady-save-modal .modal-content, .instant-save-modal .modal-content {
     border-radius: 4rem;

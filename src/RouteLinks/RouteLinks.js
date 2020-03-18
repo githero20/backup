@@ -76,7 +76,7 @@ export const updateEmailEndpoint = `sfsbapi/v1/user/profile/update/email`;
 export const ResendBankOTP = `/sfsbapi/v1/user/banks/resendotp`;
 export const VerifyBankOTP = `sfsbapi/v1/user/banks/verifyotp`;
 export const GetUserBanks = `sfsbapi/v1/user/banks`;
-export const GetBackUpGoals = `sfsbapi/v1/user/goals`;
+export const getBackUpGoals = `sfsbapi/v1/user/goals`;
 export const EditSteadySave = `sfsbapi/v1/user/savings/steady/edit`;
 export const PauseSteadySave = `sfsbapi/v1/user/savings/steady/pause`;
 export const ContinueSteadySave = `sfsbapi/v1/user/savings/steady/continue`;
@@ -106,9 +106,9 @@ export const GetWithdrawalSettings = `sfsbapi/v1/user/withdrawals/settings`;
 export const MakeWithdrawal = `sfsbapi/v1/user/withdrawals`;
 export const storeWithdrawalPin = `sfsbapi/v1/user/withdrawals/pin`;
 export const changeWithdrawalPin = `sfsbapi/v1/user/withdrawals/pin/change`;
-export const CentralVaultInterest = `/sfsbapi/v1/user/interest`;
+export const centralVaultInterest = `/sfsbapi/v1/user/interest`;
 export const getAdminInterest = `sfsbapi/v1/get-admin-interest`;
-export const LockedInterest = `sfsbapi/v1/user/savings/locked/interest`;
+export const lockedInterest = `sfsbapi/v1/user/savings/locked/interest`;
 export const TransferToVault = `sfsbapi/v1/user/transfer/centralvault`;
 
 

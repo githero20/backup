@@ -35,7 +35,7 @@ class SignUp extends Component {
                         <section className="sign-up-background login-section">
                             <h3 className="welcome-text d-none d-md-block">Welcome, <br/>Start Saving Now!</h3>
                                 <div id="timeline-wrap">
-                                    <div id="timeline"></div>
+                                    <div id="timeline"/>
 
                                     {/*This is the individual marker*/}
                                     <div className="marker mfirst timeline-icon  text-center">

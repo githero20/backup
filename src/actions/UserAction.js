@@ -70,8 +70,7 @@ export const storeFirstTimeLogin = callback => {
 export const getUserPoints = callback => {
     _axios.get(getUserPointsEndpoint, {
         headers: _getHeader()
-    })
-        .then(res => {
+    }).then(res => {
             if (callback) {
                 callback(true, res.data);
             }

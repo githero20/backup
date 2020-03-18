@@ -3,7 +3,7 @@ import {
     continueBackupGoal,
     createBackupGoals,
     editBackupGoal,
-    GetBackUpGoals,
+    getBackUpGoals,
     getBGoalHistory,
     getBGoalTrans,
     GetWithdrawalPenalty,
@@ -17,7 +17,7 @@ import {
 
 export const getBackUpSavings = (callback) => {
 
-    _axios.get(`${GetBackUpGoals}`, {
+    _axios.get(`${getBackUpGoals}`, {
         headers: _getHeader()
     })
         .then(res => {

@@ -22,7 +22,7 @@ import BackupGoalQuickActions from "./BackupGoalQuickActions";
 import BGStartAmountCard from "./BGStartAmountCard";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
 import moment from 'moment';
-import {GetBackUpGoals} from "../../RouteLinks/RouteLinks";
+import {getBackUpGoals} from "../../RouteLinks/RouteLinks";
 import {request} from "../../ApiUtils/ApiUtils";
 import BGPayNowModal from "../../Components/Dashboard/BGPayNowModal/BGPayNowModal";
 import Footer from "../../Components/Dashboard/Footer/Footer";
@@ -78,7 +78,7 @@ class BackupGoals extends Component {
 
     fetchBackUpGoals() {
         this.setState({showLoader: true});
-        request(GetBackUpGoals, null, true, 'GET', (status, payload) => {
+        request(getBackUpGoals, null, true, 'GET', (status, payload) => {
             this.setState({showLoader: false});
             if (status) {
                 if (payload) {

@@ -815,10 +815,15 @@ export function calcPenalty(balance, penalty) {
 
 
 export function steadyStatusFormatter(cell, row) {
+	const today = moment();
 	if (parseInt(row.is_pause)) {
 		return <button className={'btn btn-sm round btn-warning'}>Paused</button>
+	}
+	else if(moment(row.end_date).isAfter(today)){
+		return <button className={'btn btn-sm round btn-success'}>Completed</button>
+
 	} else {
-		return <button className={'btn btn-sm round btn-success'}>Ongoing</button>
+		return <button className={'btn btn-sm round btn-info'}>Ongoing</button>
 	}
 }
 

@@ -48,7 +48,7 @@ class SignUp extends Component {
                                         <div className="circular-icon">2</div>
                                         <label>Activate Account</label>
                                     </div>
-                                     {/*marker */}
+
                                 </div>
 
                                 <div className="secure-section">
@@ -70,8 +70,6 @@ class SignUp extends Component {
                                         </div>
                                     </div>
                                 </div>
-
-
                         </section>
             </React.Fragment>
         );

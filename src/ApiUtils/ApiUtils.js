@@ -163,6 +163,7 @@ export function requestAPI(url, params, token, method, callback, errCallback) {
             header.headers['Authorization'] = 'Bearer ' + token;
         }
     }
+
     if (method === 'POST') {
         return axios.post(url, params, header).then(res => callback(true, res))
             .catch(err => errCallback(false, err.response))

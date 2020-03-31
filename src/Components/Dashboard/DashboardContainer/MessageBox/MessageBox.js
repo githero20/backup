@@ -100,10 +100,16 @@ class MessageBox extends Component {
             <React.Fragment>
                 <span className='mb-1 mb-md-0'>
                     <strong>Hello {this.state.userName}! </strong>
-                    Your have currently saved up to ₦ {formatNumber(Number(this.props.balance).toFixed(2))}
+                    Your have currently saved up to ₦
+                    {formatNumber(Number(this.props.balance).toFixed(2))}
                 </span>
                 <span className="admin-purple">
-                    <strong><Link to={KycSettingLink} className='purple-link text-uppercase'>Kindly click this link to update your kyc</Link></strong>.
+                    <strong>
+                        <Link to={KycSettingLink}
+                                  className='purple-link text-uppercase'>
+                        Kindly click this link to update your kyc
+                    </Link>
+                    </strong>.
                 </span>
             </React.Fragment>
         );
@@ -111,7 +117,8 @@ class MessageBox extends Component {
         const referralInfo = (
             <React.Fragment>
                 <div
-                    className="admin-purple d-flex flex-column flex-grow-1 justify-content-lg-between flex-lg-row cursor-pointer">
+                    className="admin-purple d-flex flex-column flex-grow-1
+                    justify-content-lg-between flex-lg-row cursor-pointer">
                     <div className='mb-1 mb-lg-0'>
                         You have referred &nbsp;
                         <strong className='font-weight-bold bc-deep-purple'>
@@ -122,7 +129,8 @@ class MessageBox extends Component {
 
                     <div className='mb-1 mb-lg-0'>Points Earned
                         <Link to={ReferralsLink} className='d-block mt-1 mt-md-0 d-md-inline'>
-                            <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
+                            <strong className="d-md-inline  ml-md-1 font-weight-bold
+                            br-2 bc-blue-white py-0-2 px-2">
                                 {this.state.userPoint ? this.state.userPoint : 0}
                                 <i className='ml-1 fa fa-arrow-right text-white'/>
                             </strong>
@@ -143,7 +151,8 @@ class MessageBox extends Component {
                     <div>
                         Referral Bonus
                         <Link to={ReferralsLink} className='d-block mt-1 mt-md-0 d-md-inline'>
-                            <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
+                            <strong className="d-md-inline  ml-md-1 font-weight-bold
+                            br-2 bc-blue-white py-0-2 px-2">
                                 {this.state.amount ? formatNumber(this.state.amount) : 0}
                                 <i className='ml-1 fa fa-arrow-right text-white'/>
                             </strong>
@@ -168,20 +177,26 @@ class MessageBox extends Component {
             return (
                 <div className="row mb-2">
                     <div className="col-12">
-                        <div className='bg-blue-1 shadow-sm dashboard-callout callout-border-right d-flex flex-column
-                         flex-md-row flex-wrap justify-content-md-between align-items-md-center callout-round
+                        <div className='bg-blue-1 shadow-sm dashboard-callout
+                        callout-border-right d-flex flex-column
+                         flex-md-row flex-wrap justify-content-md-between
+                          align-items-md-center callout-round
                           callout-transparent py-1 py-md-1 px-2'>
                             <label
-                                className='d-flex flex-column align-items-center text-white flex-md-row justify-content-md-center'>
+                                className='d-flex flex-column align-items-center
+                                 text-white flex-md-row justify-content-md-center'>
                                 <span>
-                                    Have you referred someone today? The more people you refer, the more points you earn
+                                    Have you referred someone today? The more
+                                    people you refer, the more points you earn
                                 </span>
                             </label>
                             <label
-                                className='d-flex mt-1 mt-lg-0 mb-lg-0 flex-md-row flex-wrap flex-column align-items-md-center'>
+                                className='d-flex mt-1 mt-lg-0 mb-lg-0 flex-md-row flex-wrap
+                                flex-column align-items-md-center'>
                                 <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"/>
                                 <div
-                                    className='d-flex justify-content-lg-between  justify-content-center d-md-inline-block flex-grow-1'>
+                                    className='d-flex justify-content-lg-between
+                                     justify-content-center d-md-inline-block flex-grow-1'>
                                     <a onClick={this.copyLink}
                                        className="btn-white-bordered round px-2 mr-md-2 mb-md-0">Share Code</a>
                                 </div>
@@ -199,8 +214,10 @@ class MessageBox extends Component {
                         <div className="row mb-1">
                             <div className="col-12">
                                 <div
-                                    className={'bg-white shadow-sm dashboard-callout text-center text-md-left callout-border-right' +
-                                    ' d-flex flex-column flex-md-row justify-content-between align-items-center callout-round callout-transparent ' +
+                                    className={'bg-white shadow-sm dashboard-callout ' +
+                                    'text-center text-md-left callout-border-right' +
+                                    ' d-flex flex-column flex-md-row justify-content-between' +
+                                    ' align-items-center callout-round callout-transparent ' +
                                     'mt-1 px-2 py-2 py-1'}>
                                     {kycInfo}
                                 </div>
@@ -235,13 +252,15 @@ class MessageBox extends Component {
                     </div>
                 </div>
 
-                <Modal className={'steady-save-modal mt-5 pt-5'} show={show} onHide={this.handleClose}>
+                <Modal className={'steady-save-modal mt-5 pt-5'}
+                       show={show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Share Referral Code </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div className="d-flex justify-content-center px-5 pb-3">
-                            <a className='a-twitter mr-2' href={`https://twitter.com/intent/tweet?text=${fullRefText}`}
+                            <a className='a-twitter mr-2'
+                               href={`https://twitter.com/intent/tweet?text=${fullRefText}`}
                                target='_blank'>
                                 <i className='fa fa-4x fa-twitter'/>
                             </a>

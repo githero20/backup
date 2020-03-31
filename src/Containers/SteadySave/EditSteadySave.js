@@ -88,14 +88,12 @@ class SteadySaveForm extends Component {
                 showHour: true,
             });
         } else if (form.frequency == "weekly") {
-            // form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"weeks") * form.contribution) || 0;
             this.setState({
                 showMonth: false,
                 showDay: true,
                 showHour: true,
             });
         } else if (form.frequency == "monthly") {
-            // form.goal_amount = (_calculateDateDifference(form.start_date, form.maturity_date,"months") * form.contribution) || 0;
             this.setState({
                 showMonth: true,
                 showDay: false,
@@ -141,7 +139,7 @@ class SteadySaveForm extends Component {
 
     //submit steady save form
     submitForm = (e) => {
-        const {form: {start_date, frequency, contribution}} = this.state;
+        const {form: {frequency, contribution}} = this.state;
         e.preventDefault();
         if (!this.validator.allValid()) {
             this.validator.showMessages();
@@ -304,7 +302,6 @@ class SteadySaveForm extends Component {
                                                     </option>
                                                 );
                                             }
-
                                         })
                                     }
                                 </Form.Control>
@@ -334,7 +331,6 @@ class SteadySaveForm extends Component {
                                 {this.validator.message('frequency', this.state.form.frequency, 'required|string')}
                             </React.Fragment>
                         </Form.Group>
-
                         <Form.Group as={Col} sm={6}>
                             <div className={'text-muted secondary-text'}>Start Date</div>
                             <React.Fragment>
@@ -354,7 +350,6 @@ class SteadySaveForm extends Component {
                         {this.state.showDay ? showDay : null}
                         {this.state.showMonth ? showMonth : null}
                     </Form.Row>
-
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
                         <div className={'d-flex justify-content-end'}>
                             <button className={'round modal-btn btn-custom-blue '} disabled={this.state.loading}

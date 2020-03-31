@@ -205,7 +205,6 @@ class BankCardSetting extends Component {
                            onHide={this.hideCardModal}
                            onResolve={this.resolvePaystackResponse}
                 />
-
                 <AppModal show={showModal}
                           title={'Delete Card'}
                           buttonLabel={'Delete'}

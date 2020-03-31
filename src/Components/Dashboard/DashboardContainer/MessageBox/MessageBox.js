@@ -53,7 +53,7 @@ class MessageBox extends Component {
     copyLink = (e) => {
         let textField = document.createElement('textarea');
         textField.innerText = 'I save and earn with Backup Cash. Sign up with my code,' +
-            ' get ₦500.00 instantly and earn great interests when you save more. '+this.state.userReferralLink;
+            ' get ₦500.00 instantly and earn great interests when you save more. ' + this.state.userReferralLink;
         document.body.appendChild(textField);
         textField.select();
         document.execCommand('copy');
@@ -110,50 +110,54 @@ class MessageBox extends Component {
 
         const referralInfo = (
             <React.Fragment>
-                <div className="admin-purple d-flex flex-column flex-grow-1 justify-content-lg-between flex-lg-row cursor-pointer">
+                <div
+                    className="admin-purple d-flex flex-column flex-grow-1 justify-content-lg-between flex-lg-row cursor-pointer">
                     <div className='mb-1 mb-lg-0'>
                         You have referred &nbsp;
                         <strong className='font-weight-bold bc-deep-purple'>
-                        {numOfUser ? numOfUser : 0}
-                    </strong>
+                            {numOfUser ? numOfUser : 0}
+                        </strong>
                         &nbsp; {numOfUser <= 1 ? 'user' : 'users'}
                     </div>
 
                     <div className='mb-1 mb-lg-0'>Points Earned
-                    <Link to={ReferralsLink} className='d-block mt-1 mt-md-0 d-md-inline'>
-                        <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
-                            {this.state.userPoint ? this.state.userPoint : 0} <i className='ml-1 fa fa-arrow-right text-white'/>
-                        </strong>
-                        <OverlayTrigger
-                            placement={'right'}
-                            overlay={
-                                <Tooltip id={`tooltip-${'right'}`}>Accumulated points can be converted to monetary reward in future.</Tooltip>
-                            }
-                        >
-                            <strong className='bc-deep-purple ml-1'>&nbsp;(?)</strong>
-                        </OverlayTrigger>
-                    </Link>
+                        <Link to={ReferralsLink} className='d-block mt-1 mt-md-0 d-md-inline'>
+                            <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
+                                {this.state.userPoint ? this.state.userPoint : 0}
+                                <i className='ml-1 fa fa-arrow-right text-white'/>
+                            </strong>
+                            <OverlayTrigger
+                                placement={'right'}
+                                overlay={
+                                    <Tooltip id={`tooltip-${'right'}`}>
+                                        &nbsp;
+                                    </Tooltip>
+                                }
+                            >
+                                <strong className='bc-deep-purple ml-1'>&nbsp;(?)</strong>
+                            </OverlayTrigger>
+                        </Link>
 
                     </div>
 
                     <div>
                         Referral Bonus
-                    <Link to={ReferralsLink} className='d-block mt-1 mt-md-0 d-md-inline'>
-                        <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
-                             {this.state.amount ? formatNumber(this.state.amount) : 0}
-                            <i className='ml-1 fa fa-arrow-right text-white'/>
-                        </strong>
-                        <OverlayTrigger
-                            placement={'left'}
-                            overlay={
-                                <Tooltip id={`tooltip-${'left'}`}>
-                                    You will get N500 for every of your referred user that saves atleast N500
-                                </Tooltip>
-                            }
-                        >
-                            <strong className='bc-deep-purple ml-1'>&nbsp;(?)</strong>
-                        </OverlayTrigger>
-                    </Link> &nbsp;
+                        <Link to={ReferralsLink} className='d-block mt-1 mt-md-0 d-md-inline'>
+                            <strong className="d-md-inline  ml-md-1 font-weight-bold br-2 bc-blue-white py-0-2 px-2">
+                                {this.state.amount ? formatNumber(this.state.amount) : 0}
+                                <i className='ml-1 fa fa-arrow-right text-white'/>
+                            </strong>
+                            <OverlayTrigger
+                                placement={'left'}
+                                overlay={
+                                    <Tooltip id={`tooltip-${'left'}`}>
+                                        You will get N500 for every of your referred user that saves atleast N500
+                                    </Tooltip>
+                                }
+                            >
+                                <strong className='bc-deep-purple ml-1'>&nbsp;(?)</strong>
+                            </OverlayTrigger>
+                        </Link> &nbsp;
                     </div>
 
                 </div>
@@ -170,9 +174,7 @@ class MessageBox extends Component {
                             <label
                                 className='d-flex flex-column align-items-center text-white flex-md-row justify-content-md-center'>
                                 <span>
-                                    {/*Save, Refer & Win!. Join the 21 Day Savings Challenge from 1st – 21st of November*/}
-                                    {/*View your money score card this year*/}
-                                    Have you referred someone today? The more people you refer, the more money you earn
+                                    Have you referred someone today? The more people you refer, the more points you earn
                                 </span>
                             </label>
                             <label
@@ -180,7 +182,8 @@ class MessageBox extends Component {
                                 <span className="mr-md-2 mb-1 text-center text-md-left mb-md-0 flex-grow-1"/>
                                 <div
                                     className='d-flex justify-content-lg-between  justify-content-center d-md-inline-block flex-grow-1'>
-                                    <a onClick={this.copyLink} className="btn-white-bordered round px-2 mr-md-2 mb-md-0">Share Code</a>
+                                    <a onClick={this.copyLink}
+                                       className="btn-white-bordered round px-2 mr-md-2 mb-md-0">Share Code</a>
                                 </div>
                             </label>
                         </div>

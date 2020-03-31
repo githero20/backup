@@ -25,7 +25,9 @@ const DashboardIndex = (props) => {
                  data-col="2-columns">
                 <HorizontalNav userName={accountProps.userName}/>
                 <VerticalNav userName={accountProps.userName}/>
-                {state.showLoader ? <DashboardLoader/> : null}
+                {state.showLoader ?
+                    <DashboardLoader/> :
+                    null}
                 <DashboardContainer
                     isActive={state.isActive}
                     updateKyc={state.updateKyc}

@@ -178,13 +178,13 @@ class BankCardSetting extends Component {
                 cardType = visaImage;
             return (
                 <div key={index} className={"bank-card " + grad + " mb-2 mb-md-0  mr-2"}>
-                    {/*<div className="d-flex justify-content-end">*/}
-                    {/*    <div className="card__options">*/}
-                    {/*        <div className="card__action" onClick={() => this.showDeleteModal(card.id)}>Remove</div>*/}
-                    {/*        /!*<img src={menuIcon} className=" big-dots"/> *!/*/}
-                    {/*        <i className={'fa fa-trash fa-2x'}/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                    <div className="d-flex justify-content-end">
+                        <div className="card__options">
+                            <div className="card__action" onClick={() => this.showDeleteModal(card.id)}>Remove</div>
+                            {/*<img src={menuIcon} className=" big-dots"/> */}
+                            <i className={'fa fa-trash fa-2x'}/>
+                        </div>
+                    </div>
                     <p className="mb-md-3 mt-2 ml-1 ml-md-0 mt-md-0">**** **** **** {card.last4}</p>
                     <div className="ml-1 ml-md-0 sm-font">
                         <span className="mr-5 mb-1 sm-font"/>

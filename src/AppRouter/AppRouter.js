@@ -122,23 +122,19 @@ class AppRouter extends Component {
                                                            component={AuthController(BackupStash)}/>
                                                     <Route path={EmailActivationLink} component={EmailActivation}/>
                                                     <Route path={ResendActivationLink} component={ResendActivation}/>
-                                                    <Route path={ChallengeLink}
-                                                           render={() => <Challenge isLoggedIn={user}/>}
+
+                                                    <Route path={ChallengeLink} render={() => <Challenge isLoggedIn={user}/>}
                                                     />
                                                     <Route path={TermsAndCondLink} component={PrivacyPolicy}/>
-                                                    <Route path={LoginLink}
-                                                           render={() => (user ? window.location.href = DashboardLink :
-                                                               <Login/>)}
+
+                                                    <Route path={LoginLink} render={() => (user ? window.location.href = DashboardLink : <Login/>)}
                                                     />
-                                                    <Route path={SignUpLink}
-                                                           render={(props) => (user ? window.location.href = DashboardLink :
-                                                               <SignUp {...props}/>)}
+                                                    <Route path={SignUpLink} render={(props) => (user ? window.location.href = DashboardLink : <SignUp {...props}/>)}
                                                     />
                                                     <Route path={InviteLink} component={SignUp}/>
                                                     <Route path={ActivateAccountLink} component={ActivateAccount}/>
                                                     <Route path={ForgotPasswordLink} component={ForgotPassword}/>
-                                                    <Route path={botCreatePasswordLink}
-                                                           render={props => <ForgotPassword bot={true} {...props} />}/>
+                                                    <Route path={botCreatePasswordLink} render={props => <ForgotPassword bot={true} {...props} />}/>
                                                     <Route path={ResetPasswordLink} component={ResetPassword}/>
                                                     <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
                                                     <Route path={FaqLink} render={() => <Faq isLoggedIn={user}/>}/>

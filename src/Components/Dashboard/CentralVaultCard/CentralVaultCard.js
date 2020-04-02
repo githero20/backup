@@ -39,8 +39,8 @@ const CentralVaultCard = (props) => {
                                     <h6 className='fs-12'>Total Interest</h6>
                                     &nbsp;<i className='fa fa-arrow-right '/>
                                     <strong className='flex-grow-1'>
-                                        &#8358;&nbsp;{vaultInterest !== 0 && vaultInterest !== undefined ?
-                                        formatNumber(vaultInterest) : '0.00'}
+                                        &#8358;&nbsp;
+                                        {vaultInterest ? formatNumber(vaultInterest) : '0.00'}
                                     </strong>
                                 </div>
                             </div>

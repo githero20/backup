@@ -210,11 +210,12 @@ function useDashboardLogic(reload) {
     }
 
 
-    let completedGoals = getCompletedGoals(state.backupData || []);
-    const activeGoals = getActiveGoals(state.backupData || []);
-    const lockedSavingsInterest = parseFloat(state.lockedSavingsData).toFixed(2);
-    const vaultInterest = parseFloat(state.centralVaultData).toFixed(2);
-    const accountProps = getAccountsAndInterests(state.userData);
+    const {backupData, lockedSavingsData, centralVaultData, userData} = state;
+    let completedGoals = getCompletedGoals(backupData || []);
+    const activeGoals = getActiveGoals(backupData || []);
+    const lockedSavingsInterest = lockedSavingsData ? parseFloat(lockedSavingsData).toFixed(2) : 0;
+    const vaultInterest = centralVaultData ? parseFloat(centralVaultData).toFixed(2) : 0;
+    const accountProps = getAccountsAndInterests(userData);
 
 
     return {

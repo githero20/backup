@@ -4842,7 +4842,12 @@ p {
     font-size:.8rem;
     border-radius: 2rem;
     margin: 10px 0px;
+    min-width: 100px;
+    height: 30px;
     transition: background-color .3s ease-in-out;
+}
+.dash-card .dash-btn .fa{
+    margin-left:.3rem;
 }
 
 .dash-card .dash-btn:hover .fa {

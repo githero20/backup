@@ -17,6 +17,7 @@ const DashboardIndex = (props) => {
 
     const {state,accountProps,...otherProps} = useDashboardLogic(reload);
 
+    console.log('other props',otherProps);
     return (
         <React.Fragment>
             <div className="vertical-layout vertical-menu-modern

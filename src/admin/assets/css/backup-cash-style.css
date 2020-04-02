@@ -131,6 +131,13 @@ section {
     border: 2px solid red;
 }
 
+.btn {
+    font-size: 1rem;
+    line-height: 1rem;
+    min-width: 150px;
+    height: 40px;
+}
+
 .header-background {
     /*background-image: url("../../app-assets/images/svg/header-bg.svg");*/
     background-size: 100%;
@@ -1149,10 +1156,7 @@ footer-logo {
     }
 
 
-    /*.btn {*/
-    /*    padding: 1rem 2rem;*/
-    /*    font-size: 1rem;*/
-    /*}*/
+
     .partner-img {
         margin-bottom: 3rem;
         width: 50%;
@@ -1762,7 +1766,9 @@ footer-logo {
     }
 }
 
-@media all and (min-width: 900px) and (max-width: 1200px) {
+@media all and (min-width: 900px)
+/*and (max-width: 1200px) */
+{
 
 
     /*header*/
@@ -1880,10 +1886,6 @@ footer-logo {
     .btn-padding {
         padding-left: 2rem;
         padding-right: 2rem;
-    }
-
-    .btn {
-        font-size: 1rem;
     }
 
     .section-details-paragraph {

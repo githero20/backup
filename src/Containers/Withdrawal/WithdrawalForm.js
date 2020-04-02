@@ -7,10 +7,10 @@ import {
     makeWithdrawal
 } from "../../actions/WithdrawalAction";
 import {withToastManager} from "react-toast-notifications";
+import SimpleReactValidator from "simple-react-validator";
 import {getUserBanks} from "../../actions/BankAction";
 import moment from "moment";
 import WithdrawalSettingsModal from "./Settings/WithdrawalSettingsModal";
-import SimpleReactValidator from "simple-react-validator";
 import {_handleFormChange} from "../../utils";
 import ButtonLoader from "../../Components/Auth/Buttonloader/ButtonLoader";
 import {request} from "../../ApiUtils/ApiUtils";
@@ -32,6 +32,18 @@ import AddPinModal from "../../Components/Dashboard/AddPinModal/AddPinModal";
 import {MINIMUM_WITHDRAWAL} from "../../Components/Auth/HOC/authcontroller";
 
 class WithdrawalForm extends Component {
+
+    defaultForm = {
+        penalty_from: "amount_in_central_vault",
+        withdraw_amount: "",
+        bank_account: "",
+        source: "central_vault",
+        pin_one: '',
+        pin_two: '',
+        pin_three: '',
+        pin_four: '',
+        withdrawal_pin: ''
+    };
 
     constructor(props) {
         super(props);
@@ -80,7 +92,6 @@ class WithdrawalForm extends Component {
         this.getUserBanks();
     }
 
-
     componentDidMount() {
         this.getBalance();
     }
@@ -111,7 +122,6 @@ class WithdrawalForm extends Component {
         }
     };
 
-
     getWithdrawalSettings() {
         // e.preventDefault();
         getWithdrawalSettings((status, payload) => {
@@ -139,7 +149,6 @@ class WithdrawalForm extends Component {
         });
     }
 
-
     getWithdrawalPenalty(callback) {
         // e.preventDefault();
         getWithdrawalPenalty((status, payload) => {
@@ -165,7 +174,6 @@ class WithdrawalForm extends Component {
             }
         });
     }
-
 
     showWithdrawalSettings() {
         this.setState({showWithdrawalSetting: true})
@@ -328,24 +336,10 @@ class WithdrawalForm extends Component {
         makeWithdrawal(form, (status, payload) => {
             this.setState({loading: false});
             if (status) {
-                this.props.toastManager.add("Withdrawal Successful", {
-                    appearance: "success",
-                    autoDismiss: true,
-                    autoDismissTimeout: 5000
-                });
+                toastMessage("Withdrawal Successful", "success", this);
                 swal("Withdrawal", "Withdrawal Successful!", "success", {button: false, timer: 3000});
-                const form = {
-                    penalty_from: "amount_in_central_vault",
-                    withdraw_amount: "",
-                    bank_account: "",
-                    source: "central_vault",
-                    pin_one: '',
-                    pin_two: '',
-                    pin_three: '',
-                    pin_four: '',
-                    withdrawal_pin: ''
-                };
-                this.setState({form});
+
+                this.setState({form: {...this.defaultForm}});
                 this.props.updateWithdrawalList();
             } else {
                 this.toastMessage(payload, 'error')
@@ -461,10 +455,9 @@ class WithdrawalForm extends Component {
                                                                     <div className="col-12">
                                                                         <div className="media d-flex pb-2 pb-md-5">
                                                                             <div className="align-self-center">
-                                                                                <img className="blue-card-icon"
-                                                                                     src={totalBalanceIcon}/>
+                                                                                <img className="blue-card-icon" src={totalBalanceIcon}/>
                                                                             </div>
-                                                                            <div className="media-body text-left pt-1 ">
+                                                                            <div className="media-body text-left pt-1">
                                                                                 <h3 className=" ">
                                                                                     <strong
                                                                                         className="blue-card-price fs-1-5 ml-1 mr-2">
@@ -490,7 +483,8 @@ class WithdrawalForm extends Component {
                                                         {/*<button className={'btn btn-withdraw round mb-2 '}>See withdrawal Days</button>*/}
                                                         <p className={'text-gray'}>Next free withdrawal day</p>
                                                         <h4 className={'text-black'}>{
-                                                            this.state.penaltyFreeDay ? "Today" : (this.state.nextDate != '' ? moment(this.state.nextDate).format('dddd, MMMM Do') : "Retrieving Date...")
+                                                            this.state.penaltyFreeDay ? "Today" : (this.state.nextDate != '' ?
+                                                                moment(this.state.nextDate).format('dddd, MMMM Do') : "Retrieving Date...")
                                                         }</h4>
                                                     </div>
                                                 </div>
@@ -500,8 +494,8 @@ class WithdrawalForm extends Component {
                                                     <h3 className='font-weight-bold'>Withdrawal Form</h3>
                                                     {/*<hr/>*/}
                                                 </div>
-                                                <div className="col-lg-12">
-                                                    <div className="form-group">
+                                                <div className="col-lg-12 mb-3">
+                                                    <div className="form-group mb-0">
                                                         {/*<label htmlFor="annualincome">Withdrawal Form</label>*/}
                                                         <select name="bank_account"
                                                                 onChange={this.handleChange}
@@ -529,9 +523,8 @@ class WithdrawalForm extends Component {
                                                     {this.validator.message('bank_account', this.state.form.bank_account, 'required')}
                                                 </div>
 
-
-                                                <div className="col-md-12">
-                                                    <div className="form-group">
+                                                <div className="col-md-12 mb-3">
+                                                    <div className="form-group mb-0">
                                                         <label htmlFor="name">How much do you want to withdraw
                                                             today?</label>
                                                         <div className='amount-display round text-white px-1 mb-1'>
@@ -583,8 +576,8 @@ class WithdrawalForm extends Component {
                                                     <div className="form-group">
                                                         <label>Enter Withdrawal Pin</label>
                                                         {this.state.pinErr ?
-                                                            <p><span
-                                                                className='srv-validation-message'>Your pin must be four digits</span>
+                                                            <p>
+                                                                <span className='srv-validation-message'>Your pin must be four digits</span>
                                                             </p>
                                                             : null}
                                                         <div className="row">
@@ -596,7 +589,6 @@ class WithdrawalForm extends Component {
                                                                        onKeyUp={this.validateInput}
                                                                        onKeyDown={this.validateInput}
                                                                 />
-
                                                             </div>
                                                             <div className="col-3">
                                                                 <input id="pin_two" type="password" name={'pin_two'}
@@ -606,7 +598,6 @@ class WithdrawalForm extends Component {
                                                                        onKeyUp={this.validateInput}
                                                                        onKeyDown={this.validateInput}
                                                                 />
-
                                                             </div>
                                                             <div className="col-3">
                                                                 <input id="pin_three" type="password" name={'pin_three'}
@@ -616,7 +607,6 @@ class WithdrawalForm extends Component {
                                                                        onKeyUp={this.validateInput}
                                                                        onKeyDown={this.validateInput}
                                                                 />
-
                                                             </div>
                                                             <div className="col-3">
                                                                 <input id="pin_four" type="password" name={'pin_four'}
@@ -639,7 +629,6 @@ class WithdrawalForm extends Component {
                                             <button type="submit" disabled={this.state.loading}
                                                     className="btn  btn-bg-shade-2 px-3 py-1 round pull-right">
                                                 {this.state.loading ? <ButtonLoader/> : "Withdraw"}
-
                                             </button>
                                         </div>
                                     </form>
@@ -649,7 +638,7 @@ class WithdrawalForm extends Component {
 
                     </Fragment>
                 </div>
-                <div className="col-lg-5 offset-lg-1 d-none d-md-block">
+                <div className="col-lg-5 offset-lg-1 d-none d-lg-block">
                     <div className="col-lg-12">
                         <h5>Backup Stash balance</h5>
                     </div>
@@ -675,7 +664,10 @@ class WithdrawalForm extends Component {
                         <div className='banner round '>
                             <p>Your next free withdrawal Date is </p>
                             <strong>{
-                                this.state.penaltyFreeDay ? "Today" : (this.state.nextDate != '' ? moment(this.state.nextDate).format('dddd, MMMM Do') : "Retrieving Date...")
+                                this.state.penaltyFreeDay ? "Today" :
+                                    (this.state.nextDate != '' ?
+                                        moment(this.state.nextDate).format('dddd, MMMM Do')
+                                        : "Retrieving Date...")
                             }</strong>
                             <p>You are using Backup Cash's Free WITHDRAWAL DAYS: </p>
                             <ul>

@@ -192,7 +192,7 @@ class Home extends Component {
                                 <div className=" pb-5 pb-md-0 height-100vh ">
                                     <div className="container px-lg-5">
                                         <div className="row mx-lg-5">
-                                            <div className="col-md-4 px-md-0">
+                                            <div className="col-md-4 px-md-1">
 
                                                 <div className="card-container text-center mb-xs-5">
                                                     <div className="pt-5 mb-5  mb-md-3 pt-md-3">
@@ -207,7 +207,7 @@ class Home extends Component {
 
                                                 </div>
                                             </div>
-                                            <div className="col-md-4 px-md-0">
+                                            <div className="col-md-4 px-md-1">
 
                                                 <div className="card-container text-center">
                                                     <div className="pt-5 mb-5 mb-md-3 pt-md-3">
@@ -222,7 +222,7 @@ class Home extends Component {
 
                                                 </div>
                                             </div>
-                                            <div className="col-md-4 px-md-0">
+                                            <div className="col-md-4 px-md-1">
                                                 <div className="card-container text-center">
                                                     <div className="pt-5 mb-5 mb-md-3 pt-md-3">
                                                         <button className="rounded-btn round-btn-dark-blue">3</button>
@@ -386,9 +386,9 @@ class Home extends Component {
                                                 <div className="carousel-inner">
                                                     <div className="carousel-item">
                                                         <div className="comment-box">
-                                                            <div className="thumbnail"><img className="user-image"
-                                                                                            src={CommentImage}
-                                                                                            alt="First slide"/></div>
+                                                            <div className="thumbnail">
+                                                                <img className="user-image" src={CommentImage} alt="First slide"/>
+                                                            </div>
 
                                                             <p>I was a bit skeptical about using Backup Cash given the
                                                                 large of
@@ -521,31 +521,25 @@ class Home extends Component {
 
                                             >
                                                 <div className="partner-img-container">
-                                                    <a href={'http://www.paystack.com'} rel={'noopener noreferrer'}
-                                                       target='_blank'><img className="partner-img " src={paystackImage}
-                                                                            alt="paystack"/></a>
+                                                    <a href={'http://www.paystack.com'} rel={'noopener noreferrer'} target='_blank'>
+                                                        <img className="partner-img " src={paystackImage} alt="paystack"/>
+                                                    </a>
 
                                                 </div>
                                                 <div className="partner-img-container">
                                                     <a href={'https://www.sfsnigeria.com/'} rel={'noopenner noreferrer'}
-                                                       target='_blank'><img className="partner-img-50 sfs-image"
-                                                                            src={sfsImage}
-                                                                            alt="sfs"/></a>
+                                                       target='_blank'>
+                                                        <img className="partner-img-50 sfs-image" src={sfsImage} alt="sfs"/>
+                                                    </a>
 
                                                 </div>
                                                 <div className="partner-img-container">
                                                     <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
-                                                       target='_blank'> <img className="partner-img-50 tm-30" src={tm30}
-                                                                             alt="aa"/></a>
+                                                       target='_blank'>
+                                                        <img className="partner-img-50 tm-30" src={tm30} alt="aa"/>
+                                                    </a>
 
                                                 </div>
-                                                {/*<div className="partner-img-container">*/}
-                                                {/*    <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}*/}
-                                                {/*       target='_blank'> <img className="partner-img-50 polaris"*/}
-                                                {/*                             src={sfsCredit} alt="sfs credit"/></a>*/}
-                                                {/*</div>*/}
-
-
                                             </ReactOwlCarousel>
                                         </div>
 

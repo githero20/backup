@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
-import Button from "react-bootstrap/Button";
 import SimpleReactValidator from "simple-react-validator";
 import {USERINFO} from "../../../Auth/HOC/authcontroller";
 import {withToastManager} from "react-toast-notifications";
@@ -21,6 +20,20 @@ import {BankCardLink} from "../../../../RouteLinks/RouteLinks";
 
 
 class BackUpGoalsForm extends Component {
+
+    defaultForm = {
+        start_date: undefined,
+        maturity_date: undefined,
+        title: "",
+        payment_auth: null,
+        frequency: 'daily',
+        hour_of_day: '12',
+        contribution: '',
+        amount: '',
+        goal_amount: '',
+        day_of_week: '2',
+        day_of_month: '1',
+    };
 
     constructor(props) {
         super(props);
@@ -131,12 +144,12 @@ class BackUpGoalsForm extends Component {
             if (valid) {
                 this.setState({loading: true});
                 createBackUpGoal(this.state.form, (status, payload) => {
-                    this.setState({loading: false});
+                    this.setState({loading: false,form:this.defaultForm});
                     if (status) {
-                        toastMessage("Backup Goal Saved.","success",this);
+                        toastMessage("Backup Goal Saved.", "success", this);
                         setTimeout(() => this.props.onHide(true), 2000);
                     } else {
-                        toastMessage( "An Error Occurred","error",this);
+                        toastMessage("An Error Occurred", "error", this);
                     }
                 });
             }
@@ -190,7 +203,7 @@ class BackUpGoalsForm extends Component {
         data.day_of_month = '1';
 
         this.setState({
-            form: data
+            form: this.defaultForm
         })
 
     };
@@ -277,7 +290,8 @@ class BackUpGoalsForm extends Component {
         const showDay = (
             <Form.Group as={Col} type="text">
                 <Form.Label>Day of the Week</Form.Label>
-                <Form.Control as="select" value={this.state.form.day_of_week} onChange={this.changeHandler} id="day_of_week" name="day_of_week">
+                <Form.Control as="select" value={this.state.form.day_of_week} onChange={this.changeHandler}
+                              id="day_of_week" name="day_of_week">
                     <option value={'2'}>Mon</option>
                     <option value={'3'}>Tue</option>
                     <option value={'4'}>Wed</option>
@@ -361,12 +375,13 @@ class BackUpGoalsForm extends Component {
                                 <option value={''}>Select Card</option>
                                 <option value={'add'}>Add Card</option>
                                 {
-                                    this.state.userCards && this.state.userCards.length?
+                                    this.state.userCards && this.state.userCards.length ?
                                         this.state.userCards.map((data) => {
                                             if (data.channel == "card")
                                                 return (
                                                     <option value={data.id} key={data.id}>
-                                                        [{data.card_type.toUpperCase()} **** **** **** {data.last4}] [exp: {data.exp_month}/{data.exp_year}]
+                                                        [{data.card_type.toUpperCase()} **** **** **** {data.last4}]
+                                                        [exp: {data.exp_month}/{data.exp_year}]
                                                     </option>
                                                 );
                                         })
@@ -413,10 +428,10 @@ class BackUpGoalsForm extends Component {
                         {this.state.showMonth ? showMonth : null}
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-end mt-2'}>
-                        <Button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading}
+                        <button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading}
                                 type="submit">
                             {this.state.loading ? <ButtonLoader/> : <span>Start</span>}
-                        </Button>
+                        </button>
                     </Form.Row>
                 </Form>
             </React.Fragment>
@@ -424,7 +439,7 @@ class BackUpGoalsForm extends Component {
     }
 }
 
-export const getHourOptions = ( ) => {
+export const getHourOptions = () => {
     let hour = moment().hour();
 };
 

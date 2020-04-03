@@ -815,7 +815,7 @@ textarea.form-control{
 }
 .btn-custom-blue {
     color: #fff !Important;
-    border: 1px solid transparent;
+    border: 1px solid #2784F4 !important;
     background-color: #2784F4 !Important;
     padding: 0 30px;
     min-width: 180px;
@@ -842,6 +842,7 @@ textarea.form-control{
 
 .btn-custom-blue:hover {
     color: white !important;
+    border: 1px solid #2784F4 !important;
     background-color: #2784F4 !Important;
     transform: translateY(-.1rem);
     box-shadow: 0px 5px 5px rgba(23, 96, 171, 0.3);
@@ -853,7 +854,7 @@ textarea.form-control{
     border-color: #2784F4 !Important;
     transition: all .5s ease-in-out;
 }
-.btn-blue-btn:hover {
+.btn-blue-btn:hover,.btn-blue-btn:active {
     color: white !important;
     background-color: #1160f4 !Important;
     border-color: #1160F4 !Important;

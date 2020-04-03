@@ -13,6 +13,18 @@ import {getAdminInterest} from "../../../../RouteLinks/RouteLinks";
 
 class LockedSavingForm extends Component {
 
+    defaultForm = {
+        title: "",
+        end_date: "",
+        amount: "",
+        interest: 0.0,
+        days: 0,
+        source: 'central_vault',
+        interestRate: 0.0,
+        accepted: false,
+        adminInterest: 0
+    };
+
     constructor(props) {
         super(props);
         const {toastManager} = this.props;
@@ -60,7 +72,7 @@ class LockedSavingForm extends Component {
             formData.interest = this.state.form.interestRate;
 
             createLockedSavings(formData, (status, payload) => {
-                this.setState({loading: false});
+                this.setState({loading: false, form: this.defaultForm});
                 if (status) {
                     this.props.toastManager.add("Locked Savings Created", {
                         appearance: 'success',
@@ -101,13 +113,13 @@ class LockedSavingForm extends Component {
 
     handleAmountInput(e) {
         const value = e.target.value;
-        if (parseFloat(value).toFixed(2) >= 0.00 ) {
+        if (parseFloat(value).toFixed(2) >= 0.00) {
             const rawValue = parseFloat(value.trim().replace(',', '').replace('₦', ''));
             let form = {...this.state.form};
             form.amount = rawValue;
             form.interestRate = ((form.interest / 100) * rawValue).toFixed(2);
             this.setState({form, err: ''});
-        }else {
+        } else {
             this.setState({err: 'Please Input the Amount you want to Contribute'})
         }
     }
@@ -137,6 +149,7 @@ class LockedSavingForm extends Component {
     }
 
     render() {
+        const {form, loading} = this.state;
         return (
             <React.Fragment>
                 <Form onSubmit={this.validateForm}>
@@ -147,9 +160,9 @@ class LockedSavingForm extends Component {
                                           name="title"
                                           placeholder="e.g Car Savings"
                                           onChange={value => _handleFormChange("title", value, this)}
-                                          value={this.state.form.title}
+                                          value={form.title}
                             />
-                            {this.validator.message("locked savings name", this.state.form.title, "required")}
+                            {this.validator.message("locked savings name", form.title, "required")}
                         </Form.Group>
 
                         <Form.Group as={Col} sm={6} controlId="formGridEmail">
@@ -163,13 +176,13 @@ class LockedSavingForm extends Component {
                                 min={moment().add('30', 'days').format('YYYY-MM-DD')}
                                 max={moment().add('1', 'years').format('YYYY-MM-DD')}
                                 name="end_date"
-                                value={this.state.form.end_date}
+                                value={form.end_date}
                             />
                             <Form.Text className="text-muted">
                                 Pick the end Date when funds should be returned to your Backup Stash. You can lock money
                                 for at least 30 days.
                             </Form.Text>
-                            {this.validator.message("end Date", this.state.form.end_date, "required")}
+                            {this.validator.message("end Date", form.end_date, "required")}
                         </Form.Group>
                     </Form.Row>
 
@@ -178,17 +191,17 @@ class LockedSavingForm extends Component {
                         <Form.Group as={Col} sm={6} controlId="formGridCity">
                             <Form.Label className='d-block'>Capital Investment
                                 <span className='amount-display round float-right text-white px-1'>
-                                    ₦ {formatNumber(Number(this.state.form.amount).toFixed(2))}
+                                    ₦ {formatNumber(Number(form.amount).toFixed(2))}
                                 </span>
                             </Form.Label>
                             <Form.Control
                                 type="number"
                                 onChange={this.handleAmountInput}
-                                defaultValue={this.state.form.amount}
+                                value={form.amount}
                                 name="amount"
                             />
 
-                            {this.validator.message("capital investment", this.state.form.amount, "required")}
+                            {this.validator.message("capital investment", form.amount, "required")}
                             <Form.Text className="text-muted">
                                 Enter the amount that will be instantly removed from your Central Vault
                                 balance and locked away.
@@ -197,14 +210,13 @@ class LockedSavingForm extends Component {
                         <Form.Group as={Col} sm={6} controlId="formGridCity">
                             <Form.Label className='d-block'>Upfront Interest
                                 <span className='amount-display round float-right text-white px-1'>
-                                    ₦ {formatNumber(Number(this.state.form.interestRate).toFixed(2))}
+                                    ₦ {formatNumber(Number(form.interestRate).toFixed(2))}
                                 </span>
                             </Form.Label>
                             <Form.Control
                                 type="text"
                                 disabled={true}
-                                //                            (${this.state.form.adminInterest.toFixed(2)}% P.A)
-                                value={`₦ ${formatNumber(this.state.form.interestRate)} @ ${this.state.form.interest.toFixed(2)}% for ${this.state.form.days} days `}
+                                value={`₦ ${formatNumber(form.interestRate)} @ ${form.interest.toFixed(2)}% for ${form.days} days `}
                             />
                             <Form.Text className="text-muted">
                                 This upfront interest will be deposited in your Backup Stash and can be withdrawn
@@ -213,30 +225,31 @@ class LockedSavingForm extends Component {
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                        <Form.Group controlId="formBasicChecbox">
+                        <Form.Group>
                             <Form.Check
                                 type="checkbox"
-                                checked={this.state.form.accepted}
+                                checked={form.accepted}
                                 onChange={value => _handleFormChange("accepted", value, this)}
-                                label={<Form.Text>
-                                    I hereby confirm and approve this transaction, and I authorize SFS BackupCash to
-                                    LOCK ₦
-                                    <span>{formatNumber(this.state.form.amount)}</span> &nbsp; from my BackupCash
-                                    savings immediately
-                                    and return it in full on the date I set in the "End Date"
-                                    above. This transaction is IRREVERSIBLE.
-                                    <br/>
-                                    NB: Funds in "Locked Savings" cannot be accessed until end Date.
-                                    Locked Funds will be sent back to your Backup Stash on end Date.
-                                </Form.Text>}/>
-                            {this.validator.message("terms and condition", this.state.form.accepted, "accepted")}
-
+                                label={
+                                    <Form.Text>
+                                        I hereby confirm and approve this transaction, and I authorize SFS BackupCash to
+                                        LOCK ₦
+                                        <span>{formatNumber(form.amount)}</span> &nbsp; from my BackupCash
+                                        savings immediately
+                                        and return it in full on the date I set in the "End Date"
+                                        above. This transaction is IRREVERSIBLE.
+                                        <br/>
+                                        NB: Funds in "Locked Savings" cannot be accessed until end Date.
+                                        Locked Funds will be sent back to your Backup Stash on end Date.
+                                    </Form.Text>}
+                            />
+                            {this.validator.message("terms and condition", form.accepted, "accepted")}
                         </Form.Group>
                     </Form.Row>
                     <Form.Row className="d-flex justify-content-end  my-2">
                         <button className="round btn-custom-blue modal-btn"
-                                disabled={this.state.loading} type="submit">
-                            {this.state.loading ? <ButtonLoader/> : "Start Saving"}
+                                disabled={loading} type="submit">
+                            {loading ? <ButtonLoader/> : "Start Saving"}
                         </button>
                     </Form.Row>
 

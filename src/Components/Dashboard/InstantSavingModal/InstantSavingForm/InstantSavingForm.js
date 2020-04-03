@@ -150,13 +150,13 @@ class InstantSavingForm extends Component {
         this.setState({
             loading: false,
             disableButton: false,
+            form: this.defaultForm
         });
 
         if (state) {
             if (response.status === 200) {
                 toastMessage(`${JSON.stringify('You have successfully created an Instant Save')}`, 'success', this);
                 //hide modal
-                this.setState({form:this.defaultForm});
                 setTimeout(() => {
                     this.props.onHide(true);
                 }, 1000);
@@ -190,7 +190,6 @@ class InstantSavingForm extends Component {
     componentDidMount() {
         getCardsFromStorage(USERINFO, this);
     }
-
 
 
     render() {
@@ -227,7 +226,8 @@ class InstantSavingForm extends Component {
                                             this.state.userCards.map((data, index) => {
                                                 return (
                                                     <option value={data.id} key={data.id}>
-                                                        [{data.card_type.toUpperCase()} **** **** **** {data.last4}] [exp: {data.exp_month}/{data.exp_year}]
+                                                        [{data.card_type.toUpperCase()} **** **** **** {data.last4}]
+                                                        [exp: {data.exp_month}/{data.exp_year}]
                                                     </option>
                                                 );
                                             })
@@ -239,7 +239,8 @@ class InstantSavingForm extends Component {
                         </Col>
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
-                        <button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading} type="submit">
+                        <button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading}
+                                type="submit">
                             {this.state.loading ? <ButtonLoader/> : <span>Start Saving</span>}
                         </button>
                     </Form.Row>

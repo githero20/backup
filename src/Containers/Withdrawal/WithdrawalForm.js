@@ -334,12 +334,11 @@ class WithdrawalForm extends Component {
         const {form} = this.state;
         this.setState({loading: true});
         makeWithdrawal(form, (status, payload) => {
-            this.setState({loading: false});
+            this.setState({loading: false,form:this.defaultForm});
             if (status) {
                 toastMessage("Withdrawal Successful", "success", this);
                 swal("Withdrawal", "Withdrawal Successful!", "success", {button: false, timer: 3000});
 
-                this.setState({form: {...this.defaultForm}});
                 this.props.updateWithdrawalList();
             } else {
                 this.toastMessage(payload, 'error')

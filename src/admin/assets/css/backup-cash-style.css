@@ -137,6 +137,12 @@ section {
     min-width: 150px;
     height: 40px;
 }
+.btn-sm, .btn-group-sm > .btn {
+    min-width: 50px;
+    line-height: .7rem;
+    font-size: .8rem;
+    height: 25px;
+}
 
 .header-background {
     /*background-image: url("../../app-assets/images/svg/header-bg.svg");*/

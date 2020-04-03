@@ -15,8 +15,8 @@ class InstantSavingForm extends Component {
 
 
     defaultForm = {
-        amount: null,
-        payment_auth: null,
+        amount: '',
+        payment_auth: '',
         source: 'quick',
     }
 
@@ -153,18 +153,16 @@ class InstantSavingForm extends Component {
             form: this.defaultForm
         });
 
-        if (state) {
-            if (response.status === 200) {
-                toastMessage(`${JSON.stringify('You have successfully created an Instant Save')}`, 'success', this);
-                //hide modal
-                setTimeout(() => {
-                    this.props.onHide(true);
-                }, 1000);
-            }
-        } else {
-            if (response) {
-                toastMessage(`${JSON.stringify(response.data.message)}`, 'error', this);
-            }
+        if (!state && response) {
+            toastMessage(`${JSON.stringify(response.data.message)}`, 'error', this);
+        }
+
+        if (state && response) {
+            toastMessage('You have successfully created an Instant Save',
+                'success', this);
+            setTimeout(() => {
+                this.props.onHide(true);
+            }, 1000);
         }
     };
 
@@ -201,13 +199,13 @@ class InstantSavingForm extends Component {
                     <Form.Row>
                         <Col>
                             <Form.Group className={'mt-md-1 mb-md-3'}>
-                                <Form.Label className='d-block'>Amount
-                                    <span className='amount-display round float-right text-white px-1'>
+                                <Form.Label className='d-block'>
+                                    Amount <span className='amount-display round float-right text-white px-1'>
                                     ₦ {formatNumber(Number(amount).toFixed(2))}
                                     </span>
                                 </Form.Label>
                                 <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}
-                                              defaultValue={amount} onChange={this.changeHandler}/>
+                                              value={amount} onChange={this.changeHandler}/>
                                 {this.validator.message('amount', amount, 'required|numeric')}
                             </Form.Group>
                         </Col>
@@ -216,7 +214,7 @@ class InstantSavingForm extends Component {
                         <Col className={'mt-md-1 mb-md-3'}>
                             <Form.Group>
                                 <Form.Label>Debit Card</Form.Label>
-                                <Form.Control as="select" onChange={this.changeHandler} defaultValue={payment_auth}
+                                <Form.Control as="select" onChange={this.changeHandler} value={payment_auth}
                                               id={'payment_auth'}
                                               name={'payment_auth'}>
                                     <option value={-1}>Select Card</option>

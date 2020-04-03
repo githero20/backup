@@ -546,7 +546,7 @@ class WithdrawalForm extends Component {
                                                     <div className="form-group">
                                                         <label>Where do you want to withdraw from?</label>
                                                         <select name="source" onChange={this.handleWithdrawFrom}
-                                                                defaultValue={this.state.form.source}
+                                                                value={this.state.form.source}
                                                                 className="form-control">
                                                             <option value="central_vault">Central Vault
                                                             </option>

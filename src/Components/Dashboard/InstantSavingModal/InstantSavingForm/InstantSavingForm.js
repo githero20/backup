@@ -14,6 +14,12 @@ import {_payWithPaystack} from "../../../../utils";
 class InstantSavingForm extends Component {
 
 
+    defaultForm = {
+        amount: null,
+        payment_auth: null,
+        source: 'quick',
+    }
+
     state = {
         form: {
             amount: null,
@@ -150,6 +156,7 @@ class InstantSavingForm extends Component {
             if (response.status === 200) {
                 toastMessage(`${JSON.stringify('You have successfully created an Instant Save')}`, 'success', this);
                 //hide modal
+                this.setState({form:this.defaultForm});
                 setTimeout(() => {
                     this.props.onHide(true);
                 }, 1000);

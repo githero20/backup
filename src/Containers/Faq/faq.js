@@ -9,7 +9,6 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import yellowIcon from "../../admin/app-assets/images/svg/icon-yellow.svg";
 import {hideLoader} from "../../Helpers/Helper";
 import Navigation from "../Home/Navigation";
-import {checkUser} from "../Home/Home";
 
 class Faq extends Component {
 
@@ -33,13 +32,13 @@ class Faq extends Component {
 
     componentDidMount() {
         hideLoader();
-        console.log('this faq props',this.props);
+        console.log('this faq props', this.props);
         // const isLoggedIn = checkUser();
         // this.setState({isLoggedIn});
     }
 
     render() {
-        const {isLoggedIn} = this.props;
+        const {isLoggedIn, history} = this.props;
         return (
             <React.Fragment>
                 <div className={'homeBody'}>
@@ -59,13 +58,13 @@ class Faq extends Component {
                                         </div>
                                         <h2 className="section-details-header text-center text-md-left mb-md-2">
                                             Frequently Asked Questions.</h2>
-                                        <p className='mb-3 mt-3 mt-md-0'>Backup Cash is a savings platform designed to
-                                            help you encourage a disciplined
-                                            financial lifestyle by automating your savings on daily, weekly or monthly
-                                            basis. Backup Cash is encrypted with bank grade level security that makes
-                                            saving quick,
-                                            simple, flexible and convenient.
-                                        </p>
+                                        {/*<p className='mb-3 mt-3 mt-md-0'>Backup Cash is a savings platform designed to*/}
+                                        {/*    help you encourage a disciplined*/}
+                                        {/*    financial lifestyle by automating your savings on daily, weekly or monthly*/}
+                                        {/*    basis. Backup Cash is encrypted with bank grade level security that makes*/}
+                                        {/*    saving quick,*/}
+                                        {/*    simple, flexible and convenient.*/}
+                                        {/*</p>*/}
                                     </div>
                                 </div>
 
@@ -80,7 +79,7 @@ class Faq extends Component {
                                                     <button className="btn btn-link" data-toggle="collapse"
                                                             data-target="#collapseOne" aria-expanded="true"
                                                             aria-controls="collapseOne">
-                                                        How do I start saving on Backup Cash?
+                                                        What is Backup Cash?
                                                     </button>
                                                 </h5>
                                             </div>
@@ -88,12 +87,10 @@ class Faq extends Component {
                                             <div id="collapseOne" className="collapse show" aria-labelledby="headingOne"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Visit backupcash.com to create an account.<br/>
-                                                    - Activate your account by making your first savings deposit. You
-                                                    can use a MasterCard, Visa or Verve from any bank in Nigeria.<br/>
-                                                    - Set your withdrawal account – This is the account we well debit
-                                                    funds from.<br/>
-                                                    - Then set up your savings plan.<br/>
+                                                    Backup Cash is a financial tool that allows individuals to save and
+                                                    earn upto 11% interest on their savings. The goal is to encourage a
+                                                    disciplined financial lifestyle using any of our savings options. It
+                                                    is easy to use, convenient and equally flexible.
                                                 </div>
                                             </div>
                                         </div>
@@ -104,16 +101,19 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseTwo" aria-expanded="false"
                                                             aria-controls="collapseTwo">
-                                                        Does Backup Cash charge me any fees?
+                                                        Why should I save with Backup Cash?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - No, It's completely FREE. There are no charges for transferring
-                                                    money to your Backup Cash account.
-                                                    <br/>
+                                                    At Backup Cash, we have a team of investment experts who can help
+                                                    you plan your financial goals and together, decide what savings
+                                                    option works best for you. Our interest rate is not affected by the
+                                                    workings of the money market. Which means that it is at the rate
+                                                    that we tell you. Above all, we have amazing value added services
+                                                    that our savers get to enjoy by saving on the platform.
                                                 </div>
                                             </div>
                                         </div>
@@ -125,19 +125,44 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseThree" aria-expanded="false"
                                                             aria-controls="collapseThree">
-                                                        Are my Card details Safe?
+                                                        What savings options are best for me?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseThree" className="collapse" aria-labelledby="headingThree"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Your security is our priority.<br/>
-                                                    - Your card details are extremely safe as they are never stored on
-                                                    Backup Cash.<br/>
-                                                    - We work with a PCIDSS-compliant payment
-                                                    processor,<strong>Paystack</strong> to handle your card transactions
-                                                    and details.<br/>
+                                                    <ul>
+                                                        <li>
+                                                            We recommend <b>instant save</b> for people who wish to make
+                                                            a one
+                                                            time deposit to their account. This is common for people who
+                                                            do not have a steady income, business owners, freelancers,
+                                                            students. This is equally a great option if you are looking
+                                                            at short term investment opportunities. You can access this
+                                                            anytime.
+                                                        </li>
+                                                        <li>
+                                                            For salary earners, we recommend <b>steady save</b>. The
+                                                            best way
+                                                            to use this will be to automate the savings according to how
+                                                            you earn. It can be daily, weekly or monthly. If you wish to
+                                                            change the automated amount, you can do so.
+                                                        </li>
+                                                        <li>
+                                                            For long term investments, we recommend <b>locked
+                                                            savings</b>. This
+                                                            is for those who want to watch their money grow for a longer
+                                                            period. It is also a medium to ensure that on no account do
+                                                            you withdraw the money until the maturity day when you can
+                                                            choose to withdraw or relock.
+                                                        </li>
+                                                        <li>
+                                                            If you wish to save towards a specific project, we recommend
+                                                            a
+                                                            <b>backup goal</b>.
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -148,18 +173,14 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseFour" aria-expanded="false"
                                                             aria-controls="collapseFour">
-                                                        What happens if I miss some days, weeks or months on my savings
-                                                        plan?
+                                                        Can I pause my steady save?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseFour" className="collapse" aria-labelledby="headingFour"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Nothing happens when you miss any day, week or month, there will
-                                                    be no penalties.<br/>
-                                                    - The “Instant save” option is available for you to manually make up
-                                                    for any lost day, week or month as you please.<br/>
+                                                    Yes, you can. This can only be done via our website.
                                                 </div>
                                             </div>
                                         </div>
@@ -170,17 +191,17 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseFive" aria-expanded="false"
                                                             aria-controls="collapseFive">
-                                                        Can I pause and continue saving anytime?
+                                                        What if I am a bot user and wish to log in via the web. How do I
+                                                        access that?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseFive" className="collapse" aria-labelledby="headingFive"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Yes, you can, it is up to you to pause or continue the automatic
-                                                    saving any time without any charges.<br/>
-                                                    - Just log in and click on “Autosave” and then click on “Pause” or
-                                                    "Turn Off”.<br/>
+                                                    Click <a
+                                                    href="https://mybackupcash.com/bot/create-password">here</a> to
+                                                    enter the registered WhatsApp number you used to open the account.
                                                 </div>
                                             </div>
                                         </div>
@@ -191,21 +212,16 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseSix" aria-expanded="false"
                                                             aria-controls="collapseSix">
-                                                        What is Instant save and how does it work?
+                                                        Can I unlock my locked savings?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseSix" className="collapse" aria-labelledby="headingSix"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - The “Instant save” feature enables you to add more funds to your
-                                                    savings manually whenever you want.<br/>
-                                                    - After the first savings payment of ₦500 using your registered
-                                                    debit card, you have the option of saving any amount you wish to
-                                                    deposit.<br/>
-                                                    - You can add up to ₦500,000 at once with this option. However, you
-                                                    can add this multiple times in a single day. For example, if you
-                                                    want to add ₦1,000,000.00 you need to add ₦500,000.00 twice.<br/>
+                                                    You cannot unlock your locked savings. This is because you are paid
+                                                    an upfront interest. As such, you need to wait for the maturity
+                                                    date.
                                                 </div>
                                             </div>
                                         </div>
@@ -216,20 +232,15 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseSix0" aria-expanded="false"
                                                             aria-controls="collapseSix0">
-                                                        What is Steady Save?
+                                                        Can I add money to my locked savings?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseSix0" className="collapse" aria-labelledby="headingSix0"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - “Steady save” allows you to reach your goal by helping you save
-                                                    automatically.<br/>
-                                                    - You have the option of setting a specific amount that is to be
-                                                    deducted from your debit card on a daily, weekly or monthly basis.
-                                                    <br/>
-                                                    - You can also choose what time of the day you want the deductions
-                                                    made and the date you want to start.<br/>
+                                                    You can create a new locked savings but cannot add to the existing
+                                                    locked amount.
                                                 </div>
                                             </div>
                                         </div>
@@ -240,20 +251,16 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseSeven" aria-expanded="false"
                                                             aria-controls="collapseSeven">
-                                                        How much can I Start with?
+                                                        What happens to the money in my locked savings upon maturity?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseSeven" className="collapse" aria-labelledby="headingSeven"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - To get your account activated, you can save a minimum of ₦500.
-                                                    <br/>
-                                                    - To set up your savings plan, you can save a minimum of ₦500 daily,
-                                                    weekly or monthly.<br/>
-                                                    - When using the “InstantSave” option which allows you add more
-                                                    funds to your savings anytime, you can add up to ₦500,000 per
-                                                    transaction.<br/>
+                                                    Upon maturity, the money goes to your backup stash. From your Backup
+                                                    Stash, you can either withdraw the money, send it to your central
+                                                    vault or lock the money again.
                                                 </div>
                                             </div>
                                         </div>
@@ -265,22 +272,15 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseEight" aria-expanded="false"
                                                             aria-controls="collapseEight">
-                                                        How safe is Backup Cash?
+                                                        How much can I save on Backup Cash?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseEight" className="collapse" aria-labelledby="headingEight"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Backup Cash is encrypted with a high level of security.<br/>
-                                                    - All financial information is encrypted and stored to PCI DSS Level
-                                                    1 compliance standards.<br/>
-                                                    - PCI DSS Level 1 compliance is a set of rules stated by credit card
-                                                    companies and audited by an independent third party.<br/>
-                                                    - It is one of the highest possible rating in the electronic payment
-                                                    processing industry.<br/>
-                                                    - Additionally, all transmission within our site is via an encrypted
-                                                    256-bit HTTPS SSL connection.<br/>
+                                                    The minimum investment on Backup Cash is N500 and there is no
+                                                    maximum limit.
                                                 </div>
                                             </div>
                                         </div>
@@ -292,7 +292,7 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseEight0" aria-expanded="false"
                                                             aria-controls="collapseEight0">
-                                                        Are you licensed by SEC (Securities and Exchanges Commission)?
+                                                        How can I save on Backup Cash?
                                                     </button>
                                                 </h5>
                                             </div>
@@ -300,7 +300,21 @@ class Faq extends Component {
                                                  aria-labelledby="headingEight0"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - We are backed by the license of SFS Capital.<br/>
+                                                    To save, you have 3 options;
+                                                    <ul>
+                                                        <li>
+                                                            The website which is <a
+                                                            href="http://www.mybackupcash.com">www.mybackupcash.com</a>
+                                                        </li>
+                                                        <li>
+                                                            The app which is available on ios and playstore
+                                                        </li>
+                                                        <li>
+                                                            The whatsapp bot which you can access here
+                                                        </li>
+                                                    </ul>
+                                                    Once you have signed up on any of these channels, kindly add the ATM
+                                                    card of the bank account you wish to deduct the savings from.
                                                 </div>
                                             </div>
                                         </div>
@@ -312,20 +326,17 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseNine" aria-expanded="false"
                                                             aria-controls="collapseNine">
-                                                        Are savings on my account done automatically?
+                                                        Why do I need to add my bank ATM card?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseNine" className="collapse" aria-labelledby="headingNine"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Yes, savings are done automatically, and you are not required to
-                                                    login every time you want to save except when you want to use the
-                                                    “Instant save” option.<br/>
-                                                    - All transactions on your debit card will be visible in your
-                                                    dashboard.<br/>
-                                                    - We will send an email receipt to you every single time you save
-                                                    with your debit card and your bank will also send you an alert.<br/>
+                                                    This is the medium through which you can deposit money into your
+                                                    Backup Cash account. We do not initiate any transaction on your card
+                                                    that you do not authorize as the card is not exactly stored on our
+                                                    system. We use Paystack to carry out all our transactions.
                                                 </div>
                                             </div>
                                         </div>
@@ -337,24 +348,16 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseTen" aria-expanded="false"
                                                             aria-controls="collapseTen">
-                                                        What happens if I don't have funds in my bank
-                                                        account/debit card?
+                                                        Why do I need to set a withdrawal pin?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseTen" className="collapse" aria-labelledby="headingTen"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - You won’t be able to automatically save for that day, week or
-                                                    month.<br/>
-                                                    - We can only help you save when you have funds in your
-                                                    account.<br/>
-                                                    - However, you have options of using <strong>Instant
-                                                    Save</strong> once your account is
-                                                    funded by saving manually or <strong>Steady Save</strong> that
-                                                    automatically debits your
-                                                    registered account towards your targeted goal.
-                                                    <br/>
+                                                    The withdrawal pin is not the same as your ATM pin. It can be any 4
+                                                    digit that you can remember. This is used to make withdrawals from
+                                                    the system into your bank account.
                                                 </div>
                                             </div>
                                         </div>
@@ -366,25 +369,18 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseEleven" aria-expanded="false"
                                                             aria-controls="collapseEleven">
-                                                        What is Locked Savings?
+                                                        What if my bank card has a limit?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseEleven" className="collapse"
                                                  aria-labelledby="headingEleven" data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - “Locked Savings” is our short-term investment product that allows
-                                                    you earn up to 13% per annum. We typically encourage
-                                                    a minimum of 90days.<br/>
-                                                    - This acts as your sub account which allows you transfer funds
-                                                    from your “Central Vault” balance for a fixed period of time
-                                                    (you can choose between 10 and 1000 days) without having any
-                                                    access until maturity.<br/>
-                                                    - The “Locked Savings” feature is a step further in curbing
-                                                    your spending urge. We help you ensure your savings are kept
-                                                    to meet your personal goals and needs. “Locked savings” attracts
-                                                    an upfront interest payment into your central vault immediately
-                                                    you lock funds for a specified period.<br/>
+                                                    You can also make bank transfers to us. To ensure that you are
+                                                    making payment to the right channel, kindly contact our client
+                                                    support on <a href="tel:09087766679">09087766679</a> or send an
+                                                    email to
+                                                    <a href="mailto:help@mybackupcash.com">help@mybackupcash.com</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -396,17 +392,15 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseTwelve" aria-expanded="false"
                                                             aria-controls="collapseTwelve">
-                                                        Is Backup Cash Licensed?
+                                                        What makes you different from a traditional savings account?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseTwelve" className="collapse"
                                                  aria-labelledby="headingTwelve" data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Backup Cash is promoted by SFS Capital Nigeria Limited (SFS).
-                                                    SFS is a registered and regulated by Securities & Exchange
-                                                    Commission (SEC) to do Investment Management and has an Investment
-                                                    Management Rating of 'A'.
+                                                    At Backup Cash, we offer you an interest rate that most of the
+                                                    traditional savings platforms will not offer you.
                                                 </div>
                                             </div>
                                         </div>
@@ -418,20 +412,15 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseThirteen" aria-expanded="false"
                                                             aria-controls="collapseThirteen">
-                                                        Where is Backup Cash Invested?
+                                                        How do you get the interest that you pay on the savings?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseThirteen" className="collapse"
                                                  aria-labelledby="headingThirteen" data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Backup Cash is investment primarily in the 'AA' rated SFS
-                                                    Fixed Income Fund which is Invested mainly in CBN Treasury Bills
-                                                    and FGN Bonds.<br/>
-                                                    - SFS Fixed Income Fund is also listed on the Nigerian Stock
-                                                    Exchange and has a 'AAA' rated Custodian to hold its investments
-                                                    and a SEC regulated Trustee to monitor compliance and investment
-                                                    decisions.<br/>
+                                                    All funds are invested into the SFS Fixed income fund, an AA rated
+                                                    fund that is regulated by SEC and listed on FMDQ.
                                                 </div>
                                             </div>
                                         </div>
@@ -443,19 +432,17 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseFourteen" aria-expanded="false"
                                                             aria-controls="collapseFourteen">
-                                                        Can I effect a Bank Transfer to Backup Cash?
+                                                        How do I calculate my interest?
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="collapseFourteen" className="collapse"
                                                  aria-labelledby="headingFourteen" data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Yes you can effect a Bank transfer to:<br/>
-                                                    - Bank Name: Stanbic IBTC Bank:<br/>
-                                                    - Account Name: SFS BACKUP CASH<br/>
-                                                    - Account Number: 0032263465<br/>
-                                                    - Please ensure you quote your registered Mobile Number
-                                                    in full in the reference section<br/>
+                                                    For all other savings options that are in your central vault, you
+                                                    get 8% per annum and for locked savings, you get 11% per annum. To
+                                                    calculate what you get every month, simply divide the percentage by
+                                                    12. For locked savings, we have an inbuilt calculator.
                                                 </div>
                                             </div>
                                         </div>
@@ -467,7 +454,7 @@ class Faq extends Component {
                                                     <button className="btn btn-link collapsed" data-toggle="collapse"
                                                             data-target="#collapseSixteen" aria-expanded="false"
                                                             aria-controls="collapseSixteen">
-                                                        Can I effect Payments and withdrawals via USSD?
+                                                        How can you guarantee the security of my funds?
                                                     </button>
                                                 </h5>
                                             </div>
@@ -475,9 +462,302 @@ class Faq extends Component {
                                                  aria-labelledby="headingSixteen"
                                                  data-parent="#accordion">
                                                 <div className="card-body">
-                                                    - Dial *372*Amount# to Invest.<br/>
-                                                    - Dail *372*1*Amount# to withdraw.<br/>
-                                                    - Always use your registered mobile number.<br/>
+                                                    Backup Cash is backed by SFS Capital and ensures the security of all
+                                                    funds on the platform. It is registered and its activities are
+                                                    regulated by the Security and Exchange Commission (SEC).
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="card">
+                                            <div className="card-header" id="headingSeventeen">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'> </i></span>
+                                                    <button className="btn btn-link collapsed" data-toggle="collapse"
+                                                            data-target="#collapseSeventeen" aria-expanded="false"
+                                                            aria-controls="collapseSeventeen">
+                                                        Can I withdraw my savings at any time?
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseSeventeen" className="collapse"
+                                                 aria-labelledby="headingSeventeen"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    Yes, you can make withdrawals at any time so long as you have
+                                                    exceeded the holding period on our platform. However, there is a
+                                                    penalty fee if you wish to withdraw outside of your free withdrawal
+                                                    dates. You have 4 free withdrawals in a year; one every quarter.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="card">
+                                            <div className="card-header" id="headingEighteen">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseEighteen"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseEighteen">
+                                                        What are the Backup Cash default withdrawal dates?
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseEighteen" className="collapse"
+                                                 aria-labelledby="headingEighteen"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    <ul>
+                                                        <li>
+                                                            Every 31st of March
+                                                        </li>
+                                                        <li>
+                                                            Every 30th of June
+                                                        </li>
+                                                        <li>
+                                                            Every 30th of September
+                                                        </li>
+                                                        <li>
+                                                            Every 31st of December
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="card">
+                                            <div className="card-header" id="headingNineteen">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseNineteen"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseNineteen">
+                                                        Can I change my withdrawal date?
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseNineteen" className="collapse"
+                                                 aria-labelledby="headingSixteen"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    Yes, you can change your withdrawal dates once in 12months. To do
+                                                    so, click on the withdrawal menu and click on change settings.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="card">
+                                            <div className="card-header" id="headingTwenty">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseTwenty"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseTwenty">
+                                                        What is the penalty fee?
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseTwenty" className="collapse"
+                                                 aria-labelledby="headingTwenty"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    The penalty fee is 5% of the money you wish to withdraw.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="card">
+                                            <div className="card-header" id="headingTwenty">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseTwenty"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseTwenty">
+                                                        What is a holding period?
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseTwenty" className="collapse"
+                                                 aria-labelledby="headingTwenty"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    At Backup Cash, we have a holding policy of 30days. This starts to
+                                                    count from the moment that you join the platform. It means that you
+                                                    cannot make any withdrawals for a period of 30days. This is to
+                                                    ensure that there is no abuse of the platform and that you can
+                                                    inculcate a healthy savings culture.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-header" id="headingTwenty">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseTwenty"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseTwenty">
+                                                        Is there a minimum account balance on Backup Cash?
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseTwenty" className="collapse"
+                                                 aria-labelledby="headingTwenty"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    Yes, you need a minimum of N500 on your Backup Cash account.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-header" id="headingTwenty">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseTwenty"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseTwenty">
+                                                        How about the referral program on Backup Cash?
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseTwenty" className="collapse"
+                                                 aria-labelledby="headingTwenty"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    On Backup Cash, we do have a referral program that allows users earn
+                                                    backup Cash points when they invite someone to signup on the
+                                                    platform using their unique code. These points can be converted in
+                                                    the future. To learn more, click
+                                                    <a target='_blank'
+                                                       href="https://medium.com/@mybackupcash/we-are-back-to-referral-points-60bfc41b65d4">here</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-header" id="headingTwenty">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseTwenty"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseTwenty">
+                                                        Can I have multiple accounts on Backup Cash?
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseTwenty" className="collapse"
+                                                 aria-labelledby="headingTwenty"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    No, each user is allowed to open just one account with the name that
+                                                    is associated with your BVN.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-header" id="headingTwenty">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseTwenty"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseTwenty">
+                                                        Why do you need my BVN?
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseTwenty" className="collapse"
+                                                 aria-labelledby="headingTwenty"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    We need your BVN for security purposes. First, to confirm your
+                                                    identity and to also guard against theft. This is a pre requisite
+                                                    for withdrawal.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="card">
+                                            <div className="card-header" id="headingTwenty">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseTwenty"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseTwenty">
+                                                        Does Backup Cash have an office?
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseTwenty" className="collapse"
+                                                 aria-labelledby="headingTwenty"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    Yes, we do. We are located at Plot 287 Ajose Adeogun, Victoria
+                                                    Island Lagos.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="card">
+                                            <div className="card-header" id="headingTwenty">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseTwenty"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseTwenty">
+                                                        I still have more questions
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseTwenty" className="collapse"
+                                                 aria-labelledby="headingTwenty"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    You can reach us on;
+                                                    +234 814 946 0946 or +234 908 776 6679
+                                                    Email: help@mybackupcash.com
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="card">
+                                            <div className="card-header" id="headingTwenty">
+                                                <h5 className="mb-0 d-flex align-items-center">
+                                                    <span><i className='fa fa-plus'/></span>
+                                                    <button className="btn btn-link collapsed"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseTwenty"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseTwenty">
+                                                        I am ready to open an account now
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseTwenty" className="collapse"
+                                                 aria-labelledby="headingTwenty"
+                                                 data-parent="#accordion">
+                                                <div className="card-body">
+                                                    <button onClick={() => history.push(SignUpLink)}
+                                                            className='btn blue-round-btn btn-custom-blue'>Sign up
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

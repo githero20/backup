@@ -137,7 +137,7 @@ class AppRouter extends Component {
                                                     <Route path={botCreatePasswordLink} render={props => <ForgotPassword bot={true} {...props} />}/>
                                                     <Route path={ResetPasswordLink} component={ResetPassword}/>
                                                     <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
-                                                    <Route path={FaqLink} render={() => <Faq isLoggedIn={user}/>}/>
+                                                    <Route path={FaqLink} render={(props) => <Faq {...props} isLoggedIn={user}/>}/>
                                                     <Route exact path={scoreboardLink} component={YearlyReview}/>
                                                     <Route exact path={sbDashboardLink} component={ScoreBoard}/>
                                                     <Route render={props => <ErrorPage errorName={'Error 404!'}

@@ -5,6 +5,7 @@ import {
     getUserInfoEndpoint,
     getUserPointsEndpoint,
     getUserRoleEndpoint,
+    postDirectSteadySaveEndpoint,
     storeFirstTimeLoginEndpoint,
     updateEmailEndpoint,
     updateUserProfileEndpoint
@@ -13,6 +14,20 @@ import axios from "axios";
 
 export const getUserData = callback => {
     _axios.get(getUserInfoEndpoint, {
+        headers: _getHeader()
+    })
+        .then(res => {
+            if (callback) {
+                callback(true, res.data.data);
+            }
+        })
+        .catch(err => {
+            callback(false, err.response);
+        })
+};
+
+export const postDirectSteadySave = (param, callback) => {
+    _axios.post(postDirectSteadySaveEndpoint, param, {
         headers: _getHeader()
     })
         .then(res => {
@@ -71,10 +86,10 @@ export const getUserPoints = callback => {
     _axios.get(getUserPointsEndpoint, {
         headers: _getHeader()
     }).then(res => {
-            if (callback) {
-                callback(true, res.data);
-            }
-        })
+        if (callback) {
+            callback(true, res.data);
+        }
+    })
         .catch(err => {
             callback(false, err.response);
         })

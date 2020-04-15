@@ -20,11 +20,9 @@ class ResetPassword extends Component {
     componentDidMount() {
         hideLoader();
         this.retreiveToken();
-
     }
 
     render() {
-
         return (
             <React.Fragment>
                     <section className="login-background login-section">

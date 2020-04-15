@@ -4,14 +4,13 @@ import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
 import backupCashLogo from "../../admin/app-assets/images/Logo.png";
 import errorIll from "../../images/svg/error-ill.svg";
-import errorBackArrow from "../../images/svg/error-back-arrow.svg";
 import {HomeLink} from "../../RouteLinks/RouteLinks";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 class ErrorPage extends Component {
     render() {
-        const {errorName, errorTitle, action} = this.props;
+        const {errorName, errorTitle} = this.props;
         return (
             <React.Fragment>
                 <div className='error-body'>

@@ -22,7 +22,7 @@ import {
     BankCardLink,
     botCreatePasswordLink,
     ChallengeLink,
-    DashboardLink,
+    DashboardLink, directSteadySave,
     EmailActivationLink,
     FaqLink,
     ForgotPasswordLink,
@@ -64,6 +64,7 @@ import PrivacyPolicy from "../Containers/privacy policy/PrivacyPolicy";
 import YearlyReview from "../Containers/YearlyReview/YearlyReview";
 import ScoreBoard from "../Containers/YearlyReview/ScoreBoard";
 import ErrorBoundary from "../Components/Auth/HOC/ErrorBoundary";
+import DirectSteadySave from "../Containers/DirectSteadySave/DirectSteadySave";
 
 
 class AppRouter extends Component {
@@ -140,6 +141,7 @@ class AppRouter extends Component {
                                                     <Route path={FaqLink} render={(props) => <Faq {...props} isLoggedIn={user}/>}/>
                                                     <Route exact path={scoreboardLink} component={YearlyReview}/>
                                                     <Route exact path={sbDashboardLink} component={ScoreBoard}/>
+                                                    <Route path={directSteadySave} component={DirectSteadySave}/>
                                                     <Route render={props => <ErrorPage errorName={'Error 404!'}
                                                                                        errorTitle={'Page Not Found'}
                                                                                        {...props}

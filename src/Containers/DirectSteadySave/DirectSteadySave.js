@@ -14,14 +14,14 @@ function DirectSteadySave(props) {
 
     const {toastManager} = props;
 
-    const [state, setState] = useState({isset: false,loading:false, error: false});
+    const [state, setState] = useState({isset: false, loading: false, error: false});
 
 
     const onCreateSteadySave = () => {
 
         const {userid, frequency} = props.match.params;
         setState({...state, loading: true});
-        postDirectSteadySave({user_id:userid, frequency}, (status, data) => {
+        postDirectSteadySave({user_id: userid, frequency}, (status, data) => {
             setState({...state, loading: false});
             if (!status) {
                 toastManager.add('Unable to create steady save at the moment!', {
@@ -50,7 +50,7 @@ function DirectSteadySave(props) {
 
                             <img className={'reveal'} alt="" src={successIcon} width="150px"/>
                             <HeaderText className={'reveal'}>Successful</HeaderText>
-                            <p className={'mb-4 reveal'}>Your steady save transaction was succesfull</p>
+                            <p className={'mb-4 reveal'}>Your steady save transaction was successful</p>
                             {/*<h6 className={'reveal'}>Amount Saved</h6>*/}
                             {/*<HeaderText className={'mb-4 reveal'}>N10,000.00</HeaderText>*/}
                             <button className={'button--blue reveal'} onClick={() => props.history.push(LoginLink)}>Go
@@ -64,11 +64,13 @@ function DirectSteadySave(props) {
                             {state.error ?
                                 <>
                                     <img className={'reveal'} alt="" src={backUpCashLogo} width="150px"/>
-                                    <HeaderText className={'reveal'}>Something Went Wrong!!</HeaderText>
-                                    <p className={'mb-4 reveal'}>We were unable to create your steady save</p>
-                                    <button className={'button--blue reveal'} onClick={() => onCreateSteadySave()}>
-                                        {state.loading ? 'loading...' : 'Try Again'}
-                                    </button>
+                                    <HeaderText className={'reveal'}>Oops!!</HeaderText>
+                                    <p className={'mb-4 px-lg-5 reveal'}>We were unable to create your steady save ,
+                                        it's either you have initiated this transaction earlier or
+                                        you already have a steady save </p>
+                                    {/*<button className={'button--blue reveal'} onClick={() => onCreateSteadySave()}>*/}
+                                    {/*    {state.loading ? 'loading...' : 'Try Again'}*/}
+                                    {/*</button>*/}
                                 </>
                                 :
                                 <>

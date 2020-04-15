@@ -98,6 +98,7 @@
 .section--light-yellow section{
     display: flex;
     align-items: center;
+    padding: 2rem;
     justify-content: center;
     flex-direction: column;
     text-align: center;
@@ -141,6 +142,5 @@
         background-color: white;
         width: 500px;
         min-height: 500px;
-        padding: 2rem;
     }
 }

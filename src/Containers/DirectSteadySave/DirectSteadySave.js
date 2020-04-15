@@ -11,14 +11,9 @@ import {withToastManager} from 'react-toast-notifications';
 DirectSteadySave.propTypes = {};
 
 function DirectSteadySave(props) {
-
-    const {toastManager} = props;
-
+    const {toastManager, match: {params: {frequency}}} = props;
     const [state, setState] = useState({isset: false, loading: false, error: false});
-
-
     const onCreateSteadySave = () => {
-
         const {userid, frequency} = props.match.params;
         setState({...state, loading: true});
         postDirectSteadySave({user_id: userid, frequency}, (status, data) => {
@@ -39,8 +34,9 @@ function DirectSteadySave(props) {
     useEffect(() => {
         onCreateSteadySave();
     }, []);
-    return (
 
+
+    return (
         <>
             {
                 state.isset ?
@@ -50,17 +46,19 @@ function DirectSteadySave(props) {
 
                             <img className={'reveal'} alt="" src={successIcon} width="150px"/>
                             <HeaderText className={'reveal'}>Successful</HeaderText>
-                            <p className={'mb-4 reveal'}>Your steady save transaction was successful</p>
-                            {/*<h6 className={'reveal'}>Amount Saved</h6>*/}
-                            {/*<HeaderText className={'mb-4 reveal'}>N10,000.00</HeaderText>*/}
-                            <button className={'button--blue reveal'} onClick={() => props.history.push(LoginLink)}>
+                            <p className={'mb-4 reveal'}>You have successfully created a Steady Savings.
+                                You can edit this at anytime by logging into your account.</p>
+                            <h6 className={'reveal'}>AMOUNT SAVED</h6>
+                            <HeaderText className={'mb-4 reveal text-capitalize'}>
+                                ₦500.00 ({frequency})</HeaderText>
+                            <button className={'button--blue reveal'}
+                                    onClick={() => props.history.push(LoginLink)}>
                                 Go to Login
                             </button>
                         </Section>
                     </Section> :
                     <Section className={'section--light-yellow'}>
                         <Section className={'reveal'}>
-
                             {state.error ?
                                 <>
                                     <img className={'reveal'} alt="" src={backUpCashLogo} width="150px"/>
@@ -77,10 +75,10 @@ function DirectSteadySave(props) {
                                 <>
                                     <img className={'reveal'} alt="" src={backUpCashLogo} width="150px"/>
                                     <div className="loading-dots">
-                                        <div className="loading-dots--dot"></div>
-                                        <div className="loading-dots--dot"></div>
-                                        <div className="loading-dots--dot"></div>
-                                        <div className="loading-dots--dot"></div>
+                                        <div className="loading-dots--dot"/>
+                                        <div className="loading-dots--dot"/>
+                                        <div className="loading-dots--dot"/>
+                                        <div className="loading-dots--dot"/>
                                     </div>
                                     <HeaderText className={'reveal'}> Creating Steady save ...</HeaderText>
                                     <p className={'reveal'}>Loading ...</p>

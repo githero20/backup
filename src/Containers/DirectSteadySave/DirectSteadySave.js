@@ -51,8 +51,8 @@ function DirectSteadySave(props) {
                             <img className={'reveal'} alt="" src={successIcon} width="150px"/>
                             <HeaderText className={'reveal'}>Successful</HeaderText>
                             <p className={'mb-4 reveal'}>Your steady save transaction was succesfull</p>
-                            <h6 className={'reveal'}>Amount Saved</h6>
-                            <HeaderText className={'mb-4 reveal'}>N10,000.00</HeaderText>
+                            {/*<h6 className={'reveal'}>Amount Saved</h6>*/}
+                            {/*<HeaderText className={'mb-4 reveal'}>N10,000.00</HeaderText>*/}
                             <button className={'button--blue reveal'} onClick={() => props.history.push(LoginLink)}>Go
                                 to Login
                             </button>

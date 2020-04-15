@@ -21,7 +21,7 @@ function DirectSteadySave(props) {
 
         const {userid, frequency} = props.match.params;
         setState({...state, loading: true});
-        postDirectSteadySave({userid, frequency}, (status, data) => {
+        postDirectSteadySave({user_id:userid, frequency}, (status, data) => {
             setState({...state, loading: false});
             if (!status) {
                 toastManager.add('Unable to create steady save at the moment!', {

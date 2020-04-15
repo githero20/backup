@@ -65,7 +65,7 @@ function DirectSteadySave(props) {
                                     <HeaderText className={'reveal'}>Oops!!</HeaderText>
                                     <p className={'mb-4 px-lg-5 reveal'}>We were unable to create your steady save ,
                                         it's either you have initiated this transaction earlier or
-                                        you already have a steady save </p>
+                                        you already have a steady save. You can edit this at anytime by logging into your account. </p>
                                     <button className={'button--blue reveal'}
                                             onClick={() => props.history.push(LoginLink)}>
                                         Go to Login

@@ -45,6 +45,7 @@ class LockedSavingForm extends Component {
             },
             err: ''
         };
+
         this.validator = new SimpleReactValidator({
             messages: {
                 title: 'Plan Name is required.',
@@ -94,7 +95,6 @@ class LockedSavingForm extends Component {
                             autoDismissTimeout: 3000,
                         });
                     }
-
                 }
             });
         }
@@ -106,7 +106,8 @@ class LockedSavingForm extends Component {
         _handleFormChange("end_date", e, this);
         const endDate = e.target.value;
         const dateDifference = _calculateDateDifference(null, endDate);
-        getLockedInterestSavings({days: dateDifference}, this.handleLockedSavingsInterest);
+        getLockedInterestSavings({days: dateDifference},
+            this.handleLockedSavingsInterest);
         this.setState({dateDifference: dateDifference});
         //update after
     };
@@ -114,7 +115,9 @@ class LockedSavingForm extends Component {
     handleAmountInput(e) {
         const value = e.target.value;
         if (parseFloat(value).toFixed(2) >= 0.00) {
-            const rawValue = parseFloat(value.trim().replace(',', '').replace('₦', ''));
+            const rawValue = parseFloat(value.trim()
+                .replace(',', '')
+                .replace('₦', ''));
             let form = {...this.state.form};
             form.amount = rawValue;
             form.interestRate = ((form.interest / 100) * rawValue).toFixed(2);
@@ -132,7 +135,9 @@ class LockedSavingForm extends Component {
             form.days = this.state.dateDifference;
             this.setState({form});
         } else {
-            this.toastManager.add("Unable to get Locked Savings Interest", {appearance: 'error'});
+            this.toastManager
+                .add("Unable to get Locked Savings Interest",
+                    {appearance: 'error'});
         }
     }
 
@@ -174,7 +179,7 @@ class LockedSavingForm extends Component {
                                 onKeyUp={disableKey}
                                 format="YYYY-MM-DD"
                                 min={moment().add('30', 'days').format('YYYY-MM-DD')}
-                                max={moment().add('1', 'years').format('YYYY-MM-DD')}
+                                max={moment().add('2', 'years').format('YYYY-MM-DD')}
                                 name="end_date"
                                 value={form.end_date}
                             />

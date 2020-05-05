@@ -4,7 +4,7 @@ import {
     getFirstTimeUserEndpoint,
     getUserInfoEndpoint,
     getUserPointsEndpoint,
-    getUserRoleEndpoint,
+    getUserRoleEndpoint, postDirectInstantSaveEndpoint,
     postDirectSteadySaveEndpoint,
     storeFirstTimeLoginEndpoint,
     updateEmailEndpoint,
@@ -39,6 +39,21 @@ export const postDirectSteadySave = (param, callback) => {
             callback(false, err.response);
         })
 };
+
+export const postDirectInstantSave = (param, callback) => {
+    _axios.post(postDirectInstantSaveEndpoint, param, {
+        headers: _getHeader()
+    })
+        .then(res => {
+            if (callback) {
+                callback(true, res.data.data);
+            }
+        })
+        .catch(err => {
+            callback(false, err.response);
+        })
+};
+
 
 export const getFirstTimeUser = callback => {
     _axios.get(getFirstTimeUserEndpoint, {

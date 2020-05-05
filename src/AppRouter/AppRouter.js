@@ -22,7 +22,7 @@ import {
     BankCardLink,
     botCreatePasswordLink,
     ChallengeLink,
-    DashboardLink, directSteadySave,
+    DashboardLink, directInstantSave, directSteadySave,
     EmailActivationLink,
     FaqLink,
     ForgotPasswordLink,
@@ -65,6 +65,7 @@ import YearlyReview from "../Containers/YearlyReview/YearlyReview";
 import ScoreBoard from "../Containers/YearlyReview/ScoreBoard";
 import ErrorBoundary from "../Components/Auth/HOC/ErrorBoundary";
 import DirectSteadySave from "../Containers/DirectSteadySave/DirectSteadySave";
+import DirectInstantSave from "../Containers/DirectInstantSave/DirectInstantSave";
 
 
 class AppRouter extends Component {
@@ -142,6 +143,7 @@ class AppRouter extends Component {
                                                     <Route exact path={scoreboardLink} component={YearlyReview}/>
                                                     <Route exact path={sbDashboardLink} component={ScoreBoard}/>
                                                     <Route path={directSteadySave} component={DirectSteadySave}/>
+                                                    <Route path={directInstantSave} component={DirectInstantSave}/>
                                                     <Route render={props => <ErrorPage errorName={'Error 404!'}
                                                                                        errorTitle={'Page Not Found'}
                                                                                        {...props}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {getFirstTimeUser, isKycUpdated, storeFirstTimeLogin} from "../actions/UserAction";
 import {_axios, _getHeader} from "../utils";
 import {centralVaultInterest, getBackUpGoals, getUserInfoEndpoint, lockedInterest} from "../RouteLinks/RouteLinks";

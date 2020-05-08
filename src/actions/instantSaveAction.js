@@ -1,3 +1,6 @@
+import {_axios, _getHeader} from "../utils";
+import {instantSaveEndpoint} from "../RouteLinks/RouteLinks";
+
 export function handleLeastAmount(input,value) {
 
     if(input==='amount' && value <= 500){
@@ -6,3 +9,16 @@ export function handleLeastAmount(input,value) {
     }
 
 }
+
+export const CreateInstantSave = (payload, callback) => {
+
+    _axios.post(`${instantSaveEndpoint}`, payload, {
+        headers: _getHeader()
+    })
+        .then(res => {
+            callback(res.data.status == "success", res.data.data);
+        })
+        .catch(err => {
+            callback(false, err.response);
+        })
+};

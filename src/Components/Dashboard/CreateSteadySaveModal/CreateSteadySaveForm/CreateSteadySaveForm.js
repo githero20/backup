@@ -121,7 +121,7 @@ class CreateSteadySaveForm extends Component {
                 createSteadySave(this.state.form, (status, payload) => {
                     this.setState({loading: false});
                     if (!status) {
-                        toastMessage(JSON.stringify(payload), "error", this);
+                        toastMessage('Unable to create Steady save at the moment!', "error", this);
                     } else {
                         toastMessage("New steady save created successfully", "success", this);
                         setTimeout(() => {

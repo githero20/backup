@@ -20,6 +20,8 @@ import MessageBox from "./MessageBox/MessageBox";
 import filterFactory, {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
 import moment from "moment";
 import Footer from "../Footer/Footer";
+import appImage from "../../../admin/app-assets/images/dashboard/Mask Group 12@2x.png";
+import instantSaveImage from "../../../admin/app-assets/images/dashboard/Mask Group 13@2x.png";
 
 class DashboardContainer extends Component {
 
@@ -170,7 +172,7 @@ class DashboardContainer extends Component {
         const {
             vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
             transactions, reload, ActiveGoals, CompletedGoals, vaultInterest,
-            lockedSavingsInterest, showSSModal, backupInterest
+            lockedSavingsInterest, showSSModal, backupInterest, showDirectInstantSaveModal
         } = this.props;
 
 
@@ -209,14 +211,14 @@ class DashboardContainer extends Component {
                                 <BackUpStashCard stashAmount={stashAmount}/>
                                 <div className="col-12 col-lg-6">
                                     <div className="dash-ads mb-3 pt-2">
-                                        <img src={require('../../../admin/app-assets/images/ussd-ad.png')}
+                                        <img src={appImage}
                                              className='dash-ad-img mt-1' alt="advert two"/>
                                         <div className={'dash-action right-action'}/>
                                     </div>
                                 </div>
                                 <div className="col-12 col-lg-6">
-                                    <div className="dash-ads mb-3 pt-2">
-                                        <img src={require('../../../admin/app-assets/images/ussd-ad.png')}
+                                    <div onClick={() => showDirectInstantSaveModal()} className="dash-ads mb-3 pt-2">
+                                        <img src={instantSaveImage}
                                              className='dash-ad-img mt-1' alt="advert two"/>
                                         <div className={'dash-action right-action'}/>
                                     </div>

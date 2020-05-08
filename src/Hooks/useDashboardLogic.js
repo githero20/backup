@@ -21,6 +21,7 @@ function useDashboardLogic(reload) {
         showSteadySavingModal: false,
         showActiveGoalModal: false,
         showlockedSavingsModal: false,
+        showDirectInstantSaveModal: false,
         showStartModal: false,
         showActivationModal: false,
         showAdModal: false,
@@ -49,7 +50,14 @@ function useDashboardLogic(reload) {
 
     const showActiveGoalModal = () => {
         setState({...state, showActiveGoalModal: true});
+    };
 
+    const showDirectInstantSaveModal = () => {
+        setState({...state, showDirectInstantSaveModal: true});
+    };
+    const hideDirectInstantSaveModal = (status = false) => {
+        setState({...state, showDirectInstantSaveModal: false});
+        if (status) setupDashBoard();
     };
 
     const closeActiveGoalModal = () => {
@@ -231,7 +239,9 @@ function useDashboardLogic(reload) {
         closeLSModal,
         showSteadySaveModal,
         showActiveGoalModal,
-        closeSteadySaveModal
+        closeSteadySaveModal,
+        showDirectInstantSaveModal,
+        hideDirectInstantSaveModal,
     };
 }
 

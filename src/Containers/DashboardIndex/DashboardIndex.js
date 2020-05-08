@@ -10,12 +10,13 @@ import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import ActivationModal from "../../Components/Dashboard/ActivationModal/ActivationModal";
 import useDashboardLogic from "../../Hooks/useDashboardLogic";
+import DirectInstantSaveModal from "../../Components/Dashboard/DirectInstantSaveModal/DirectInstantSaveModal";
 
 const DashboardIndex = (props) => {
 
     const {reload} = props;
 
-    const {state,accountProps,...otherProps} = useDashboardLogic(reload);
+    const {state, accountProps, ...otherProps} = useDashboardLogic(reload);
 
     return (
         <React.Fragment>
@@ -45,10 +46,16 @@ const DashboardIndex = (props) => {
                     showAGModal={otherProps.showActiveGoalModal}
                     hideLSModal={otherProps.closeLSModal}
                     showLSModal={otherProps.showLSModal}
+                    showDirectInstantSaveModal={otherProps.showDirectInstantSaveModal}
+                    hideDirectInstantSaveModal={otherProps.hideDirectInstantSaveModal}
                 />
                 <CreateSteadySaveModal
                     show={state.showSteadySavingModal}
                     onHide={otherProps.closeSteadySaveModal}/>
+
+                <DirectInstantSaveModal
+                    show={state.showDirectInstantSaveModal}
+                    onHide={otherProps.hideDirectInstantSaveModal}/>
 
                 <LockedSavingModal
                     show={state.showlockedSavingsModal}

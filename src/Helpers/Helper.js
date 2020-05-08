@@ -179,7 +179,7 @@ export function getCardsFromStorage(key, object) {
 	if (userInfo != undefined) {
 		object.setState({
 			userCards: filterUserCards(userInfo)
-		})
+		});
 	}
 }
 

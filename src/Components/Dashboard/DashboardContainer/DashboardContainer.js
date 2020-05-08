@@ -211,7 +211,8 @@ class DashboardContainer extends Component {
                                 <BackUpStashCard stashAmount={stashAmount}/>
                                 <div className="col-12 col-lg-6">
                                     <div className="dash-ads mb-3 pt-2">
-                                        <a href="https://play.google.com/store/apps/details?id=com.sfs.backup_cash" target='_blank'>
+                                        <a href="https://play.google.com/store/apps/details?id=com.sfs.backup_cash"
+                                           target='_blank'>
                                             <img src={appImage}
                                                  className='dash-ad-img mt-1' alt="advert two"/>
                                         </a>

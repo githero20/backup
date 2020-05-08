@@ -71,6 +71,7 @@ class DirectInstantSaveForm extends Component {
             CreateInstantSave(form, (status, payload) => {
                 this.setState({loading: false});
                 if (!status) {
+                    console.log('error',payload);
                     toastMessage((payload && payload.data && payload.data.message) || 'Unable to create instant save at the moment!', "error", this);
                 } else {
                     toastMessage("New instant save created successfully", "success", this);

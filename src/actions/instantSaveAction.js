@@ -16,7 +16,7 @@ export const CreateInstantSave = (payload, callback) => {
         headers: _getHeader()
     })
         .then(res => {
-            callback(res.data.status == "success", res.data.data);
+            callback(true, res.data.data);
         })
         .catch(err => {
             callback(false, err.response);

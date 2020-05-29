@@ -263,15 +263,10 @@ class BackupGoals extends Component {
             <React.Fragment>
                 {this.state.showLoader ? <DashboardLoader/> : null}
                 <BackUpGoalsModal show={this.state.showBackUpModal} onHide={this.hideModal}/>
-                <div
-                    className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
+                <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
                     data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={this.state.userName}/>
                     <VerticalNav userName={this.state.userName}/>
-
-                    {/* show individual back up goal */}
-
-                    {/* handle backup goal operations */}
                     <ToastProvider>
                         {this.state.showPayModal ?
                             <BGPayNowModal show={this.state.showPayModal}
@@ -298,7 +293,6 @@ class BackupGoals extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div className="row">
                                                 <div className="col-lg-4 col-12">
                                                     <h3 className="gray-header-text d-md-none d-block text-right
@@ -350,8 +344,7 @@ class BackupGoals extends Component {
                                                                     ) :
                                                                     <div className='text-center'>
                                                                         <i className='fa fa-5x fa-history'></i>
-                                                                        <p className='text-muted'>No Backup Goal
-                                                                            History</p>
+                                                                        <p className='text-muted'>No Backup Goal History</p>
                                                                     </div>
 
                                                             }

@@ -170,9 +170,12 @@ class DashboardContainer extends Component {
             }];
 
         const {
-            vaultAmount, backupAmount, lockedSavingsAmount, stashAmount, totalSteadySave,
-            transactions, reload, ActiveGoals, CompletedGoals, vaultInterest,
-            lockedSavingsInterest, showSSModal, backupInterest, showDirectInstantSaveModal
+            vaultAmount, backupAmount,
+            lockedSavingsAmount, stashAmount, totalSteadySave,
+            transactions, reload, ActiveGoals,
+            CompletedGoals, vaultInterest,
+            lockedSavingsInterest, showSSModal,
+            backupInterest, showDirectInstantSaveModal
         } = this.props;
 
 
@@ -182,8 +185,12 @@ class DashboardContainer extends Component {
                     <div className="content-wrapper">
                         <div className="mb-md-5"/>
                         <div className="col-12 d-md-none"/>
-                        <MessageBox challenge={true} reload={reload} showSSModal={showSSModal}/>
-                        <MessageBox updateKyc={this.props.updateKyc} reload={reload} balance={vaultAmount}/>
+                        <MessageBox challenge={true} reload={reload}
+                                    showSSModal={showSSModal}/>
+                        <MessageBox updateKyc={this.props.updateKyc}
+                                    reload={reload}
+                                    balance={vaultAmount}
+                        />
                         <div className="content-body">
                             <div className="row">
                                 <CentralVaultCard
@@ -214,15 +221,18 @@ class DashboardContainer extends Component {
                                         <a href="https://play.google.com/store/apps/details?id=com.sfs.backup_cash"
                                            target='_blank'>
                                             <img src={appImage}
-                                                 className='dash-ad-img mt-1' alt="advert two"/>
+                                                 className='dash-ad-img mt-1'
+                                                 alt="advert two"/>
                                         </a>
                                         <div className={'dash-action right-action'}/>
                                     </div>
                                 </div>
                                 <div className="col-12 col-lg-6">
-                                    <div onClick={showDirectInstantSaveModal} className="dash-ads mb-3 pt-2">
+                                    <div onClick={showDirectInstantSaveModal}
+                                         className="dash-ads mb-3 pt-2">
                                         <img src={instantSaveImage}
-                                             className='dash-ad-img mt-1' alt="advert two"/>
+                                             className='dash-ad-img mt-1'
+                                             alt="advert two"/>
                                         <div className={'dash-action right-action'}/>
                                     </div>
                                 </div>
@@ -230,13 +240,19 @@ class DashboardContainer extends Component {
                         </div>
 
                         <div className="row">
-                            {!this.state.mobileTable ?
-                                <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
-                                                  transactions={transactions}
-                                                  columns={columns}/> :
-                                <TransactionTable handleFilter={this.handleFilter} filter={filterFactory()}
-                                                  transactions={transactions}
-                                                  columns={mobileColumns}/>}
+                            {
+                                !this.state.mobileTable ?
+                                    <TransactionTable handleFilter={this.handleFilter}
+                                                      filter={filterFactory()}
+                                                      transactions={transactions}
+                                                      columns={columns}
+                                    /> :
+                                    <TransactionTable handleFilter={this.handleFilter}
+                                                      filter={filterFactory()}
+                                                      transactions={transactions}
+                                                      columns={mobileColumns}
+                                    />
+                            }
                         </div>
                     </div>
                     <Footer/>

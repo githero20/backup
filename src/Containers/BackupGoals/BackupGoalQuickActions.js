@@ -193,8 +193,6 @@ class BackupGoalQuickActions extends React.Component {
 
 
     handleStop = (id) => {
-
-
         swal({
             title: "Backup Goals",
             text: `Hey! sure you want to stop this Backup Goal before maturity?`,
@@ -217,15 +215,11 @@ class BackupGoalQuickActions extends React.Component {
                 swal("Your Backup Goal is still running.");
             }
         });
-
-
     }
 
 
     handleStopResponse = (status, res) => {
-
         if (status) {
-
             swal("You have successfully stopped your backup goal.", {
                 icon: "success",
             }).then(() => {
@@ -233,7 +227,6 @@ class BackupGoalQuickActions extends React.Component {
                 this.props.updateSelectedBG(res);
             });
         } else {
-
             swal("Something went wrong.", {
                 icon: "error",
             });
@@ -250,10 +243,7 @@ class BackupGoalQuickActions extends React.Component {
         })
             .then((willPause) => {
                 if (willPause) {
-
                     pauseBGoal(id, this.handlePauseResponse);
-
-
                 } else {
                     swal("Your Backup Goal is active");
                 }
@@ -299,12 +289,10 @@ class BackupGoalQuickActions extends React.Component {
                 this.props.updateSelectedBG(res);
             });
         }
-
     };
 
 
     componentDidMount() {
-
         this.props.showBackUpHistory(this.props.selectedBG.id);
     }
 
@@ -321,9 +309,6 @@ class BackupGoalQuickActions extends React.Component {
                         </a>
                     </h3>
                     <div className="mb-quick-actions d-flex flex-column flex-wrap ">
-
-                        {/*show edit modal*/}
-
                         {
                             !Number(this.props.selectedBG.stop) && !isGoalCompleted(this.props.selectedBG) ?
                                 (
@@ -332,8 +317,7 @@ class BackupGoalQuickActions extends React.Component {
                                             <button type="button"
                                                     onClick={() => this.handleEdit(this.props.selectedBG.id)}
                                                     className=" btn-blue-gradient-2 round">
-                                                <img src={editIcon}/>
-                                                Edit Backup Goal
+                                                <img src={editIcon}/>Edit Backup Goal
                                             </button>
                                         </span>
 
@@ -348,7 +332,6 @@ class BackupGoalQuickActions extends React.Component {
                                                                      onHide={this.hideModal}
                                                         />
                                                     </React.Fragment>
-
                                                 ) : null
                                         }
 
@@ -361,8 +344,7 @@ class BackupGoalQuickActions extends React.Component {
                                                     <button type="button"
                                                             onClick={() => this.handleContinue(this.props.selectedBG.id)}
                                                             className=" btn-blue-gradient-2 round">
-                                                        <img src={continueIcon}/>
-                                                        Continue
+                                                        <img src={continueIcon}/>Continue
                                                     </button>
                                                   </span>
 
@@ -372,8 +354,7 @@ class BackupGoalQuickActions extends React.Component {
                                                     <button type="button"
                                                             onClick={() => this.handlePause(this.props.selectedBG.id)}
                                                             className=" btn-blue-gradient-2 round">
-                                                        <img src={pauseIcon}/>
-                                                        Pause
+                                                        <img src={pauseIcon}/>Pause
                                                     </button>
                                                   </span>
                                                 )
@@ -383,22 +364,19 @@ class BackupGoalQuickActions extends React.Component {
                                     </React.Fragment>
                                 ) : null
                         }
-
                         {
                             !Number(this.props.selectedBG.stop) && !isGoalCompleted(this.props.selectedBG) ?
                                 (
                                     <span className="mb-btn-wrapper">
                                         <button type="button"
                                                 onClick={() => this.handleStop(this.props.selectedBG.id)}
-                                                className=" btn-blue-gradient-2 bg-white round">
+                                                className="btn-blue-gradient-2 bg-white round">
                                             <img src={continueIcon}/>
                                             Stop
                                         </button>
                                     </span>
                                 ) : null
                         }
-
-
                     </div>
                 </div>
 

@@ -44,10 +44,9 @@ const BGStartAmountCard = ({bgInfo,selectedBGHistory,showPayModal}) => {
                                             ₦ {selectedBGHistory ? formatNumber(Number(totalDue).toFixed(2)) : '0.00'}
                                         </strong>
                                     </div>
-                                    <p>
-                                        {totalDue > 0 ? <a className='btn btn-sm dash-cust-blue round'
-                                                           onClick={() => showPayModal()}>Pay Now</a> : null}
-                                    </p>
+                                    <div>
+                                        {totalDue > 0 ? <a className='btn btn-sm dash-cust-blue round' onClick={() => showPayModal()}>Pay Now</a> : null}
+                                    </div>
                                 </div>
 
                                 <BackUpProgressBar backupHistory={selectedBGHistory} backupInfo={bgInfo}/>

@@ -110,7 +110,6 @@ class BGPayNowModal extends Component {
 
     componentDidMount() {
         getCardsFromStorage(USERINFO, this);
-        // set steady save to pay
         let form = {...this.state.form};
         form.backup_goal_id = this.props.selectedBG.id;
         form.amount = this.props.totalFailed.toFixed(2);
@@ -125,7 +124,8 @@ class BGPayNowModal extends Component {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 className={'instant-save-modal steady-save-modal'}>
-                <Modal.Header className={'px-md-3 py-md-3'} closeButton={this.props.onHide}>
+                <Modal.Header className={'px-md-3 py-md-3'}
+                              closeButton={this.props.onHide}>
                     <Modal.Title id="contained-modal-title-vcenter">
                         <h4>Pay Due Backup Goal</h4>
                     </Modal.Title>
@@ -172,7 +172,8 @@ class BGPayNowModal extends Component {
                                         }
                                     </Form.Control>
                                     {this.state.userCards.length === 0 ?
-                                        <label className={'text-muted mt-1'}>You do not have a card click here
+                                        <label className={'text-muted mt-1'}>
+                                            You do not have a card click here
                                             <Link to={BankCardLink}>Add Card</Link>
                                         </label> : null}
                                     {this.validator.message('Debit Card', this.state.form.payment_auth, 'required|numeric')}
@@ -181,7 +182,8 @@ class BGPayNowModal extends Component {
                         </Form.Row>
                         <Form.Row className={'d-flex justify-content-end mt-2'}>
                             <div className={'d-flex justify-content-end'}>
-                                <button className={'round modal-btn btn-custom-blue '} disabled={this.state.loading}
+                                <button className={'round modal-btn btn-custom-blue'}
+                                        disabled={this.state.loading}
                                         type="submit">
                                     {this.state.loading ? <ButtonLoader/> : "Pay Now"}
                                 </button>

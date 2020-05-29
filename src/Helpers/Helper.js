@@ -41,11 +41,7 @@ export function animateCSS(element, animationName, callback) {
 }
 
 export function formatNumber(num) {
-	if (num)
-		return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') || 0;
-	else
-		return "0";
-
+	if (num) return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') || 0;
 }
 
 export function formatDate(date) {
@@ -818,8 +814,7 @@ export function steadyStatusFormatter(cell, row) {
 	const today = moment();
 	if (parseInt(row.is_pause)) {
 		return <button className={'btn btn-sm round btn-warning'}>Paused</button>
-	}
-	else if(moment(row.end_date).isAfter(today)){
+	} else if (moment(row.end_date).isAfter(today)) {
 		return <button className={'btn btn-sm round btn-success'}>Completed</button>
 
 	} else {

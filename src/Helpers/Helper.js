@@ -270,7 +270,6 @@ export function getSteadySaveData(transactions) {
 }
 
 export function getTotalFailed(transactions) {
-
 	console.log('failed transactions',transactions);
 	if (transactions && transactions.length > 1) {
 		let failed;
@@ -335,6 +334,7 @@ export function isGoalCompleted(goal) {
 export const dateFormat = 'YYYY-MM-DD';
 
 export function getTotalBGSuccessful(transactions) {
+	console.log('successful bg',transactions);
 	if (transactions) {
 		if (transactions.length > 0) {
 			let successful;

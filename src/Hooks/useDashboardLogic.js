@@ -124,8 +124,6 @@ function useDashboardLogic(reload) {
                 _axios.get(lockedInterest, config),
                 _axios.get(getBackUpGoals, config),
             ]);
-
-            console.log('data',userInfoRes, centralVaultIntRes, lockedIntRes, backUpRes);
             showUpdateKYC(userInfoRes.data.data);
             return {
                 userData: userInfoRes.data.data,
@@ -133,7 +131,6 @@ function useDashboardLogic(reload) {
                 lockedSavingsData: lockedIntRes.data.data,
                 centralVaultData: centralVaultIntRes.data.data
             };
-
         } catch (e) {
             setState({showLoader: false, ...state});
         }

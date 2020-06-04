@@ -147,6 +147,7 @@ class BackupGoals extends Component {
 
     handleBGHistory(status, res) {
         if (status) {
+            console.log('bg history', res);
             let data = res.backup_goals_history.data;
             const totalBGSave = getTotalSuccessfulBG(data);
             const totalSuccessful = getTotalSuccessful(data);
@@ -264,7 +265,7 @@ class BackupGoals extends Component {
                 {this.state.showLoader ? <DashboardLoader/> : null}
                 <BackUpGoalsModal show={this.state.showBackUpModal} onHide={this.hideModal}/>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
-                    data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+                     data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     <HorizontalNav userName={this.state.userName}/>
                     <VerticalNav userName={this.state.userName}/>
                     <ToastProvider>
@@ -274,7 +275,7 @@ class BackupGoals extends Component {
                                            totalFailed={this.state.totalFailed}
                                            getHistoryTrans={this.getHistAndTrans}
                                            onHide={this.hidePayModal}
-                        /> : null}
+                            /> : null}
 
                     </ToastProvider>
                     <div className="app-content content">
@@ -298,12 +299,10 @@ class BackupGoals extends Component {
                                                     <h3 className="gray-header-text d-md-none d-block text-right
                                                          fs-mb-1 mb-2">
                                                         <a className='gray-text back-btn' onClick={this.hideBackupGoal}>
-                                                        <i className='fa fa-chevron-left'/>
-                                                        &nbsp;Back to Goals</a>
+                                                            <i className='fa fa-chevron-left'/>&nbsp;Back to Goals</a>
                                                     </h3>
-                                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">BackUpGoal
-                                                        <span className="dot">.</span> Summary
-
+                                                    <h3 className="gray-header-text fs-mb-1 mb-2 ">
+                                                        BackUpGoal<span className="dot">.</span> Summary
                                                     </h3>
                                                     <BGInfoCard bgInfo={this.state.selectedBG}
                                                                 selectedBGHistory={this.state.selectedBGHistory}/>
@@ -344,7 +343,8 @@ class BackupGoals extends Component {
                                                                     ) :
                                                                     <div className='text-center'>
                                                                         <i className='fa fa-5x fa-history'></i>
-                                                                        <p className='text-muted'>No Backup Goal History</p>
+                                                                        <p className='text-muted'>No Backup Goal
+                                                                            History</p>
                                                                     </div>
 
                                                             }
@@ -447,7 +447,7 @@ class BackupGoals extends Component {
                                                                 )
                                                                 :
                                                                 <div className="col-12 text-center text-muted">
-                                                                    <i className='fa fa-5x fa-briefcase'></i>
+                                                                    <i className='fa fa-5x fa-briefcase'/>
                                                                     <h2 className='table-status mb-5 mb-md-0'>
                                                                         No Backup Goal</h2>
                                                                 </div>

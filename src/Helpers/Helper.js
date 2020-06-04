@@ -251,7 +251,7 @@ export function getTotalSuccessful(transactions) {
 
 	if (transactions && transactions.length > 1) {
 		let successful;
-		successful = transactions.filter((content) => (content.status == 'success'));
+		successful = transactions.filter((content) => (content.status === 'success'));
 		return successful.length;
 	} else {
 		return transactions.length;
@@ -273,7 +273,7 @@ export function getTotalFailed(transactions) {
 
 	if (transactions && transactions.length > 1) {
 		let failed;
-		failed = transactions.filter((content) => (content.status == 'failed'));
+		failed = transactions.filter((content) => (content.status === 'failed'));
 		if (failed.length > 0) {
 			failed = failed.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
 			return failed.amount;

@@ -248,7 +248,7 @@ export function validateNumbers(e) {
 
 
 export function getTotalSuccessful(transactions) {
-
+	console.log('successful transactions',transactions);
 	if (transactions && transactions.length > 1) {
 		let successful;
 		successful = transactions.filter((content) => (content.status === 'success'));
@@ -271,6 +271,7 @@ export function getSteadySaveData(transactions) {
 
 export function getTotalFailed(transactions) {
 
+	console.log('failed transactions',transactions);
 	if (transactions && transactions.length > 1) {
 		let failed;
 		failed = transactions.filter((content) => (content.status === 'failed'));

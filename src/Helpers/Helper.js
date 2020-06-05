@@ -198,6 +198,7 @@ export function capitalize(value) {
         return value.charAt(0).toUpperCase() + value.slice(1);
     }
 }
+
 export function validateInputEntry(e) {
     e.persist();
     validateLength(e);
@@ -248,7 +249,6 @@ export function validateNumbers(e) {
 
 
 export function getTotalSuccessful(transactions) {
-    console.log('successful transactions', transactions, "DEJIIIIIIIII");
     if (transactions && transactions.length) {
         let successful = transactions.filter((content) => (content.status === 'success'));
         return successful.length;
@@ -260,9 +260,8 @@ export function getTotalSuccessful(transactions) {
 
 export function getSteadySaveData(transactions) {
     if (transactions) {
-        if (transactions.length > 1) {
-            let data;
-            data = transactions.filter((content) => (content.status == 'success' || content == 'failed'));
+        if (transactions.length) {
+            let data = transactions.filter((content) => (content.status == 'success' || content == 'failed'));
             return data;
         }
     }
@@ -270,10 +269,9 @@ export function getSteadySaveData(transactions) {
 
 export function getTotalFailed(transactions) {
     console.log('failed transactions', transactions);
-    if (transactions && transactions.length > 1) {
-        let failed;
-        failed = transactions.filter((content) => (content.status === 'failed'));
-        if (failed.length > 0) {
+    if (transactions && transactions.length) {
+        let failed = transactions.filter((content) => (content.status === 'failed'));
+        if (failed.length) {
             failed = failed.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
             return failed.amount;
         } else {
@@ -334,16 +332,14 @@ export const dateFormat = 'YYYY-MM-DD';
 
 export function getTotalBGSuccessful(transactions) {
     console.log('successful bg', transactions);
-    if (transactions) {
-        if (transactions.length > 0) {
-            let successful = transactions.filter((content) => (content.status === 'success'));
-            successful = successful.reduce((a, b) => {
-                return (a + Number(b.amount))
-            }, 0);
-            return successful;
-        } else {
-            return 0;
-        }
+    if (transactions && transactions.length) {
+        let successful = transactions.filter((content) => (content.status === 'success'));
+        successful = successful.reduce((a, b) => {
+            return (a + Number(b.amount))
+        }, 0);
+        return successful;
+    } else {
+        return 0;
     }
 }
 

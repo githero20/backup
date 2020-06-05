@@ -147,7 +147,6 @@ class BackupGoals extends Component {
 
     handleBGHistory(status, res) {
         if (status) {
-            console.log('bg history', res);
             let data = res.backup_goals_history.data;
             const totalBGSave = getTotalSuccessfulBG(data);
             const totalSuccessful = getTotalSuccessful(data);

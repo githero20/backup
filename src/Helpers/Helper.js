@@ -352,6 +352,11 @@ export function getTotalBGSuccessful(transactions) {
 
 export function transformHour(hour) {
 	hour = Number(hour);
+	const temp = {
+		1: "1:00am"
+	};
+
+	return temp[hour] || "none";
 	switch (hour) {
 		case 1 :
 			return '1:00am';

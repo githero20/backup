@@ -249,9 +249,8 @@ export function validateNumbers(e) {
 
 export function getTotalSuccessful(transactions) {
     console.log('successful transactions', transactions, "DEJIIIIIIIII");
-    if (transactions && transactions.length > 1) {
-        let successful;
-        successful = transactions.filter((content) => (content.status === 'success'));
+    if (transactions && transactions.length) {
+        let successful = transactions.filter((content) => (content.status === 'success'));
         return successful.length;
     } else {
         return transactions.length;
@@ -337,12 +336,11 @@ export function getTotalBGSuccessful(transactions) {
     console.log('successful bg', transactions);
     if (transactions) {
         if (transactions.length > 0) {
-            let successful;
-            successful = transactions.filter((content) => (content.status == 'success'));
-            let amount = successful.reduce((a, b) => {
+            let successful = transactions.filter((content) => (content.status === 'success'));
+            successful = successful.reduce((a, b) => {
                 return (a + Number(b.amount))
             }, 0);
-            return amount;
+            return successful;
         } else {
             return 0;
         }

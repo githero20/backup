@@ -123,7 +123,6 @@ export function getTotalSuccessfulSS(transactions) {
 }
 
 export function getTotalSuccessfulBG(transactions) {
-    console.log("Successful", transactions);
     if (transactions && transactions.length > 1) {
         let successful;
         successful = transactions.filter((content) => (content.status === 'success'));
@@ -268,12 +267,10 @@ export function getSteadySaveData(transactions) {
 }
 
 export function getTotalFailed(transactions) {
-    console.log('failed transactions', transactions);
     if (transactions && transactions.length) {
         let failed = transactions.filter((content) => (content.status === 'failed'));
         if (failed.length) {
             failed = failed.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
-            console.log('failed amount',failed.amount)
             return failed.amount;
         } else {
             return 0
@@ -332,7 +329,6 @@ export function isGoalCompleted(goal) {
 export const dateFormat = 'YYYY-MM-DD';
 
 export function getTotalBGSuccessful(transactions) {
-    console.log('successful bg', transactions);
     if (transactions && transactions.length) {
         let successful = transactions.filter((content) => (content.status === 'success'));
         successful = successful.reduce((a, b) => {
@@ -348,65 +344,32 @@ export function getTotalBGSuccessful(transactions) {
 export function transformHour(hour) {
     hour = Number(hour);
     const temp = {
-        1: "1:00am"
+        1: "1:00am",
+        2: '2:00am',
+        3: '3:00am',
+        4: '4:00am',
+        5: '5:00am',
+        6: '6:00am',
+        7: '7:00am',
+        8: '8:00am',
+        9: '9:00am',
+        10: '10:00am',
+        11: '11:00am',
+        12: '12:00noon',
+        13: '1:00pm',
+        14: '2:00pm',
+        15: '3:00pm',
+        16: '4:00pm',
+        17: '5:00pm',
+        18: '6:00pm',
+        19: '7:00pm',
+        20: '8:00pm',
+        21: '9:00pm',
+        22: '10:00pm',
+        23: '11:00pm',
+        0: '12:00pm',
     };
-
-
-    console.log("Minor MOds", hour);
-
-    return temp[hour] || "none";
-    switch (hour) {
-        case 1 :
-            return '1:00am';
-        case 2:
-            return '2:00am';
-        case 3:
-            return '3:00am';
-        case 4:
-            return '4:00am';
-        case 5 :
-            return '5:00am';
-        case 6:
-            return '6:00am';
-        case 7:
-            return '7:00am';
-        case 8:
-            return '8:00am';
-        case 9:
-            return '9:00am';
-        case 10 :
-            return '10:00am';
-        case 11:
-            return '11:00am';
-        case 12:
-            return '12:00noon';
-        case 13:
-            return '1:00pm';
-        case 14:
-            return '2:00pm';
-        case 15:
-            return '3:00pm';
-        case 16 :
-            return '4:00pm';
-        case 17:
-            return '5:00pm';
-        case 18:
-            return '6:00pm';
-        case 19:
-            return '7:00pm';
-        case 20:
-            return '8:00pm';
-        case 21:
-            return '9:00pm';
-        case 22:
-            return '10:00pm';
-        case 23:
-            return '11:00pm';
-        case 0:
-            return '12:00pm';
-        default:
-            return 'none';
-    }
+    return temp[hour] || "";
 }
 
 export const passwordValidator = new SimpleReactValidator({

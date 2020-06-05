@@ -52,7 +52,7 @@ class BGPayNowModal extends Component {
             if (status) {
                 _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
             } else {
-                toastMessage(payload,"error",this);
+                toastMessage(payload, "error", this);
             }
             this.props.onHide();
         });
@@ -96,10 +96,10 @@ class BGPayNowModal extends Component {
     handlePayResponse = (status, payload) => {
         this.setState({loading: false});
         if (!status) {
-            toastMessage("Payment Failed", "error",this);
+            toastMessage("Payment Failed", "error", this);
         } else {
-           toastMessage(`Successfully Paid ₦ ${formatNumber(parseFloat(this.state.form.amount).toFixed())} of your dues.`,
-               "success", this);
+            toastMessage(`Successfully Paid ₦ ${formatNumber(parseFloat(this.state.form.amount).toFixed())} of your dues.`,
+                "success", this);
             setTimeout(() => {
                 this.props.onHide()
             }, 2000);
@@ -112,7 +112,7 @@ class BGPayNowModal extends Component {
         getCardsFromStorage(USERINFO, this);
         let form = {...this.state.form};
         form.backup_goal_id = this.props.selectedBG.id;
-        form.amount = this.props.totalFailed.toFixed(2);
+        form.amount = Number(this.props.totalFailed).toFixed(2);
         this.setState({form});
     }
 
@@ -165,7 +165,8 @@ class BGPayNowModal extends Component {
                                                 if (data.channel == "card")
                                                     return (
                                                         <option value={data.id} key={data.id}>
-                                                            [{data.card_type}(**** **** **** {data.last4})][exp: {data.exp_month}/{data.exp_year}]
+                                                            [{data.card_type}(**** ****
+                                                            **** {data.last4})][exp: {data.exp_month}/{data.exp_year}]
                                                         </option>
                                                     );
                                             }) : ''

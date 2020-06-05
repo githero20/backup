@@ -160,9 +160,7 @@ class BackupGoals extends Component {
                 totalBGSave: formatNumber(parseFloat(totalBGSave).toFixed(2))
             });
         } else if (!status && res) {
-            this.toastMessage(res.message || 'An error occurred!!', 'error');
-        } else {
-            this.toastMessage("No Internet Connection", 'error');
+            this.toastMessage(res.message || 'An error occurred while fetching backup goals history. Try Again!', 'error');
         }
 
     }

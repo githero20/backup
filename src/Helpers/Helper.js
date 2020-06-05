@@ -273,6 +273,7 @@ export function getTotalFailed(transactions) {
         let failed = transactions.filter((content) => (content.status === 'failed'));
         if (failed.length) {
             failed = failed.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+            console.log('failed amount',failed.amount)
             return failed.amount;
         } else {
             return 0

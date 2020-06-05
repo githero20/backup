@@ -123,6 +123,7 @@ export function getTotalSuccessfulSS(transactions) {
 }
 
 export function getTotalSuccessfulBG(transactions) {
+	console.log("Successful", transactions);
 	if (transactions && transactions.length > 1) {
 		let successful;
 		successful = transactions.filter((content) => (content.status === 'success'));
@@ -355,6 +356,9 @@ export function transformHour(hour) {
 	const temp = {
 		1: "1:00am"
 	};
+
+
+	console.log("Minor MOds", hour);
 
 	return temp[hour] || "none";
 	switch (hour) {

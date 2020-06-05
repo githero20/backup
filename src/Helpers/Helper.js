@@ -248,7 +248,7 @@ export function validateNumbers(e) {
 
 
 export function getTotalSuccessful(transactions) {
-    console.log('successful transactions', transactions);
+    console.log('successful transactions', transactions, "DEJIIIIIIIII");
     if (transactions && transactions.length > 1) {
         let successful;
         successful = transactions.filter((content) => (content.status === 'success'));

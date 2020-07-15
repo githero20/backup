@@ -121,7 +121,11 @@ body {
 section {
     min-height: 400px;
 }
-
+.boarder-rad{
+    border-radius: 16px;
+    margin-left: 1rem;
+    border: 1.2px solid #D2D8E2;
+}
 #height-100vh {
     height: 100vh;
 }

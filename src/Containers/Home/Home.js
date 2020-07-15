@@ -48,11 +48,10 @@ export const checkUser = () => {
 };
 
 const slides = [
-    {img: require('../../admin/app-assets/images/slider/mybackupcash___B2wXUn4lgbr___.jpg')},
-    {img: require('../../admin/app-assets/images/slider/mybackupcash_2___B2vzESsl0TG___.jpg')},
-    {img: require('../../admin/app-assets/images/slider/mybackupcash_1___B23mgrTlfLp___.jpg')},
-    {img: require('../../admin/app-assets/images/slider/mybackupcash_2___B23mgrTlfLp___.jpg')},
-    {img: require('../../admin/app-assets/images/slider/mybackupcash___B206V6_lxNQ___.jpg')},
+    {img: require('../../admin/app-assets/images/slider/slider1.jpg')},
+    {img: require('../../admin/app-assets/images/slider/slider2.jpg')},
+    {img: require('../../admin/app-assets/images/slider/slider3.jpg')},
+    {img: require('../../admin/app-assets/images/slider/slider4.jpg')},
 ];
 
 class Home extends Component {
@@ -324,14 +323,16 @@ class Home extends Component {
                                                 <span className='d-flex align-items-center justify-content-center'>
                                                     <a href="https://api.whatsapp.com/send?phone=18883699915"
                                                        className='deep-blue-link-underline cursor-pointer'
+                                                       rel="noopener noreferrer"
                                                        target='_blank'>
                                                         <strong>Whatsapp</strong>
                                                     </a>
                                                     <span>or</span>
-                                                    <a href="https://www.messenger.com/t/BackUpCash"
+                                                    <a href="https://play.google.com/store/apps/details?id=com.sfs.backup_cash"
                                                        className='deep-blue-link-underline cursor-pointer'
+                                                       rel="noopener noreferrer"
                                                        target='_blank'>
-                                                        <strong>Facebook</strong>
+                                                        <strong>Download App</strong>
                                                     </a>
                                                 </span>
 

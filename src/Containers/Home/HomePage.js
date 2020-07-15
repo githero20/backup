@@ -78,7 +78,6 @@ class HomePage extends Component {
                     <div className="hero-items-container d-flex">
                         <div className="hero-item">
                             <h1>Save Money,Grow Wealth.</h1>
-                            <p>Save as little as N500,</p>
                             <p>Earn upt to 13% interest on savings.</p>
                             <div className="hero-call-to-action">
                                 <button className={'btn btn-round-light-blue'}>Create a free Account</button>

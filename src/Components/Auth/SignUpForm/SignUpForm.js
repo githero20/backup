@@ -173,7 +173,7 @@ class SignUpForm extends Component {
                 //     errorMessage: JSON.stringify(response.data.message),
                 //     loading: false
                 // });
-
+        console.log('response',response);
                 if (response.data) {
                     let errors = response.data.errors;
                     let errorData = Object.values(errors);

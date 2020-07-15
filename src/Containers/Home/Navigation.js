@@ -75,9 +75,7 @@ class Navigation extends Component {
                                         <li className="nav-item">
                                             <Link className="nav-link" to={FaqLink}>FAQs </Link>
                                         </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={ChallengeLink}>21 Days Challenge </Link>
-                                        </li>
+                                        
                                         <li className="nav-item">
                                             <a href={'https://medium.com/@mybackupcash'} target='_blank' className="nav-link">Blog</a>
                                         </li>
@@ -119,9 +117,7 @@ class Navigation extends Component {
                                                    scrollIntoView ? scrollIntoView() : e.preventDefault()
                                                }}>Stories </a>
                                         </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={ChallengeLink}>21 Days Challenge </Link>
-                                        </li>
+                                        
                                         <li className="nav-item">
                                             <a href={'https://medium.com/@mybackupcash'} target='_blank' className="nav-link">Blog</a>
                                         </li>

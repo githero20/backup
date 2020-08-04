@@ -21,19 +21,20 @@ const SnapForm = (props) => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(resetState());
     dispatch(createSnapRequest({ amount, payment_auth_id: itemSelected }));
   }
   // runs when ever the error changes
   useEffect(() => {
     if (errors) {
       toast.error(errors, { autoClose: 3000 });
-      dispatch(resetState());
+      // dispatch(resetState());
     }
   }, [errors]);
 
   const changeHandler = (e) => {
     if (e.target.value === "Add Card") {
-      console.log('fired equla o');
+      dispatch(resetState());
       dispatch(initSnapRequest({
         amount: parseFloat(amount),
         source: 'quick',
@@ -61,7 +62,7 @@ const SnapForm = (props) => {
     if (data === successMessage) {
       toast.success(successMessage, { autoClose: 3000 });
       props.hideModal();
-      dispatch(resetState());
+      // dispatch(resetState());
     }
   }, [data]);
 

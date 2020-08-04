@@ -1,4 +1,4 @@
-import {_axios, _getHeader} from "../utils";
+import { _axios, _getHeader } from "../utils";
 import {
     deleteUsersCard, deleteUsersCardUrl,
     GetUsersCards,
@@ -7,8 +7,8 @@ import {
 } from "../RouteLinks/RouteLinks";
 
 
-export const initTransaction = (payload, callback) =>{
-    _axios.post(InitiateTransactionEndpoint,payload,{
+export const initTransaction = (payload, callback) => {
+    _axios.post(InitiateTransactionEndpoint, payload, {
         headers: _getHeader()
     })
         .then(res => {
@@ -20,8 +20,8 @@ export const initTransaction = (payload, callback) =>{
 };
 
 
-export const verifyTransaction = (payload, callback) =>{
-    _axios.post(verifyTransactionEndpoint,payload,{
+export const verifyTransaction = (payload, callback) => {
+    _axios.post(verifyTransactionEndpoint, payload, {
         headers: _getHeader()
     })
         .then(res => {
@@ -33,19 +33,19 @@ export const verifyTransaction = (payload, callback) =>{
 };
 
 export const getUserCards = (callback) => {
-    _axios.get(GetUsersCards,{
+    _axios.get(GetUsersCards, {
         headers: _getHeader()
     })
         .then(res => {
-            callback(res.data.status == "success", res.data.data);
+            callback(res.data.status === "success", res.data.data);
         })
         .catch(err => {
             callback(false, err.response);
         })
 };
 
-export const deleteUserCard = (id,callback) => {
-    _axios.get(deleteUsersCardUrl(id),{
+export const deleteUserCard = (id, callback) => {
+    _axios.get(deleteUsersCardUrl(id), {
         headers: _getHeader()
     })
         .then(res => {

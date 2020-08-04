@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import styled from '@emotion/styled';
 import TransactionTable from "../TransactionTable/TransactionTable";
 import CentralVaultCard from "../CentralVaultCard/CentralVaultCard";
 import BackUpGoalCard from "../BackUpGoalCard/BackUpGoalCard";
@@ -17,11 +18,13 @@ import {
     toggleTable
 } from "../../../Helpers/Helper";
 import MessageBox from "./MessageBox/MessageBox";
-import filterFactory, {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
+// import filterFactory, { Comparator, dateFilter } from 'react-bootstrap-table2-filter';
+import { Comparator, dateFilter } from 'react-bootstrap-table2-filter';
 import moment from "moment";
 import Footer from "../Footer/Footer";
 import appImage from "../../../admin/app-assets/images/dashboard/Mask Group 12@2x.png";
 import instantSaveImage from "../../../admin/app-assets/images/dashboard/Mask Group 13@2x.png";
+import SnapCard from '../Snap/SnapCard';
 
 class DashboardContainer extends Component {
 
@@ -53,7 +56,7 @@ class DashboardContainer extends Component {
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
                 filter: dateFilter({
-                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
+                    defaultValue: { date: todaysDateForTable(), comparator: Comparator.LEQUAL },
                     getFilter: (filter) => {
                         this.createdDateFilter = filter;
                     }
@@ -116,7 +119,7 @@ class DashboardContainer extends Component {
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
                 filter: dateFilter({
-                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
+                    defaultValue: { date: todaysDateForTable(), comparator: Comparator.LEQUAL },
                     getFilter: (filter) => {
                         this.createdDateFilter = filter;
                     }
@@ -183,13 +186,13 @@ class DashboardContainer extends Component {
             <React.Fragment>
                 <div className="app-content content">
                     <div className="content-wrapper">
-                        <div className="mb-md-5"/>
-                        <div className="col-12 d-md-none"/>
+                        <div className="mb-md-5" />
+                        <div className="col-12 d-md-none" />
                         <MessageBox challenge={true} reload={reload}
-                                    showSSModal={showSSModal}/>
+                            showSSModal={showSSModal} />
                         <MessageBox updateKyc={this.props.updateKyc}
-                                    reload={reload}
-                                    balance={vaultAmount}
+                            reload={reload}
+                            balance={vaultAmount}
                         />
                         <div className="content-body">
                             <div className="row">
@@ -215,25 +218,31 @@ class DashboardContainer extends Component {
                                     showModal={this.props.showLSModal}
                                 />
 
-                                <BackUpStashCard stashAmount={stashAmount}/>
+                                <BackUpStashCard stashAmount={stashAmount} />
+
+                                <MillexHolder>
+                                    <SnapCard />
+                                    <SnapCard />
+                                </MillexHolder>
+
                                 <div className="col-12 col-lg-6">
                                     <div className="dash-ads mb-3 pt-2">
                                         <a href="https://play.google.com/store/apps/details?id=com.sfs.backup_cash"
-                                           target='_blank'>
+                                            target='_blank'>
                                             <img src={appImage}
-                                                 className='dash-ad-img mt-1'
-                                                 alt="advert two"/>
+                                                className='dash-ad-img mt-1'
+                                                alt="advert two" />
                                         </a>
-                                        <div className={'dash-action right-action'}/>
+                                        <div className={'dash-action right-action'} />
                                     </div>
                                 </div>
                                 <div className="col-12 col-lg-6">
                                     <div onClick={showDirectInstantSaveModal}
-                                         className="dash-ads mb-3 pt-2">
+                                        className="dash-ads mb-3 pt-2">
                                         <img src={instantSaveImage}
-                                             className='dash-ad-img mt-1'
-                                             alt="advert two"/>
-                                        <div className={'dash-action right-action'}/>
+                                            className='dash-ad-img mt-1'
+                                            alt="advert two" />
+                                        <div className={'dash-action right-action'} />
                                     </div>
                                 </div>
                             </div>
@@ -241,26 +250,31 @@ class DashboardContainer extends Component {
 
                         <div className="row">
                             {
-                                !this.state.mobileTable ?
-                                    <TransactionTable handleFilter={this.handleFilter}
-                                                      filter={filterFactory()}
-                                                      transactions={transactions}
-                                                      columns={columns}
-                                    /> :
-                                    <TransactionTable handleFilter={this.handleFilter}
-                                                      filter={filterFactory()}
-                                                      transactions={transactions}
-                                                      columns={mobileColumns}
-                                    />
+                                // !this.state.mobileTable ?
+                                //     <TransactionTable handleFilter={this.handleFilter}
+                                //         filter={filterFactory()}
+                                //         transactions={transactions}
+                                //         columns={columns}
+                                //     /> :
+                                //     <TransactionTable handleFilter={this.handleFilter}
+                                //         filter={filterFactory()}
+                                //         transactions={transactions}
+                                //         columns={mobileColumns}
+                                //     />
                             }
                         </div>
                     </div>
-                    <Footer/>
+                    <Footer />
                 </div>
 
             </React.Fragment>
         );
     }
 }
-
+const MillexHolder = styled.div`
+display:grid;
+grid-template-columns:repeat(2,1fr);
+grid-gap:1rem;
+width:100%;
+`
 export default DashboardContainer;

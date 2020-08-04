@@ -9,13 +9,25 @@ import './admin/assets/css/style.css';
 import './admin/assets/css/hamburgers.min.css';
 import './admin/assets/css/backup-cash-style.css';
 import './admin/assets/css/responsiveness.css';
+import 'react-toastify/dist/ReactToastify.css';
 import * as serviceWorker from './serviceWorker';
 import AppRouter from "./AppRouter/AppRouter";
 import * as Sentry from '@sentry/browser';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { ToastContainer } from 'react-toastify';
 
-Sentry.init({dsn: process.env.REACT_APP_SENTRY});
+Sentry.init({ dsn: process.env.REACT_APP_SENTRY });
 
-ReactDOM.render(<AppRouter/>, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <ToastContainer />
+    <AppRouter />
+  </Provider>
+
+
+
+  , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Form from "react-bootstrap/Form";
 import Col from 'react-bootstrap/Col';
 import SimpleReactValidator from "simple-react-validator";
-import {request} from "../../../../ApiUtils/ApiUtils";
-import {instantSaveEndpoint} from "../../../../RouteLinks/RouteLinks";
-import {ADD_BANK, MIN_INSTANT_SAVE, USERINFO} from "../../../Auth/HOC/authcontroller";
-import {withToastManager} from "react-toast-notifications";
+import { request } from "../../../../ApiUtils/ApiUtils";
+import { instantSaveEndpoint } from "../../../../RouteLinks/RouteLinks";
+import { ADD_BANK, MIN_INSTANT_SAVE, USERINFO } from "../../../Auth/HOC/authcontroller";
+import { withToastManager } from "react-toast-notifications";
 import ButtonLoader from "../../../Auth/Buttonloader/ButtonLoader";
-import {formatNumber, getCardsFromStorage, toastMessage} from "../../../../Helpers/Helper";
-import {getUserCards, initTransaction, verifyTransaction} from "../../../../actions/CardAction";
-import {_payWithPaystack} from "../../../../utils";
+import { formatNumber, getCardsFromStorage, toastMessage } from "../../../../Helpers/Helper";
+import { getUserCards, initTransaction, verifyTransaction } from "../../../../actions/CardAction";
+import { _payWithPaystack } from "../../../../utils";
 
 class InstantSavingForm extends Component {
 
@@ -50,7 +50,7 @@ class InstantSavingForm extends Component {
 
 
     initiatePayStack = () => {
-        const {amount} = this.state.form;
+        const { amount } = this.state.form;
         //send api
         if (amount == null || parseFloat(amount) < 100) {
             toastMessage('A minimum of ₦100 is required to add a card', 'error', this)
@@ -58,20 +58,21 @@ class InstantSavingForm extends Component {
             initTransaction({
                 amount: parseFloat(this.state.form.amount),
                 source: 'quick',
-            }, (status, payload) => {
-                this.setState({loading: false});
-                if (status) {
-                    _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
-                } else {
-                    this.props.toastManager.add(payload, {
-                        appearance: "error",
-                        autoDismiss: true,
-                        autoDismissTimeout: 3000
-                    })
-                }
+            },
+                (status, payload) => {
+                    this.setState({ loading: false });
+                    if (status) {
+                        _payWithPaystack(payload.reference, payload.amount, this.resolvePaystackResponse)
+                    } else {
+                        this.props.toastManager.add(payload, {
+                            appearance: "error",
+                            autoDismiss: true,
+                            autoDismissTimeout: 3000
+                        })
+                    }
 
-                this.props.onHide();
-            });
+                    this.props.onHide();
+                });
         }
 
 
@@ -103,7 +104,7 @@ class InstantSavingForm extends Component {
     getUserCards() {
         getUserCards((status, payload) => {
             if (status) {
-                this.setState({cards: payload});
+                this.setState({ cards: payload });
             } else {
                 this.props.toastManager.add("Unable to fetch Cards", {
                     appearance: 'error',
@@ -117,7 +118,7 @@ class InstantSavingForm extends Component {
 
     //submit steady save form
     submitForm = (e) => {
-        const {form} = this.state;
+        const { form } = this.state;
         e.preventDefault();
         if (this.validator.allValid()) {
             if (Number(form.amount) < MIN_INSTANT_SAVE && parseInt(this.state.form.payment_auth) != ADD_BANK) {
@@ -171,10 +172,10 @@ class InstantSavingForm extends Component {
     changeHandler = event => {
         const name = event.target.name;
         let value = event.target.value;
-        const data = {...this.state.form};
+        const data = { ...this.state.form };
         data[name] = value;
 
-        if (name === 'payment_auth' && value == 0) {
+        if (name === 'payment_auth' && value === 0) {
             //initiate paystack
             this.initiatePayStack();
         }
@@ -191,8 +192,8 @@ class InstantSavingForm extends Component {
 
 
     render() {
-        const {payment_auth, amount} = this.state.form;
-        const {userCards} = this.state;
+        const { payment_auth, amount } = this.state.form;
+        const { userCards } = this.state;
         return (
             <React.Fragment>
                 <Form className={'is-modal-form'} onSubmit={this.submitForm}>
@@ -201,11 +202,11 @@ class InstantSavingForm extends Component {
                             <Form.Group className={'mt-md-1 mb-md-3'}>
                                 <Form.Label className='d-block'>
                                     Amount <span className='amount-display round float-right text-white px-1'>
-                                    ₦ {formatNumber(Number(amount).toFixed(2))}
+                                        ₦ {formatNumber(Number(amount).toFixed(2))}
                                     </span>
                                 </Form.Label>
                                 <Form.Control type="number" placeholder={500} name={'amount'} id={'amount'}
-                                              value={amount} onChange={this.changeHandler}/>
+                                    value={amount} onChange={this.changeHandler} />
                                 {this.validator.message('amount', amount, 'required|numeric')}
                             </Form.Group>
                         </Col>
@@ -215,8 +216,8 @@ class InstantSavingForm extends Component {
                             <Form.Group>
                                 <Form.Label>Debit Card</Form.Label>
                                 <Form.Control as="select" onChange={this.changeHandler} value={payment_auth}
-                                              id={'payment_auth'}
-                                              name={'payment_auth'}>
+                                    id={'payment_auth'}
+                                    name={'payment_auth'}>
                                     <option value={-1}>Select Card</option>
                                     <option value={0}>Add Card</option>
                                     {
@@ -238,8 +239,8 @@ class InstantSavingForm extends Component {
                     </Form.Row>
                     <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
                         <button className={'round btn-custom-blue modal-btn'} disabled={this.state.loading}
-                                type="submit">
-                            {this.state.loading ? <ButtonLoader/> : <span>Start Saving</span>}
+                            type="submit">
+                            {this.state.loading ? <ButtonLoader /> : <span>Start Saving</span>}
                         </button>
                     </Form.Row>
                 </Form>

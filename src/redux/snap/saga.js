@@ -1,0 +1,53 @@
+import { takeLatest, call, put } from 'redux-saga/effects';
+import api, { snapRequest } from '../../services/api';
+import {
+  CREATE_SNAP_REQUEST,
+  CREATE_SNAP_SUCCESS,
+  GET_SNAP_REQUEST,
+  GET_SNAP_SUCCESS,
+  INIT_SNAP_REQUEST,
+  INIT_SNAP_SUCCESS,
+  VERIFY_SNAP_REQUEST,
+  VERIFY_SNAP_SUCCESS
+} from './types';
+import { safeSaga } from '../../Helpers';
+
+function* createSnap({ payload }) {
+  const { data } = yield call([api, 'post'], snapRequest.SNAP, payload);
+  yield put({
+    type: CREATE_SNAP_SUCCESS,
+    payload: data,
+  });
+}
+
+function* getSnap() {
+  const { data } = yield call([api, 'get'], snapRequest.SNAP);
+  yield put({
+    type: GET_SNAP_SUCCESS,
+    payload: data,
+  });
+}
+
+function* initalizeSnap({ payload }) {
+  const { data } = yield call([api, 'post'], snapRequest.INIT, payload);
+  yield put({
+    type: INIT_SNAP_SUCCESS,
+    payload: data,
+  });
+}
+
+
+function* verifySnap({ payload }) {
+  const { data } = yield call([api, 'post'], snapRequest.VERIFY, payload);
+  yield put({
+    type: VERIFY_SNAP_SUCCESS,
+    payload: data,
+  });
+}
+
+export default function* snapSaga() {
+  yield takeLatest(CREATE_SNAP_REQUEST, safeSaga(createSnap));
+  yield takeLatest(GET_SNAP_REQUEST, safeSaga(getSnap));
+  yield takeLatest(INIT_SNAP_REQUEST, safeSaga(initalizeSnap));
+  yield takeLatest(VERIFY_SNAP_REQUEST, safeSaga(verifySnap));
+}

@@ -66,7 +66,7 @@ const Snap = () => {
         <div className="save-now">
           <h3 className="gray-header-text fs-mb-1 mb-2 mt-7px">Quick Actions</h3>
           <span>
-            <button onClick={() => setShowModal(true)}><img src={PlusIcon} alt="icon" /> Save Now</button>
+            <button><img src={PlusIcon} alt="icon" /> Save Now</button>
           </span>
           <div className="save-text ">
             <p> <img src={Interesticon} alt="icon" /> ₦10,000.00</p>

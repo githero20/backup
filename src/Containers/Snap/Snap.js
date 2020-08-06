@@ -1,27 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import { withToastManager } from 'react-toast-notifications';
 import styled from '@emotion/styled';
 import PlusIcon from '../../admin/app-assets/images/plusIcon.svg';
+import amountWithDraw from '../../admin/app-assets/images/amountwithdraw.svg';
 import Interesticon from '../../admin/app-assets/images/Interesticon.svg';
 import BalanceIcon from '../../admin/app-assets/images/balanceicon.svg';
 import { useDispatch, useSelector } from 'react-redux'
-import { getSnapRequest } from '../../redux/snap/action';
-import CustomTable from '../../Components/Reuseable/CustomTable'
+import { getSnapRequest, getHistoryRequest } from '../../redux/snap/action';
+import TableDisplay from '../../Components/Reuseable/TableDisplay'
 import CustomModal from '../../Components/Dashboard/Snap/CustomModal';
 import SnapForm from '../../Components/Dashboard/Snap/SnapForm';
+import amountSaved from '../../admin/app-assets/images/amoutsaved.svg';
+import NotificationIcon from '../../admin/app-assets/images/NotificationIcon.svg';
+import { getUserRequest } from '../../redux/auth/action';
+import { formatNumber } from "../../Helpers/Helper"
+
 const Snap = () => {
   const dispatch = useDispatch();
   const [dataSource, setdataSource] = useState([])
-  const { data, processing } = useSelector(state => state.snap);
+  const { data, processing } = useSelector(state => state.snap.all);
+  const snapHistory = useSelector(state => state.snap.history);
+  const userData = useSelector(state => state.auth.data);
+  const [balance, setBalance] = useState(0);
+  const [interest, setinterest] = useState(0);
+  const [withdrawal, setwithdrawal] = useState(0);
+  const [payOut, setpayOut] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const hideModal = () => {
     setShowModal(false);
   }
   useEffect(() => {
     dispatch(getSnapRequest());
+    dispatch(getUserRequest());
+    dispatch(getHistoryRequest());
   }, []);
+  useEffect(() => {
+    if (userData.accounts) {
+      userData.accounts.data.forEach(acct => {
+        if (acct.account_type_id === 7) {
+          setBalance(acct.balance);
+        }
+        if (acct.account_type_id === 8) {
+          setpayOut(acct.balance);
+        }
+      });
+    }
+  }, [userData]);
+  useEffect(() => {
+    if (Array.isArray(snapHistory.data)) {
+      snapHistory.data.forEach(item => {
+        if (item.type === "interest") {
+          setinterest(item.balance)
+        }
+        if (item.type === "account") {
+          setwithdrawal(item.balance)
+        }
+      })
+    }
+  }, [snapHistory]);
+
   useEffect(() => {
     if (Array.isArray(data)) {
       setdataSource(data);
@@ -38,13 +76,12 @@ const Snap = () => {
     },
     {
       title: 'amount',
-      dataIndex: 'amount',
+      render: (value, record) => <div>{formatNumber(record.amount)}</div>
     },
     {
       title: 'balance',
-      dataIndex: 'balance',
+      render: (value, record) => <div>{formatNumber(record.balance)}</div>
     },
-
   ];
   return (
     <Snap.Wrapper>
@@ -63,7 +100,7 @@ const Snap = () => {
             <p>Balance</p>
             <div>
               <img src={BalanceIcon} alt="walletIcon" />
-              <p>N500,000.48</p>
+              <p>₦{formatNumber(balance)} </p>
             </div>
           </div>
         </div>
@@ -73,23 +110,41 @@ const Snap = () => {
             <button onClick={() => setShowModal(true)}><img src={PlusIcon} alt="icon" /> Save Now</button>
           </span>
           <div className="save-text ">
-            <p> <img src={Interesticon} alt="icon" /> ₦10,000.00</p>
-            <p>(Total Instant Save)</p>
+            <p> <img src={Interesticon} alt="icon" />₦{formatNumber(interest)}</p>
+            <p>(Intrest Earned)</p>
           </div>
         </div>
-        <div className="next-part">
-          this is the last part
+        <div className="details">
+          <p><img src={NotificationIcon} alt="icon" /> Snap Savings helps you get huge returns weekly on high saving deposits</p>
+          <div>
+            <div className="box box-a">
+              <img src={amountWithDraw} alt="icon" />
+              <div className="content">
+                <p>₦{`${withdrawal === 0 ? '0.00' : formatNumber(withdrawal)}`}</p>
+
+                <p>Avaliable for withdrawal</p>
+              </div>
+            </div>
+            <div className="box box-b">
+              <img src={amountSaved} alt="icon" />
+              <div className="content">
+                <p>₦{`${payOut === 0 ? '0.00' : formatNumber(payOut)}`}</p>
+                <p>Interest payout</p>
+                <button>Transfer Interest</button>
+              </div>
+            </div>
+          </div>
         </div>
       </SnapContent>
-      <TableDisplay>
-        <CustomTable
+      <TableDisplayHolder>
+        <TableDisplay
+          header="Recent Transations"
           columns={columns}
           dataSource={dataSource}
           loading={processing}
-          // pagination
           pagination
         />
-      </TableDisplay>
+      </TableDisplayHolder>
     </Snap.Wrapper>
   )
 }
@@ -108,6 +163,7 @@ grid-template-columns:repeat(4,1fr);
 margin-left: 20rem; 
 padding-top: 8rem;
 grid-gap:1rem;
+font-family:'Circular Std', 'Open Sans';
 .card{
   background-color:#482D99;
   height:10rem;
@@ -131,6 +187,10 @@ grid-gap:1rem;
 }
 
 .save-now{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
   button{
   display: inline-block;
   padding: 0.8rem 1rem;
@@ -157,8 +217,63 @@ grid-gap:1rem;
     }
   }
 }
+.details{
+  /* span */
+  grid-column: 3 / span 2;
+  padding:1rem;
+  border-left:2px solid gray;
+ &>p{
+    background-color:#EFF3FF;
+    padding:1rem;
+    border-radius:10px;
+    margin-bottom:1rem;
+    color:#103366;
+    font-size:13px;
+  }
+  &>div{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    .box{
+      display:flex;
+      align-items:center;
+      img{
+        margin-right:1rem;
+      }
+      p:first-of-type{
+        font-family:"Circular Std Black";
+        font-size:16px;
+        color:#352D66;
+      }
+      p:last-of-type{
+        color:#103366;
+        opacity:0.58;
+      }
+
+    button{
+      border:none;
+      background-color:#482D99;
+      color: white;
+      padding: 7px 20px;
+      font-size: .8rem;
+      border-radius: 2rem;
+      margin: 10px 0px;
+      min-width: 100px;
+      height: 30px;
+      font-weight:bold;
+      cursor: pointer;
+      }
+      &-b{
+        .content{
+          margin-top:3rem;
+        }
+        /* background-color:green; */
+      }
+    }
+  }
+}
 `
-const TableDisplay = styled.div`
+const TableDisplayHolder = styled.div`
 margin-left: 17rem; 
 margin-top: 5rem;
 `

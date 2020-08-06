@@ -6,7 +6,9 @@ import {
   GET_SNAP_SUCCESS,
   INIT_SNAP_SUCCESS,
   VERIFY_SNAP_SUCCESS,
-  RESET_STATE
+  RESET_STATE,
+  GET_HISTORY_SUCCESS,
+  GET_HISTORY_REQUEST
 } from './types';
 import { defaultSingleObjectState } from '../../utils/constants'
 import { extractStatus, handleFetch, SET_SAGA_ERROR } from '../../Helpers'
@@ -16,8 +18,13 @@ const defaultPayload = {
   errors: [],
 };
 
+const initalState = {
+  all: defaultSingleObjectState,
+  history: defaultSingleObjectState
+}
+
 const snapReducer = (
-  state = defaultSingleObjectState,
+  state = initalState,
   { type, payload = defaultPayload }
 ) => {
   const status = extractStatus(type);
@@ -30,7 +37,10 @@ const snapReducer = (
     case INIT_SNAP_SUCCESS:
     case VERIFY_SNAP_SUCCESS:
     case SET_SAGA_ERROR:
-      return handleFetch(state, status, payload);
+      return handleFetch(state, status, payload, 'all');
+    case GET_HISTORY_REQUEST:
+    case GET_HISTORY_SUCCESS:
+      return handleFetch(state, status, payload, 'history');
     case RESET_STATE:
       return {
         ...state,

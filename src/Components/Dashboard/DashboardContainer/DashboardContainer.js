@@ -25,6 +25,7 @@ import Footer from "../Footer/Footer";
 import appImage from "../../../admin/app-assets/images/dashboard/Mask Group 12@2x.png";
 import instantSaveImage from "../../../admin/app-assets/images/dashboard/Mask Group 13@2x.png";
 import SnapCard from '../Snap/SnapCard';
+import SnapIntro from '../Snap/SnapIntro';
 
 class DashboardContainer extends Component {
 
@@ -222,7 +223,7 @@ class DashboardContainer extends Component {
 
                                 <MillexHolder>
                                     <SnapCard />
-                                    <SnapCard />
+                                    <SnapIntro />
                                 </MillexHolder>
 
                                 <div className="col-12 col-lg-6">

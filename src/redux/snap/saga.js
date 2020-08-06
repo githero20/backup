@@ -8,7 +8,9 @@ import {
   INIT_SNAP_REQUEST,
   INIT_SNAP_SUCCESS,
   VERIFY_SNAP_REQUEST,
-  VERIFY_SNAP_SUCCESS
+  VERIFY_SNAP_SUCCESS,
+  GET_HISTORY_REQUEST,
+  GET_HISTORY_SUCCESS
 } from './types';
 import { safeSaga } from '../../Helpers';
 
@@ -43,11 +45,20 @@ function* verifySnap({ payload }) {
     type: VERIFY_SNAP_SUCCESS,
     payload: data,
   });
-}
+};
+
+function* snapHistory() {
+  const { data } = yield call([api, 'get'], snapRequest.HISTORY);
+  yield put({
+    type: GET_HISTORY_SUCCESS,
+    payload: data,
+  });
+};
 
 export default function* snapSaga() {
   yield takeLatest(CREATE_SNAP_REQUEST, safeSaga(createSnap));
   yield takeLatest(GET_SNAP_REQUEST, safeSaga(getSnap));
   yield takeLatest(INIT_SNAP_REQUEST, safeSaga(initalizeSnap));
   yield takeLatest(VERIFY_SNAP_REQUEST, safeSaga(verifySnap));
+  yield takeLatest(GET_HISTORY_REQUEST, safeSaga(snapHistory));
 }

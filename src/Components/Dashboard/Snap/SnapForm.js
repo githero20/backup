@@ -16,7 +16,7 @@ const SnapForm = (props) => {
   const [amount, setAmount] = useState(0)
   const [itemSelected, setItemSelected] = useState('Select Card')
   const [userCards, setUserCards] = useState([]);
-  const { errors, data, processing } = useSelector(state => state.snap);
+  const { errors, data, processing } = useSelector(state => state.snap.all);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {

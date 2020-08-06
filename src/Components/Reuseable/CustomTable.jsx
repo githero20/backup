@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from 'react';
 import styled from '@emotion/styled';
 import shortid from 'shortid';
-// import { COLORS } from 'styles/constants';
 import NoData from './NoData';
+import { Roller } from 'react-spinners-css';
 
 const Pagination = (props) => {
   const { postsPerPage, totalPosts, paginate, currentPage } = props;
@@ -45,10 +45,8 @@ Pagination.Wrapper = styled.nav`
     color: black;
     padding: 8px 16px;
     text-decoration: none;
-    border: 1px solid #ddd;
-    &:hover:not(.active) {
-      background-color: #ddd;
-    }
+    border:none;
+    background-color:#fff;
     &:disabled,
     &[disabled]{
       border: 1px solid #999999;
@@ -69,9 +67,9 @@ Pagination.Wrapper = styled.nav`
       border-bottom-right-radius: 5px;
     }
   .active {
-  background-color: #4CAF50;
   color: white;
-  border: 1px solid #4CAF50;
+    background-color: #2784f4;
+    border-radius: 50%;
 }
 `
 const CustomTable = (props) => {
@@ -92,7 +90,7 @@ const CustomTable = (props) => {
     <TableHolder>
       {loading ? (
         <TempHolder>
-          <Fragment>Loading</Fragment>
+          <Roller color="#fff" style={{ margin: 'auto' }} />
         </TempHolder>
       ) : <Fragment></Fragment>}
 
@@ -145,6 +143,7 @@ const CustomTable = (props) => {
 
 
 const TableHolder = styled.div`
+font-family:'Product Sans','Circular Std';
 position: relative;
 overflow-x: auto;
 `;
@@ -153,22 +152,21 @@ width: 100%;
 `;
 const TableHeader = styled.th`
     background-color:white;
-    color:black;
+    color: rgba(138,138,178,.4);
     padding:0.8rem;
     text-transform:uppercase;
 `;
 const TableData = styled.td`
     color:black;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    /* border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd; */
     padding: 15px;
     background-color:white;
-    /* text-align:center; */
 `;
 
 const TempHolder = styled.div`
 position: absolute;
-background-color:rgba(0,0,0,.45);
+background-color:rgba(0,0,0,.5);
 top:0;
 left:0;
 right:0;

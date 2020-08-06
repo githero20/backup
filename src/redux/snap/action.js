@@ -3,7 +3,8 @@ import {
   GET_SNAP_REQUEST,
   INIT_SNAP_REQUEST,
   VERIFY_SNAP_REQUEST,
-  RESET_STATE
+  RESET_STATE,
+  GET_HISTORY_REQUEST
 } from './types';
 
 export const createSnapRequest = (payload) => ({
@@ -23,6 +24,9 @@ export const initSnapRequest = (payload) => ({
 export const verifySnapRequest = (payload) => ({
   type: VERIFY_SNAP_REQUEST,
   payload
+});
+export const getHistoryRequest = () => ({
+  type: GET_HISTORY_REQUEST,
 });
 
 export const resetState = () => ({

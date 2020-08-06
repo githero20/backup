@@ -10,7 +10,7 @@ function* getUser() {
   const { data } = yield call([api, 'get'], authRequest.USER);
   yield put({
     type: GET_USER_SUCCESS,
-    payload: { data },
+    payload: data,
   });
 }
 

@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import whiteSaveMoreIcon from "../../admin/app-assets/images/svg/mb-save-more-white-icon.svg";
 import instantSaveIcon from "../../admin/app-assets/images/svg/mb-instant-save-icon.svg";
 import InstantSavingModal from "../../Components/Dashboard/InstantSavingModal/InstantSavingModal";
 import TransactionTable from "../../Components/Dashboard/TransactionTable/TransactionTable";
-import {request} from "../../ApiUtils/ApiUtils";
+import { request } from "../../ApiUtils/ApiUtils";
 import {
     amountFormatter,
     balanceFormatter,
@@ -21,12 +21,14 @@ import {
     toggleTable
 } from "../../Helpers/Helper";
 import InstantSaveCard from "../../Components/Dashboard/InstantSaveCard/InstantSaveCard";
-import {getUserInfoEndpoint, instantSaveTransEndpoint} from "../../RouteLinks/RouteLinks";
+import { getUserInfoEndpoint, instantSaveTransEndpoint } from "../../RouteLinks/RouteLinks";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
-import {Comparator, dateFilter} from 'react-bootstrap-table2-filter';
+import { Comparator } from 'react-bootstrap-table2-filter';
+// import { Comparator, dateFilter } from 'react-bootstrap-table2-filter';
 import moment from "moment";
-import {withToastManager} from 'react-toast-notifications';
+import { withToastManager } from 'react-toast-notifications';
 import Footer from "../../Components/Dashboard/Footer/Footer";
+import CustomTable from '../../Components/Reuseable/CustomTable'
 
 class InstantSave extends Component {
 
@@ -73,7 +75,7 @@ class InstantSave extends Component {
         if (status) {
             //set name
             if (data) {
-                this.setState({userName: data.data.data.name});
+                this.setState({ userName: data.data.data.name });
             }
             //set proper account
             if (data.data.data.accounts) {
@@ -98,7 +100,7 @@ class InstantSave extends Component {
             //filter credits
             let instantSaves = transactions.filter((content) => (content.status == 'success' && content.type == 'credit'));
             //get sum of credits
-            const sum = instantSaves.reduce((a, b) => ({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
+            const sum = instantSaves.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
             return sum.amount;
         }
     }
@@ -115,16 +117,17 @@ class InstantSave extends Component {
 
 
     handleTransactions = (state, res) => {
-        this.setState({ showLoader: false});
+        this.setState({ showLoader: false });
         if (state) {
             let transactions = [];
             let total = 0;
             if (res.data.data.length > 0) {
-                transactions = res.data.data.
-                filter(content => content.status == 'success' && content.type == 'credit');
+                transactions = res.data.data
+                    .filter(content => content.status == 'success' && content.type == 'credit');
                 if (transactions.length > 1) {
                     total = transactions.reduce((a, b) => ({
-                        amount: parseFloat(a.amount) + parseFloat(b.amount)})).amount;
+                        amount: parseFloat(a.amount) + parseFloat(b.amount)
+                    })).amount;
                 }
             }
             this.setState({
@@ -133,14 +136,14 @@ class InstantSave extends Component {
             });
 
         } else if (!state && res) {
-            this.setState({showLoader: false});
+            this.setState({ showLoader: false });
             toastMessage('unable to get instant save transactions', 'error', this);
         }
     };
 
-    handleFilter = (date, comparator) => {
-        handleFiltering(date, comparator, this);
-    };
+    // handleFilter = (date, comparator) => {
+    //     handleFiltering(date, comparator, this);
+    // };
 
 
     loadInstantSaveTable = (status, payload) => {
@@ -158,7 +161,7 @@ class InstantSave extends Component {
 
         } else {
             // toastMessage('Unable to get Instant saves at the moment','error',this);
-            this.setState({showLoader: false});
+            this.setState({ showLoader: false });
         }
 
     };
@@ -197,61 +200,84 @@ class InstantSave extends Component {
     }
 
     render() {
-
         const columns = [
             {
-                text: 'Date',
-                dataField: 'created_at',
-                formatter: dateFormatter,
-                sort: true,
-                searchable: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
-                filter: dateFilter({
-                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
-                    getFilter: (filter) => {
-                        this.createdDateFilter = filter;
-                    }
-                })
+                title: 'Date',
+                dataIndex: 'created_at',
             },
             {
-                text: 'Description',
-                dataField: 'type',
-                formatter: descriptionFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
-
+                title: 'Description',
+                dataIndex: 'type',
             },
             {
-                text: 'Amount',
-                dataField: 'amount',
-                formatter: amountFormatter,
-                sort: true
-
+                title: 'Amount',
+                dataIndex: 'amount',
             }, {
-                text: 'Balance',
-                dataField: 'balance',
-                formatter: balanceFormatter,
-                sort: true
-
+                title: 'Balance',
+                dataIndex: 'balance',
             },
             {
-                text: 'Status',
-                dataField: 'status',
-                formatter: statusFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                title: 'Status',
+                dataIndex: 'status',
             },
             {
-                text: 'Reference',
-                dataField: 'reference',
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
-
+                title: 'Reference',
+                dataIndex: 'reference',
             }];
+        // const columns = [
+        //     {
+        //         text: 'Date',
+        //         dataField: 'created_at',
+        //         formatter: dateFormatter,
+        //         sort: true,
+        //         searchable: true,
+        //         classes: 'd-none d-md-table-cell',
+        //         headerClasses: 'd-none d-md-table-cell',
+        //         // filter: dateFilter({
+        //         //     defaultValue: { date: todaysDateForTable(), comparator: Comparator.LEQUAL },
+        //         //     getFilter: (filter) => {
+        //         //         this.createdDateFilter = filter;
+        //         //     }
+        //         // })
+        //     },
+        //     {
+        //         text: 'Description',
+        //         dataField: 'type',
+        //         formatter: descriptionFormatter,
+        //         sort: true,
+        //         classes: 'd-none d-md-table-cell',
+        //         headerClasses: 'd-none d-md-table-cell',
+
+        //     },
+        //     {
+        //         text: 'Amount',
+        //         dataField: 'amount',
+        //         formatter: amountFormatter,
+        //         sort: true
+
+        //     }, {
+        //         text: 'Balance',
+        //         dataField: 'balance',
+        //         formatter: balanceFormatter,
+        //         sort: true
+
+        //     },
+        //     {
+        //         text: 'Status',
+        //         dataField: 'status',
+        //         formatter: statusFormatter,
+        //         sort: true,
+        //         classes: 'd-none d-md-table-cell',
+        //         headerClasses: 'd-none d-md-table-cell',
+        //     },
+        //     {
+        //         text: 'Reference',
+        //         dataField: 'reference',
+        //         sort: true,
+        //         classes: 'd-none d-md-table-cell',
+        //         headerClasses: 'd-none d-md-table-cell',
+
+        //     }];
 
         const mobileColumn = [
             {
@@ -262,12 +288,12 @@ class InstantSave extends Component {
                 searchable: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-                filter: dateFilter({
-                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
-                    getFilter: (filter) => {
-                        this.createdDateFilter = filter;
-                    }
-                })
+                // filter: dateFilter({
+                //     defaultValue: { date: todaysDateForTable(), comparator: Comparator.LEQUAL },
+                //     getFilter: (filter) => {
+                //         this.createdDateFilter = filter;
+                //     }
+                // })
             },
             {
                 text: 'Description',
@@ -315,8 +341,8 @@ class InstantSave extends Component {
             <div
                 className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done instant-save"
                 data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                <HorizontalNav userName={this.state.userName}/>
-                <VerticalNav/>
+                <HorizontalNav userName={this.state.userName} />
+                <VerticalNav />
                 <div className="app-content content ">
                     <div className="content-wrapper">
                         <div className="mb-5"></div>
@@ -335,14 +361,14 @@ class InstantSave extends Component {
                                 ) : null
                         }
 
-                        {this.state.showLoader ? <DashboardLoader/> : null}
+                        {this.state.showLoader ? <DashboardLoader /> : null}
                         <div className="content-header row">
                         </div>
                         <div className="content-body">
                             <div className="row">
                                 <div className="col-lg-5 col-12 order-lg-8">
                                     <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
-                                        <p>Start saving your money here whenever you want!<br/>
+                                        <p>Start saving your money here whenever you want!<br />
                                             We want you to be disciplined, so we’ll charge you 5% if you choose
                                             to withdraw outside of your set withdrawal days.</p>
                                     </div>
@@ -352,51 +378,53 @@ class InstantSave extends Component {
                                         className="dot">.</span> Summary
                                     </h3>
                                     <InstantSaveCard
-                                        balance={formatNumber(parseFloat(this.state.totalBalance).toFixed(2))}/>
+                                        balance={formatNumber(parseFloat(this.state.totalBalance).toFixed(2))} />
                                 </div>
                                 <div className="col-lg-3 col-12 order-lg-5">
                                     <h3 className="gray-header-text fs-mb-1 mb-2 mt-7px">Quick Actions</h3>
                                     <div className="mb-quick-actions d-flex flex-md-column flex-wrap mb-3 mb-md-0 ">
-                                            <span className="mb-btn-wrapper">
-                                                <button type="button" data-toggle="modal" data-target="#large"
-                                                        onClick={this.showModal}
-                                                        className=" btn-blue-gradient-2 round">
-                                                    <img src={whiteSaveMoreIcon}/>Save Now
+                                        <span className="mb-btn-wrapper">
+                                            <button type="button" data-toggle="modal" data-target="#large"
+                                                onClick={this.showModal}
+                                                className=" btn-blue-gradient-2 round">
+                                                <img src={whiteSaveMoreIcon} />Save Now
                                                 </button>
-                                            </span>
+                                        </span>
                                         <span className="mb-details-container ">
-                                                <div className="d-inline-block q-detail-img">
-                                                    <img src={instantSaveIcon}/>
-                                                </div>
-                                                <div className=" d-inline-block">
-                                                    <strong
-                                                        className="dark-brown font-size-1-16"><span>₦</span> {formatNumber(parseFloat(this.state.totalInstantSave).toFixed(2))}</strong>
-                                                    <p className="gray-text circular-std mb-p-size">Total Instant Save</p>
-                                                </div>
-                                            </span>
+                                            <div className="d-inline-block q-detail-img">
+                                                <img src={instantSaveIcon} />
+                                            </div>
+                                            <div className=" d-inline-block">
+                                                <strong
+                                                    className="dark-brown font-size-1-16"><span>₦</span> {formatNumber(parseFloat(this.state.totalInstantSave).toFixed(2))}</strong>
+                                                <p className="gray-text circular-std mb-p-size">Total Instant Save</p>
+                                            </div>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="row">
+                            <div>
                                 {
-                                    this.state.mobileTable ?
-                                        (
-                                            <TransactionTable handleFilter={this.handleFilter}
-                                                              transactions={this.state.transactions}
-                                                              columns={mobileColumn}/>
-                                        ) :
-                                        (
-                                            <TransactionTable handleFilter={this.handleFilter}
-                                                              transactions={this.state.transactions} columns={columns}/>
-                                        )
+                                    <CustomTable columns={columns} dataSource={this.state.transactions} pagination />
+                                    //     this.state.mobileTable ?
+                                    //         (
+
+                                    //             <TransactionTable
+                                    //                 transactions={this.state.transactions}
+                                    //                 columns={mobileColumn} />
+                                    //         ) :
+                                    //         (
+                                    //             <TransactionTable
+                                    //                 transactions={this.state.transactions} columns={columns} />
+                                    //         )
                                 }
                             </div>
                         </div>
                     </div>
-                    <Footer/>
+                    <Footer />
                 </div>
-            </div>
+            </div >
         );
     }
 }

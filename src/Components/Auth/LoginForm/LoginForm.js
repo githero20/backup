@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link, Redirect} from "react-router-dom";
+import React, { Component } from 'react';
+import { Link, Redirect } from "react-router-dom";
 import signInIcon from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
 import ButtonLoader from "../Buttonloader/ButtonLoader";
 import {
@@ -10,13 +10,13 @@ import {
     LoginEndpoint,
     ResendActivationLink, sbDashboardLink, scoreboardLink
 } from "../../../RouteLinks/RouteLinks";
-import {api} from "../../../ApiUtils/ApiUtils";
-import {SESSION_INTERVAL, USERINFO, USERTOKEN} from "../HOC/authcontroller";
-import {withToastManager} from 'react-toast-notifications';
-import {ADMIN, ADMIN_LOGIN_URL, currentLocation, CUSTOMER, redirectTo} from "../../../Helpers/Helper";
+import { api } from "../../../ApiUtils/ApiUtils";
+import { SESSION_INTERVAL, USERINFO, USERTOKEN } from "../HOC/authcontroller";
+import { withToastManager } from 'react-toast-notifications';
+import { ADMIN, ADMIN_LOGIN_URL, currentLocation, CUSTOMER, redirectTo } from "../../../Helpers/Helper";
 import moment from 'moment';
 import SimpleReactValidator from "simple-react-validator";
-import {Form} from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import Button from "../../Commons/Button";
 
 
@@ -52,7 +52,7 @@ class LoginForm extends Component {
     };
 
     toastMessage(message, status) {
-        const {toastManager} = this.props;
+        const { toastManager } = this.props;
         toastManager.add(message, {
             appearance: status,
             autoDismiss: true,
@@ -64,7 +64,7 @@ class LoginForm extends Component {
 
     processLogin(state, response) {
         if (state) {
-            if (response != undefined) {
+            if (response !== undefined) {
                 //set session time
                 const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
                 // handle admin login
@@ -73,14 +73,14 @@ class LoginForm extends Component {
                         window.location.replace(ADMIN_LOGIN_URL);
                         break;
                     case CUSTOMER:
-                        if (response.data.bank_withdrawal_pin == true) {
+                        if (response.data.bank_withdrawal_pin === true) {
                             localStorage.setItem(USERTOKEN, JSON.stringify(response.data.token));
                             localStorage.setItem(SESSION_INTERVAL, JSON.stringify(timeStamp));
                             localStorage.setItem(USERINFO, JSON.stringify(response.data.user));
 
-                            if(currentLocation === scoreboardLink){
+                            if (currentLocation === scoreboardLink) {
                                 redirectTo(sbDashboardLink);
-                            }else {
+                            } else {
                                 setTimeout(() => {
                                     this.setState({
                                         redirect: true,
@@ -103,14 +103,14 @@ class LoginForm extends Component {
             }
 
         } else {
-            this.setState({loading: false});
+            this.setState({ loading: false });
             if (response) {
-                if (response.status == 401) {
-                    if (response.data.message == "invalid_credentials") {
+                if (response.status === 401) {
+                    if (response.data.message === "invalid_credentials") {
                         this.toastMessage(`Invalid Credentials`, 'error');
-                    } else if (response.data.message == 'Incorrect email or password,Try again') {
+                    } else if (response.data.message === 'Incorrect email or password,Try again') {
                         this.toastMessage('Incorrect Email or Password', 'error');
-                    } else if (response.data.message == 'Account has not been activated, click on resend') {
+                    } else if (response.data.message === 'Account has not been activated, click on resend') {
                         // send toast message
                         this.toastMessage('Account has not been activated', 'error');
 
@@ -130,7 +130,7 @@ class LoginForm extends Component {
 
 
     Login = (url, param, login) => {
-        this.setState({loading: true});
+        this.setState({ loading: true });
         api(url, param, false, true, login);
     };
 
@@ -147,7 +147,7 @@ class LoginForm extends Component {
 
     //hides error display
     hideError = () => {
-        this.setState({error: false});
+        this.setState({ error: false });
     };
 
     componentDidMount() {
@@ -159,10 +159,10 @@ class LoginForm extends Component {
         if (this.validator.allValid()) {
             const PasswordRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
             //validate confirm password
-            const {password} = this.state;
+            const { password } = this.state;
             // perform all neccassary validations
             if (!PasswordRegex.exec(password)) {
-                this.setState({RenderPasswordError: true})
+                this.setState({ RenderPasswordError: true })
             } else {
                 return true;
             }
@@ -177,13 +177,13 @@ class LoginForm extends Component {
 
     render() {
 
-        const {email, password, loading} = this.state;
-        const {reviewForm} = this.props;
+        const { email, loading } = this.state;
+        const { reviewForm } = this.props;
 
         if (this.state.redirect) {
             return (
                 <React.Fragment>
-                    <Redirect to={DashboardLink} push/>
+                    <Redirect to={DashboardLink} push />
                 </React.Fragment>
             );
         }
@@ -193,7 +193,7 @@ class LoginForm extends Component {
                 <React.Fragment>
                     <Redirect to={{
                         pathname: addWithdrawalLink,
-                        state: {token: this.state.token}
+                        state: { token: this.state.token }
                     }} push
                     />
                 </React.Fragment>
@@ -205,8 +205,8 @@ class LoginForm extends Component {
                 <React.Fragment>
                     <Redirect to={{
                         pathname: `${ResendActivationLink}`,
-                        state: {email: email}
-                    }} push/>
+                        state: { email: email }
+                    }} push />
                 </React.Fragment>
             );
         }
@@ -220,14 +220,14 @@ class LoginForm extends Component {
                         <h3 className='font-weight-bold mb-lg-5 fs-lg-2 text-faded-blue circular-std-Black '>Log In</h3>
                         <Form.Group >
                             <Form.Label>Email address or Phone Number</Form.Label>
-                            <Form.Control type="text" id="email" name={'email'} onChange={this.changeHandler}/>
+                            <Form.Control type="text" id="email" name={'email'} onChange={this.changeHandler} />
                         </Form.Group>
 
                         <Form.Group>
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" id="password" name={'password'} onChange={this.changeHandler}/>
+                            <Form.Control type="password" id="password" name={'password'} onChange={this.changeHandler} />
                         </Form.Group>
-                        <Button text={'Log In'} loading={loading} onClick={(e) => this.submitForm(e)}/>
+                        <Button text={'Log In'} loading={loading} onClick={(e) => this.submitForm(e)} />
                     </Form> :
                     <form className="login-form" onSubmit={this.submitForm}>
                         <div className="row">
@@ -238,7 +238,7 @@ class LoginForm extends Component {
                                 <div className="form-group">
                                     <label htmlFor="email">Email or Phone Number</label>
                                     <input id="email" name={'email'} onChange={this.changeHandler} type="text"
-                                           className="form-control"/>
+                                        className="form-control" />
                                     {/*{this.validator.message('email or phone', email, 'required|emailPhone')}*/}
 
                                 </div>
@@ -250,7 +250,7 @@ class LoginForm extends Component {
                                         <Link className='dark-link' to={ForgotPasswordLink}>Forgot Password ?</Link>
                                     </div>
                                     <input id="password" name={'password'} type="password" onChange={this.changeHandler}
-                                           className="form-control"/>
+                                        className="form-control" />
                                 </div>
                             </div>
                             <div className="col-12">
@@ -273,9 +273,9 @@ class LoginForm extends Component {
                             <div className="col-12">
                                 <div className="d-flex  flex-column flex-md-row justify-content-end align-items-center">
                                     <button type={'submit'} disabled={this.state.loading}
-                                            className="btn btn-round blue-round-btn auth-btn order-md-12"
-                                            name="action">{this.state.loading ? <ButtonLoader/> :
-                                        <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon}/></span>}
+                                        className="btn btn-round blue-round-btn auth-btn order-md-12"
+                                        name="action">{this.state.loading ? <ButtonLoader /> :
+                                            <span>Sign in<img alt="" className="img-2x ml-1" src={signInIcon} /></span>}
                                     </button>
                                 </div>
                                 <div className='my-3 d-md-none text-center'>
@@ -283,7 +283,6 @@ class LoginForm extends Component {
                                         &nbsp;<Link to={botCreatePasswordLink} className="blue-link ">Create
                                             Password</Link>
                                     </label>
-                                    {/*No Password Yet (Bot User)?  Create */}
                                 </div>
                             </div>
                         </div>

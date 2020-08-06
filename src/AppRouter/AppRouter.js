@@ -1,8 +1,8 @@
-import React, {Component, Fragment} from 'react';
-import {Route} from "react-router";
+import React, { Component, Fragment } from 'react';
+import { Route } from "react-router";
 import Login from "../Containers/Login/Login";
 import SignUp from "../Containers/SignUp/SignUp";
-import {BrowserRouter as Router, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "../Containers/Home/Home";
 import DashboardIndex from "../Containers/DashboardIndex/DashboardIndex";
 import InstantSave from "../Containers/InstantSave/InstantSave";
@@ -42,21 +42,23 @@ import {
     SteadySaveLink,
     TermsAndCondLink,
     TransactionsLink,
-    WithdrawalLink
+    WithdrawalLink,
+    MillexLink
 } from "../RouteLinks/RouteLinks";
 import ForgotPassword from "../Containers/ForgotPassword/ForgotPassword";
-import AuthController, {USERINFO} from "../Components/Auth/HOC/authcontroller";
+import AuthController, { USERINFO } from "../Components/Auth/HOC/authcontroller";
 import ResetPassword from "../Containers/ResetPassword/ResetPassword";
 import EmailActivation from "../Containers/EmailActivation/EmailActivation";
 import ResendActivation from "../Containers/ResendActivation/ResendActivation";
 import KycSetting from "../Containers/KycSetting/KycSetting";
+import Snap from "../Containers/Snap/Snap";
 import BackupStash from "../Containers/BackupStash/BackupStash";
-import {ToastProvider} from "react-toast-notifications";
+import { ToastProvider } from "react-toast-notifications";
 import SetupWithdrawal from "../Containers/SetupWithdrawal/SetupWithdrawal";
 import ErrorPage from "../Containers/ErrorPage/ErrorPage";
 import Faq from "../Containers/Faq/faq";
-import {Transition, TransitionGroup} from "react-transition-group";
-import {exit, play} from "../timelines";
+import { Transition, TransitionGroup } from "react-transition-group";
+import { exit, play } from "../timelines";
 import Referrals from "../Containers/Referrals/Referrals";
 import ReactGA from 'react-ga';
 import Challenge from "../Containers/challenge/Challenge";
@@ -83,8 +85,8 @@ class AppRouter extends Component {
             <React.Fragment>
                 <ToastProvider>
                     <Router>
-                        <Route render={({location}) => {
-                            const {pathname, key} = location;
+                        <Route render={({ location }) => {
+                            const { pathname, key } = location;
                             return (
                                 <Fragment>
                                     <ErrorBoundary>
@@ -94,59 +96,61 @@ class AppRouter extends Component {
                                                 appear={true}
                                                 onEnter={(node, appears) => play(pathname, node, appears)}
                                                 onExit={(node, appears) => exit(node, appears)}
-                                                timeout={{enter: 750, exit: 150}}
+                                                timeout={{ enter: 750, exit: 150 }}
                                             >
                                                 <Switch>
                                                     <Route exact path={HomeLink}
-                                                           render={() => <Home isLoggedIn={user}/>}/>
+                                                        render={() => <Home isLoggedIn={user} />} />
                                                     <Route exact path={DashboardLink}
-                                                           component={AuthController(DashboardIndex)}/>
+                                                        component={AuthController(DashboardIndex)} />
                                                     <Route path={InstantSaveLink}
-                                                           component={AuthController(InstantSave)}/>
+                                                        component={AuthController(InstantSave)} />
                                                     <Route path={SteadySaveLink}
-                                                           component={AuthController(SteadySave)}/>
+                                                        component={AuthController(SteadySave)} />
                                                     <Route path={LockedSavingsLink}
-                                                           component={AuthController(LockedSavings)}/>
+                                                        component={AuthController(LockedSavings)} />
                                                     <Route path={BackupGoalsLink}
-                                                           component={AuthController(BackupGoals)}/>
+                                                        component={AuthController(BackupGoals)} />
                                                     <Route path={TransactionsLink}
-                                                           component={AuthController(Transactions)}/>
-                                                    <Route path={ReferralsLink} component={AuthController(Referrals)}/>
+                                                        component={AuthController(Transactions)} />
+                                                    <Route path={ReferralsLink} component={AuthController(Referrals)} />
                                                     <Route path={WithdrawalLink}
-                                                           component={AuthController(Withdrawal)}/>
+                                                        component={AuthController(Withdrawal)} />
                                                     <Route path={ProfileSettingLink}
-                                                           component={AuthController(ProfileSetting)}/>
+                                                        component={AuthController(ProfileSetting)} />
                                                     <Route path={BankCardLink}
-                                                           component={AuthController(BankCardSetting)}/>
+                                                        component={AuthController(BankCardSetting)} />
+                                                    <Route path={MillexLink}
+                                                        component={AuthController(Snap)} />
                                                     <Route path={KycSettingLink}
-                                                           component={AuthController(KycSetting)}/>
+                                                        component={AuthController(KycSetting)} />
                                                     <Route path={BackupStashLink}
-                                                           component={AuthController(BackupStash)}/>
-                                                    <Route path={EmailActivationLink} component={EmailActivation}/>
-                                                    <Route path={ResendActivationLink} component={ResendActivation}/>
+                                                        component={AuthController(BackupStash)} />
+                                                    <Route path={EmailActivationLink} component={EmailActivation} />
+                                                    <Route path={ResendActivationLink} component={ResendActivation} />
 
-                                                    <Route path={ChallengeLink} render={() => <Challenge isLoggedIn={user}/>}
+                                                    <Route path={ChallengeLink} render={() => <Challenge isLoggedIn={user} />}
                                                     />
-                                                    <Route path={TermsAndCondLink} component={PrivacyPolicy}/>
+                                                    <Route path={TermsAndCondLink} component={PrivacyPolicy} />
 
-                                                    <Route path={LoginLink} render={() => (user ? window.location.href = DashboardLink : <Login/>)}
+                                                    <Route path={LoginLink} render={() => (user ? window.location.href = DashboardLink : <Login />)}
                                                     />
-                                                    <Route path={SignUpLink} render={(props) => (user ? window.location.href = DashboardLink : <SignUp {...props}/>)}
+                                                    <Route path={SignUpLink} render={(props) => (user ? window.location.href = DashboardLink : <SignUp {...props} />)}
                                                     />
-                                                    <Route path={InviteLink} component={SignUp}/>
-                                                    <Route path={ActivateAccountLink} component={ActivateAccount}/>
-                                                    <Route path={ForgotPasswordLink} component={ForgotPassword}/>
-                                                    <Route path={botCreatePasswordLink} render={props => <ForgotPassword bot={true} {...props} />}/>
-                                                    <Route path={ResetPasswordLink} component={ResetPassword}/>
-                                                    <Route path={addWithdrawalLink} component={SetupWithdrawal}/>
-                                                    <Route path={FaqLink} render={(props) => <Faq {...props} isLoggedIn={user}/>}/>
-                                                    <Route exact path={scoreboardLink} component={YearlyReview}/>
-                                                    <Route exact path={sbDashboardLink} component={ScoreBoard}/>
-                                                    <Route path={directSteadySave} component={DirectSteadySave}/>
-                                                    <Route path={directInstantSave} component={DirectInstantSave}/>
+                                                    <Route path={InviteLink} component={SignUp} />
+                                                    <Route path={ActivateAccountLink} component={ActivateAccount} />
+                                                    <Route path={ForgotPasswordLink} component={ForgotPassword} />
+                                                    <Route path={botCreatePasswordLink} render={props => <ForgotPassword bot={true} {...props} />} />
+                                                    <Route path={ResetPasswordLink} component={ResetPassword} />
+                                                    <Route path={addWithdrawalLink} component={SetupWithdrawal} />
+                                                    <Route path={FaqLink} render={(props) => <Faq {...props} isLoggedIn={user} />} />
+                                                    <Route exact path={scoreboardLink} component={YearlyReview} />
+                                                    <Route exact path={sbDashboardLink} component={ScoreBoard} />
+                                                    <Route path={directSteadySave} component={DirectSteadySave} />
+                                                    <Route path={directInstantSave} component={DirectInstantSave} />
                                                     <Route render={props => <ErrorPage errorName={'Error 404!'}
-                                                                                       errorTitle={'Page Not Found'}
-                                                                                       {...props}
+                                                        errorTitle={'Page Not Found'}
+                                                        {...props}
                                                     />}
 
                                                     />

@@ -1,20 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Modal from "react-bootstrap/Modal";
-import {ToastProvider, withToastManager} from "react-toast-notifications";
+import { ToastProvider, withToastManager } from "react-toast-notifications";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 import totalBalanceIcon from "../../../admin/app-assets/images/svg/total-balance-icon.svg";
-import {request} from "../../../ApiUtils/ApiUtils";
-import {getUserInfoEndpoint, instantSaveEndpoint, TransferToVault} from "../../../RouteLinks/RouteLinks";
-import {formatNumber, STANDARD_ACCOUNT} from "../../../Helpers/Helper";
+import { request } from "../../../ApiUtils/ApiUtils";
+import { TransferToVault } from "../../../RouteLinks/RouteLinks";
 import SimpleReactValidator from "simple-react-validator";
 
 
-function getBalance(state,res){
-
-
-}
 
 
 class TransferToCentralVaultModal extends Component {
@@ -31,10 +26,10 @@ class TransferToCentralVaultModal extends Component {
         });
     }
 
-    state={
-        amount:0,
-        loading:false,
-        disableBtn:false
+    state = {
+        amount: 0,
+        loading: false,
+        disableBtn: false
     }
 
     //get the vault the balance from users central vault
@@ -57,15 +52,15 @@ class TransferToCentralVaultModal extends Component {
 
 
 
-    submit = () =>{
+    submit = () => {
 
         if (this.validator.allValid()) {
             this.setState({
                 loading: true,
-                disableBtn:true
+                disableBtn: true
             });
 
-            request(TransferToVault,this.state,true,'POST',this.handleRequest);
+            request(TransferToVault, this.state, true, 'POST', this.handleRequest);
 
         } else {
 
@@ -79,14 +74,14 @@ class TransferToCentralVaultModal extends Component {
 
 
 
-    handleRequest = (status,res) =>{
+    handleRequest = (status, res) => {
 
         this.setState({
-            loading:false,
-            disableBtn:false
+            loading: false,
+            disableBtn: false
         });
 
-        const {toastManager} = this.props;
+        const { toastManager } = this.props;
 
         if (status) {
             if (res.status === 200) {
@@ -116,7 +111,7 @@ class TransferToCentralVaultModal extends Component {
 
 
     render() {
-        const {amount} = this.state;
+        const { amount } = this.state;
         return (
             <Modal
                 {...this.props}
@@ -140,7 +135,7 @@ class TransferToCentralVaultModal extends Component {
                                 <Col>
                                     <div className="media d-flex pb-2 pb-md-5">
                                         <div className="align-self-center">
-                                            <img className="blue-card-icon" src={totalBalanceIcon}/>
+                                            <img className="blue-card-icon" src={totalBalanceIcon} alt="icon" />
                                         </div>
                                         <div className="media-body text-left pt-1 ">
                                             <h3>
@@ -157,14 +152,14 @@ class TransferToCentralVaultModal extends Component {
                                     <Form.Group className={'mt-md-1 mb-md-3'}>
                                         <Form.Label>Amount</Form.Label>
                                         <Form.Control type="number" placeholder={'amount'} name={'amount'} id={'amount'}
-                                                      defaultValue={''} onChange={this.changeHandler}/>
+                                            defaultValue={''} onChange={this.changeHandler} />
                                         {this.validator.message('Amount', amount, 'required|numeric')}
                                     </Form.Group>
                                 </Col>
                             </div>
                             <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
                                 <button className={'round btn-custom-blue auth-btn modal-btn'} onClick={this.submit} disabled={this.state.loading} type="button">
-                                    {this.state.loading ? <ButtonLoader/> :
+                                    {this.state.loading ? <ButtonLoader /> :
                                         <span>Transfer</span>}
                                 </button>
                             </Form.Row>

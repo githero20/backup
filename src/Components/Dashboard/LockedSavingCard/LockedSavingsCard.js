@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {LockedSavingsLink} from "../../../RouteLinks/RouteLinks";
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { LockedSavingsLink } from "../../../RouteLinks/RouteLinks";
+import { Link } from 'react-router-dom';
 import purpleIcon from "../../../admin/app-assets/images/icons/purple-icon@2x.png";
-import {formatNumber} from "../../../Helpers/Helper";
+import { formatNumber } from "../../../Helpers/Helper";
 
 class LockedSavingsCard extends Component {
     render() {
 
-        const {lockedSavingsAmount, lockedSavingsInterest} = this.props;
+        const { lockedSavingsAmount, lockedSavingsInterest } = this.props;
 
         return (
             <React.Fragment>
@@ -19,7 +19,7 @@ class LockedSavingsCard extends Component {
                     <div
                         className="d-flex flex-column flex-md-row align-items-lg-center dash-card purple-border-right pull-up">
                         <div className="card-item dash-card-img-cover">
-                            <img src={purpleIcon} className={'dash-card-img'}/>
+                            <img src={purpleIcon} className={'dash-card-img'} />
                         </div>
                         <div className="card-item flex-grow-1">
                             <h3 className='my-2 my-md-1'><strong>&#8358;</strong>&nbsp;
@@ -49,9 +49,7 @@ class LockedSavingsCard extends Component {
                                     </div>
 
                                 </div>
-                                {/*<div className='d-flex'>*/}
-                                {/*    <h3>Total Interest</h3><i className='fa fa-arrow-right'></i><strong>&#8358;3,000,00</strong>*/}
-                                {/*</div>*/}
+
                             </div>
                         </div>
                         <div

@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import avatar from "../../../admin/app-assets/images/portrait/small/avatar-s-19.png";
 import dashboardIcon from "../../../admin/app-assets/images/svg/dashboard-icon.svg";
 import InstantSaveIcon from "../../../admin/app-assets/images/svg/instant-save-icon.svg";
 import LockedSavings from "../../../admin/app-assets/images/svg/locked-savings.svg";
 import BackUpGoalsIcon from "../../../admin/app-assets/images/svg/steady-save-icon.svg";
+import SnapIcon from "../../../admin/app-assets/images/walletside.svg";
 import SteadySaveIcon from "../../../admin/app-assets/images/svg/steady-save-icon.svg";
 import transactionIcon from "../../../admin/app-assets/images/svg/transactions.svg";
 import WithdrawalIcon from "../../../admin/app-assets/images/svg/withdrawals.svg";
 import SettingsIcon from "../../../admin/app-assets/images/svg/settings.svg";
-import {Link, NavLink, Redirect, withRouter} from 'react-router-dom';
+import { Link, NavLink, Redirect, withRouter } from 'react-router-dom';
 import {
     BackupGoalsLink,
     BankCardLink,
@@ -20,10 +21,11 @@ import {
     ProfileSettingLink,
     SteadySaveLink,
     TransactionsLink,
-    WithdrawalLink
+    WithdrawalLink,
+    MillexLink
 } from "../../../RouteLinks/RouteLinks";
-import {USERINFO, USERTOKEN} from "../../Auth/HOC/authcontroller";
-import {getUserName, hideMobileMenu} from "../../../Helpers/Helper";
+import { USERINFO, USERTOKEN } from "../../Auth/HOC/authcontroller";
+import { getUserName, hideMobileMenu } from "../../../Helpers/Helper";
 
 function logout() {
     localStorage.removeItem(USERTOKEN);
@@ -61,7 +63,7 @@ class VerticalNav extends Component {
     //toggle sub menu
     toggleNav = () => {
         let toggle = (this.state.open === '') ? 'open' : '';
-        this.setState({open: toggle});
+        this.setState({ open: toggle });
     };
 
 
@@ -92,7 +94,7 @@ class VerticalNav extends Component {
 
     handleUserName = (status, response) => {
         if (status) {
-            this.setState({userName: response.name})
+            this.setState({ userName: response.name })
         }
     };
 
@@ -103,13 +105,13 @@ class VerticalNav extends Component {
 
     render() {
 
-        const {userName} = this.state;
+        const { userName } = this.state;
 
 
         if (this.state.redirect) {
 
             return (
-                <Redirect to={HomeLink}/>
+                <Redirect to={HomeLink} />
             )
 
         }
@@ -123,13 +125,13 @@ class VerticalNav extends Component {
                             <li className="nav-item has-sub mobile-user d-md-none " onClick={this.showUserMenu}>
                                 <a>
                                     <span className="avatar avatar-online">
-                                        <img src={avatar} alt="avatar"/>
+                                        <img src={avatar} alt="avatar" />
                                     </span>
                                     <span className="menu-title text-capitalize">{userName}</span>
                                 </a>
                                 <ul className="menu-content mobile-profile-nav">
                                     <li className="is-shown"><Link className="menu-item"
-                                                                   to={ProfileSettingLink}>Profile</Link>
+                                        to={ProfileSettingLink}>Profile</Link>
                                     </li>
                                     <li className="is-shown"><Link className="menu-item" to={KycSettingLink}>KYC</Link>
                                     </li>
@@ -141,7 +143,7 @@ class VerticalNav extends Component {
 
                             <li className={'nav-item ' + this.getNavLinkClass(DashboardLink)}>
                                 <NavLink to={DashboardLink}>
-                                    <img src={dashboardIcon}/>
+                                    <img src={dashboardIcon} />
                                     <span className="menu-title">Dashboard</span>
                                 </NavLink>
                             </li>
@@ -149,33 +151,38 @@ class VerticalNav extends Component {
                                 <span data-i18n="nav.category.admin-panels">Central Vault</span>
                             </li>
                             <li className={'nav-item ' + this.getNavLinkClass(InstantSaveLink)}>
-                                <NavLink to={InstantSaveLink}><img src={InstantSaveIcon}/><span
+                                <NavLink to={InstantSaveLink}><img src={InstantSaveIcon} /><span
                                     className="menu-title"
                                     data-i18n="">Instant Save</span></NavLink>
                             </li>
                             <li className={'nav-item ' + this.getNavLinkClass(SteadySaveLink)}>
-                                <NavLink to={SteadySaveLink}><img src={SteadySaveIcon}/><span
+                                <NavLink to={SteadySaveLink}><img src={SteadySaveIcon} /><span
                                     className="menu-title"
                                     data-i18n="">Steady Save</span></NavLink>
                             </li>
 
                             {/*<li className="navigation-header d-none d-md-inline">*/}
                             {/*    <span data-i18n="nav.category.apps">Investments</span>*/}
-                                {/*<i className="la la-ellipsis-h ft-minus"></i>*/}
+                            {/*<i className="la la-ellipsis-h ft-minus"></i>*/}
                             {/*</li>*/}
                             <li className={'nav-item ' + this.getNavLinkClass(LockedSavingsLink)}>
                                 <NavLink to={LockedSavingsLink}>
-                                    <img src={LockedSavings} style={{filter:'brightness(0.8)'}}/>
+                                    <img src={LockedSavings} style={{ filter: 'brightness(0.8)' }} />
                                     <span className="menu-title">Locked Savings</span>
                                 </NavLink>
                             </li>
                             <li className={'nav-item ' + this.getNavLinkClass(BackupGoalsLink)}>
                                 <NavLink to={BackupGoalsLink}>
-                                    <img src={BackUpGoalsIcon}/>
+                                    <img src={BackUpGoalsIcon} />
                                     <span className="menu-title">Backup Goals</span>
                                 </NavLink>
                             </li>
-
+                            <li className={'nav-item ' + this.getNavLinkClass(MillexLink)}>
+                                <NavLink to={MillexLink}>
+                                    <img src={SnapIcon} />
+                                    <span className="menu-title">Snap</span>
+                                </NavLink>
+                            </li>
 
                             <li className="navigation-header d-none d-md-inline">
                                 <span>Others</span>
@@ -183,19 +190,19 @@ class VerticalNav extends Component {
                             </li>
                             <li className={'nav-item ' + this.getNavLinkClass(TransactionsLink)}>
                                 <NavLink to={TransactionsLink}>
-                                    <img src={transactionIcon}/>
+                                    <img src={transactionIcon} />
                                     <span className="menu-title">Transactions</span>
                                 </NavLink>
                             </li>
                             <li className={'nav-item ' + this.getNavLinkClass(WithdrawalLink)}>
                                 <NavLink to={WithdrawalLink}>
-                                    <img src={WithdrawalIcon}/>
+                                    <img src={WithdrawalIcon} />
                                     <span className="menu-title">Withdrawal</span>
                                 </NavLink>
                             </li>
                             <li className={'nav-item has-sub ' + this.state.open} onClick={this.toggleNav}>
                                 <a>
-                                    <img src={SettingsIcon}/>
+                                    <img src={SettingsIcon} />
                                     <span className="menu-title">Settings</span>
                                 </a>
                                 <ul className="menu-content">

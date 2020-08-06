@@ -40,7 +40,7 @@ const SnapForm = (props) => {
         source: 'quick',
       }));
     } else {
-      setItemSelected(e.target.value)
+      setItemSelected(e.target.value);
     }
   }
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import styled from '@emotion/styled';
@@ -14,6 +14,7 @@ import SnapForm from '../../Components/Dashboard/Snap/SnapForm';
 import amountSaved from '../../admin/app-assets/images/amoutsaved.svg';
 import NotificationIcon from '../../admin/app-assets/images/NotificationIcon.svg';
 import { getUserRequest } from '../../redux/auth/action';
+import { interestTransferRequest } from '../../redux/snap/action';
 import { formatNumber } from "../../Helpers/Helper"
 
 const Snap = () => {
@@ -27,8 +28,12 @@ const Snap = () => {
   const [withdrawal, setwithdrawal] = useState(0);
   const [payOut, setpayOut] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [showFundModal, setshowFundModal] = useState(false);
   const hideModal = () => {
     setShowModal(false);
+  }
+  const hideFundModal = () => {
+    setshowFundModal(false);
   }
   useEffect(() => {
     dispatch(getSnapRequest());
@@ -91,7 +96,17 @@ const Snap = () => {
         <CustomModal title={"Snap Saving"} show={showModal} onHide={hideModal}>
           <SnapForm hideModal={hideModal} />
         </CustomModal>
+
       }
+      <CustomModal title={"Transfer Funds"} show={showFundModal} onHide={hideFundModal}>
+        <Fragment>This would transfer your funds
+        <button onClick={() => {
+            dispatch(interestTransferRequest());
+            setshowFundModal(false);
+          }
+          }> OK</button>
+        </Fragment>
+      </CustomModal>
       <SnapContent>
         <div>
           <h3 className="gray-header-text fs-mb-1 mb-2 ">
@@ -130,7 +145,7 @@ const Snap = () => {
               <div className="content">
                 <p>₦{`${payOut === 0 ? '0.00' : formatNumber(payOut)}`}</p>
                 <p>Interest payout</p>
-                <button>Transfer Interest</button>
+                <button onClick={() => setshowFundModal(true)}>Transfer Interest</button>
               </div>
             </div>
           </div>

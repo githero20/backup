@@ -8,7 +8,9 @@ import {
   VERIFY_SNAP_SUCCESS,
   RESET_STATE,
   GET_HISTORY_SUCCESS,
-  GET_HISTORY_REQUEST
+  GET_HISTORY_REQUEST,
+  TRANSFER_INTEREST_REQUEST,
+  TRANSFER_INTEREST_SUCCESS
 } from './types';
 import { defaultSingleObjectState } from '../../utils/constants'
 import { extractStatus, handleFetch, SET_SAGA_ERROR } from '../../Helpers'
@@ -20,7 +22,8 @@ const defaultPayload = {
 
 const initalState = {
   all: defaultSingleObjectState,
-  history: defaultSingleObjectState
+  history: defaultSingleObjectState,
+  transfer: defaultSingleObjectState,
 }
 
 const snapReducer = (
@@ -41,6 +44,9 @@ const snapReducer = (
     case GET_HISTORY_REQUEST:
     case GET_HISTORY_SUCCESS:
       return handleFetch(state, status, payload, 'history');
+    case TRANSFER_INTEREST_REQUEST:
+    case TRANSFER_INTEREST_SUCCESS:
+      return handleFetch(state, status, payload, 'transfer');
     case RESET_STATE:
       return {
         ...state,

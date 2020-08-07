@@ -1,10 +1,10 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import moment from "moment";
-import {_isDateAfterToday} from "../utils";
-import {getLocalStorage, setLocalStorage} from "../ApiUtils/ApiUtils";
-import {AMOUNT_LIMITS, APP_FREQUENCY, USERINFO, USERTOKEN} from "../Components/Auth/HOC/authcontroller";
+import { _isDateAfterToday } from "../utils";
+import { getLocalStorage, setLocalStorage } from "../ApiUtils/ApiUtils";
+import { AMOUNT_LIMITS, APP_FREQUENCY, USERINFO, USERTOKEN } from "../Components/Auth/HOC/authcontroller";
 import AutoNumeric from "autonumeric";
-import {getUserData} from "../actions/UserAction";
+import { getUserData } from "../actions/UserAction";
 import SimpleReactValidator from "simple-react-validator";
 
 export const STANDARD_ACCOUNT = 1;
@@ -12,6 +12,7 @@ export const LOCKED_ACCOUNT = 2;
 export const INTEREST_ACCOUNT = 3;
 export const BACKUP_GOALS_ACCOUNT = 4;
 export const BACKUP_GOALS_INTEREST = 6;
+export const SNAP_ACCOUNT = 7;
 export const ADD_CARD = '0';
 export const CUSTOMER = 'customer';
 export const ADMIN = 'administrator';
@@ -22,6 +23,7 @@ export const INTEREST_ON_BACKUP_GOAL = 'STANDARD_BACKUP_GOAL_INTEREST_CRON_';
 export const MATURED_LOCKED_SAVINGS = 'STANDARD_LOCKED_CRON_';
 export const CENTRAL_VAULT = 'central_vault';
 export const BACKUP_STASH = 'backup_stash';
+export const SNAP_SAVING = "snap";
 export const ADMIN_LOGIN_URL = 'https://backupcash-be.atp-sevas.com/login';
 export const KYC = 'kyc';
 export const NAIRA = '₦';
@@ -75,7 +77,7 @@ export function Paginator(items, page, per_page) {
 
 export function getTotal(transactions) {
     if (transactions) {
-        const sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+        const sum = transactions.reduce((a, b) => ({ amount: parseInt(a.amount) + parseInt(b.amount) }));
         return sum.amount;
     }
 }
@@ -84,7 +86,7 @@ export function getTotalSteadySave(transactions) {
     if (transactions && transactions.length > 0) {
         let credits;
         credits = transactions.filter((content) => (content.type === 'credit'));
-        credits = credits.reduce((a, b) => ({amount: parseInt(a.start_amount) + parseInt(b.start_amount)}));
+        credits = credits.reduce((a, b) => ({ amount: parseInt(a.start_amount) + parseInt(b.start_amount) }));
         return credits.amount;
     } else {
         return 0;
@@ -97,10 +99,10 @@ export function getTotalSteadySaveDebit(transactions) {
         if (transactions.length > 0) {
             let debits;
             debits = transactions.filter((content) => (content.type === 'debit'));
-            debits = debits.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+            debits = debits.reduce((a, b) => ({ amount: parseInt(a.amount) + parseInt(b.amount) }));
             return debits.amount;
         } else {
-            let sum = transactions.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+            let sum = transactions.reduce((a, b) => ({ amount: parseInt(a.amount) + parseInt(b.amount) }));
             return sum.amount;
         }
     }
@@ -115,7 +117,7 @@ export function getTotalSuccessfulSS(transactions) {
     if (transactions && transactions.length > 0) {
         let successful;
         successful = transactions.filter((content) => (content.status === 'success'));
-        successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+        successful = successful.reduce((a, b) => ({ amount: parseInt(a.amount) + parseInt(b.amount) }));
         return successful.amount;
     } else {
         return 0;
@@ -126,7 +128,7 @@ export function getTotalSuccessfulBG(transactions) {
     if (transactions && transactions.length > 1) {
         let successful;
         successful = transactions.filter((content) => (content.status === 'success'));
-        successful = successful.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+        successful = successful.reduce((a, b) => ({ amount: parseInt(a.amount) + parseInt(b.amount) }));
         return successful.amount;
     } else {
         return 0;
@@ -135,12 +137,12 @@ export function getTotalSuccessfulBG(transactions) {
 
 export function toggleTable(context) {
     window.addEventListener('resize', () => {
-        context.setState({mobileTable: window.innerWidth <= 599})
+        context.setState({ mobileTable: window.innerWidth <= 599 })
     });
     if (window.innerWidth <= 559) {
-        context.setState({mobileTable: true})
+        context.setState({ mobileTable: true })
     } else {
-        context.setState({mobileTable: false})
+        context.setState({ mobileTable: false })
     }
 }
 
@@ -155,7 +157,7 @@ export function readURL(input, context) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            context.setState({fileUpload: e.target.result});
+            context.setState({ fileUpload: e.target.result });
         };
         reader.readAsDataURL(input.files[0]);
     }
@@ -270,7 +272,7 @@ export function getTotalFailed(transactions) {
     if (transactions && transactions.length) {
         let failed = transactions.filter((content) => (content.status === 'failed'));
         if (failed.length) {
-            failed = failed.reduce((a, b) => ({amount: parseInt(a.amount) + parseInt(b.amount)}));
+            failed = failed.reduce((a, b) => ({ amount: parseInt(a.amount) + parseInt(b.amount) }));
             return failed.amount;
         } else {
             return 0
@@ -286,8 +288,8 @@ export function getCompletedGoals(transactions) {
     if (transactions.length > 0) {
         let CompletedGoals = transactions.filter((content) => {
             return ((moment(content.end_date).format('YYYY-MM-DD') < now
-                    && parseInt(content.is_pause) === 0
-                    && parseInt(content.stop) === 0) ||
+                && parseInt(content.is_pause) === 0
+                && parseInt(content.stop) === 0) ||
                 (parseInt(content.stop) === 1)
             );
         });
@@ -301,8 +303,8 @@ export function getCompletedGoalsAmount(transactions) {
     if (transactions.length > 0) {
         let CompletedGoals = transactions.filter((content) => {
             return ((moment(content.end_date).format('YYYY-MM-DD') < now
-                    && parseInt(content.is_pause) === 0
-                    && parseInt(content.stop) === 0) ||
+                && parseInt(content.is_pause) === 0
+                && parseInt(content.stop) === 0) ||
                 (parseInt(content.stop) === 1)
             );
         });
@@ -317,8 +319,8 @@ export function getCompletedGoalsAmount(transactions) {
 export function isGoalCompleted(goal) {
     const now = moment().format('YYYY-MM-DD');
     if (goal && ((moment(goal.end_date).format('YYYY-MM-DD') < now
-            && parseInt(goal.is_pause) === 0
-            && parseInt(goal.stop) === 0)
+        && parseInt(goal.is_pause) === 0
+        && parseInt(goal.stop) === 0)
     )) {
         return true;
     }
@@ -421,9 +423,9 @@ export const EmailPhoneValidator = new SimpleReactValidator({
 export function dateFormatter(cell) {
     let format =
         <span className='d-flex flex-column'>
-			<span style={{minWidth: '90px'}}>{moment(cell).format('MMM Do YYYY')}&nbsp;</span>
-			<small className='text-muted'>{moment(cell).format('h:mm a')}</small>
-		</span>;
+            <span style={{ minWidth: '90px' }}>{moment(cell).format('MMM Do YYYY')}&nbsp;</span>
+            <small className='text-muted'>{moment(cell).format('h:mm a')}</small>
+        </span>;
     return format;
 }
 
@@ -526,16 +528,16 @@ export function sourceFormatter(cell, row) {
     let content;
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
         return (
-            <p style={{minWidth: '140px'}}
-               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+            <p style={{ minWidth: '140px' }}
+                className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br />
                 <small className='text-muted'>(Interest on backup goals)</small>
             </p>
         );
     }
     if (row.gw_authorization_code.includes(MATURED_LOCKED_SAVINGS)) {
         return (
-            <p style={{minWidth: '140px'}}
-               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+            <p style={{ minWidth: '140px' }}
+                className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br />
                 <small className='text-muted'>(Matured locked savings)</small>
             </p>
         );
@@ -543,8 +545,8 @@ export function sourceFormatter(cell, row) {
 
     if (row.gw_authorization_code.includes(INTEREST_ON_VAULT)) {
         return (
-            <p style={{minWidth: '140px'}}
-               className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br/>
+            <p style={{ minWidth: '140px' }}
+                className={'text-secondary text-capitalize'}>{cell.data.name.replace(/_/g, ' ')}<br />
                 <small className='text-muted'>(Interest on central vault)</small>
             </p>
         );
@@ -566,16 +568,16 @@ export function transSourceFormatter(cell, row) {
     let content;
     if (row.gw_authorization_code.includes(INTEREST_ON_BACKUP_GOAL)) {
         return (
-            <p style={{minWidth: '140px'}}
-               className={'text-secondary text-capitalize'}>{cell.name.replace(/_/g, ' ')}<br/>
+            <p style={{ minWidth: '140px' }}
+                className={'text-secondary text-capitalize'}>{cell.name.replace(/_/g, ' ')}<br />
                 <small className='text-muted'>(Interest on backup goals)</small>
             </p>
         );
     }
     if (row.gw_authorization_code.includes(MATURED_LOCKED_SAVINGS)) {
         return (
-            <p style={{minWidth: '140px'}}
-               className={'text-secondary text-capitalize'}>{cell.name.replace(/_/g, ' ')}<br/>
+            <p style={{ minWidth: '140px' }}
+                className={'text-secondary text-capitalize'}>{cell.name.replace(/_/g, ' ')}<br />
                 <small className='text-muted'>(Matured locked savings)</small>
             </p>
         );
@@ -583,8 +585,8 @@ export function transSourceFormatter(cell, row) {
 
     if (row.gw_authorization_code.includes(INTEREST_ON_VAULT)) {
         return (
-            <p style={{minWidth: '140px'}}
-               className={'text-secondary text-capitalize'}>{cell.name.replace(/_/g, ' ')}<br/>
+            <p style={{ minWidth: '140px' }}
+                className={'text-secondary text-capitalize'}>{cell.name.replace(/_/g, ' ')}<br />
                 <small className='text-muted'>(Interest on central vault)</small>
             </p>
         );
@@ -603,21 +605,21 @@ export function transSourceFormatter(cell, row) {
 }
 
 function sourceMarkup(content) {
-    return <p style={{minWidth: '130px'}} className={'text-secondary text-capitalize'}>{content}</p>;
+    return <p style={{ minWidth: '130px' }} className={'text-secondary text-capitalize'}>{content}</p>;
 }
 
 export function titleFormatter(cell) {
-    return <p style={{minWidth: '100px'}} className={'text-secondary text-capitalize'}>{cell}</p>;
+    return <p style={{ minWidth: '100px' }} className={'text-secondary text-capitalize'}>{cell}</p>;
 }
 
 export function withdrawSourceFormatter(cell) {
-    return <p style={{minWidth: '100px'}}
-              className={'text-secondary text-capitalize'}>{`${cell.replace(/_/g, ' ')}`}</p>
+    return <p style={{ minWidth: '100px' }}
+        className={'text-secondary text-capitalize'}>{`${cell.replace(/_/g, ' ')}`}</p>
 }
 
 export function amountFormatter(cell, row) {
     return (
-        <p style={{minWidth: '100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
+        <p style={{ minWidth: '100px' }} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
             {row.type === 'credit' ? '+' : '-'}
             {cell != null ? (`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`) : 'N/A'}
         </p>
@@ -627,7 +629,7 @@ export function amountFormatter(cell, row) {
 export function amountLastAmountFormatter(cell, row) {
     return (
         <div className="d-flex flex-column">
-            <p style={{minWidth: '100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
+            <p style={{ minWidth: '100px' }} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
                 {row.type === 'credit' ? '+' : '-'}
                 {cell != null ? (`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`) : 'N/A'}
             </p>
@@ -643,7 +645,7 @@ export function amountLastAmountFormatter(cell, row) {
 export function amountBalanceFormatter(cell, row) {
     return (
         <div className="d-flex flex-column">
-            <p style={{minWidth: '100px'}} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
+            <p style={{ minWidth: '100px' }} className={row.type === 'credit' ? 'text-green' : 'text-red'}>
                 {row.type === 'credit' ? '+' : '-'}
                 {cell != null ? (`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`) : 'N/A'}
             </p>
@@ -662,8 +664,8 @@ export function parseAndFormatNum(num) {
 
 export function moneyFormatter(cell, row) {
     return (
-        <p style={{minWidth: '150px'}}
-           className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+        <p style={{ minWidth: '150px' }}
+            className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
     )
 }
 
@@ -679,15 +681,15 @@ export function contributionFormatter(cell, row) {
         return (
             <div className="d-flex flex-column">
                 <small className='text-muted'>{row.title}</small>
-                <p style={{minWidth: '100px'}}
-                   className={'text-gray'}> {cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+                <p style={{ minWidth: '100px' }}
+                    className={'text-gray'}> {cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
             </div>
         )
     } else {
 
         return (
-            <p style={{minWidth: '150px'}}
-               className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+            <p style={{ minWidth: '150px' }}
+                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
         )
     }
 
@@ -697,8 +699,8 @@ export function amountCurrentStatusFormatter(cell, row) {
     return (
         <div className="d-flex flex-column">
 
-            <p style={{minWidth: '100px'}}
-               className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+            <p style={{ minWidth: '100px' }}
+                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
             <label
                 className={
                     row.status == 'success' ? 'bg-light-green text-center round px-1 ' :
@@ -717,8 +719,8 @@ export function amountCurrentStatusFormatter(cell, row) {
 export function mobileSSMoneyFormatter(cell, row) {
     return (
         <div className="d-flex flex-column">
-            <p style={{minWidth: '100px'}}
-               className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+            <p style={{ minWidth: '100px' }}
+                className={'text-green'}> {cell != null ? `+ ₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
             <label
                 className={row.status == 'success' ? 'bg-light-green text-center round px-1 ' : 'bg-light-red text-center px-1 round '}>{row.status}</label>
         </div>
@@ -735,8 +737,8 @@ export function ssMobileDescFormatter(cell, row) {
     return (
         <div className="d-flex flex-column">
             <small className='text-muted'>{row.title}</small>
-            <p style={{minWidth: '100px'}}
-               className={'text-gray'}> {cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
+            <p style={{ minWidth: '100px' }}
+                className={'text-gray'}> {cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : "N/A"}</p>
         </div>
     )
 }
@@ -746,7 +748,7 @@ export function removeUnderscore(data) {
 }
 
 export function toastMessage(message, status, context) {
-    const {toastManager} = context.props;
+    const { toastManager } = context.props;
     toastManager.add(message, {
         appearance: status,
         autoDismiss: true,
@@ -756,7 +758,7 @@ export function toastMessage(message, status, context) {
 }
 
 export function toastReloadMessage(status, context, callback) {
-    const {toastManager} = context.props;
+    const { toastManager } = context.props;
     const message = (
         <Fragment>
             <span>Unable to retrieve data at the moment !! Click Here to </span>&nbsp;
@@ -795,7 +797,7 @@ export function statusFormatter(cell) {
 }
 
 export function interestFormatter(cell) {
-    return (<label style={{minWidth: '60px'}}>+ {`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`}</label>)
+    return (<label style={{ minWidth: '60px' }}>+ {`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`}</label>)
 
 }
 
@@ -803,12 +805,12 @@ export function amountInterestFormatter(cell, row) {
 
     return (
         <div className="d-flex flex-column">
-            <p style={{minWidth: '100px'}}
-               className={'text-info'}> {row.amount != null ? `₦ ${formatNumber(parseFloat(row.amount).toFixed(2))}` : "N/A"}</p>
+            <p style={{ minWidth: '100px' }}
+                className={'text-info'}> {row.amount != null ? `₦ ${formatNumber(parseFloat(row.amount).toFixed(2))}` : "N/A"}</p>
             <small className='text-muted'>Interest</small>
             <small className='text-green'>+ {`₦ ${formatNumber(parseFloat(cell).toFixed(2))}`}</small>
-            <small style={{fontSize: '9px'}}
-                   className='text-muted'> {moment(row.start_date).format('Do MMM YY')} - {moment(row.end_date).format('Do MMM YY')}</small>
+            <small style={{ fontSize: '9px' }}
+                className='text-muted'> {moment(row.start_date).format('Do MMM YY')} - {moment(row.end_date).format('Do MMM YY')}</small>
         </div>
     )
 }
@@ -817,7 +819,7 @@ export function viewFormatter(cell) {
     return <button className={'btn round btn-sm btn-blue-btn'}>View History</button>
 }
 
-export function actionFormatter(cell, row, rowIndex, {trans}) {
+export function actionFormatter(cell, row, rowIndex, { trans }) {
     if (rowIndex > 0) {
         const tommorrow = moment().add(1);
         let latestDate = trans.length && moment(trans[0].end_date);
@@ -843,25 +845,25 @@ export function userFormatter(cell, row) {
 }
 
 export function balanceFormatter(cell) {
-    return <label style={{minWidth: '100px'}}
-                  className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
+    return <label style={{ minWidth: '100px' }}
+        className={'text-info'}>{cell != null ? `₦ ${formatNumber(parseFloat(cell).toFixed(2))}` : 'N/A'}</label>
 
 }
 
 export function pointFormatter(cell, row) {
     if (row.point_type === 'referral_type') {
-        return <label style={{minWidth: '100px'}} className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
+        return <label style={{ minWidth: '100px' }} className={'text-info'}>{cell != null ? `${cell}` : 'N/A'}</label>
     } else {
-        return <label style={{minWidth: '100px'}} className={'text-info'}>{`0`}</label>
+        return <label style={{ minWidth: '100px' }} className={'text-info'}>{`0`}</label>
     }
 }
 
 export function bonusAmountFormatter(cell, row) {
     if (row.point_type === 'referral_bonus_centralvault') {
-        return <label style={{minWidth: '100px'}}
-                      className={'text-info'}>{cell != null ? `₦ ${formatNumber(cell)}` : 'N/A'}</label>
+        return <label style={{ minWidth: '100px' }}
+            className={'text-info'}>{cell != null ? `₦ ${formatNumber(cell)}` : 'N/A'}</label>
     } else {
-        return <label style={{minWidth: '100px'}} className={'text-info'}>{`₦ 0`}</label>
+        return <label style={{ minWidth: '100px' }} className={'text-info'}>{`₦ 0`}</label>
     }
 }
 
@@ -872,8 +874,8 @@ export function pointStatusFormatter(cell) {
 }
 
 export function sourceTypeFormatter(cell) {
-    return <label style={{minWidth: '100px'}}
-                  className={'text-info'}>{cell != null ? `₦ ${cell.data.name}` : 'N/A'}</label>
+    return <label style={{ minWidth: '100px' }}
+        className={'text-info'}>{cell != null ? `₦ ${cell.data.name}` : 'N/A'}</label>
 }
 
 export function lockedStatusFormatter(cell) {
@@ -935,7 +937,7 @@ export function getUserName(context, callback) {
         const user = localStorage.getItem(USERINFO);
         if (user != null) {
             let userInfo = JSON.parse(user);
-            context.setState({userName: userInfo.name});
+            context.setState({ userName: userInfo.name });
         } else {
             getUserData(callback);
         }
@@ -1013,11 +1015,11 @@ export function handleFiltering(date, comparator, context) {
 }
 
 export function handlePinConcatenation(name, event, context = this, callback = null) {
-    let form = {...context.state.form};
+    let form = { ...context.state.form };
     form[name] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     if (name == 'pin_one' || name == 'pin_two' || name == 'pin_three' || name == 'pin_four') {
         form.withdrawal_pin = form.pin_one + form.pin_two + form.pin_three + form.pin_four;
-        context.setState({form});
+        context.setState({ form });
     }
     if (form.withdrawal_pin.length >= 4) {
         context.setState({

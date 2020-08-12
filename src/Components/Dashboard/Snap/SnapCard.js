@@ -8,6 +8,8 @@ import { resetState } from '../../../redux/snap/action';
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router';
 import { formatNumber } from "../../../Helpers/Helper";
+import { getUserCards } from '../../../actions/CardAction';
+import { toast } from 'react-toastify';
 
 const SnapCard = () => {
   const history = useHistory();
@@ -20,9 +22,23 @@ const SnapCard = () => {
   const [balance, setBalance] = useState(0);
   const [interest, setinterest] = useState(0);
   const [total, settotal] = useState(0);
+  const [userCards, setUserCards] = useState([]);
+
   useEffect(() => {
     dispatch(getUserRequest());
   }, []);
+  // fetches users cards on component mount
+  useEffect(() => {
+    getUserCards((status, data) => {
+      if (status) {
+        setUserCards(data)
+      } else {
+        toast.error("Unable to fetch Cards", { autoClose: 3000 });
+      }
+    });
+  },
+    //eslint-disable-next-line
+    []);
   useEffect(() => {
     if (data.accounts) {
       data.accounts.data.forEach(acct => {
@@ -38,6 +54,7 @@ const SnapCard = () => {
   return (
     <SnapCard.Wrapper>
       <span><p>NEW</p> Snap Savings</span>
+      <small className='text-muted'>Get returns weekly when you save. The more you save the more you earn</small>
       <div className="custom-card pull-up">
         <div className="left-side">
           <div>
@@ -69,7 +86,7 @@ const SnapCard = () => {
         </div>
       </div>
       <CustomModal title={"Snap Saving"} show={showModal} onHide={hideModal}>
-        <SnapForm hideModal={hideModal} />
+        <SnapForm userCards={userCards} hideModal={hideModal} />
       </CustomModal>
     </SnapCard.Wrapper>
   )
@@ -80,6 +97,7 @@ span{
   display:inline-block;
   font-weight:bold;
   margin-bottom:1rem;
+  margin-right:0.5rem;
 
   p{
     display:inline;

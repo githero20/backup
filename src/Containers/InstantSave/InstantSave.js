@@ -368,9 +368,7 @@ class InstantSave extends Component {
                             <div className="row">
                                 <div className="col-lg-5 col-12 order-lg-8">
                                     <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
-                                        <p>Start saving your money here whenever you want!<br />
-                                            We want you to be disciplined, so we’ll charge you 5% if you choose
-                                            to withdraw outside of your set withdrawal days.</p>
+                                        <p>Start saving as soon as you earn an income or when you get some loose cash. Make an instant transfer to your Backup Cash account and earn 8% interest.</p>
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-12 order-lg-1">

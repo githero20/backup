@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
-import {BASE_URL, filterTransactionsApi, getTransactionsApi} from "../../RouteLinks/RouteLinks";
-import {request} from "../../ApiUtils/ApiUtils";
+import { BASE_URL, filterTransactionsApi, getTransactionsApi } from "../../RouteLinks/RouteLinks";
+import { request } from "../../ApiUtils/ApiUtils";
 import {
     amountBalanceFormatter,
     amountFormatter,
@@ -16,11 +16,11 @@ import {
     toggleTable,
     transSourceFormatter
 } from "../../Helpers/Helper";
-import {withToastManager} from 'react-toast-notifications';
+import { withToastManager } from 'react-toast-notifications';
 import TransactionReceipt from "../../Components/Dashboard/TransactionReceipt/TransactionReceipt";
-import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
+// import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
 import RemotePagination from "../../Components/Dashboard/RemoteTable/RemotePagination";
-import {getFilteredTrans, getFitleredTrans, getPaginatedTrans} from "../../actions/TransactionActions";
+import { getFilteredTrans, getFitleredTrans, getPaginatedTrans } from "../../actions/TransactionActions";
 import moment from "moment";
 import Footer from "../../Components/Dashboard/Footer/Footer";
 
@@ -57,7 +57,7 @@ class Transactions extends Component {
 
     loadTransactions() {
         //get transactions from api
-        this.setState({showLoader: true});
+        this.setState({ showLoader: true });
         request(getTransactionsApi, null, true, 'GET', this.handleTransactions);
     }
 
@@ -71,7 +71,7 @@ class Transactions extends Component {
         if (state && res) {
             this.setState({
                 transactions: res.data.data.data,
-                transData: {...this.state.transData, ...res.data.data}
+                transData: { ...this.state.transData, ...res.data.data }
             });
         }
 
@@ -93,7 +93,7 @@ class Transactions extends Component {
     };
 
     toastMessage = (message, status) => {
-        const {toastManager} = this.props;
+        const { toastManager } = this.props;
         toastManager.add(message, {
             appearance: status,
             autoDismiss: true,
@@ -141,8 +141,8 @@ class Transactions extends Component {
         // get the page
         // handleFiltering(date, comparator, this);
         date = moment(date).format('YYYY-MM-DD');
-        const filter = {date: date, operand: comparator};
-        this.setState({loadFilter: true,filter:filter});
+        const filter = { date: date, operand: comparator };
+        this.setState({ loadFilter: true, filter: filter });
         getFilteredTrans(`${BASE_URL}${filterTransactionsApi}`, filter,
             this.handlePaginatedData)
 
@@ -150,11 +150,11 @@ class Transactions extends Component {
 
 
     handleTableChange = (type, props) => {
-        if(this.state.transData.path.includes('filter')){
+        if (this.state.transData.path.includes('filter')) {
             getFilteredTrans(`${this.state.transData.path}?page=${props.page}`,
                 this.state.filter,
                 this.handlePaginatedData)
-        }else {
+        } else {
             getPaginatedTrans(`${this.state.transData.path}?page=${props.page}`,
                 this.handlePaginatedData)
         }
@@ -162,8 +162,8 @@ class Transactions extends Component {
     };
 
     handlePaginatedData = (status, res) => {
-        this.setState({loadFilter: false});
-        if (status) {this.setState({transData: {...this.state.transData, ...res}})}
+        this.setState({ loadFilter: false });
+        if (status) { this.setState({ transData: { ...this.state.transData, ...res } }) }
     };
 
 
@@ -178,12 +178,12 @@ class Transactions extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-                filter: dateFilter({
-                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
-                    getFilter: (filter) => {
-                        this.createdDateFilter = filter;
-                    }
-                })
+                // filter: dateFilter({
+                //     defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
+                //     getFilter: (filter) => {
+                //         this.createdDateFilter = filter;
+                //     }
+                // })
             }, {
                 text: 'Description',
                 dataField: 'sourcetypes',
@@ -256,12 +256,12 @@ class Transactions extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-                filter: dateFilter({
-                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
-                    getFilter: (filter) => {
-                        this.createdDateFilter = filter;
-                    }
-                })
+                // filter: dateFilter({
+                //     defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
+                //     getFilter: (filter) => {
+                //         this.createdDateFilter = filter;
+                //     }
+                // })
             }, {
                 text: 'Description',
                 dataField: 'sourcetypes',
@@ -326,11 +326,11 @@ class Transactions extends Component {
 
         return (
             <React.Fragment>
-                {this.state.showLoader ? <DashboardLoader/> : null}
+                {this.state.showLoader ? <DashboardLoader /> : null}
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
-                     data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav userName={this.state.userName}/>
-                    <VerticalNav userName={this.state.userName}/>
+                    data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+                    <HorizontalNav userName={this.state.userName} />
+                    <VerticalNav userName={this.state.userName} />
                     <div className="app-content content">
                         <div className="content-wrapper">
                             <div className="mb-5"></div>
@@ -338,7 +338,7 @@ class Transactions extends Component {
                                 this.state.showTransDetail ?
                                     (
                                         <TransactionReceipt hideDetails={this.hideDetails}
-                                                            selectedTransID={this.state.selectedTransID}/>
+                                            selectedTransID={this.state.selectedTransID} />
                                     ) :
 
                                     <React.Fragment>
@@ -380,7 +380,7 @@ class Transactions extends Component {
                                     </React.Fragment>
                             }
                         </div>
-                        <Footer/>
+                        <Footer />
                     </div>
                 </div>
             </React.Fragment>

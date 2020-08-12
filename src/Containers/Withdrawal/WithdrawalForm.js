@@ -268,7 +268,6 @@ class WithdrawalForm extends Component {
             toastMessage('The minimum amount you can withdraw is ₦500', 'error', this);
         } else {
             //check if the user is withdrawing from back up stash or central vault and then check if their is enough balance
-            console.log('form sorcer', form.source);
             if (form.source == CENTRAL_VAULT && form.penalty_from != '') {
                 //get penalty
                 this.getWithdrawalPenalty(this.handleBalance);
@@ -404,7 +403,7 @@ class WithdrawalForm extends Component {
                         </span>
                     </div>
                     <div className="col-4">
-                        <h5>Snap balcne</h5>
+                        <h5>Snap balance</h5>
                         <span>
 
                             <img src={totalBalanceIcon} alt="logo" />
@@ -471,7 +470,6 @@ class WithdrawalForm extends Component {
                                                     <div className="col-md-12">
                                                         <div className="form-group">
 
-                                                            {/*<button className={'btn btn-withdraw round mb-2 '}>See withdrawal Days</button>*/}
                                                             <p className={'text-gray'}>Next free withdrawal day</p>
                                                             <h4 className={'text-black'}>{
                                                                 this.state.penaltyFreeDay ? "Today" : (this.state.nextDate != '' ?

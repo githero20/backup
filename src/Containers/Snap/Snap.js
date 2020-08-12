@@ -16,12 +16,16 @@ import NotificationIcon from '../../admin/app-assets/images/NotificationIcon.svg
 import { getUserRequest } from '../../redux/auth/action';
 import { interestTransferRequest } from '../../redux/snap/action';
 import { formatNumber } from "../../Helpers/Helper"
+import { getUserCards } from '../../actions/CardAction';
+import { toast } from 'react-toastify';
+import swal from 'sweetalert';
 
 const Snap = () => {
   const dispatch = useDispatch();
   const [dataSource, setdataSource] = useState([])
   const { data, processing } = useSelector(state => state.snap.all);
   const snapHistory = useSelector(state => state.snap.history);
+  const snapTransfer = useSelector(state => state.snap.transfer);
   const userData = useSelector(state => state.auth.data);
   const [balance, setBalance] = useState(0);
   const [interest, setinterest] = useState(0);
@@ -29,12 +33,34 @@ const Snap = () => {
   const [payOut, setpayOut] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [showFundModal, setshowFundModal] = useState(false);
+  const [userCards, setUserCards] = useState([]);
+
   const hideModal = () => {
     setShowModal(false);
   }
   const hideFundModal = () => {
     setshowFundModal(false);
-  }
+  };
+  // fetches users cards on component mount
+  useEffect(() => {
+    getUserCards((status, data) => {
+      if (status) {
+        setUserCards(data)
+      } else {
+        toast.error("Unable to fetch Cards", { autoClose: 3000 });
+      }
+    });
+  },
+    //eslint-disable-next-line
+    []);
+
+  useEffect(() => {
+    if (snapTransfer.success) {
+      swal("Transfer Successful",
+        "Your Transfer was successful",
+        "success", { button: false, timer: 2000 });
+    }
+  }, [snapTransfer.success])
   useEffect(() => {
     dispatch(getSnapRequest());
     dispatch(getUserRequest());
@@ -70,22 +96,48 @@ const Snap = () => {
       setdataSource(data);
     }
   }, [data]);
+
+  const handleTransfer = () => {
+    swal("Funds will be moved to your Snap Savings where you can withdraw or allow it to keep growing", {
+      buttons: {
+        yes: "yes"
+      },
+    }).then((value) => {
+      switch (value) {
+        case "yes":
+          swal('Transfer', 'Processing Transfer...', 'info', { button: false, timer: 3000 });
+          dispatch(interestTransferRequest());
+          break;
+        default:
+          swal("You Cancelled Your Transfer", { button: false, timer: 3000 });
+          break;
+      }
+    });
+
+  };
+
+
   const columns = [
     {
-      title: 'date',
+      title: 'start date',
       dataIndex: 'start_date',
     },
     {
-      title: 'description',
-      render: () => <div>credit</div>
+      title: 'maturity date',
+      dataIndex: 'end_date',
     },
+
     {
       title: 'amount',
-      render: (value, record) => <div>{formatNumber(record.amount)}</div>
+      render: (value, record) => <div style={{ color: 'green' }} >{formatNumber(record.amount)}</div>
     },
     {
       title: 'balance',
       render: (value, record) => <div>{formatNumber(record.balance)}</div>
+    },
+    {
+      title: 'status',
+      render: (value, record) => <p>{record.stop ? 'running' : 'matured'}</p>
     },
   ];
   return (
@@ -94,7 +146,7 @@ const Snap = () => {
       <VerticalNav />
       {
         <CustomModal title={"Snap Saving"} show={showModal} onHide={hideModal}>
-          <SnapForm hideModal={hideModal} />
+          <SnapForm userCards={userCards} hideModal={hideModal} />
         </CustomModal>
 
       }
@@ -145,7 +197,7 @@ const Snap = () => {
               <div className="content">
                 <p>₦{`${payOut === 0 ? '0.00' : formatNumber(payOut)}`}</p>
                 <p>Interest payout</p>
-                <button onClick={() => setshowFundModal(true)}>Transfer Interest</button>
+                <button onClick={handleTransfer}>Transfer Interest</button>
               </div>
             </div>
           </div>
@@ -153,7 +205,7 @@ const Snap = () => {
       </SnapContent>
       <TableDisplayHolder>
         <TableDisplay
-          header="Recent Transations"
+          header="All Snap Savings"
           columns={columns}
           dataSource={dataSource}
           loading={processing}
@@ -236,7 +288,7 @@ font-family:'Circular Std', 'Open Sans';
   /* span */
   grid-column: 3 / span 2;
   padding:1rem;
-  border-left:2px solid gray;
+  /* border-left:2px solid gray; */
  &>p{
     background-color:#EFF3FF;
     padding:1rem;

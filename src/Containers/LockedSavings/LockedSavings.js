@@ -313,7 +313,7 @@ class LockedSavings extends Component {
                                                 </div>
                                                 <div className="row">
                                                     <TableDisplay
-                                                        header="Recent Transations"
+                                                        header="Locked Savings"
                                                         columns={newColumns}
                                                         dataSource={this.state.lockedSavings}
                                                         // loading={processing}
@@ -321,8 +321,8 @@ class LockedSavings extends Component {
                                                     />
                                                     {
                                                         // this.state.mobileTable ?
-                                                        // (<LockedTransactionTable transactions={this.state.lockedSavings || []} columns={mobileColumns} />) :
-                                                        // (<LockedTransactionTable transactions={this.state.lockedSavings || []} columns={columns} />)
+                                                        //     (<LockedTransactionTable transactions={this.state.lockedSavings || []} columns={mobileColumns} />) :
+                                                        //     (<LockedTransactionTable transactions={this.state.lockedSavings || []} columns={columns} />)
                                                     }
 
                                                 </div>

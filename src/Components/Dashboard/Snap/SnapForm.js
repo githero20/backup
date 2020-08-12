@@ -15,15 +15,22 @@ import { toast } from 'react-toastify';
 const SnapForm = (props) => {
   const [amount, setAmount] = useState(0)
   const [itemSelected, setItemSelected] = useState('Select Card')
-  const [userCards, setUserCards] = useState([]);
   const { errors, data, processing } = useSelector(state => state.snap.all);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(resetState());
-    dispatch(createSnapRequest({ amount, payment_auth_id: itemSelected }));
-  }
+    if (itemSelected === "Add Card") {
+      dispatch(initSnapRequest({
+        amount: parseFloat(amount),
+        source: 'quick',
+      }));
+    } else {
+      dispatch(createSnapRequest({ amount, payment_auth_id: itemSelected }));
+    }
+  };
+
   // runs when ever the error changes
   useEffect(() => {
     if (errors) {
@@ -38,21 +45,14 @@ const SnapForm = (props) => {
         amount: parseFloat(amount),
         source: 'quick',
       }));
-    } else {
-      setItemSelected(e.target.value);
     }
+    setItemSelected(e.target.value);
+    // else {
+    //   setItemSelected(e.target.value);
+    // }
   }
-  useEffect(() => {
-    getUserCards((status, data) => {
-      if (status) {
-        setUserCards(data)
-      } else {
-        toast.error("Unable to fetch Cards", { autoClose: 3000 });
-      }
-    });
-  },
-    //eslint-disable-next-line
-    []);
+
+
   useEffect(() => {
     if (data.reference) {
       _payWithPaystack(data.reference, amount, resolvePaystackResponse)
@@ -127,8 +127,8 @@ const SnapForm = (props) => {
                 <option value={-1}>Select Card</option>
                 <option value={"Add Card"}>Add Card</option>
                 {
-                  userCards && userCards.length > 0 ?
-                    userCards.map((data, index) => {
+                  props.userCards && props.userCards.length > 0 ?
+                    props.userCards.map((data, index) => {
                       return (
                         <option value={`${data.id}`} key={data.id}>
                           [{data.card_type.toUpperCase()} **** **** **** {data.last4}]

@@ -28,7 +28,6 @@ const SnapForm = (props) => {
   useEffect(() => {
     if (errors) {
       toast.error(errors, { autoClose: 3000 });
-      // dispatch(resetState());
     }
   }, [errors]);
 
@@ -62,12 +61,9 @@ const SnapForm = (props) => {
     if (data === successMessage) {
       toast.success(successMessage, { autoClose: 3000 });
       props.hideModal();
-      // dispatch(resetState());
     }
   }, [data]);
 
-  const loading = false;
-  const payment_auth = '123';
   const validator = new SimpleReactValidator({
     validators: {
       payment_auth: {  // name the rule
@@ -87,14 +83,11 @@ const SnapForm = (props) => {
         source: 'quick',
       },
         (status, payload) => {
-          // this.setState({ loading: false });
           if (status) {
             _payWithPaystack(payload.reference, payload.amount, resolvePaystackResponse)
           } else {
             console.log('error with paystack', payload);
           }
-
-          // this.props.onHide();
         });
     }
 
@@ -107,18 +100,6 @@ const SnapForm = (props) => {
       reference: response.reference,
       amount
     }));
-    // verifyTransaction({
-    //   ref: response.reference,
-    //   type: "instant"
-    // }, (status, payload) => {
-    //   if (status) {
-    //     toastMessage('Card Added Successfully', 'success', this);
-    //     this.getUserCards();
-    //   } else {
-    //     toastMessage('Unable to add card at this moment', 'error', this);
-    //   }
-    // })
-
   }
   return (
     <div>
@@ -158,12 +139,12 @@ const SnapForm = (props) => {
                     : null
                 }
               </Form.Control>
-              {validator.message('payment_auth', payment_auth, 'required|numeric')}
+              {/* validator.message('payment_auth', payment_auth, 'required|numeric')*/}
             </Form.Group>
           </Col>
         </Form.Row>
         <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
-          <button className={'round btn-custom-blue modal-btn'} disabled={loading}
+          <button className={'round btn-custom-blue modal-btn'} disabled={processing}
             type="submit">
             {processing ? <ButtonLoader /> : <span>Start Saving</span>}
           </button>

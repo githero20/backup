@@ -32,7 +32,7 @@ function* getSnap() {
   });
 }
 
-function* initalizeSnap({ payload }) {
+function* initializeSnap({ payload }) {
   const { data } = yield call([api, 'post'], snapRequest.INIT, payload);
   yield put({
     type: INIT_SNAP_SUCCESS,
@@ -67,7 +67,7 @@ function* interestTransfer() {
 export default function* snapSaga() {
   yield takeLatest(CREATE_SNAP_REQUEST, safeSaga(createSnap));
   yield takeLatest(GET_SNAP_REQUEST, safeSaga(getSnap));
-  yield takeLatest(INIT_SNAP_REQUEST, safeSaga(initalizeSnap));
+  yield takeLatest(INIT_SNAP_REQUEST, safeSaga(initializeSnap));
   yield takeLatest(VERIFY_SNAP_REQUEST, safeSaga(verifySnap));
   yield takeLatest(GET_HISTORY_REQUEST, safeSaga(snapHistory));
   yield takeLatest(TRANSFER_INTEREST_REQUEST, safeSaga(interestTransfer));

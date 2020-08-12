@@ -1,24 +1,24 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-
 import lockedSavingIcon from "../../admin/app-assets/images/svg/add-lock-saving.svg";
 import LockedSavingModal from "../../Components/Dashboard/LockedSavingModal/LockedSavingModal";
-import {withToastManager} from "react-toast-notifications";
-import {_getToken} from "../../utils";
-import {getLockedSavings} from "../../actions/LockedSavingsAction";
+import { withToastManager } from "react-toast-notifications";
+import { _getToken } from "../../utils";
+import { getLockedSavings } from "../../actions/LockedSavingsAction";
 import {
     amountInterestFormatter,
     dateFormatter,
     handleFiltering,
     interestFormatter,
-    moneyFormatter, toastReloadMessage, todaysDateForTable, toggleTable,
+    moneyFormatter, todaysDateForTable, toggleTable,
 } from "../../Helpers/Helper";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
-import {getUserData} from "../../actions/UserAction";
+import { getUserData } from "../../actions/UserAction";
 import LockedTransactionTable from "../../Components/Dashboard/LockedTransactionTable/LockedTransactionTable";
-import {Comparator, dateFilter} from "react-bootstrap-table2-filter";
+// import { Comparator, dateFilter } from "react-bootstrap-table2-filter";
 import Footer from "../../Components/Dashboard/Footer/Footer";
+import TableDisplay from '../../Components/Reuseable/TableDisplay'
 
 
 class LockedSavings extends Component {
@@ -27,7 +27,7 @@ class LockedSavings extends Component {
         showLockedSavingsModal: false,
         lockedSavings: [],
         showLoader: true,
-        mobileTable:true
+        mobileTable: true
     };
 
     constructor(props) {
@@ -39,23 +39,23 @@ class LockedSavings extends Component {
 
     //get user info
     componentDidMount() {
-       this.LoadData();
-       toggleTable(this);
+        this.LoadData();
+        toggleTable(this);
     }
 
-    LoadData = () =>{
+    LoadData = () => {
         getUserData(this.handleUserInfo);
 
         getLockedSavings((status, payload) => {
             if (status) {
                 //TODO(work on making this merging this payload.data.to lockedSavings[])
-                this.setState({lockedSavings: payload});
+                this.setState({ lockedSavings: payload });
             }
         });
     };
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.reload){
+        if (nextProps.reload) {
             this.LoadData();
         }
     }
@@ -63,11 +63,11 @@ class LockedSavings extends Component {
 
 
     updateLockedSaving = () => {
-        this.setState({showLoader: true});
+        this.setState({ showLoader: true });
         getLockedSavings((status, payload) => {
             if (status) {
                 //TODO(work on making this merging this payload.data.to lockedSavings[])
-                this.setState({lockedSavings: payload, showLoader: false});
+                this.setState({ lockedSavings: payload, showLoader: false });
             }
         })
     };
@@ -77,14 +77,14 @@ class LockedSavings extends Component {
             showLoader: false,
         });
 
-        if(status) { this.setState({userName: res.name})}
+        if (status) { this.setState({ userName: res.name }) }
         // else toastReloadMessage('error',this,this.LoadData)
     };
 
 
-    handleFilter = (date, comparator) => {
-        handleFiltering(date, comparator, this);
-    };
+    // handleFilter = (date, comparator) => {
+    //     handleFiltering(date, comparator, this);
+    // };
 
 
     showLSModal() {
@@ -98,7 +98,7 @@ class LockedSavings extends Component {
         this.setState({
             showLockedSavingsModal: false
         });
-        if(status){
+        if (status) {
             this.updateLockedSaving();
         }
     };
@@ -106,7 +106,51 @@ class LockedSavings extends Component {
 
     render() {
 
+        const newColumns = [
+            {
+                title: 'Date',
+                dataIndex: 'created_at',
 
+            },
+            {
+                title: 'Name',
+                dataIndex: 'title',
+                sort: true,
+
+            },
+            {
+                title: 'Amount',
+                dataIndex: 'amount',
+                formatter: moneyFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },
+            {
+                title: 'Interest',
+                dataIndex: 'interest',
+                formatter: interestFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },
+            {
+                title: 'Start Date',
+                dataIndex: 'start_date',
+                formatter: dateFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },
+            {
+                title: 'End Date',
+                dataIndex: 'end_date',
+                formatter: dateFormatter,
+                sort: true,
+                classes: 'd-none d-md-table-cell',
+                headerClasses: 'd-none d-md-table-cell',
+            },
+        ];
         const columns = [
             {
                 text: 'Date',
@@ -115,12 +159,12 @@ class LockedSavings extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-                filter: dateFilter({
-                    defaultValue: {date: todaysDateForTable(), comparator: Comparator.LEQUAL},
-                    getFilter: (filter) => {
-                        this.createdDateFilter = filter;
-                    }
-                })
+                // filter: dateFilter({
+                //     defaultValue: { date: todaysDateForTable(), comparator: Comparator.LEQUAL },
+                //     getFilter: (filter) => {
+                //         this.createdDateFilter = filter;
+                //     }
+                // })
             },
             {
                 text: 'Name',
@@ -169,12 +213,12 @@ class LockedSavings extends Component {
                 sort: true,
                 classes: 'd-none d-md-table-cell',
                 headerClasses: 'd-none d-md-table-cell',
-                filter: dateFilter({
-                    defaultValue: {date:todaysDateForTable(), comparator: Comparator.LEQUAL},
-                    getFilter: (filter) => {
-                        this.createdDateFilter = filter;
-                    }
-                })
+                // filter: dateFilter({
+                //     defaultValue: { date: todaysDateForTable(), comparator: Comparator.LEQUAL },
+                //     getFilter: (filter) => {
+                //         this.createdDateFilter = filter;
+                //     }
+                // })
             },
             {
                 text: 'Name',
@@ -195,8 +239,8 @@ class LockedSavings extends Component {
                 dataField: 'interest',
                 formatter: amountInterestFormatter,
                 sort: true,
-                classes:' d-table-cell d-md-none',
-                headerClasses:'d-table-cell d-md-none',
+                classes: ' d-table-cell d-md-none',
+                headerClasses: 'd-table-cell d-md-none',
             },
             {
                 text: 'Start Date',
@@ -225,19 +269,19 @@ class LockedSavings extends Component {
                     updateLockedSaving={this.updateLockedSaving}
                 />
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
-                     data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav userName={this.state.userName}/>
-                    <VerticalNav userName={this.state.userName}/>
+                    data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+                    <HorizontalNav userName={this.state.userName} />
+                    <VerticalNav userName={this.state.userName} />
                     <div className="app-content content">
                         <div className="content-wrapper">
-                            {this.state.showLoader ? <DashboardLoader/> : null}
+                            {this.state.showLoader ? <DashboardLoader /> : null}
                             <div className="content-body">
                                 <div className="row">
                                     <div className="col-12 ">
                                         <div className={'descriptive-info mt-md-3 mt-0 mb-3 px-2 py-1'}>
                                             <p>Earn your interest upfront, but you need to lock your money with us for a
-                                                period set by you.
-                                                <br/>You can withdraw at the end of the period you have set.</p>
+                                            period set by you.
+                                                <br />You can withdraw at the end of the period you have set.</p>
                                         </div>
                                     </div>
                                     <div className="col-lg-4 col-12">
@@ -256,7 +300,7 @@ class LockedSavings extends Component {
                                                             className=" right-btn-holder deep-blue-bg white "
                                                             data-toggle="modal" data-target="#large"
                                                             onClick={this.showLSModal}>
-                                                            <img src={lockedSavingIcon}/>
+                                                            <img src={lockedSavingIcon} />
                                                             New Locked Savings
                                                         </button>
                                                     </h4>
@@ -268,9 +312,17 @@ class LockedSavings extends Component {
                                                     </ul>
                                                 </div>
                                                 <div className="row">
-                                                    {this.state.mobileTable?
-                                                        (<LockedTransactionTable handleFilter={this.handleFilter} transactions={this.state.lockedSavings || []} columns={mobileColumns}/>):
-                                                        (<LockedTransactionTable handleFilter={this.handleFilter} transactions={this.state.lockedSavings || []} columns={columns}/>)
+                                                    <TableDisplay
+                                                        header="Recent Transations"
+                                                        columns={newColumns}
+                                                        dataSource={this.state.lockedSavings}
+                                                        // loading={processing}
+                                                        pagination
+                                                    />
+                                                    {
+                                                        // this.state.mobileTable ?
+                                                        // (<LockedTransactionTable transactions={this.state.lockedSavings || []} columns={mobileColumns} />) :
+                                                        // (<LockedTransactionTable transactions={this.state.lockedSavings || []} columns={columns} />)
                                                     }
 
                                                 </div>
@@ -280,7 +332,7 @@ class LockedSavings extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <Footer/>
+                            <Footer />
                         </div>
                     </div>
                 </div>

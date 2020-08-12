@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router';
 import { formatNumber } from "../../../Helpers/Helper";
 
-const SnapCard = (props) => {
+const SnapCard = () => {
   const history = useHistory();
   const [showModal, setShowModal] = useState(false);
   const hideModal = () => {

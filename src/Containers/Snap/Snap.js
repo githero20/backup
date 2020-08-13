@@ -150,15 +150,7 @@ const Snap = () => {
         </CustomModal>
 
       }
-      <CustomModal title={"Transfer Funds"} show={showFundModal} onHide={hideFundModal}>
-        <Fragment>This would transfer your funds
-        <button onClick={() => {
-            dispatch(interestTransferRequest());
-            setshowFundModal(false);
-          }
-          }> OK</button>
-        </Fragment>
-      </CustomModal>
+
       <SnapContent>
         <div>
           <h3 className="gray-header-text fs-mb-1 mb-2 ">
@@ -285,10 +277,8 @@ font-family:'Circular Std', 'Open Sans';
   }
 }
 .details{
-  /* span */
   grid-column: 3 / span 2;
   padding:1rem;
-  /* border-left:2px solid gray; */
  &>p{
     background-color:#EFF3FF;
     padding:1rem;
@@ -321,8 +311,8 @@ font-family:'Circular Std', 'Open Sans';
       border:none;
       background-color:#482D99;
       color: white;
-      padding: 7px 20px;
-      font-size: .8rem;
+      padding: 5px 10px;
+      font-size: .7rem;
       border-radius: 2rem;
       margin: 10px 0px;
       min-width: 100px;

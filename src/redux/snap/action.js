@@ -3,7 +3,7 @@ import {
   GET_SNAP_REQUEST,
   INIT_SNAP_REQUEST,
   VERIFY_SNAP_REQUEST,
-  RESET_STATE,
+  RESET_STATE_ERROR,
   GET_HISTORY_REQUEST,
   TRANSFER_INTEREST_REQUEST
 } from './types';
@@ -32,7 +32,11 @@ export const getHistoryRequest = () => ({
 export const interestTransferRequest = () => ({
   type: TRANSFER_INTEREST_REQUEST,
 });
+const emptyError = {
+  errors: {}
+}
 export const resetState = () => ({
-  type: RESET_STATE,
+  type: RESET_STATE_ERROR,
+  payload: emptyError
 });
 

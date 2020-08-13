@@ -36,8 +36,7 @@ const SnapCard = () => {
         toast.error("Unable to fetch Cards", { autoClose: 3000 });
       }
     });
-  },
-    //eslint-disable-next-line
+  },//eslint-disable-next-line
     []);
   useEffect(() => {
     if (data.accounts) {

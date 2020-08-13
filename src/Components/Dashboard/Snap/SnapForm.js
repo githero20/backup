@@ -4,10 +4,7 @@ import Col from 'react-bootstrap/Col';
 import { formatNumber } from "../../../Helpers/Helper";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
-import { getUserCards } from '../../../actions/CardAction';
-import { initTransaction } from "../../../actions/CardAction";
 import { _payWithPaystack } from "../../../utils";
-import { toastMessage } from "../../../Helpers/Helper";
 import { createSnapRequest, initSnapRequest, resetState, verifySnapRequest } from '../../../redux/snap/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
@@ -15,21 +12,31 @@ import { toast } from 'react-toastify';
 const SnapForm = (props) => {
   const [amount, setAmount] = useState(0)
   const [itemSelected, setItemSelected] = useState('Select Card')
-  const { errors, data, processing } = useSelector(state => state.snap.all);
+  const { errors, data, processing } = useSelector(state => state.snap.pay);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(resetState());
-    if (itemSelected === "Add Card") {
-      dispatch(initSnapRequest({
-        amount: parseFloat(amount),
-        source: 'quick',
-      }));
+    if (itemSelected === "Select Card") {
+      toast.error("Please select an option", { autoClose: 3000 })
+    } else if (itemSelected === "Add Card") {
+      if (amount < 100) {
+        toast.error("Amount must be 1000 ", { autoClose: 3000 })
+      } else {
+        dispatch(initSnapRequest({
+          amount: parseFloat(amount),
+          source: 'quick',
+        }));
+      }
     } else {
       dispatch(createSnapRequest({ amount, payment_auth_id: itemSelected }));
     }
   };
+  // runs this form is opened
+  useEffect(() => {
+    dispatch(resetState());
+  }, []);
 
   // runs when ever the error changes
   useEffect(() => {
@@ -39,12 +46,17 @@ const SnapForm = (props) => {
   }, [errors]);
 
   const changeHandler = (e) => {
+
     if (e.target.value === "Add Card") {
-      dispatch(resetState());
-      dispatch(initSnapRequest({
-        amount: parseFloat(amount),
-        source: 'quick',
-      }));
+      if (amount < 100) {
+        toast.error("Amount must be 1000 ", { autoClose: 3000 })
+      } else {
+        dispatch(resetState());
+        dispatch(initSnapRequest({
+          amount: parseFloat(amount),
+          source: 'quick',
+        }));
+      }
     }
     setItemSelected(e.target.value);
     // else {
@@ -72,29 +84,6 @@ const SnapForm = (props) => {
       }
     }
   });
-
-  const initiatePayStack = () => {
-    //send api
-    if (amount == null || parseFloat(amount) < 100) {
-      toastMessage('A minimum of ₦100 is required to add a card', 'error', this)
-    } else {
-      initTransaction({
-        amount: parseFloat(amount),
-        source: 'quick',
-      },
-        (status, payload) => {
-          if (status) {
-            _payWithPaystack(payload.reference, payload.amount, resolvePaystackResponse)
-          } else {
-            console.log('error with paystack', payload);
-          }
-        });
-    }
-
-
-  }
-
-
   const resolvePaystackResponse = (response) => {
     dispatch(verifySnapRequest({
       reference: response.reference,
@@ -143,8 +132,8 @@ const SnapForm = (props) => {
             </Form.Group>
           </Col>
         </Form.Row>
-        <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
-          <button className={'round btn-custom-blue modal-btn'} disabled={processing}
+        <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2 '}>
+          <button className={'round btn-custom-blue modal-btn btn-disabled'} disabled={processing}
             type="submit">
             {processing ? <ButtonLoader /> : <span>Start Saving</span>}
           </button>

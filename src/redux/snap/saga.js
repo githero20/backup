@@ -12,7 +12,10 @@ import {
   GET_HISTORY_REQUEST,
   GET_HISTORY_SUCCESS,
   TRANSFER_INTEREST_SUCCESS,
-  TRANSFER_INTEREST_REQUEST
+  TRANSFER_INTEREST_REQUEST,
+  INIT_SNAP_ERROR,
+  VERIFY_SNAP_ERROR,
+  CREATE_SNAP_ERROR
 } from './types';
 import { safeSaga } from '../../Helpers';
 
@@ -65,10 +68,10 @@ function* interestTransfer() {
 };
 
 export default function* snapSaga() {
-  yield takeLatest(CREATE_SNAP_REQUEST, safeSaga(createSnap));
+  yield takeLatest(CREATE_SNAP_REQUEST, safeSaga(createSnap, CREATE_SNAP_ERROR));
+  yield takeLatest(INIT_SNAP_REQUEST, safeSaga(initializeSnap, INIT_SNAP_ERROR));
+  yield takeLatest(VERIFY_SNAP_REQUEST, safeSaga(verifySnap, VERIFY_SNAP_ERROR));
   yield takeLatest(GET_SNAP_REQUEST, safeSaga(getSnap));
-  yield takeLatest(INIT_SNAP_REQUEST, safeSaga(initializeSnap));
-  yield takeLatest(VERIFY_SNAP_REQUEST, safeSaga(verifySnap));
   yield takeLatest(GET_HISTORY_REQUEST, safeSaga(snapHistory));
   yield takeLatest(TRANSFER_INTEREST_REQUEST, safeSaga(interestTransfer));
 }

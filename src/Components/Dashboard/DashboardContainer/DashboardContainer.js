@@ -277,5 +277,9 @@ display:grid;
 grid-template-columns:repeat(2,1fr);
 grid-gap:1rem;
 width:100%;
+@media (max-width: 320px){
+    grid-template-columns:repeat(1,1fr);
+}
+
 `
 export default DashboardContainer;

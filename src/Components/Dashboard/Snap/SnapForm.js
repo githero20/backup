@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 
 const SnapForm = (props) => {
+  const { minSaving } = props;
   const [amount, setAmount] = useState(0)
   const [itemSelected, setItemSelected] = useState('Select Card')
   const { errors, data, processing } = useSelector(state => state.snap.pay);
@@ -21,8 +22,8 @@ const SnapForm = (props) => {
     if (itemSelected === "Select Card") {
       toast.error("Please select an option", { autoClose: 3000 })
     } else if (itemSelected === "Add Card") {
-      if (amount < 100) {
-        toast.error("Amount must be 1000 ", { autoClose: 3000 })
+      if (amount < minSaving) {
+        toast.error(`Amount must be ${minSaving}`, { autoClose: 3000 })
       } else {
         dispatch(initSnapRequest({
           amount: parseFloat(amount),
@@ -48,8 +49,8 @@ const SnapForm = (props) => {
   const changeHandler = (e) => {
 
     if (e.target.value === "Add Card") {
-      if (amount < 100) {
-        toast.error("Amount must be 1000 ", { autoClose: 3000 })
+      if (amount < minSaving) {
+        toast.error(`Amount must be ${minSaving} `, { autoClose: 3000 })
       } else {
         dispatch(resetState());
         dispatch(initSnapRequest({

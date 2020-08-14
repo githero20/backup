@@ -93,6 +93,7 @@ class WithdrawalForm extends Component {
         this.props.activateLoader();
         this.getWithdrawalSettings();
         this.getUserBanks();
+        this.getSnapBalance();
     }
 
     componentDidMount() {
@@ -103,6 +104,26 @@ class WithdrawalForm extends Component {
         request(getUserInfoEndpoint, null, true, 'GET', this.saveBalance);
     };
 
+    getSnapBalance = () => {
+        request("sfsbapi/v1/user/snap/history", null, true, 'GET', this.resolveBalance);
+    };
+    resolveBalance = (state, res) => {
+        if (state) {
+            if (res.data) {
+                console.log('this is res', res.data.data);
+                const values = res.data.data;
+                for (let i = 0; i < values.length; i++) {
+                    const element = values[i];
+                    console.log('elemet',);
+                    if (element.type === "account") {
+                        this.setState({
+                            snapBalance: element.balance
+                        });
+                    }
+                }
+            }
+        }
+    }
     saveBalance = (state, res) => {
         if (state) {
             if (res.data.data.accounts) {
@@ -112,10 +133,6 @@ class WithdrawalForm extends Component {
                     if (content.account_type_id == STANDARD_ACCOUNT) {
                         this.setState({
                             userBalance: content.balance
-                        });
-                    } else if (content.account_type_id == SNAP_ACCOUNT) {
-                        this.setState({
-                            snapBalance: content.balance
                         });
                     } else if (content.account_type_id == INTEREST_ACCOUNT) {
                         this.setState({

@@ -58,5 +58,8 @@ div:last-of-type{
     width:70%;
     color: #352D66;
   }
+  @media (max-width: 768px){
+    height:initial;
+}
 `
 export default MillexIntro

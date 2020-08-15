@@ -4,25 +4,50 @@ import purpleIcon from "../../../admin/app-assets/images/walletside.svg";
 import CustomModal from './CustomModal'
 import SnapForm from './SnapForm';
 import { getUserRequest } from '../../../redux/auth/action';
-import { resetState } from '../../../redux/snap/action';
+import { resetState, snapSettingsRequest } from '../../../redux/snap/action';
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router';
 import { formatNumber } from "../../../Helpers/Helper";
+import { getUserCards } from '../../../actions/CardAction';
+import { toast } from 'react-toastify';
 
-const SnapCard = (props) => {
+const SnapCard = () => {
   const history = useHistory();
   const [showModal, setShowModal] = useState(false);
   const hideModal = () => {
     setShowModal(false);
   }
   const { data } = useSelector(state => state.auth);
+  const snapSettings = useSelector(state => state.snap.settings);
   const dispatch = useDispatch();
   const [balance, setBalance] = useState(0);
   const [interest, setinterest] = useState(0);
   const [total, settotal] = useState(0);
+  const [userCards, setUserCards] = useState([]);
+  const [minSaving, setMinSaving] = useState(1000);
+
+  useEffect(() => {
+    if (snapSettings.data.min_save) {
+      setMinSaving(snapSettings.data.min_save);
+    }
+  }, [snapSettings.data]);
+
+
   useEffect(() => {
     dispatch(getUserRequest());
+    dispatch(snapSettingsRequest());
   }, []);
+  // fetches users cards on component mount
+  useEffect(() => {
+    getUserCards((status, data) => {
+      if (status) {
+        setUserCards(data)
+      } else {
+        toast.error("Unable to fetch Cards", { autoClose: 3000 });
+      }
+    });
+  },//eslint-disable-next-line
+    []);
   useEffect(() => {
     if (data.accounts) {
       data.accounts.data.forEach(acct => {
@@ -38,6 +63,7 @@ const SnapCard = (props) => {
   return (
     <SnapCard.Wrapper>
       <span><p>NEW</p> Snap Savings</span>
+      <small className='text-muted'>Get returns weekly when you save. The more you save the more you earn</small>
       <div className="custom-card pull-up">
         <div className="left-side">
           <div>
@@ -54,22 +80,20 @@ const SnapCard = (props) => {
               <strong className="value-text">&#8358; {total} </strong></p>
             </div>
           </div>
-          {
-            <div
-              className="btn-holders card-item d-flex flex-row flex-md-column justify-content-between align-content-between">
-              <button onClick={() => {
-                dispatch(resetState());
-                setShowModal(true);
-              }} className='btn dash-btn dark-gray'>Save More <i
-                className='fa fa-arrow-right'></i></button>
-              <button onClick={() => history.push("/dashboard/snap")} className='btn dash-btn dark-gray'>View All <i
-                className='fa fa-arrow-right'></i></button>
-            </div>
-          }
+          <div
+            className="btn-holders card-item d-flex flex-row flex-md-column justify-content-between align-content-between">
+            <button onClick={() => {
+              dispatch(resetState());
+              setShowModal(true);
+            }} className='btn dash-btn dark-gray'>Save More <i
+              className='fa fa-arrow-right'></i></button>
+            <button onClick={() => history.push("/dashboard/snap")} className='btn dash-btn dark-gray'>View All <i
+              className='fa fa-arrow-right'></i></button>
+          </div>
         </div>
       </div>
       <CustomModal title={"Snap Saving"} show={showModal} onHide={hideModal}>
-        <SnapForm hideModal={hideModal} />
+        <SnapForm userCards={userCards} minSaving={minSaving} hideModal={hideModal} />
       </CustomModal>
     </SnapCard.Wrapper>
   )
@@ -80,6 +104,7 @@ span{
   display:inline-block;
   font-weight:bold;
   margin-bottom:1rem;
+  margin-right:0.5rem;
 
   p{
     display:inline;
@@ -130,7 +155,7 @@ margin-bottom: 2rem;
   border-top-right-radius:1rem;
   grid-template-columns:repeat(4,1fr);
   background-color: white;
-border-right: 10px solid #DECAFF;
+  border-right: 10px solid #DECAFF;
   font-family: "Circular Std Black","Circular Std", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
   .content-card{
@@ -177,6 +202,12 @@ border-right: 10px solid #DECAFF;
 }
 .dark-gray{
   background-color: #DECAFF !important;
+}
+  @media screen and (max-width: 768px) {
+    
+    .right-side{
+      display: initial !important;
+    }
 }
 `
 export default SnapCard

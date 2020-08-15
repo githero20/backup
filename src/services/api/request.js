@@ -9,6 +9,8 @@ export const snapRequest = {
   INIT: SUB_ROUTE + '/user/snap/init',
   VERIFY: SUB_ROUTE + '/user/snap/verify',
   HISTORY: SUB_ROUTE + '/user/snap/history',
+  TRANSFER: SUB_ROUTE + '/user/transfer/snapinterest',
+  SETTINGS: SUB_ROUTE + '/user/snap/settings',
 };
 export default {
   auth: authRequest,

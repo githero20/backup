@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../../admin/assets/css/hamburgers.min.css';
 import '../../admin/assets/css/backup-cash-style.css';
 import sfsFooterLogo from "../../admin/app-assets/images/Logo@2x.png";
@@ -22,12 +22,12 @@ import tm30 from "../../admin/app-assets/images/tm30logo.png";
 import sfsImage from "../../admin/app-assets/images/SFS-LOGOS-4-150x150.jpg";
 import commentIcon from "../../admin/app-assets/images/svg/comment-icon.svg";
 import carouselLeftArrow from "../../admin/app-assets/images/svg/left-arrow.svg";
-import {FaqLink, HomeLink, LoginLink, SignUpLink} from "../../RouteLinks/RouteLinks";
+import { FaqLink, HomeLink, LoginLink, SignUpLink } from "../../RouteLinks/RouteLinks";
 import ReactOwlCarousel from "react-owl-carousel";
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import moment from 'moment';
-import {SESSION_INTERVAL, USERTOKEN} from "../../Components/Auth/HOC/authcontroller";
+import { SESSION_INTERVAL, USERTOKEN } from "../../Components/Auth/HOC/authcontroller";
 import Navigation from "./Navigation";
 import Header from "./Header";
 
@@ -48,10 +48,10 @@ export const checkUser = () => {
 };
 
 const slides = [
-    {img: require('../../admin/app-assets/images/slider/slider1.jpg')},
-    {img: require('../../admin/app-assets/images/slider/slider2.jpg')},
-    {img: require('../../admin/app-assets/images/slider/slider3.jpg')},
-    {img: require('../../admin/app-assets/images/slider/slider4.jpg')},
+    { img: require('../../admin/app-assets/images/slider/slider1.jpg') },
+    { img: require('../../admin/app-assets/images/slider/slider2.jpg') },
+    { img: require('../../admin/app-assets/images/slider/slider3.jpg') },
+    { img: require('../../admin/app-assets/images/slider/slider4.jpg') },
 ];
 
 class Home extends Component {
@@ -98,13 +98,13 @@ class Home extends Component {
 
     componentDidMount() {
         const isLoggedIn = checkUser();
-        this.setState({isLoggedIn});
+        this.setState({ isLoggedIn });
         this.doAnimation = this.handleScrollAnimation();
     }
 
 
     render() {
-        const {isLoggedIn} = this.props;
+        const { isLoggedIn } = this.props;
 
         return (
             <React.Fragment>
@@ -112,10 +112,10 @@ class Home extends Component {
                     <div className="home-content">
                         <div className="home-content--inner">
                             <header className="header header-background hero-bg">
-                                <img src={homeBGImg} className='home-bg-img d-none' alt="svg image"/>
+                                <img src={homeBGImg} className='home-bg-img d-none' alt="svg image" />
                                 <div className="container">
-                                    <Navigation isLoggedIn={isLoggedIn} scrollIntoView={this.scrollIntoView}/>
-                                    <Header slides={slides} button className='d-none'/>
+                                    <Navigation isLoggedIn={isLoggedIn} scrollIntoView={this.scrollIntoView} />
+                                    <Header slides={slides} button className='d-none' />
                                 </div>
                             </header>
 
@@ -124,18 +124,18 @@ class Home extends Component {
                                     <div className="row  mb-5 mb-md-0">
                                         <div className="col-md-6 text-center text-md-left mt-3 mt-lg-0">
                                             <img src={illustration1} alt="backup cash illustration"
-                                                 className="ill-2x" width="100%"/>
+                                                className="ill-2x" width="100%" />
                                         </div>
                                         <div className="offset-0 col-md-6 ">
                                             <div data-aos={'fade-up'} data-aos-delay={200}
-                                                 className="section-detail-card pl-md-5">
+                                                className="section-detail-card pl-md-5">
                                                 <div className="yellow-icon-holder">
                                                     <img className="mb-2 pt-md-2 yellow-icon" src={yellowIcon}
-                                                         alt="yellow icon"/>
+                                                        alt="yellow icon" />
                                                 </div>
                                                 <h2 className="section-details-header text-center text-md-left mb-md-2">Relax
-                                                    and Watch
-                                                    Your Money
+                                                and Watch
+                                                Your Money
                                                     Grow</h2>
                                                 <p className="section-details-paragraph text-center text-md-left mb-md-2  ">
                                                     Backup Cash is a secure and automated savings app that allows you
@@ -159,14 +159,14 @@ class Home extends Component {
                                                             className="d-flex flex-column flex-md-row justify-content-around align-items-center">
                                                             <div className="security-img-wrapper mb-2 mb-md-0">
                                                                 <img src={securityIcon}
-                                                                     alt="security icon"/>
+                                                                    alt="security icon" />
                                                             </div>
                                                             <div className="ml-md-2 ml-md-0">
                                                                 <h2>Your money is safe and secure</h2>
                                                                 <h6 className='pr-lg-5'>Your funds are invested in the
-                                                                    SFS Fixed Income Fund, managed by SFS Capital.
-                                                                    The SFS Fixed Income Fund is AA rated and has won
-                                                                    the BusinessDay Award for the Best performing Fixed
+                                                                SFS Fixed Income Fund, managed by SFS Capital.
+                                                                The SFS Fixed Income Fund is AA rated and has won
+                                                                the BusinessDay Award for the Best performing Fixed
                                                                     Income Fund in 2018 and 2019.</h6>
                                                             </div>
                                                         </div>
@@ -182,7 +182,7 @@ class Home extends Component {
                                     <div className="row ">
                                         <div className="col-md-12">
                                             <div className="section-header mt-md-5 ">
-                                                <img className="mb-5 mb-md-3 yellow-icon-2" src={yellowIcon} alt=""/>
+                                                <img className="mb-5 mb-md-3 yellow-icon-2" src={yellowIcon} alt="" />
                                                 <p>It’s Easy To Start With Backup Cash</p>
                                             </div>
                                         </div>
@@ -201,7 +201,7 @@ class Home extends Component {
                                                         in less than two minutes </p>
                                                     <div className="card mb-5">
                                                         <img className="card-1-img" src={cardIll1}
-                                                             alt="illustration"/>
+                                                            alt="illustration" />
                                                     </div>
 
                                                 </div>
@@ -216,7 +216,7 @@ class Home extends Component {
                                                         works for you </p>
                                                     <div className="card mb-5">
                                                         <img className="card-1-img mt-3" src={cardIll2}
-                                                             alt="illustration"/>
+                                                            alt="illustration" />
                                                     </div>
 
                                                 </div>
@@ -229,7 +229,7 @@ class Home extends Component {
                                                     <p className="card-text mb-5">Rest easy and watch
                                                         your money grow </p>
                                                     <div className="card mb-5">
-                                                        <img className="card-2-img" src={cardIll3} alt="illustration"/>
+                                                        <img className="card-2-img" src={cardIll3} alt="illustration" />
                                                     </div>
 
                                                 </div>
@@ -239,7 +239,7 @@ class Home extends Component {
                                             <div className="col-md-4 offset-md-4 text-center">
                                                 <div className="pb-4 pt-2">
                                                     <Link to={'/sign-up'}
-                                                          className="btn-rounded-corner mb-5 btn-light-blue">
+                                                        className="btn-rounded-corner mb-5 btn-light-blue">
                                                         Start Now
                                                     </Link>
                                                 </div>
@@ -253,7 +253,7 @@ class Home extends Component {
                                     <div className="row mt-0 pt-md-5 mb-md-5">
                                         <div className="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
                                             <div className="section-header mt-5 mb-5">
-                                                <img className="mb-4 yellow-icon" src={yellowIcon} alt=""/>
+                                                <img className="mb-4 yellow-icon" src={yellowIcon} alt="" />
                                                 <p>Reach your savings goal the simple and
                                                     reliable way</p>
                                             </div>
@@ -262,7 +262,7 @@ class Home extends Component {
                                             <div
                                                 className="section-transparent-card reduced-section-transparent-card mb-5 ">
                                                 <div className="section-transparent-card-icon">
-                                                    <img src={featureImage1} alt={""}/>
+                                                    <img src={featureImage1} alt={""} />
                                                 </div>
                                                 <div
                                                     className="section-transparent-card-right text-center text-md-left">
@@ -273,13 +273,13 @@ class Home extends Component {
                                             </div>
                                             <div className="section-transparent-card mb-5">
                                                 <div className="section-transparent-card-icon">
-                                                    <img src={featureImage2} alt={""}/>
+                                                    <img src={featureImage2} alt={""} />
                                                 </div>
                                                 <div
                                                     className="section-transparent-card-right text-center text-md-left">
                                                     <h5>Steady savings your way</h5>
                                                     <p>Automate exactly how you
-                                                        want to save whether its daily,
+                                                    want to save whether its daily,
                                                         weekly or monthly.</p>
                                                 </div>
                                             </div>
@@ -287,7 +287,7 @@ class Home extends Component {
                                         <div className="col-md-6">
                                             <div className="section-transparent-card mb-5">
                                                 <div className="section-transparent-card-icon ">
-                                                    <img src={featureImage3} alt={""}/>
+                                                    <img src={featureImage3} alt={""} />
                                                 </div>
                                                 <div
                                                     className="section-transparent-card-right text-center text-md-left">
@@ -298,13 +298,13 @@ class Home extends Component {
                                             </div>
                                             <div className="section-transparent-card mb-5">
                                                 <div className="section-transparent-card-icon">
-                                                    <img src={featureImage4} alt={""}/>
+                                                    <img src={featureImage4} alt={""} />
                                                 </div>
                                                 <div
                                                     className="section-transparent-card-right text-center text-md-left">
                                                     <h5>Trusted partner</h5>
                                                     <p>Our partner, SFS capital has 30+
-                                                        years of fund management
+                                                    years of fund management
                                                         experience.</p>
                                                 </div>
                                             </div>
@@ -322,16 +322,16 @@ class Home extends Component {
                                                 </span>
                                                 <span className='d-flex align-items-center justify-content-center'>
                                                     <a href="https://api.whatsapp.com/send?phone=18883699915"
-                                                       className='deep-blue-link-underline cursor-pointer'
-                                                       rel="noopener noreferrer"
-                                                       target='_blank'>
+                                                        className='deep-blue-link-underline cursor-pointer'
+                                                        rel="noopener noreferrer"
+                                                        target='_blank'>
                                                         <strong>Whatsapp</strong>
                                                     </a>
                                                     <span>or</span>
                                                     <a href="https://play.google.com/store/apps/details?id=com.sfs.backup_cash"
-                                                       className='deep-blue-link-underline cursor-pointer'
-                                                       rel="noopener noreferrer"
-                                                       target='_blank'>
+                                                        className='deep-blue-link-underline cursor-pointer'
+                                                        rel="noopener noreferrer"
+                                                        target='_blank'>
                                                         <strong>Download App</strong>
                                                     </a>
                                                 </span>
@@ -341,8 +341,8 @@ class Home extends Component {
                                         <div className="col-md-4 ">
                                             <div className='fs-1-8 mt-5 mt-md-2 mt-lg-5 mb-3 text-center'>
                                                 <img className='mb-3 mb-md-1 mb-lg-3'
-                                                     src={require('../../admin/app-assets/images/svg/award-medal.svg')}
-                                                     alt="award medal"
+                                                    src={require('../../admin/app-assets/images/svg/award-medal.svg')}
+                                                    alt="award medal"
                                                 />
                                                 <p className='circular-std-Book text-deep-blue'>Some of our </p>
                                                 <p className='circular-std-Black text-deep-blue px-3 px-lg-0 mb-5'>Acheivements </p>
@@ -351,15 +351,15 @@ class Home extends Component {
                                         <div className="col-md-4">
                                             <div className="award-card p-3 p-md-1 p-lg-3 mb-3 ">
                                                 <img className='w-100'
-                                                     src={require('../../admin/app-assets/images/award-1.png')}
-                                                     alt="award image one"/>
+                                                    src={require('../../admin/app-assets/images/award-1.png')}
+                                                    alt="award image one" />
                                             </div>
                                         </div>
                                         <div className="col-md-4">
                                             <div className="award-card p-3 p-md-1 p-lg-3 mb-3 ">
                                                 <img className='w-100'
-                                                     src={require('../../admin/app-assets/images/award-1.png')}
-                                                     alt="award image one"/>
+                                                    src={require('../../admin/app-assets/images/award-1.png')}
+                                                    alt="award image one" />
                                             </div>
                                         </div>
                                     </div>
@@ -371,7 +371,7 @@ class Home extends Component {
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="section-header text-center">
-                                                <img className="mb-4 yellow-icon" src={yellowIcon} alt=""/>
+                                                <img className="mb-4 yellow-icon" src={yellowIcon} alt="" />
                                                 <p>What People are saying</p>
                                             </div>
                                         </div>
@@ -383,112 +383,91 @@ class Home extends Component {
                                     <div className="container">
                                         <div className="row pt-5 px-lg-5 mx-lg-5">
                                             <div id="carouselExampleControls" className="carousel slide"
-                                                 data-ride="carousel">
+                                                data-ride="carousel">
                                                 <div className="carousel-inner">
                                                     <div className="carousel-item">
                                                         <div className="comment-box">
                                                             <div className="thumbnail">
-                                                                <img className="user-image" src={CommentImage} alt="First slide"/>
+                                                                <img className="user-image" src={CommentImage} alt="First slide" />
                                                             </div>
 
-                                                            <p>I was a bit skeptical about using Backup Cash given the
-                                                                large of
-                                                                savings apps out there. In just 3 weeks of using this
-                                                                service,
-                                                                I am definitely hooked.
+                                                            <p>At first I was not very sure about Backup Cash story cos this is Nigeria, there are many fraudster with different apps and website. But when I heard about them from IG I was like me give them a call if someone answers me then we can start from there. And that's all I was very convinced cos I asked the person on the other side a lot of questions to my satisfaction. In fact they are amazing even when I visited their office I was like wow... and that increase my trust in them to 98%. You guys are doing awesome
                                                             </p>
-                                                            <h4>Ambrose Clark</h4>
-                                                            <span>Builder</span>
-                                                            <img src={commentIcon} alt="comment" className="comment"/>
+                                                            <h4>Peter Pounds </h4>
+                                                            <img src={commentIcon} alt="comment" className="comment" />
                                                         </div>
                                                     </div>
                                                     <div className="carousel-item active">
                                                         <div className="comment-box">
                                                             <div className="thumbnail">
                                                                 <img className="user-image" src={CommentImage}
-                                                                     alt="First slide"/>
+                                                                    alt="First slide" />
                                                             </div>
                                                             <p>Thanks for the app. I feel so proud to actually be able
-                                                                to start a saving culture. Over time i will save even
+                                                            to start a saving culture. Over time i will save even
                                                                 more.</p>
                                                             <h4 className="comment-name">Bunmi Akinfenwa</h4>
                                                             <span>Entrepreneur</span>
-                                                            <img className="comment" src={commentIcon} alt="comment"/>
+                                                            <img className="comment" src={commentIcon} alt="comment" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="carousel-item">
+                                                        <div className="comment-box">
+                                                            <div className="thumbnail">
+                                                                <img className="user-image" src={CommentImage}
+                                                                    alt="First slide" /></div>
+
+                                                            <p>I must salute your intelligence and creativity for creating this saving/investment platform, encouraging Nigerians to be habitual savers and investment seekers. Kudos! your platform is superb and I can recommend it to friends and family</p>
+                                                            <h4>Tijani Yusuf Oluwasegun</h4>
+                                                            <img className="comment" src={commentIcon} alt="comment" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="carousel-item">
+                                                        <div className="comment-box">
+                                                            <div className="thumbnail">
+                                                                <img className="user-image" src={CommentImage}
+                                                                    alt="First slide" /></div>
+
+                                                            <p>I am so grateful for this kind opportunity. Firstly, mybackupcash has help me a lot in terms of maintaining my saving, its make me feel more assured that my money is well keep, and its even provide job for me in terms of referring people, then I have my
+                                                            commission on it, it’s very good</p>
+                                                            <h4>Okelade Abiola</h4>
+                                                            <img className="comment" src={commentIcon} alt="comment" />
                                                         </div>
                                                     </div>
                                                     <div className="carousel-item">
                                                         <div className="comment-box">
                                                             <div className="thumbnail">
                                                                 <img className="user-image" src={CommentImage}
-                                                                     alt="First slide"/></div>
+                                                                    alt="First slide" /></div>
 
-                                                            <p>Cool app. I signed up and made my 1st savings deposit via
-                                                                Facebook messenger.</p>
-                                                            <h4>Tomi Falade </h4>
-                                                            <span className="comment-job-title">Voiceover Artist</span>
-                                                            <img className="comment" src={commentIcon} alt="comment"/>
+                                                            <p>I was referred to Backup cash by a friend and I haven't stopped since then. Backup Cash has helped me save more than I ever imagined. The fact that I even save with interest is just mind blowing. Now am using the steady safe where I can save without having to be concerned about the transfer process. Automation is great!- </p>
+                                                            <h4>Perfection Loveday </h4>
+                                                            <img className="comment" src={commentIcon} alt="comment" />
                                                         </div>
                                                     </div>
                                                     <div className="carousel-item">
                                                         <div className="comment-box">
                                                             <div className="thumbnail">
                                                                 <img className="user-image" src={CommentImage}
-                                                                     alt="First slide"/></div>
+                                                                    alt="First slide" /></div>
 
-                                                            <p>As an accountant, the daily interest growth calculation
-                                                                is a
-                                                                feature that I love. </p>
-                                                            <h4>Ikujenyo Olubunmi </h4>
-                                                            <span className="comment-job-title">Finance Expert</span>
-                                                            <img className="comment" src={commentIcon} alt="comment"/>
-                                                        </div>
-                                                    </div>
-                                                    <div className="carousel-item">
-                                                        <div className="comment-box">
-                                                            <div className="thumbnail">
-                                                                <img className="user-image" src={CommentImage}
-                                                                     alt="First slide"/></div>
-
-                                                            <p>Being able to concurrently save for the office rent and
-                                                                my end of
-                                                                year
-                                                                vacation on one platform even though I am using two
-                                                                different
-                                                                cards is so convenient.
-                                                            </p>
-                                                            <h4>Ope Craig </h4>
-                                                            <span className="comment-job-title">Business Owner</span>
-                                                            <img className="comment" src={commentIcon} alt="comment"/>
-                                                        </div>
-                                                    </div>
-                                                    <div className="carousel-item">
-                                                        <div className="comment-box">
-                                                            <div className="thumbnail">
-                                                                <img className="user-image" src={CommentImage}
-                                                                     alt="First slide"/></div>
-
-                                                            <p>Last December, I couldn’t attend all my favorite shows
-                                                                because of
-                                                                the costs.
-                                                                Right now, I have saved enough for at least 3 shows and
-                                                                a nice
-                                                                outfit.
-                                                            </p>
-                                                            <h4>Tobi Oladele </h4>
-                                                            <span className="comment-job-title">Intern</span>
-                                                            <img className="comment" src={commentIcon} alt="comment"/>
+                                                            <p>Ever since I started using backup cash,I have saved more money than ever.At first I thought i couldn't do it but I did it and it worked perfectly</p>
+                                                            <h4>Mattew Blaze</h4>
+                                                            <img className="comment" src={commentIcon} alt="comment" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <a className="carousel-control-prev carousel-btn"
-                                                   href="#carouselExampleControls"
-                                                   role="button" data-slide="prev">
-                                                    <img src={carouselLeftArrow} width="60%" alt={''}/>
+                                                    href="#carouselExampleControls"
+                                                    role="button" data-slide="prev">
+                                                    <img src={carouselLeftArrow} width="60%" alt={''} />
                                                     <span className="sr-only">Previous</span>
                                                 </a>
                                                 <a className="carousel-btn carousel-control-next"
-                                                   href="#carouselExampleControls" role="button" data-slide="next">
-                                                    <img src={carouselRightArrow} width="60%" alt={''}/>
+                                                    href="#carouselExampleControls" role="button" data-slide="next">
+                                                    <img src={carouselRightArrow} width="60%" alt={''} />
                                                     <span className="sr-only">Next</span>
                                                 </a>
                                             </div>
@@ -504,7 +483,7 @@ class Home extends Component {
                                         <div className="col-md-12 mb-md-5">
                                             <div className="section-header">
                                                 <img className="mb-4 yellow-icon" src={yellowIcon}
-                                                     alt="yellow icon"/>
+                                                    alt="yellow icon" />
                                                 <p>Our Partners</p>
                                                 <span>You are in safe hands</span>
                                             </div>
@@ -523,21 +502,21 @@ class Home extends Component {
                                             >
                                                 <div className="partner-img-container">
                                                     <a href={'http://www.paystack.com'} rel={'noopener noreferrer'} target='_blank'>
-                                                        <img className="partner-img " src={paystackImage} alt="paystack"/>
+                                                        <img className="partner-img " src={paystackImage} alt="paystack" />
                                                     </a>
 
                                                 </div>
                                                 <div className="partner-img-container">
                                                     <a href={'https://www.sfsnigeria.com/'} rel={'noopenner noreferrer'}
-                                                       target='_blank'>
-                                                        <img className="partner-img-50 sfs-image" src={sfsImage} alt="sfs"/>
+                                                        target='_blank'>
+                                                        <img className="partner-img-50 sfs-image" src={sfsImage} alt="sfs" />
                                                     </a>
 
                                                 </div>
                                                 <div className="partner-img-container">
                                                     <a href={'http://www.tm30.net'} rel={'noopenner noreferrer'}
-                                                       target='_blank'>
-                                                        <img className="partner-img-50 tm-30" src={tm30} alt="aa"/>
+                                                        target='_blank'>
+                                                        <img className="partner-img-50 tm-30" src={tm30} alt="aa" />
                                                     </a>
 
                                                 </div>
@@ -557,7 +536,7 @@ class Home extends Component {
                                                 <h2 className="mb-3 mt-5 pr-lg-5 text-white cas-title">
                                                     Protect your interest with SFS Backup Cash</h2>
                                                 <Link to={'/sign-up'}
-                                                      className="btn btn-yellow-outline btn-custom-border cas-btn">
+                                                    className="btn btn-yellow-outline btn-custom-border cas-btn">
                                                     Start Now
                                                 </Link>
                                             </div>
@@ -576,10 +555,10 @@ class Home extends Component {
                                                 </p>
                                                 <div className="btn btn-whatsapp chat-whats-app">
                                                     <a href="https://api.whatsapp.com/send?phone=18883699915"
-                                                       className='whatsapp-link'
-                                                       target='_blank'
+                                                        className='whatsapp-link'
+                                                        target='_blank'
                                                     >
-                                                        <img alt={'pin icon'} src={whatsAppIcon} className="w-20"/>
+                                                        <img alt={'pin icon'} src={whatsAppIcon} className="w-20" />
                                                     </a>
 
                                                 </div>
@@ -592,28 +571,28 @@ class Home extends Component {
                                                 </p>
                                                 <div className="btn btn-whatsapp social-media">
                                                     <div className="footer-icon-list d-flex justify-content-between">
-                                                    <span className="fa-stack fa-sm">
-                                                        <a href='https://www.facebook.com/BackUpCash/' rel='noreferrer'
-                                                           target='_blank'>
-                                                            <i className="fa fa-circle fa-stack-2x"/>
-                                                            <i className="fa fa-facebook fa-stack-1x fa-inverse"/>
-                                                        </a>
-                                                    </span>
                                                         <span className="fa-stack fa-sm">
-                                                        <a href='https://twitter.com/mybackupcash' rel='noreferrer'
-                                                           target='_blank'>
-                                                            <i className="fa fa-circle fa-stack-2x"/>
-                                                            <i className="fa fa-twitter fa-stack-1x fa-inverse"/>
-                                                        </a>
-                                                    </span>
+                                                            <a href='https://www.facebook.com/BackUpCash/' rel='noreferrer'
+                                                                target='_blank'>
+                                                                <i className="fa fa-circle fa-stack-2x" />
+                                                                <i className="fa fa-facebook fa-stack-1x fa-inverse" />
+                                                            </a>
+                                                        </span>
+                                                        <span className="fa-stack fa-sm">
+                                                            <a href='https://twitter.com/mybackupcash' rel='noreferrer'
+                                                                target='_blank'>
+                                                                <i className="fa fa-circle fa-stack-2x" />
+                                                                <i className="fa fa-twitter fa-stack-1x fa-inverse" />
+                                                            </a>
+                                                        </span>
 
                                                         <span className="fa-stack fa-sm">
-                                                    <a href="https://www.instagram.com/mybackupcash/" rel='noreferrer'
-                                                       target='_blank'>
-                                                         <i className="fa fa-circle fa-stack-2x"/>
-                                                        <i className="fa fa-instagram fa-stack-1x fa-inverse"/>
-                                                    </a>
-                                                </span>
+                                                            <a href="https://www.instagram.com/mybackupcash/" rel='noreferrer'
+                                                                target='_blank'>
+                                                                <i className="fa fa-circle fa-stack-2x" />
+                                                                <i className="fa fa-instagram fa-stack-1x fa-inverse" />
+                                                            </a>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -626,7 +605,7 @@ class Home extends Component {
                                     <div className="row px-lg-5 mx-lg-5">
                                         <div className="col-md-3 offset-md-0 d-lg-block offset-lg-0 col-lg-3">
                                             <div className="footer-logo">
-                                                <img src={sfsFooterLogo} alt="sfs footer logo"/>
+                                                <img src={sfsFooterLogo} alt="sfs footer logo" />
                                             </div>
                                         </div>
                                         <div className="col-md-9 offset-md-0 col-sm-12 offset-sm-0
@@ -661,7 +640,7 @@ class Home extends Component {
                                                     <p className="footer-header">Physical Address</p>
 
                                                     <p className='gray-text footer-p'>Plot 287 Ajose Adeogun Street,
-                                                        Victoria
+                                                    Victoria
                                                         Island 23401, Lagos</p>
                                                     <div className='gray-text footer-p'>Enquires:
                                                         <p>Help@mybackupcash.com</p>
@@ -675,12 +654,12 @@ class Home extends Component {
                                         <div
                                             className="col-md-12 mt-5 d-flex flex-column flex-md-row justify-content-between">
                                             <p className="footer-sub-text text-center">&copy; SFSbackup Cash 2019. All
-                                                Rights
+                                            Rights
                                                 Reserved</p>
                                             <p className="footer-sub-text text-center mr-lg-3">Powered by
                                                 <a href='http://www.tm30.net' rel='noreferrer'
-                                                   className='footer-brand-link'
-                                                   target='_blank'> TM30
+                                                    className='footer-brand-link'
+                                                    target='_blank'> TM30
                                                 </a>
                                             </p>
                                         </div>

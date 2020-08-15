@@ -7,33 +7,67 @@ import amountWithDraw from '../../admin/app-assets/images/amountwithdraw.svg';
 import Interesticon from '../../admin/app-assets/images/Interesticon.svg';
 import BalanceIcon from '../../admin/app-assets/images/balanceicon.svg';
 import { useDispatch, useSelector } from 'react-redux'
-import { getSnapRequest, getHistoryRequest } from '../../redux/snap/action';
 import TableDisplay from '../../Components/Reuseable/TableDisplay'
 import CustomModal from '../../Components/Dashboard/Snap/CustomModal';
 import SnapForm from '../../Components/Dashboard/Snap/SnapForm';
 import amountSaved from '../../admin/app-assets/images/amoutsaved.svg';
 import NotificationIcon from '../../admin/app-assets/images/NotificationIcon.svg';
 import { getUserRequest } from '../../redux/auth/action';
+import { getSnapRequest, getHistoryRequest, snapSettingsRequest } from '../../redux/snap/action';
+import { interestTransferRequest } from '../../redux/snap/action';
 import { formatNumber } from "../../Helpers/Helper"
+import { getUserCards } from '../../actions/CardAction';
+import { toast } from 'react-toastify';
+import swal from 'sweetalert';
 
 const Snap = () => {
   const dispatch = useDispatch();
   const [dataSource, setdataSource] = useState([])
   const { data, processing } = useSelector(state => state.snap.all);
   const snapHistory = useSelector(state => state.snap.history);
+  const snapTransfer = useSelector(state => state.snap.transfer);
   const userData = useSelector(state => state.auth.data);
+  const snapSettings = useSelector(state => state.snap.settings);
   const [balance, setBalance] = useState(0);
   const [interest, setinterest] = useState(0);
   const [withdrawal, setwithdrawal] = useState(0);
   const [payOut, setpayOut] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [showFundModal, setshowFundModal] = useState(false);
+  const [userCards, setUserCards] = useState([]);
+  const [minSaving, setMinSaving] = useState(1000);
+
   const hideModal = () => {
     setShowModal(false);
   }
+  const hideFundModal = () => {
+    setshowFundModal(false);
+  };
+  // fetches users cards on component mount
+  useEffect(() => {
+    getUserCards((status, data) => {
+      if (status) {
+        setUserCards(data)
+      } else {
+        toast.error("Unable to fetch Cards", { autoClose: 3000 });
+      }
+    });
+  },
+    //eslint-disable-next-line
+    []);
+
+  useEffect(() => {
+    if (snapTransfer.success) {
+      swal("Transfer Successful",
+        "Your Transfer was successful",
+        "success", { button: false, timer: 2000 });
+    }
+  }, [snapTransfer.success])
   useEffect(() => {
     dispatch(getSnapRequest());
     dispatch(getUserRequest());
     dispatch(getHistoryRequest());
+    dispatch(snapSettingsRequest());
   }, []);
   useEffect(() => {
     if (userData.accounts) {
@@ -65,86 +99,117 @@ const Snap = () => {
       setdataSource(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (snapSettings.data.min_save) {
+      setMinSaving(snapSettings.data.min_save);
+    }
+  }, [snapSettings.data]);
+  const handleTransfer = () => {
+    swal("Funds will be moved to your Snap Savings where you can withdraw or allow it to keep growing", {
+      buttons: {
+        yes: "yes"
+      },
+    }).then((value) => {
+      switch (value) {
+        case "yes":
+          swal('Transfer', 'Processing Transfer...', 'info', { button: false, timer: 3000 });
+          dispatch(interestTransferRequest());
+          break;
+        default:
+          swal("You Cancelled Your Transfer", { button: false, timer: 3000 });
+          break;
+      }
+    });
+
+  };
+
+
   const columns = [
     {
-      title: 'date',
+      title: 'start date',
       dataIndex: 'start_date',
     },
     {
-      title: 'description',
-      render: () => <div>credit</div>
+      title: 'maturity date',
+      dataIndex: 'end_date',
     },
+
     {
       title: 'amount',
-      render: (value, record) => <div>{formatNumber(record.amount)}</div>
+      render: (value, record) => <div style={{ color: 'green' }} >{formatNumber(record.amount)}</div>
     },
     {
       title: 'balance',
       render: (value, record) => <div>{formatNumber(record.balance)}</div>
     },
+    {
+      title: 'status',
+      render: (value, record) => <p>{record.stop ? 'running' : 'matured'}</p>
+    },
   ];
   return (
     <Snap.Wrapper>
-      <HorizontalNav />
-      <VerticalNav />
-      {
+      <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
+        data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+        <HorizontalNav />
+        <VerticalNav />
         <CustomModal title={"Snap Saving"} show={showModal} onHide={hideModal}>
-          <SnapForm hideModal={hideModal} />
+          <SnapForm userCards={userCards} minSaving={minSaving} hideModal={hideModal} />
         </CustomModal>
-      }
-      <SnapContent>
-        <div>
-          <h3 className="gray-header-text fs-mb-1 mb-2 ">
-            Snap <span className="dot">.</span> Summary</h3>
-          <div className="card">
-            <p>Balance</p>
+        <SnapContent>
+          <div className="balance">
+            <h3>Snap Summary</h3>
+            <div className="card">
+              <p>Balance</p>
+              <div>
+                <img src={BalanceIcon} alt="walletIcon" />
+                <p>₦{formatNumber(balance)} </p>
+              </div>
+            </div>
+          </div>
+          <div className="save-now">
+            <h3>Quick Actions</h3>
+            <span>
+              <button onClick={() => setShowModal(true)}><img src={PlusIcon} alt="icon" /> Save Now</button>
+            </span>
+            <div className="save-text ">
+              <p> <img src={Interesticon} alt="icon" />₦{formatNumber(interest)}</p>
+              <p>(Intrest Earned)</p>
+            </div>
+          </div>
+          <div className="details">
+            <p><img src={NotificationIcon} alt="icon" /> Snap Savings helps you get huge returns weekly on high saving deposits</p>
             <div>
-              <img src={BalanceIcon} alt="walletIcon" />
-              <p>₦{formatNumber(balance)} </p>
-            </div>
-          </div>
-        </div>
-        <div className="save-now">
-          <h3 className="gray-header-text fs-mb-1 mb-2 mt-7px">Quick Actions</h3>
-          <span>
-            <button onClick={() => setShowModal(true)}><img src={PlusIcon} alt="icon" /> Save Now</button>
-          </span>
-          <div className="save-text ">
-            <p> <img src={Interesticon} alt="icon" />₦{formatNumber(interest)}</p>
-            <p>(Intrest Earned)</p>
-          </div>
-        </div>
-        <div className="details">
-          <p><img src={NotificationIcon} alt="icon" /> Snap Savings helps you get huge returns weekly on high saving deposits</p>
-          <div>
-            <div className="box box-a">
-              <img src={amountWithDraw} alt="icon" />
-              <div className="content">
-                <p>₦{`${withdrawal === 0 ? '0.00' : formatNumber(withdrawal)}`}</p>
+              <div className="box box-a">
+                <img src={amountWithDraw} alt="icon" />
+                <div className="contenta">
+                  <p>₦{`${withdrawal === 0 ? '0.00' : formatNumber(withdrawal)}`}</p>
 
-                <p>Avaliable for withdrawal</p>
+                  <p>Avaliable for withdrawal</p>
+                </div>
               </div>
-            </div>
-            <div className="box box-b">
-              <img src={amountSaved} alt="icon" />
-              <div className="content">
-                <p>₦{`${payOut === 0 ? '0.00' : formatNumber(payOut)}`}</p>
-                <p>Interest payout</p>
-                <button>Transfer Interest</button>
+              <div className="box box-b">
+                <img src={amountSaved} alt="icon" />
+                <div className="contenta">
+                  <p>₦{`${payOut === 0 ? '0.00' : formatNumber(payOut)}`}</p>
+                  <p>Interest payout</p>
+                  <button onClick={handleTransfer} disabled={payOut === 0} >Transfer Interest</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </SnapContent>
-      <TableDisplayHolder>
-        <TableDisplay
-          header="Recent Transations"
-          columns={columns}
-          dataSource={dataSource}
-          loading={processing}
-          pagination
-        />
-      </TableDisplayHolder>
+        </SnapContent>
+        <TableDisplayHolder>
+          <TableDisplay
+            header="All Snap Savings"
+            columns={columns}
+            dataSource={dataSource}
+            loading={processing}
+            pagination
+          />
+        </TableDisplayHolder>
+      </div>
     </Snap.Wrapper>
   )
 }
@@ -161,9 +226,13 @@ const SnapContent = styled.div`
 display:grid;
 grid-template-columns:repeat(4,1fr);
 margin-left: 20rem; 
-padding-top: 8rem;
+padding-top: 3rem;
 grid-gap:1rem;
 font-family:'Circular Std', 'Open Sans';
+h3{
+  font-family:'Circular Std', 'Open Sans';
+  color:#352D66;
+}
 .card{
   background-color:#482D99;
   height:10rem;
@@ -172,7 +241,7 @@ font-family:'Circular Std', 'Open Sans';
   display:flex;
   flex-direction:column;
   color:white;
-    padding:1.5rem 1rem;
+  padding:1.5rem 1rem;
   
   & > div{
     display:flex;
@@ -189,7 +258,7 @@ font-family:'Circular Std', 'Open Sans';
 .save-now{
   display:flex;
   align-items:center;
-  justify-content:center;
+  /* justify-content:center; */
   flex-direction:column;
   button{
   display: inline-block;
@@ -206,6 +275,10 @@ font-family:'Circular Std', 'Open Sans';
   }
   .save-text{
     margin-top:3rem;
+    p{
+      font-family:'Circular Std', 'Open Sans';
+      color:#103366;
+    }
     &>p{
       display:flex;
       align-items:center;
@@ -218,10 +291,10 @@ font-family:'Circular Std', 'Open Sans';
   }
 }
 .details{
-  /* span */
   grid-column: 3 / span 2;
   padding:1rem;
-  border-left:2px solid gray;
+  margin:0;
+  margin-top:1rem;
  &>p{
     background-color:#EFF3FF;
     padding:1rem;
@@ -234,6 +307,7 @@ font-family:'Circular Std', 'Open Sans';
     display:flex;
     align-items:center;
     justify-content:space-between;
+    margin-top:-1.5rem;
     .box{
       display:flex;
       align-items:center;
@@ -254,17 +328,20 @@ font-family:'Circular Std', 'Open Sans';
       border:none;
       background-color:#482D99;
       color: white;
-      padding: 7px 20px;
-      font-size: .8rem;
+      padding: 5px 10px;
+      font-size: .7rem;
       border-radius: 2rem;
       margin: 10px 0px;
       min-width: 100px;
       height: 30px;
       font-weight:bold;
       cursor: pointer;
+      &:disabled{
+        background-color:gray;
+      }
       }
       &-b{
-        .content{
+        .contenta{
           margin-top:3rem;
         }
         /* background-color:green; */
@@ -272,9 +349,33 @@ font-family:'Circular Std', 'Open Sans';
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  margin-left: 2rem; 
+  grid-template-columns:1fr !important;
+  .details{
+  grid-column: initial;
+  padding:0;
+  &>p{
+    /* padding:0; */
+  }
+  &>div{
+    display:block;
+    margin-top:2rem;
+  }
+  }
+  .save-now{
+    display:block;
+    padding-left:1rem;
+  }
+}
 `
 const TableDisplayHolder = styled.div`
 margin-left: 17rem; 
 margin-top: 5rem;
+@media screen and (max-width: 768px) {
+  margin-left: 2rem; 
+}
+
 `
 export default Snap;

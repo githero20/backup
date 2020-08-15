@@ -4,56 +4,68 @@ import Col from 'react-bootstrap/Col';
 import { formatNumber } from "../../../Helpers/Helper";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
-import { getUserCards } from '../../../actions/CardAction';
-import { initTransaction } from "../../../actions/CardAction";
 import { _payWithPaystack } from "../../../utils";
-import { toastMessage } from "../../../Helpers/Helper";
 import { createSnapRequest, initSnapRequest, resetState, verifySnapRequest } from '../../../redux/snap/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 
 const SnapForm = (props) => {
+  const { minSaving } = props;
   const [amount, setAmount] = useState(0)
   const [itemSelected, setItemSelected] = useState('Select Card')
-  const [userCards, setUserCards] = useState([]);
-  const { errors, data, processing } = useSelector(state => state.snap.all);
+  const { errors, data, processing } = useSelector(state => state.snap.pay);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(resetState());
-    dispatch(createSnapRequest({ amount, payment_auth_id: itemSelected }));
-  }
+    if (itemSelected === "Select Card") {
+      toast.error("Please select an option", { autoClose: 3000 })
+    } else if (itemSelected === "Add Card") {
+      if (amount < minSaving) {
+        toast.error(`Amount must be ${minSaving}`, { autoClose: 3000 })
+      } else {
+        dispatch(initSnapRequest({
+          amount: parseFloat(amount),
+          source: 'quick',
+        }));
+      }
+    } else {
+      dispatch(createSnapRequest({ amount, payment_auth_id: itemSelected }));
+    }
+  };
+  // runs this form is opened
+  useEffect(() => {
+    dispatch(resetState());
+  }, []);
+
   // runs when ever the error changes
   useEffect(() => {
     if (errors) {
       toast.error(errors, { autoClose: 3000 });
-      // dispatch(resetState());
     }
   }, [errors]);
 
   const changeHandler = (e) => {
+
     if (e.target.value === "Add Card") {
-      dispatch(resetState());
-      dispatch(initSnapRequest({
-        amount: parseFloat(amount),
-        source: 'quick',
-      }));
-    } else {
-      setItemSelected(e.target.value)
-    }
-  }
-  useEffect(() => {
-    getUserCards((status, data) => {
-      if (status) {
-        setUserCards(data)
+      if (amount < minSaving) {
+        toast.error(`Amount must be ${minSaving} `, { autoClose: 3000 })
       } else {
-        toast.error("Unable to fetch Cards", { autoClose: 3000 });
+        dispatch(resetState());
+        dispatch(initSnapRequest({
+          amount: parseFloat(amount),
+          source: 'quick',
+        }));
       }
-    });
-  },
-    //eslint-disable-next-line
-    []);
+    }
+    setItemSelected(e.target.value);
+    // else {
+    //   setItemSelected(e.target.value);
+    // }
+  }
+
+
   useEffect(() => {
     if (data.reference) {
       _payWithPaystack(data.reference, amount, resolvePaystackResponse)
@@ -62,12 +74,9 @@ const SnapForm = (props) => {
     if (data === successMessage) {
       toast.success(successMessage, { autoClose: 3000 });
       props.hideModal();
-      // dispatch(resetState());
     }
   }, [data]);
 
-  const loading = false;
-  const payment_auth = '123';
   const validator = new SimpleReactValidator({
     validators: {
       payment_auth: {  // name the rule
@@ -76,49 +85,11 @@ const SnapForm = (props) => {
       }
     }
   });
-
-  const initiatePayStack = () => {
-    //send api
-    if (amount == null || parseFloat(amount) < 100) {
-      toastMessage('A minimum of ₦100 is required to add a card', 'error', this)
-    } else {
-      initTransaction({
-        amount: parseFloat(amount),
-        source: 'quick',
-      },
-        (status, payload) => {
-          // this.setState({ loading: false });
-          if (status) {
-            _payWithPaystack(payload.reference, payload.amount, resolvePaystackResponse)
-          } else {
-            console.log('error with paystack', payload);
-          }
-
-          // this.props.onHide();
-        });
-    }
-
-
-  }
-
-
   const resolvePaystackResponse = (response) => {
     dispatch(verifySnapRequest({
       reference: response.reference,
       amount
     }));
-    // verifyTransaction({
-    //   ref: response.reference,
-    //   type: "instant"
-    // }, (status, payload) => {
-    //   if (status) {
-    //     toastMessage('Card Added Successfully', 'success', this);
-    //     this.getUserCards();
-    //   } else {
-    //     toastMessage('Unable to add card at this moment', 'error', this);
-    //   }
-    // })
-
   }
   return (
     <div>
@@ -146,8 +117,8 @@ const SnapForm = (props) => {
                 <option value={-1}>Select Card</option>
                 <option value={"Add Card"}>Add Card</option>
                 {
-                  userCards && userCards.length > 0 ?
-                    userCards.map((data, index) => {
+                  props.userCards && props.userCards.length > 0 ?
+                    props.userCards.map((data, index) => {
                       return (
                         <option value={`${data.id}`} key={data.id}>
                           [{data.card_type.toUpperCase()} **** **** **** {data.last4}]
@@ -158,12 +129,12 @@ const SnapForm = (props) => {
                     : null
                 }
               </Form.Control>
-              {validator.message('payment_auth', payment_auth, 'required|numeric')}
+              {/* validator.message('payment_auth', payment_auth, 'required|numeric')*/}
             </Form.Group>
           </Col>
         </Form.Row>
-        <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2'}>
-          <button className={'round btn-custom-blue modal-btn'} disabled={loading}
+        <Form.Row className={'d-flex justify-content-center justify-content-md-end mt-2 '}>
+          <button className={'round btn-custom-blue modal-btn btn-disabled'} disabled={processing}
             type="submit">
             {processing ? <ButtonLoader /> : <span>Start Saving</span>}
           </button>

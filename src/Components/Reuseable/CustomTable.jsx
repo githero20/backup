@@ -78,12 +78,12 @@ const CustomTable = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(7);
 
-  // Get current posts
+  // Get current posts asd
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentData = pagination ? dataSource.slice(indexOfFirstPost, indexOfLastPost) : dataSource;
 
-  // Change page
+  // Change page 
   const paginate = pageNumber => setCurrentPage(pageNumber);
   return (
 

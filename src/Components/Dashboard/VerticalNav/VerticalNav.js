@@ -160,11 +160,6 @@ class VerticalNav extends Component {
                                     className="menu-title"
                                     data-i18n="">Steady Save</span></NavLink>
                             </li>
-
-                            {/*<li className="navigation-header d-none d-md-inline">*/}
-                            {/*    <span data-i18n="nav.category.apps">Investments</span>*/}
-                            {/*<i className="la la-ellipsis-h ft-minus"></i>*/}
-                            {/*</li>*/}
                             <li className={'nav-item ' + this.getNavLinkClass(LockedSavingsLink)}>
                                 <NavLink to={LockedSavingsLink}>
                                     <img src={LockedSavings} style={{ filter: 'brightness(0.8)' }} />
@@ -180,7 +175,7 @@ class VerticalNav extends Component {
                             <li className={'nav-item ' + this.getNavLinkClass(MillexLink)}>
                                 <NavLink to={MillexLink}>
                                     <img src={SnapIcon} />
-                                    <span className="menu-title">Snap</span>
+                                    <span className="menu-title">Snap Savings</span>
                                 </NavLink>
                             </li>
 

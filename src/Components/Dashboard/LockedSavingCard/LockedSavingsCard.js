@@ -14,7 +14,7 @@ class LockedSavingsCard extends Component {
                 <div className="col-12 col-lg-6">
                     <div className='d-flex align-items-center mb-2'>
                         <h2 className={'dash-header mb-0'}>Locked Savings - </h2>
-                        <small className='text-muted'>Padlock your money & get upfront interest</small>
+                        <small className='text-muted'>Lock your money for a longer time and get an upfront interest</small>
                     </div>
                     <div
                         className="d-flex flex-column flex-md-row align-items-lg-center dash-card purple-border-right pull-up">

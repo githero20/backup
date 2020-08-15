@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
 import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
-import {ToastProvider, withToastManager} from "react-toast-notifications";
-import {getWithdrawalList} from "../../actions/WithdrawalAction";
+import { ToastProvider, withToastManager } from "react-toast-notifications";
+import { getWithdrawalList } from "../../actions/WithdrawalAction";
 import WithdrawalList from "./WithdrawalList";
 import WithdrawalForm from "./WithdrawalForm";
-import {getUserData} from "../../actions/UserAction";
+import { getUserData } from "../../actions/UserAction";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import {
     amountFormatter,
     amountLastAmountFormatter,
     balanceFormatter,
     confirmedFormatter,
-    dateFormatter, toastReloadMessage, toggleTable,
+    dateFormatter, toggleTable,
     withdrawSourceFormatter
 } from "../../Helpers/Helper";
 import Footer from "../../Components/Dashboard/Footer/Footer";
@@ -26,7 +26,7 @@ class Withdrawal extends Component {
             withdrawals: [],
             userName: null,
             showLoader: false,
-            mobileTable:true
+            mobileTable: true
         };
 
         this.showForm = this.showForm.bind(this);
@@ -44,7 +44,7 @@ class Withdrawal extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.reload == true){
+        if (nextProps.reload == true) {
             this.setState({
                 showLoader: true,
             });
@@ -52,7 +52,7 @@ class Withdrawal extends Component {
         }
     }
 
-    LoadWithdrawals = () =>{
+    LoadWithdrawals = () => {
         getUserData(this.handleUserInfo);
         this.getWithdrawalList();
     };
@@ -73,17 +73,17 @@ class Withdrawal extends Component {
     getWithdrawalList() {
         getWithdrawalList((status, payload) => {
             if (status && payload.data.length > 0) {
-                this.setState({withdrawals: payload.data});
+                this.setState({ withdrawals: payload.data });
             }
         })
     }
 
     showForm() {
-        this.setState({showWithdrawalForm: true});
+        this.setState({ showWithdrawalForm: true });
     }
 
     hideForm(status) {
-        this.setState({showWithdrawalForm: false});
+        this.setState({ showWithdrawalForm: false });
         if (status)
             this.getWithdrawalList();
     }
@@ -202,12 +202,12 @@ class Withdrawal extends Component {
         return (
             <React.Fragment>
                 <div className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
-                     data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-                    <HorizontalNav userName={this.state.userName}/>
-                    <VerticalNav userName={this.state.userName}/>
+                    data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+                    <HorizontalNav userName={this.state.userName} />
+                    <VerticalNav userName={this.state.userName} />
                     <div className="app-content content">
                         <div className="content-wrapper">
-                            {this.state.showLoader ? <DashboardLoader/> : null}
+                            {this.state.showLoader ? <DashboardLoader /> : null}
                             <div className="content-body">
                                 <div className="row">
                                     <div className="col-12 ">
@@ -233,12 +233,12 @@ class Withdrawal extends Component {
                                                         !this.state.showWithdrawalForm
                                                             ?
                                                             <button className="round white btn-withdraw "
-                                                                    onClick={this.showForm}>Withdraw
+                                                                onClick={this.showForm}>Withdraw
                                                             </button>
                                                             :
                                                             <a href='#' className="gray-text back-btn "
-                                                               onClick={this.hideForm}>
-                                                                <i className='fa fa-chevron-left'/>
+                                                                onClick={this.hideForm}>
+                                                                <i className='fa fa-chevron-left' />
                                                                 Back
                                                             </a>
                                                     }
@@ -247,23 +247,23 @@ class Withdrawal extends Component {
                                                     {
                                                         !this.state.showWithdrawalForm
                                                             ? (
-
                                                                 this.state.mobileTable ? (
-                                                                        <WithdrawalList showForm={this.showForm}
-                                                                                        withdrawals={this.state.withdrawals}
-                                                                                        columns={mobileColumns}
-                                                                                        transactions={this.state.withdrawals}/>
-                                                                    ) :
+                                                                    <WithdrawalList showForm={this.showForm}
+                                                                        withdrawals={this.state.withdrawals}
+                                                                        columns={mobileColumns}
+                                                                        transactions={this.state.withdrawals} />
+                                                                ) :
                                                                     (
                                                                         <WithdrawalList showForm={this.showForm}
-                                                                                        withdrawals={this.state.withdrawals}
-                                                                                        columns={columns}
-                                                                                        transactions={this.state.withdrawals}/>
+                                                                            withdrawals={this.state.withdrawals}
+                                                                            columns={columns}
+                                                                            transactions={this.state.withdrawals} />
                                                                     )
                                                             )
                                                             : <WithdrawalForm activateLoader={this.activateLoader}
-                                                                              hideForm={this.hideForm}
-                                                                              updateWithdrawalList={this.getWithdrawalList}/>
+                                                                hideForm={this.hideForm}
+                                                                updateWithdrawalList={this.getWithdrawalList} />
+
                                                     }
                                                 </ToastProvider>
                                             </div>
@@ -272,7 +272,7 @@ class Withdrawal extends Component {
                                 </div>
                             </div>
                         </div>
-                        <Footer/>
+                        <Footer />
                     </div>
                 </div>
             </React.Fragment>

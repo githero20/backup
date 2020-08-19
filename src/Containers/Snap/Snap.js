@@ -72,10 +72,10 @@ const Snap = () => {
   useEffect(() => {
     if (userData.accounts) {
       userData.accounts.data.forEach(acct => {
-        if (acct.account_type_id === 7) {
+        if (Number(acct.account_type_id) === 7) {
           setBalance(acct.balance);
         }
-        if (acct.account_type_id === 8) {
+        if (Number(acct.account_type_id) === 8) {
           setpayOut(acct.balance);
         }
       });
@@ -145,7 +145,9 @@ const Snap = () => {
     },
     {
       title: 'status',
-      render: (value, record) => <p>{record.stop ? 'running' : 'matured'}</p>
+      render: (value, record) => <div>{record.stop === "0" ?
+        <p style={{ color: 'green', backgroundColor: '#E8F9D7', textAlign: 'center' }}  >running</p> :
+        <p style={{ color: 'white', backgroundColor: 'firebrick', textAlign: 'center' }} >matured</p>}</div>
     },
   ];
   return (
@@ -164,7 +166,7 @@ const Snap = () => {
               <p>Balance</p>
               <div>
                 <img src={BalanceIcon} alt="walletIcon" />
-                <p>₦{formatNumber(balance)} </p>
+                <p><strong>&#8358;</strong>{balance === 0 ? '0.00' : formatNumber(balance)} </p>
               </div>
             </div>
           </div>
@@ -174,7 +176,7 @@ const Snap = () => {
               <button onClick={() => setShowModal(true)}><img src={PlusIcon} alt="icon" /> Save Now</button>
             </span>
             <div className="save-text ">
-              <p> <img src={Interesticon} alt="icon" />₦{formatNumber(interest)}</p>
+              <p> <img src={Interesticon} alt="icon" />₦{interest === 0 ? '0.00' : formatNumber(interest)}</p>
               <p>(Intrest Earned)</p>
             </div>
           </div>
@@ -214,9 +216,9 @@ const Snap = () => {
   )
 }
 Snap.Wrapper = styled.div`
-/* 
+/*
 Default style to get basic item to show
-margin-left: 17rem; 
+margin-left: 17rem;
 margin-top: 5rem;
  */
 background-color:#F7FBFF;
@@ -225,16 +227,16 @@ height:100vh;
 const SnapContent = styled.div`
 display:grid;
 grid-template-columns:repeat(4,1fr);
-margin-left: 20rem; 
+margin-left: 20rem;
 padding-top: 3rem;
 grid-gap:1rem;
 font-family:'Circular Std', 'Open Sans';
 h3{
-  font-family:'Circular Std', 'Open Sans';
+          font-family:'Circular Std', 'Open Sans';
   color:#352D66;
 }
 .card{
-  background-color:#482D99;
+          background-color:#482D99;
   height:10rem;
   width:250px;
   border-radius:10px;
@@ -242,26 +244,26 @@ h3{
   flex-direction:column;
   color:white;
   padding:1.5rem 1rem;
-  
+
   & > div{
-    display:flex;
+          display:flex;
     align-items:center;
     /* justify-content:center; */
     margin:auto 0;
     img{
-      width: 30px;
+          width: 30px;
     margin-right: 1rem;
     }
   }
 }
 
 .save-now{
-  display:flex;
+          display:flex;
   align-items:center;
   /* justify-content:center; */
   flex-direction:column;
   button{
-  display: inline-block;
+          display: inline-block;
   padding: 0.8rem 1rem;
   transition: all 0.5s;
   border: none;
@@ -270,20 +272,20 @@ h3{
   border-radius: 20px;
     background-color: #fff;
     img{
-      width:25px;
+          width:25px;
     }
   }
   .save-text{
-    margin-top:3rem;
+          margin-top:3rem;
     p{
-      font-family:'Circular Std', 'Open Sans';
+          font-family:'Circular Std', 'Open Sans';
       color:#103366;
     }
     &>p{
-      display:flex;
+          display:flex;
       align-items:center;
     img{
-      width:20px;
+          width:20px;
       margin-right:1rem;
     }
     margin-bottom:1rem;
@@ -291,12 +293,12 @@ h3{
   }
 }
 .details{
-  grid-column: 3 / span 2;
+          grid-column: 3 / span 2;
   padding:1rem;
   margin:0;
   margin-top:1rem;
  &>p{
-    background-color:#EFF3FF;
+          background-color:#EFF3FF;
     padding:1rem;
     border-radius:10px;
     margin-bottom:1rem;
@@ -304,28 +306,28 @@ h3{
     font-size:13px;
   }
   &>div{
-    display:flex;
+          display:flex;
     align-items:center;
     justify-content:space-between;
     margin-top:-1.5rem;
     .box{
-      display:flex;
+          display:flex;
       align-items:center;
       img{
-        margin-right:1rem;
+          margin-right:1rem;
       }
       p:first-of-type{
-        font-family:"Circular Std Black";
+          font-family:"Circular Std Black";
         font-size:16px;
         color:#352D66;
       }
       p:last-of-type{
-        color:#103366;
+          color:#103366;
         opacity:0.58;
       }
 
     button{
-      border:none;
+          border:none;
       background-color:#482D99;
       color: white;
       padding: 5px 10px;
@@ -337,7 +339,7 @@ h3{
       font-weight:bold;
       cursor: pointer;
       &:disabled{
-        background-color:gray;
+          background-color:gray;
       }
       }
       &-b{
@@ -351,30 +353,30 @@ h3{
 }
 
 @media screen and (max-width: 768px) {
-  margin-left: 2rem; 
+  margin-left: 2rem;
   grid-template-columns:1fr !important;
   .details{
-  grid-column: initial;
+          grid-column: initial;
   padding:0;
   &>p{
-    /* padding:0; */
-  }
+          /* padding:0; */
+        }
   &>div{
-    display:block;
+          display:block;
     margin-top:2rem;
   }
   }
   .save-now{
-    display:block;
+          display:block;
     padding-left:1rem;
   }
 }
 `
 const TableDisplayHolder = styled.div`
-margin-left: 17rem; 
+margin-left: 17rem;
 margin-top: 5rem;
 @media screen and (max-width: 768px) {
-  margin-left: 2rem; 
+          margin-left: 2rem; 
 }
 
 `

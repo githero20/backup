@@ -51,10 +51,10 @@ const SnapCard = () => {
   useEffect(() => {
     if (data.accounts) {
       data.accounts.data.forEach(acct => {
-        if (acct.account_type_id === 7) {
+        if (Number(acct.account_type_id) === 7) {
           setBalance(acct.balance);
         }
-        if (acct.account_type_id === 8) {
+        if (Number(acct.account_type_id) === 8) {
           setinterest(acct.balance)
         }
       });
@@ -73,11 +73,11 @@ const SnapCard = () => {
         <div className="right-side">
           <div className="content-card">
 
-            <h3><strong>&#8358;</strong>{formatNumber(balance)}</h3>
+            <h3><strong>&#8358;</strong>{balance === 0 ? '0.00' : formatNumber(balance)}</h3>
             <div className="sub-content">
               <p>Total Intrest &emsp;&nbsp;&nbsp;
               <i className='fa fa-arrow-right'></i> &ensp;
-              <strong className="value-text">&#8358; {total} </strong></p>
+              <strong className="value-text">&#8358; {total === 0 ? '0.00' : formatNumber(total)} </strong></p>
             </div>
           </div>
           <div

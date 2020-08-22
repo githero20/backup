@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import 'react-table/react-table.css';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, {CSVExport, Search} from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { CSVExport, Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory, {Comparator} from 'react-bootstrap-table2-filter'
+import filterFactory, { Comparator } from 'react-bootstrap-table2-filter'
 import moment from "moment";
-import {changeHandler} from "../../../Helpers/Helper";
+import { changeHandler } from "../../../Helpers/Helper";
 
-const {SearchBar, ClearSearchButton} = Search;
-const {ExportCSVButton} = CSVExport;
+const { SearchBar, ClearSearchButton } = Search;
+const { ExportCSVButton } = CSVExport;
 
 class TransactionTable extends Component {
 
@@ -16,8 +16,8 @@ class TransactionTable extends Component {
         currentTransactions: [],
         currentPage: null,
         totalPages: null,
-        sort: false,
         filter: false,
+        sort: false,
         date: moment().format('MM-DD-YYYY'),
         comparator: Comparator.LEQUAL
     };
@@ -51,8 +51,8 @@ class TransactionTable extends Component {
 
 
     render() {
-        const {transactions, columns} = this.props;
-        const {date, comparator} = this.state;
+        const { transactions, columns } = this.props;
+        const { date, comparator } = this.state;
         return (
             <React.Fragment>
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">
@@ -72,9 +72,9 @@ class TransactionTable extends Component {
                                     <div>
                                         <div
                                             className={'d-none d-md-flex justify-content-between flex-md-row ' +
-                                            'align-items-center mb-1 mx-1 mx-md-2'}>
+                                                'align-items-center mb-1 mx-1 mx-md-2'}>
                                             <div onClick={this.toggleFilter}
-                                                 className="filter-icon table-sort-display d-block d-md-inline
+                                                className="filter-icon table-sort-display d-block d-md-inline
                                                   sort-icon">
                                             </div>
 
@@ -84,7 +84,7 @@ class TransactionTable extends Component {
                                             </ExportCSVButton>
                                         </div>
 
-                                        { this.state.sort ?
+                                        {this.state.sort ?
                                             <div className='sort-box round shadow-sm'>
                                                 <p>Sort Table </p>
                                                 <div className={'mb-1'}>
@@ -105,9 +105,9 @@ class TransactionTable extends Component {
                                                     <div className="filter-label">
                                                         <span className="sr-only">Filter comparator</span>
                                                         <select id="date-filter-comparator-InStock Date"
-                                                                name='comparator'
-                                                                className="date-filter-comparator form-control "
-                                                                onChange={this.handleChange} defaultValue={comparator}>
+                                                            name='comparator'
+                                                            className="date-filter-comparator form-control "
+                                                            onChange={this.handleChange} defaultValue={comparator}>
                                                             <option>Date Filter</option>
                                                             <option value={Comparator.EQ}>Equal To</option>
                                                             <option value={Comparator.NE}>Not Equal To</option>
@@ -127,12 +127,12 @@ class TransactionTable extends Component {
                                                             onChange={this.handleChange}
                                                             className="filter date-filter-input form-control "
                                                             type="date"
-                                                            placeholder="Enter Date..."/>
+                                                            placeholder="Enter Date..." />
                                                     </div>
                                                 </div>
 
                                                 <button className={'btn btn-block round mt-1 btn-custom-blue'}
-                                                        onClick={() => this.props.handleFilter(date, comparator)}>Filter
+                                                    onClick={() => this.props.handleFilter(date, comparator)}>Filter
                                                 </button>
 
                                             </div>
@@ -140,23 +140,23 @@ class TransactionTable extends Component {
                                         }
 
                                         <BootstrapTable classes={'spaced-table'}
-                                                        {...props.baseProps}
-                                                        pagination={paginationFactory({
-                                                            hideSizePerPage: true,
-                                                            sizePerPageList: [{
-                                                                text: '5',
-                                                                value: 5
-                                                            }, {
-                                                                text: '10',
-                                                                value: 10
-                                                            }],
-                                                            withFirstAndLast: true,
-                                                            alwaysShowAllBtns: true,
-                                                            prePageText: 'Prev',
-                                                            nextPageText: 'Next',
-                                                        })}
+                                            {...props.baseProps}
+                                            pagination={paginationFactory({
+                                                hideSizePerPage: true,
+                                                sizePerPageList: [{
+                                                    text: '5',
+                                                    value: 5
+                                                }, {
+                                                    text: '10',
+                                                    value: 10
+                                                }],
+                                                withFirstAndLast: true,
+                                                alwaysShowAllBtns: true,
+                                                prePageText: 'Prev',
+                                                nextPageText: 'Next',
+                                            })}
 
-                                                        filter={filterFactory()}
+                                            filter={filterFactory()}
                                         />
                                     </div>
 

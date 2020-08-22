@@ -3,7 +3,7 @@ import 'react-table/react-table.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { CSVExport, Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory, { Comparator } from 'react-bootstrap-table2-filter'
+import { Comparator } from 'react-bootstrap-table2-filter'
 import moment from "moment";
 import { changeHandler } from "../../../Helpers/Helper";
 
@@ -156,7 +156,7 @@ class TransactionTable extends Component {
                                                 nextPageText: 'Next',
                                             })}
 
-                                            filter={filterFactory()}
+                                        // filter={}
                                         />
                                     </div>
 

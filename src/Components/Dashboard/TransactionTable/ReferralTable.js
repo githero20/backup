@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import 'react-table/react-table.css';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, {CSVExport, Search} from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { CSVExport, Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory, {Comparator} from 'react-bootstrap-table2-filter'
+import { Comparator } from 'react-bootstrap-table2-filter'
 import moment from "moment";
-import {changeHandler} from "../../../Helpers/Helper";
+import { changeHandler } from "../../../Helpers/Helper";
 
-const {SearchBar, ClearSearchButton} = Search;
-const {ExportCSVButton} = CSVExport;
+const { SearchBar, ClearSearchButton } = Search;
+const { ExportCSVButton } = CSVExport;
 
 class ReferralTable extends Component {
 
@@ -51,8 +51,8 @@ class ReferralTable extends Component {
 
 
     render() {
-        const {data, columns} = this.props;
-        const {date, comparator} = this.state;
+        const { data, columns } = this.props;
+        const { date, comparator } = this.state;
         return (
             <React.Fragment>
                 <div id="recent-transaction" className=" col-lg-12 order-md-1">
@@ -71,23 +71,23 @@ class ReferralTable extends Component {
                                 props => (
                                     <div>
                                         <BootstrapTable classes={'spaced-table pl-md-4'}
-                                                        {...props.baseProps}
-                                                        pagination={paginationFactory({
-                                                            hideSizePerPage: true,
-                                                            sizePerPageList: [{
-                                                                text: '5',
-                                                                value: 5
-                                                            }, {
-                                                                text: '10',
-                                                                value: 10
-                                                            }],
-                                                            withFirstAndLast: true,
-                                                            alwaysShowAllBtns: true,
-                                                            prePageText: 'Prev',
-                                                            nextPageText: 'Next',
-                                                        })}
+                                            {...props.baseProps}
+                                            pagination={paginationFactory({
+                                                hideSizePerPage: true,
+                                                sizePerPageList: [{
+                                                    text: '5',
+                                                    value: 5
+                                                }, {
+                                                    text: '10',
+                                                    value: 10
+                                                }],
+                                                withFirstAndLast: true,
+                                                alwaysShowAllBtns: true,
+                                                prePageText: 'Prev',
+                                                nextPageText: 'Next',
+                                            })}
 
-                                                        filter={filterFactory()}
+                                        // filter={filterFactory()}
                                         />
                                     </div>
                                 )

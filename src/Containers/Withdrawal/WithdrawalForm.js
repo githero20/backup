@@ -453,7 +453,7 @@ class WithdrawalForm extends Component {
           onHide={this.hideWithdrawalSettings}
         />
         <TopDisplay className='row'>
-          <div className='col-4'>
+          <div className='col-md-4 mb-2'>
             <h5>Central Vault balance</h5>
             <span>
               <img src={totalBalanceIcon} alt='logo' />
@@ -467,7 +467,7 @@ class WithdrawalForm extends Component {
               </h3>
             </span>
           </div>
-          <div className='col-4'>
+          <div className='col-md-4  mb-2'>
             <h5>Snap balance</h5>
             <span>
               <img src={totalBalanceIcon} alt='logo' />
@@ -480,7 +480,7 @@ class WithdrawalForm extends Component {
               </h3>
             </span>
           </div>
-          <div className='col-4'>
+          <div className='col-md-4'>
             <h5>Backup Stash balance</h5>
             <span>
               <img src={totalBalanceIcon} alt='logo' />

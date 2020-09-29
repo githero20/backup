@@ -229,7 +229,7 @@ const Snap = () => {
                 <img src={Interesticon} alt='icon' />₦
                 {interest === 0 ? '0.00' : formatNumber(interest)}
               </p>
-              <p>(Intrest Earned)</p>
+              <p>(Interest Earned)</p>
             </div>
           </div>
           <div className='details'>

@@ -83,7 +83,7 @@ const SnapCard = () => {
             </h3>
             <div className='sub-content'>
               <p>
-                Total Intrest &emsp;&nbsp;&nbsp;
+                Total Interest &emsp;&nbsp;&nbsp;
                 <i className='fa fa-arrow-right'></i> &ensp;
                 <strong className='value-text'>
                   &#8358; {interest === 0 ? '0.00' : formatNumber(interest)}{' '}

@@ -355,6 +355,7 @@ class InstantSave extends Component {
                                             onHide={this.hideModal}
                                             updateInstantSave={this.updateInstantSave}
                                             setupInstantSave={this.setupInstantSave}
+                                            getInstantSaves={this.getInstantSaves}
                                         />
                                     </React.Fragment>
 

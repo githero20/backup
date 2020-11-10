@@ -435,7 +435,7 @@ export function disableKey(e) {
 }
 
 export function filterUserCards(info) {
-    console.log(info.authorization.data)
+    // updated from '.info.authorization' to .info.authorization.data'
     if (info && info.authorization) {
         return info.authorization.data.filter((content) => content.channel === 'card');
     }

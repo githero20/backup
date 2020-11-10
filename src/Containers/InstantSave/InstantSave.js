@@ -356,7 +356,6 @@ class InstantSave extends Component {
 
             }];
 
-
         const balance = parseFloat(this.state.totalBalance).toFixed(2);
 
         return (

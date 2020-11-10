@@ -28,7 +28,7 @@ import { Comparator } from 'react-bootstrap-table2-filter';
 import moment from "moment";
 import { withToastManager } from 'react-toast-notifications';
 import Footer from "../../Components/Dashboard/Footer/Footer";
-import CustomTable from '../../Components/Reuseable/CustomTable'
+import CustomTable from '../../Components/Reuseable/CustomTable';
 
 class InstantSave extends Component {
 
@@ -83,7 +83,7 @@ class InstantSave extends Component {
                 let accounts = data.data.data.accounts.data;
                 //display total balance
                 accounts.map((content, idx) => {
-                    if (content.account_type_id == STANDARD_ACCOUNT) {
+                    if (content.account_type_id === STANDARD_ACCOUNT) {
                         this.setState({
                             totalBalance: content.balance
                         })
@@ -98,7 +98,7 @@ class InstantSave extends Component {
     getTotalInstantSave(transactions) {
         if (transactions) {
             //filter credits
-            let instantSaves = transactions.filter((content) => (content.status == 'success' && content.type == 'credit'));
+            let instantSaves = transactions.filter((content) => (content.status === 'success' && content.type === 'credit'));
             //get sum of credits
             const sum = instantSaves.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
             return sum.amount;
@@ -123,7 +123,7 @@ class InstantSave extends Component {
             let total = 0;
             if (res.data.data.length > 0) {
                 transactions = res.data.data
-                    .filter(content => content.status == 'success' && content.type == 'credit');
+                    .filter(content => content.status === 'success' && content.type === 'credit');
                 if (transactions.length > 1) {
                     total = transactions.reduce((a, b) => ({
                         amount: parseFloat(a.amount) + parseFloat(b.amount)
@@ -152,7 +152,7 @@ class InstantSave extends Component {
         //handle response
         if (status) {
             if (payload) {
-                let transactions = payload.data.data.transactions.data.filter((content) => content.status == 'success');
+                let transactions = payload.data.data.transactions.data.filter((content) => content.status === 'success');
                 this.setState({
                     transactions,
                     showLoader: false
@@ -203,21 +203,43 @@ class InstantSave extends Component {
         const columns = [
             {
                 title: 'Date',
-                dataIndex: 'created_at',
+                render: (value, record) => (
+                    <span className='d-flex flex-column'>
+                        <span style={{ minWidth: '90px' }}>{moment(record.created_at).format('MMM Do YYYY')}&nbsp;</span>
+                        <small className='text-muted'>{moment(record.created_at).format('h:mm a')}</small>
+                    </span>
+                )
             },
             {
                 title: 'Description',
-                dataIndex: 'type',
+                render: (value, record) => (
+                    <div>
+                        <button className="btn btn-sm round btn-primary">{record.type}</button>
+                    </div>
+                  ),
             },
             {
                 title: 'Amount',
-                dataIndex: 'amount',
+                render: (value, record) => (
+                    <div className='text-primary'>₦ {formatNumber(record.amount)}</div>
+                ),
             }, {
                 title: 'Balance',
-                dataIndex: 'balance',
+                render: (value, record) => (
+                    <div className='text-success'>₦ {formatNumber(record.balance)}</div>
+                ),
             },
             {
                 title: 'Status',
+                render: (value, record) => (
+                    <div>
+                      {record.status === 'success' ? (
+                        <button className="btn btn-sm round btn-success">{record.status}</button>
+                      ) : (
+                        <button className="btn btn-sm round btn-danger">{record.status}</button>
+                      )}
+                    </div>
+                  ),
                 dataIndex: 'status',
             },
             {
@@ -333,7 +355,6 @@ class InstantSave extends Component {
                 headerClasses: 'd-none d-md-table-cell',
 
             }];
-
 
         const balance = parseFloat(this.state.totalBalance).toFixed(2);
 

@@ -83,7 +83,7 @@ class InstantSave extends Component {
                 let accounts = data.data.data.accounts.data;
                 //display total balance
                 accounts.map((content, idx) => {
-                    if (content.account_type_id == STANDARD_ACCOUNT) {
+                    if (content.account_type_id === STANDARD_ACCOUNT) {
                         this.setState({
                             totalBalance: content.balance
                         })
@@ -98,7 +98,7 @@ class InstantSave extends Component {
     getTotalInstantSave(transactions) {
         if (transactions) {
             //filter credits
-            let instantSaves = transactions.filter((content) => (content.status == 'success' && content.type == 'credit'));
+            let instantSaves = transactions.filter((content) => (content.status === 'success' && content.type === 'credit'));
             //get sum of credits
             const sum = instantSaves.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
             return sum.amount;
@@ -214,7 +214,7 @@ class InstantSave extends Component {
                 title: 'Description',
                 render: (value, record) => (
                     <div>
-                        <button class="btn btn-sm round btn-primary">{record.type}</button>
+                        <button className="btn btn-sm round btn-primary">{record.type}</button>
                     </div>
                   ),
             },
@@ -234,9 +234,9 @@ class InstantSave extends Component {
                 render: (value, record) => (
                     <div>
                       {record.status === 'success' ? (
-                        <button class="btn btn-sm round btn-success">{record.status}</button>
+                        <button className="btn btn-sm round btn-success">{record.status}</button>
                       ) : (
-                        <button class="btn btn-sm round btn-danger">{record.status}</button>
+                        <button className="btn btn-sm round btn-danger">{record.status}</button>
                       )}
                     </div>
                   ),

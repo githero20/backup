@@ -28,7 +28,7 @@ import { Comparator } from 'react-bootstrap-table2-filter';
 import moment from "moment";
 import { withToastManager } from 'react-toast-notifications';
 import Footer from "../../Components/Dashboard/Footer/Footer";
-import CustomTable from '../../Components/Reuseable/CustomTable';
+import CustomTable from '../../Components/Reuseable/CustomTable'
 
 class InstantSave extends Component {
 
@@ -123,7 +123,7 @@ class InstantSave extends Component {
             let total = 0;
             if (res.data.data.length > 0) {
                 transactions = res.data.data
-                    .filter(content => content.status === 'success' && content.type === 'credit');
+                    .filter(content => content.status == 'success' && content.type == 'credit');
                 if (transactions.length > 1) {
                     total = transactions.reduce((a, b) => ({
                         amount: parseFloat(a.amount) + parseFloat(b.amount)
@@ -152,7 +152,7 @@ class InstantSave extends Component {
         //handle response
         if (status) {
             if (payload) {
-                let transactions = payload.data.data.transactions.data.filter((content) => content.status === 'success');
+                let transactions = payload.data.data.transactions.data.filter((content) => content.status == 'success');
                 this.setState({
                     transactions,
                     showLoader: false
@@ -203,34 +203,30 @@ class InstantSave extends Component {
         const columns = [
             {
                 title: 'Date',
-                render: (value, record) => (
-                    <span className='d-flex flex-column'>
-                        <span style={{ minWidth: '90px' }}>{moment(record.created_at).format('MMM Do YYYY')}&nbsp;</span>
-                        <small className='text-muted'>{moment(record.created_at).format('h:mm a')}</small>
-                    </span>
-                )
+                dataIndex: 'created_at',
             },
             {
                 title: 'Description',
+<<<<<<< HEAD
                 render: (value, record) => (
                     <div>
                         <button className="btn btn-sm round btn-primary">{record.type}</button>
                     </div>
                   ),
+=======
+                dataIndex: 'type',
+>>>>>>> 790a8cc3755ee422ffd10443ed462c76291bcf89
             },
             {
                 title: 'Amount',
-                render: (value, record) => (
-                    <div className='text-primary'>₦ {formatNumber(record.amount)}</div>
-                ),
+                dataIndex: 'amount',
             }, {
                 title: 'Balance',
-                render: (value, record) => (
-                    <div className='text-success'>₦ {formatNumber(record.balance)}</div>
-                ),
+                dataIndex: 'balance',
             },
             {
                 title: 'Status',
+<<<<<<< HEAD
                 render: (value, record) => (
                     <div>
                       {record.status === 'success' ? (
@@ -240,6 +236,8 @@ class InstantSave extends Component {
                       )}
                     </div>
                   ),
+=======
+>>>>>>> 790a8cc3755ee422ffd10443ed462c76291bcf89
                 dataIndex: 'status',
             },
             {
@@ -376,7 +374,6 @@ class InstantSave extends Component {
                                             onHide={this.hideModal}
                                             updateInstantSave={this.updateInstantSave}
                                             setupInstantSave={this.setupInstantSave}
-                                            getInstantSaves={this.getInstantSaves}
                                         />
                                     </React.Fragment>
 

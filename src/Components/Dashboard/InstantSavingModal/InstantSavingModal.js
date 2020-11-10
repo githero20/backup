@@ -33,7 +33,6 @@ class InstantSavingModal extends React.Component {
                             onHide={this.props.onHide}
                             updateInstantSave={this.props.updateInstantSave}
                             setupInstantSave={this.props.setupInstantSave}
-                            getInstantSaves={this.props.getInstantSaves}
                         />
                     </ToastProvider>
                 </Modal.Body>

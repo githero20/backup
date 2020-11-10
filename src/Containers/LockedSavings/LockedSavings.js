@@ -10,7 +10,7 @@ import {
     amountInterestFormatter,
     dateFormatter,
     handleFiltering,
-    interestFormatter,
+    interestFormatter, formatNumber,
     moneyFormatter, todaysDateForTable, toggleTable,
 } from "../../Helpers/Helper";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
@@ -18,7 +18,8 @@ import { getUserData } from "../../actions/UserAction";
 import LockedTransactionTable from "../../Components/Dashboard/LockedTransactionTable/LockedTransactionTable";
 // import { Comparator, dateFilter } from "react-bootstrap-table2-filter";
 import Footer from "../../Components/Dashboard/Footer/Footer";
-import TableDisplay from '../../Components/Reuseable/TableDisplay'
+import TableDisplay from '../../Components/Reuseable/TableDisplay';
+import moment from 'moment';
 
 
 class LockedSavings extends Component {
@@ -109,7 +110,12 @@ class LockedSavings extends Component {
         const newColumns = [
             {
                 title: 'Date',
-                dataIndex: 'created_at',
+                render: (value, record) => (
+                    <span className='d-flex flex-column'>
+                        <span style={{ minWidth: '90px' }}>{moment(record.created_at).format('MMM Do YYYY')}&nbsp;</span>
+                        <small className='text-muted'>{moment(record.created_at).format('h:mm a')}</small>
+                    </span>
+                )
 
             },
             {
@@ -121,6 +127,10 @@ class LockedSavings extends Component {
             {
                 title: 'Amount',
                 dataIndex: 'amount',
+                render: (value, record) => (
+                    <p style={{ minWidth: '150px' }}
+                    className={'text-green'}> {value != null ? `+ ₦ ${formatNumber(parseFloat(value).toFixed(2))}` : "N/A"}</p>
+                ),
                 formatter: moneyFormatter,
                 sort: true,
                 classes: 'd-none d-md-table-cell',
@@ -129,6 +139,10 @@ class LockedSavings extends Component {
             {
                 title: 'Interest',
                 dataIndex: 'interest',
+                render: (value, record) => (
+                    <p style={{ minWidth: '150px' }}
+                    className={'text-primary'}> {value != null ? `+ ₦ ${formatNumber(parseFloat(value).toFixed(2))}` : "N/A"}</p>
+                ),
                 formatter: interestFormatter,
                 sort: true,
                 classes: 'd-none d-md-table-cell',
@@ -136,7 +150,12 @@ class LockedSavings extends Component {
             },
             {
                 title: 'Start Date',
-                dataIndex: 'start_date',
+                render: (value, record) => (
+                    <span className='d-flex flex-column'>
+                        <span style={{ minWidth: '90px' }}>{moment(record.start_date).format('MMM Do YYYY')}&nbsp;</span>
+                        <small className='text-muted'>{moment(record.start_date).format('h:mm a')}</small>
+                    </span>
+                ),
                 formatter: dateFormatter,
                 sort: true,
                 classes: 'd-none d-md-table-cell',
@@ -144,7 +163,12 @@ class LockedSavings extends Component {
             },
             {
                 title: 'End Date',
-                dataIndex: 'end_date',
+                render: (value, record) => (
+                    <span className='d-flex flex-column'>
+                        <span style={{ minWidth: '90px' }}>{moment(record.end_date).format('MMM Do YYYY')}&nbsp;</span>
+                        <small className='text-muted'>{moment(record.end_date).format('h:mm a')}</small>
+                    </span>
+                ),
                 formatter: dateFormatter,
                 sort: true,
                 classes: 'd-none d-md-table-cell',
@@ -311,7 +335,7 @@ class LockedSavings extends Component {
 
                                                     </ul>
                                                 </div>
-                                                <div className="row">
+                                                <div className="">
                                                     <TableDisplay
                                                         header="Locked Savings"
                                                         columns={newColumns}

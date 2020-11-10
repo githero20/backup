@@ -83,6 +83,7 @@ class LockedSavingForm extends Component {
                     setTimeout(() => {
                         this.props.onHide(true);
                     }, 1500)
+                    this.props.updateLockedSaving();
 
                 } else {
 

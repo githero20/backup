@@ -146,6 +146,8 @@ const TableHolder = styled.div`
 font-family:'Product Sans','Circular Std';
 position: relative;
 overflow-x: auto;
+background-color:white;
+padding: 10px;
 `;
 const CustomTableItem = styled.table`
 width: 100%;
@@ -158,8 +160,8 @@ const TableHeader = styled.th`
 `;
 const TableData = styled.td`
     color:black;
-    /* border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd; */
+    /* border-top: 1px solid #ddd; */
+    border-bottom: 7px solid #f2f2f2;
     padding: 15px;
     background-color:white;
 `;

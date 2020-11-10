@@ -207,15 +207,11 @@ class InstantSave extends Component {
             },
             {
                 title: 'Description',
-<<<<<<< HEAD
                 render: (value, record) => (
                     <div>
                         <button className="btn btn-sm round btn-primary">{record.type}</button>
                     </div>
                   ),
-=======
-                dataIndex: 'type',
->>>>>>> 790a8cc3755ee422ffd10443ed462c76291bcf89
             },
             {
                 title: 'Amount',
@@ -226,7 +222,6 @@ class InstantSave extends Component {
             },
             {
                 title: 'Status',
-<<<<<<< HEAD
                 render: (value, record) => (
                     <div>
                       {record.status === 'success' ? (
@@ -236,8 +231,6 @@ class InstantSave extends Component {
                       )}
                     </div>
                   ),
-=======
->>>>>>> 790a8cc3755ee422ffd10443ed462c76291bcf89
                 dataIndex: 'status',
             },
             {

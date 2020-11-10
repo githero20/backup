@@ -22,7 +22,6 @@ import { formatNumber } from '../../Helpers/Helper';
 import { getUserCards } from '../../actions/CardAction';
 import { toast } from 'react-toastify';
 import swal from 'sweetalert';
-import moment from "moment";
 
 const Snap = () => {
   const dispatch = useDispatch();
@@ -139,41 +138,47 @@ const Snap = () => {
   const columns = [
     {
       title: 'start date',
-      render: (value, record) => (
-        <span className='d-flex flex-column'>
-            <span style={{ minWidth: '90px' }}>{moment(record.start_at).format('MMM Do YYYY')}&nbsp;</span>
-            <small className='text-muted'>{moment(record.start_at).format('h:mm a')}</small>
-        </span>
-    )
+      dataIndex: 'start_date',
     },
     {
       title: 'maturity date',
-      render: (value, record) => (
-        <span className='d-flex flex-column'>
-            <span style={{ minWidth: '90px' }}>{moment(record.end_at).format('MMM Do YYYY')}&nbsp;</span>
-            <small className='text-muted'>{moment(record.end_at).format('h:mm a')}</small>
-        </span>
-    )
+      dataIndex: 'end_date',
     },
 
     {
       title: 'amount',
       render: (value, record) => (
-        <div style={{ color: 'green' }}>₦ {formatNumber(record.amount)}</div>
+        <div style={{ color: 'green' }}>{formatNumber(record.amount)}</div>
       ),
     },
     {
       title: 'balance',
-      render: (value, record) => <div className='text-primary'>₦ {formatNumber(record.balance)}</div>,
+      render: (value, record) => <div>{formatNumber(record.balance)}</div>,
     },
     {
       title: 'status',
       render: (value, record) => (
         <div>
           {record.stop === '0' ? (
-            <button class="btn btn-sm round btn-success">Running</button>
+            <p
+              style={{
+                color: 'green',
+                backgroundColor: '#E8F9D7',
+                textAlign: 'center',
+              }}
+            >
+              running
+            </p>
           ) : (
-            <button class="btn btn-sm round btn-danger">Matured</button>
+            <p
+              style={{
+                color: 'white',
+                backgroundColor: 'firebrick',
+                textAlign: 'center',
+              }}
+            >
+              matured
+            </p>
           )}
         </div>
       ),

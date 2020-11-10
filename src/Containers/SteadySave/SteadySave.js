@@ -295,12 +295,11 @@ class SteadySave extends Component {
 
         const {transactions, userName} = this.state;
         let startButtonText = null;
-        if (transactions.length === 0) {
+        if (transactions.length == 0) {
             startButtonText = 'Create Steady Save';
         } else {
             startButtonText = 'Edit Steady Save'
         }
-        // console.log(transactions)
 
         //table header and columns
         const columns = [
@@ -451,7 +450,7 @@ class SteadySave extends Component {
                 formatExtraData: {trans: transactions},
                 events: {
                     onClick: (e, column, columnIndex, row) => {
-                        if (e.target.name === 'convert-btn') {
+                        if (e.target.name == 'convert-btn') {
                             swal('Are you sure', 'This will convert your steady save to the new steady save ' +
                                 'that runs automatically.You can edit your steady save once it is converted.', 'info', {
                                 buttons: {

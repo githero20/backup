@@ -177,25 +177,9 @@ const Snap = () => {
       render: (value, record) => (
         <div>
           {record.stop === '0' ? (
-            <p
-              style={{
-                color: 'green',
-                backgroundColor: '#E8F9D7',
-                textAlign: 'center',
-              }}
-            >
-              running
-            </p>
+            <button className="btn btn-sm round btn-success">running</button>
           ) : (
-            <p
-              style={{
-                color: 'white',
-                backgroundColor: 'firebrick',
-                textAlign: 'center',
-              }}
-            >
-              matured
-            </p>
+            <button className="btn btn-sm round btn-danger">matured</button>
           )}
         </div>
       ),

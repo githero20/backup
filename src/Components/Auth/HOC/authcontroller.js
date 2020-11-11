@@ -96,20 +96,20 @@ const AuthController = Component => {
         };
 
         const handleUserAuth = () => {
-            swal(swalLoginConfig).then((value) => {
-                if (value) {
-                    let data = JSON.parse(localStorage.getItem(USERINFO));
-                    doLogin(data, onLogin);
-                } else {
-                    setIsLoggedIn(false);
-                    window.location.href = `/login`;
-                    localStorage.removeItem(USERTOKEN);
-                    localStorage.removeItem(USERINFO);
-                }
-            });
-            // window.location.href = `/login`;
-            // localStorage.removeItem(USERTOKEN);
-            // localStorage.removeItem(USERINFO);
+            // swal(swalLoginConfig).then((value) => {
+            //     if (value) {
+            //         let data = JSON.parse(localStorage.getItem(USERINFO));
+            //         doLogin(data, onLogin);
+            //     } else {
+            //         setIsLoggedIn(false);
+            //         window.location.href = `/login`;
+            //         localStorage.removeItem(USERTOKEN);
+            //         localStorage.removeItem(USERINFO);
+            //     }
+            // });
+            window.location.href = `/login`;
+            localStorage.removeItem(USERTOKEN);
+            localStorage.removeItem(USERINFO);
         };
 
         useEffect(() => {

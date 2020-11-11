@@ -5,7 +5,7 @@ import { formatNumber } from "../../../Helpers/Helper";
 import ButtonLoader from "../../Auth/Buttonloader/ButtonLoader";
 import SimpleReactValidator from "simple-react-validator";
 import { _payWithPaystack } from "../../../utils";
-import { createSnapRequest, initSnapRequest, resetState, verifySnapRequest } from '../../../redux/snap/action'
+import { createSnapRequest, initSnapRequest, resetState, verifySnapRequest, getSnapRequest } from '../../../redux/snap/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 
@@ -73,6 +73,7 @@ const SnapForm = (props) => {
     const successMessage = "Snap Successfully created";
     if (data === successMessage) {
       toast.success(successMessage, { autoClose: 3000 });
+      dispatch(getSnapRequest());
       props.hideModal();
     }
   }, [data]);

@@ -11,14 +11,15 @@ import {
     dateFormatter,
     handleFiltering,
     interestFormatter,
-    moneyFormatter, todaysDateForTable, toggleTable,
+    moneyFormatter, todaysDateForTable, toggleTable, formatNumber,
 } from "../../Helpers/Helper";
 import DashboardLoader from "../../Components/Dashboard/DashboardLoader/DashboardLoader";
 import { getUserData } from "../../actions/UserAction";
 import LockedTransactionTable from "../../Components/Dashboard/LockedTransactionTable/LockedTransactionTable";
 // import { Comparator, dateFilter } from "react-bootstrap-table2-filter";
 import Footer from "../../Components/Dashboard/Footer/Footer";
-import TableDisplay from '../../Components/Reuseable/TableDisplay'
+import TableDisplay from '../../Components/Reuseable/TableDisplay';
+import moment from 'moment';
 
 
 class LockedSavings extends Component {
@@ -110,45 +111,74 @@ class LockedSavings extends Component {
             {
                 title: 'Date',
                 dataIndex: 'created_at',
-
+                render: (value, record) => (
+                    <span className='d-flex flex-column'>
+                    <span style={{ minWidth: '90px' }}>{moment(value).format('MMM Do YYYY')}&nbsp;</span>
+                    <small className='text-muted'>{moment(value).format('h:mm a')}</small>
+                </span>
+                  ),
             },
             {
                 title: 'Name',
                 dataIndex: 'title',
+                render: (value, record) => (
+                    <div>
+                        <button className="btn btn-sm round btn-primary">{value}</button>
+                    </div>
+                  ),
                 sort: true,
-
             },
             {
                 title: 'Amount',
                 dataIndex: 'amount',
-                formatter: moneyFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                render: (value, record) => (
+                    <p style={{ minWidth: '150px' }}
+                        className={'text-primary'}> {value != null ? `+ ₦ ${formatNumber(parseFloat(value).toFixed(2))}` : "N/A"}</p>
+              ),
+                // formatter: moneyFormatter,
+                // sort: true,
+                // classes: 'd-none d-md-table-cell',
+                // headerClasses: 'd-none d-md-table-cell',
             },
             {
                 title: 'Interest',
                 dataIndex: 'interest',
-                formatter: interestFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                render: (value, record) => (
+                    <p style={{ minWidth: '150px' }}
+                        className={'text-success'}> {value != null ? `+ ₦ ${formatNumber(parseFloat(value).toFixed(2))}` : "N/A"}</p>
+              ),
+                // formatter: interestFormatter,
+                // sort: true,
+                // classes: 'd-none d-md-table-cell',
+                // headerClasses: 'd-none d-md-table-cell',
             },
             {
                 title: 'Start Date',
                 dataIndex: 'start_date',
-                formatter: dateFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                render: (value, record) => (
+                    <span className='d-flex flex-column'>
+                    <span style={{ minWidth: '90px' }}>{moment(value).format('MMM Do YYYY')}&nbsp;</span>
+                    <small className='text-muted'>{moment(value).format('h:mm a')}</small>
+                </span>
+                  ),
+                // formatter: dateFormatter,
+                // sort: true,
+                // classes: 'd-none d-md-table-cell',
+                // headerClasses: 'd-none d-md-table-cell',
             },
             {
                 title: 'End Date',
                 dataIndex: 'end_date',
-                formatter: dateFormatter,
-                sort: true,
-                classes: 'd-none d-md-table-cell',
-                headerClasses: 'd-none d-md-table-cell',
+                render: (value, record) => (
+                    <span className='d-flex flex-column'>
+                    <span style={{ minWidth: '90px' }}>{moment(value).format('MMM Do YYYY')}&nbsp;</span>
+                    <small className='text-muted'>{moment(value).format('h:mm a')}</small>
+                </span>
+                  ),
+                // formatter: dateFormatter,
+                // sort: true,
+                // classes: 'd-none d-md-table-cell',
+                // headerClasses: 'd-none d-md-table-cell',
             },
         ];
         const columns = [
@@ -311,7 +341,7 @@ class LockedSavings extends Component {
 
                                                     </ul>
                                                 </div>
-                                                <div className="row">
+                                                <div className="">
                                                     <TableDisplay
                                                         header="Locked Savings"
                                                         columns={newColumns}

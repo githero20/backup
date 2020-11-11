@@ -107,6 +107,9 @@ const AuthController = Component => {
                     localStorage.removeItem(USERINFO);
                 }
             });
+            // window.location.href = `/login`;
+            // localStorage.removeItem(USERTOKEN);
+            // localStorage.removeItem(USERINFO);
         };
 
         useEffect(() => {
@@ -138,7 +141,7 @@ const AuthController = Component => {
                 const timeStamp = moment().format('MM-DD-YYYY HH:mm:ss');
                 // handle admin login
 
-                if (response.data.role == CUSTOMER) {
+                if (response.data.role === CUSTOMER) {
                     swal('Awesome!!', 'You have successfully logged in', 'success', {
                         button: false,
                         timer: 2000
@@ -151,9 +154,9 @@ const AuthController = Component => {
                 }
 
             } else {
-                if (response && response.status == 401 && response.data.message == "invalid_credentials") {
+                if (response && response.status == 401 && response.data.message === "invalid_credentials") {
                     swal('Oops!!', `Invalid Credentials`, 'warning');
-                } else if (response && response.status == 401 && response.data.message == 'Incorrect email or password,Try again') {
+                } else if (response && response.status == 401 && response.data.message === 'Incorrect email or password,Try again') {
                     swal('Oops!!', 'Incorrect Email or Password', 'warning', {
                         button: false,
                         timer: 2000

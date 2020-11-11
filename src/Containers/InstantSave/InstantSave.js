@@ -204,6 +204,12 @@ class InstantSave extends Component {
             {
                 title: 'Date',
                 dataIndex: 'created_at',
+                render: (value, record) => (
+                    <span className='d-flex flex-column'>
+                    <span style={{ minWidth: '90px' }}>{moment(value).format('MMM Do YYYY')}&nbsp;</span>
+                    <small className='text-muted'>{moment(value).format('h:mm a')}</small>
+                </span>
+                  ),
             },
             {
                 title: 'Description',
@@ -216,9 +222,17 @@ class InstantSave extends Component {
             {
                 title: 'Amount',
                 dataIndex: 'amount',
+                render: (value, record) => (
+                    <p style={{ minWidth: '150px' }}
+                        className={'text-primary'}> {value != null ? `+ ₦ ${formatNumber(parseFloat(value).toFixed(2))}` : "N/A"}</p>
+              ),
             }, {
                 title: 'Balance',
                 dataIndex: 'balance',
+                render: (value, record) => (
+                        <p style={{ minWidth: '150px' }}
+                            className={'text-green'}> {value != null ? `+ ₦ ${formatNumber(parseFloat(value).toFixed(2))}` : "N/A"}</p>
+                  ),
             },
             {
                 title: 'Status',

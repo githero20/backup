@@ -83,7 +83,7 @@ class InstantSave extends Component {
                 let accounts = data.data.data.accounts.data;
                 //display total balance
                 accounts.map((content, idx) => {
-                    if (content.account_type_id == STANDARD_ACCOUNT) {
+                    if (content.account_type_id === STANDARD_ACCOUNT) {
                         this.setState({
                             totalBalance: content.balance
                         })
@@ -98,7 +98,7 @@ class InstantSave extends Component {
     getTotalInstantSave(transactions) {
         if (transactions) {
             //filter credits
-            let instantSaves = transactions.filter((content) => (content.status == 'success' && content.type == 'credit'));
+            let instantSaves = transactions.filter((content) => (content.status === 'success' && content.type === 'credit'));
             //get sum of credits
             const sum = instantSaves.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
             return sum.amount;
@@ -204,20 +204,47 @@ class InstantSave extends Component {
             {
                 title: 'Date',
                 dataIndex: 'created_at',
+                render: (value, record) => (
+                    <span className='d-flex flex-column'>
+                    <span style={{ minWidth: '90px' }}>{moment(value).format('MMM Do YYYY')}&nbsp;</span>
+                    <small className='text-muted'>{moment(value).format('h:mm a')}</small>
+                </span>
+                  ),
             },
             {
                 title: 'Description',
-                dataIndex: 'type',
+                render: (value, record) => (
+                    <div>
+                        <button className="btn btn-sm round btn-primary">{record.type}</button>
+                    </div>
+                  ),
             },
             {
                 title: 'Amount',
                 dataIndex: 'amount',
+                render: (value, record) => (
+                    <p style={{ minWidth: '150px' }}
+                        className={'text-primary'}> {value != null ? `+ ₦ ${formatNumber(parseFloat(value).toFixed(2))}` : "N/A"}</p>
+              ),
             }, {
                 title: 'Balance',
                 dataIndex: 'balance',
+                render: (value, record) => (
+                        <p style={{ minWidth: '150px' }}
+                            className={'text-green'}> {value != null ? `+ ₦ ${formatNumber(parseFloat(value).toFixed(2))}` : "N/A"}</p>
+                  ),
             },
             {
                 title: 'Status',
+                render: (value, record) => (
+                    <div>
+                      {record.status === 'success' ? (
+                        <button className="btn btn-sm round btn-success">{record.status}</button>
+                      ) : (
+                        <button className="btn btn-sm round btn-danger">{record.status}</button>
+                      )}
+                    </div>
+                  ),
                 dataIndex: 'status',
             },
             {
@@ -334,7 +361,6 @@ class InstantSave extends Component {
 
             }];
 
-
         const balance = parseFloat(this.state.totalBalance).toFixed(2);
 
         return (
@@ -355,7 +381,6 @@ class InstantSave extends Component {
                                             onHide={this.hideModal}
                                             updateInstantSave={this.updateInstantSave}
                                             setupInstantSave={this.setupInstantSave}
-                                            getInstantSaves={this.getInstantSaves}
                                         />
                                     </React.Fragment>
 

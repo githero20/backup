@@ -164,7 +164,6 @@ class InstantSavingForm extends Component {
             setTimeout(() => {
                 this.props.onHide(true);
             }, 1000);
-            this.props.getInstantSaves();
         }
     };
 

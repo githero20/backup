@@ -22,6 +22,7 @@ import { formatNumber } from '../../Helpers/Helper';
 import { getUserCards } from '../../actions/CardAction';
 import { toast } from 'react-toastify';
 import swal from 'sweetalert';
+import moment from 'moment';
 
 const Snap = () => {
   const dispatch = useDispatch();
@@ -139,46 +140,46 @@ const Snap = () => {
     {
       title: 'start date',
       dataIndex: 'start_date',
+      render: (value, record) => (
+        <span className='d-flex flex-column'>
+        <span style={{ minWidth: '90px' }}>{moment(value).format('MMM Do YYYY')}&nbsp;</span>
+        <small className='text-muted'>{moment(value).format('h:mm a')}</small>
+    </span>
+      ),
     },
     {
       title: 'maturity date',
       dataIndex: 'end_date',
+      render: (value, record) => (
+        <span className='d-flex flex-column'>
+        <span style={{ minWidth: '90px' }}>{moment(value).format('MMM Do YYYY')}&nbsp;</span>
+        <small className='text-muted'>{moment(value).format('h:mm a')}</small>
+    </span>
+      ),
     },
 
     {
       title: 'amount',
       render: (value, record) => (
-        <div style={{ color: 'green' }}>{formatNumber(record.amount)}</div>
-      ),
+        <p style={{ minWidth: '150px' }}
+            className={'text-primary'}> {record.amount != null ? `+ ₦ ${formatNumber(parseFloat(record.amount).toFixed(2))}` : "N/A"}</p>
+        ),
     },
     {
       title: 'balance',
-      render: (value, record) => <div>{formatNumber(record.balance)}</div>,
+      render: (value, record) => (
+        <p style={{ minWidth: '150px' }}
+            className={'text-success'}> {record.balance != null ? `+ ₦ ${formatNumber(parseFloat(record.balance).toFixed(2))}` : "N/A"}</p>
+  ),
     },
     {
       title: 'status',
       render: (value, record) => (
         <div>
           {record.stop === '0' ? (
-            <p
-              style={{
-                color: 'green',
-                backgroundColor: '#E8F9D7',
-                textAlign: 'center',
-              }}
-            >
-              running
-            </p>
+            <button className="btn btn-sm round btn-success">running</button>
           ) : (
-            <p
-              style={{
-                color: 'white',
-                backgroundColor: 'firebrick',
-                textAlign: 'center',
-              }}
-            >
-              matured
-            </p>
+            <button className="btn btn-sm round btn-danger">matured</button>
           )}
         </div>
       ),

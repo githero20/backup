@@ -73,11 +73,8 @@ const SnapForm = (props) => {
     const successMessage = "Snap Successfully created";
     if (data === successMessage) {
       toast.success(successMessage, { autoClose: 3000 });
+      dispatch(getSnapRequest());
       props.hideModal();
-      
-      setTimeout( ()=> {
-        window.location.reload();
-      }, 1000)
     }
   }, [data]);
 

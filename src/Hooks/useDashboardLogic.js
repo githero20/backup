@@ -125,6 +125,7 @@ function useDashboardLogic(reload) {
                 _axios.get(getBackUpGoals, config),
             ]);
             showUpdateKYC(userInfoRes.data.data);
+            console.log(userInfoRes);
             return {
                 userData: userInfoRes.data.data,
                 backupData: backUpRes.data.data,

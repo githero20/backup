@@ -48,9 +48,8 @@ const doLogin = (data, callback) => {
 function checkAuth() {
   let cb = (status, res) => {
     if (status) {
-      console.log(1);
+      console.log("success");
     } else {
-      console.log(2);
       localStorage.removeItem(USERTOKEN);
       localStorage.removeItem(USERINFO);
       if (window.location.pathname !== `/login`) {

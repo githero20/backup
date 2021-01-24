@@ -47,19 +47,15 @@ const doLogin = (data, callback) => {
 };
 function checkAuth() {
   let cb = (status, res) => {
-    if (status) {
-      console.log("success");
-    } else {
+    if (!status) {
       localStorage.removeItem(USERTOKEN);
       localStorage.removeItem(USERINFO);
-      if (window.location.pathname !== `/login`) {
-        window.location.href = `/login`;
-      }
+      window.location.href = `/login`;
     }
   };
   api(getUserInfoEndpoint, {}, true, false, cb);
 }
-checkAuth();
+
 export function setAuthorisationToken(token, callback) {
   //setup interceptors for 401 errors
   _axios.interceptors.response.use(
@@ -129,8 +125,8 @@ const AuthController = (Component) => {
       localStorage.removeItem(USERINFO);
       window.location.href = `/login`;
     };
-
     useEffect(() => {
+      checkAuth();
       //   Axios.get(`${BASE_URL}sfsbapi/v1/user/snap`)
       //     .then((res) => {
       //       if (res.data && res.data.success && res.data.status_code === 401) {

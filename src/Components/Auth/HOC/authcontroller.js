@@ -47,7 +47,7 @@ const doLogin = (data, callback) => {
 };
 function checkAuth() {
   let cb = (status, res) => {
-    if (!status) {
+    if (res && res.status && res.status === 401) {
       localStorage.removeItem(USERTOKEN);
       localStorage.removeItem(USERINFO);
       window.location.href = `/login`;
@@ -126,7 +126,9 @@ const AuthController = (Component) => {
       window.location.href = `/login`;
     };
     useEffect(() => {
-      checkAuth();
+      setInterval(() => {
+        checkAuth();
+      }, 120000);
       //   Axios.get(`${BASE_URL}sfsbapi/v1/user/snap`)
       //     .then((res) => {
       //       if (res.data && res.data.success && res.data.status_code === 401) {

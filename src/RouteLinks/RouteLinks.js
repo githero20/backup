@@ -1,46 +1,43 @@
-
-
 ////////////////////////// Route Links ///////////////////////////////////////
 
-export const ForgotPasswordLink = '/forgot-password';
-export const botCreatePasswordLink = '/bot/create-password';
-export const ResetPasswordLink = '/password/reset/:token';
-export const ActivateAccountLink = '/payment/activate';
-export const addWithdrawalLink = '/add-bank';
-export const EmailActivationLink = '/activate';
-export const LoginLink = '/login';
-export const SignUpLink = '/sign-up';
-export const InviteLink = '/invite/:ref';
-export const HomeLink = '/';
-export const FaqLink = '/faq';
-export const scoreboardLink = '/scoreboard';
-export const sbDashboardLink = '/scoreboard/dashboard';
-export const directSteadySave = '/direct-steady-save/:userid/:frequency';
-export const directInstantSave = '/direct-instant-save/:userid/:type';
-export const BlogLink = '/blog';
-export const ResendActivationLink = '/resend/email';
-export const ChallengeLink = '/21daysavingschallenge';
-export const TermsAndCondLink = '/terms-and-condition';
-export const DashboardLink = '/dashboard';
-export const InstantSaveLink = '/dashboard/instant-save';
-export const SteadySaveLink = '/dashboard/steady-save';
-export const LockedSavingsLink = '/dashboard/locked-savings';
-export const BackupGoalsLink = '/dashboard/backup-goals';
-export const TransactionsLink = '/dashboard/transactions';
-export const ReferralsLink = '/dashboard/referrals';
-export const WithdrawalLink = '/dashboard/withdrawal';
-export const ProfileSettingLink = '/dashboard/profile-setting';
-export const BankCardLink = '/dashboard/bank-card-setting';
-export const KycSettingLink = '/dashboard/kyc-setting';
-export const BackupStashLink = '/dashboard/backup-stash';
-export const MillexLink = '/dashboard/snap';
-
+export const ForgotPasswordLink = "/forgot-password";
+export const botCreatePasswordLink = "/bot/create-password";
+export const ResetPasswordLink = "/password/reset/:token";
+export const ActivateAccountLink = "/payment/activate";
+export const addWithdrawalLink = "/add-bank";
+export const EmailActivationLink = "/activate";
+export const LoginLink = "/login";
+export const SignUpLink = "/sign-up";
+export const InviteLink = "/invite/:ref";
+export const HomeLink = "/";
+export const FaqLink = "/faq";
+export const scoreboardLink = "/scoreboard";
+export const sbDashboardLink = "/scoreboard/dashboard";
+export const directSteadySave = "/direct-steady-save/:userid/:frequency";
+export const directInstantSave = "/direct-instant-save/:userid/:type";
+export const BlogLink = "/blog";
+export const ResendActivationLink = "/resend/email";
+export const ChallengeLink = "/21daysavingschallenge";
+export const TermsAndCondLink = "/terms-and-condition";
+export const DashboardLink = "/dashboard";
+export const InstantSaveLink = "/dashboard/instant-save";
+export const SteadySaveLink = "/dashboard/steady-save";
+export const LockedSavingsLink = "/dashboard/locked-savings";
+export const BackupGoalsLink = "/dashboard/backup-goals";
+export const TransactionsLink = "/dashboard/transactions";
+export const ReferralsLink = "/dashboard/referrals";
+export const WithdrawalLink = "/dashboard/withdrawal";
+export const ProfileSettingLink = "/dashboard/profile-setting";
+export const BankCardLink = "/dashboard/bank-card-setting";
+export const KycSettingLink = "/dashboard/kyc-setting";
+export const BackupStashLink = "/dashboard/backup-stash";
+export const MillexLink = "/dashboard/snap";
 
 ////////////////////////// Endpoints /////////////////////////////////////////////
 // export const BASE_URL ='http://backupcash.atp-sevas.com/';
 export const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-export const LoginEndpoint = 'sfsbapi/v1/auth/login';
+export const LoginEndpoint = "sfsbapi/v1/auth/login";
 export const RegisterEndpoint = `sfsbapi/v1/auth/register`;
 export const initiateSteadySaveEndpoint = `sfsbapi/v1/user/transaction/init/steady`;
 export const verifyTransactionEndpoint = `sfsbapi/v1/user/transaction/verify`;
@@ -115,5 +112,3 @@ export const centralVaultInterest = `/sfsbapi/v1/user/interest`;
 export const getAdminInterest = `sfsbapi/v1/get-admin-interest`;
 export const lockedInterest = `sfsbapi/v1/user/savings/locked/interest`;
 export const TransferToVault = `sfsbapi/v1/user/transfer/centralvault`;
-
-

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import blueHeadArrow from "../../../admin/app-assets/images/svg/blue-head-arrow.svg";
 import { Link, Redirect } from "react-router-dom";
 import btnArrowRight from "../../../admin/app-assets/images/svg/btn-arrow-right-icon.svg";
@@ -16,6 +16,7 @@ import PhoneInput from "react-phone-number-input";
 
 const SignUpForm = (props) => {
   const validator = new SimpleReactValidator();
+
   const [showReferralInput, setShowReferralInput] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -38,6 +39,9 @@ const SignUpForm = (props) => {
   const [togglePassword, setTogglePassword] = useState(false);
   const [toggleReferralInput, setToggleReferralInput] = useState(false);
 
+  useEffect(() => {
+    setReferral_code_userid(props.referralCode);
+  }, [props.referralCode]);
   const { toastManager } = props;
   const getSignUpInfo = (state, response) => {
     setLoading(false);

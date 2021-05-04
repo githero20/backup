@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import styled from '@emotion/styled';
-import purpleIcon from '../../../admin/app-assets/images/walletside.svg';
-import CustomModal from './CustomModal';
-import SnapForm from './SnapForm';
-import { getUserRequest } from '../../../redux/auth/action';
-import { resetState, snapSettingsRequest } from '../../../redux/snap/action';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { formatNumber } from '../../../Helpers/Helper';
-import { getUserCards } from '../../../actions/CardAction';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import styled from "@emotion/styled";
+import purpleIcon from "../../../admin/app-assets/images/walletside.svg";
+import CustomModal from "./CustomModal";
+import SnapForm from "./SnapForm";
+import { getUserRequest } from "../../../redux/auth/action";
+import { resetState, snapSettingsRequest } from "../../../redux/snap/action";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { formatNumber } from "../../../Helpers/Helper";
+import { getUserCards } from "../../../actions/CardAction";
+import { toast } from "react-toastify";
 
 const SnapCard = () => {
   const history = useHistory();
@@ -27,7 +27,7 @@ const SnapCard = () => {
   const [minSaving, setMinSaving] = useState(1000);
 
   useEffect(() => {
-    if (snapSettings.data.min_save) {
+    if (snapSettings.data && snapSettings.data.min_save) {
       setMinSaving(snapSettings.data.min_save);
     }
   }, [snapSettings.data]);
@@ -43,7 +43,7 @@ const SnapCard = () => {
         if (status) {
           setUserCards(data);
         } else {
-          toast.error('Unable to fetch Cards', { autoClose: 3000 });
+          toast.error("Unable to fetch Cards", { autoClose: 3000 });
         }
       });
     }, //eslint-disable-next-line
@@ -66,51 +66,51 @@ const SnapCard = () => {
       <span>
         <p>NEW</p> Snap Savings
       </span>
-      <small className='text-muted'>
+      <small className="text-muted">
         Get returns weekly when you save. The more you save the more you earn
       </small>
-      <div className='custom-card pull-up'>
-        <div className='left-side'>
+      <div className="custom-card pull-up">
+        <div className="left-side">
           <div>
-            <img src={purpleIcon} alt='Icon' />
+            <img src={purpleIcon} alt="Icon" />
           </div>
         </div>
-        <div className='right-side'>
-          <div className='content-card'>
+        <div className="right-side">
+          <div className="content-card">
             <h3>
               <strong>&#8358;</strong>
-              {balance === 0 ? '0.00' : formatNumber(balance)}
+              {balance === 0 ? "0.00" : formatNumber(balance)}
             </h3>
-            <div className='sub-content'>
+            <div className="sub-content">
               <p>
                 Total Interest &emsp;&nbsp;&nbsp;
-                <i className='fa fa-arrow-right'></i> &ensp;
-                <strong className='value-text'>
-                  &#8358; {interest === 0 ? '0.00' : formatNumber(interest)}{' '}
+                <i className="fa fa-arrow-right"></i> &ensp;
+                <strong className="value-text">
+                  &#8358; {interest === 0 ? "0.00" : formatNumber(interest)}{" "}
                 </strong>
               </p>
             </div>
           </div>
-          <div className='btn-holders card-item d-flex flex-row flex-md-column justify-content-between align-content-between'>
+          <div className="btn-holders card-item d-flex flex-row flex-md-column justify-content-between align-content-between">
             <button
               onClick={() => {
                 dispatch(resetState());
                 setShowModal(true);
               }}
-              className='btn dash-btn dark-gray'
+              className="btn dash-btn dark-gray"
             >
-              Save More <i className='fa fa-arrow-right'></i>
+              Save More <i className="fa fa-arrow-right"></i>
             </button>
             <button
-              onClick={() => history.push('/dashboard/snap')}
-              className='btn dash-btn dark-gray'
+              onClick={() => history.push("/dashboard/snap")}
+              className="btn dash-btn dark-gray"
             >
-              View All <i className='fa fa-arrow-right'></i>
+              View All <i className="fa fa-arrow-right"></i>
             </button>
           </div>
         </div>
       </div>
-      <CustomModal title={'Snap Saving'} show={showModal} onHide={hideModal}>
+      <CustomModal title={"Snap Saving"} show={showModal} onHide={hideModal}>
         <SnapForm
           userCards={userCards}
           minSaving={minSaving}
@@ -176,8 +176,8 @@ SnapCard.Wrapper = styled.div`
 
       grid-template-columns: repeat(4, 1fr);
       background-color: white;
-      font-family: 'Circular Std Black', 'Circular Std', 'Open Sans',
-        'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: "Circular Std Black", "Circular Std", "Open Sans",
+        "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
     .content-card {
       grid-column: 1 / span 3;
@@ -186,20 +186,20 @@ SnapCard.Wrapper = styled.div`
       align-items: left;
       justify-content: center;
       h3 {
-        font-family: 'Circular Std Black', ' Circular Std';
+        font-family: "Circular Std Black", " Circular Std";
         font-weight: bold;
       }
       p {
         font-weight: 12px;
-        font-family: 'Product Sans', 'Open Sans', -apple-system,
-          BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+        font-family: "Product Sans", "Open Sans", -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
           sans-serif;
       }
       i {
         color: #bdd2eb;
       }
       .value-text {
-        font-family: 'Poppins Regular', 'Product Sans';
+        font-family: "Poppins Regular", "Product Sans";
         font-size: 12px;
       }
       .sub-item {

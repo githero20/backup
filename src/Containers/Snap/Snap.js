@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import HorizontalNav from '../../Components/Dashboard/HorizontalNav/HorizontalNav';
-import VerticalNav from '../../Components/Dashboard/VerticalNav/VerticalNav';
-import styled from '@emotion/styled';
-import amountWithDraw from '../../admin/app-assets/images/amountwithdraw.svg';
-import Interesticon from '../../admin/app-assets/images/Interesticon.svg';
-import BalanceIcon from '../../admin/app-assets/images/balanceicon.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import TableDisplay from '../../Components/Reuseable/TableDisplay';
-import CustomModal from '../../Components/Dashboard/Snap/CustomModal';
-import SnapForm from '../../Components/Dashboard/Snap/SnapForm';
-import amountSaved from '../../admin/app-assets/images/amoutsaved.svg';
-import NotificationIcon from '../../admin/app-assets/images/NotificationIcon.svg';
-import { getUserRequest } from '../../redux/auth/action';
+import React, { useEffect, useState } from "react";
+import HorizontalNav from "../../Components/Dashboard/HorizontalNav/HorizontalNav";
+import VerticalNav from "../../Components/Dashboard/VerticalNav/VerticalNav";
+import styled from "@emotion/styled";
+import amountWithDraw from "../../admin/app-assets/images/amountwithdraw.svg";
+import Interesticon from "../../admin/app-assets/images/Interesticon.svg";
+import BalanceIcon from "../../admin/app-assets/images/balanceicon.svg";
+import { useDispatch, useSelector } from "react-redux";
+import TableDisplay from "../../Components/Reuseable/TableDisplay";
+import CustomModal from "../../Components/Dashboard/Snap/CustomModal";
+import SnapForm from "../../Components/Dashboard/Snap/SnapForm";
+import amountSaved from "../../admin/app-assets/images/amoutsaved.svg";
+import NotificationIcon from "../../admin/app-assets/images/NotificationIcon.svg";
+import { getUserRequest } from "../../redux/auth/action";
 import {
   getSnapRequest,
   getHistoryRequest,
   snapSettingsRequest,
-} from '../../redux/snap/action';
-import { interestTransferRequest } from '../../redux/snap/action';
-import { formatNumber } from '../../Helpers/Helper';
-import { getUserCards } from '../../actions/CardAction';
-import { toast } from 'react-toastify';
-import swal from 'sweetalert';
-import moment from 'moment';
+} from "../../redux/snap/action";
+import { interestTransferRequest } from "../../redux/snap/action";
+import { formatNumber } from "../../Helpers/Helper";
+import { getUserCards } from "../../actions/CardAction";
+import { toast } from "react-toastify";
+import swal from "sweetalert";
+import moment from "moment";
 
 const Snap = () => {
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const Snap = () => {
         if (status) {
           setUserCards(data);
         } else {
-          toast.error('Unable to fetch Cards', { autoClose: 3000 });
+          toast.error("Unable to fetch Cards", { autoClose: 3000 });
         }
       });
     },
@@ -64,7 +64,7 @@ const Snap = () => {
 
   useEffect(() => {
     if (snapTransfer.success) {
-      swal('Transfer Successful', 'Your Transfer was successful', 'success', {
+      swal("Transfer Successful", "Your Transfer was successful", "success", {
         button: false,
         timer: 2000,
       });
@@ -91,10 +91,10 @@ const Snap = () => {
   useEffect(() => {
     if (Array.isArray(snapHistory.data)) {
       snapHistory.data.forEach((item) => {
-        if (item.type === 'interest') {
+        if (item.type === "interest") {
           setinterest(item.balance);
         }
-        if (item.type === 'account') {
+        if (item.type === "account") {
           setwithdrawal(item.balance);
         }
       });
@@ -108,29 +108,30 @@ const Snap = () => {
   }, [data]);
 
   useEffect(() => {
-    if (snapSettings.data.min_save) {
+    console.log(snapSettings);
+    if (snapSettings.data && snapSettings.data.min_save) {
       setMinSaving(snapSettings.data.min_save);
     }
   }, [snapSettings.data]);
   const handleTransfer = () => {
     swal(
-      'Funds will be moved to your Snap Savings where you can withdraw or allow it to keep growing',
+      "Funds will be moved to your Snap Savings where you can withdraw or allow it to keep growing",
       {
         buttons: {
-          yes: 'yes',
+          yes: "yes",
         },
       }
     ).then((value) => {
       switch (value) {
-        case 'yes':
-          swal('Transfer', 'Processing Transfer...', 'info', {
+        case "yes":
+          swal("Transfer", "Processing Transfer...", "info", {
             button: false,
             timer: 3000,
           });
           dispatch(interestTransferRequest());
           break;
         default:
-          swal('You Cancelled Your Transfer', { button: false, timer: 3000 });
+          swal("You Cancelled Your Transfer", { button: false, timer: 3000 });
           break;
       }
     });
@@ -138,45 +139,57 @@ const Snap = () => {
 
   const columns = [
     {
-      title: 'start date',
-      dataIndex: 'start_date',
+      title: "start date",
+      dataIndex: "start_date",
       render: (value, record) => (
-        <span className='d-flex flex-column'>
-        <span style={{ minWidth: '90px' }}>{moment(value).format('MMM Do YYYY')}&nbsp;</span>
-        <small className='text-muted'>{moment(value).format('h:mm a')}</small>
-    </span>
+        <span className="d-flex flex-column">
+          <span style={{ minWidth: "90px" }}>
+            {moment(value).format("MMM Do YYYY")}&nbsp;
+          </span>
+          <small className="text-muted">{moment(value).format("h:mm a")}</small>
+        </span>
       ),
     },
     {
-      title: 'maturity date',
-      dataIndex: 'end_date',
+      title: "maturity date",
+      dataIndex: "end_date",
       render: (value, record) => (
-        <span className='d-flex flex-column'>
-        <span style={{ minWidth: '90px' }}>{moment(value).format('MMM Do YYYY')}&nbsp;</span>
-        <small className='text-muted'>{moment(value).format('h:mm a')}</small>
-    </span>
+        <span className="d-flex flex-column">
+          <span style={{ minWidth: "90px" }}>
+            {moment(value).format("MMM Do YYYY")}&nbsp;
+          </span>
+          <small className="text-muted">{moment(value).format("h:mm a")}</small>
+        </span>
       ),
     },
 
     {
-      title: 'amount',
+      title: "amount",
       render: (value, record) => (
-        <p style={{ minWidth: '150px' }}
-            className={'text-primary'}> {record.amount != null ? `+ ₦ ${formatNumber(parseFloat(record.amount).toFixed(2))}` : "N/A"}</p>
-        ),
+        <p style={{ minWidth: "150px" }} className={"text-primary"}>
+          {" "}
+          {record.amount != null
+            ? `+ ₦ ${formatNumber(parseFloat(record.amount).toFixed(2))}`
+            : "N/A"}
+        </p>
+      ),
     },
     {
-      title: 'balance',
+      title: "balance",
       render: (value, record) => (
-        <p style={{ minWidth: '150px' }}
-            className={'text-success'}> {record.balance != null ? `+ ₦ ${formatNumber(parseFloat(record.balance).toFixed(2))}` : "N/A"}</p>
-  ),
+        <p style={{ minWidth: "150px" }} className={"text-success"}>
+          {" "}
+          {record.balance != null
+            ? `+ ₦ ${formatNumber(parseFloat(record.balance).toFixed(2))}`
+            : "N/A"}
+        </p>
+      ),
     },
     {
-      title: 'status',
+      title: "status",
       render: (value, record) => (
         <div>
-          {record.stop === '0' ? (
+          {record.stop === "0" ? (
             <button className="btn btn-sm round btn-success">running</button>
           ) : (
             <button className="btn btn-sm round btn-danger">matured</button>
@@ -188,14 +201,14 @@ const Snap = () => {
   return (
     <Snap.Wrapper>
       <div
-        className='vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done'
-        data-open='click'
-        data-menu='vertical-menu-modern'
-        data-col='2-columns'
+        className="vertical-layout vertical-menu-modern 2-columns fixed-navbar  menu-expanded pace-done"
+        data-open="click"
+        data-menu="vertical-menu-modern"
+        data-col="2-columns"
       >
         <HorizontalNav />
         <VerticalNav />
-        <CustomModal title={'Snap Saving'} show={showModal} onHide={hideModal}>
+        <CustomModal title={"Snap Saving"} show={showModal} onHide={hideModal}>
           <SnapForm
             userCards={userCards}
             minSaving={minSaving}
@@ -203,56 +216,56 @@ const Snap = () => {
           />
         </CustomModal>
         <SnapContent>
-          <div className='balance'>
+          <div className="balance">
             <h3>Snap Summary</h3>
-            <div className='card'>
+            <div className="card">
               <p>Balance</p>
               <div>
-                <img src={BalanceIcon} alt='walletIcon' />
+                <img src={BalanceIcon} alt="walletIcon" />
                 <p>
                   <strong>&#8358;</strong>
-                  {balance === 0 ? '0.00' : formatNumber(balance)}{' '}
+                  {balance === 0 ? "0.00" : formatNumber(balance)}{" "}
                 </p>
               </div>
             </div>
           </div>
-          <div className='save-now'>
+          <div className="save-now">
             <h3>Quick Actions</h3>
             <span>
               <button onClick={() => setShowModal(true)}>
-                <i className='fas fa-plus'></i>
+                <i className="fas fa-plus"></i>
                 {/*<img src={PlusIcon} alt='icon' /> */}
                 Save Now
               </button>
             </span>
-            <div className='save-text '>
+            <div className="save-text ">
               <p>
-                <img src={Interesticon} alt='icon' />₦
-                {interest === 0 ? '0.00' : formatNumber(interest)}
+                <img src={Interesticon} alt="icon" />₦
+                {interest === 0 ? "0.00" : formatNumber(interest)}
               </p>
               <p>(Interest Earned)</p>
             </div>
           </div>
-          <div className='details'>
+          <div className="details">
             <p>
-              <img src={NotificationIcon} alt='icon' /> Snap Savings helps you
+              <img src={NotificationIcon} alt="icon" /> Snap Savings helps you
               get huge returns weekly on high saving deposits
             </p>
             <div>
-              <div className='box box-a'>
-                <img src={amountWithDraw} alt='icon' />
-                <div className='contenta'>
+              <div className="box box-a">
+                <img src={amountWithDraw} alt="icon" />
+                <div className="contenta">
                   <p>
-                    ₦{`${withdrawal === 0 ? '0.00' : formatNumber(withdrawal)}`}
+                    ₦{`${withdrawal === 0 ? "0.00" : formatNumber(withdrawal)}`}
                   </p>
 
                   <p>Avaliable for withdrawal</p>
                 </div>
               </div>
-              <div className='box box-b'>
-                <img src={amountSaved} alt='icon' />
-                <div className='contenta'>
-                  <p>₦{`${payOut === 0 ? '0.00' : formatNumber(payOut)}`}</p>
+              <div className="box box-b">
+                <img src={amountSaved} alt="icon" />
+                <div className="contenta">
+                  <p>₦{`${payOut === 0 ? "0.00" : formatNumber(payOut)}`}</p>
                   <p>Interest payout</p>
                   <button onClick={handleTransfer} disabled={payOut === 0}>
                     Transfer Interest
@@ -264,7 +277,7 @@ const Snap = () => {
         </SnapContent>
         <TableDisplayHolder>
           <TableDisplay
-            header='All Snap Savings'
+            header="All Snap Savings"
             columns={columns}
             dataSource={dataSource}
             loading={processing}
@@ -290,9 +303,9 @@ const SnapContent = styled.div`
   margin-left: 20rem;
   padding-top: 3rem;
   grid-gap: 1rem;
-  font-family: 'Circular Std', 'Open Sans';
+  font-family: "Circular Std", "Open Sans";
   h3 {
-    font-family: 'Circular Std', 'Open Sans';
+    font-family: "Circular Std", "Open Sans";
     color: #352d66;
   }
   .card {
@@ -351,7 +364,7 @@ const SnapContent = styled.div`
     .save-text {
       margin-top: 3rem;
       p {
-        font-family: 'Circular Std', 'Open Sans';
+        font-family: "Circular Std", "Open Sans";
         color: #103366;
       }
       & > p {
@@ -390,7 +403,7 @@ const SnapContent = styled.div`
           margin-right: 1rem;
         }
         p:first-of-type {
-          font-family: 'Circular Std Black';
+          font-family: "Circular Std Black";
           font-size: 16px;
           color: #352d66;
         }

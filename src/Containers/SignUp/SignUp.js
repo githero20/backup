@@ -52,7 +52,7 @@ class SignUp extends Component {
           </div>
 
           <div className="secure-section">
-            <img src={secureIcon} /> &nbsp;
+            <img src={secureIcon} alt="img" /> &nbsp;
             <span>Your Sign Up is Secure</span>
           </div>
 

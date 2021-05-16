@@ -484,9 +484,7 @@ export function disableKey(e) {
 export function filterUserCards(info) {
   console.log(info);
   if (info && info.authorization) {
-    return info.authorization.data.filter(
-      (content) => content.channel == "card"
-    );
+    return info.authorization.filter((content) => content.channel == "card");
   }
 }
 

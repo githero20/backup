@@ -147,7 +147,7 @@ class MessageBox extends Component {
           </div>
 
           <div className="mb-1 mb-lg-0">
-            Points Earned
+            Loyalty Points
             <Link
               to={ReferralsLink}
               className="d-block mt-1 mt-md-0 d-md-inline"

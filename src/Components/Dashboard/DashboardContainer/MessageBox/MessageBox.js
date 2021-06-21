@@ -246,7 +246,7 @@ class MessageBox extends Component {
               >
                 <span>
                   Have you referred someone today? The more people you refer,
-                  the more points you earn
+                  the more bonus you earn
                 </span>
               </label>
               <label

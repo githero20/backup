@@ -161,14 +161,15 @@ class MessageBox extends Component {
               </strong>
               <OverlayTrigger
                 placement={"right"}
-                overlay={<Tooltip id={`tooltip-${"right"}`}>&nbsp;</Tooltip>}
+                overlay={<Tooltip id={`tooltip-${"right"}`}>You'll get a loyalty point for each savings you make.
+                </Tooltip>}
               >
                 <strong className="bc-deep-purple ml-1">&nbsp;(?)</strong>
               </OverlayTrigger>
             </Link>
           </div>
 
-          {this.state.initalReferred !== null && (
+          {/* {this.state.initalReferred !== null && ( */}
             <div>
               Referred Bonus
               <Link
@@ -179,16 +180,16 @@ class MessageBox extends Component {
                   className="d-md-inline  ml-md-1 font-weight-bold
                             br-2 bc-blue-white py-0-2 px-2"
                 >
-                  {this.state.initalReferred
-                    ? formatNumber(this.state.initalReferred)
-                    : 0}
+                  {this.state.initalReferred === null
+                    ? 0
+                    : formatNumber(this.state.initalReferred)}
                   <i className="ml-1 fa fa-arrow-right text-white" />
                 </strong>
                 <OverlayTrigger
                   placement={"left"}
                   overlay={
                     <Tooltip id={`tooltip-${"left"}`}>
-                      You will get N500 you registered with a referral code
+                      You will get N500 if you registered with a referral code
                     </Tooltip>
                   }
                 >
@@ -197,7 +198,7 @@ class MessageBox extends Component {
               </Link>{" "}
               &nbsp;
             </div>
-          )}
+          {/* )} */}
           <div>
             Referral Bonus
             <Link

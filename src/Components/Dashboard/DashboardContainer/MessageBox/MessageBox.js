@@ -161,7 +161,7 @@ class MessageBox extends Component {
               </strong>
               <OverlayTrigger
                 placement={"right"}
-                overlay={<Tooltip id={`tooltip-${"right"}`}>You get a loyalty point for each savings you make.
+                overlay={<Tooltip id={`tooltip-${"right"}`}>You'll get a loyalty point for each savings you make.
                 </Tooltip>}
               >
                 <strong className="bc-deep-purple ml-1">&nbsp;(?)</strong>

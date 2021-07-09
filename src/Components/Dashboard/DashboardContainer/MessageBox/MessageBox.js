@@ -243,7 +243,7 @@ class MessageBox extends Component {
             >
               <label
                 className="d-flex flex-column align-items-center
-                                 text-white flex-md-row justify-content-md-center"
+                                 text-white flex-md-row justify-content-md-center h2"
               >
                 <span>
                   Have you referred someone today? The more people you refer,
@@ -263,7 +263,7 @@ class MessageBox extends Component {
                     onClick={this.copyLink}
                     className="btn-white-bordered round px-2 mr-md-2 mb-md-0"
                   >
-                    Share Code
+                    Share Referral Link
                   </a>
                 </div>
               </label>
@@ -313,7 +313,7 @@ class MessageBox extends Component {
               <label className="d-flex flex-md-row flex-wrap flex-column align-items-md-center">
                 <span className="mr-md-2 mb-1 text-md-left mb-md-0 flex-grow-1">
                   {" "}
-                  copy referral code
+                  Copy Referral Code
                 </span>
                 <div className="d-flex justify-content-between  d-md-inline-block flex-grow-1">
                   <span
@@ -322,9 +322,9 @@ class MessageBox extends Component {
                   >
                     {this.state.userCode}
                   </span>
-                  <span className="code-btn" onClick={this.showModal}>
+                  {/* <span className="code-btn" onClick={this.showModal}>
                     Share Code
-                  </span>
+                  </span> */}
                 </div>
               </label>
             </div>

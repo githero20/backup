@@ -217,7 +217,7 @@ class MessageBox extends Component {
                 overlay={
                   <Tooltip id={`tooltip-${"left"}`}>
                     You will get N500 for every of your referred user that saves
-                    atleast N500
+                    atleast N5000
                   </Tooltip>
                 }
               >

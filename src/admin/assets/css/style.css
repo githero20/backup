@@ -5156,3 +5156,70 @@ input[type="date"]::-webkit-inner-spin-button {
 .PhoneInputInput {
   width: 100%;
 }
+
+/* new Dashboard Card */
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
+  }
+}
+.dash-card-body {
+  background: #ffffff;
+  border-radius: 15px;
+  height: 220.19px;
+  box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  color: #5d6c91;
+}
+.dash-card-body .btn-div {
+  display: flex;
+  justify-content: space-between;
+}
+.dash-card-body a {
+  border-radius: 15px;
+  background-color: #1b315b !important;
+}
+.dash-card-body:hover {
+  box-shadow: 0 14px 24px rgb(62 57 107 / 20%);
+  transition: box-shadow 0.5s;
+}
+.dash-card-body-2:hover {
+  box-shadow: 0 14px 24px rgb(62 57 107 / 20%);
+  transition: box-shadow 0.5s;
+}
+.dash-card-body-2 {
+  background: #1b315b;
+  border-radius: 15px;
+  height: 220.19px;
+  box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #ffffff;
+}
+
+.dash-card-body-2 img {
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+  width: 200px;
+  border-bottom-right-radius: 15px;
+}

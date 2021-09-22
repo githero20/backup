@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withToastManager } from "react-toast-notifications";
+import ReactTextTransition from "react-text-transition";
 import {
   capitalize,
   formatNumber,
@@ -16,6 +17,9 @@ import { getUserPoints } from "../../../../actions/UserAction";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Modal from "react-bootstrap/Modal";
+import arrow1Img from "../../../../admin/app-assets/images/dashboard/Group 2.png";
+import arrow2Img from "../../../../admin/app-assets/images/dashboard/Group 3.png";
+import _3dImage from "../../../../admin/app-assets/images/dashboard/3D_Illustration_15 2.png";
 
 class MessageBox extends Component {
   state = {
@@ -29,6 +33,7 @@ class MessageBox extends Component {
     updateKyc: false,
     balance: "0.00",
     show: false,
+    paragraphIndex: 0,
   };
 
   componentWillMount() {
@@ -81,6 +86,11 @@ class MessageBox extends Component {
 
   componentDidMount() {
     getUserPoints(this.handlePoints);
+    setInterval(() => {
+      this.setState({
+        paragraphIndex: this.state.paragraphIndex + 1,
+      });
+    }, 3000);
   }
 
   handlePoints = (status, res) => {
@@ -99,10 +109,12 @@ class MessageBox extends Component {
   showModal = () => {
     this.setState({ show: true });
   };
+  paragraph1 = ["Earn N500 for every", "Enjoy the best interest "];
+  paragraph2 = ["person you refer", "rates on your savings"];
 
   render() {
     const { show, numOfUser } = this.state;
-    const { challenge } = this.props;
+    const { challenge, vaultAmount } = this.props;
 
     const referralText = this.state.userName
       ? capitalize(this.state.userName)
@@ -136,41 +148,48 @@ class MessageBox extends Component {
       <React.Fragment>
         <div
           className="admin-purple d-flex flex-column flex-grow-1
-                    justify-content-lg-between flex-lg-row cursor-pointer"
+                    justify-content-lg-between flex-lg-row cursor-pointer py-1 br-1"
         >
           <div className="mb-1 mb-lg-0">
-            You have referred &nbsp;
-            <strong className="font-weight-bold bc-deep-purple">
-              {numOfUser ? numOfUser : 0}
-            </strong>
-            &nbsp; {numOfUser <= 1 ? "user" : "users"}
+            <h4 className="bc-deep-purple">
+              You have referred &nbsp;
+              <strong className="font-weight-bold ">
+                {numOfUser ? numOfUser : 0}
+              </strong>
+              &nbsp; {numOfUser <= 1 ? "user" : "users"}
+            </h4>
           </div>
 
           <div className="mb-1 mb-lg-0">
-            Loyalty Points
-            <Link
-              to={ReferralsLink}
-              className="d-block mt-1 mt-md-0 d-md-inline"
-            >
-              <strong
-                className="d-md-inline  ml-md-1 font-weight-bold
-                            br-2 bc-blue-white py-0-2 px-2"
+            <h4 className="bc-deep-purple">
+              Loyalty Points
+              <Link
+                to={ReferralsLink}
+                className="d-block mt-1 mt-md-0 d-md-inline"
               >
-                {this.state.userPoint ? this.state.userPoint : 0}
-                <i className="ml-1 fa fa-arrow-right text-white" />
-              </strong>
-              <OverlayTrigger
-                placement={"right"}
-                overlay={<Tooltip id={`tooltip-${"right"}`}>You'll get a loyalty point for each savings you make.
-                </Tooltip>}
-              >
-                <strong className="bc-deep-purple ml-1">&nbsp;(?)</strong>
-              </OverlayTrigger>
-            </Link>
+                <strong
+                  className="d-md-inline  ml-md-1 font-weight-bold
+                            br-1 bc-yellow-db py-0-2 px-2 "
+                >
+                  {this.state.userPoint ? this.state.userPoint : 0}
+                </strong>
+                <OverlayTrigger
+                  placement={"right"}
+                  overlay={
+                    <Tooltip id={`tooltip-${"right"}`}>
+                      You'll get a loyalty point for each savings you make.
+                    </Tooltip>
+                  }
+                >
+                  <strong className="bc-deep-purple ml-1">&nbsp;</strong>
+                </OverlayTrigger>
+              </Link>
+            </h4>
           </div>
 
           {/* {this.state.initalReferred !== null && ( */}
-            <div>
+          <div>
+            <h4 className="bc-deep-purple">
               Referred Bonus
               <Link
                 to={ReferralsLink}
@@ -178,12 +197,11 @@ class MessageBox extends Component {
               >
                 <strong
                   className="d-md-inline  ml-md-1 font-weight-bold
-                            br-2 bc-blue-white py-0-2 px-2"
+                            br-2 bc-yellow-db py-0-2 px-2"
                 >
                   {this.state.initalReferred === null
                     ? 0
                     : formatNumber(this.state.initalReferred)}
-                  <i className="ml-1 fa fa-arrow-right text-white" />
                 </strong>
                 <OverlayTrigger
                   placement={"left"}
@@ -193,38 +211,40 @@ class MessageBox extends Component {
                     </Tooltip>
                   }
                 >
-                  <strong className="bc-deep-purple ml-1">&nbsp;(?)</strong>
+                  <strong className="bc-deep-purple ml-1">&nbsp;</strong>
                 </OverlayTrigger>
               </Link>{" "}
               &nbsp;
-            </div>
+            </h4>
+          </div>
           {/* )} */}
           <div>
-            Referral Bonus
-            <Link
-              to={ReferralsLink}
-              className="d-block mt-1 mt-md-0 d-md-inline"
-            >
-              <strong
-                className="d-md-inline  ml-md-1 font-weight-bold
-                            br-2 bc-blue-white py-0-2 px-2"
+            <h4 className="bc-deep-purple">
+              Referral Bonus
+              <Link
+                to={ReferralsLink}
+                className="d-block mt-1 mt-md-0 d-md-inline"
               >
-                {this.state.amount ? formatNumber(this.state.amount) : 0}
-                <i className="ml-1 fa fa-arrow-right text-white" />
-              </strong>
-              <OverlayTrigger
-                placement={"left"}
-                overlay={
-                  <Tooltip id={`tooltip-${"left"}`}>
-                    You will get N500 for every of your referred user that saves
-                    atleast N5000
-                  </Tooltip>
-                }
-              >
-                <strong className="bc-deep-purple ml-1">&nbsp;(?)</strong>
-              </OverlayTrigger>
-            </Link>{" "}
-            &nbsp;
+                <strong
+                  className="d-md-inline  ml-md-1 font-weight-bold
+                            br-2 bc-yellow-db py-0-2 px-2"
+                >
+                  {this.state.amount ? formatNumber(this.state.amount) : 0}
+                </strong>
+                <OverlayTrigger
+                  placement={"left"}
+                  overlay={
+                    <Tooltip id={`tooltip-${"left"}`}>
+                      You will get N500 for every of your referred user that
+                      saves atleast N5000
+                    </Tooltip>
+                  }
+                >
+                  <strong className="bc-deep-purple ml-1">&nbsp;</strong>
+                </OverlayTrigger>
+              </Link>{" "}
+              &nbsp;
+            </h4>
           </div>
         </div>
       </React.Fragment>
@@ -232,8 +252,56 @@ class MessageBox extends Component {
 
     if (challenge) {
       return (
-        <div className="row mb-2">
-          <div className="col-12">
+        <div className="row my2">
+          <div className="col-md-6 col-lg-5 mb-2">
+            <div className="dash-card-body py-2">
+              <h4 className="text-center">Central Vault</h4>
+              <h1 className="text-center font-weight-bold">
+                {" "}
+                <strong>&#8358;</strong>&nbsp; N
+                {formatNumber(Number(vaultAmount).toFixed(2)) || "0.00"}
+              </h1>
+              <h5 className="text-center font-weight-bold">Save More</h5>
+              <div className="btn-div">
+                <div className="col">
+                  <a class="btn btn-primary" href="/dashboard/instant-save">
+                    Instant Save
+                    <i class="">
+                      {" "}
+                      <img src={arrow1Img} alt="arrow1" />
+                    </i>
+                  </a>
+                </div>
+                <div className="col">
+                  <a class="btn btn-primary" href="/dashboard/instant-save">
+                    Steady Save
+                    <i class="">
+                      {" "}
+                      <img src={arrow2Img} alt="arrow2" />
+                    </i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-6 col-lg-5 offset-lg-2 mb-2">
+            <div className="dash-card-body-2 px-2">
+              <h1 className="text-center font-weight-bold">
+                <ReactTextTransition
+                  text={this.paragraph1[this.state.paragraphIndex % 2]}
+                  overflow
+                />
+                <ReactTextTransition
+                  text={this.paragraph2[this.state.paragraphIndex % 2]}
+                  overflow
+                />
+                {/* Earn N500 for every <br /> person you refer */}
+              </h1>
+              <img src={_3dImage} alt="3D image" />
+            </div>
+          </div>
+
+          {/* <div className="col-12">
             <div
               className="bg-blue-1 shadow-sm dashboard-callout
                         callout-border-right d-flex flex-column
@@ -268,7 +336,7 @@ class MessageBox extends Component {
                 </div>
               </label>
             </div>
-          </div>
+          </div> */}
         </div>
       );
     }
@@ -280,7 +348,7 @@ class MessageBox extends Component {
             <div className="col-12">
               <div
                 className={
-                  "bg-white shadow-sm dashboard-callout " +
+                  "bg-white shadow-sm " +
                   "text-center text-md-left callout-border-right" +
                   " d-flex flex-column flex-md-row justify-content-between" +
                   " align-items-center callout-round callout-transparent " +
@@ -296,9 +364,9 @@ class MessageBox extends Component {
         <div className="row mb-2">
           <div className="col-12">
             <div
-              className="bg-white shadow-sm dashboard-callout callout-border-right d-flex flex-column
+              className="bg-white shadow-sm callout-border-right d-flex flex-column
                         flex-md-row flex-wrap justify-content-md-between align-items-md-center
-                        callout-round callout-transparent px-2 mb-2"
+                        callout-round callout-transparent px-2 mb-2 br-1"
             >
               <label className="d-flex flex-column flex-md-row flex-grow-1">
                 {referralInfo}
@@ -306,9 +374,9 @@ class MessageBox extends Component {
             </div>
 
             <div
-              className="bg-white shadow-sm dashboard-callout callout-border-right d-flex flex-column
+              className="bg-white shadow-sm callout-border-right d-flex flex-column
                         flex-md-row flex-wrap justify-content-md-between justify-content-lg-end align-items-md-center
-                        callout-round callout-transparent px-2"
+                        callout-round callout-transparent px-2 br-1 py-2"
             >
               <label className="d-flex flex-md-row flex-wrap flex-column align-items-md-center">
                 <span className="mr-md-2 mb-1 text-md-left mb-md-0 flex-grow-1">

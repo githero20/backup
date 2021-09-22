@@ -258,7 +258,7 @@ class MessageBox extends Component {
               <h4 className="text-center">Central Vault</h4>
               <h1 className="text-center font-weight-bold">
                 {" "}
-                <strong>&#8358;</strong>&nbsp; N
+                <strong>&#8358;</strong>&nbsp;
                 {formatNumber(Number(vaultAmount).toFixed(2)) || "0.00"}
               </h1>
               <h5 className="text-center font-weight-bold">Save More</h5>

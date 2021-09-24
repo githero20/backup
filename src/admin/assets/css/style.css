@@ -5185,7 +5185,6 @@ input[type="date"]::-webkit-inner-spin-button {
 .dash-card-body {
   background: #ffffff;
   border-radius: 15px;
-  height: 150.19px;
   box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
   display: flex;
   justify-content: space-around;
@@ -5194,6 +5193,7 @@ input[type="date"]::-webkit-inner-spin-button {
   color: #5d6c91;
   width: 31%;
   position: relative;
+  height: 200.19px;
 }
 .dash-card-body .btn-div {
   display: flex;
@@ -5215,21 +5215,23 @@ input[type="date"]::-webkit-inner-spin-button {
   position: relative;
   background: #1b315b;
   border-radius: 15px;
-  height: 160.19px;
   box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
   display: flex;
   justify-content: flex-start;
   align-items: center;
   color: #ffffff;
+  height: 200.19px;
   width: 31%;
 }
 .dash-card-body-3 {
   position: relative;
   background: #1b315b;
   border-radius: 15px;
-  height: 160.19px;
+  height: 200.19px;
   box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
-
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   color: #ffffff;
   width: 31%;
 }
@@ -5239,9 +5241,8 @@ input[type="date"]::-webkit-inner-spin-button {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 150px;
   border-bottom-right-radius: 15px;
-  width: 120px;
+  width: 140px;
 }
 
 .download-div {
@@ -5287,5 +5288,8 @@ input[type="date"]::-webkit-inner-spin-button {
   }
   .download-div img {
     width: 60px;
+  }
+  .share-img {
+    width: 150px;
   }
 }

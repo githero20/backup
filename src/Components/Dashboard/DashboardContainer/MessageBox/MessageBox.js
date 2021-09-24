@@ -22,6 +22,7 @@ import arrow2Img from "../../../../admin/app-assets/images/dashboard/Group 3.png
 import _3dImage from "../../../../admin/app-assets/images/dashboard/3D_Illustration_15 2.png";
 import cassandra from "../../../../admin/app-assets/images/dashboard/image 1.svg";
 import whatsapp from "../../../../admin/app-assets/images/dashboard/Group 6.svg";
+import link from "../../../../admin/app-assets/images/dashboard/Group 7.svg";
 
 class MessageBox extends Component {
   state = {
@@ -55,9 +56,8 @@ class MessageBox extends Component {
       ? capitalize(this.state.userName)
       : null;
     const otherText =
-      "invites you to save for the rainy day on BackUpCash." +
-      "\n It is a financial planning tool designed to help you automate " +
-      "savings towards a financial goal. Sign-up and get started using the link below: \n";
+      "I save and earn with Backup Cash. Sign up with my code," +
+      " get ₦500.00 instantly and earn great interests when you save more. ";
     textField.innerText =
       referralText + " " + otherText + this.state.userReferralLink;
     document.body.appendChild(textField);
@@ -280,34 +280,44 @@ class MessageBox extends Component {
             </div>
           </div>
           <div className="dash-card-body-3 px-2 bc-cassandra  mb-2">
-            <h3 className="mt-2 font-weight-bold">
-              Chat With <br />
-              Cassandra
-              {/* Earn N500 for every <br /> person you refer */}
-            </h3>{" "}
-            <br />
-            <a
-              href="https://api.whatsapp.com/send?phone=18883699915"
-              target="_blank"
-              rel="noopener"
-              className="whatsapp-link"
-            >
-              <img src={whatsapp} alt="3D image" />
-            </a>
+            <div>
+              <h3 className="mt-2 font-weight-bold">
+                Chat With <br />
+                Cassandra
+                {/* Earn N500 for every <br /> person you refer */}
+              </h3>{" "}
+              <br />
+              <a
+                href="https://api.whatsapp.com/send?phone=18883699915"
+                target="_blank"
+                rel="noopener"
+                className="whatsapp-link"
+              >
+                <img src={whatsapp} alt="3D image" />
+              </a>
+            </div>
             <img className="float-img" src={cassandra} alt="3D image" />
           </div>
           <div className="dash-card-body-2  px-2 mb-2">
-            <h3 className="text-center font-weight-bold">
-              <ReactTextTransition
-                text={this.paragraph1[this.state.paragraphIndex % 2]}
-                overflow
+            <div>
+              <h3 className="text-center font-weight-bold mb-3">
+                <ReactTextTransition
+                  text={this.paragraph1[this.state.paragraphIndex % 2]}
+                  overflow
+                />
+                <ReactTextTransition
+                  text={this.paragraph2[this.state.paragraphIndex % 2]}
+                  overflow
+                />
+                {/* Earn N500 for every <br /> person you refer */}
+              </h3>
+              <img
+                className="share-img"
+                src={link}
+                alt="share"
+                onClick={this.copyToClipboard}
               />
-              <ReactTextTransition
-                text={this.paragraph2[this.state.paragraphIndex % 2]}
-                overflow
-              />
-              {/* Earn N500 for every <br /> person you refer */}
-            </h3>
+            </div>
             <img className="float-img" src={_3dImage} alt="3D image" />
           </div>
 

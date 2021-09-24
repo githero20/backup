@@ -22,7 +22,7 @@ import MessageBox from "./MessageBox/MessageBox";
 import { Comparator, dateFilter } from "react-bootstrap-table2-filter";
 import moment from "moment";
 import Footer from "../Footer/Footer";
-import appImage from "../../../admin/app-assets/images/dashboard/frame.png";
+import appImage from "../../../admin/app-assets/images/dashboard/Frame 4.svg";
 import playstoreImage from "../../../admin/app-assets/images/playstore.png";
 import appstoreImage from "../../../admin/app-assets/images/appstore.png";
 import instantSaveImage from "../../../admin/app-assets/images/dashboard/Mask Group 13@2x.png";

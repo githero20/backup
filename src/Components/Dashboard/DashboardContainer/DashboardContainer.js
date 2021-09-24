@@ -249,7 +249,7 @@ class DashboardContainer extends Component {
                     <div className={"dash-action right-action"} />
                     <div className="col-12 pb-4 download-div">
                       <div className="row">
-                        <div className="col-6">
+                        <div className="col-6 d-flex">
                           <a href="https://play.google.com/store/apps/details?id=com.sfs.backup_cash">
                             <img
                               width={100}
@@ -259,7 +259,7 @@ class DashboardContainer extends Component {
                           </a>
                           <a
                             href="https://apps.apple.com/ng/app/backupcash/id1565138304"
-                            className="ml-4"
+                            className=""
                           >
                             <img
                               width={100}

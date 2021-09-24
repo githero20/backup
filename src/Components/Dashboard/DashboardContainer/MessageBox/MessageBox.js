@@ -21,6 +21,7 @@ import arrow1Img from "../../../../admin/app-assets/images/dashboard/Group 2.png
 import arrow2Img from "../../../../admin/app-assets/images/dashboard/Group 3.png";
 import _3dImage from "../../../../admin/app-assets/images/dashboard/3D_Illustration_15 2.png";
 import cassandra from "../../../../admin/app-assets/images/dashboard/image 1.svg";
+import whatsapp from "../../../../admin/app-assets/images/dashboard/Group 6.svg";
 
 class MessageBox extends Component {
   state = {
@@ -253,63 +254,61 @@ class MessageBox extends Component {
 
     if (challenge) {
       return (
-        <div className="row my2">
-          <div className="col-md-4 mb-2">
-            <div className="dash-card-body py-2">
-              <h4 className="text-center">Central Vault</h4>
-              <h1 className="text-center font-weight-bold">
-                {" "}
-                <strong>&#8358;</strong>&nbsp;
-                {formatNumber(Number(vaultAmount).toFixed(2)) || "0.00"}
-              </h1>
-              <h5 className="text-center font-weight-bold">Save More</h5>
-              <div className="btn-div">
-                <div className="col">
-                  <a class="btn btn-primary" href="/dashboard/instant-save">
-                    Instant Save
-                    <i class="">
-                      {" "}
-                      <img src={arrow1Img} alt="arrow1" />
-                    </i>
-                  </a>
-                </div>
-                <div className="col">
-                  <a class="btn btn-primary" href="/dashboard/instant-save">
-                    Steady Save
-                    <i class="">
-                      {" "}
-                      <img src={arrow2Img} alt="arrow2" />
-                    </i>
-                  </a>
-                </div>
-              </div>
+        <div className="d-flex my2">
+          <div className="dash-card-body py-2 mb-2">
+            <h4 className="text-center">Central Vault</h4>
+            <h1 className="text-center font-weight-bold">
+              <strong>&#8358;</strong>&nbsp;
+              {formatNumber(Number(vaultAmount).toFixed(2)) || "0.00"}
+            </h1>
+            <h6 className="text-center font-weight-bold">Save More</h6>
+            <div className="btn-div">
+              <a class="link-a mr-3" href="/dashboard/instant-save">
+                Instant Save
+                <i class="">
+                  {" "}
+                  <img src={arrow1Img} alt="arrow1" />
+                </i>
+              </a>
+              <a class="link-a ml-auto" href="/dashboard/instant-save">
+                Steady Save
+                <i class="">
+                  {" "}
+                  <img src={arrow2Img} alt="arrow2" />
+                </i>
+              </a>
             </div>
           </div>
-          <div className="col-md-4 mb-2">
-            <div className="dash-card-body-2 px-2 bc-cassandra">
-              <h1 className="text-center font-weight-bold">
-                Chat With <br />
-                Cassandra
-                {/* Earn N500 for every <br /> person you refer */}
-              </h1>
-              <img src={cassandra} alt="3D image" />
-            </div>
+          <div className="dash-card-body-3 px-2 bc-cassandra  mb-2">
+            <h3 className="mt-2 font-weight-bold">
+              Chat With <br />
+              Cassandra
+              {/* Earn N500 for every <br /> person you refer */}
+            </h3>{" "}
+            <br />
+            <a
+              href="https://api.whatsapp.com/send?phone=18883699915"
+              target="_blank"
+              rel="noopener"
+              className="whatsapp-link"
+            >
+              <img src={whatsapp} alt="3D image" />
+            </a>
+            <img className="float-img" src={cassandra} alt="3D image" />
           </div>
-          <div className="col-md-4 mb-2">
-            <div className="dash-card-body-2 px-2">
-              <h1 className="text-center font-weight-bold">
-                <ReactTextTransition
-                  text={this.paragraph1[this.state.paragraphIndex % 2]}
-                  overflow
-                />
-                <ReactTextTransition
-                  text={this.paragraph2[this.state.paragraphIndex % 2]}
-                  overflow
-                />
-                {/* Earn N500 for every <br /> person you refer */}
-              </h1>
-              <img src={_3dImage} alt="3D image" />
-            </div>
+          <div className="dash-card-body-2  px-2 mb-2">
+            <h3 className="text-center font-weight-bold">
+              <ReactTextTransition
+                text={this.paragraph1[this.state.paragraphIndex % 2]}
+                overflow
+              />
+              <ReactTextTransition
+                text={this.paragraph2[this.state.paragraphIndex % 2]}
+                overflow
+              />
+              {/* Earn N500 for every <br /> person you refer */}
+            </h3>
+            <img className="float-img" src={_3dImage} alt="3D image" />
           </div>
 
           {/* <div className="col-12">
@@ -424,6 +423,7 @@ class MessageBox extends Component {
                 className="a-twitter mr-2"
                 href={`https://twitter.com/intent/tweet?text=${fullRefText}`}
                 target="_blank"
+                rel="noopener"
               >
                 <i className="fa fa-4x fa-twitter" />
               </a>
@@ -431,6 +431,7 @@ class MessageBox extends Component {
                 className="a-whatsapp"
                 href={`https://api.whatsapp.com/send?phone=18883699915&text=Send ${this.state.userCode} to signup`}
                 target="_blank"
+                rel="noopener"
               >
                 <i className="fa fa-4x fa-whatsapp" />
               </a>

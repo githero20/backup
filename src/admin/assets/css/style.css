@@ -5178,16 +5178,22 @@ input[type="date"]::-webkit-inner-spin-button {
     border-color: orange;
   }
 }
+.d-flex {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 .dash-card-body {
   background: #ffffff;
   border-radius: 15px;
-  height: 220.19px;
+  height: 150.19px;
   box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
   color: #5d6c91;
+  width: 31%;
+  position: relative;
 }
 .dash-card-body .btn-div {
   display: flex;
@@ -5206,26 +5212,80 @@ input[type="date"]::-webkit-inner-spin-button {
   transition: box-shadow 0.5s;
 }
 .dash-card-body-2 {
+  position: relative;
   background: #1b315b;
   border-radius: 15px;
-  height: 220.19px;
+  height: 160.19px;
   box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
   display: flex;
   justify-content: flex-start;
   align-items: center;
   color: #ffffff;
+  width: 31%;
+}
+.dash-card-body-3 {
+  position: relative;
+  background: #1b315b;
+  border-radius: 15px;
+  height: 160.19px;
+  box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+
+  color: #ffffff;
+  width: 31%;
 }
 
-.dash-card-body-2 img {
+.dash-card-body-2 .float-img,
+.dash-card-body-3 .float-img {
   position: absolute;
-  right: 15px;
+  right: 0;
   bottom: 0;
-  width: 200px;
+  width: 150px;
   border-bottom-right-radius: 15px;
+  width: 120px;
 }
 
 .download-div {
   position: absolute;
-  bottom: -20px;
+  bottom: -40px;
   left: 20px;
+}
+.link-a {
+  padding: 8px 15px;
+  color: #ffffff;
+}
+
+@media (max-width: 992px) {
+  .d-flex {
+    justify-content: space-between;
+  }
+  .dash-card-body-2 {
+    width: 48%;
+  }
+  .dash-card-body-3 {
+    width: 48%;
+  }
+  .dash-card-body {
+    width: 48%;
+  }
+  .download-div img {
+    width: 70px;
+  }
+}
+@media (max-width: 768px) {
+  .dash-card-body-2 {
+    width: 100%;
+  }
+  .dash-card-body-3 {
+    width: 100%;
+  }
+  .dash-card-body {
+    width: 100%;
+  }
+  .download-div {
+    bottom: -40px;
+    left: 10px;
+  }
+  .download-div img {
+    width: 60px;
+  }
 }

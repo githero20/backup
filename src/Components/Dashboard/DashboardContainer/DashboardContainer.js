@@ -247,6 +247,29 @@ class DashboardContainer extends Component {
                       alt="advert two"
                     />
                     <div className={"dash-action right-action"} />
+                    <div className="col-12 pb-4 download-div">
+                      <div className="row">
+                        <div className="col-6">
+                          <a href="https://play.google.com/store/apps/details?id=com.sfs.backup_cash">
+                            <img
+                              width={100}
+                              src={playstoreImage}
+                              alt="google-play"
+                            />
+                          </a>
+                          <a
+                            href="https://apps.apple.com/ng/app/backupcash/id1565138304"
+                            className="ml-4"
+                          >
+                            <img
+                              width={100}
+                              src={appstoreImage}
+                              alt="app-store"
+                            />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="col-12 col-lg-6">
@@ -260,25 +283,6 @@ class DashboardContainer extends Component {
                       alt="advert two"
                     />
                     <div className={"dash-action right-action"} />
-                  </div>
-                </div>
-                <div className="col-12 col-lg-6 pb-4">
-                  <div className="row">
-                    <div className="col-6">
-                      <a href="https://play.google.com/store/apps/details?id=com.sfs.backup_cash">
-                        <img
-                          width={100}
-                          src={playstoreImage}
-                          alt="google-play"
-                        />
-                      </a>
-                      <a
-                        href="https://apps.apple.com/ng/app/backupcash/id1565138304"
-                        className="ml-4"
-                      >
-                        <img width={100} src={appstoreImage} alt="app-store" />
-                      </a>
-                    </div>
                   </div>
                 </div>
               </div>

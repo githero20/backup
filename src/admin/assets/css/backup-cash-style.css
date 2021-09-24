@@ -1964,6 +1964,10 @@ footer-logo {
   background: #fee501;
   color: #1b315b;
 }
+.bc-cassandra {
+  background: #ffffd9;
+  color: #0c1d4a;
+}
 .bc-gray-white {
   background-color: #d8e7f4;
   color: white;

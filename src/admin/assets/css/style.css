@@ -5223,3 +5223,9 @@ input[type="date"]::-webkit-inner-spin-button {
   width: 200px;
   border-bottom-right-radius: 15px;
 }
+
+.download-div {
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+}

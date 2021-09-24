@@ -20,6 +20,7 @@ import Modal from "react-bootstrap/Modal";
 import arrow1Img from "../../../../admin/app-assets/images/dashboard/Group 2.png";
 import arrow2Img from "../../../../admin/app-assets/images/dashboard/Group 3.png";
 import _3dImage from "../../../../admin/app-assets/images/dashboard/3D_Illustration_15 2.png";
+import cassandra from "../../../../admin/app-assets/images/dashboard/image 1.svg";
 
 class MessageBox extends Component {
   state = {
@@ -253,7 +254,7 @@ class MessageBox extends Component {
     if (challenge) {
       return (
         <div className="row my2">
-          <div className="col-md-6 col-lg-5 mb-2">
+          <div className="col-md-4 mb-2">
             <div className="dash-card-body py-2">
               <h4 className="text-center">Central Vault</h4>
               <h1 className="text-center font-weight-bold">
@@ -284,7 +285,17 @@ class MessageBox extends Component {
               </div>
             </div>
           </div>
-          <div className="col-md-6 col-lg-5 offset-lg-2 mb-2">
+          <div className="col-md-4 mb-2">
+            <div className="dash-card-body-2 px-2 bc-cassandra">
+              <h1 className="text-center font-weight-bold">
+                Chat With <br />
+                Cassandra
+                {/* Earn N500 for every <br /> person you refer */}
+              </h1>
+              <img src={cassandra} alt="3D image" />
+            </div>
+          </div>
+          <div className="col-md-4 mb-2">
             <div className="dash-card-body-2 px-2">
               <h1 className="text-center font-weight-bold">
                 <ReactTextTransition

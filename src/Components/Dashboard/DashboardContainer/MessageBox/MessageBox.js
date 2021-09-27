@@ -322,6 +322,7 @@ class MessageBox extends Component {
           </div>
 
           {/* <div className="col-12">
+          
             <div
               className="bg-blue-1 shadow-sm dashboard-callout
                         callout-border-right d-flex flex-column

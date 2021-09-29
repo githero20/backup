@@ -56,10 +56,9 @@ class MessageBox extends Component {
       ? capitalize(this.state.userName)
       : null;
     const otherText =
-      "I save and earn with Backup Cash. Sign up with my code," +
+      `I, ${referralText} save and earn with Backup Cash. Sign up with my code,` +
       " get ₦500.00 instantly and earn great interests when you save more. ";
-    textField.innerText =
-      referralText + " " + otherText + this.state.userReferralLink;
+    textField.innerText = otherText + this.state.userReferralLink;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");

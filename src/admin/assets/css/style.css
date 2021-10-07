@@ -5293,3 +5293,10 @@ input[type="date"]::-webkit-inner-spin-button {
     width: 150px;
   }
 }
+
+@media (max-width: 500px) {
+  .dash-card-body,
+  .dash-card-body-3 {
+    display: none;
+  }
+}

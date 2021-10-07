@@ -149,7 +149,7 @@ class MessageBox extends Component {
       <React.Fragment>
         <div
           className="admin-purple d-flex flex-column flex-grow-1
-                    justify-content-lg-between flex-lg-row cursor-pointer py-1 br-1"
+                    justify-content-lg-between flex-lg-row cursor-pointer py-1 br-1 "
         >
           <div className="mb-1 mb-lg-0">
             <h4 className="bc-deep-purple">
@@ -382,11 +382,7 @@ class MessageBox extends Component {
 
         <div className="row mb-2">
           <div className="col-12">
-            <div
-              className="bg-white shadow-sm callout-border-right d-flex flex-column
-                        flex-md-row flex-wrap justify-content-md-between align-items-md-center
-                        callout-round callout-transparent px-2 mb-2 br-1"
-            >
+            <div className="bg-white shadow-sm callout-border-right  px-2 mb-2 br-1 d-none d-sm-block ">
               <label className="d-flex flex-column flex-md-row flex-grow-1">
                 {referralInfo}
               </label>

@@ -23,6 +23,7 @@ import _3dImage from "../../../../admin/app-assets/images/dashboard/3D_Illustrat
 import cassandra from "../../../../admin/app-assets/images/dashboard/image 1.svg";
 import whatsapp from "../../../../admin/app-assets/images/dashboard/Group 6.svg";
 import link from "../../../../admin/app-assets/images/dashboard/Group 7.svg";
+// import { fas } from "@fortawesome/free-solid-svg-icons";
 
 class MessageBox extends Component {
   state = {
@@ -145,13 +146,34 @@ class MessageBox extends Component {
       </React.Fragment>
     );
 
-    const referralInfo = (
+    const referralUsers = (
       <React.Fragment>
         <div
           className="admin-purple d-flex flex-column flex-grow-1
-                    justify-content-lg-between flex-lg-row cursor-pointer py-1 br-1 "
+                    flex-lg-row cursor-pointer py-1"
         >
           <div className="mb-1 mb-lg-0">
+            <h4 className="bc-deep-purple">
+              <i class="fas fa-exclamation-circle"></i>
+              {"  "}You have referred &nbsp;
+              <strong className="font-weight-bold ">
+                {numOfUser ? numOfUser : 0}
+              </strong>
+              &nbsp; {numOfUser <= 1 ? "user" : "users"}
+            </h4>
+          </div>
+          <br />
+        </div>
+      </React.Fragment>
+    );
+
+    const referralInfo = (
+      <React.Fragment>
+        <div
+          className="admin-purple d-flex  flex-grow-1
+                    flex-lg-row justify-content-lg-between cursor-pointer py-1 br-1 points"
+        >
+          {/* <div className="mb-1 mb-lg-0">
             <h4 className="bc-deep-purple">
               You have referred &nbsp;
               <strong className="font-weight-bold ">
@@ -159,17 +181,17 @@ class MessageBox extends Component {
               </strong>
               &nbsp; {numOfUser <= 1 ? "user" : "users"}
             </h4>
-          </div>
+        </div> */}
 
           <div className="mb-1 mb-lg-0">
             <h4 className="bc-deep-purple">
               Loyalty Points
               <Link
                 to={ReferralsLink}
-                className="d-block mt-1 mt-md-0 d-md-inline"
+                className="d-block mt-1 mt-lg-0 d-lg-inline"
               >
                 <strong
-                  className="d-md-inline  ml-md-1 font-weight-bold
+                  className="d-lg-inline  ml-lg-1 font-weight-bold
                             br-1 bc-yellow-db py-0-2 px-2 "
                 >
                   {this.state.userPoint ? this.state.userPoint : 0}
@@ -194,10 +216,10 @@ class MessageBox extends Component {
               Referred Bonus
               <Link
                 to={ReferralsLink}
-                className="d-block mt-1 mt-md-0 d-md-inline"
+                className="d-block mt-1 mt-lg-0 d-lg-inline"
               >
                 <strong
-                  className="d-md-inline  ml-md-1 font-weight-bold
+                  className="d-lg-inline  ml-lg-1 font-weight-bold
                             br-2 bc-yellow-db py-0-2 px-2"
                 >
                   {this.state.initalReferred === null
@@ -224,11 +246,14 @@ class MessageBox extends Component {
               Referral Bonus
               <Link
                 to={ReferralsLink}
-                className="d-block mt-1 mt-md-0 d-md-inline"
+                // className="d-block mt-1 mt-md-0 d-md-inline"
+                className="d-block mt-1 mt-lg-0 d-lg-inline"
               >
                 <strong
-                  className="d-md-inline  ml-md-1 font-weight-bold
-                            br-2 bc-yellow-db py-0-2 px-2"
+                  // className="d-md-inline  ml-md-1 font-weight-bold
+                  //           br-2 bc-yellow-db py-0-2 px-2"
+                  className="d-lg-inline  ml-lg-1 font-weight-bold
+                  br-2 bc-yellow-db py-0-2 px-2"
                 >
                   {this.state.amount ? formatNumber(this.state.amount) : 0}
                 </strong>
@@ -247,6 +272,48 @@ class MessageBox extends Component {
               &nbsp;
             </h4>
           </div>
+          <div>
+            <h4 className="bc-deep-purple">
+              Copy Code
+              <div className="d-block mt-1 mt-lg-0 d-lg-inline">
+                <span
+                  // className="d-md-inline  ml-md-1 font-weight-bold
+                  //           br-2 bc-yellow-db py-0-2 px-2"
+                  className="d-lg-inline ml-lg-1 code-btn py-0-2 px-2"
+                >
+                  {this.state.userCode}
+                </span>
+              </div>
+            </h4>
+          </div>
+
+          {/* <div className="row mb-2">
+          <div className="col-12"> */}
+          {/* <div>
+            {/* <label className="d-flex flex-md-row flex-wrap flex-column align-items-md-center"> */}
+          {/* <span className="mr-md-2 mb-1 text-md-left mb-md-0 flex-grow-1"> */}
+          {/* <div className="d-inline"> */}
+          {/* <div>
+            <h6 className="bc-deep-purple">
+              Copy Code{" "} */}
+          {/* <div className="d-block mt-1 mt-lg-0 d-lg-inline"> */}
+          {/* <div
+                className="d-lg-inline  ml-lg-1 code-btn"
+                onClick={this.copyLink}
+              >
+                {this.state.userCode}
+              </div> */}
+          {/* </div> */}
+          {/* </h6> */}
+
+          {/* <span className="code-btn" onClick={this.showModal}>
+                    Share Code
+                  </span> */}
+          {/* </div> */}
+          {/* </label> */}
+          {/* </div>
+          </div> */}
+          {/* </div> */}
         </div>
       </React.Fragment>
     );
@@ -380,15 +447,16 @@ class MessageBox extends Component {
             </div>
           </div>
         ) : null}
-
-        <div className="row mb-2">
+        <div className="text-center">
+          <label className=" text-center">{referralUsers}</label>
+          <div className="bg-white shadow-sm callout-border-right px-2 mb-4 br-1">
+            <label className="d-flex flex-column flex-md-row flex-grow-1">
+              {referralInfo}
+            </label>
+          </div>
+        </div>
+        {/* <div className="row mb-2">
           <div className="col-12">
-            <div className="bg-white shadow-sm callout-border-right  px-2 mb-2 br-1 d-none d-sm-block ">
-              <label className="d-flex flex-column flex-md-row flex-grow-1">
-                {referralInfo}
-              </label>
-            </div>
-
             <div
               className="bg-white shadow-sm callout-border-right d-flex flex-column
                         flex-md-row flex-wrap justify-content-md-between justify-content-lg-end align-items-md-center
@@ -405,15 +473,15 @@ class MessageBox extends Component {
                     onClick={this.copyLink}
                   >
                     {this.state.userCode}
-                  </span>
-                  {/* <span className="code-btn" onClick={this.showModal}>
+                  </span> */}
+        {/* <span className="code-btn" onClick={this.showModal}>
                     Share Code
                   </span> */}
-                </div>
+        {/* </div>
               </label>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <Modal
           className={"steady-save-modal mt-5 pt-5"}

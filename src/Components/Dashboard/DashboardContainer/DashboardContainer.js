@@ -210,11 +210,11 @@ class DashboardContainer extends Component {
             />
             <div className="content-body">
               <div className="row">
-                <CentralVaultCard
+                {/* <CentralVaultCard
                   vaultAmount={vaultAmount}
                   totalSteadySave={totalSteadySave}
                   vaultInterest={vaultInterest}
-                />
+                /> */}
 
                 <BackUpGoalCard
                   backupAmount={backupAmount}
@@ -232,12 +232,12 @@ class DashboardContainer extends Component {
                   showModal={this.props.showLSModal}
                 />
 
-                <BackUpStashCard stashAmount={stashAmount} />
+                {/* <MillexHolder> */}
+                <SnapCard />
+                {/* <SnapIntro /> */}
+                {/* </MillexHolder> */}
 
-                <MillexHolder>
-                  <SnapCard />
-                  <SnapIntro />
-                </MillexHolder>
+                <BackUpStashCard stashAmount={stashAmount} />
 
                 <div className="col-12 col-lg-6">
                   <div className="dash-ads mb-3 pt-2">

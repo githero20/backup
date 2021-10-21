@@ -4835,6 +4835,7 @@ p {
 /*}*/
 .card-item .dash-card-analysis i {
   color: #bdd2eb;
+  color: #482d99;
 }
 .stash-card {
   min-height: 150px;
@@ -4847,8 +4848,16 @@ p {
   border-right: 10px solid #2567ff;
 }
 
+.blue-border-left {
+  border-left: 10px solid #4079ffa3;
+}
+
 .purple-border-right {
   border-right: 10px solid #beabff;
+}
+
+.purple-border-left {
+  border-left: 10px solid #dc62e1a3;
 }
 
 /*.yellow-border-right {*/
@@ -4859,7 +4868,12 @@ p {
 }
 
 .orange-border-right {
-  border-right: 10px solid #ffb658;
+  border-left: 10px solid #ffb658;
+}
+
+.orange-border-left {
+  /* border-right: 10px solid #ffb658; */
+  border-left: 10px solid #ff9078a3;
 }
 
 .dash-card-img {
@@ -4872,10 +4886,11 @@ p {
 }
 
 .dash-header {
-  font-size: 16px;
+  font-size: 20px;
   margin-right: 5px;
   font-family: "Circular Std Medium", "Gilroy Bold", "Open Sans",
     "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #5d6c90;
 }
 
 .dash-card .dash-btn {
@@ -4929,6 +4944,16 @@ p {
   color: #f9f9f9;
   background-color: #2567ff;
 }
+.dash-card.blue-border-left .dash-btn {
+  color: #f9f9f9;
+  /* background-color: #2567ff; */
+  background: #4079ff;
+}
+.dash-card.blue-border-left .dash-btn:hover {
+  color: #f9f9f9;
+  /* background-color: #2567ff; */
+  background-color: #4079ffa3;
+}
 
 .dash-card.purple-border-right .dash-btn {
   color: #f9f9f9;
@@ -4937,6 +4962,16 @@ p {
 .dash-card.purple-border-right .dash-btn:hover {
   color: #f9f9f9;
   background-color: #beabff;
+}
+.dash-card.purple-border-left .dash-btn {
+  color: #f9f9f9;
+  /* background-color: #beabff; */
+  background-color: #dc62e1;
+}
+.dash-card.purple-border-left .dash-btn:hover {
+  color: #f9f9f9;
+  /* background-color: #beabff; */
+  background-color: #dc62e1;
 }
 
 .dash-card.yellow-border-right .dash-btn {
@@ -4955,6 +4990,17 @@ p {
 .dash-card.orange-border-right .dash-btn:hover {
   color: #f9f9f9;
   background-color: #ffb658;
+}
+
+.dash-card.orange-border-left .dash-btn {
+  color: #f9f9f9;
+  /* background-color: #ffb658; */
+  background-color: #ff9078;
+}
+.dash-card.orange-border-left .dash-btn:hover {
+  color: #f9f9f9;
+  /* background-color: #ffb658; */
+  background-color: #ff9078;
 }
 
 .dash-card .dash-card-img-cover {
